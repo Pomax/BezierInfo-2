@@ -1,0 +1,82 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: url('images/paper.png');
+}
+
+header, section, footer {
+  width: 100%;
+  margin: 0;
+}
+
+header { font-size: 125%; }
+
+#ribbonimg { display: none; }
+
+article {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.74);
+}
+section p {
+  text-align: justify;
+}
+
+section h2:before {
+  content: "§" attr(data-num) " — ";
+}
+
+section *+h2:before {
+  content: "";
+}
+
+section * h2:before {
+  content: "";
+}
+
+.sketch-code {
+  display: inline-block;
+  unicode-bidi: embed;
+  font-family: monospace;
+  white-space: pre;
+  border: 1px solid black;
+  min-height: 300px;
+}
+.sketch {
+  display: inline-block;
+  border: 1px solid #DDD;
+  padding: 5px;
+  font-style: italic;
+  font-size: 80%;
+  background: rgb(250,250,204);
+}
+.sketch canvas {
+  /*background: url(attr('data-print-image'));*/
+}
+.sketch-title span { color: rgb(0,0,200); cursor: pointer; }
+
+div.note {
+  font-size: 90%;
+  margin: 1em 2em;
+  padding: 1em;
+  border: 2px solid black;
+}
+div.note * { margin: 0; padding: 0; }
+div.note p { margin: 1em 0; }
+div.note div.MathJax_Display { margin: 1em 0; }
+
+td { display: block; border: 1px solid gray; padding: 1em; }
+td+td { margin-top: 1em;}
+td p { text-align:center; }
+
+a, a:visited { color: #000; text-decoration: none; }
+span.ribbon { display: none; }
+#navbar { display: none; }
+#scriptblock { display: none; }
+.viewsource { display: none; }
+
+button { background: white; border: 1px solid black;}
+
+#article-notes, #issues, #comments { display:none; }

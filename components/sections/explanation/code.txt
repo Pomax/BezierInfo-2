@@ -1,0 +1,38 @@
+/*
+void drawFunction() {
+          pushStyle();
+          translate(dim/2,dim/2);
+          stroke(150);
+          line(-dim,0,dim,0);
+          line(0,-dim,0,dim);
+
+          stroke(0);
+          float r = dim/3;
+          for(float t=0; t<=5; t+=0.01) {
+            point(r * sin(t), -r * cos(t));
+          }
+
+          fill(0);
+
+          for(float i=0; i<=5; i+=0.5) {
+            ellipse(r * sin(i), -r * cos(i),3,3);
+          }
+
+          textAlign(CENTER,CENTER);
+
+          float x=0, y=-r*1.2, nx, ny;
+          for(float i=0; i<=5; i+=0.5) {
+            nx = x*cos(i) - y*sin(i);
+            ny = x*sin(i) + y*cos(i);
+            text("t="+i, nx, ny);
+          }
+
+          fill(150);
+          text("0,0",-10,10);
+          text("1",r+10,15);
+          text("-1",-10,r+10);
+          text("-1",-r-10,15);
+          text("1",-10,-r-10);
+          popStyle();
+        }
+ */

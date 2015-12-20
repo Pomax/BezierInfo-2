@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A Primer on Bézier Curves</title>
+
+    <!-- opengraph information -->
+    <meta property="og:title" content="A Primer on Bézier Curves">
+    <meta property="og:type" content="text">
+    <meta property="og:url" content="http://pomax.github.io/bezierinfo">
+    <meta property="og:description" content="A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:type" content="article">
+    <meta property="og:published_time" content="2013-06-13 12:00:00">
+    <meta property="og:author" content="Mike 'Pomax' Kamermans">
+    <meta property="og:section" content="Bézier Curves">
+    <meta property="og:tag" content="Bézier Curves">
+
+    <!-- MathJax for beautiful LaTeX functions -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        displayAlign: "left",
+        displayIndent: "2em",
+        TeX: {
+          extensions: ["color.js"]
+        },
+        skipStartupTypeset: true
+      });
+    </script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+
+  </head>
+  <body>
+
+    <!-- This page lives on github -->
+    <img id="ribbonimg" src="images/ribbon.png" alt="This page on GitHub" border=0 usemap="#githubmap">
+    <map name="githubmap">
+      <area shape="poly" coords="30,0, 200,0, 200,114" href="http://github.com/pomax/bezierinfo" alt="This page on GitHub">
+    </map>
+
+    <article>
+
+      <header>
+        <h1>A Primer on Bézier Curves</h1>
+      </header>
+
+      <!-- React does its magic here -->
+      <div  id="article"></div>
+    </article>
+
+    <script src="article.js"></script>
+  </body>
+</html>
