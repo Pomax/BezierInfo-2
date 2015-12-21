@@ -56,7 +56,7 @@
 	var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(159);
 	var Article = __webpack_require__(160);
-	var style = __webpack_require__(172);
+	var style = __webpack_require__(174);
 
 	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"));
 
@@ -19696,7 +19696,7 @@
 	  preface: __webpack_require__(162),
 	  introduction: __webpack_require__(163),
 	  whatis: __webpack_require__(168),
-	  explanation: __webpack_require__(171)
+	  explanation: __webpack_require__(172)
 	};
 
 	/*
@@ -19947,8 +19947,11 @@
 			cx: 0,
 			cy: 0,
 			mp: { x: 0, y: 0 },
+			offset: { x: 0, y: 0 },
+			lpts: [],
 
 			render: function render() {
+					var href = "data:text/plain," + this.props.code;
 					return React.createElement(
 							"figure",
 							null,
@@ -20115,6 +20118,18 @@
 					}
 					this.ctx.strokeStyle = "black";
 					this.drawPoints(pts, offset);
+					this.drawCoordinates(curve, offset);
+			},
+
+			drawCoordinates: function drawCoordinates(curve, offset) {
+					var _this2 = this;
+
+					offset = offset || { x: 0, y: 0 };
+					var pts = curve.points;
+					this.setFill("black");
+					pts.forEach(function (p) {
+							_this2.drawText("(" + p.x + "," + p.y + ")", { x: p.x + 5, y: p.y + 10 });
+					});
 			},
 
 			drawCurve: function drawCurve(curve, offset) {
@@ -20146,12 +20161,7 @@
 			},
 
 			drawPoint: function drawPoint(p, offset) {
-					offset = offset || { x: 0, y: 0 };
-					var ox = offset.x + this.offset.x;
-					var oy = offset.y + this.offset.y;
-					this.ctx.beginPath();
-					this.ctx.arc(p.x + ox, p.y + oy, 5, 0, 2 * Math.PI);
-					this.ctx.stroke();
+					this.drawCircle(p, 1, offset);
 			},
 
 			drawPoints: function drawPoints(points, offset) {
@@ -21435,86 +21445,11 @@
 	var Whatis = React.createClass({
 	  displayName: "Whatis",
 
-	  setup: function setup(api) {
-	    this.offset = 20;
-	    var curve = api.getDefaultQuadratic();
-	    api.setPanelCount(3);
-	    api.setCurve(curve);
-	    this.dim = api.getPanelWidth();
-	  },
+	  interpolation: __webpack_require__(171),
 
-	  draw: function draw(api, curve) {
-	    var pts = curve.points;
-	    var p1 = pts[0],
-	        p2 = pts[1],
-	        p3 = pts[2];
-	    var p1e = {
-	      x: p1.x + 0.2 * (p2.x - p1.x),
-	      y: p1.y + 0.2 * (p2.y - p1.y)
-	    };
-
-	    var p2e = {
-	      x: p2.x + 0.2 * (p3.x - p2.x),
-	      y: p2.y + 0.2 * (p3.y - p2.y)
-	    };
-
-	    var m = {
-	      x: p1e.x + 0.2 * (p2e.x - p1e.x),
-	      y: p1e.y + 0.2 * (p2e.y - p1e.y)
-	    };
-
-	    api.reset();
-
-	    api.setColor("black");
-	    api.setFill("black");
-	    api.drawSkeleton(curve);
-	    api.drawCurve(curve);
-
-	    // draw 20% off-start points and struts
-	    api.setColor("blue");
-	    api.setWeight(2);
-
-	    api.drawLine(p1, p1e);
-	    api.drawLine(p2, p2e);
-	    api.drawCircle(p1e, 3);
-	    api.drawCircle(p2e, 3);
-
-	    api.drawText("linear interpolation distance: " + this.offset + "%", { x: 5, y: 15 });
-	    api.drawText("linear interpolation between the first set of points", { x: 5, y: this.dim - 5 });
-
-	    // next panel
-	    api.setColor("black");
-	    api.setWeight(1);
-	    api.setOffset({ x: this.dim, y: 0 });
-	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: this.dim });
-
-	    api.drawSkeleton(curve);
-	    api.drawCurve(curve);
-
-	    api.setColor("lightgrey");
-	    api.drawLine(p1e, p2e);
-	    api.drawCircle(p1e, 3);
-	    api.drawCircle(p2e, 3);
-
-	    api.setColor("blue");
-	    api.setWeight(2);
-	    api.drawLine(p1e, m);
-	    api.drawCircle(m, 3);
-
-	    api.drawText("same linear interpolation distance: " + this.offset + "%", { x: 5, y: 15 });
-	    api.drawText("linear interpolation between the second set of points", { x: 5, y: this.dim - 5 });
-
-	    // next panel
-	    api.setColor("black");
-	    api.setWeight(1);
-	    api.setOffset({ x: 2 * this.dim, y: 0 });
-	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: this.dim });
-
-	    api.drawSkeleton(curve);
-	    api.drawCurve(curve);
-	    api.drawCircle(m, 3);
-
-	    api.drawText("the second interpolation turns out to be a curve point!", { x: 5, y: this.dim - 5 });
+	  componentWillMount: function componentWillMount() {
+	    this.setup = this.interpolation.setup.bind(this);
+	    this.draw = this.interpolation.draw.bind(this);
 	  },
 
 	  render: function render() {
@@ -21570,7 +21505,7 @@
 	        null,
 	        "So let's look at that in action: the following graphic is interactive in that you can use your '+' and '-' keys to increase or decrease the interpolation distance, to see what happens. We start with three points, which gives us two lines. Linear interpolation over those lines gives use two points, between which we can again perform linear interpolation, yielding a single point. And that point, and all points we can form in this way for all distances taken together, form our Bézier curve:"
 	      ),
-	      React.createElement(Graphic, { preset: "threepanel", title: "Linear Interpolation leading to Bézier curves", setup: this.setup, draw: this.draw }),
+	      React.createElement(Graphic, { title: "Linear Interpolation leading to Bézier curves", setup: this.setup, draw: this.draw }),
 	      React.createElement(
 	        "p",
 	        null,
@@ -21799,6 +21734,158 @@
 
 /***/ },
 /* 171 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	module.exports = {
+
+	  setup: function setup(sketch) {
+	    this.offset = 20;
+	    var curve = sketch.getDefaultQuadratic();
+	    sketch.setPanelCount(3);
+	    sketch.setCurve(curve);
+	    this.dim = sketch.getPanelWidth();
+	  },
+
+	  draw: function draw(sketch, curve) {
+	    var pts = curve.points;
+	    var p1 = pts[0],
+	        p2 = pts[1],
+	        p3 = pts[2];
+
+	    var p1e = {
+	      x: p1.x + 0.2 * (p2.x - p1.x),
+	      y: p1.y + 0.2 * (p2.y - p1.y)
+	    };
+
+	    var p2e = {
+	      x: p2.x + 0.2 * (p3.x - p2.x),
+	      y: p2.y + 0.2 * (p3.y - p2.y)
+	    };
+
+	    var m = {
+	      x: p1e.x + 0.2 * (p2e.x - p1e.x),
+	      y: p1e.y + 0.2 * (p2e.y - p1e.y)
+	    };
+
+	    var p1e2 = {
+	      x: p1.x + 0.4 * (p2.x - p1.x),
+	      y: p1.y + 0.4 * (p2.y - p1.y)
+	    };
+
+	    var p2e2 = {
+	      x: p2.x + 0.4 * (p3.x - p2.x),
+	      y: p2.y + 0.4 * (p3.y - p2.y)
+	    };
+
+	    var m2 = {
+	      x: p1e2.x + 0.4 * (p2e2.x - p1e2.x),
+	      y: p1e2.y + 0.4 * (p2e2.y - p1e2.y)
+	    };
+
+	    var p1e3 = {
+	      x: p1.x + 0.6 * (p2.x - p1.x),
+	      y: p1.y + 0.6 * (p2.y - p1.y)
+	    };
+
+	    var p2e3 = {
+	      x: p2.x + 0.6 * (p3.x - p2.x),
+	      y: p2.y + 0.6 * (p3.y - p2.y)
+	    };
+
+	    var m3 = {
+	      x: p1e3.x + 0.6 * (p2e3.x - p1e3.x),
+	      y: p1e3.y + 0.6 * (p2e3.y - p1e3.y)
+	    };
+
+	    sketch.reset();
+
+	    sketch.setColor("black");
+	    sketch.setFill("black");
+	    sketch.drawSkeleton(curve);
+	    sketch.drawCurve(curve);
+
+	    // draw 20% off-start points and struts
+	    sketch.setWeight(2);
+
+	    sketch.setColor("blue");
+	    sketch.drawLine(p1, p1e);
+	    sketch.drawLine(p2, p2e);
+	    sketch.drawCircle(p1e, 3);
+	    sketch.drawCircle(p2e, 3);
+
+	    sketch.setColor("red");
+	    sketch.drawLine(p1e, p1e2);
+	    sketch.drawLine(p2e, p2e2);
+	    sketch.drawCircle(p1e2, 3);
+	    sketch.drawCircle(p2e2, 3);
+
+	    sketch.setColor("green");
+	    sketch.drawLine(p1e2, p1e3);
+	    sketch.drawLine(p2e2, p2e3);
+	    sketch.drawCircle(p1e3, 3);
+	    sketch.drawCircle(p2e3, 3);
+
+	    sketch.drawText("First linear interpolation at 20% / 40% / 60%", { x: 5, y: 15 });
+
+	    // next panel
+	    sketch.setColor("black");
+	    sketch.setWeight(1);
+	    sketch.setOffset({ x: this.dim + 0.5, y: 0 });
+	    sketch.drawLine({ x: 0, y: 0 }, { x: 0, y: this.dim });
+
+	    sketch.drawSkeleton(curve);
+	    sketch.drawCurve(curve);
+
+	    sketch.setColor("rgb(100,100,200)");
+	    sketch.drawLine(p1e, p2e);
+	    sketch.drawCircle(p1e, 3);
+	    sketch.drawCircle(p2e, 3);
+
+	    sketch.setColor("rgb(200,100,100)");
+	    sketch.drawLine(p1e2, p2e2);
+	    sketch.drawCircle(p1e2, 3);
+	    sketch.drawCircle(p2e2, 3);
+
+	    sketch.setColor("rgb(100,200,100)");
+	    sketch.drawLine(p1e3, p2e3);
+	    sketch.drawCircle(p1e3, 3);
+	    sketch.drawCircle(p2e3, 3);
+
+	    sketch.setColor("blue");
+	    sketch.setWeight(2);
+	    sketch.drawLine(p1e, m);
+	    sketch.drawCircle(m, 3);
+
+	    sketch.setColor("red");
+	    sketch.drawLine(p1e2, m2);
+	    sketch.drawCircle(m2, 3);
+
+	    sketch.setColor("green");
+	    sketch.drawLine(p1e3, m3);
+	    sketch.drawCircle(m3, 3);
+
+	    sketch.drawText("Second interpolation at 20% / 40% / 60%", { x: 5, y: 15 });
+
+	    // next panel
+	    sketch.setColor("black");
+	    sketch.setWeight(1);
+	    sketch.setOffset({ x: 2 * this.dim + 0.5, y: 0 });
+	    sketch.drawLine({ x: 0, y: 0 }, { x: 0, y: this.dim });
+
+	    sketch.drawSkeleton(curve);
+	    sketch.drawCurve(curve);
+	    sketch.drawCircle(m, 3);
+	    sketch.drawCircle(m2, 3);
+	    sketch.drawCircle(m3, 3);
+
+	    sketch.drawText("Curve points for t = 0.2, t = 0.4, t = 0.6", { x: 5, y: 15 });
+	  }
+	};
+
+/***/ },
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21811,9 +21898,12 @@
 	var Explanation = React.createClass({
 	  displayName: "Explanation",
 
-	  setup: function setup(api) {},
+	  circle: __webpack_require__(173),
 
-	  draw: function draw(api, curve) {},
+	  componentWillMount: function componentWillMount() {
+	    this.setup = this.circle.setup.bind(this);
+	    this.draw = this.circle.draw.bind(this);
+	  },
 
 	  render: function render() {
 	    return React.createElement(
@@ -22694,16 +22784,58 @@
 	module.exports = Explanation;
 
 /***/ },
-/* 172 */
+/* 173 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	module.exports = {
+	  setup: function setup(sketch) {},
+
+	  draw: function draw(sketch, curve) {
+	    var dim = sketch.getPanelWidth(),
+	        w = dim,
+	        h = dim,
+	        w2 = w / 2,
+	        h2 = h / 2,
+	        w4 = w2 / 2,
+	        h4 = h2 / 2;
+
+	    sketch.reset();
+	    sketch.setColor("black");
+	    sketch.drawLine({ x: 0, y: h2 }, { x: w, y: h2 });
+	    sketch.drawLine({ x: w2, y: 0 }, { x: w2, y: h });
+
+	    var offset = { x: w2, y: h2 };
+	    for (var t = 0, p; t <= 5; t += 0.1) {
+	      p = {
+	        x: w4 * Math.cos(t),
+	        y: h4 * Math.sin(t)
+	      };
+	      sketch.drawPoint(p, offset);
+	      var modulo = t % 1;
+	      if (modulo < 0.05 || modulo > 0.95) {
+	        sketch.drawText("t = " + Math.round(t), {
+	          x: offset.x + 1.25 * w4 * Math.cos(t) - 10,
+	          y: offset.y + 1.25 * h4 * Math.sin(t) + 5
+	        });
+	        sketch.drawCircle(p, 2, offset);
+	      }
+	    }
+	  }
+	};
+
+/***/ },
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(173);
+	var content = __webpack_require__(175);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(177)(content, {});
+	var update = __webpack_require__(179)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -22720,21 +22852,21 @@
 	}
 
 /***/ },
-/* 173 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(174)();
+	exports = module.exports = __webpack_require__(176)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(175) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-size: 125%;\n}\narticle {\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\nsection p {\n  text-align: justify;\n}\nsection h2:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection * + h2:before {\n  content: \"\";\n}\nsection * h2:before {\n  content: \"\";\n}\nsection h2 {\n  margin-top: 2em;\n  cursor: pointer;\n}\nsection * + h2 {\n  margin-top: 0em;\n  cursor: auto;\n}\nsection * h2 {\n  margin-top: 0em;\n  cursor: auto;\n}\ncanvas.loading-sketch {\n  background: url(" + __webpack_require__(176) + ");\n  background-repeat: no-repeat;\n  background-position: 50% 50%;\n}\n.sketch-code {\n  display: inline-block;\n  unicode-bidi: embed;\n  font-family: monospace;\n  white-space: pre;\n  border: 1px solid black;\n  min-height: 300px;\n}\n.sketch {\n  display: inline-block;\n  border: 1px solid #DDD;\n  padding: 5px;\n  font-style: italic;\n  font-size: 80%;\n  background: #fafacc;\n}\n.sketch canvas {\n  margin: auto;\n  border: 1px solid black;\n  height: 300px;\n}\n.sketch canvas:focus {\n  outline: 1px solid rgba(0, 0, 0, 0);\n}\n.sketch img {\n  margin: auto;\n  border: 1px solid black;\n}\n.labeled-image p:before {\n  content: \"Image \" attr(data-img-label) \". \";\n}\n.labeled-image p {\n  margin: 0;\n}\n.sketch canvas[data-preset=simple],\n.sketch canvas[data-preset=poly],\n.sketch canvas[data-preset=ratios],\n.sketch canvas[data-preset=clipping],\n.sketch canvas[data-preset=abc],\n.sketch canvas[data-preset=moulding],\n.sketch canvas[data-preset=generate] {\n  width: 300px;\n}\n.sketch canvas[data-preset=twopanel] {\n  width: 600px;\n}\n.sketch canvas[data-preset=shapes],\n.sketch canvas[data-preset=threepanel] {\n  width: 900px;\n}\n.sketch-title span {\n  color: #0000c8;\n  cursor: pointer;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\n#navbar {\n  float: right;\n  background: white;\n  padding: 0 0.2em 0.5em 0.5em;\n  border: 1px solid black;\n  margin: 0 0 0.2em 1em;\n  font-size: 80%;\n}\n#navbar h3 {\n  margin: 0.2em 0;\n}\n#navbar ol {\n  margin: 0.2em;\n  margin-left: -1em;\n}\ntd p {\n  text-align: center;\n}\n#scriptblock {\n  display: none;\n}\n/**\n  GITHUB ISSUES\n**/\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n}\ngithub-issue {\n  display: block;\n  position: relative;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  /*border-radius: 7px 0 0 7px;*/\n  background: white;\n  padding: 0 0.3em;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n}\ngithub-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n/* addthis nonsense */\n.at-floatingbar-inner {\n  width: 10px;\n}\n/* =========================================================== */\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(177) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-size: 125%;\n}\narticle {\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\nsection p {\n  text-align: justify;\n}\nsection h2:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection * + h2:before {\n  content: \"\";\n}\nsection * h2:before {\n  content: \"\";\n}\nsection h2 {\n  margin-top: 2em;\n  cursor: pointer;\n}\nsection * + h2 {\n  margin-top: 0em;\n  cursor: auto;\n}\nsection * h2 {\n  margin-top: 0em;\n  cursor: auto;\n}\ncanvas.loading-sketch {\n  background: url(" + __webpack_require__(178) + ");\n  background-repeat: no-repeat;\n  background-position: 50% 50%;\n}\n.sketch-code {\n  display: inline-block;\n  unicode-bidi: embed;\n  font-family: monospace;\n  white-space: pre;\n  border: 1px solid black;\n  min-height: 300px;\n}\n.sketch {\n  display: inline-block;\n  border: 1px solid #DDD;\n  padding: 5px;\n  font-style: italic;\n  font-size: 80%;\n  background: #fafacc;\n}\n.sketch canvas {\n  margin: auto;\n  border: 1px solid black;\n  height: 300px;\n}\n.sketch canvas:focus {\n  outline: 1px solid rgba(0, 0, 0, 0);\n}\n.sketch img {\n  margin: auto;\n  border: 1px solid black;\n}\n.labeled-image p:before {\n  content: \"Image \" attr(data-img-label) \". \";\n}\n.labeled-image p {\n  margin: 0;\n}\n.sketch canvas[data-preset=simple],\n.sketch canvas[data-preset=poly],\n.sketch canvas[data-preset=ratios],\n.sketch canvas[data-preset=clipping],\n.sketch canvas[data-preset=abc],\n.sketch canvas[data-preset=moulding],\n.sketch canvas[data-preset=generate] {\n  width: 300px;\n}\n.sketch canvas[data-preset=twopanel] {\n  width: 600px;\n}\n.sketch canvas[data-preset=shapes],\n.sketch canvas[data-preset=threepanel] {\n  width: 900px;\n}\n.sketch-title span {\n  color: #0000c8;\n  cursor: pointer;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\n#navbar {\n  float: right;\n  background: white;\n  padding: 0 0.2em 0.5em 0.5em;\n  border: 1px solid black;\n  margin: 0 0 0.2em 1em;\n  font-size: 80%;\n}\n#navbar h3 {\n  margin: 0.2em 0;\n}\n#navbar ol {\n  margin: 0.2em;\n  margin-left: -1em;\n}\ntd p {\n  text-align: center;\n}\n#scriptblock {\n  display: none;\n}\n/**\n  GITHUB ISSUES\n**/\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n}\ngithub-issue {\n  display: block;\n  position: relative;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  /*border-radius: 7px 0 0 7px;*/\n  background: white;\n  padding: 0 0.3em;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n}\ngithub-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n/* addthis nonsense */\n.at-floatingbar-inner {\n  width: 10px;\n}\n/* =========================================================== */\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 174 */
+/* 176 */
 /***/ function(module, exports) {
 
 	/*
@@ -22790,19 +22922,19 @@
 
 
 /***/ },
-/* 175 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "7d3b28205544712db60d1bb7973f10f3.png";
-
-/***/ },
-/* 176 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "a82c213aa38c43ee54e3b86ba5bdb987.gif";
-
-/***/ },
 /* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "images/packed/a82c213aa38c43ee54e3b86ba5bdb987.gif";
+
+/***/ },
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

@@ -4,13 +4,11 @@ var SectionHeader = require("../../SectionHeader.jsx");
 var LaTeX = require("../../LaTeX.jsx");
 
 var Explanation = React.createClass({
+  circle: require("./circle"),
 
-  setup: function(api) {
-
-  },
-
-  draw: function(api, curve) {
-
+  componentWillMount: function() {
+    this.setup = this.circle.setup.bind(this);
+    this.draw = this.circle.draw.bind(this);
   },
 
   render: function() {

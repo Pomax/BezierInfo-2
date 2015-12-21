@@ -20,8 +20,11 @@ var Graphic = React.createClass({
   cx:0,
   cy:0,
   mp: { x: 0, y: 0},
+  offset: { x: 0, y: 0},
+  lpts: [],
 
   render: function() {
+    var href = "data:text/plain," + this.props.code;
     return (
       <figure>
         <canvas ref="canvas"
@@ -93,9 +96,13 @@ var Graphic = React.createClass({
     this.my = evt.offsetY;
   },
 
+
+
   /**
    * API for curve drawing.
    */
+
+
 
 	reset: function() {
 	  this.refs.canvas.width = this.refs.canvas.width;
@@ -179,7 +186,17 @@ var Graphic = React.createClass({
 	  else {this.drawLine(pts[2], pts[3], offset); }
 	  this.ctx.strokeStyle = "black";
 	  this.drawPoints(pts, offset);
+    this.drawCoordinates(curve, offset);
 	},
+
+  drawCoordinates: function(curve, offset) {
+    offset = offset || { x:0, y:0 };
+    var pts = curve.points;
+    this.setFill("black");
+    pts.forEach(p => {
+      this.drawText(`(${p.x},${p.y})`, {x:p.x + 5, y:p.y + 10});
+    });
+  },
 
 	drawCurve: function(curve, offset) {
 	  offset = offset || { x:0, y:0 };
@@ -216,12 +233,7 @@ var Graphic = React.createClass({
 	},
 
 	drawPoint: function(p, offset) {
-	  offset = offset || { x:0, y:0 };
-    var ox = offset.x + this.offset.x;
-    var oy = offset.y + this.offset.y;
-	  this.ctx.beginPath();
-	  this.ctx.arc(p.x + ox, p.y + oy, 5, 0, 2*Math.PI);
-	  this.ctx.stroke();
+    this.drawCircle(p, 1, offset);
 	},
 
 	drawPoints: function(points, offset) {

@@ -3,86 +3,13 @@ var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 var LaTeX = require("../../LaTeX.jsx");
 
+
 var Whatis = React.createClass({
+  interpolation: require("./interpolation"),
 
-  setup: function(api) {
-    this.offset = 20;
-    var curve = api.getDefaultQuadratic();
-    api.setPanelCount(3);
-    api.setCurve(curve);
-    this.dim = api.getPanelWidth();
-  },
-
-  draw: function(api, curve) {
-    var pts = curve.points;
-    var p1 = pts[0], p2=pts[1], p3 = pts[2];
-    var p1e = {
-      x: p1.x + 0.2 * (p2.x - p1.x),
-      y: p1.y + 0.2 * (p2.y - p1.y)
-    };
-
-    var p2e = {
-      x: p2.x + 0.2 * (p3.x - p2.x),
-      y: p2.y + 0.2 * (p3.y - p2.y)
-    };
-
-    var m = {
-      x: p1e.x + 0.2 * (p2e.x - p1e.x),
-      y: p1e.y + 0.2 * (p2e.y - p1e.y)
-    }
-
-    api.reset();
-
-    api.setColor("black");
-    api.setFill("black");
-    api.drawSkeleton(curve);
-    api.drawCurve(curve);
-
-    // draw 20% off-start points and struts
-    api.setColor("blue");
-    api.setWeight(2);
-
-    api.drawLine(p1, p1e);
-    api.drawLine(p2, p2e);
-    api.drawCircle(p1e,3);
-    api.drawCircle(p2e,3);
-
-    api.drawText("linear interpolation distance: " + this.offset + "%", {x:5, y:15});
-    api.drawText("linear interpolation between the first set of points", {x:5, y:this.dim-5});
-
-    // next panel
-    api.setColor("black");
-    api.setWeight(1);
-    api.setOffset({x:this.dim, y:0});
-    api.drawLine({x:0, y:0}, {x:0, y:this.dim});
-
-    api.drawSkeleton(curve);
-    api.drawCurve(curve);
-
-    api.setColor("lightgrey");
-    api.drawLine(p1e, p2e);
-    api.drawCircle(p1e,3);
-    api.drawCircle(p2e,3);
-
-    api.setColor("blue");
-    api.setWeight(2);
-    api.drawLine(p1e, m);
-    api.drawCircle(m,3);
-
-    api.drawText("same linear interpolation distance: " + this.offset + "%", {x:5, y:15});
-    api.drawText("linear interpolation between the second set of points", {x:5, y:this.dim-5});
-
-    // next panel
-    api.setColor("black");
-    api.setWeight(1);
-    api.setOffset({x:2*this.dim, y:0});
-    api.drawLine({x:0, y:0}, {x:0, y:this.dim});
-
-    api.drawSkeleton(curve);
-    api.drawCurve(curve);
-    api.drawCircle(m,3);
-
-    api.drawText("the second interpolation turns out to be a curve point!", {x:5, y:this.dim-5});
+  componentWillMount: function() {
+    this.setup = this.interpolation.setup.bind(this);
+    this.draw = this.interpolation.draw.bind(this);
   },
 
   render: function() {
@@ -119,7 +46,7 @@ var Whatis = React.createClass({
         points, between which we can again perform linear interpolation, yielding a single point. And that
         point, and all points we can form in this way for all distances taken together, form our Bézier curve:</p>
 
-        <Graphic preset="threepanel" title="Linear Interpolation leading to Bézier curves" setup={this.setup} draw={this.draw}/>
+        <Graphic title="Linear Interpolation leading to Bézier curves" setup={this.setup} draw={this.draw}/>
 
         <p>And that brings us to the complicated maths: calculus. While it doesn't look like that's what we've just done,
         we actually just drew a quadratic curve, in steps, rather than in a single go. One of the fascinating parts
