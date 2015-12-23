@@ -15,7 +15,6 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.txt$/, loader: "raw" },
       { test: /\.(png|gif)$/, loader: "file?name=images/packed/[hash].[ext]" },
       { test: /\.less$/, loader: "style!css!less" },
       {
