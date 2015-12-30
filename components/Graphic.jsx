@@ -113,13 +113,13 @@ var Graphic = React.createClass({
 
 
 
-	reset: function() {
-	  this.refs.canvas.width = this.refs.canvas.width;
+  reset: function() {
+    this.refs.canvas.width = this.refs.canvas.width;
     this.ctx.strokeStyle = "black";
     this.ctx.lineWidth = 1;
-	  this.ctx.fillStyle = "none";
+    this.ctx.fillStyle = "none";
     this.offset = {x:0, y:0};
-	},
+  },
 
   getPanelWidth: function() {
     return defaultWidth;
@@ -151,9 +151,9 @@ var Graphic = React.createClass({
     this.offset = f;
   },
 
-	setColor: function(c) {
-	  this.ctx.strokeStyle = c;
-	},
+  setColor: function(c) {
+    this.ctx.strokeStyle = c;
+  },
 
   getColor: function() {
     return this.ctx.strokeStyle || "black";
@@ -163,48 +163,48 @@ var Graphic = React.createClass({
     this.ctx.lineWidth = c;
   },
 
-	noColor: function(c) {
-	  this.ctx.strokeStyle = "transparent";
-	},
+  noColor: function(c) {
+    this.ctx.strokeStyle = "transparent";
+  },
 
-	setRandomColor: function() {
-	  var r = ((205*Math.random())|0),
-	      g = ((155*Math.random())|0),
-	      b = ((255*Math.random())|0);
-	  this.ctx.strokeStyle = "rgb("+r+","+g+","+b+")";
-	},
+  setRandomColor: function() {
+    var r = ((205*Math.random())|0),
+        g = ((155*Math.random())|0),
+        b = ((255*Math.random())|0);
+    this.ctx.strokeStyle = "rgb("+r+","+g+","+b+")";
+  },
 
-	setRandomFill: function(a) {
-	  a = (typeof a === "undefined") ? 1 : a;
-	  var r = ((255*Math.random())|0),
-	      g = ((255*Math.random())|0),
-	      b = ((255*Math.random())|0);
-	  this.ctx.fillStyle = "rgba("+r+","+g+","+b+","+a+")";
-	},
+  setRandomFill: function(a) {
+    a = (typeof a === "undefined") ? 1 : a;
+    var r = ((255*Math.random())|0),
+        g = ((255*Math.random())|0),
+        b = ((255*Math.random())|0);
+    this.ctx.fillStyle = "rgba("+r+","+g+","+b+","+a+")";
+  },
 
-	setFill: function(c) {
-	  this.ctx.fillStyle = c;
-	},
+  setFill: function(c) {
+    this.ctx.fillStyle = c;
+  },
 
   getFill: function() {
     return this.ctx.fillStyle || "transparent";
   },
 
-	noFill: function() {
-	  this.ctx.fillStyle = "transparent";
-	},
+  noFill: function() {
+    this.ctx.fillStyle = "transparent";
+  },
 
-	drawSkeleton: function(curve, offset) {
-	  offset = offset || { x:0, y:0 };
-	  var pts = curve.points;
-	  this.ctx.strokeStyle = "lightgrey";
-	  this.drawLine(pts[0], pts[1], offset);
-	  if(pts.length === 3) { this.drawLine(pts[1], pts[2], offset); }
-	  else {this.drawLine(pts[2], pts[3], offset); }
-	  this.ctx.strokeStyle = "black";
-	  this.drawPoints(pts, offset);
+  drawSkeleton: function(curve, offset) {
+    offset = offset || { x:0, y:0 };
+    var pts = curve.points;
+    this.ctx.strokeStyle = "lightgrey";
+    this.drawLine(pts[0], pts[1], offset);
+    if(pts.length === 3) { this.drawLine(pts[1], pts[2], offset); }
+    else {this.drawLine(pts[2], pts[3], offset); }
+    this.ctx.strokeStyle = "black";
+    this.drawPoints(pts, offset);
     this.drawCoordinates(curve, offset);
-	},
+  },
 
   drawCoordinates: function(curve, offset) {
     offset = offset || { x:0, y:0 };
@@ -228,131 +228,131 @@ var Graphic = React.createClass({
     this.drawLine(p, plast, offset);
   },
 
-	drawCurve: function(curve, offset) {
-	  offset = offset || { x:0, y:0 };
-	  var ox = offset.x + this.offset.x;
-	  var oy = offset.y + this.offset.y;
-	  this.ctx.beginPath();
-	  var p = curve.points, i;
-	  this.ctx.moveTo(p[0].x + ox, p[0].y + oy);
-	  if(p.length === 3) {
-	    this.ctx.quadraticCurveTo(
-	      p[1].x + ox, p[1].y + oy,
-	      p[2].x + ox, p[2].y + oy
-	    );
-	  }
-	  if(p.length === 4) {
-	    this.ctx.bezierCurveTo(
-	      p[1].x + ox, p[1].y + oy,
-	      p[2].x + ox, p[2].y + oy,
-	      p[3].x + ox, p[3].y + oy
-	    );
-	  }
-	  this.ctx.stroke();
-	  this.ctx.closePath();
-	},
+  drawCurve: function(curve, offset) {
+    offset = offset || { x:0, y:0 };
+    var ox = offset.x + this.offset.x;
+    var oy = offset.y + this.offset.y;
+    this.ctx.beginPath();
+    var p = curve.points, i;
+    this.ctx.moveTo(p[0].x + ox, p[0].y + oy);
+    if(p.length === 3) {
+      this.ctx.quadraticCurveTo(
+        p[1].x + ox, p[1].y + oy,
+        p[2].x + ox, p[2].y + oy
+      );
+    }
+    if(p.length === 4) {
+      this.ctx.bezierCurveTo(
+        p[1].x + ox, p[1].y + oy,
+        p[2].x + ox, p[2].y + oy,
+        p[3].x + ox, p[3].y + oy
+      );
+    }
+    this.ctx.stroke();
+    this.ctx.closePath();
+  },
 
-	drawLine: function(p1, p2, offset) {
-	  offset = offset || { x:0, y:0 };
-	  var ox = offset.x + this.offset.x;
-	  var oy = offset.y + this.offset.y;
-	  this.ctx.beginPath();
-	  this.ctx.moveTo(p1.x + ox,p1.y + oy);
-	  this.ctx.lineTo(p2.x + ox,p2.y + oy);
-	  this.ctx.stroke();
-	},
+  drawLine: function(p1, p2, offset) {
+    offset = offset || { x:0, y:0 };
+    var ox = offset.x + this.offset.x;
+    var oy = offset.y + this.offset.y;
+    this.ctx.beginPath();
+    this.ctx.moveTo(p1.x + ox,p1.y + oy);
+    this.ctx.lineTo(p2.x + ox,p2.y + oy);
+    this.ctx.stroke();
+  },
 
-	drawPoint: function(p, offset) {
+  drawPoint: function(p, offset) {
     this.drawCircle(p, 1, offset);
-	},
+  },
 
-	drawPoints: function(points, offset) {
-	  offset = offset || { x:0, y:0 };
-	  points.forEach(function(p) {
-	    this.drawCircle(p, 3, offset);
-	  }.bind(this));
-	},
+  drawPoints: function(points, offset) {
+    offset = offset || { x:0, y:0 };
+    points.forEach(function(p) {
+      this.drawCircle(p, 3, offset);
+    }.bind(this));
+  },
 
-	drawArc: function(p, offset) {
-	  offset = offset || { x:0, y:0 };
+  drawArc: function(p, offset) {
+    offset = offset || { x:0, y:0 };
     var ox = offset.x + this.offset.x;
     var oy = offset.y + this.offset.y;
-	  this.ctx.beginPath();
-	  this.ctx.moveTo(p.x + ox, p.y + oy);
-	  this.ctx.arc(p.x + ox, p.y + oy, p.r, p.s, p.e);
-	  this.ctx.lineTo(p.x + ox, p.y + oy);
-	  this.ctx.fill();
-	  this.ctx.stroke();
-	},
+    this.ctx.beginPath();
+    this.ctx.moveTo(p.x + ox, p.y + oy);
+    this.ctx.arc(p.x + ox, p.y + oy, p.r, p.s, p.e);
+    this.ctx.lineTo(p.x + ox, p.y + oy);
+    this.ctx.fill();
+    this.ctx.stroke();
+  },
 
-	drawCircle: function(p, r, offset) {
-	  offset = offset || { x:0, y:0 };
+  drawCircle: function(p, r, offset) {
+    offset = offset || { x:0, y:0 };
     var ox = offset.x + this.offset.x;
     var oy = offset.y + this.offset.y;
-	  this.ctx.beginPath();
-	  this.ctx.arc(p.x + ox, p.y + oy, r, 0, 2*Math.PI);
-	  this.ctx.stroke();
-	},
+    this.ctx.beginPath();
+    this.ctx.arc(p.x + ox, p.y + oy, r, 0, 2*Math.PI);
+    this.ctx.stroke();
+  },
 
-	drawbbox: function(bbox, offset) {
-	  offset = offset || { x:0, y:0 };
+  drawbbox: function(bbox, offset) {
+    offset = offset || { x:0, y:0 };
     var ox = offset.x + this.offset.x;
     var oy = offset.y + this.offset.y;
-	  this.ctx.beginPath();
-	  this.ctx.moveTo(bbox.x.min + ox, bbox.y.min + oy);
-	  this.ctx.lineTo(bbox.x.min + ox, bbox.y.max + oy);
-	  this.ctx.lineTo(bbox.x.max + ox, bbox.y.max + oy);
-	  this.ctx.lineTo(bbox.x.max + ox, bbox.y.min + oy);
-	  this.ctx.closePath();
-	  this.ctx.stroke();
-	},
+    this.ctx.beginPath();
+    this.ctx.moveTo(bbox.x.min + ox, bbox.y.min + oy);
+    this.ctx.lineTo(bbox.x.min + ox, bbox.y.max + oy);
+    this.ctx.lineTo(bbox.x.max + ox, bbox.y.max + oy);
+    this.ctx.lineTo(bbox.x.max + ox, bbox.y.min + oy);
+    this.ctx.closePath();
+    this.ctx.stroke();
+  },
 
-	drawShape: function(shape, offset) {
-	  offset = offset || { x:0, y:0 };
+  drawShape: function(shape, offset) {
+    offset = offset || { x:0, y:0 };
     var ox = offset.x + this.offset.x;
     var oy = offset.y + this.offset.y;
     var order = shape.forward.points.length - 1;
-	  this.ctx.beginPath();
-	  this.ctx.moveTo(ox + shape.startcap.points[0].x, oy + shape.startcap.points[0].y);
-	  this.ctx.lineTo(ox + shape.startcap.points[3].x, oy + shape.startcap.points[3].y);
-	  if(order === 3) {
-	    this.ctx.bezierCurveTo(
-	      ox + shape.forward.points[1].x, oy + shape.forward.points[1].y,
-	      ox + shape.forward.points[2].x, oy + shape.forward.points[2].y,
-	      ox + shape.forward.points[3].x, oy + shape.forward.points[3].y
-	    );
-	  } else {
-	    this.ctx.quadraticCurveTo(
-	      ox + shape.forward.points[1].x, oy + shape.forward.points[1].y,
-	      ox + shape.forward.points[2].x, oy + shape.forward.points[2].y
-	    );
-	  }
-	  this.ctx.lineTo(ox + shape.endcap.points[3].x, oy + shape.endcap.points[3].y);
-	  if(order === 3) {
-	    this.ctx.bezierCurveTo(
-	      ox + shape.back.points[1].x, oy + shape.back.points[1].y,
-	      ox + shape.back.points[2].x, oy + shape.back.points[2].y,
-	      ox + shape.back.points[3].x, oy + shape.back.points[3].y
-	    );
-	  } else {
-	    this.ctx.quadraticCurveTo(
-	      ox + shape.back.points[1].x, oy + shape.back.points[1].y,
-	      ox + shape.back.points[2].x, oy + shape.back.points[2].y
-	    );
-	  }
-	  this.ctx.closePath();
-	  this.ctx.fill();
-	  this.ctx.stroke();
-	},
+    this.ctx.beginPath();
+    this.ctx.moveTo(ox + shape.startcap.points[0].x, oy + shape.startcap.points[0].y);
+    this.ctx.lineTo(ox + shape.startcap.points[3].x, oy + shape.startcap.points[3].y);
+    if(order === 3) {
+      this.ctx.bezierCurveTo(
+        ox + shape.forward.points[1].x, oy + shape.forward.points[1].y,
+        ox + shape.forward.points[2].x, oy + shape.forward.points[2].y,
+        ox + shape.forward.points[3].x, oy + shape.forward.points[3].y
+      );
+    } else {
+      this.ctx.quadraticCurveTo(
+        ox + shape.forward.points[1].x, oy + shape.forward.points[1].y,
+        ox + shape.forward.points[2].x, oy + shape.forward.points[2].y
+      );
+    }
+    this.ctx.lineTo(ox + shape.endcap.points[3].x, oy + shape.endcap.points[3].y);
+    if(order === 3) {
+      this.ctx.bezierCurveTo(
+        ox + shape.back.points[1].x, oy + shape.back.points[1].y,
+        ox + shape.back.points[2].x, oy + shape.back.points[2].y,
+        ox + shape.back.points[3].x, oy + shape.back.points[3].y
+      );
+    } else {
+      this.ctx.quadraticCurveTo(
+        ox + shape.back.points[1].x, oy + shape.back.points[1].y,
+        ox + shape.back.points[2].x, oy + shape.back.points[2].y
+      );
+    }
+    this.ctx.closePath();
+    this.ctx.fill();
+    this.ctx.stroke();
+  },
 
-	text: function(text, offset) {
-	  offset = offset || { x:0, y:0 };
+  text: function(text, offset) {
+    offset = offset || { x:0, y:0 };
     if (this.offset) {
       offset.x += this.offset.x;
       offset.y += this.offset.y;
     }
-	  this.ctx.fillText(text, offset.x, offset.y);
-	}
+    this.ctx.fillText(text, offset.x, offset.y);
+  }
 });
 
 module.exports = Graphic;
