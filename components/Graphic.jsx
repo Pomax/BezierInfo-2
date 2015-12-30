@@ -1,5 +1,6 @@
 var React = require("react");
 var ReactDOM = require("react-dom");
+var chroma = require("chroma-js");
 
 var fix = function(e) {
   e = e || window.event;
@@ -22,6 +23,7 @@ var Graphic = React.createClass({
   mp: { x: 0, y: 0},
   offset: { x: 0, y: 0},
   lpts: [],
+  colorSeed: 0,
 
   render: function() {
     var href = "data:text/plain," + this.props.code;
@@ -31,6 +33,7 @@ var Graphic = React.createClass({
                 onMouseDown={this.mouseDown}
                 onMouseMove={this.mouseMove}
                 onMouseUp={this.mouseUp}
+                onMouseOver={this.mouseOver}
                 onClick={this.mouseClick}
                 />
         <figcaption>{this.props.title}</figcaption>
@@ -81,12 +84,18 @@ var Graphic = React.createClass({
     });
     this.cvs.style.cursor = found ? "pointer" : "default";
 
-    if(!this.moving) return;
-    this.ox = evt.offsetX - this.mx;
-    this.oy = evt.offsetY - this.my;
-    this.mp.x = this.cx + this.ox;
-    this.mp.y = this.cy + this.oy;
-    this.curve.update();
+    this.hover = {
+      x: evt.offsetX,
+      y: evt.offsetY
+    };
+
+    if(this.moving) {
+      this.ox = evt.offsetX - this.mx;
+      this.oy = evt.offsetY - this.my;
+      this.mp.x = this.cx + this.ox;
+      this.mp.y = this.cy + this.oy;
+      this.curve.update();
+    }
 
     if (this.props.draw) {
       this.props.draw(this, this.curve);
@@ -106,11 +115,9 @@ var Graphic = React.createClass({
   },
 
 
-
   /**
    * API for curve drawing.
    */
-
 
 
   reset: function() {
@@ -119,6 +126,7 @@ var Graphic = React.createClass({
     this.ctx.lineWidth = 1;
     this.ctx.fillStyle = "none";
     this.offset = {x:0, y:0};
+    this.colorSeed = 0;
   },
 
   getPanelWidth: function() {
@@ -167,19 +175,22 @@ var Graphic = React.createClass({
     this.ctx.strokeStyle = "transparent";
   },
 
-  setRandomColor: function() {
-    var r = ((205*Math.random())|0),
-        g = ((155*Math.random())|0),
-        b = ((255*Math.random())|0);
-    this.ctx.strokeStyle = "rgb("+r+","+g+","+b+")";
+  setRandomColor: function(a) {
+    a = (typeof a === "undefined") ? 1 : a;
+    var h = this.colorSeed % 360,
+        s = 1.0,
+        l = 0.34;
+    this.colorSeed += 87;
+    this.ctx.strokeStyle = chroma.hsl(h,s,l).alpha(a).css();
   },
 
   setRandomFill: function(a) {
     a = (typeof a === "undefined") ? 1 : a;
-    var r = ((255*Math.random())|0),
-        g = ((255*Math.random())|0),
-        b = ((255*Math.random())|0);
-    this.ctx.fillStyle = "rgba("+r+","+g+","+b+","+a+")";
+    var h = this.colorSeed % 360,
+        s = 1.0,
+        l = 0.34;
+    this.colorSeed += 87;
+    this.ctx.fillStyle = chroma.hsl(h,s,l).alpha(a).css();
   },
 
   setFill: function(c) {
@@ -304,6 +315,15 @@ var Graphic = React.createClass({
     this.ctx.lineTo(bbox.x.max + ox, bbox.y.max + oy);
     this.ctx.lineTo(bbox.x.max + ox, bbox.y.min + oy);
     this.ctx.closePath();
+    this.ctx.stroke();
+  },
+
+  drawRect: function(p1, p2, offset) {
+    offset = offset || { x:0, y:0 };
+    var ox = offset.x + this.offset.x;
+    var oy = offset.y + this.offset.y;
+    this.ctx.rect(p1.x, p1.y, p2.x-p1.x, p2.y-p1.y);
+    this.ctx.fill();
     this.ctx.stroke();
   },
 

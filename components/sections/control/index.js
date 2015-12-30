@@ -42,11 +42,39 @@ var Control = React.createClass({
     if (!!label) api.text(label, where);
   },
 
+  drawLerpBox: function(api, dim, pad, p) {
+    api.noColor();
+    api.setFill("rgba(0,0,100,0.2)");
+    var p1 = {x: p.x-5, y:pad},
+        p2 = {x:p.x + 5, y:dim};
+    api.drawRect(p1, p2);
+    api.setColor("black");
+  },
+
+  drawLerpPoint: function(api, tf, pad, fwh, p) {
+    p.y = pad + tf*fwh;
+    api.drawCircle(p, 3)
+    api.setFill("black");
+    api.text(((tf*10000)|0)/100 + "%", {x:p.x+10, y:p.y+4});
+    api.noFill();
+  },
+
   drawQuadraticLerp: function(api) {
+    api.reset();
+
     var dim = api.getPanelWidth(),
         pad = 20,
         fwh = dim - pad*2;
     this.drawGraphBasics(api, dim, pad, fwh);
+
+    var p = api.hover;
+    if (p && p.x >= pad && p.x <= dim-pad) {
+      this.drawLerpBox(api, dim, pad, p);
+      var t = (p.x-pad)/fwh, tf;
+      this.drawLerpPoint(api, (1-t)*(1-t), pad, fwh, p);
+      this.drawLerpPoint(api, 2*(1-t)*(t), pad, fwh, p);
+      this.drawLerpPoint(api, (t)*(t), pad, fwh, p);
+    }
 
     this.drawFunction(api, "first term", {x: pad*2, y: fwh}, function(t) {
       return {
@@ -69,10 +97,22 @@ var Control = React.createClass({
   },
 
   drawCubicLerp: function(api) {
+    api.reset();
+
     var dim = api.getPanelWidth(),
         pad = 20,
         fwh = dim - pad*2;
     this.drawGraphBasics(api, dim, pad, fwh);
+
+    var p = api.hover;
+    if (p && p.x >= pad && p.x <= dim-pad) {
+      this.drawLerpBox(api, dim, pad, p);
+      var t = (p.x-pad)/fwh, tf;
+      this.drawLerpPoint(api, (1-t)*(1-t)*(1-t), pad, fwh, p);
+      this.drawLerpPoint(api, 2*(1-t)*(1-t)*(t), pad, fwh, p);
+      this.drawLerpPoint(api, 3*(1-t)*(t)*(t), pad, fwh, p);
+      this.drawLerpPoint(api, (t)*(t)*(t), pad, fwh, p);
+    }
 
     this.drawFunction(api, "first term", {x: pad*2, y: fwh}, function(t) {
       return {
@@ -101,12 +141,24 @@ var Control = React.createClass({
   },
 
   draw15thLerp: function(api) {
+    api.reset();
+
     var dim = api.getPanelWidth(),
         pad = 20,
         fwh = dim - pad*2;
     this.drawGraphBasics(api, dim, pad, fwh);
 
-    var factor = [1,15,105,455,1365,3003,5005,6435,6435,5005,3003,1365,455,105,15,1]
+    var factors = [1,15,105,455,1365,3003,5005,6435,6435,5005,3003,1365,455,105,15,1]
+
+    var p = api.hover;
+    if (p && p.x >= pad && p.x <= dim-pad) {
+      this.drawLerpBox(api, dim, pad, p);
+      for(var n=0; n<=15; n++) {
+        var t = (p.x-pad)/fwh,
+            tf = factors[n] * Math.pow(1-t, 15-n) * Math.pow(t, n);
+        this.drawLerpPoint(api, tf, pad, fwh, p);
+      }
+    }
 
     for(var n=0; n<=15; n++) {
       var label = false, position = false;
@@ -121,7 +173,7 @@ var Control = React.createClass({
       this.drawFunction(api, label, position, function(t) {
         return {
           x: pad + t * fwh,
-          y: pad + fwh * factor[n] * Math.pow(1-t, 15-n) * Math.pow(t, n)
+          y: pad + fwh * factors[n] * Math.pow(1-t, 15-n) * Math.pow(t, n)
         };
       });
     }
