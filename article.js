@@ -21911,7 +21911,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        "\\[ f(x) = \\sin(x) \\]"
+	        "\\[ f(x) = \\cos(x) \\]"
 	      ),
 	      React.createElement(
 	        "p",
@@ -21960,7 +21960,7 @@
 	        '{',
 	        "matrix",
 	        '}',
-	        "f(a) = \\sin(a) \\\\ f(b) = \\cos(b) \\end",
+	        "f(a) = \\cos(a) \\\\ f(b) = \\sin(b) \\end",
 	        '{',
 	        "matrix",
 	        '}',
@@ -21998,7 +21998,7 @@
 	        '{',
 	        "matrix",
 	        '}',
-	        "f_a(t) = \\sin(t) \\\\ f_b(t) = \\cos(t) \\end",
+	        "f_a(t) = \\cos(t) \\\\ f_b(t) = \\sin(t) \\end",
 	        '{',
 	        "matrix",
 	        '}',
@@ -22072,7 +22072,7 @@
 	        '{',
 	        "matrix",
 	        '}',
-	        "x = \\sin(t) \\\\ y = \\cos(t) \\end",
+	        "x = \\cos(t) \\\\ y = \\sin(t) \\end",
 	        '{',
 	        "matrix",
 	        '}',

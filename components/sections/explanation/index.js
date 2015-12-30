@@ -30,7 +30,7 @@ var Explanation = React.createClass({
         some other value, using some kind of number manipulation:</p>
 
         <LaTeX>\[
-          f(x) = \sin(x)
+          f(x) = \cos(x)
         \]</LaTeX>
 
         <p>The notation <i>f(x)</i> is the standard way to show that it's a function (by convention
@@ -41,8 +41,8 @@ var Explanation = React.createClass({
         Let's take the following two functions:</p>
 
         <LaTeX>\[\begin{matrix}
-          f(a) = \sin(a) \\
-          f(b) = \cos(b)
+          f(a) = \cos(a) \\
+          f(b) = \sin(b)
         \end{matrix}\]</LaTeX>
 
         <p>There's nothing really remarkable about them, they're just a sine and cosine function,
@@ -53,8 +53,8 @@ var Explanation = React.createClass({
 
         <LaTeX>\[
         \left \{ \begin{matrix}
-          f_a(t) = \sin(t) \\
-          f_b(t) = \cos(t)
+          f_a(t) = \cos(t) \\
+          f_b(t) = \sin(t)
         \end{matrix} \right. \]</LaTeX>
 
         <p>Multiple functions, but only one variable. If we change the value for <i>t</i>,
@@ -65,8 +65,8 @@ var Explanation = React.createClass({
 
         <LaTeX>\[
         \left \{ \begin{matrix}
-          x = \sin(t) \\
-          y = \cos(t)
+          x = \cos(t) \\
+          y = \sin(t)
         \end{matrix} \right. \]</LaTeX>
 
         <p>There we go. <i>x</i>/<i>y</i> coordinates, linked through some mystery value <i>t</i>.</p>
