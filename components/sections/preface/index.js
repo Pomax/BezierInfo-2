@@ -1,10 +1,14 @@
 var React = require("react");
 
 var Preface = React.createClass({
+  statics: {
+    title: "Preface"
+  },
 
   render: function() {
     return (
       <section>
+        <h2>{Preface.title}</h2>
 
         <p>In order to draw things in 2D, we usually rely on lines, which typically get classified
         into two categories: straight lines, and curves. The first of these are as easy to draw as they
@@ -30,8 +34,8 @@ var Preface = React.createClass({
         Citroën, coming up with a really elegant way of figuring out how to draw them. However, de
         Casteljau did not publish his work, making the question "who was first" hard to answer in
         any absolute sense. Or is it? Bézier curves are, at their core, "Bernstein polynomials", a family
-        of mathematical functions investigated by
-        <a href="https://en.wikipedia.org/wiki/Sergei_Natanovich_Bernstein">Sergei Natanovich Bernstein</a>,
+        of mathematical functions investigated
+        by <a href="https://en.wikipedia.org/wiki/Sergei_Natanovich_Bernstein">Sergei Natanovich Bernstein</a>,
         with publications on them at least as far back as 1912. Anyway, that's mostly trivia, what
         you are more likely to care about is that these curves are handy: you can link up multiple
         Bézier curves so that the combination looks like a single curve. If you've ever drawn Photoshop

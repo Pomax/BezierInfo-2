@@ -36,6 +36,7 @@
     "file-loader": "^0.8.5",
     "jsmin": "^1.0.1",
     "json-stringify-safe": "^5.0.1",
+    "katex": "git+https://github.com/Khan/KaTeX.git",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
     "less-watch-compiler": "^1.1.4",

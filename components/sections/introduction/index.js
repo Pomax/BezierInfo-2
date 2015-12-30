@@ -2,8 +2,11 @@ var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
-
 var Introduction = React.createClass({
+  statics: {
+    title: "A lightning introduction"
+  },
+
   drawQuadratic: function(api) {
     var curve = api.getDefaultQuadratic();
     api.setCurve(curve);
@@ -23,7 +26,7 @@ var Introduction = React.createClass({
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>A lightning introduction</SectionHeader>
+        <SectionHeader {...this.props}>{Introduction.title}</SectionHeader>
 
         <p>Let's start with the good stuff: when we're talking about Bézier curves, we're talking about the
         things that you can see in the following graphics. They run from some start point to some end point,
@@ -31,9 +34,10 @@ var Introduction = React.createClass({
         graphics on this page are interactive, go manipulate those curves a bit: click-drag the points,
         and see how their shape changes based on what you do.</p>
 
-        <Graphic title="Quadratic Bézier curves" setup={ this.drawQuadratic } draw={ this.drawCurve }/>
-
-        <Graphic title="Cubic Bézier curves" setup={ this.drawCubic } draw={ this.drawCurve }/>
+        <div className="figure">
+          <Graphic inline={true} title="Quadratic Bézier curves" setup={ this.drawQuadratic } draw={ this.drawCurve }/>
+          <Graphic inline={true} title="Cubic Bézier curves" setup={ this.drawCubic } draw={ this.drawCurve }/>
+        </div>
 
         <p>These curves are used a lot in computer aided design and computer aided manufacturing (CAD/CAM)
         applications, as well as in graphic design programs like Adobe Illustrator and Photoshop, Inkscape,

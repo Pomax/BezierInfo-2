@@ -4,6 +4,10 @@ var SectionHeader = require("../../SectionHeader.jsx");
 var LaTeX = require("../../LaTeX.jsx");
 
 var Explanation = React.createClass({
+  statics: {
+    title: "The basics of Bézier curves"
+  },
+
   circle: require("./circle"),
 
   componentWillMount: function() {
@@ -14,7 +18,7 @@ var Explanation = React.createClass({
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>The basics of Bézier curves?</SectionHeader>
+        <SectionHeader {...this.props}>{ Explanation.title }</SectionHeader>
 
         <p>Bézier curves are a form of "parametric" function. Mathematically speaking, parametric
         functions are cheats: a "function" is actually a well defined term representing a mapping

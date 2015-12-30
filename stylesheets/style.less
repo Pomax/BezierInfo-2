@@ -12,7 +12,19 @@ header, section, footer {
   margin: 0 auto;
 }
 
-header { font-size: 125%; }
+header {
+  text-align: center;
+  h1 {
+    font-size: 360%;
+    margin: 0;
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-size: 125%;
+    margin: 0;
+  }
+  margin-bottom: 2rem;
+}
 
 article {
   width: 960px;
@@ -24,17 +36,23 @@ article {
   padding: 1em;
   box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);
 }
+
 section p {
   text-align: justify;
 }
 
-section   h2:before { content: "§" attr(data-num) " — "; }
-section *+h2:before { content: ""; }
-section * h2:before { content: ""; }
+section h2 {
+  &[data-num] {
+    &:before {
+      content: "§" attr(data-num) " — ";
+    }
+  }
 
-section   h2 { margin-top: 2em; cursor: pointer; }
-section *+h2 { margin-top: 0em; cursor: auto; }
-section * h2 { margin-top: 0em; cursor: auto; }
+  a,a:active,a:hover,a:visited {
+    text-decoration: none;
+    color: inherit;
+  }
+}
 
 canvas.loading-sketch {
   background: url('../images/ajax-loader.gif');
@@ -229,15 +247,50 @@ figure {
   @psize: 0.5em;
   padding: @psize @psize 0 @psize;
   text-align: center;
+
+  &.inline {
+    border: none;
+    margin: 0;
+  }
+
   canvas {
     display: inline-block;
     background: white;
     border: 1px solid lightgrey;
   }
+
   figcaption {
-    text-align: center;    
+    text-align: center;
     padding: 0.5em 0;
     font-style: italic;
     font-size: 90%;
+  }
+}
+
+div.figure {
+  display: inline-block;
+  border: 1px solid grey;
+  text-align: center;
+}
+
+
+/* =========================================================== */
+
+navigation {
+  display: block;
+  width: 70%;
+  margin: 0 auto;
+  padding: 0;
+  ul {
+    background: #F2F2F9;
+    list-style: none;
+    margin: 0;
+    padding: 0.5em 1em;
+
+    li {
+      &:nth-child(n+2):before {
+       content: "§" attr(data-number) ". "
+      }
+    }
   }
 }

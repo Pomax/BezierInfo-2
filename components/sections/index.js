@@ -6,12 +6,12 @@ module.exports = {
   preface: require("./preface"),
   introduction: require("./introduction"),
   whatis: require("./whatis"),
-  explanation: require("./explanation")
+  explanation: require("./explanation"),
+  control: require("./control")
 };
 
 
 /*
-  control: require("./control.jsx"),
 
   matrix: require("./matrix.jsx"),
   decasteljau: require("./decasteljau.jsx"),

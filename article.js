@@ -56,7 +56,7 @@
 	var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(159);
 	var Article = __webpack_require__(160);
-	var style = __webpack_require__(174);
+	var style = __webpack_require__(175);
 
 	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"));
 
@@ -19665,17 +19665,64 @@
 	    };
 	  },
 
-	  render: function render() {
-	    var _this = this;
+	  setSectionId: function setSectionId(name, entry) {
+	    ReactDOM.findDOMNode(this.refs[name]).setAttribute("id", name);
+	  },
 
-	    var sections = Object.keys(this.state.sections).map(function (name, entry) {
-	      var Type = _this.state.sections[name];
-	      return React.createElement(Type, { key: name, number: 1 + entry });
-	    });
+	  componentDidMount: function componentDidMount() {
+	    // Not sure why this doesn't just work by passing a props.id
+	    this.sectionMap(this.setSectionId);
+	  },
+
+	  sectionMap: function sectionMap(mapping) {
+	    return this.getSectionNames().map(mapping);
+	  },
+
+	  getSectionNames: function getSectionNames() {
+	    return Object.keys(this.state.sections);
+	  },
+
+	  generateSection: function generateSection(name, entry) {
+	    var Type = this.state.sections[name];
+	    return React.createElement(Type, { key: name, ref: name, name: name, number: entry });
+	  },
+
+	  generateNavItem: function generateNavItem(name, entry) {
+	    var Type = this.state.sections[name];
+	    return React.createElement(
+	      "li",
+	      { "data-number": entry },
+	      React.createElement(
+	        "a",
+	        { href: '#' + name },
+	        Type.title || name
+	      )
+	    );
+	  },
+
+	  render: function render() {
+	    var sections = this.sectionMap(this.generateSection);
 	    return React.createElement(
 	      "div",
 	      null,
-	      sections
+	      React.createElement(
+	        "div",
+	        { ref: "navigation" },
+	        React.createElement(
+	          "navigation",
+	          null,
+	          React.createElement(
+	            "ul",
+	            { className: "navigation" },
+	            this.sectionMap(this.generateNavItem)
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        "div",
+	        { ref: "sections" },
+	        sections
+	      )
 	    );
 	  }
 	});
@@ -19696,11 +19743,11 @@
 	  preface: __webpack_require__(162),
 	  introduction: __webpack_require__(163),
 	  whatis: __webpack_require__(168),
-	  explanation: __webpack_require__(172)
+	  explanation: __webpack_require__(172),
+	  control: __webpack_require__(174)
 	};
 
 	/*
-	  control: require("./control.jsx"),
 
 	  matrix: require("./matrix.jsx"),
 	  decasteljau: require("./decasteljau.jsx"),
@@ -19754,10 +19801,19 @@
 	var Preface = React.createClass({
 	  displayName: "Preface",
 
+	  statics: {
+	    title: "Preface"
+	  },
+
 	  render: function render() {
 	    return React.createElement(
 	      "section",
 	      null,
+	      React.createElement(
+	        "h2",
+	        null,
+	        Preface.title
+	      ),
 	      React.createElement(
 	        "p",
 	        null,
@@ -19783,7 +19839,7 @@
 	          { href: "https://en.wikipedia.org/wiki/Paul_de_Casteljau" },
 	          "Paul de Casteljau"
 	        ),
-	        " was first, investigating the nature of these curves in 1959 while working at Citroën, coming up with a really elegant way of figuring out how to draw them. However, de Casteljau did not publish his work, making the question \"who was first\" hard to answer in any absolute sense. Or is it? Bézier curves are, at their core, \"Bernstein polynomials\", a family of mathematical functions investigated by",
+	        " was first, investigating the nature of these curves in 1959 while working at Citroën, coming up with a really elegant way of figuring out how to draw them. However, de Casteljau did not publish his work, making the question \"who was first\" hard to answer in any absolute sense. Or is it? Bézier curves are, at their core, \"Bernstein polynomials\", a family of mathematical functions investigated by ",
 	        React.createElement(
 	          "a",
 	          { href: "https://en.wikipedia.org/wiki/Sergei_Natanovich_Bernstein" },
@@ -19874,6 +19930,10 @@
 	var Introduction = React.createClass({
 	  displayName: "Introduction",
 
+	  statics: {
+	    title: "A lightning introduction"
+	  },
+
 	  drawQuadratic: function drawQuadratic(api) {
 	    var curve = api.getDefaultQuadratic();
 	    api.setCurve(curve);
@@ -19897,15 +19957,19 @@
 	      React.createElement(
 	        SectionHeader,
 	        this.props,
-	        "A lightning introduction"
+	        Introduction.title
 	      ),
 	      React.createElement(
 	        "p",
 	        null,
 	        "Let's start with the good stuff: when we're talking about Bézier curves, we're talking about the things that you can see in the following graphics. They run from some start point to some end point, with their curvature influenced by one or more \"intermediate\" control points. Now, because all the graphics on this page are interactive, go manipulate those curves a bit: click-drag the points, and see how their shape changes based on what you do."
 	      ),
-	      React.createElement(Graphic, { title: "Quadratic Bézier curves", setup: this.drawQuadratic, draw: this.drawCurve }),
-	      React.createElement(Graphic, { title: "Cubic Bézier curves", setup: this.drawCubic, draw: this.drawCurve }),
+	      React.createElement(
+	        "div",
+	        { className: "figure" },
+	        React.createElement(Graphic, { inline: true, title: "Quadratic Bézier curves", setup: this.drawQuadratic, draw: this.drawCurve }),
+	        React.createElement(Graphic, { inline: true, title: "Cubic Bézier curves", setup: this.drawCubic, draw: this.drawCurve })
+	      ),
 	      React.createElement(
 	        "p",
 	        null,
@@ -19927,316 +19991,347 @@
 	var ReactDOM = __webpack_require__(159);
 
 	var fix = function fix(e) {
-			e = e || window.event;
-			var target = e.target || e.srcElement,
-			    rect = target.getBoundingClientRect();
-			e.offsetX = e.clientX - rect.left;
-			e.offsetY = e.clientY - rect.top;
+	  e = e || window.event;
+	  var target = e.target || e.srcElement,
+	      rect = target.getBoundingClientRect();
+	  e.offsetX = e.clientX - rect.left;
+	  e.offsetY = e.clientY - rect.top;
 	};
 
 	var defaultWidth = 275;
 	var defaultHeight = 275;
 
 	var Graphic = React.createClass({
-			displayName: "Graphic",
+	  displayName: "Graphic",
 
-			Bezier: __webpack_require__(165),
-			curve: false,
-			mx: 0,
-			my: 0,
-			cx: 0,
-			cy: 0,
-			mp: { x: 0, y: 0 },
-			offset: { x: 0, y: 0 },
-			lpts: [],
+	  Bezier: __webpack_require__(165),
+	  curve: false,
+	  mx: 0,
+	  my: 0,
+	  cx: 0,
+	  cy: 0,
+	  mp: { x: 0, y: 0 },
+	  offset: { x: 0, y: 0 },
+	  lpts: [],
 
-			render: function render() {
-					var href = "data:text/plain," + this.props.code;
-					return React.createElement(
-							"figure",
-							null,
-							React.createElement("canvas", { ref: "canvas",
-									onMouseDown: this.mouseDown,
-									onMouseMove: this.mouseMove,
-									onMouseUp: this.mouseUp,
-									onClick: this.mouseClick
-							}),
-							React.createElement(
-									"figcaption",
-									null,
-									this.props.title
-							)
-					);
-			},
+	  render: function render() {
+	    var href = "data:text/plain," + this.props.code;
+	    return React.createElement(
+	      "figure",
+	      { className: this.props.inline ? "inline" : false },
+	      React.createElement("canvas", { ref: "canvas",
+	        onMouseDown: this.mouseDown,
+	        onMouseMove: this.mouseMove,
+	        onMouseUp: this.mouseUp,
+	        onClick: this.mouseClick
+	      }),
+	      React.createElement(
+	        "figcaption",
+	        null,
+	        this.props.title
+	      )
+	    );
+	  },
 
-			componentDidMount: function componentDidMount() {
-					var cvs = this.refs.canvas;
-					cvs.width = defaultWidth;
-					cvs.height = defaultHeight;
-					this.cvs = cvs;
-					var ctx = cvs.getContext("2d");
-					this.ctx = ctx;
-					this.props.setup(this);
-					this.props.draw(this, this.curve);
-			},
+	  componentDidMount: function componentDidMount() {
+	    var cvs = this.refs.canvas;
+	    cvs.width = defaultWidth;
+	    cvs.height = defaultHeight;
+	    this.cvs = cvs;
+	    var ctx = cvs.getContext("2d");
+	    this.ctx = ctx;
 
-			mouseDown: function mouseDown(evt) {
-					var _this = this;
+	    if (this.props.setup) {
+	      this.props.setup(this);
+	    }
 
-					fix(evt);
-					this.mx = evt.offsetX;
-					this.my = evt.offsetY;
-					this.lpts.forEach(function (p) {
-							if (Math.abs(_this.mx - p.x) < 10 && Math.abs(_this.my - p.y) < 10) {
-									_this.moving = true;
-									_this.mp = p;
-									_this.cx = p.x;
-									_this.cy = p.y;
-							}
-					});
-			},
+	    if (this.props.draw) {
+	      this.props.draw(this, this.curve);
+	    }
+	  },
 
-			mouseMove: function mouseMove(evt) {
-					fix(evt);
-					var found = false;
-					this.lpts.forEach(function (p) {
-							var mx = evt.offsetX;
-							var my = evt.offsetY;
-							if (Math.abs(mx - p.x) < 10 && Math.abs(my - p.y) < 10) {
-									found = found || true;
-							}
-					});
-					this.cvs.style.cursor = found ? "pointer" : "default";
+	  mouseDown: function mouseDown(evt) {
+	    var _this = this;
 
-					if (!this.moving) return;
-					this.ox = evt.offsetX - this.mx;
-					this.oy = evt.offsetY - this.my;
-					this.mp.x = this.cx + this.ox;
-					this.mp.y = this.cy + this.oy;
-					this.curve.update();
-					this.props.draw(this, this.curve);
-			},
+	    fix(evt);
+	    this.mx = evt.offsetX;
+	    this.my = evt.offsetY;
+	    this.lpts.forEach(function (p) {
+	      if (Math.abs(_this.mx - p.x) < 10 && Math.abs(_this.my - p.y) < 10) {
+	        _this.moving = true;
+	        _this.mp = p;
+	        _this.cx = p.x;
+	        _this.cy = p.y;
+	      }
+	    });
+	  },
 
-			mouseUp: function mouseUp(evt) {
-					if (!this.moving) return;
-					this.moving = false;
-					this.mp = false;
-			},
+	  mouseMove: function mouseMove(evt) {
+	    fix(evt);
+	    var found = false;
+	    this.lpts.forEach(function (p) {
+	      var mx = evt.offsetX;
+	      var my = evt.offsetY;
+	      if (Math.abs(mx - p.x) < 10 && Math.abs(my - p.y) < 10) {
+	        found = found || true;
+	      }
+	    });
+	    this.cvs.style.cursor = found ? "pointer" : "default";
 
-			mouseClick: function mouseClick(evt) {
-					fix(evt);
-					this.mx = evt.offsetX;
-					this.my = evt.offsetY;
-			},
+	    if (!this.moving) return;
+	    this.ox = evt.offsetX - this.mx;
+	    this.oy = evt.offsetY - this.my;
+	    this.mp.x = this.cx + this.ox;
+	    this.mp.y = this.cy + this.oy;
+	    this.curve.update();
 
-			/**
+	    if (this.props.draw) {
+	      this.props.draw(this, this.curve);
+	    }
+	  },
+
+	  mouseUp: function mouseUp(evt) {
+	    if (!this.moving) return;
+	    this.moving = false;
+	    this.mp = false;
+	  },
+
+	  mouseClick: function mouseClick(evt) {
+	    fix(evt);
+	    this.mx = evt.offsetX;
+	    this.my = evt.offsetY;
+	  },
+
+	  /**
 	   * API for curve drawing.
 	   */
 
-			reset: function reset() {
-					this.refs.canvas.width = this.refs.canvas.width;
-					this.ctx.strokeStyle = "black";
-					this.ctx.lineWidth = 1;
-					this.ctx.fillStyle = "none";
-					this.offset = { x: 0, y: 0 };
-			},
+	  reset: function reset() {
+	    this.refs.canvas.width = this.refs.canvas.width;
+	    this.ctx.strokeStyle = "black";
+	    this.ctx.lineWidth = 1;
+	    this.ctx.fillStyle = "none";
+	    this.offset = { x: 0, y: 0 };
+	  },
 
-			getPanelWidth: function getPanelWidth() {
-					return defaultWidth;
-			},
+	  getPanelWidth: function getPanelWidth() {
+	    return defaultWidth;
+	  },
 
-			getPanelHeight: function getPanelHeight() {
-					return defaultHeight;
-			},
+	  getPanelHeight: function getPanelHeight() {
+	    return defaultHeight;
+	  },
 
-			getDefaultQuadratic: function getDefaultQuadratic() {
-					return new this.Bezier(70, 250, 20, 110, 250, 60);
-			},
+	  getDefaultQuadratic: function getDefaultQuadratic() {
+	    return new this.Bezier(70, 250, 20, 110, 250, 60);
+	  },
 
-			getDefaultCubic: function getDefaultCubic() {
-					return new this.Bezier(120, 160, 35, 200, 220, 260, 220, 40);
-			},
+	  getDefaultCubic: function getDefaultCubic() {
+	    return new this.Bezier(120, 160, 35, 200, 220, 260, 220, 40);
+	  },
 
-			setPanelCount: function setPanelCount(c) {
-					var cvs = this.refs.canvas;
-					cvs.width = c * defaultWidth;
-			},
+	  setPanelCount: function setPanelCount(c) {
+	    var cvs = this.refs.canvas;
+	    cvs.width = c * defaultWidth;
+	  },
 
-			setCurve: function setCurve(c) {
-					this.curve = c;
-					this.lpts = c.points;
-			},
+	  setCurve: function setCurve(c) {
+	    this.curve = c;
+	    this.lpts = c.points;
+	  },
 
-			setOffset: function setOffset(f) {
-					this.offset = f;
-			},
+	  setOffset: function setOffset(f) {
+	    this.offset = f;
+	  },
 
-			setColor: function setColor(c) {
-					this.ctx.strokeStyle = c;
-			},
+	  setColor: function setColor(c) {
+	    this.ctx.strokeStyle = c;
+	  },
 
-			setWeight: function setWeight(c) {
-					this.ctx.lineWidth = c;
-			},
+	  getColor: function getColor() {
+	    return this.ctx.strokeStyle || "black";
+	  },
 
-			noColor: function noColor(c) {
-					this.ctx.strokeStyle = "transparent";
-			},
+	  setWeight: function setWeight(c) {
+	    this.ctx.lineWidth = c;
+	  },
 
-			setRandomColor: function setRandomColor() {
-					var r = 255 * Math.random() | 0,
-					    g = 255 * Math.random() | 0,
-					    b = 255 * Math.random() | 0;
-					this.ctx.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
-			},
+	  noColor: function noColor(c) {
+	    this.ctx.strokeStyle = "transparent";
+	  },
 
-			setRandomFill: function setRandomFill(a) {
-					a = typeof a === "undefined" ? 1 : a;
-					var r = 255 * Math.random() | 0,
-					    g = 255 * Math.random() | 0,
-					    b = 255 * Math.random() | 0;
-					this.ctx.fillStyle = "rgba(" + r + "," + g + "," + b + "," + a + ")";
-			},
+	  setRandomColor: function setRandomColor() {
+	    var r = 205 * Math.random() | 0,
+	        g = 155 * Math.random() | 0,
+	        b = 255 * Math.random() | 0;
+	    this.ctx.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
+	  },
 
-			setFill: function setFill(c) {
-					this.ctx.fillStyle = c;
-			},
+	  setRandomFill: function setRandomFill(a) {
+	    a = typeof a === "undefined" ? 1 : a;
+	    var r = 255 * Math.random() | 0,
+	        g = 255 * Math.random() | 0,
+	        b = 255 * Math.random() | 0;
+	    this.ctx.fillStyle = "rgba(" + r + "," + g + "," + b + "," + a + ")";
+	  },
 
-			noFill: function noFill() {
-					this.ctx.fillStyle = "transparent";
-			},
+	  setFill: function setFill(c) {
+	    this.ctx.fillStyle = c;
+	  },
 
-			drawSkeleton: function drawSkeleton(curve, offset) {
-					offset = offset || { x: 0, y: 0 };
-					var pts = curve.points;
-					this.ctx.strokeStyle = "lightgrey";
-					this.drawLine(pts[0], pts[1], offset);
-					if (pts.length === 3) {
-							this.drawLine(pts[1], pts[2], offset);
-					} else {
-							this.drawLine(pts[2], pts[3], offset);
-					}
-					this.ctx.strokeStyle = "black";
-					this.drawPoints(pts, offset);
-					this.drawCoordinates(curve, offset);
-			},
+	  getFill: function getFill() {
+	    return this.ctx.fillStyle || "transparent";
+	  },
 
-			drawCoordinates: function drawCoordinates(curve, offset) {
-					var _this2 = this;
+	  noFill: function noFill() {
+	    this.ctx.fillStyle = "transparent";
+	  },
 
-					offset = offset || { x: 0, y: 0 };
-					var pts = curve.points;
-					this.setFill("black");
-					pts.forEach(function (p) {
-							_this2.drawText("(" + p.x + "," + p.y + ")", { x: p.x + 5, y: p.y + 10 });
-					});
-			},
+	  drawSkeleton: function drawSkeleton(curve, offset) {
+	    offset = offset || { x: 0, y: 0 };
+	    var pts = curve.points;
+	    this.ctx.strokeStyle = "lightgrey";
+	    this.drawLine(pts[0], pts[1], offset);
+	    if (pts.length === 3) {
+	      this.drawLine(pts[1], pts[2], offset);
+	    } else {
+	      this.drawLine(pts[2], pts[3], offset);
+	    }
+	    this.ctx.strokeStyle = "black";
+	    this.drawPoints(pts, offset);
+	    this.drawCoordinates(curve, offset);
+	  },
 
-			drawCurve: function drawCurve(curve, offset) {
-					offset = offset || { x: 0, y: 0 };
-					var ox = offset.x + this.offset.x;
-					var oy = offset.y + this.offset.y;
-					this.ctx.beginPath();
-					var p = curve.points,
-					    i;
-					this.ctx.moveTo(p[0].x + ox, p[0].y + oy);
-					if (p.length === 3) {
-							this.ctx.quadraticCurveTo(p[1].x + ox, p[1].y + oy, p[2].x + ox, p[2].y + oy);
-					}
-					if (p.length === 4) {
-							this.ctx.bezierCurveTo(p[1].x + ox, p[1].y + oy, p[2].x + ox, p[2].y + oy, p[3].x + ox, p[3].y + oy);
-					}
-					this.ctx.stroke();
-					this.ctx.closePath();
-			},
+	  drawCoordinates: function drawCoordinates(curve, offset) {
+	    var _this2 = this;
 
-			drawLine: function drawLine(p1, p2, offset) {
-					offset = offset || { x: 0, y: 0 };
-					var ox = offset.x + this.offset.x;
-					var oy = offset.y + this.offset.y;
-					this.ctx.beginPath();
-					this.ctx.moveTo(p1.x + ox, p1.y + oy);
-					this.ctx.lineTo(p2.x + ox, p2.y + oy);
-					this.ctx.stroke();
-			},
+	    offset = offset || { x: 0, y: 0 };
+	    var pts = curve.points;
+	    this.setFill("black");
+	    pts.forEach(function (p) {
+	      _this2.text("(" + p.x + "," + p.y + ")", { x: p.x + 5, y: p.y + 10 });
+	    });
+	  },
 
-			drawPoint: function drawPoint(p, offset) {
-					this.drawCircle(p, 1, offset);
-			},
+	  drawFunction: function drawFunction(generator, offset) {
+	    var p0 = generator(0),
+	        plast = generator(1),
+	        step = generator.step || 0.01,
+	        p,
+	        t;
+	    for (t = step; t < 1.0; t += step) {
+	      p = generator(t);
+	      this.drawLine(p0, p, offset);
+	      p0 = p;
+	    }
+	    this.drawLine(p, plast, offset);
+	  },
 
-			drawPoints: function drawPoints(points, offset) {
-					offset = offset || { x: 0, y: 0 };
-					points.forEach((function (p) {
-							this.drawCircle(p, 3, offset);
-					}).bind(this));
-			},
+	  drawCurve: function drawCurve(curve, offset) {
+	    offset = offset || { x: 0, y: 0 };
+	    var ox = offset.x + this.offset.x;
+	    var oy = offset.y + this.offset.y;
+	    this.ctx.beginPath();
+	    var p = curve.points,
+	        i;
+	    this.ctx.moveTo(p[0].x + ox, p[0].y + oy);
+	    if (p.length === 3) {
+	      this.ctx.quadraticCurveTo(p[1].x + ox, p[1].y + oy, p[2].x + ox, p[2].y + oy);
+	    }
+	    if (p.length === 4) {
+	      this.ctx.bezierCurveTo(p[1].x + ox, p[1].y + oy, p[2].x + ox, p[2].y + oy, p[3].x + ox, p[3].y + oy);
+	    }
+	    this.ctx.stroke();
+	    this.ctx.closePath();
+	  },
 
-			drawArc: function drawArc(p, offset) {
-					offset = offset || { x: 0, y: 0 };
-					var ox = offset.x + this.offset.x;
-					var oy = offset.y + this.offset.y;
-					this.ctx.beginPath();
-					this.ctx.moveTo(p.x + ox, p.y + oy);
-					this.ctx.arc(p.x + ox, p.y + oy, p.r, p.s, p.e);
-					this.ctx.lineTo(p.x + ox, p.y + oy);
-					this.ctx.fill();
-					this.ctx.stroke();
-			},
+	  drawLine: function drawLine(p1, p2, offset) {
+	    offset = offset || { x: 0, y: 0 };
+	    var ox = offset.x + this.offset.x;
+	    var oy = offset.y + this.offset.y;
+	    this.ctx.beginPath();
+	    this.ctx.moveTo(p1.x + ox, p1.y + oy);
+	    this.ctx.lineTo(p2.x + ox, p2.y + oy);
+	    this.ctx.stroke();
+	  },
 
-			drawCircle: function drawCircle(p, r, offset) {
-					offset = offset || { x: 0, y: 0 };
-					var ox = offset.x + this.offset.x;
-					var oy = offset.y + this.offset.y;
-					this.ctx.beginPath();
-					this.ctx.arc(p.x + ox, p.y + oy, r, 0, 2 * Math.PI);
-					this.ctx.stroke();
-			},
+	  drawPoint: function drawPoint(p, offset) {
+	    this.drawCircle(p, 1, offset);
+	  },
 
-			drawbbox: function drawbbox(bbox, offset) {
-					offset = offset || { x: 0, y: 0 };
-					var ox = offset.x + this.offset.x;
-					var oy = offset.y + this.offset.y;
-					this.ctx.beginPath();
-					this.ctx.moveTo(bbox.x.min + ox, bbox.y.min + oy);
-					this.ctx.lineTo(bbox.x.min + ox, bbox.y.max + oy);
-					this.ctx.lineTo(bbox.x.max + ox, bbox.y.max + oy);
-					this.ctx.lineTo(bbox.x.max + ox, bbox.y.min + oy);
-					this.ctx.closePath();
-					this.ctx.stroke();
-			},
+	  drawPoints: function drawPoints(points, offset) {
+	    offset = offset || { x: 0, y: 0 };
+	    points.forEach((function (p) {
+	      this.drawCircle(p, 3, offset);
+	    }).bind(this));
+	  },
 
-			drawShape: function drawShape(shape, offset) {
-					offset = offset || { x: 0, y: 0 };
-					var ox = offset.x + this.offset.x;
-					var oy = offset.y + this.offset.y;
-					var order = shape.forward.points.length - 1;
-					this.ctx.beginPath();
-					this.ctx.moveTo(ox + shape.startcap.points[0].x, oy + shape.startcap.points[0].y);
-					this.ctx.lineTo(ox + shape.startcap.points[3].x, oy + shape.startcap.points[3].y);
-					if (order === 3) {
-							this.ctx.bezierCurveTo(ox + shape.forward.points[1].x, oy + shape.forward.points[1].y, ox + shape.forward.points[2].x, oy + shape.forward.points[2].y, ox + shape.forward.points[3].x, oy + shape.forward.points[3].y);
-					} else {
-							this.ctx.quadraticCurveTo(ox + shape.forward.points[1].x, oy + shape.forward.points[1].y, ox + shape.forward.points[2].x, oy + shape.forward.points[2].y);
-					}
-					this.ctx.lineTo(ox + shape.endcap.points[3].x, oy + shape.endcap.points[3].y);
-					if (order === 3) {
-							this.ctx.bezierCurveTo(ox + shape.back.points[1].x, oy + shape.back.points[1].y, ox + shape.back.points[2].x, oy + shape.back.points[2].y, ox + shape.back.points[3].x, oy + shape.back.points[3].y);
-					} else {
-							this.ctx.quadraticCurveTo(ox + shape.back.points[1].x, oy + shape.back.points[1].y, ox + shape.back.points[2].x, oy + shape.back.points[2].y);
-					}
-					this.ctx.closePath();
-					this.ctx.fill();
-					this.ctx.stroke();
-			},
+	  drawArc: function drawArc(p, offset) {
+	    offset = offset || { x: 0, y: 0 };
+	    var ox = offset.x + this.offset.x;
+	    var oy = offset.y + this.offset.y;
+	    this.ctx.beginPath();
+	    this.ctx.moveTo(p.x + ox, p.y + oy);
+	    this.ctx.arc(p.x + ox, p.y + oy, p.r, p.s, p.e);
+	    this.ctx.lineTo(p.x + ox, p.y + oy);
+	    this.ctx.fill();
+	    this.ctx.stroke();
+	  },
 
-			drawText: function drawText(text, offset) {
-					offset = offset || { x: 0, y: 0 };
-					if (this.offset) {
-							offset.x += this.offset.x;
-							offset.y += this.offset.y;
-					}
-					this.ctx.fillText(text, offset.x, offset.y);
-			}
+	  drawCircle: function drawCircle(p, r, offset) {
+	    offset = offset || { x: 0, y: 0 };
+	    var ox = offset.x + this.offset.x;
+	    var oy = offset.y + this.offset.y;
+	    this.ctx.beginPath();
+	    this.ctx.arc(p.x + ox, p.y + oy, r, 0, 2 * Math.PI);
+	    this.ctx.stroke();
+	  },
+
+	  drawbbox: function drawbbox(bbox, offset) {
+	    offset = offset || { x: 0, y: 0 };
+	    var ox = offset.x + this.offset.x;
+	    var oy = offset.y + this.offset.y;
+	    this.ctx.beginPath();
+	    this.ctx.moveTo(bbox.x.min + ox, bbox.y.min + oy);
+	    this.ctx.lineTo(bbox.x.min + ox, bbox.y.max + oy);
+	    this.ctx.lineTo(bbox.x.max + ox, bbox.y.max + oy);
+	    this.ctx.lineTo(bbox.x.max + ox, bbox.y.min + oy);
+	    this.ctx.closePath();
+	    this.ctx.stroke();
+	  },
+
+	  drawShape: function drawShape(shape, offset) {
+	    offset = offset || { x: 0, y: 0 };
+	    var ox = offset.x + this.offset.x;
+	    var oy = offset.y + this.offset.y;
+	    var order = shape.forward.points.length - 1;
+	    this.ctx.beginPath();
+	    this.ctx.moveTo(ox + shape.startcap.points[0].x, oy + shape.startcap.points[0].y);
+	    this.ctx.lineTo(ox + shape.startcap.points[3].x, oy + shape.startcap.points[3].y);
+	    if (order === 3) {
+	      this.ctx.bezierCurveTo(ox + shape.forward.points[1].x, oy + shape.forward.points[1].y, ox + shape.forward.points[2].x, oy + shape.forward.points[2].y, ox + shape.forward.points[3].x, oy + shape.forward.points[3].y);
+	    } else {
+	      this.ctx.quadraticCurveTo(ox + shape.forward.points[1].x, oy + shape.forward.points[1].y, ox + shape.forward.points[2].x, oy + shape.forward.points[2].y);
+	    }
+	    this.ctx.lineTo(ox + shape.endcap.points[3].x, oy + shape.endcap.points[3].y);
+	    if (order === 3) {
+	      this.ctx.bezierCurveTo(ox + shape.back.points[1].x, oy + shape.back.points[1].y, ox + shape.back.points[2].x, oy + shape.back.points[2].y, ox + shape.back.points[3].x, oy + shape.back.points[3].y);
+	    } else {
+	      this.ctx.quadraticCurveTo(ox + shape.back.points[1].x, oy + shape.back.points[1].y, ox + shape.back.points[2].x, oy + shape.back.points[2].y);
+	    }
+	    this.ctx.closePath();
+	    this.ctx.fill();
+	    this.ctx.stroke();
+	  },
+
+	  text: function text(_text, offset) {
+	    offset = offset || { x: 0, y: 0 };
+	    if (this.offset) {
+	      offset.x += this.offset.x;
+	      offset.y += this.offset.y;
+	    }
+	    this.ctx.fillText(_text, offset.x, offset.y);
+	  }
 	});
 
 	module.exports = Graphic;
@@ -21424,7 +21519,11 @@
 	    return React.createElement(
 	      "h2",
 	      { "data-num": this.props.number },
-	      this.props.children
+	      React.createElement(
+	        "a",
+	        { href: '#' + this.props.name },
+	        this.props.children
+	      )
 	    );
 	  }
 	});
@@ -21445,6 +21544,10 @@
 	var Whatis = React.createClass({
 	  displayName: "Whatis",
 
+	  statics: {
+	    title: "So what makes a Bézier Curve?"
+	  },
+
 	  interpolation: __webpack_require__(171),
 
 	  componentWillMount: function componentWillMount() {
@@ -21459,7 +21562,7 @@
 	      React.createElement(
 	        SectionHeader,
 	        this.props,
-	        "What is a Bézier Curve?"
+	        Whatis.title
 	      ),
 	      React.createElement(
 	        "p",
@@ -21470,12 +21573,7 @@
 	          null,
 	          "are"
 	        ),
-	        " Bézier curves, really?"
-	      ),
-	      React.createElement(
-	        "p",
-	        null,
-	        "There are two ways to explain what a Bézier curve is, and they turn out to be the entirely equivalent, but one of them uses complicated maths, and the other uses really simple maths. So... let's start with the simple explanation:"
+	        " Bézier curves, really? There are two ways to explain what a Bézier curve is, and they turn out to be the entirely equivalent, but one of them uses complicated maths, and the other uses really simple maths. So... let's start with the simple explanation:"
 	      ),
 	      React.createElement(
 	        "p",
@@ -21486,30 +21584,48 @@
 	          { href: "https://en.wikipedia.org/wiki/Linear_interpolation" },
 	          "linear interpolations"
 	        ),
-	        ". That sounds complicated but you've been doing linear interpolation since you were very young: any time you had to point at something between two other things, you've been applying linear interpolation. It's simply \"picking a point between two, points\". If we know the distance between those two points, and we want a new point that is, say, 20% the distance away from the first point (and thus 80% the distance away from the second point) then we can compute that really easily:"
+	        ". That sounds complicated but you've been doing linear interpolation since you were very young: any time you had to point at something between two other things, you've been applying linear interpolation. It's simply \"picking a point between two, points\"."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "If we know the distance between those two points, and we want a new point that is, say, 20% the distance away from the first point (and thus 80% the distance away from the second point) then we can compute that really easily:"
 	      ),
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        "\\[ p_1 = some\\ point, \\\\ p_2 = some\\ other\\ point, \\\\ distance = (p_2 - p_1), \\\\ ratio = \\frac",
+	        "\\[ Given \\left ( \\begin",
+	        '{',
+	        "align",
+	        '}',
+	        "p_1 &= some\\ point \\\\ p_2 &= some\\ other\\ point \\\\ distance &= (p_2 - p_1) \\\\ ratio &= \\frac",
 	        '{',
 	        "percentage",
 	        '}',
 	        '{',
 	        "100",
 	        '}',
-	        ", \\\\ new\\ point = p_1 + distance \\cdot ratio \\]"
+	        " \\\\ \\end",
+	        '{',
+	        "align",
+	        '}',
+	        "\\right ),\\ our\\ new\\ point = p_1 + distance \\cdot ratio \\]"
 	      ),
 	      React.createElement(
 	        "p",
 	        null,
-	        "So let's look at that in action: the following graphic is interactive in that you can use your '+' and '-' keys to increase or decrease the interpolation distance, to see what happens. We start with three points, which gives us two lines. Linear interpolation over those lines gives use two points, between which we can again perform linear interpolation, yielding a single point. And that point, and all points we can form in this way for all distances taken together, form our Bézier curve:"
+	        "So let's look at that in action: the following graphic is interactive in that you can use your '+' and '-' keys to increase or decrease the interpolation distance, to see what happens. We start with three points, which gives us two lines. Linear interpolation over those lines gives use two points, between which we can again perform linear interpolation, yielding a single point. And that point —and all points we can form in this way for all distances taken together— form our Bézier curve:"
 	      ),
 	      React.createElement(Graphic, { title: "Linear Interpolation leading to Bézier curves", setup: this.setup, draw: this.draw }),
 	      React.createElement(
 	        "p",
 	        null,
-	        "And that brings us to the complicated maths: calculus. While it doesn't look like that's what we've just done, we actually just drew a quadratic curve, in steps, rather than in a single go. One of the fascinating parts about Bézier curves is that they can both be described in terms of polynomial functions, as well as in terms of very simple interpolations of interpolations of [...]. That it turn means we can look at what these curves can do based on both \"real maths\" (by examining the functions, their derivatives, and all that stuff), as well as by looking at the \"mechanical\" composition (which tells us that a curve will never extend beyond the points we used to construct it, for instance)"
+	        "And that brings us to the complicated maths: calculus."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "While it doesn't look like that's what we've just done, we actually just drew a quadratic curve, in steps, rather than in a single go. One of the fascinating parts about Bézier curves is that they can both be described in terms of polynomial functions, as well as in terms of very simple interpolations of interpolations of [...]. That it turn means we can look at what these curves can do based on both \"real maths\" (by examining the functions, their derivatives, and all that stuff), as well as by looking at the \"mechanical\" composition (which tells us that a curve will never extend beyond the points we used to construct it, for instance)"
 	      ),
 	      React.createElement(
 	        "p",
@@ -21530,10 +21646,9 @@
 
 	var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(159);
+	var noop = __webpack_require__(170);
 
 	var MathJax = typeof window !== "undefined" ? window.MathJax : false;
-
-	var noop = function noop() {};
 
 	// fallback will simply do nothing when typesetting.
 	if (!MathJax) {
@@ -21542,25 +21657,24 @@
 
 	var LaTeX = React.createClass({
 	  displayName: "LaTeX",
-
-	  mixins: [__webpack_require__(170)],
-
-	  componentDidMount: function componentDidMount() {
-	    this.setComponentVisbilityRateLimit(200);
+	  getInitialState: function getInitialState() {
+	    var data = this.props.children;
+	    if (!data.forEach) data = [data];
+	    return { latex: data.join('') };
 	  },
 
-	  componentVisibilityChanged: function componentVisibilityChanged() {
-	    var visible = this.state.visible;
-	    if (visible) {
-	      MathJax.Hub.Queue(["Typeset", MathJax.Hub, this.refs.latex, false]);
-	      this.componentVisibilityChanged = noop;
-	    }
+	  componentDidMount: function componentDidMount() {
+	    MathJax.Hub.Queue(["Typeset", MathJax.Hub, this.refs.latex, false]);
+	    MathJax.Hub.Queue(this.bindHTML);
+	  },
+
+	  bindHTML: function bindHTML() {
+	    this.setState({ html: this.refs.latex.innerHTML });
 	  },
 
 	  render: function render() {
-	    var data = this.props.children;
-	    if (!data.forEach) data = [data];
-	    return React.createElement("p", { ref: "latex", dangerouslySetInnerHTML: { __html: data.join('') } });
+	    var content = this.state.html ? this.state.html : this.state.latex;
+	    return React.createElement("p", { ref: "latex", dangerouslySetInnerHTML: { __html: content } });
 	  }
 	});
 
@@ -21568,169 +21682,14 @@
 
 /***/ },
 /* 170 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	(function() {
-	  var React = typeof window !== 'undefined' && window.React || __webpack_require__(2);
+	"use strict";
 
-	  var RATE_LIMIT = 25;
-
-	  var ComponentVisibilityMixin = {
-	    setComponentVisbilityRateLimit: function(milliseconds) {
-	      RATE_LIMIT = milliseconds;
-	    },
-
-	    getInitialState: function() {
-	      return { visible: false };
-	    },
-
-	    componentDidMount: function() {
-	      this.enableVisbilityHandling(true);
-	    },
-
-	    componentWillUnmount: function() {
-	      this.disableVisbilityHandling();
-	    },
-
-	    /**
-	     * Check whether a component is in view based on its DOM node,
-	     * checking for both vertical and horizontal in-view-ness, as
-	     * well as whether or not it's invisible due to CSS rules based
-	     * on opacity:0 or visibility:hidden.
-	     */
-	    checkComponentVisibility: function() {
-	      var domnode = this._dom_node,
-	          gcs = window.getComputedStyle(domnode, false),
-	          dims = domnode.getBoundingClientRect(),
-	          h = window.innerHeight,
-	          w = window.innerWidth,
-	          // are we vertically visible?
-	          topVisible = 0 < dims.top && dims.top < h,
-	          bottomVisible = 0 < dims.bottom && dims.bottom < h,
-	          verticallyVisible = topVisible || bottomVisible,
-	          // also, are we horizontally visible?
-	          leftVisible = 0 < dims.left && dims.left < w,
-	          rightVisible = 0 < dims.right && dims.right < w,
-	          horizontallyVisible = leftVisible || rightVisible,
-	          // we're only visible if both of those are true.
-	          visible = horizontallyVisible && verticallyVisible;
-
-	      // but let's be fair: if we're opacity: 0 or
-	      // visibility: hidden, or browser window is minimized we're not visible at all.
-	      if(visible) {
-	        var isDocHidden = document.hidden;
-	        var isElementNotDisplayed = (gcs.getPropertyValue("display") === "none");
-	        var elementHasZeroOpacity = (gcs.getPropertyValue("opacity") === 0);
-	        var isElementHidden = (gcs.getPropertyValue("visibility") === "hidden");
-	        visible = visible && !(
-	          isDocHidden || isElementNotDisplayed || elementHasZeroOpacity || isElementHidden
-	        );
-	      }
-
-	      // at this point, if our visibility is not what we expected,
-	      // update our state so that we can trigger whatever needs to
-	      // happen.
-	      if(visible !== this.state.visible) {
-	        // set State first:
-	        this.setState({ visible: visible },
-	        // then notify the component the value was changed:
-	        function() {
-	          if (this.componentVisibilityChanged) {
-	            this.componentVisibilityChanged();
-	          }
-	        });
-	      }
-	    },
-
-	    /**
-	     * This can be called to manually turn on visibility handling, if at
-	     * some point it got turned off. Call this without arguments to turn
-	     * listening on, or with argument "true" to turn listening on and
-	     * immediately check whether this element is already visible or not.
-	     */
-	    enableVisbilityHandling: function(checkNow) {
-	      if (typeof window === "undefined") {
-	        return console.error("This environment lacks 'window' support.");
-	      }
-
-	      if (typeof document === "undefined") {
-	        return console.error("This environment lacks 'document' support.");
-	      }
-
-	      if (!this._dom_node) {
-	        this._dom_node = React.findDOMNode(this);
-	      }
-	      var domnode = this._dom_node;
-
-	      this._rcv_fn = function() {
-	        if(this._rcv_lock) {
-	          this._rcv_schedule = true;
-	          return;
-	        }
-	        this._rcv_lock = true;
-	        this.checkComponentVisibility();
-	        this._rcv_timeout = setTimeout(function() {
-	          this._rcv_lock = false;
-	          if (this._rcv_schedule) {
-	            this._rcv_schedule = false;
-	            this.checkComponentVisibility();
-	          }
-	        }.bind(this), RATE_LIMIT);
-	      }.bind(this);
-
-	      /* Adding scroll listeners to all element's parents */
-	      while (domnode.nodeName !== 'BODY' && domnode.parentElement) {
-	        domnode = domnode.parentElement;
-	        domnode.addEventListener("scroll", this._rcv_fn);
-	      }
-	      /* Adding listeners to page events */
-	      document.addEventListener("visibilitychange", this._rcv_fn);
-	      document.addEventListener("scroll", this._rcv_fn);
-	      window.addEventListener("resize", this._rcv_fn);
-
-	      if (checkNow) { this._rcv_fn(); }
-	    },
-
-	    /**
-	     * This can be called to manually turn off visibility handling. This
-	     * is particularly handy when you're running it on a lot of components
-	     * and you only really need to do something once, like loading in
-	     * static assets on first-time-in-view-ness (that's a word, right?).
-	     */
-	    disableVisbilityHandling: function() {
-	      clearTimeout(this._rcv_timeout);
-	      if (this._rcv_fn) {
-	        var domnode = this._dom_node;
-
-	        while (domnode.nodeName !== 'BODY' && domnode.parentElement) {
-	          domnode = domnode.parentElement;
-	          domnode.removeEventListener("scroll", this._rcv_fn);
-	        }
-
-	        document.removeEventListener("visibilitychange", this._rcv_fn);
-	        document.removeEventListener("scroll", this._rcv_fn);
-	        window.removeEventListener("resize", this._rcv_fn);
-	        this._rcv_fn = false;
-	      }
-	    }
-	  };
-
-	  if(true) {
-	    module.exports = ComponentVisibilityMixin;
-	  }
-
-	  else if (typeof define !== "undefined") {
-	    define(function() {
-	      return ComponentVisibilityMixin;
-	    });
-	  }
-
-	  else if (typeof window !== "undefined") {
-	    window.ComponentVisibilityMixin = ComponentVisibilityMixin;
-	  }
-
-	}());
-
+	/**
+	 * because somethings you just need a no-op
+	 */
+	module.exports = function noop() {};
 
 /***/ },
 /* 171 */
@@ -21804,7 +21763,7 @@
 	    sketch.setColor("black");
 	    sketch.setFill("black");
 	    sketch.drawSkeleton(curve);
-	    sketch.drawCurve(curve);
+	    //sketch.drawCurve(curve);
 
 	    // draw 20% off-start points and struts
 	    sketch.setWeight(2);
@@ -21827,7 +21786,7 @@
 	    sketch.drawCircle(p1e3, 3);
 	    sketch.drawCircle(p2e3, 3);
 
-	    sketch.drawText("First linear interpolation at 20% / 40% / 60%", { x: 5, y: 15 });
+	    sketch.text("First linear interpolation at 20% / 40% / 60%", { x: 5, y: 15 });
 
 	    // next panel
 	    sketch.setColor("black");
@@ -21836,7 +21795,7 @@
 	    sketch.drawLine({ x: 0, y: 0 }, { x: 0, y: this.dim });
 
 	    sketch.drawSkeleton(curve);
-	    sketch.drawCurve(curve);
+	    //sketch.drawCurve(curve);
 
 	    sketch.setColor("rgb(100,100,200)");
 	    sketch.drawLine(p1e, p2e);
@@ -21866,7 +21825,7 @@
 	    sketch.drawLine(p1e3, m3);
 	    sketch.drawCircle(m3, 3);
 
-	    sketch.drawText("Second interpolation at 20% / 40% / 60%", { x: 5, y: 15 });
+	    sketch.text("Second interpolation at 20% / 40% / 60%", { x: 5, y: 15 });
 
 	    // next panel
 	    sketch.setColor("black");
@@ -21875,12 +21834,19 @@
 	    sketch.drawLine({ x: 0, y: 0 }, { x: 0, y: this.dim });
 
 	    sketch.drawSkeleton(curve);
-	    sketch.drawCurve(curve);
+	    sketch.setColor("lightgrey");
+	    for (var t = 1, d = 20, v, tvp; t < d; t++) {
+	      v = t / d;
+	      tvp = curve.get(v);
+	      sketch.drawCircle(tvp, 2);
+	    }
+
+	    sketch.setColor("black");
 	    sketch.drawCircle(m, 3);
 	    sketch.drawCircle(m2, 3);
 	    sketch.drawCircle(m3, 3);
 
-	    sketch.drawText("Curve points for t = 0.2, t = 0.4, t = 0.6", { x: 5, y: 15 });
+	    sketch.text("Curve points for t = 0.2, t = 0.4, t = 0.6", { x: 5, y: 15 });
 	  }
 	};
 
@@ -21898,6 +21864,10 @@
 	var Explanation = React.createClass({
 	  displayName: "Explanation",
 
+	  statics: {
+	    title: "The basics of Bézier curves"
+	  },
+
 	  circle: __webpack_require__(173),
 
 	  componentWillMount: function componentWillMount() {
@@ -21912,7 +21882,7 @@
 	      React.createElement(
 	        SectionHeader,
 	        this.props,
-	        "The basics of Bézier curves?"
+	        Explanation.title
 	      ),
 	      React.createElement(
 	        "p",
@@ -22815,7 +22785,7 @@
 	      sketch.drawPoint(p, offset);
 	      var modulo = t % 1;
 	      if (modulo < 0.05 || modulo > 0.95) {
-	        sketch.drawText("t = " + Math.round(t), {
+	        sketch.text("t = " + Math.round(t), {
 	          x: offset.x + 1.25 * w4 * Math.cos(t) - 10,
 	          y: offset.y + 1.25 * h4 * Math.sin(t) + 5
 	        });
@@ -22829,13 +22799,473 @@
 /* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var React = __webpack_require__(2);
+	var Graphic = __webpack_require__(164);
+	var SectionHeader = __webpack_require__(167);
+	var LaTeX = __webpack_require__(169);
+
+	var Control = React.createClass({
+	  displayName: "Control",
+
+	  statics: {
+	    title: "Controlling Bézier curvatures"
+	  },
+
+	  drawCubic: function drawCubic(api) {
+	    var curve = api.getDefaultCubic();
+	    api.setCurve(curve);
+	  },
+
+	  drawCurve: function drawCurve(api, curve) {
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+	  },
+
+	  drawGraphBasics: function drawGraphBasics(api, dim, pad, fwh) {
+	    api.drawLine({ x: pad, y: pad }, { x: dim - pad, y: pad });
+	    api.drawLine({ x: pad, y: pad }, { x: pad, y: dim - pad });
+
+	    api.setFill("black");
+
+	    api.text("t →", { x: dim / 2, y: 15 });
+	    api.text("0", { x: pad, y: 15 });
+	    api.text("1", { x: dim - pad, y: 15 });
+
+	    api.text("S", { x: 5, y: dim / 2 - pad });
+	    api.text("↓", { x: 5, y: dim / 2 });
+	    api.text("0%", { x: 4, y: pad + 5 });
+	    api.text("100%", { x: 2, y: dim - pad + 10 });
+	  },
+
+	  drawFunction: function drawFunction(api, label, where, generator) {
+	    api.setRandomColor();
+	    api.drawFunction(generator);
+	    api.setFill(api.getColor());
+	    if (!!label) api.text(label, where);
+	  },
+
+	  drawQuadraticLerp: function drawQuadraticLerp(api) {
+	    var dim = api.getPanelWidth(),
+	        pad = 20,
+	        fwh = dim - pad * 2;
+	    this.drawGraphBasics(api, dim, pad, fwh);
+
+	    this.drawFunction(api, "first term", { x: pad * 2, y: fwh }, function (t) {
+	      return {
+	        x: pad + t * fwh,
+	        y: pad + fwh * (1 - t) * (1 - t)
+	      };
+	    });
+	    this.drawFunction(api, "second term", { x: dim / 2 - 1.5 * pad, y: dim / 2 + pad }, function (t) {
+	      return {
+	        x: pad + t * fwh,
+	        y: pad + fwh * 2 * (1 - t) * t
+	      };
+	    });
+	    this.drawFunction(api, "third term", { x: fwh - pad * 2.5, y: fwh }, function (t) {
+	      return {
+	        x: pad + t * fwh,
+	        y: pad + fwh * t * t
+	      };
+	    });
+	  },
+
+	  drawCubicLerp: function drawCubicLerp(api) {
+	    var dim = api.getPanelWidth(),
+	        pad = 20,
+	        fwh = dim - pad * 2;
+	    this.drawGraphBasics(api, dim, pad, fwh);
+
+	    this.drawFunction(api, "first term", { x: pad * 2, y: fwh }, function (t) {
+	      return {
+	        x: pad + t * fwh,
+	        y: pad + fwh * (1 - t) * (1 - t) * (1 - t)
+	      };
+	    });
+	    this.drawFunction(api, "second term", { x: dim / 2 - 4 * pad, y: dim / 2 }, function (t) {
+	      return {
+	        x: pad + t * fwh,
+	        y: pad + fwh * 3 * (1 - t) * (1 - t) * t
+	      };
+	    });
+	    this.drawFunction(api, "third term", { x: dim / 2 + 2 * pad, y: dim / 2 }, function (t) {
+	      return {
+	        x: pad + t * fwh,
+	        y: pad + fwh * 3 * (1 - t) * t * t
+	      };
+	    });
+	    this.drawFunction(api, "fourth term", { x: fwh - pad * 2.5, y: fwh }, function (t) {
+	      return {
+	        x: pad + t * fwh,
+	        y: pad + fwh * t * t * t
+	      };
+	    });
+	  },
+
+	  draw15thLerp: function draw15thLerp(api) {
+	    var dim = api.getPanelWidth(),
+	        pad = 20,
+	        fwh = dim - pad * 2;
+	    this.drawGraphBasics(api, dim, pad, fwh);
+
+	    var factor = [1, 15, 105, 455, 1365, 3003, 5005, 6435, 6435, 5005, 3003, 1365, 455, 105, 15, 1];
+
+	    for (var n = 0; n <= 15; n++) {
+	      var label = false,
+	          position = false;
+	      if (n === 0) {
+	        label = "first term";
+	        position = { x: pad + 5, y: fwh };
+	      }
+	      if (n === 15) {
+	        label = "last term";
+	        position = { x: dim - 3.5 * pad, y: fwh };
+	      }
+	      this.drawFunction(api, label, position, function (t) {
+	        return {
+	          x: pad + t * fwh,
+	          y: pad + fwh * factor[n] * Math.pow(1 - t, 15 - n) * Math.pow(t, n)
+	        };
+	      });
+	    }
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(
+	        SectionHeader,
+	        this.props,
+	        Control.title
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Bézier curves are (like all \"splines\") interpolation functions, meaning they take a set of points, and generate values somewhere \"between\" those points. (One of the consequences of this is that you'll never be able to generate a point that lies outside the outline for the control points, commonly called the \"hull\" for the curve. Useful information!). In fact, we can visualize how each point contributes to the value generated by the function, so we can see which points are important, where, in the curve."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The following graphs show the interpolation functions for quadratic and cubic curves, with \"S\" being the strength of a point's contribution to the total sum of the Bézier function. Click or click-drag to see the interpolation percentages for each curve-defining point at a specific ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " value."
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "figure" },
+	        React.createElement(Graphic, { inline: true, preset: "simple", title: "Quadratic interpolations", draw: this.drawQuadraticLerp }),
+	        React.createElement(Graphic, { inline: true, preset: "simple", title: "Cubic interpolations", draw: this.drawCubicLerp }),
+	        React.createElement(Graphic, { inline: true, preset: "simple", title: "15th order interpolations", draw: this.draw15thLerp })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Also shown is the interpolation function for a 15",
+	        React.createElement(
+	          "sup",
+	          null,
+	          "th"
+	        ),
+	        " order Bézier function. As you can see, the start and end point contribute considerably more to the curve's shape than any other point in the control point set."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "If we want to change the curve, we need to change the weights of each point, effectively changing the interpolations. The way to do this is about as straight forward as possible: just multiply each point with a value that changes its strength. These values are conventionally called \"Weights\", and we can add them to our original Bézier function:"
+	      ),
+	      React.createElement(
+	        LaTeX,
+	        null,
+	        "\\[ Bézier(n,t) = \\sum_",
+	        '{',
+	        "i=0",
+	        '}',
+	        "^",
+	        '{',
+	        "n",
+	        '}',
+	        "\\underset",
+	        '{',
+	        "binomial\\ term",
+	        '}',
+	        '{',
+	        "\\underbrace",
+	        '{',
+	        "\\binom",
+	        '{',
+	        "n",
+	        '}',
+	        '{',
+	        "i",
+	        '}',
+	        '}',
+	        '}',
+	        "\\cdot\\ \\underset",
+	        '{',
+	        "polynomial\\ term",
+	        '}',
+	        '{',
+	        "\\underbrace",
+	        '{',
+	        "(1-t)^",
+	        '{',
+	        "n-i",
+	        '}',
+	        " \\cdot t^",
+	        '{',
+	        "i",
+	        '}',
+	        '}',
+	        '}',
+	        "\\cdot\\ \\underset",
+	        '{',
+	        "weight",
+	        '}',
+	        '{',
+	        "\\underbrace",
+	        '{',
+	        "w_i",
+	        '}',
+	        '}',
+	        "\\]"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "That looks complicated, but as it so happens, the \"weights\" are actually just the coordinate values we want our curve to have: for an ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n",
+	          React.createElement(
+	            "sup",
+	            null,
+	            "th"
+	          )
+	        ),
+	        " order curve, w",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "0"
+	        ),
+	        " is our start coordinate, w",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "n"
+	        ),
+	        " is our last coordinate, and everything in between is a controlling coordinate. Say we want a cubic curve that starts at (120,160), is controlled by (35,200) and (220,260) and ends at (220,40), we use this Bézier curve:"
+	      ),
+	      React.createElement(
+	        LaTeX,
+	        null,
+	        "\\[ \\left \\",
+	        '{',
+	        " \\begin",
+	        '{',
+	        "matrix",
+	        '}',
+	        "x = ",
+	        '{',
+	        "\\color",
+	        '{',
+	        "blue",
+	        '}',
+	        "120",
+	        '}',
+	        " \\cdot (1-t)^3 + ",
+	        '{',
+	        "\\color",
+	        '{',
+	        "blue",
+	        '}',
+	        "35",
+	        '}',
+	        " \\cdot 3 \\cdot (1-t)^2 \\cdot t + ",
+	        '{',
+	        "\\color",
+	        '{',
+	        "blue",
+	        '}',
+	        "220",
+	        '}',
+	        " \\cdot 3 \\cdot (1-t) \\cdot t^2 + ",
+	        '{',
+	        "\\color",
+	        '{',
+	        "blue",
+	        '}',
+	        "220",
+	        '}',
+	        " \\cdot t^3 \\\\ y = ",
+	        '{',
+	        "\\color",
+	        '{',
+	        "blue",
+	        '}',
+	        "160",
+	        '}',
+	        " \\cdot (1-t)^3 + ",
+	        '{',
+	        "\\color",
+	        '{',
+	        "blue",
+	        '}',
+	        "200",
+	        '}',
+	        " \\cdot 3 \\cdot (1-t)^2 \\cdot t + ",
+	        '{',
+	        "\\color",
+	        '{',
+	        "blue",
+	        '}',
+	        "260",
+	        '}',
+	        " \\cdot 3 \\cdot (1-t) \\cdot t^2 + ",
+	        '{',
+	        "\\color",
+	        '{',
+	        "blue",
+	        '}',
+	        "40",
+	        '}',
+	        " \\cdot t^3 \\end",
+	        '{',
+	        "matrix",
+	        '}',
+	        " \\right. \\]"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Which gives us the curve we saw at the top of the article:"
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "Our cubic Bézier curve", setup: this.drawCubic, draw: this.drawCurve }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "What else can we do with Bézier curves? Quite a lot, actually. The rest of this article covers a multitude of possible operations and algorithms that we can apply, and the tasks they achieve."
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "howtocode" },
+	        React.createElement(
+	          "h3",
+	          null,
+	          "How to implement the weighted basis function"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Given that we already know how to implement basis function, adding in the control points is remarkably easy:"
+	        ),
+	        React.createElement(
+	          "pre",
+	          null,
+	          "function Bezier(n,t,w[]):",
+	          '\n',
+	          "  sum = 0",
+	          '\n',
+	          "  for(k=0; k<n; k++):",
+	          '\n',
+	          "    sum += w[k] * binomial(n,k) * (1-t)^(n-k) * t^(k)",
+	          '\n',
+	          "  return sum"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "And for the extremely optimized versions:"
+	        ),
+	        React.createElement(
+	          "pre",
+	          null,
+	          "function Bezier(2,t,w[]):",
+	          '\n',
+	          "  t2 = t * t",
+	          '\n',
+	          "  mt = 1-t",
+	          '\n',
+	          "  mt2 = mt * mt",
+	          '\n',
+	          "  return w[0]*mt2 + w[1]*2*mt*t + w[2]*t2",
+	          '\n',
+	          '\n',
+	          "function Bezier(3,t,w[]):",
+	          '\n',
+	          "  t2 = t * t",
+	          '\n',
+	          "  t3 = t2 * t",
+	          '\n',
+	          "  mt = 1-t",
+	          '\n',
+	          "  mt2 = mt * mt",
+	          '\n',
+	          "  mt3 = mt2 * mt",
+	          '\n',
+	          "  return w[0]*mt3 + 3*w[1]*mt2*t + 3*w[2]*mt*t2 + w[3]*t3"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "And now we know how to program the weighted basis function."
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Control;
+
+	/**
+
+	        <textarea class="sketch-code" data-sketch-preset="ratios" data-sketch-title="Quadratic interpolations">
+	        int order = 3;
+	        </textarea>
+
+	        <textarea class="sketch-code" data-sketch-preset="ratios" data-sketch-title="Cubic interpolations">
+	        int order = 4;
+	        </textarea>
+
+	        <textarea class="sketch-code" data-sketch-preset="ratios" data-sketch-title="15th order interpolations">
+	        int order = 15;
+	        </textarea>
+
+	 **/
+
+	/**
+
+	        void setupCurve() {
+	          setupDefaultCubic();
+	        }
+
+	        void drawCurve(BezierCurve curve) {
+	          curve.draw();
+	        }</Graphic>
+
+
+	**/
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(175);
+	var content = __webpack_require__(176);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(179)(content, {});
+	var update = __webpack_require__(180)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -22852,21 +23282,21 @@
 	}
 
 /***/ },
-/* 175 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(176)();
+	exports = module.exports = __webpack_require__(177)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(177) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-size: 125%;\n}\narticle {\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\nsection p {\n  text-align: justify;\n}\nsection h2:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection * + h2:before {\n  content: \"\";\n}\nsection * h2:before {\n  content: \"\";\n}\nsection h2 {\n  margin-top: 2em;\n  cursor: pointer;\n}\nsection * + h2 {\n  margin-top: 0em;\n  cursor: auto;\n}\nsection * h2 {\n  margin-top: 0em;\n  cursor: auto;\n}\ncanvas.loading-sketch {\n  background: url(" + __webpack_require__(178) + ");\n  background-repeat: no-repeat;\n  background-position: 50% 50%;\n}\n.sketch-code {\n  display: inline-block;\n  unicode-bidi: embed;\n  font-family: monospace;\n  white-space: pre;\n  border: 1px solid black;\n  min-height: 300px;\n}\n.sketch {\n  display: inline-block;\n  border: 1px solid #DDD;\n  padding: 5px;\n  font-style: italic;\n  font-size: 80%;\n  background: #fafacc;\n}\n.sketch canvas {\n  margin: auto;\n  border: 1px solid black;\n  height: 300px;\n}\n.sketch canvas:focus {\n  outline: 1px solid rgba(0, 0, 0, 0);\n}\n.sketch img {\n  margin: auto;\n  border: 1px solid black;\n}\n.labeled-image p:before {\n  content: \"Image \" attr(data-img-label) \". \";\n}\n.labeled-image p {\n  margin: 0;\n}\n.sketch canvas[data-preset=simple],\n.sketch canvas[data-preset=poly],\n.sketch canvas[data-preset=ratios],\n.sketch canvas[data-preset=clipping],\n.sketch canvas[data-preset=abc],\n.sketch canvas[data-preset=moulding],\n.sketch canvas[data-preset=generate] {\n  width: 300px;\n}\n.sketch canvas[data-preset=twopanel] {\n  width: 600px;\n}\n.sketch canvas[data-preset=shapes],\n.sketch canvas[data-preset=threepanel] {\n  width: 900px;\n}\n.sketch-title span {\n  color: #0000c8;\n  cursor: pointer;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\n#navbar {\n  float: right;\n  background: white;\n  padding: 0 0.2em 0.5em 0.5em;\n  border: 1px solid black;\n  margin: 0 0 0.2em 1em;\n  font-size: 80%;\n}\n#navbar h3 {\n  margin: 0.2em 0;\n}\n#navbar ol {\n  margin: 0.2em;\n  margin-left: -1em;\n}\ntd p {\n  text-align: center;\n}\n#scriptblock {\n  display: none;\n}\n/**\n  GITHUB ISSUES\n**/\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n}\ngithub-issue {\n  display: block;\n  position: relative;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  /*border-radius: 7px 0 0 7px;*/\n  background: white;\n  padding: 0 0.3em;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n}\ngithub-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n/* addthis nonsense */\n.at-floatingbar-inner {\n  width: 10px;\n}\n/* =========================================================== */\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(178) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ncanvas.loading-sketch {\n  background: url(" + __webpack_require__(179) + ");\n  background-repeat: no-repeat;\n  background-position: 50% 50%;\n}\n.sketch-code {\n  display: inline-block;\n  unicode-bidi: embed;\n  font-family: monospace;\n  white-space: pre;\n  border: 1px solid black;\n  min-height: 300px;\n}\n.sketch {\n  display: inline-block;\n  border: 1px solid #DDD;\n  padding: 5px;\n  font-style: italic;\n  font-size: 80%;\n  background: #fafacc;\n}\n.sketch canvas {\n  margin: auto;\n  border: 1px solid black;\n  height: 300px;\n}\n.sketch canvas:focus {\n  outline: 1px solid rgba(0, 0, 0, 0);\n}\n.sketch img {\n  margin: auto;\n  border: 1px solid black;\n}\n.labeled-image p:before {\n  content: \"Image \" attr(data-img-label) \". \";\n}\n.labeled-image p {\n  margin: 0;\n}\n.sketch canvas[data-preset=simple],\n.sketch canvas[data-preset=poly],\n.sketch canvas[data-preset=ratios],\n.sketch canvas[data-preset=clipping],\n.sketch canvas[data-preset=abc],\n.sketch canvas[data-preset=moulding],\n.sketch canvas[data-preset=generate] {\n  width: 300px;\n}\n.sketch canvas[data-preset=twopanel] {\n  width: 600px;\n}\n.sketch canvas[data-preset=shapes],\n.sketch canvas[data-preset=threepanel] {\n  width: 900px;\n}\n.sketch-title span {\n  color: #0000c8;\n  cursor: pointer;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\n#navbar {\n  float: right;\n  background: white;\n  padding: 0 0.2em 0.5em 0.5em;\n  border: 1px solid black;\n  margin: 0 0 0.2em 1em;\n  font-size: 80%;\n}\n#navbar h3 {\n  margin: 0.2em 0;\n}\n#navbar ol {\n  margin: 0.2em;\n  margin-left: -1em;\n}\ntd p {\n  text-align: center;\n}\n#scriptblock {\n  display: none;\n}\n/**\n  GITHUB ISSUES\n**/\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n}\ngithub-issue {\n  display: block;\n  position: relative;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  /*border-radius: 7px 0 0 7px;*/\n  background: white;\n  padding: 0 0.3em;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n}\ngithub-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n/* addthis nonsense */\n.at-floatingbar-inner {\n  width: 10px;\n}\n/* =========================================================== */\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\n/* =========================================================== */\nnavigation {\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 176 */
+/* 177 */
 /***/ function(module, exports) {
 
 	/*
@@ -22922,19 +23352,19 @@
 
 
 /***/ },
-/* 177 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
 
 /***/ },
-/* 178 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/a82c213aa38c43ee54e3b86ba5bdb987.gif";
 
 /***/ },
-/* 179 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

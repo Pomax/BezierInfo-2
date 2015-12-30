@@ -62,7 +62,7 @@ module.exports = {
     sketch.setColor("black");
     sketch.setFill("black");
     sketch.drawSkeleton(curve);
-    sketch.drawCurve(curve);
+    //sketch.drawCurve(curve);
 
     // draw 20% off-start points and struts
     sketch.setWeight(2);
@@ -85,7 +85,7 @@ module.exports = {
     sketch.drawCircle(p1e3,3);
     sketch.drawCircle(p2e3,3);
 
-    sketch.drawText("First linear interpolation at 20% / 40% / 60%", {x:5, y:15});
+    sketch.text("First linear interpolation at 20% / 40% / 60%", {x:5, y:15});
 
     // next panel
     sketch.setColor("black");
@@ -94,7 +94,7 @@ module.exports = {
     sketch.drawLine({x:0, y:0}, {x:0, y:this.dim});
 
     sketch.drawSkeleton(curve);
-    sketch.drawCurve(curve);
+    //sketch.drawCurve(curve);
 
     sketch.setColor("rgb(100,100,200)");
     sketch.drawLine(p1e, p2e);
@@ -124,7 +124,7 @@ module.exports = {
     sketch.drawLine(p1e3, m3);
     sketch.drawCircle(m3,3);
 
-    sketch.drawText("Second interpolation at 20% / 40% / 60%", {x:5, y:15});
+    sketch.text("Second interpolation at 20% / 40% / 60%", {x:5, y:15});
 
     // next panel
     sketch.setColor("black");
@@ -133,11 +133,18 @@ module.exports = {
     sketch.drawLine({x:0, y:0}, {x:0, y:this.dim});
 
     sketch.drawSkeleton(curve);
-    sketch.drawCurve(curve);
+    sketch.setColor("lightgrey");
+    for(var t=1,d=20,v,tvp; t<d; t++) {
+      v = t/d;
+      tvp = curve.get(v);
+      sketch.drawCircle(tvp,2);
+    }
+
+    sketch.setColor("black");
     sketch.drawCircle(m,3);
     sketch.drawCircle(m2,3);
     sketch.drawCircle(m3,3);
 
-    sketch.drawText("Curve points for t = 0.2, t = 0.4, t = 0.6", {x:5, y:15});
+    sketch.text("Curve points for t = 0.2, t = 0.4, t = 0.6", {x:5, y:15});
   }
 };

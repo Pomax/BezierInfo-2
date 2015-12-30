@@ -25,7 +25,7 @@ module.exports = {
       sketch.drawPoint(p, offset);
       var modulo = t % 1;
       if(modulo<0.05 || modulo> 0.95) {
-        sketch.drawText("t = " + Math.round(t), {
+        sketch.text("t = " + Math.round(t), {
           x: offset.x + 1.25 * w4 * Math.cos(t) - 10,
           y: offset.y + 1.25 * h4 * Math.sin(t) + 5
         });

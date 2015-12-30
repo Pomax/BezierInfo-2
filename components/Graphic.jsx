@@ -26,7 +26,7 @@ var Graphic = React.createClass({
   render: function() {
     var href = "data:text/plain," + this.props.code;
     return (
-      <figure>
+      <figure className={this.props.inline ? "inline": false}>
         <canvas ref="canvas"
                 onMouseDown={this.mouseDown}
                 onMouseMove={this.mouseMove}
@@ -45,8 +45,14 @@ var Graphic = React.createClass({
     this.cvs = cvs;
     var ctx = cvs.getContext("2d");
     this.ctx = ctx;
-    this.props.setup(this);
-    this.props.draw(this,this.curve);
+
+    if (this.props.setup) {
+      this.props.setup(this);
+    }
+
+    if (this.props.draw) {
+      this.props.draw(this,this.curve);
+    }
   },
 
   mouseDown: function(evt) {
@@ -81,7 +87,10 @@ var Graphic = React.createClass({
     this.mp.x = this.cx + this.ox;
     this.mp.y = this.cy + this.oy;
     this.curve.update();
-    this.props.draw(this, this.curve);
+
+    if (this.props.draw) {
+      this.props.draw(this, this.curve);
+    }
   },
 
   mouseUp: function(evt) {
@@ -146,6 +155,10 @@ var Graphic = React.createClass({
 	  this.ctx.strokeStyle = c;
 	},
 
+  getColor: function() {
+    return this.ctx.strokeStyle || "black";
+  },
+
   setWeight: function(c) {
     this.ctx.lineWidth = c;
   },
@@ -155,8 +168,8 @@ var Graphic = React.createClass({
 	},
 
 	setRandomColor: function() {
-	  var r = ((255*Math.random())|0),
-	      g = ((255*Math.random())|0),
+	  var r = ((205*Math.random())|0),
+	      g = ((155*Math.random())|0),
 	      b = ((255*Math.random())|0);
 	  this.ctx.strokeStyle = "rgb("+r+","+g+","+b+")";
 	},
@@ -172,6 +185,10 @@ var Graphic = React.createClass({
 	setFill: function(c) {
 	  this.ctx.fillStyle = c;
 	},
+
+  getFill: function() {
+    return this.ctx.fillStyle || "transparent";
+  },
 
 	noFill: function() {
 	  this.ctx.fillStyle = "transparent";
@@ -194,8 +211,21 @@ var Graphic = React.createClass({
     var pts = curve.points;
     this.setFill("black");
     pts.forEach(p => {
-      this.drawText(`(${p.x},${p.y})`, {x:p.x + 5, y:p.y + 10});
+      this.text(`(${p.x},${p.y})`, {x:p.x + 5, y:p.y + 10});
     });
+  },
+
+  drawFunction: function(generator, offset) {
+    var p0 = generator(0),
+        plast = generator(1),
+        step = generator.step || 0.01,
+        p, t;
+    for (t=step; t<1.0; t+=step) {
+      p = generator(t);
+      this.drawLine(p0, p, offset);
+      p0 = p;
+    }
+    this.drawLine(p, plast, offset);
   },
 
 	drawCurve: function(curve, offset) {
@@ -315,7 +345,7 @@ var Graphic = React.createClass({
 	  this.ctx.stroke();
 	},
 
-	drawText: function(text, offset) {
+	text: function(text, offset) {
 	  offset = offset || { x:0, y:0 };
     if (this.offset) {
       offset.x += this.offset.x;
