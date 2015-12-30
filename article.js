@@ -21842,11 +21842,18 @@
 	    }
 
 	    sketch.setColor("black");
+	    sketch.setFill("black");
+
 	    sketch.drawCircle(m, 3);
 	    sketch.drawCircle(m2, 3);
 	    sketch.drawCircle(m3, 3);
 
-	    sketch.text("Curve points for t = 0.2, t = 0.4, t = 0.6", { x: 5, y: 15 });
+	    var offset = { x: 10, y: 5 };
+	    sketch.text("20%, or t = 0.2", { x: m.x + offset.x, y: m.y + offset.y });
+	    sketch.text("40%, or t = 0.4", { x: m2.x + offset.x, y: m2.y + offset.y });
+	    sketch.text("60%, or t = 0.6", { x: m3.x + offset.x, y: m3.y + offset.y });
+
+	    sketch.text("Curve points generated this way", { x: 5, y: 15 });
 	  }
 	};
 
