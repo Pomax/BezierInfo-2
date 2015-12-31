@@ -7,49 +7,49 @@ module.exports = {
   introduction: require("./introduction"),
   whatis: require("./whatis"),
   explanation: require("./explanation"),
-  control: require("./control")
+  control: require("./control"),
+  matrix: require("./matrix"),
+  decasteljau: require("./decasteljau")
 };
 
 
 /*
 
-  matrix: require("./matrix.jsx"),
-  decasteljau: require("./decasteljau.jsx"),
-  flattening: require("./flattening.jsx"),
-  splitting: require("./splitting.jsx"),
-  matrixsplit: require("./matrixsplit.jsx"),
-  reordering: require("./reordering.jsx"),
+  flattening: require("./flattening"),
+  splitting: require("./splitting"),
+  matrixsplit: require("./matrixsplit"),
+  reordering: require("./reordering"),
 
-  derivatives: require("./derivatives.jsx"),
-  pointvectors: require("./pointvectors.jsx"),
-  components: require("./components.jsx"),
-  extremities: require("./extremities.jsx"),
-  boundingbox: require("./boundingbox.jsx"),
-  aligning: require("./aligning.jsx"),
-  tightbounds: require("./tightbounds.jsx"),
-  canonical: require("./canonical.jsx"),
+  derivatives: require("./derivatives"),
+  pointvectors: require("./pointvectors"),
+  components: require("./components"),
+  extremities: require("./extremities"),
+  boundingbox: require("./boundingbox"),
+  aligning: require("./aligning"),
+  tightbounds: require("./tightbounds"),
+  canonical: require("./canonical"),
 
-  arclength: require("./arclength.jsx"),
-  arclengthapprox: require("./arclengthapprox.jsx"),
-  tracing: require("./tracing.jsx"),
+  arclength: require("./arclength"),
+  arclengthapprox: require("./arclengthapprox"),
+  tracing: require("./tracing"),
 
-  intersections: require("./intersections.jsx"),
-  curveintersection: require("./curveintersection.jsx"),
-  moulding: require("./moulding.jsx"),
-  pointcurves: require("./pointcurves.jsx"),
+  intersections: require("./intersections"),
+  curveintersection: require("./curveintersection"),
+  moulding: require("./moulding"),
+  pointcurves: require("./pointcurves"),
 
-  catmullconv: require("./catmullconv.jsx"),
-  catmullmoulding: require("./catmullmoulding.jsx"),
+  catmullconv: require("./catmullconv"),
+  catmullmoulding: require("./catmullmoulding"),
 
-  polybezier: require("./polybezier.jsx"),
-  shapes: require("./shapes.jsx"),
+  polybezier: require("./polybezier"),
+  shapes: require("./shapes"),
 
-  projections: require("./projections.jsx"),
+  projections: require("./projections"),
 
-  offsetting: require("./offsetting.jsx"),
-  graduatedoffset: require("./graduatedoffset.jsx"),
+  offsetting: require("./offsetting"),
+  graduatedoffset: require("./graduatedoffset"),
 
-  circles: require("./circles.jsx"),
-  circles_cubic: require("./circles_cubic.jsx"),
-  arcapproximation: require("./arcapproximation.jsx")
+  circles: require("./circles"),
+  circles_cubic: require("./circles_cubic"),
+  arcapproximation: require("./arcapproximation")
 */

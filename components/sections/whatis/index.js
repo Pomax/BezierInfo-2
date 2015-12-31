@@ -60,7 +60,7 @@ var Whatis = React.createClass({
         <p>While it doesn't look like that's what we've just done, we actually just drew a quadratic curve, in steps,
         rather than in a single go. One of the fascinating parts about Bézier curves is that they can both be described
         in terms of polynomial functions, as well as in terms of very simple interpolations of interpolations of [...].
-        That it turn means we can look at what these curves can do based on both "real maths" (by examining the functions,
+        That, in turn, means we can look at what these curves can do based on both "real maths" (by examining the functions,
         their derivatives, and all that stuff), as well as by looking at the "mechanical" composition (which tells us
         that a curve will never extend beyond the points we used to construct it, for instance)</p>
 

@@ -1,0 +1,42 @@
+github-issues {
+  position: relative;
+  display: block;
+  width: 100%;
+  border: 1px solid #EEE;
+  border-left: 0.3em solid rgb(229, 236, 243);
+  background: white;
+  padding: 0 0.3em;
+  width: 95%;
+  margin: auto;
+  min-height: 33px;
+
+  font: 13px Helvetica, arial, freesans, clean, sans-serif;
+
+  github-issue {
+    & + github-issue {
+      margin-top: 1em;
+    }
+
+    h3 {
+      font-size:100%;
+      background: rgb(229, 236, 243);
+      margin: 0;
+      position: relative;
+      left: -.5%;
+      width: 101%;
+      font-weight: bold;
+      border-bottom: 1px solid #999;
+    }
+
+    a {
+      position: absolute;
+      top: 2px;
+      right: 10px;
+      padding: 0 4px;
+      color: #4183C4!important;
+      background: white;
+      line-height: 10px;
+      font-size: 10px;
+    }
+  }
+}

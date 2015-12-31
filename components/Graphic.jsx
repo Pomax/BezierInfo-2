@@ -33,7 +33,6 @@ var Graphic = React.createClass({
                 onMouseDown={this.mouseDown}
                 onMouseMove={this.mouseMove}
                 onMouseUp={this.mouseUp}
-                onMouseOver={this.mouseOver}
                 onClick={this.mouseClick}
                 />
         <figcaption>{this.props.title}</figcaption>
@@ -215,6 +214,23 @@ var Graphic = React.createClass({
     this.ctx.strokeStyle = "black";
     this.drawPoints(pts, offset);
     this.drawCoordinates(curve, offset);
+  },
+
+  drawHull: function(curve, t, offset) {
+    var hull = curve.hull(t);
+    if(hull.length === 6) {
+      this.drawLine(hull[0], hull[1], offset);
+      this.drawLine(hull[1], hull[2], offset);
+      this.drawLine(hull[3], hull[4], offset);
+    } else {
+      this.drawLine(hull[0], hull[1], offset);
+      this.drawLine(hull[1], hull[2], offset);
+      this.drawLine(hull[2], hull[3], offset);
+      this.drawLine(hull[4], hull[5], offset);
+      this.drawLine(hull[5], hull[6], offset);
+      this.drawLine(hull[7], hull[8], offset);
+    }
+    return hull;
   },
 
   drawCoordinates: function(curve, offset) {

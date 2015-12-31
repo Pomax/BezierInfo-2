@@ -1,4 +1,5 @@
 html, body {
+  font-family: Verdana;
   margin: 0;
   padding: 0;
 }
@@ -13,6 +14,8 @@ header, section, footer {
 }
 
 header {
+  font-family: Times;
+
   text-align: center;
   h1 {
     font-size: 360%;
@@ -27,6 +30,8 @@ header {
 }
 
 article {
+  font-family: Verdana;
+
   width: 960px;
   margin: auto;
   background: rgba(255, 255, 255, 0.74);
@@ -37,94 +42,6 @@ article {
   box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);
 }
 
-section p {
-  text-align: justify;
-}
-
-section h2 {
-  &[data-num] {
-    &:before {
-      content: "§" attr(data-num) " — ";
-    }
-  }
-
-  a,a:active,a:hover,a:visited {
-    text-decoration: none;
-    color: inherit;
-  }
-}
-
-canvas.loading-sketch {
-  background: url('../images/ajax-loader.gif');
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-}
-.sketch-code {
-  display: inline-block;
-  unicode-bidi: embed;
-  font-family: monospace;
-  white-space: pre;
-  border: 1px solid black;
-  min-height: 300px;
-}
-.sketch {
-  display: inline-block;
-  border: 1px solid #DDD;
-  padding: 5px;
-  font-style: italic;
-  font-size: 80%;
-  background: rgb(250,250,204);
-}
-.sketch canvas {
-  margin: auto;
-  border: 1px solid black;
-  height: 300px;
-}
-.sketch canvas:focus {
-  outline: 1px solid rgba(0,0,0,0);
-}
-
-.sketch img {
-  margin: auto;
-  border: 1px solid black;
-}
-
-.labeled-image p:before {
-  content: "Image " attr(data-img-label) ". ";
-}
-.labeled-image p {
-  margin: 0;
-}
-
-.sketch canvas[data-preset=simple],
-.sketch canvas[data-preset=poly],
-.sketch canvas[data-preset=ratios],
-.sketch canvas[data-preset=clipping],
-.sketch canvas[data-preset=abc],
-.sketch canvas[data-preset=moulding],
-.sketch canvas[data-preset=generate]
-{ width: 300px; }
-
-.sketch canvas[data-preset=twopanel]
-{ width: 600px; }
-
-.sketch canvas[data-preset=shapes],
-.sketch canvas[data-preset=threepanel]
-{ width: 900px; }
-
-.sketch-title span { color: rgb(0,0,200); cursor: pointer; }
-
-div.note {
-  font-size: 90%;
-  margin: 1em 2em;
-  padding: 1em;
-  border: 1px solid grey;
-  background: rgba(150,150,50,0.05);
-}
-div.note * { margin: 0; padding: 0; }
-div.note p { margin: 1em 0; }
-div.note div.MathJax_Display { margin: 1em 0; }
-
 a, a:visited { color: rgb(0,0,200); text-decoration: none; }
 
 #ribbonimg {
@@ -134,165 +51,14 @@ a, a:visited { color: rgb(0,0,200); text-decoration: none; }
   z-index: 999;
 }
 
-#navbar {
-  float: right;
-  background: white;
-  padding: 0 0.2em 0.5em 0.5em;
-  border: 1px solid black;
-  margin: 0 0 0.2em 1em;
-  font-size: 80%;
-}
-
-#navbar h3 { margin: 0.2em 0; }
-#navbar ol { margin: 0.2em; margin-left: -1em; }
-
-td p {
-  text-align:center;
-}
-
-#scriptblock { display: none; }
-
-
-/**
-  GITHUB ISSUES
-**/
-
-github-issues {
-  position: relative;
-  display: block;
-  width: 100%;
-}
-
-github-issue {
-  display: block;
-  position: relative;
-  border: 1px solid #EEE;
-  border-left: 0.3em solid rgb(229, 236, 243);
-  /*border-radius: 7px 0 0 7px;*/
-  background: white;
-  padding: 0 0.3em;
-  font: 13px Helvetica, arial, freesans, clean, sans-serif;
-  width: 95%;
-  margin: auto;
-  min-height: 33px;
-}
-
-github-issue + github-issue {
-  margin-top: 1em;
-}
-
-github-issue h3 {
-  font-size:100%;
-  background: rgb(229, 236, 243);
-  margin: 0;
-  position: relative;
-  left: -.5%;
-  width: 101%;
-  font-weight: bold;
-  border-bottom: 1px solid #999;
-}
-
-github-issue a {
-  position: absolute;
-  top: 2px;
-  right: 10px;
-  padding: 0 4px;
-  color: #4183C4!important;
-  background: white;
-  line-height: 10px;
-  font-size: 10px;
-}
-
-.howtocode {
-  border: 1px solid rgb(141, 148, 189);
-  padding: 0 1em;
-  margin: 0 2em;
-  overflow-x: hidden;
-}
-
-.howtocode h3 {
-  margin: 0 -1em;
-  padding: 0;
-  background: rgb(145, 190, 247);
-  padding-left: 0.5em;
-  color: white;
-  text-shadow: 1px 1px 0 rgb(0, 0, 0);
-  cursor: pointer;
-}
-
-.howtocode pre {
-  border: 1px solid rgb(141, 148, 189);
-  background: rgba(223, 226, 243, 0.32);
-  margin: 0.5em;
-  padding: 0.5em;
-}
-
 footer {
   font-style: italic;
   margin: 2em 0 1em 0;
   background: inherit;
 }
 
-/* addthis nonsense */
-.at-floatingbar-inner {
-  width: 10px;
-}
-
-/* =========================================================== */
-
-figure {
-  display: inline-block;
-  border: 1px solid grey;
-  background: #F0F0F0;
-  @psize: 0.5em;
-  padding: @psize @psize 0 @psize;
-  text-align: center;
-
-  &.inline {
-    border: none;
-    margin: 0;
-  }
-
-  canvas {
-    display: inline-block;
-    background: white;
-    border: 1px solid lightgrey;
-  }
-
-  figcaption {
-    text-align: center;
-    padding: 0.5em 0;
-    font-style: italic;
-    font-size: 90%;
-  }
-}
-
-div.figure {
-  display: inline-block;
-  border: 1px solid grey;
-  text-align: center;
-}
-
-
-/* =========================================================== */
-
-navigation {
-  display: block;
-  width: 70%;
-  margin: 0 auto;
-  padding: 0;
-  border: 1px solid grey;
-
-  ul {
-    background: #F2F2F9;
-    list-style: none;
-    margin: 0;
-    padding: 0.5em 1em;
-
-    li {
-      &:nth-child(n+2):before {
-       content: "§" attr(data-number) ". "
-      }
-    }
-  }
-}
+@import "navigation.less";
+@import "section.less";
+@import "howtocode.less";
+@import "figure.less";
+@import "github-issues.less";

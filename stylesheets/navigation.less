@@ -1,0 +1,22 @@
+navigation {
+  font-family: Georgia;
+
+  display: block;
+  width: 70%;
+  margin: 0 auto;
+  padding: 0;
+  border: 1px solid grey;
+
+  ul {
+    background: #F2F2F9;
+    list-style: none;
+    margin: 0;
+    padding: 0.5em 1em;
+
+    li {
+      &:nth-child(n+2):before {
+       content: "§" attr(data-number) ". "
+      }
+    }
+  }
+}

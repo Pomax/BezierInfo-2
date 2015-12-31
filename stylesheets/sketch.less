@@ -1,0 +1,59 @@
+canvas.loading-sketch {
+  background: url('../images/ajax-loader.gif');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.sketch-code {
+  display: inline-block;
+  unicode-bidi: embed;
+  font-family: monospace;
+  white-space: pre;
+  border: 1px solid black;
+  min-height: 300px;
+}
+.sketch {
+  display: inline-block;
+  border: 1px solid #DDD;
+  padding: 5px;
+  font-style: italic;
+  font-size: 80%;
+  background: rgb(250,250,204);
+}
+.sketch canvas {
+  margin: auto;
+  border: 1px solid black;
+  height: 300px;
+}
+.sketch canvas:focus {
+  outline: 1px solid rgba(0,0,0,0);
+}
+
+.sketch img {
+  margin: auto;
+  border: 1px solid black;
+}
+
+.labeled-image p:before {
+  content: "Image " attr(data-img-label) ". ";
+}
+.labeled-image p {
+  margin: 0;
+}
+
+.sketch canvas[data-preset=simple],
+.sketch canvas[data-preset=poly],
+.sketch canvas[data-preset=ratios],
+.sketch canvas[data-preset=clipping],
+.sketch canvas[data-preset=abc],
+.sketch canvas[data-preset=moulding],
+.sketch canvas[data-preset=generate]
+{ width: 300px; }
+
+.sketch canvas[data-preset=twopanel]
+{ width: 600px; }
+
+.sketch canvas[data-preset=shapes],
+.sketch canvas[data-preset=threepanel]
+{ width: 900px; }
+
+.sketch-title span { color: rgb(0,0,200); cursor: pointer; }
