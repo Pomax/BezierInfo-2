@@ -19,7 +19,7 @@ module.exports = {
       { test: /\.less$/, loader: "style!css!less" },
       {
         test: /.jsx?$/,
-        exclude: /node_modules/,
+        include: /components/,
         loaders: [
           'babel-loader',
           __dirname + '/lib/latex-loader',

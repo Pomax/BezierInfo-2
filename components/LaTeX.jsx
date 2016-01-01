@@ -8,24 +8,8 @@ var MathJax = (typeof window !== "undefined" ? window.MathJax : false);
 if(!MathJax){MathJax={Hub:{Queue:noop}};}
 
 var LaTeX = React.createClass({
-  getInitialState() {
-    var data = this.props.children;
-    if (!data.forEach) data = [data];
-    return { latex: data.join('') };
-  },
-
-  componentDidMount: function() {
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, this.refs.latex, false]);
-    MathJax.Hub.Queue(this.bindHTML);
-  },
-
-  bindHTML: function() {
-    this.setState({ html: this.refs.latex.innerHTML });
-  },
-
   render: function() {
-    var content = this.state.html ? this.state.html : this.state.latex;
-    return <p ref="latex" dangerouslySetInnerHTML={{__html: content }} />;
+    return <p ref="latex">{this.props.children}</p>;
   }
 });
 
