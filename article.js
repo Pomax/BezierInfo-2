@@ -24134,7 +24134,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/93b03244097aea8be8fcac493afd3706c79fa403.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/93b03244097aea8be8fcac493afd3706c79fa403.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24424,7 +24424,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/1702a1f7b6c180a18d2e94b25808262b1e4c6195.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/1702a1f7b6c180a18d2e94b25808262b1e4c6195.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24469,7 +24469,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/90842920b7553c3091917cfc38fc0a67c2055d38.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/90842920b7553c3091917cfc38fc0a67c2055d38.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24497,7 +24497,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/e5fb9f01d6545e3e2f43410625edfdf483eb3668.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e5fb9f01d6545e3e2f43410625edfdf483eb3668.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24561,7 +24561,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/a1189e16ce64ad24e90aa3ea75a724f05d7ab599.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/a1189e16ce64ad24e90aa3ea75a724f05d7ab599.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24689,7 +24689,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/4f7c9e4f8c7c560ba061ebd09e8a63364401ff22.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/4f7c9e4f8c7c560ba061ebd09e8a63364401ff22.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24758,7 +24758,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/0d76eda1bc302fcbae9ad77311288ffb9935e9f0.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/0d76eda1bc302fcbae9ad77311288ffb9935e9f0.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24774,7 +24774,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/b7307b83a6aed8f3981842ce4365cddaaad5ba3b.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/b7307b83a6aed8f3981842ce4365cddaaad5ba3b.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24819,7 +24819,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/85716f7b80fabb43411b982ea3c2919f01f546b6.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/85716f7b80fabb43411b982ea3c2919f01f546b6.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24853,7 +24853,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/524d2b97aebbfe44de7529989629e4e0dd11a754.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/524d2b97aebbfe44de7529989629e4e0dd11a754.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25293,7 +25293,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/e41083ef7693be5384f724a8b354b5a38c9b0ed4.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e41083ef7693be5384f724a8b354b5a38c9b0ed4.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25326,7 +25326,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/13a1df3fc05f3610035843aee9ee6be82a5820e7.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/13a1df3fc05f3610035843aee9ee6be82a5820e7.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25473,7 +25473,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/27810102a13621b9a1e3a533516ffec96f98694a.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/27810102a13621b9a1e3a533516ffec96f98694a.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25483,7 +25483,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/57e8df56566add302c750691d8f83ee0863ca888.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/57e8df56566add302c750691d8f83ee0863ca888.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25493,7 +25493,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/db3823d8088bd7efa7af9fc9f0db34580a364e22.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/db3823d8088bd7efa7af9fc9f0db34580a364e22.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25503,7 +25503,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/7917f77b496627b3f54b0678ee5e253c7773fd8b.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/7917f77b496627b3f54b0678ee5e253c7773fd8b.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25513,7 +25513,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/73e32c4b471bc1751add68148d9acababcf43ff1.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/73e32c4b471bc1751add68148d9acababcf43ff1.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25529,7 +25529,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/98f76abba92e71685cc2d94f0a9f482b6cbe554e.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/98f76abba92e71685cc2d94f0a9f482b6cbe554e.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25539,7 +25539,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/e4496d76627a594150c9034f6c011bcb1cfe853c.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e4496d76627a594150c9034f6c011bcb1cfe853c.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25555,7 +25555,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/bbfe6ae9683fb2be29df8db065e1004b94066780.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/bbfe6ae9683fb2be29df8db065e1004b94066780.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25565,7 +25565,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/6f51af1c66ef77785066ea5601e7dc5064831401.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6f51af1c66ef77785066ea5601e7dc5064831401.svg" })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25575,7 +25575,7 @@
 	      React.createElement(
 	        LaTeX,
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "/images/latex/8fa7f5a1b32d06d66b0a4d0f000b2496e0bacccd.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/8fa7f5a1b32d06d66b0a4d0f000b2496e0bacccd.svg" })
 	      ),
 	      React.createElement(
 	        "p",
