@@ -1,7 +1,6 @@
 var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
-var LaTeX = require("../../LaTeX.jsx");
 
 
 var Whatis = React.createClass({
@@ -35,7 +34,7 @@ var Whatis = React.createClass({
         distance away from the first point (and thus 80% the distance away from the second point) then we
         can compute that really easily:</p>
 
-        <LaTeX>\[
+        <p>\[
         Given \left (
           \begin{align}
             p_1 &= some\ point \\
@@ -45,7 +44,7 @@ var Whatis = React.createClass({
           \end{align}
         \right ),\ our\ new\ point = p_1 + distance \cdot ratio
 
-        \]</LaTeX>
+        \]</p>
 
         <p>So let's look at that in action: the following graphic is interactive in that you can use your
         '+' and '-' keys to increase or decrease the interpolation distance, to see what happens. We start

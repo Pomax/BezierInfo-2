@@ -1,7 +1,6 @@
 var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
-var LaTeX = require("../../LaTeX.jsx");
 
 var deCasteljau = React.createClass({
   statics: {

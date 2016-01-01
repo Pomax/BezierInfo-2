@@ -1,6 +1,5 @@
 var React = require("react");
 var SectionHeader = require("../../SectionHeader.jsx");
-var LaTeX = require("../../LaTeX.jsx");
 
 var Matrix = React.createClass({
   statics: {
@@ -16,85 +15,85 @@ var Matrix = React.createClass({
         as a polynomial basis function, the weight matrix, and the actual coordinates as matrix.
         Let's look at what this means for the cubic curve :</p>
 
-        <LaTeX>\[
+        <p>\[
           B(t) = P_1 \cdot (1-t)^3 + P_2 \cdot 3 \cdot (1-t)^2 \cdot t + P_3 \cdot 3 \cdot (1-t) \cdot t^2 + P_4 \cdot t^3
-        \]</LaTeX>
+        \]</p>
 
         <p>Disregarding our actual coordinates for a moment, we have:</p>
 
-        <LaTeX>\[
+        <p>\[
           B(t) = (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
-        \]</LaTeX>
+        \]</p>
 
         <p>We can write this as a sum of four expressions:</p>
 
-        <LaTeX>\[
+        <p>\[
           \begin{matrix}
            ... & = & (1-t)^3 \\
              & + & 3 \cdot (1-t)^2 \cdot t \\
              & + & 3 \cdot (1-t) \cdot t^2 \\
              & + & t^3 \\
           \end{matrix}
-        \]</LaTeX>
+        \]</p>
 
         <p>And we can expand these expressions:</p>
 
-        <LaTeX>\[
+        <p>\[
           \begin{matrix}
            ... & = & (1-t) \cdot (1-t) \cdot (1-t) & = & -t^3 + 3 \cdot t^2 - 3 \cdot t + 1 \\
              & + & 3 \cdot (1-t) \cdot (1-t) \cdot t & = & 3 \cdot t^3 - 6 \cdot t^2 + 3 \cdot t \\
              & + & 3 \cdot (1-t) \cdot t \cdot t & = & -3 \cdot t^3 + 3 \cdot t^2 \\
              & + & t \cdot t \cdot t & = & t^3 \\
           \end{matrix}
-        \]</LaTeX>
+        \]</p>
 
         <p>Furthermore, we can make all the 1 and 0 factors explicit:</p>
 
-        <LaTeX>\[
+        <p>\[
           \begin{matrix}
            ... & = & -1 \cdot t^3 + 3 \cdot t^2 - 3 \cdot t + 1 \\
              & + & +3 \cdot t^3 - 6 \cdot t^2 + 3 \cdot t + 0 \\
              & + & -3 \cdot t^3 + 3 \cdot t^2 + 0 \cdot t + 0 \\
              & + & +1 \cdot t^3 + 0 \cdot t^2 + 0 \cdot t + 0 \\
           \end{matrix}
-        \]</LaTeX>
+        \]</p>
 
         <p>And <em>that</em>, we can view as a series of four matrix operations:</p>
 
-        <LaTeX>\[
+        <p>\[
           \begin{bmatrix}t^3 & t^2 & t & 1\end{bmatrix} \cdot \begin{bmatrix}-1 \\ 3 \\ -3 \\ 1\end{bmatrix}
           + \begin{bmatrix}t^3 & t^2 & t & 1\end{bmatrix} \cdot \begin{bmatrix}3 \\ -6 \\ 3 \\ 0\end{bmatrix}
           + \begin{bmatrix}t^3 & t^2 & t & 1\end{bmatrix} \cdot \begin{bmatrix}-3 \\ 3 \\ 0 \\ 0\end{bmatrix}
           + \begin{bmatrix}t^3 & t^2 & t & 1\end{bmatrix} \cdot \begin{bmatrix}1 \\ 0 \\ 0 \\ 0\end{bmatrix}
-        \]</LaTeX>
+        \]</p>
 
         <p>If we compact this into a single matrix operation, we get:</p>
 
-        <LaTeX>\[
+        <p>\[
           \begin{bmatrix}t^3 & t^2 & t & 1\end{bmatrix} \cdot \begin{bmatrix}
               -1 &  3 & -3 & 1 \\
                3 & -6 &  3 & 0 \\
               -3 &  3 &  0 & 0 \\
                1 &  0 &  0 & 0
             \end{bmatrix}
-        \]</LaTeX>
+        \]</p>
 
         <p>This kind of polynomial basis representation is generally written with the bases in
         increasing order, which means we need to flip our <em>t</em> matrix horizontally, and our
         big "mixing" matrix upside down:</p>
 
-        <LaTeX>\[
+        <p>\[
           \begin{bmatrix}1 & t & t^2 & t^3\end{bmatrix} \cdot \begin{bmatrix}
                1 &  0 &  0 & 0 \\
               -3 &  3 &  0 & 0 \\
                3 & -6 &  3 & 0 \\
               -1 &  3 & -3 & 1
             \end{bmatrix}
-        \]</LaTeX>
+        \]</p>
 
         <p>And then finally, we can add in our original coordinates as a single third matrix:</p>
 
-        <LaTeX>\[
+        <p>\[
           B(t) = \begin{bmatrix}
           1 & t & t^2 & t^3
           \end{bmatrix}
@@ -109,11 +108,11 @@ var Matrix = React.createClass({
           \begin{bmatrix}
           P_1 \\ P_2 \\ P_3 \\ P_4
           \end{bmatrix}
-        \]</LaTeX>
+        \]</p>
 
         <p>We can perform the same trick for the quadratic curve, in which case we end up with:</p>
 
-        <LaTeX>\[
+        <p>\[
           B(t) = \begin{bmatrix}
           1 & t & t^2
           \end{bmatrix}
@@ -127,7 +126,7 @@ var Matrix = React.createClass({
           \begin{bmatrix}
           P_1 \\ P_2 \\ P_3
           \end{bmatrix}
-        \]</LaTeX>
+        \]</p>
 
         <p>If we plug in a <em>t</em> value, and then multiply the matrices, we will
         get exactly the same values as when we evaluate the original polynomial function,

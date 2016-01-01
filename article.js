@@ -62,7 +62,7 @@
 	var React = __webpack_require__(8);
 	var ReactDOM = __webpack_require__(165);
 	var Article = __webpack_require__(166);
-	var style = __webpack_require__(185);
+	var style = __webpack_require__(183);
 
 	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"));
 
@@ -19751,10 +19751,10 @@
 	  preface: __webpack_require__(168),
 	  introduction: __webpack_require__(169),
 	  whatis: __webpack_require__(176),
-	  explanation: __webpack_require__(180),
-	  control: __webpack_require__(182),
-	  matrix: __webpack_require__(183),
-	  decasteljau: __webpack_require__(184)
+	  explanation: __webpack_require__(178),
+	  control: __webpack_require__(180),
+	  matrix: __webpack_require__(181),
+	  decasteljau: __webpack_require__(182)
 	};
 
 	/*
@@ -24079,7 +24079,6 @@
 	var React = __webpack_require__(8);
 	var Graphic = __webpack_require__(170);
 	var SectionHeader = __webpack_require__(175);
-	var LaTeX = __webpack_require__(177);
 
 	var Whatis = React.createClass({
 	  displayName: "Whatis",
@@ -24088,7 +24087,7 @@
 	    title: "So what makes a Bézier Curve?"
 	  },
 
-	  interpolation: __webpack_require__(179),
+	  interpolation: __webpack_require__(177),
 
 	  componentWillMount: function componentWillMount() {
 	    this.setup = this.interpolation.setup.bind(this);
@@ -24132,7 +24131,7 @@
 	        "If we know the distance between those two points, and we want a new point that is, say, 20% the distance away from the first point (and thus 80% the distance away from the second point) then we can compute that really easily:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/93b03244097aea8be8fcac493afd3706c79fa403.svg" })
 	      ),
@@ -24165,47 +24164,6 @@
 
 /***/ },
 /* 177 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var React = __webpack_require__(8);
-	var ReactDOM = __webpack_require__(165);
-	var noop = __webpack_require__(178);
-
-	var MathJax = typeof window !== "undefined" ? window.MathJax : false;
-
-	// fallback will simply do nothing when typesetting.
-	if (!MathJax) {
-	  MathJax = { Hub: { Queue: noop } };
-	}
-
-	var LaTeX = React.createClass({
-	  displayName: "LaTeX",
-
-	  render: function render() {
-	    return React.createElement(
-	      "p",
-	      { ref: "latex" },
-	      this.props.children
-	    );
-	  }
-	});
-
-	module.exports = LaTeX;
-
-/***/ },
-/* 178 */
-/***/ function(module, exports) {
-
-	/**
-	 * because somethings you just need a no-op
-	 */
-	module.exports = function noop() {};
-
-
-/***/ },
-/* 179 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -24371,7 +24329,7 @@
 	};
 
 /***/ },
-/* 180 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24379,7 +24337,6 @@
 	var React = __webpack_require__(8);
 	var Graphic = __webpack_require__(170);
 	var SectionHeader = __webpack_require__(175);
-	var LaTeX = __webpack_require__(177);
 
 	var Explanation = React.createClass({
 	  displayName: "Explanation",
@@ -24388,7 +24345,7 @@
 	    title: "The basics of Bézier curves"
 	  },
 
-	  circle: __webpack_require__(181),
+	  circle: __webpack_require__(179),
 
 	  componentWillMount: function componentWillMount() {
 	    this.setup = this.circle.setup.bind(this);
@@ -24422,7 +24379,7 @@
 	        ", to some other value, using some kind of number manipulation:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/1702a1f7b6c180a18d2e94b25808262b1e4c6195.svg" })
 	      ),
@@ -24467,7 +24424,7 @@
 	        "So far so good. Now, let's look at parametric functions, and how they cheat. Let's take the following two functions:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/90842920b7553c3091917cfc38fc0a67c2055d38.svg" })
 	      ),
@@ -24495,7 +24452,7 @@
 	        " isn't used in that function. Parametric functions cheat by changing that. In a parametric function all the different functions share a variable, like this:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e5fb9f01d6545e3e2f43410625edfdf483eb3668.svg" })
 	      ),
@@ -24559,7 +24516,7 @@
 	        " with what we usually mean with them for parametric curves, things might be a lot more obvious:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/a1189e16ce64ad24e90aa3ea75a724f05d7ab599.svg" })
 	      ),
@@ -24687,7 +24644,7 @@
 	        "You may remember polynomials from high school, where they're those sums that look like:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/4f7c9e4f8c7c560ba061ebd09e8a63364401ff22.svg" })
 	      ),
@@ -24756,7 +24713,7 @@
 	        " etc. taking the \"binomial\" form, which sounds fancy but is actually a pretty simple description for mixing values:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/0d76eda1bc302fcbae9ad77311288ffb9935e9f0.svg" })
 	      ),
@@ -24772,7 +24729,7 @@
 	        " and add in \"times one\", things suddenly look pretty easy. Check out these binomial terms:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/b7307b83a6aed8f3981842ce4365cddaaad5ba3b.svg" })
 	      ),
@@ -24817,7 +24774,7 @@
 	        ", and remove the weights for a moment, we get this:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/85716f7b80fabb43411b982ea3c2919f01f546b6.svg" })
 	      ),
@@ -24851,7 +24808,7 @@
 	        "'s after every + sign. So that's actually pretty simple too. So now you know binomial polynomials, and just for completeness I'm going to show you the generic function for this:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/524d2b97aebbfe44de7529989629e4e0dd11a754.svg" })
 	      ),
@@ -25009,7 +24966,7 @@
 	module.exports = Explanation;
 
 /***/ },
-/* 181 */
+/* 179 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -25051,7 +25008,7 @@
 	};
 
 /***/ },
-/* 182 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25059,7 +25016,6 @@
 	var React = __webpack_require__(8);
 	var Graphic = __webpack_require__(170);
 	var SectionHeader = __webpack_require__(175);
-	var LaTeX = __webpack_require__(177);
 
 	var Control = React.createClass({
 	  displayName: "Control",
@@ -25291,7 +25247,7 @@
 	        "If we want to change the curve, we need to change the weights of each point, effectively changing the interpolations. The way to do this is about as straight forward as possible: just multiply each point with a value that changes its strength. These values are conventionally called \"Weights\", and we can add them to our original Bézier function:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e41083ef7693be5384f724a8b354b5a38c9b0ed4.svg" })
 	      ),
@@ -25324,7 +25280,7 @@
 	        " is our last coordinate, and everything in between is a controlling coordinate. Say we want a cubic curve that starts at (120,160), is controlled by (35,200) and (220,260) and ends at (220,40), we use this Bézier curve:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/13a1df3fc05f3610035843aee9ee6be82a5820e7.svg" })
 	      ),
@@ -25440,14 +25396,13 @@
 	**/
 
 /***/ },
-/* 183 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(8);
 	var SectionHeader = __webpack_require__(175);
-	var LaTeX = __webpack_require__(177);
 
 	var Matrix = React.createClass({
 	  displayName: "Matrix",
@@ -25471,7 +25426,7 @@
 	        "We can also represent Bézier as matrix operations, by expressing the Bézier formula as a polynomial basis function, the weight matrix, and the actual coordinates as matrix. Let's look at what this means for the cubic curve :"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/27810102a13621b9a1e3a533516ffec96f98694a.svg" })
 	      ),
@@ -25481,7 +25436,7 @@
 	        "Disregarding our actual coordinates for a moment, we have:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/57e8df56566add302c750691d8f83ee0863ca888.svg" })
 	      ),
@@ -25491,7 +25446,7 @@
 	        "We can write this as a sum of four expressions:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/db3823d8088bd7efa7af9fc9f0db34580a364e22.svg" })
 	      ),
@@ -25501,7 +25456,7 @@
 	        "And we can expand these expressions:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/7917f77b496627b3f54b0678ee5e253c7773fd8b.svg" })
 	      ),
@@ -25511,7 +25466,7 @@
 	        "Furthermore, we can make all the 1 and 0 factors explicit:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/73e32c4b471bc1751add68148d9acababcf43ff1.svg" })
 	      ),
@@ -25527,7 +25482,7 @@
 	        ", we can view as a series of four matrix operations:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/98f76abba92e71685cc2d94f0a9f482b6cbe554e.svg" })
 	      ),
@@ -25537,7 +25492,7 @@
 	        "If we compact this into a single matrix operation, we get:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e4496d76627a594150c9034f6c011bcb1cfe853c.svg" })
 	      ),
@@ -25553,7 +25508,7 @@
 	        " matrix horizontally, and our big \"mixing\" matrix upside down:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/bbfe6ae9683fb2be29df8db065e1004b94066780.svg" })
 	      ),
@@ -25563,7 +25518,7 @@
 	        "And then finally, we can add in our original coordinates as a single third matrix:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6f51af1c66ef77785066ea5601e7dc5064831401.svg" })
 	      ),
@@ -25573,7 +25528,7 @@
 	        "We can perform the same trick for the quadratic curve, in which case we end up with:"
 	      ),
 	      React.createElement(
-	        LaTeX,
+	        "p",
 	        null,
 	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/8fa7f5a1b32d06d66b0a4d0f000b2496e0bacccd.svg" })
 	      ),
@@ -25622,7 +25577,7 @@
 	module.exports = Matrix;
 
 /***/ },
-/* 184 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25630,7 +25585,6 @@
 	var React = __webpack_require__(8);
 	var Graphic = __webpack_require__(170);
 	var SectionHeader = __webpack_require__(175);
-	var LaTeX = __webpack_require__(177);
 
 	var deCasteljau = React.createClass({
 	  displayName: "deCasteljau",
@@ -25937,16 +25891,16 @@
 	module.exports = deCasteljau;
 
 /***/ },
-/* 185 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(186);
+	var content = __webpack_require__(184);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(189)(content, {});
+	var update = __webpack_require__(187)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25963,21 +25917,21 @@
 	}
 
 /***/ },
-/* 186 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(187)();
+	exports = module.exports = __webpack_require__(185)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(188) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(186) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 187 */
+/* 185 */
 /***/ function(module, exports) {
 
 	/*
@@ -26033,13 +25987,13 @@
 
 
 /***/ },
-/* 188 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
 
 /***/ },
-/* 189 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

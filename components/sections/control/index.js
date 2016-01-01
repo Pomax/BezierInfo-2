@@ -1,7 +1,6 @@
 var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
-var LaTeX = require("../../LaTeX.jsx");
 
 var Control = React.createClass({
   statics: {
@@ -211,14 +210,14 @@ var Control = React.createClass({
         point with a value that changes its strength. These values are conventionally called "Weights", and
         we can add them to our original Bézier function:</p>
 
-        <LaTeX>\[
+        <p>\[
           Bézier(n,t) = \sum_{i=0}^{n}
                         \underset{binomial\ term}{\underbrace{\binom{n}{i}}}
                         \cdot\
                         \underset{polynomial\ term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
                         \cdot\
                         \underset{weight}{\underbrace{w_i}}
-        \]</LaTeX>
+        \]</p>
 
         <p>That looks complicated, but as it so happens, the "weights" are actually just the coordinate values
         we want our curve to have: for an <i>n<sup>th</sup></i> order curve, w<sub>0</sub> is our start coordinate,
@@ -226,11 +225,11 @@ var Control = React.createClass({
         a cubic curve that starts at (120,160), is controlled by (35,200) and (220,260) and ends at (220,40),
         we use this Bézier curve:</p>
 
-        <LaTeX>\[
+        <p>\[
         \left \{ \begin{matrix}
           x = BLUE[120] \cdot (1-t)^3 + BLUE[35] \cdot 3 \cdot (1-t)^2 \cdot t + BLUE[220] \cdot 3 \cdot (1-t) \cdot t^2 + BLUE[220] \cdot t^3 \\
           y = BLUE[160] \cdot (1-t)^3 + BLUE[200] \cdot 3 \cdot (1-t)^2 \cdot t + BLUE[260] \cdot 3 \cdot (1-t) \cdot t^2 + BLUE[40] \cdot t^3
-        \end{matrix} \right. \]</LaTeX>
+        \end{matrix} \right. \]</p>
 
         <p>Which gives us the curve we saw at the top of the article:</p>
 

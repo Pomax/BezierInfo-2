@@ -1,7 +1,6 @@
 var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
-var LaTeX = require("../../LaTeX.jsx");
 
 var Explanation = React.createClass({
   statics: {
@@ -29,9 +28,9 @@ var Explanation = React.createClass({
         Let's say we have a function that maps some value, let's call it <i>x</i>, to
         some other value, using some kind of number manipulation:</p>
 
-        <LaTeX>\[
+        <p>\[
           f(x) = \cos(x)
-        \]</LaTeX>
+        \]</p>
 
         <p>The notation <i>f(x)</i> is the standard way to show that it's a function (by convention
         called <i>f</i> if we're only listing one) and its output changes based on one variable
@@ -40,10 +39,10 @@ var Explanation = React.createClass({
         <p>So far so good. Now, let's look at parametric functions, and how they cheat.
         Let's take the following two functions:</p>
 
-        <LaTeX>\[\begin{matrix}
+        <p>\[\begin{matrix}
           f(a) = \cos(a) \\
           f(b) = \sin(b)
-        \end{matrix}\]</LaTeX>
+        \end{matrix}\]</p>
 
         <p>There's nothing really remarkable about them, they're just a sine and cosine function,
         but you'll notice the inputs have different names. If we change the value for <i>a</i>,
@@ -51,11 +50,11 @@ var Explanation = React.createClass({
         in that function. Parametric functions cheat by changing that. In a parametric function
         all the different functions share a variable, like this:</p>
 
-        <LaTeX>\[
+        <p>\[
         \left \{ \begin{matrix}
           f_a(t) = \cos(t) \\
           f_b(t) = \sin(t)
-        \end{matrix} \right. \]</LaTeX>
+        \end{matrix} \right. \]</p>
 
         <p>Multiple functions, but only one variable. If we change the value for <i>t</i>,
         we change the outcome of both <i>f<sub>a</sub>(t)</i> and <i>f<sub>b</sub>(t)</i>.
@@ -63,11 +62,11 @@ var Explanation = React.createClass({
         we change the labels <i>f<sub>a</sub>(t)</i> and <i>f<sub>b</sub>(t)</i> with what
         we usually mean with them for parametric curves, things might be a lot more obvious:</p>
 
-        <LaTeX>\[
+        <p>\[
         \left \{ \begin{matrix}
           x = \cos(t) \\
           y = \sin(t)
-        \end{matrix} \right. \]</LaTeX>
+        \end{matrix} \right. \]</p>
 
         <p>There we go. <i>x</i>/<i>y</i> coordinates, linked through some mystery value <i>t</i>.</p>
 
@@ -89,9 +88,9 @@ var Explanation = React.createClass({
 
         <p>You may remember polynomials from high school, where they're those sums that look like:</p>
 
-        <LaTeX>\[
+        <p>\[
           f(x) = a \cdot x^3 + b \cdot x^2 + c \cdot x + d
-        \]</LaTeX>
+        \]</p>
 
         <p>If they have a highest order term <i>x³</i> they're called "cubic" polynomials, if it's
         <i>x²</i> it's a "square" polynomial, if it's just <i>x</i> it's a line (and if there aren't
@@ -101,21 +100,21 @@ var Explanation = React.createClass({
         fixed being between 0 and 1, with coefficients <i>a</i>, <i>b</i> etc. taking the "binomial"
         form, which sounds fancy but is actually a pretty simple description for mixing values:</p>
 
-        <LaTeX>\[ \begin{align*}
+        <p>\[ \begin{align*}
           linear &= (1-t) + t \\
           square &= (1-t)^2 + 2 \cdot (1-t) \cdot t + t^2 \\
           cubic &= (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
-        \end{align*} \]</LaTeX>
+        \end{align*} \]</p>
 
         <p>I know what you're thinking: that doesn't look too simple, but if we remove <i>t</i> and
         add in "times one", things suddenly look pretty easy. Check out these binomial terms:</p>
 
-        <LaTeX>\[ \begin{align*}
+        <p>\[ \begin{align*}
           linear &= \hskip{2.5em} 1 + 1 \\
           square &= \hskip{1.7em} 1 + 2 + 1\\
           cubic &= \hskip{0.85em} 1 + 3 + 3 + 1\\
           hypercubic &= 1 + 4 + 6 + 4 + 1
-        \end{align*} \]</LaTeX>
+        \end{align*} \]</p>
 
         <p>Notice that 2 is the same as 1+1, and 3 is 2+1 and 1+2, and 6 is 3+3... As you
         can see, each time we go up a dimension, we simply start and end with 1, and everything
@@ -126,23 +125,23 @@ var Explanation = React.createClass({
         if we rename <i>(1-t)</i> to <i>a</i> and <i>t</i> to <i>b</i>, and remove the weights
         for a moment, we get this:</p>
 
-        <LaTeX>\[ \begin{align*}
+        <p>\[ \begin{align*}
           linear &= BLUE[a] + RED[b] \\
           square &= BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot RED[b] + RED[b] \cdot RED[b] \\
           cubic &= BLUE[a] \cdot BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot BLUE[a] \cdot RED[b] + BLUE[a] \cdot RED[b] \cdot RED[b] + RED[b] \cdot RED[b] \cdot RED[b]\\
-        \end{align*} \]</LaTeX>
+        \end{align*} \]</p>
 
         <p>It's basically just a sum of "every combination of <i>a</i> and <i>b</i>", progressively
         replacing <i>a</i>'s with <i>b</i>'s after every + sign. So that's actually pretty simple
         too. So now you know binomial polynomials, and just for completeness I'm going to show
         you the generic function for this:</p>
 
-        <LaTeX>\[
+        <p>\[
           Bézier(n,t) = \sum_{i=0}^{n}
                         \underset{binomial\ term}{\underbrace{\binom{n}{i}}}
                         \cdot\
                         \underset{polynomial\ term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
-        \]</LaTeX>
+        \]</p>
 
         <p>And that's the full description for Bézier curves. Σ in this function indicates that this is
         a series of additions (using the variable listed below the Σ, starting at ...=&lt;value&gt; and ending
