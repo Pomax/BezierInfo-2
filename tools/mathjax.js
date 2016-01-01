@@ -41,6 +41,9 @@ if (latex === -1) {
 // strip any \[ and \], which is an block-level LaTeX markup indicator for MathJax:
 latex = latex.replace(/^'/,'').replace(/'$/,'').replace('\\[','').replace('\\]','');
 
+// Accented letters need shimming. For now, at least, until I figure out
+// how to make mathjax-node use a full STIX or the like for typesetting.
+latex = latex.replace(/é/g,'\\acute{e}');
 
 // set up the MathJax processor
 var API = require("mathjax-node/lib/mj-single");
