@@ -37,8 +37,10 @@ if (latex === -1) {
   }
 }
 
-// strip any \[ and \], which is an block-level LaTeX markup indicator for MathJax
+
+// strip any \[ and \], which is an block-level LaTeX markup indicator for MathJax:
 latex = latex.replace(/^'/,'').replace(/'$/,'').replace('\\[','').replace('\\]','');
+
 
 // set up the MathJax processor
 var API = require("mathjax-node/lib/mj-single");
@@ -76,7 +78,6 @@ var toReactStyle = function(input) {
 var fs = require("fs");
 var filename = "images/latex/" + hash + ".svg";
 var destination = __dirname + "/../" + filename;
-
 var className="LaTeX SVG";
 
 // convert the passed LaTeX to SVG form
