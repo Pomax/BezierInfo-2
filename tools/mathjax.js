@@ -14,16 +14,15 @@ var API = require("mathjax-node/lib/mj-single");
 function cleanUp(latex) {
   // strip any \[ and \], which is an block-level LaTeX markup indicator for MathJax:
   latex = latex.replace(/^'/,'').replace(/'$/,'').replace('\\[','').replace('\\]','');
-  // Accented letters need shimming. For now, at least, until I figure out
-  // how to make mathjax-node use a full STIX or the like for typesetting,
-  // without turning it into a <text> node.
-  latex = latex.replace(/é/g,'\\acute{e}');
   return latex;
 }
 
 // Set up the MathJax processor
 API.config({
   MathJax: {
+    SVG: {
+      font: "Latin-Modern"
+    },
     TeX: {
       extensions: [
         "AMSmath.js",
@@ -36,8 +35,7 @@ API.config({
 });
 API.start();
 
-// Get the LaTeX we need, and the filename it'll need to write to
-var hash = process.argv.indexOf("--hash");
+// Get the LaTeX we need, either straight up or base64 encoded:
 var latex = process.argv.indexOf("--latex");
 
 if (latex === -1) {
@@ -58,23 +56,21 @@ if (latex === -1) {
   }
 }
 
-var hash = (latex === -1) ? Date.now() : process.argv[hash+1];
+// Get the filename we'll need to write:
+var hash = process.argv.indexOf("--hash");
+hash = (latex === -1) ? Date.now() : process.argv[hash+1];
 var filename = "images/latex/" + hash + ".svg";
 var destination = __dirname + "/../" + filename;
 
-// convert the passed LaTeX to SVG form
-API.typeset({
-  math: cleanUp(latex),
-  format: "TeX",
-  svg: true
-}, function (data) {
+// Set up the MathJax options for this conversion run
+var options = { math: cleanUp(latex), format: "TeX", svg: true };
+
+// Convert the passed LaTeX to SVG form
+API.typeset(options, function saveToFile(data) {
   if (data.errors) {
     console.error(data.errors);
     process.exit(1);
   }
-
-  // strip namespacing and use correct React xlink:href attribute
-  var svg = data.svg;
-  fs.writeFileSync(destination, svg);
+  fs.writeFileSync(destination, data.svg);
   process.exit(0);
 });
