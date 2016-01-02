@@ -16,7 +16,7 @@ function cleanUp(latex) {
   latex = latex.replace(/^'/,'').replace(/'$/,'').replace('\\[','').replace('\\]','');
   // Accented letters need shimming. For now, at least, until I figure out
   // how to make mathjax-node use a full STIX or the like for typesetting.
-  latex = latex.replace(/é/g,'\\acute{e}');
+  // latex = latex.replace(/é/g,'\\acute{e}');
   // done.
   return latex;
 }

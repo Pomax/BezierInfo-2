@@ -38,14 +38,16 @@ var Flattening = React.createClass({
   },
 
   values: {
-    "+": 1,
-    "-": -1
+    "107": 1,  // numpad + key
+    "187": 1,  // =/+ main board key
+    "109": -1, // numpad - key
+    "189": -1  // -/_ main board key
   },
 
   onKeyDown: function(e, api) {
-    e.preventDefault();
-    var v = this.values[e.key];
+    var v = this.values[e.keyCode];
     if(v) {
+      e.preventDefault();
       api.steps += v;
       if (api.steps < 1) {
         api.steps = 1;
