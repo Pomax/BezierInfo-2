@@ -24262,7 +24262,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/93b03244097aea8be8fcac493afd3706c79fa403.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/93b03244097aea8be8fcac493afd3706c79fa403.svg", style: { width: "80ex", height: "14ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24510,7 +24510,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/1702a1f7b6c180a18d2e94b25808262b1e4c6195.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/1702a1f7b6c180a18d2e94b25808262b1e4c6195.svg", style: { width: "13ex", height: "2ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24555,7 +24555,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/90842920b7553c3091917cfc38fc0a67c2055d38.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/90842920b7553c3091917cfc38fc0a67c2055d38.svg", style: { width: "14ex", height: "6ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24583,7 +24583,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e5fb9f01d6545e3e2f43410625edfdf483eb3668.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e5fb9f01d6545e3e2f43410625edfdf483eb3668.svg", style: { width: "16ex", height: "6ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24647,7 +24647,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/a1189e16ce64ad24e90aa3ea75a724f05d7ab599.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/a1189e16ce64ad24e90aa3ea75a724f05d7ab599.svg", style: { width: "12ex", height: "6ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24775,7 +24775,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/4f7c9e4f8c7c560ba061ebd09e8a63364401ff22.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/4f7c9e4f8c7c560ba061ebd09e8a63364401ff22.svg", style: { width: "31ex", height: "2ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24844,7 +24844,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/0d76eda1bc302fcbae9ad77311288ffb9935e9f0.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/0d76eda1bc302fcbae9ad77311288ffb9935e9f0.svg", style: { width: "55ex", height: "9ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24860,7 +24860,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/b7307b83a6aed8f3981842ce4365cddaaad5ba3b.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/b7307b83a6aed8f3981842ce4365cddaaad5ba3b.svg", style: { width: "32ex", height: "11ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24905,7 +24905,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/85716f7b80fabb43411b982ea3c2919f01f546b6.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/85716f7b80fabb43411b982ea3c2919f01f546b6.svg", style: { width: "46ex", height: "8ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -24939,7 +24939,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/524d2b97aebbfe44de7529989629e4e0dd11a754.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/524d2b97aebbfe44de7529989629e4e0dd11a754.svg", style: { width: "45ex", height: "9ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25378,7 +25378,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e41083ef7693be5384f724a8b354b5a38c9b0ed4.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e41083ef7693be5384f724a8b354b5a38c9b0ed4.svg", style: { width: "52ex", height: "9ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25411,7 +25411,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/13a1df3fc05f3610035843aee9ee6be82a5820e7.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/13a1df3fc05f3610035843aee9ee6be82a5820e7.svg", style: { width: "71ex", height: "6ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25528,7 +25528,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/27810102a13621b9a1e3a533516ffec96f98694a.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/27810102a13621b9a1e3a533516ffec96f98694a.svg", style: { width: "69ex", height: "2ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25538,7 +25538,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/57e8df56566add302c750691d8f83ee0863ca888.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/57e8df56566add302c750691d8f83ee0863ca888.svg", style: { width: "52ex", height: "2ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25548,7 +25548,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/db3823d8088bd7efa7af9fc9f0db34580a364e22.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/db3823d8088bd7efa7af9fc9f0db34580a364e22.svg", style: { width: "23ex", height: "13ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25558,7 +25558,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/7917f77b496627b3f54b0678ee5e253c7773fd8b.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/7917f77b496627b3f54b0678ee5e253c7773fd8b.svg", style: { width: "61ex", height: "13ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25568,7 +25568,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/73e32c4b471bc1751add68148d9acababcf43ff1.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/73e32c4b471bc1751add68148d9acababcf43ff1.svg", style: { width: "34ex", height: "12ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25584,7 +25584,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/98f76abba92e71685cc2d94f0a9f482b6cbe554e.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/98f76abba92e71685cc2d94f0a9f482b6cbe554e.svg", style: { width: "100ex", height: "12ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25594,7 +25594,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e4496d76627a594150c9034f6c011bcb1cfe853c.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e4496d76627a594150c9034f6c011bcb1cfe853c.svg", style: { width: "37ex", height: "12ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25610,7 +25610,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/bbfe6ae9683fb2be29df8db065e1004b94066780.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/bbfe6ae9683fb2be29df8db065e1004b94066780.svg", style: { width: "37ex", height: "12ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25620,7 +25620,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6f51af1c66ef77785066ea5601e7dc5064831401.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6f51af1c66ef77785066ea5601e7dc5064831401.svg", style: { width: "53ex", height: "12ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -25630,7 +25630,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/8fa7f5a1b32d06d66b0a4d0f000b2496e0bacccd.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/8fa7f5a1b32d06d66b0a4d0f000b2496e0bacccd.svg", style: { width: "43ex", height: "8ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -26418,7 +26418,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/8fa7f5a1b32d06d66b0a4d0f000b2496e0bacccd.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/8fa7f5a1b32d06d66b0a4d0f000b2496e0bacccd.svg", style: { width: "43ex", height: "8ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -26428,7 +26428,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6fd34f4126772cb9ba06e36b9e40df95994cf847.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6fd34f4126772cb9ba06e36b9e40df95994cf847.svg", style: { width: "53ex", height: "12ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -26444,7 +26444,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/a2d3c6b5b68d86adf40db56f7723a45aa5a0f7a6.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/a2d3c6b5b68d86adf40db56f7723a45aa5a0f7a6.svg", style: { width: "106ex", height: "9ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -26454,7 +26454,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/1e2a1516ca2ce995a0ddebf218b7528bd762b686.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/1e2a1516ca2ce995a0ddebf218b7528bd762b686.svg", style: { width: "135ex", height: "12ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -26495,22 +26495,22 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/2aad48dc956ff2551caae8d7d35f299b395d6a28.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/2aad48dc956ff2551caae8d7d35f299b395d6a28.svg", style: { width: "58ex", height: "9ex" } })
 	        ),
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/dc9f128759d56fd5b1e6099da9d7e11e83bea104.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/dc9f128759d56fd5b1e6099da9d7e11e83bea104.svg", style: { width: "33ex", height: "8ex" } })
 	        ),
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/b2f197498c75c7bf59bf4e9791e4e948a5699d8e.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/b2f197498c75c7bf59bf4e9791e4e948a5699d8e.svg", style: { width: "39ex", height: "8ex" } })
 	        ),
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/ab88c77e6c5b3e13ad44665606ad0352040ce89a.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/ab88c77e6c5b3e13ad44665606ad0352040ce89a.svg", style: { width: "29ex", height: "8ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -26573,7 +26573,7 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/4744abca018b8ce799a19e39e45bb1021989c00c.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/4744abca018b8ce799a19e39e45bb1021989c00c.svg", style: { width: "102ex", height: "9ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -26583,17 +26583,17 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/38cf32cf7e00f9e2a5ef18f352f93a10c55ebc99.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/38cf32cf7e00f9e2a5ef18f352f93a10c55ebc99.svg", style: { width: "67ex", height: "8ex" } })
 	        ),
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d67b68b7fbd11a041232c144e31122309fb9d782.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d67b68b7fbd11a041232c144e31122309fb9d782.svg", style: { width: "78ex", height: "9ex" } })
 	        ),
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/8b9cf2edc06c8efabdf614f554b21fb929b0765d.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/8b9cf2edc06c8efabdf614f554b21fb929b0765d.svg", style: { width: "77ex", height: "9ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -26647,12 +26647,12 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e94f3c7fda60e80707370b02140840311bf33d75.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e94f3c7fda60e80707370b02140840311bf33d75.svg", style: { width: "61ex", height: "8ex" } })
 	        ),
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/5e90d865f1093a974f5aa1c8525c45649137a688.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/5e90d865f1093a974f5aa1c8525c45649137a688.svg", style: { width: "53ex", height: "9ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -26668,12 +26668,12 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/42efec3a2fe4620906cbf25bc11a28b354097b2c.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/42efec3a2fe4620906cbf25bc11a28b354097b2c.svg", style: { width: "72ex", height: "8ex" } })
 	        ),
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/373ca089b9e3928414a23931298dadf2886f1d71.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/373ca089b9e3928414a23931298dadf2886f1d71.svg", style: { width: "67ex", height: "9ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -26695,7 +26695,7 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/4511ca44d7a85ba755774fc82dfbf9fa14f94f71.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/4511ca44d7a85ba755774fc82dfbf9fa14f94f71.svg", style: { width: "117ex", height: "9ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -26705,17 +26705,17 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e04671db313e31b678512b59f5aff9de01dedf45.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e04671db313e31b678512b59f5aff9de01dedf45.svg", style: { width: "68ex", height: "8ex" } })
 	        ),
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d16d8b52374301de6eb2aca5ba798799f0759b5a.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d16d8b52374301de6eb2aca5ba798799f0759b5a.svg", style: { width: "77ex", height: "9ex" } })
 	        ),
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6dd685fe5c634305918f67db4ed693c0095de0d2.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6dd685fe5c634305918f67db4ed693c0095de0d2.svg", style: { width: "77ex", height: "9ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -26752,7 +26752,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/5bd82c66c21d9d4778726bde0ded0070e6a917ab.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/5bd82c66c21d9d4778726bde0ded0070e6a917ab.svg", style: { width: "90ex", height: "9ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -26762,7 +26762,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/836fb6adcdca2ac5372e04d38becbfe355988ba9.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/836fb6adcdca2ac5372e04d38becbfe355988ba9.svg", style: { width: "89ex", height: "9ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -26772,7 +26772,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6c4f49fdad56663b8955f3eb1b9b42a2435d9b13.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6c4f49fdad56663b8955f3eb1b9b42a2435d9b13.svg", style: { width: "131ex", height: "12ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -26782,7 +26782,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/c925370c4e7896c34d1a315db126364538918ea3.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/c925370c4e7896c34d1a315db126364538918ea3.svg", style: { width: "131ex", height: "12ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -27037,7 +27037,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/c6061bb273e862f3a91b83c6a8b4713a959e0dbf.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/c6061bb273e862f3a91b83c6a8b4713a959e0dbf.svg", style: { width: "90ex", height: "10ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -27153,7 +27153,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/88980e34e303819cc83b3f815c4cb0d23adb43c0.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/88980e34e303819cc83b3f815c4cb0d23adb43c0.svg", style: { width: "51ex", height: "7ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -27187,7 +27187,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d9db9970ee356d89609ffb125e05ccfc4c9d5953.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d9db9970ee356d89609ffb125e05ccfc4c9d5953.svg", style: { width: "53ex", height: "7ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -27300,7 +27300,7 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d68cfe7a615370ea397c6a2ea6a21cec8d7ed02c.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d68cfe7a615370ea397c6a2ea6a21cec8d7ed02c.svg", style: { width: "32ex", height: "5ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -27322,7 +27322,7 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d10b1cb74feda7a252a74331b50e68aca8e4dd88.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d10b1cb74feda7a252a74331b50e68aca8e4dd88.svg", style: { width: "63ex", height: "2ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -27332,7 +27332,7 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/436b6bb60413609fd094ded553e13688d5c1cfc0.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/436b6bb60413609fd094ded553e13688d5c1cfc0.svg", style: { width: "53ex", height: "4ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -27354,7 +27354,7 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/72cd5c996c6eb56b6a703d8c5173229f84e41b70.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/72cd5c996c6eb56b6a703d8c5173229f84e41b70.svg", style: { width: "81ex", height: "14ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -27364,7 +27364,7 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/af0674d7495234a3f2da87b36edd0d9ad9b5aac6.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/af0674d7495234a3f2da87b36edd0d9ad9b5aac6.svg", style: { width: "82ex", height: "8ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -27374,7 +27374,7 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/62cf61b0eb80ff494661f6273594b4ddd04da950.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/62cf61b0eb80ff494661f6273594b4ddd04da950.svg", style: { width: "80ex", height: "20ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -27390,7 +27390,7 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d3a75ae6f52a15e0214f9be4a8c7c641853e20cc.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d3a75ae6f52a15e0214f9be4a8c7c641853e20cc.svg", style: { width: "45ex", height: "19ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -27429,7 +27429,7 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/dd07865f420b458f83a65499a29634a3505c436d.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/dd07865f420b458f83a65499a29634a3505c436d.svg", style: { width: "45ex", height: "12ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -27439,7 +27439,7 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/f9f28c09d4d8c0e13fe0f3b85cb9dcaa71122ffb.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/f9f28c09d4d8c0e13fe0f3b85cb9dcaa71122ffb.svg", style: { width: "106ex", height: "5ex" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -27449,7 +27449,7 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/3d7bd3dd345d9b414547a4ba8b5c477f2f270356.svg" })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/3d7bd3dd345d9b414547a4ba8b5c477f2f270356.svg", style: { width: "81ex", height: "8ex" } })
 	        )
 	      ),
 	      React.createElement(
@@ -27460,12 +27460,12 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e41083ef7693be5384f724a8b354b5a38c9b0ed4.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e41083ef7693be5384f724a8b354b5a38c9b0ed4.svg", style: { width: "52ex", height: "9ex" } })
 	      ),
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/02f103ac6f738b12ad175a1e39b51926baae4338.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/02f103ac6f738b12ad175a1e39b51926baae4338.svg", style: { width: "80ex", height: "10ex" } })
 	      ),
 	      React.createElement(
 	        "p",
@@ -27487,7 +27487,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/2d1ef31eed0c14347202cafcd96d3203861378d0.svg" })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/2d1ef31eed0c14347202cafcd96d3203861378d0.svg", style: { width: "82ex", height: "12ex" } })
 	      ),
 	      React.createElement(
 	        "p",

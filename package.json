@@ -36,6 +36,7 @@
     "chroma-js": "^1.1.1",
     "css-loader": "^0.23.0",
     "file-loader": "^0.8.5",
+    "image-size": "^0.4.0",
     "jsmin": "^1.0.1",
     "json-stringify-safe": "^5.0.1",
     "less": "^2.5.3",

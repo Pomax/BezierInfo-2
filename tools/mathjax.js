@@ -15,9 +15,9 @@ function cleanUp(latex) {
   // strip any \[ and \], which is an block-level LaTeX markup indicator for MathJax:
   latex = latex.replace(/^'/,'').replace(/'$/,'').replace('\\[','').replace('\\]','');
   // Accented letters need shimming. For now, at least, until I figure out
-  // how to make mathjax-node use a full STIX or the like for typesetting.
-  // latex = latex.replace(/é/g,'\\acute{e}');
-  // done.
+  // how to make mathjax-node use a full STIX or the like for typesetting,
+  // without turning it into a <text> node.
+  latex = latex.replace(/é/g,'\\acute{e}');
   return latex;
 }
 
