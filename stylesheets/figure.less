@@ -27,6 +27,10 @@ figure {
     font-style: italic;
     font-size: 90%;
   }
+
+  &:not([class=inline]) + figure:not([class=inline]) {
+    margin-top: 2em;
+  }
 }
 
 div.figure {

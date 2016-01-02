@@ -16,14 +16,14 @@ module.exports = {
   matrixsplit: require("./matrixsplit"),
   reordering: require("./reordering"),
 
-  derivatives: require("./derivatives")
+  derivatives: require("./derivatives"),
+  pointvectors: require("./pointvectors"),
+  components: require("./components"),
+  extremities: require("./extremities")
 };
 
 
 /*
-  pointvectors: require("./pointvectors"),
-  components: require("./components"),
-  extremities: require("./extremities"),
   boundingbox: require("./boundingbox"),
   aligning: require("./aligning"),
   tightbounds: require("./tightbounds"),

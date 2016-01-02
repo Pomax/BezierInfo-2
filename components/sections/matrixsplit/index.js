@@ -179,7 +179,7 @@ var MatrixSplit = React.createClass({
             1 & t & t^2
             \end{bmatrix}
             \cdot
-            \underset{we\ turn\ this...}{\underbrace{Z \cdot M}}
+            \underset{we\ turn\ this...}{\underbrace{\kern 2.25em Z \cdot M \kern 2.25em}}
             \cdot
             \begin{bmatrix}
             P_1 \\ P_2 \\ P_3
@@ -192,7 +192,7 @@ var MatrixSplit = React.createClass({
             1 & t & t^2
             \end{bmatrix}
             \cdot
-            \underset{...into\ this!}{\underbrace{ M \cdot M^{-1} \cdot Z \cdot M }}
+            \underset{...into\ this...}{\underbrace{ M \cdot M^{-1} \cdot Z \cdot M }}
             \cdot
             \begin{bmatrix}
             P_1 \\ P_2 \\ P_3
@@ -206,9 +206,7 @@ var MatrixSplit = React.createClass({
             \end{bmatrix}
             \cdot
             M
-            \cdot
-            Q
-            \cdot
+            \underset{...to\ get\ \ this!}{\underbrace{ \kern 1.25em \cdot \kern 1.25em Q \kern 1.25em \cdot \kern 1.25em}}
             \begin{bmatrix}
             P_1 \\ P_2 \\ P_3
             \end{bmatrix}

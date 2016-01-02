@@ -457,7 +457,27 @@ var Graphic = React.createClass({
       offset.y += this.offset.y;
     }
     this.ctx.fillText(text, offset.x, offset.y);
+  },
+
+  drawAxes: function(pad, xlabel, xs, xe, ylabel, ys, ye, offset) {
+    offset = offset || { x:0, y:0 };
+    var dim = this.getPanelWidth();
+
+    this.drawLine({x:pad, y:pad}, {x:dim-pad, y:pad}, offset);
+    this.drawLine({x:pad, y:pad}, {x:pad, y:dim-pad}, offset);
+
+    this.setFill("black");
+
+    this.text(xlabel + " →", {x: offset.x + dim/2,     y: offset.y + 15});
+    this.text(xs,            {x: offset.x + pad,       y: offset.y + 15});
+    this.text(xe,            {x: offset.x + dim - pad, y: offset.y + 15});
+
+    this.text(ylabel, {x: offset.x + 5, y: offset.y + dim/2 - pad});
+    this.text("↓",    {x: offset.x + 5, y: offset.y + dim/2});
+    this.text(ys,     {x: offset.x + 4, y: offset.y + pad + 5});
+    this.text(ye,     {x: offset.x + 2, y: offset.y + dim - pad + 10});
   }
+
 });
 
 module.exports = Graphic;

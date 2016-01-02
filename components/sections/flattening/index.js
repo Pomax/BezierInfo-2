@@ -77,7 +77,7 @@ var Flattening = React.createClass({
 <pre>function flattenCurve(curve, segmentCount):
   step = 1/segmentCount;
   coordinates = [curve.getXValue(0), curve.getYValue(0)]
-  for(i=1; i &lt;= segmentCount; i++):
+  for(i=1; i <= segmentCount; i++):
     t = i*step;
     coordinates.push[curve.getXValue(t), curve.getYValue(t)]
   return coordinates;</pre>
@@ -87,7 +87,7 @@ var Flattening = React.createClass({
 <pre>function drawFlattenedCurve(curve, segmentCount):
   coordinates = flattenCurve(curve, segmentCount)
   coord = coordinates[0], _coords;
-  for(i=1; i &lt; coordinates.length; i++):
+  for(i=1; i < coordinates.length; i++):
     _coords = coordinates[i]
     line(coords, _coords)
     coords = _coords</pre>

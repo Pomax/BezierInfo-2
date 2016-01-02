@@ -124,7 +124,7 @@ function drawCurve(points[], t):
     draw(points[0])
   else:
     newpoints=array(points.size-1)
-    for(i=0; i&lt;newpoints.length; i++):
+    for(i=0; i<newpoints.length; i++):
       if(i==0):
         left.add(points[i])
       if(i==newpoints.length-1):

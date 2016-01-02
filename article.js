@@ -62,7 +62,7 @@
 	var React = __webpack_require__(8);
 	var ReactDOM = __webpack_require__(165);
 	var Article = __webpack_require__(166);
-	var style = __webpack_require__(188);
+	var style = __webpack_require__(191);
 
 	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"));
 
@@ -19761,13 +19761,13 @@
 	  matrixsplit: __webpack_require__(185),
 	  reordering: __webpack_require__(186),
 
-	  derivatives: __webpack_require__(187)
+	  derivatives: __webpack_require__(187),
+	  pointvectors: __webpack_require__(188),
+	  components: __webpack_require__(189),
+	  extremities: __webpack_require__(190)
 	};
 
 	/*
-	  pointvectors: require("./pointvectors"),
-	  components: require("./components"),
-	  extremities: require("./extremities"),
 	  boundingbox: require("./boundingbox"),
 	  aligning: require("./aligning"),
 	  tightbounds: require("./tightbounds"),
@@ -20493,7 +20493,27 @@
 	      offset.y += this.offset.y;
 	    }
 	    this.ctx.fillText(_text, offset.x, offset.y);
+	  },
+
+	  drawAxes: function drawAxes(pad, xlabel, xs, xe, ylabel, ys, ye, offset) {
+	    offset = offset || { x: 0, y: 0 };
+	    var dim = this.getPanelWidth();
+
+	    this.drawLine({ x: pad, y: pad }, { x: dim - pad, y: pad }, offset);
+	    this.drawLine({ x: pad, y: pad }, { x: pad, y: dim - pad }, offset);
+
+	    this.setFill("black");
+
+	    this.text(xlabel + " →", { x: offset.x + dim / 2, y: offset.y + 15 });
+	    this.text(xs, { x: offset.x + pad, y: offset.y + 15 });
+	    this.text(xe, { x: offset.x + dim - pad, y: offset.y + 15 });
+
+	    this.text(ylabel, { x: offset.x + 5, y: offset.y + dim / 2 - pad });
+	    this.text("↓", { x: offset.x + 5, y: offset.y + dim / 2 });
+	    this.text(ys, { x: offset.x + 4, y: offset.y + pad + 5 });
+	    this.text(ye, { x: offset.x + 2, y: offset.y + dim - pad + 10 });
 	  }
+
 	});
 
 	module.exports = Graphic;
@@ -25008,7 +25028,7 @@
 	          '\n',
 	          "binomial(n,k):",
 	          '\n',
-	          "  while(n >= lut.length):",
+	          "  while(n &gt;= lut.length):",
 	          '\n',
 	          "    s = lut.length",
 	          '\n',
@@ -25164,22 +25184,6 @@
 	    api.drawCurve(curve);
 	  },
 
-	  drawGraphBasics: function drawGraphBasics(api, dim, pad, fwh) {
-	    api.drawLine({ x: pad, y: pad }, { x: dim - pad, y: pad });
-	    api.drawLine({ x: pad, y: pad }, { x: pad, y: dim - pad });
-
-	    api.setFill("black");
-
-	    api.text("t →", { x: dim / 2, y: 15 });
-	    api.text("0", { x: pad, y: 15 });
-	    api.text("1", { x: dim - pad, y: 15 });
-
-	    api.text("S", { x: 5, y: dim / 2 - pad });
-	    api.text("↓", { x: 5, y: dim / 2 });
-	    api.text("0%", { x: 4, y: pad + 5 });
-	    api.text("100%", { x: 2, y: dim - pad + 10 });
-	  },
-
 	  drawFunction: function drawFunction(api, label, where, generator) {
 	    api.setRandomColor();
 	    api.drawFunction(generator);
@@ -25210,7 +25214,8 @@
 	    var dim = api.getPanelWidth(),
 	        pad = 20,
 	        fwh = dim - pad * 2;
-	    this.drawGraphBasics(api, dim, pad, fwh);
+
+	    api.drawAxes(pad, "t", 0, 1, "S", "0%", "100%");
 
 	    var p = api.hover;
 	    if (p && p.x >= pad && p.x <= dim - pad) {
@@ -25248,7 +25253,8 @@
 	    var dim = api.getPanelWidth(),
 	        pad = 20,
 	        fwh = dim - pad * 2;
-	    this.drawGraphBasics(api, dim, pad, fwh);
+
+	    api.drawAxes(pad, "t", 0, 1, "S", "0%", "100%");
 
 	    var p = api.hover;
 	    if (p && p.x >= pad && p.x <= dim - pad) {
@@ -25293,7 +25299,8 @@
 	    var dim = api.getPanelWidth(),
 	        pad = 20,
 	        fwh = dim - pad * 2;
-	    this.drawGraphBasics(api, dim, pad, fwh);
+
+	    api.drawAxes(pad, "t", 0, 1, "S", "0%", "100%");
 
 	    var factors = [1, 15, 105, 455, 1365, 3003, 5005, 6435, 6435, 5005, 3003, 1365, 455, 105, 15, 1];
 
@@ -26500,17 +26507,17 @@
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/dc9f128759d56fd5b1e6099da9d7e11e83bea104.svg", style: { width: "15.3rem", height: "3.97485rem" } })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/4e614a380e752a7af8149cd5f42071a8742d1c4c.svg", style: { width: "17.62515rem", height: "3.97485rem" } })
 	        ),
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/b2f197498c75c7bf59bf4e9791e4e948a5699d8e.svg", style: { width: "17.69985rem", height: "3.97485rem" } })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/594e80f46c0e70659119a3d9b62f3d938b412877.svg", style: { width: "17.69985rem", height: "3.97485rem" } })
 	        ),
 	        React.createElement(
 	          "p",
 	          null,
-	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/ab88c77e6c5b3e13ad44665606ad0352040ce89a.svg", style: { width: "12.97485rem", height: "3.97485rem" } })
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/b9f4b788a9e2ecbbb22d3d314c1afd0c1481e7fd.svg", style: { width: "17.69985rem", height: "4.05rem" } })
 	        ),
 	        React.createElement(
 	          "p",
@@ -27527,13 +27534,873 @@
 /* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var React = __webpack_require__(8);
+	var Graphic = __webpack_require__(170);
+	var SectionHeader = __webpack_require__(175);
+
+	var PointVectors = React.createClass({
+	  displayName: "PointVectors",
+
+	  statics: {
+	    title: "Tangents and normals"
+	  },
+
+	  setupQuadratic: function setupQuadratic(api) {
+	    var curve = api.getDefaultQuadratic();
+	    api.setCurve(curve);
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    var curve = api.getDefaultCubic();
+	    api.setCurve(curve);
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+
+	    var i,
+	        t,
+	        p,
+	        tg,
+	        n,
+	        td = 0.25,
+	        nd = 20;
+	    for (i = 0; i <= 10; i++) {
+	      t = i / 10.0;
+	      p = curve.get(t);
+	      tg = curve.derivative(t);
+	      n = curve.normal(t);
+	      api.setColor("blue");
+	      api.drawLine(p, { x: p.x + tg.x * td, y: p.y + tg.y * td });
+	      api.setColor("red");
+	      api.drawLine(p, { x: p.x + n.x * nd, y: p.y + n.y * nd });
+	      api.setColor("black");
+	      api.drawCircle(p, 3);
+	    }
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(
+	        SectionHeader,
+	        this.props,
+	        PointVectors.title
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "If you want to move objects along a curve, or \"away from\" a curve, the two vectors you're most interested in are the tangent vector and normal vector for curve points. These are actually really easy to find. For moving, and orienting, along a curve we use the tangent, which indicates the direction travel at specific points, and is literally just the first derivative of our curve:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/cbc206d36644a654583016cf547b7706c3e9d588.svg", style: { width: "10.35rem", height: "2.77515rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "This gives us the directional vector we want. We can normalize it to give us uniform directional vectors (having a length of 1.0) at each point, and then do whatever it is we want to do based on those directions:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/967cc51e88df4c42ad30a0ee717c65152e0e185a.svg", style: { width: "17.62515rem", height: "2.025rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/c4b1013b77b30f840988a8bc79d4176f96f561cd.svg", style: { width: "20.62485rem", height: "4.7250000000000005rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The tangent is very useful for moving along a line, but what if we want to move away from the curve instead, perpendicular to the curve at some point ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        "? In that case we want the \"normal\" vector. This vector runs at a right angle to the direction of the curve, and is typically of length 1.0, so all we have to do is rotate the normalized directional vector and we're done:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/f4afd0b6b52609c34a0e55f5fd1769c85c122077.svg", style: { width: "22.800150000000002rem", height: "4.57515rem" } })
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "note" },
+	        React.createElement(
+	          "p",
+	          null,
+	          "Rotating coordinates is actually very easy, if you know the rule for it. You might find it explained as \"applying a ",
+	          React.createElement(
+	            "a",
+	            { href: "https://en.wikipedia.org/wiki/Rotation_matrix" },
+	            "rotation matrix"
+	          ),
+	          "\", which is what we'll look at here, too. Essentially, the idea is to take the circles over which we can rotate, and simply \"sliding the coordinates\" over those circles by the desired angle. If we want a quarter circle turn, we take the coordinate, slide it along the cirle by a quarter turn, and done."
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "To turn any point ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "(x,y)"
+	          ),
+	          " into a rotated point ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "(x',y')"
+	          ),
+	          " (over 0,0) by some angle φ, we apply this nicely easy computation:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d08c84eb3e934b29fddd96ab8c5d72830d408ff3.svg", style: { width: "12.225150000000001rem", height: "2.84985rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Which is the \"long\" version of the following matrix transformation:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/aed5a0fb3c84b99ba1f29b42798db7ba38cc3d16.svg", style: { width: "15.150150000000002rem", height: "2.77515rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "And that's all we need to rotate any coordinate. Note that for quarter, half and three quarter turns these functions become even easier, since ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "sin"
+	          ),
+	          " and",
+	          React.createElement(
+	            "i",
+	            null,
+	            "cos"
+	          ),
+	          " for these angles are, respectively: 0 and 1, -1 and 0, and 0 and -1."
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "But ",
+	          React.createElement(
+	            "strong",
+	            null,
+	            React.createElement(
+	              "em",
+	              null,
+	              "why"
+	            )
+	          ),
+	          " does this work? Why this matrix multiplication?",
+	          React.createElement(
+	            "a",
+	            { href: "http://en.wikipedia.org/wiki/Rotation_matrix#Decomposition_into_shears" },
+	            "wikipedia"
+	          ),
+	          "(Technically, Thomas Herter and Klaus Lott) tells us that a rotation matrix can be treated as a sequence of three (elementary) shear operations. When we combine this into a single matrix operation (because all matrix multiplications can be collapsed), we get the matrix that you see above.",
+	          React.createElement(
+	            "a",
+	            { href: "http://datagenetics.com/blog/august32013/index.html" },
+	            "DataGenetics"
+	          ),
+	          " have an excellent article about this very thing: it's really quite cool, and I strongly recommend taking a quick break from this primer to read that article."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The following two graphics show the tangent and normal along a quadratic and cubic curve, with the direction vector coloured blue, and the normal vector coloured red."
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "figure" },
+	        React.createElement(Graphic, { preset: "simple", title: "Quadratic Bézier tangents and normals", inline: true, setup: this.setupQuadratic, draw: this.draw }),
+	        React.createElement(Graphic, { preset: "simple", title: "Cubic Bézier tangents and normals", inline: true, setup: this.setupCubic, draw: this.draw })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = PointVectors;
+
+/***/ },
+/* 189 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(8);
+	var Graphic = __webpack_require__(170);
+	var SectionHeader = __webpack_require__(175);
+
+	var Components = React.createClass({
+	  displayName: "Components",
+
+	  statics: {
+	    title: "Component functions"
+	  },
+
+	  setupQuadratic: function setupQuadratic(api) {
+	    var curve = api.getDefaultQuadratic();
+	    curve.points[2].x = 210;
+	    api.setCurve(curve);
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    var curve = api.getDefaultCubic();
+	    api.setCurve(curve);
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.setPanelCount(3);
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+
+	    var tf = curve.order + 1,
+	        pad = 20,
+	        pts = curve.points,
+	        w = api.getPanelWidth(),
+	        h = api.getPanelHeight(),
+	        offset = { x: w, y: 0 };
+
+	    var x_pts = JSON.parse(JSON.stringify(pts)).map(function (p, t) {
+	      return { x: w * t / tf, y: p.x };
+	    });
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: h }, offset);
+	    api.drawAxes(pad, "t", 0, 1, "x", 0, w, offset);
+	    offset.x += pad;
+	    api.drawCurve(new api.Bezier(x_pts), offset);
+
+	    offset.x += w - pad;
+	    var y_pts = JSON.parse(JSON.stringify(pts)).map(function (p, t) {
+	      return { x: w * t / tf, y: p.y };
+	    });
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: h }, offset);
+	    api.drawAxes(pad, "t", 0, 1, "y", 0, w, offset);
+	    offset.x += pad;
+	    api.drawCurve(new api.Bezier(y_pts), offset);
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(
+	        SectionHeader,
+	        this.props,
+	        Components.title
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "One of the first things people run into when they start using Bézier curves in their own programs is \"I know how to draw the curve, but how do I determine the bounding box?\". It's actually reasonably straight forward to do so, but it requires having some knowledge on exploiting math to get the values we need. For bounding boxes, we aren't actually interested in the curve itself, but only in its \"extremities\": the minimum and maximum values the curve has for its x- and y-axis values. If you remember your calculus (provided you ever took calculus, otherwise it's going to be hard to remember) we can determine function extremities using the first derivative of that function, but this poses a problem, since our function is parametric: every axis has its own function."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The solution: compute the derivative for each axis separately, and then fit them back together in the same way we do for the original."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Let's look at how a parametric Bézier curve \"splits up\" into two normal functions, one for the x-axis and one for the y-axis. Note the left-most figure is again an interactive curve, without labeled axes (you get coordinates in the graph instead).  The center and right-most figures are the component functions for computing the x-axis value, given a value for ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " (between 0 and 1 inclusive), and the y-axis value, respectively."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "If you move points in a curve sideways, you should only see the middle graph change; likely, moving points vertically should only show a change in the right graph."
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "Quadratic Bézier curve components", setup: this.setupQuadratic, draw: this.draw }),
+	      React.createElement(Graphic, { preset: "simple", title: "Cubic Bézier curve components", setup: this.setupCubic, draw: this.draw })
+	    );
+	  }
+	});
+
+	module.exports = Components;
+
+/***/ },
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(8);
+	var Graphic = __webpack_require__(170);
+	var SectionHeader = __webpack_require__(175);
+
+	var Extremities = React.createClass({
+	  displayName: "Extremities",
+
+	  statics: {
+	    title: "Component functions"
+	  },
+
+	  setupQuadratic: function setupQuadratic(api) {
+	    var curve = api.getDefaultQuadratic();
+	    curve.points[2].x = 210;
+	    api.setCurve(curve);
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    var curve = api.getDefaultCubic();
+	    api.setCurve(curve);
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.setPanelCount(3);
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+
+	    var tf = curve.order + 1,
+	        pad = 20,
+	        pts = curve.points,
+	        w = api.getPanelWidth(),
+	        h = api.getPanelHeight(),
+	        offset = { x: w, y: 0 },
+	        extremities;
+
+	    var x_pts = JSON.parse(JSON.stringify(pts)).map(function (p, t) {
+	      return { x: w * t / tf, y: p.x };
+	    });
+	    api.setColor("black");
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: h }, offset);
+	    api.drawAxes(pad, "t", 0, 1, "x", 0, w, offset);
+	    offset.x += pad;
+	    var xcurve = new api.Bezier(x_pts);
+	    api.drawCurve(xcurve, offset);
+	    api.setColor("red");
+	    xcurve.inflections().y.forEach(function (t) {
+	      var p = xcurve.get(t);
+	      api.drawCircle(p, 3, offset);
+	    });
+
+	    offset.x += w - pad;
+	    var y_pts = JSON.parse(JSON.stringify(pts)).map(function (p, t) {
+	      return { x: w * t / tf, y: p.y };
+	    });
+	    api.setColor("black");
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: h }, offset);
+	    api.drawAxes(pad, "t", 0, 1, "y", 0, w, offset);
+	    offset.x += pad;
+	    var ycurve = new api.Bezier(y_pts);
+	    api.drawCurve(ycurve, offset);
+	    api.setColor("red");
+	    ycurve.inflections().y.forEach(function (t) {
+	      var p = ycurve.get(t);
+	      api.drawCircle(p, 3, offset);
+	    });
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(
+	        SectionHeader,
+	        this.props,
+	        Extremities.title
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Now that we understand (well, superficially anyway) the component functions, we can find the extremities of our Bézier curve by finding maxima and minima on the component functions, by solving the equations B'(t) = 0 and B''(t) = 0. Although, in the case of quadratic curves there is no B''(t), so we only need to compute B'(t) = 0. So, how do we compute the first and second derivatives? Fairly easily, actually, until our derivatives are 4th order or higher... then things get really hard. But let's start simple:"
+	      ),
+	      React.createElement(
+	        "h3",
+	        null,
+	        "Quadratic curves: linear derivatives."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Finding the solution for \"where is this line 0\" should be trivial:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/457ecd24879f9203a5f7c020e7bd9c217007bbc0.svg", style: { width: "9.450000000000001rem", height: "6.37515rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Done. And quadratic curves have no meaningful second derivative, so we're ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "really"
+	        ),
+	        " done."
+	      ),
+	      React.createElement(
+	        "h3",
+	        null,
+	        "Cubic curves: the quadratic formula."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The derivative of a cubic curve is a quadratic curve, and finding the roots for a quadratic Bézier curve means we can apply the ",
+	        React.createElement(
+	          "a",
+	          { href: "https://en.wikipedia.org/wiki/Quadratic_formula" },
+	          "Quadratic formulat"
+	        ),
+	        ". If you've seen it before, you'll remember it, and if you haven't, it looks like this:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/c991d280b1933f09eaf11ec04511d15207747660.svg", style: { width: "28.72485rem", height: "2.475rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So, if we can express a Bézier component function as a plain polynomial, we're done: we just plug in the values into the quadratic formula, check if that square root is negative or not (if it is, there are no roots) and then just compute the two values that come out (because of that plus/minus sign we get two). Any value between 0 and 1 is a root that matters for Bézier curves, anything below or above that is irrelevant (because Bézier curves are only defined over the interval [0,1]). So, how do we convert?"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "First we turn our cubic Bézier function into a quadratic one, by following the rule mentioned at the end of the ",
+	        React.createElement(
+	          "a",
+	          { href: "#derivatives" },
+	          "derivatives section"
+	        ),
+	        ":"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/71539c3a104af5ec78918e5e3f70cb7c533f0f8f.svg", style: { width: "45rem", height: "2.77515rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "And then, using these ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "v"
+	        ),
+	        " values, we can find out what our ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "a"
+	        ),
+	        ", ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "b"
+	        ),
+	        ", and ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "c"
+	        ),
+	        " should be:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/ccc78c9c81c6b3133b0463dc19da3567fb002d07.svg", style: { width: "21.375rem", height: "7.2rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So we can find the roots by using:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/c2469b2f47faf38e9c35fab6ef23cc76f201ff6c.svg", style: { width: "20.84985rem", height: "3.97485rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Easy peasy. We also note that the second derivative of a cubic curve means computing the first derivative of a quadratic curve, and we just saw how to do that in the section above."
+	      ),
+	      React.createElement(
+	        "h3",
+	        null,
+	        "Quartic curves: Cardano's algorithm."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Quartic—fourth degree—curves have a cubic function as derivative. Now, cubic functions are a bit of a problem because they're really hard to solve. But, way back in the 16",
+	        React.createElement(
+	          "sup",
+	          null,
+	          "th"
+	        ),
+	        " century, ",
+	        React.createElement(
+	          "a",
+	          { href: "https://en.wikipedia.org/wiki/Gerolamo_Cardano" },
+	          "Gerolamo Cardano"
+	        ),
+	        " figured out that even if the general cubic function is really hard to solve, it can be rewritten to a form for which finding the roots is \"easy\", and then the only hard part is figuring out how to go from that form to the generic form. So:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/aca62a3ba9b8a7bf37b235e5e3629868e659f773.svg", style: { width: "45rem", height: "2.77515rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "This is easier because for the \"easier formula\" we can use ",
+	        React.createElement(
+	          "a",
+	          { href: "http://www.wolframalpha.com/input/?i=t^3+%2B+pt+%2B+q" },
+	          "regular calculus"
+	        ),
+	        " to find the roots (as a cubic function, however, it can have up to three roots, but two of those can be complex. For the purpose of Bézier curve extremities, we can completely ignore those complex roots, since our ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "t"
+	        ),
+	        " is a plain real number from 0 to 1)."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So, the trick is to figure out how to turn the first formula into the second formula, and to then work out the maths that gives us the roots. This is explained in detail over at ",
+	        React.createElement(
+	          "a",
+	          { href: "http://www.trans4mind.com/personal_development/mathematics/polynomials/cubicAlgebra.htm" },
+	          "Ken J. Ward's page"
+	        ),
+	        " for solving the cubic equation, so instead of showing the maths, I'm simply going to show the programming code for solving the cubic equation, with the complex roots getting totally ignored."
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "note" },
+	        React.createElement(
+	          "pre",
+	          null,
+	          '\n',
+	          "// A helper function to filter for values in the [0,1] interval:",
+	          '\n',
+	          "function accept(t) ",
+	          '{',
+	          '\n',
+	          "  return 0<=t && t <=1;",
+	          '\n',
+	          '}',
+	          '\n',
+	          '\n',
+	          "// A special cuberoot function, which we can use because we don't care about complex roots:",
+	          '\n',
+	          "function crt(v) ",
+	          '{',
+	          '\n',
+	          "  if(v<0) return -Math.pow(-v,1/3);",
+	          '\n',
+	          "  return Math.pow(v,1/3);",
+	          '\n',
+	          '}',
+	          '\n',
+	          '\n',
+	          "// Now then: given cubic coordinates pa, pb, pc, pd, find all roots.",
+	          '\n',
+	          "function getCubicRoots(pa, pb, pc, pd) ",
+	          '{',
+	          '\n',
+	          "  var d = (-pa + 3*pb - 3*pc + pd),",
+	          '\n',
+	          "      a = (3*pa - 6*pb + 3*pc) / d,",
+	          '\n',
+	          "      b = (-3*pa + 3*pb) / d,",
+	          '\n',
+	          "      c = pa / d;",
+	          '\n',
+	          '\n',
+	          "  var p = (3*b - a*a)/3,",
+	          '\n',
+	          "      p3 = p/3,",
+	          '\n',
+	          "      q = (2*a*a*a - 9*a*b + 27*c)/27,",
+	          '\n',
+	          "      q2 = q/2,",
+	          '\n',
+	          "      discriminant = q2*q2 + p3*p3*p3;",
+	          '\n',
+	          '\n',
+	          "  // and some variables we're going to use later on:",
+	          '\n',
+	          "  var u1,v1,root1,root2,root3;",
+	          '\n',
+	          '\n',
+	          "  // three possible real roots:",
+	          '\n',
+	          "  if (discriminant < 0) ",
+	          '{',
+	          '\n',
+	          "    var mp3  = -p/3,",
+	          '\n',
+	          "        mp33 = mp3*mp3*mp3,",
+	          '\n',
+	          "        r    = sqrt( mp33 ),",
+	          '\n',
+	          "        t    = -q / (2*r),",
+	          '\n',
+	          "        cosphi = t<-1 ? -1 : t>1 ? 1 : t,",
+	          '\n',
+	          "        phi  = acos(cosphi),",
+	          '\n',
+	          "        crtr = cuberoot(r),",
+	          '\n',
+	          "        t1   = 2*crtr;",
+	          '\n',
+	          "    root1 = t1 * cos(phi/3) - a/3;",
+	          '\n',
+	          "    root2 = t1 * cos((phi+2*pi)/3) - a/3;",
+	          '\n',
+	          "    root3 = t1 * cos((phi+4*pi)/3) - a/3;",
+	          '\n',
+	          "    return [root1, root2, root3].filter(accept);",
+	          '\n',
+	          "  ",
+	          '}',
+	          '\n',
+	          '\n',
+	          "  // three real roots, but two of them are equal:",
+	          '\n',
+	          "  else if(discriminant === 0) ",
+	          '{',
+	          '\n',
+	          "    u1 = q2 < 0 ? cuberoot(-q2) : -cuberoot(q2);",
+	          '\n',
+	          "    root1 = 2*u1 - a/3;",
+	          '\n',
+	          "    root2 = -u1 - a/3;",
+	          '\n',
+	          "    return [root1, root2].filter(accept);",
+	          '\n',
+	          "  ",
+	          '}',
+	          '\n',
+	          '\n',
+	          "  // one real root, two complex roots",
+	          '\n',
+	          "  else ",
+	          '{',
+	          '\n',
+	          "    var sd = sqrt(discriminant);",
+	          '\n',
+	          "    u1 = cuberoot(sd - q2);",
+	          '\n',
+	          "    v1 = cuberoot(sd + q2);",
+	          '\n',
+	          "    root1 = u1 - v1 - a/3;",
+	          '\n',
+	          "    return [root1].filter(accept);",
+	          '\n',
+	          "  ",
+	          '}',
+	          '\n',
+	          '}'
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "And that's it. The maths is complicated, but the code is pretty much just \"follow the maths, while caching as many values as we can to reduce recomputing things as much as possible\" and now we have a way to find all roots for a cubic function and can just move on with using that to find extremities of our curves."
+	      ),
+	      React.createElement(
+	        "h3",
+	        null,
+	        "Quintic and higher order curves: finding numerical solutions"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The problem with this is that as the order of the curve goes up, we can't actually solve those equations the normal way. We can't take the function, and then work out what the solutions are. Not to mention that even solving a third order derivative (for a fourth order curve) is already a royal pain in the backside. We need a better solution. We need numerical approaches."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "That's a fancy word for saying \"rather than solve the function, treat the problem as a sequence of identical operations, the performing of which gets us closer and closer to the real answer\". As it turns out, there is a really nice numerical root finding algorithm, called the ",
+	        React.createElement(
+	          "a",
+	          { href: "http://en.wikipedia.org/wiki/Newton-Raphson" },
+	          "Newton-Raphson"
+	        ),
+	        "root finding method (yes, after ",
+	        React.createElement(
+	          "strong",
+	          null,
+	          "that"
+	        ),
+	        " Newton), which we can make use of."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The Newton-Raphson approach consists of picking a value ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " (any will do), and getting the corresponding value at that ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " value. For normal functions, we can treat that value as a height. If the height is zero, we're done, we have found a root. If it's not, we take the tangent of the curve at that point, and extend it until it passes the x-axis, which will be at some new point ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        ". We then repeat the procedure with this new value, and we keep doing this until we find our root."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Mathematically, this means that for some ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        ", at step ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n=1"
+	        ),
+	        ", we perform the following calculation until ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "f",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "y"
+	          )
+	        ),
+	        "(",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        ") is zero, so that the next ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " is the same as the one we already have:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/a213e6063f76db9b644b2485f984a678b63544dc.svg", style: { width: "8.625150000000001rem", height: "2.9250000000000003rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "(The wikipedia article has a decent animation for this process, so I'm not adding a sketch for that here)"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Now, this works well only if we can pick good starting points, and our curve is continuously differentiable and doesn't have oscillations. Glossing over the exact meaning of those terms, the curves we're dealing with conform to those constraints, so as long as we pick good starting points, this will work. So the question is: which starting points do we pick?"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "As it turns out, Newton-Raphson is so blindingly fast, so we could get away with just not picking: we simply run the algorithm from ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t=0"
+	        ),
+	        " to ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t=1"
+	        ),
+	        " at small steps (say, 1/200",
+	        React.createElement(
+	          "sup",
+	          null,
+	          "th"
+	        ),
+	        ") and the result will be all the roots we want. Of course, this may pose problems for high order Bézier curves: 200 steps for a 200",
+	        React.createElement(
+	          "sup",
+	          null,
+	          "th"
+	        ),
+	        " order Bézier curve is going to go wrong, but that's okay: there is no reason, ever, to use Bézier curves of crazy high orders. You might use a fifth order curve to get the \"nicest still remotely workable\" approximation of a full circle with a single Bézier curve, that's pretty much as high as you'll ever need to go."
+	      ),
+	      React.createElement(
+	        "h3",
+	        null,
+	        "In conclusion:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So now that we know how to do root finding, we can determine the first and second derivative roots for our Bézier curves, and show those roots overlaid on the previous graphics:"
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "Quadratic Bézier curve extremities", setup: this.setupQuadratic, draw: this.draw }),
+	      React.createElement(Graphic, { preset: "simple", title: "Cubic Bézier curve extremities", setup: this.setupCubic, draw: this.draw })
+	    );
+	  }
+	});
+
+	module.exports = Extremities;
+
+/***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(189);
+	var content = __webpack_require__(192);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(192)(content, {});
+	var update = __webpack_require__(195)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -27550,21 +28417,21 @@
 	}
 
 /***/ },
-/* 189 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(190)();
+	exports = module.exports = __webpack_require__(193)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(191) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(194) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 190 */
+/* 193 */
 /***/ function(module, exports) {
 
 	/*
@@ -27620,13 +28487,13 @@
 
 
 /***/ },
-/* 191 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
 
 /***/ },
-/* 192 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

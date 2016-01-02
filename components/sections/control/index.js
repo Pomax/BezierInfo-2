@@ -18,22 +18,6 @@ var Control = React.createClass({
     api.drawCurve(curve);
   },
 
-  drawGraphBasics: function(api, dim, pad, fwh) {
-    api.drawLine({x:pad, y:pad}, {x:dim-pad, y:pad});
-    api.drawLine({x:pad, y:pad}, {x:pad, y:dim-pad});
-
-    api.setFill("black");
-
-    api.text("t →", {x:dim/2, y: 15});
-    api.text("0", {x:pad, y: 15});
-    api.text("1", {x:dim-pad, y: 15});
-
-    api.text("S", {x:5, y: dim/2-pad});
-    api.text("↓", {x:5, y: dim/2});
-    api.text("0%", {x:4, y: pad+5});
-    api.text("100%", {x:2, y: dim-pad+10});
-  },
-
   drawFunction: function(api, label, where, generator) {
     api.setRandomColor();
     api.drawFunction(generator);
@@ -64,7 +48,8 @@ var Control = React.createClass({
     var dim = api.getPanelWidth(),
         pad = 20,
         fwh = dim - pad*2;
-    this.drawGraphBasics(api, dim, pad, fwh);
+
+    api.drawAxes(pad, "t",0,1, "S","0%","100%");
 
     var p = api.hover;
     if (p && p.x >= pad && p.x <= dim-pad) {
@@ -101,7 +86,8 @@ var Control = React.createClass({
     var dim = api.getPanelWidth(),
         pad = 20,
         fwh = dim - pad*2;
-    this.drawGraphBasics(api, dim, pad, fwh);
+
+    api.drawAxes(pad, "t",0,1, "S","0%","100%");
 
     var p = api.hover;
     if (p && p.x >= pad && p.x <= dim-pad) {
@@ -145,7 +131,8 @@ var Control = React.createClass({
     var dim = api.getPanelWidth(),
         pad = 20,
         fwh = dim - pad*2;
-    this.drawGraphBasics(api, dim, pad, fwh);
+
+    api.drawAxes(pad, "t",0,1, "S","0%","100%");
 
     var factors = [1,15,105,455,1365,3003,5005,6435,6435,5005,3003,1365,455,105,15,1]
 
@@ -246,7 +233,7 @@ var Control = React.createClass({
 
 <pre>function Bezier(n,t,w[]):
   sum = 0
-  for(k=0; k&lt;n; k++):
+  for(k=0; k<n; k++):
     sum += w[k] * binomial(n,k) * (1-t)^(n-k) * t^(k)
   return sum</pre>
 

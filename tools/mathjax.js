@@ -21,7 +21,7 @@ function cleanUp(latex) {
 API.config({
   MathJax: {
     SVG: {
-      font: "Latin-Modern"
+      font: "Latin-Modern" // STIX-Web is too fat for this article
     },
     TeX: {
       extensions: [
