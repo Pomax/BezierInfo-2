@@ -3,8 +3,10 @@ var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
 var Reordering = React.createClass({
-  statics: {
-    title: "Lowering and elevating curve order"
+  getDefaultProps: function() {
+    return {
+      title: "Lowering and elevating curve order"
+    };
   },
 
   getInitialState: function() {
@@ -110,7 +112,7 @@ var Reordering = React.createClass({
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>{ Reordering.title }</SectionHeader>
+        <SectionHeader {...this.props} />
 
         <p>One interesting property of Bézier curves is that an <i>n<sup>th</sup></i> order curve can
         always be perfectly represented by an <i>(n+1)<sup>th</sup></i> order curve, by giving the

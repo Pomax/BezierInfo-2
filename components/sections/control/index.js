@@ -3,8 +3,10 @@ var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
 var Control = React.createClass({
-  statics: {
-    title: "Controlling Bézier curvatures"
+  getDefaultProps: function() {
+    return {
+      title: "Controlling Bézier curvatures"
+    };
   },
 
   drawCubic: function(api) {
@@ -168,7 +170,7 @@ var Control = React.createClass({
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>{ Control.title }</SectionHeader>
+        <SectionHeader {...this.props} />
 
         <p>Bézier curves are (like all "splines") interpolation functions, meaning they take a set of
         points, and generate values somewhere "between" those points. (One of the consequences of this

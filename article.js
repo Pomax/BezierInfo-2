@@ -62,7 +62,7 @@
 	var React = __webpack_require__(8);
 	var ReactDOM = __webpack_require__(165);
 	var Article = __webpack_require__(166);
-	var style = __webpack_require__(191);
+	var style = __webpack_require__(193);
 
 	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"));
 
@@ -19764,12 +19764,12 @@
 	  derivatives: __webpack_require__(187),
 	  pointvectors: __webpack_require__(188),
 	  components: __webpack_require__(189),
-	  extremities: __webpack_require__(190)
+	  extremities: __webpack_require__(190),
+	  boundingbox: __webpack_require__(191),
+	  aligning: __webpack_require__(192)
 	};
 
 	/*
-	  boundingbox: require("./boundingbox"),
-	  aligning: require("./aligning"),
 	  tightbounds: require("./tightbounds"),
 	  canonical: require("./canonical"),
 
@@ -19849,8 +19849,10 @@
 	var Preface = React.createClass({
 	  displayName: "Preface",
 
-	  statics: {
-	    title: "Preface"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Preface"
+	    };
 	  },
 
 	  render: function render() {
@@ -19860,7 +19862,7 @@
 	      React.createElement(
 	        "h2",
 	        null,
-	        Preface.title
+	        this.props.title
 	      ),
 	      React.createElement(
 	        "p",
@@ -19978,8 +19980,10 @@
 	var Introduction = React.createClass({
 	  displayName: "Introduction",
 
-	  statics: {
-	    title: "A lightning introduction"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "A lightning introduction"
+	    };
 	  },
 
 	  drawQuadratic: function drawQuadratic(api) {
@@ -20002,11 +20006,7 @@
 	    return React.createElement(
 	      "section",
 	      null,
-	      React.createElement(
-	        SectionHeader,
-	        this.props,
-	        Introduction.title
-	      ),
+	      React.createElement(SectionHeader, this.props),
 	      React.createElement(
 	        "p",
 	        null,
@@ -24211,7 +24211,7 @@
 	      React.createElement(
 	        "a",
 	        { href: '#' + this.props.name },
-	        this.props.children
+	        this.props.title
 	      )
 	    );
 	  }
@@ -24232,8 +24232,10 @@
 	var Whatis = React.createClass({
 	  displayName: "Whatis",
 
-	  statics: {
-	    title: "So what makes a Bézier Curve?"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "So what makes a Bézier Curve?"
+	    };
 	  },
 
 	  interpolation: __webpack_require__(177),
@@ -24247,11 +24249,7 @@
 	    return React.createElement(
 	      "section",
 	      null,
-	      React.createElement(
-	        SectionHeader,
-	        this.props,
-	        Whatis.title
-	      ),
+	      React.createElement(SectionHeader, this.props),
 	      React.createElement(
 	        "p",
 	        null,
@@ -24490,8 +24488,10 @@
 	var Explanation = React.createClass({
 	  displayName: "Explanation",
 
-	  statics: {
-	    title: "The basics of Bézier curves"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "The basics of Bézier curves"
+	    };
 	  },
 
 	  circle: __webpack_require__(179),
@@ -24505,11 +24505,7 @@
 	    return React.createElement(
 	      "section",
 	      null,
-	      React.createElement(
-	        SectionHeader,
-	        this.props,
-	        Explanation.title
-	      ),
+	      React.createElement(SectionHeader, this.props),
 	      React.createElement(
 	        "p",
 	        null,
@@ -25169,8 +25165,10 @@
 	var Control = React.createClass({
 	  displayName: "Control",
 
-	  statics: {
-	    title: "Controlling Bézier curvatures"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Controlling Bézier curvatures"
+	    };
 	  },
 
 	  drawCubic: function drawCubic(api) {
@@ -25338,11 +25336,7 @@
 	    return React.createElement(
 	      "section",
 	      null,
-	      React.createElement(
-	        SectionHeader,
-	        this.props,
-	        Control.title
-	      ),
+	      React.createElement(SectionHeader, this.props),
 	      React.createElement(
 	        "p",
 	        null,
@@ -25514,19 +25508,17 @@
 	var Matrix = React.createClass({
 	  displayName: "Matrix",
 
-	  statics: {
-	    title: "Bézier curvatures as matrix operations"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Bézier curvatures as matrix operations"
+	    };
 	  },
 
 	  render: function render() {
 	    return React.createElement(
 	      "section",
 	      null,
-	      React.createElement(
-	        SectionHeader,
-	        this.props,
-	        Matrix.title
-	      ),
+	      React.createElement(SectionHeader, this.props),
 	      React.createElement(
 	        "p",
 	        null,
@@ -25696,8 +25688,10 @@
 	var deCasteljau = React.createClass({
 	  displayName: "deCasteljau",
 
-	  statics: {
-	    title: "de Casteljau's algorithm"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "de Casteljau's algorithm"
+	    };
 	  },
 
 	  setup: function setup(api) {
@@ -25734,11 +25728,7 @@
 	    return React.createElement(
 	      "section",
 	      null,
-	      React.createElement(
-	        SectionHeader,
-	        this.props,
-	        deCasteljau.title
-	      ),
+	      React.createElement(SectionHeader, this.props),
 	      React.createElement(
 	        "p",
 	        null,
@@ -26010,8 +26000,10 @@
 	var Flattening = React.createClass({
 	  displayName: "Flattening",
 
-	  statics: {
-	    title: "Simplified drawing"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Simplified drawing"
+	    };
 	  },
 
 	  setupQuadratic: function setupQuadratic(api) {
@@ -26067,11 +26059,7 @@
 	    return React.createElement(
 	      "section",
 	      null,
-	      React.createElement(
-	        SectionHeader,
-	        this.props,
-	        Flattening.title
-	      ),
+	      React.createElement(SectionHeader, this.props),
 	      React.createElement(
 	        "p",
 	        null,
@@ -26166,8 +26154,10 @@
 	var Splitting = React.createClass({
 	  displayName: "Splitting",
 
-	  statics: {
-	    title: "Splitting curves"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Splitting curves"
+	    };
 	  },
 
 	  setupCubic: function setupCubic(api) {
@@ -26272,11 +26262,7 @@
 	    return React.createElement(
 	      "section",
 	      null,
-	      React.createElement(
-	        SectionHeader,
-	        this.props,
-	        Splitting.title
-	      ),
+	      React.createElement(SectionHeader, this.props),
 	      React.createElement(
 	        "p",
 	        null,
@@ -26398,19 +26384,17 @@
 	var MatrixSplit = React.createClass({
 	  displayName: "MatrixSplit",
 
-	  statics: {
-	    title: "Splitting curves using matrices"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Splitting curves using matrices"
+	    };
 	  },
 
 	  render: function render() {
 	    return React.createElement(
 	      "section",
 	      null,
-	      React.createElement(
-	        SectionHeader,
-	        this.props,
-	        MatrixSplit.title
-	      ),
+	      React.createElement(SectionHeader, this.props),
 	      React.createElement(
 	        "p",
 	        null,
@@ -26840,8 +26824,10 @@
 	var Reordering = React.createClass({
 	  displayName: "Reordering",
 
-	  statics: {
-	    title: "Lowering and elevating curve order"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Lowering and elevating curve order"
+	    };
 	  },
 
 	  getInitialState: function getInitialState() {
@@ -26953,11 +26939,7 @@
 	    return React.createElement(
 	      "section",
 	      null,
-	      React.createElement(
-	        SectionHeader,
-	        this.props,
-	        Reordering.title
-	      ),
+	      React.createElement(SectionHeader, this.props),
 	      React.createElement(
 	        "p",
 	        null,
@@ -27139,19 +27121,17 @@
 	var Derivatives = React.createClass({
 	  displayName: "Derivatives",
 
-	  statics: {
-	    title: "Derivatives"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Derivatives"
+	    };
 	  },
 
 	  render: function render() {
 	    return React.createElement(
 	      "section",
 	      null,
-	      React.createElement(
-	        SectionHeader,
-	        this.props,
-	        Derivatives.title
-	      ),
+	      React.createElement(SectionHeader, this.props),
 	      React.createElement(
 	        "p",
 	        null,
@@ -27543,8 +27523,10 @@
 	var PointVectors = React.createClass({
 	  displayName: "PointVectors",
 
-	  statics: {
-	    title: "Tangents and normals"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Tangents and normals"
+	    };
 	  },
 
 	  setupQuadratic: function setupQuadratic(api) {
@@ -27587,11 +27569,7 @@
 	    return React.createElement(
 	      "section",
 	      null,
-	      React.createElement(
-	        SectionHeader,
-	        this.props,
-	        PointVectors.title
-	      ),
+	      React.createElement(SectionHeader, this.props),
 	      React.createElement(
 	        "p",
 	        null,
@@ -27754,8 +27732,10 @@
 	var Components = React.createClass({
 	  displayName: "Components",
 
-	  statics: {
-	    title: "Component functions"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Component functions"
+	    };
 	  },
 
 	  setupQuadratic: function setupQuadratic(api) {
@@ -27804,11 +27784,7 @@
 	    return React.createElement(
 	      "section",
 	      null,
-	      React.createElement(
-	        SectionHeader,
-	        this.props,
-	        Components.title
-	      ),
+	      React.createElement(SectionHeader, this.props),
 	      React.createElement(
 	        "p",
 	        null,
@@ -27856,8 +27832,10 @@
 	var Extremities = React.createClass({
 	  displayName: "Extremities",
 
-	  statics: {
-	    title: "Component functions"
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Component functions"
+	    };
 	  },
 
 	  setupQuadratic: function setupQuadratic(api) {
@@ -27921,11 +27899,7 @@
 	    return React.createElement(
 	      "section",
 	      null,
-	      React.createElement(
-	        SectionHeader,
-	        this.props,
-	        Extremities.title
-	      ),
+	      React.createElement(SectionHeader, this.props),
 	      React.createElement(
 	        "p",
 	        null,
@@ -28394,13 +28368,340 @@
 /* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var React = __webpack_require__(8);
+	var Graphic = __webpack_require__(170);
+	var SectionHeader = __webpack_require__(175);
+
+	var BoundingBox = React.createClass({
+	  displayName: "BoundingBox",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Bounding boxes"
+	    };
+	  },
+
+	  setupQuadratic: function setupQuadratic(api) {
+	    var curve = api.getDefaultQuadratic();
+	    api.setCurve(curve);
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    var curve = api.getDefaultCubic();
+	    api.setCurve(curve);
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+	    api.setColor("#00FF00");
+	    api.drawbbox(curve.bbox());
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "If we have the extremities, and the start/end points, a simple for loop that tests for min/max values for x and y means we have the four values we need to box in our curve:"
+	      ),
+	      React.createElement(
+	        "p",
+	        { id: "bounds_p" },
+	        React.createElement(
+	          "i",
+	          null,
+	          "Computing the bounding box for a Bézier curve"
+	        )
+	      ),
+	      React.createElement(
+	        "ol",
+	        null,
+	        React.createElement(
+	          "li",
+	          null,
+	          "Find all ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          " value(s) for the curve derivative's x- and y-roots."
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Discard any ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          " value that's lower than 0 or higher than 1, because Bézier curves only use the interval [0,1]."
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Determine the lowest and highest value when plugging the values ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t=0"
+	          ),
+	          ", ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t=1"
+	          ),
+	          " and each of the found roots into the original functions: the lowest value is the lower bound, and the highest value is the upper bound for the bounding box we want to construct."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Applying this approach to our previous root finding, we get the following bounding boxes (with curve extremities coloured the same as in the root finding graphics):"
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "Quadratic Bézier bounding box", setup: this.setupQuadratic, draw: this.draw }),
+	      React.createElement(Graphic, { preset: "simple", title: "Cubic Bézier bounding box", setup: this.setupCubic, draw: this.draw }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We can construct even nicer boxes by aligning them along our curve, rather than along the x- and y-axis, but in order to do so we first need to look at how aligning works."
+	      )
+	    );
+	  }
+	});
+
+	module.exports = BoundingBox;
+
+/***/ },
+/* 192 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(8);
+	var Graphic = __webpack_require__(170);
+	var SectionHeader = __webpack_require__(175);
+
+	var Aligning = React.createClass({
+	  displayName: "Aligning",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Aligning curves"
+	    };
+	  },
+
+	  setupQuadratic: function setupQuadratic(api) {
+	    var curve = api.getDefaultQuadratic();
+	    api.setCurve(curve);
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    var curve = api.getDefaultCubic();
+	    api.setCurve(curve);
+	  },
+
+	  align: function align(points, line) {
+	    var tx = line.p1.x,
+	        ty = line.p1.y,
+	        a = -Math.atan2(line.p2.y - ty, line.p2.x - tx),
+	        cos = Math.cos,
+	        sin = Math.sin,
+	        d = function d(v) {
+	      return {
+	        x: (v.x - tx) * cos(a) - (v.y - ty) * sin(a),
+	        y: (v.x - tx) * sin(a) + (v.y - ty) * cos(a)
+	      };
+	    };
+	    return points.map(d);
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.setPanelCount(2);
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+
+	    var pts = curve.points;
+	    var line = { p1: pts[0], p2: pts[pts.length - 1] };
+	    var apts = this.align(pts, line);
+	    var aligned = new api.Bezier(apts);
+	    var w = api.getPanelWidth();
+	    var h = api.getPanelHeight();
+
+	    var offset = { x: w, y: 0 };
+	    api.setColor("black");
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: h }, offset);
+	    offset.x += w / 4;
+	    offset.y += h / 2;
+	    api.setColor("grey");
+	    api.drawLine({ x: 0, y: -h / 2 }, { x: 0, y: h / 2 }, offset);
+	    api.drawLine({ x: -w / 4, y: 0 }, { x: w, y: 0 }, offset);
+	    api.setFill("grey");
+
+	    api.setColor("black");
+	    api.drawSkeleton(aligned, offset);
+	    api.drawCurve(aligned, offset);
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "While there are an incredible number of curves we can define by varying the x- and y-coordinates for the control points, not all curves are actually distinct. For instance, if we define a curve, and then rotate it 90 degrees, it's still the same curve, and we'll find its extremities in the same spots, just at different draw coordinates. As such, one way to make sure we're working with a \"unique\" curve is to \"axis-align\" it."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Aligning also simplifies a curve's functions. We can translate (move) the curve so that the first point lies on (0,0), which turns our ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n"
+	        ),
+	        " term polynomial functions into ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n-1"
+	        ),
+	        " term functions. The order stays the same, but we have less terms. Then, we can rotate the curves so that the last point always lies on the x-axis, too, making its coordinate (...,0). This further simplifies the function for the y-component to an ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n-2"
+	        ),
+	        " term function. For instance, if we have a cubic curve such as this:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/5d9290ab64c8462cae88c686a9dcdbb4363343b7.svg", style: { width: "34.12485rem", height: "2.77515rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Then translating it so that the first coordinate lies on (0,0), moving all ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "x"
+	        ),
+	        " coordinates by -120, and all ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "y"
+	        ),
+	        " coordinates by -160, gives us:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/c6fe11adb02fcdebfbbbc9406c4add9a64e7814a.svg", style: { width: "33.075rem", height: "2.77515rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "If we then rotate the curve so that its end point lies on the x-axis, the coordinates (integer-rounded for illustrative purposes here) become:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/eac174dcc7435ddeb78ccf957a9e56ee29571a66.svg", style: { width: "32.54985rem", height: "2.77515rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "If we drop all the zero-terms, this gives us:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/1ef56b36bef7123383c3db6cb205224926580d88.svg", style: { width: "25.79985rem", height: "2.77515rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We can see that our original curve definition has been simplified considerably. The following graphics illustrate the result of aligning our example curves to the x-axis, with the cubic case using the coordinates that were just used in the example formulae:"
+	      ),
+	      React.createElement(Graphic, { preset: "twopanel", title: "Aligning a quadratic curve", setup: this.setupQuadratic, draw: this.draw }),
+	      React.createElement(Graphic, { preset: "twopanel", title: "Aligning a cubic curve", setup: this.setupCubic, draw: this.draw })
+	    );
+	  }
+	});
+
+	module.exports = Aligning;
+
+	/*
+	        void setupCurve() {
+	          setupDefaultQuadratic();
+	        }
+
+	        void drawCurve(BezierCurve curve) {
+	          additionals();
+	          curve.draw();
+
+	          nextPanel();
+	          stroke(0);
+	          line(0,0,0,dim);
+
+	          stroke(0,50);
+	          translate(3*dim/4,dim/2);
+	          line(-3*dim/4,0,dim/4,0);
+	          line(0,-dim/2,0,dim/2);
+
+	          curve.align().draw(color(150));
+	        }</textarea>
+
+
+
+	        void setupCurve() {
+	          setupDefaultCubic();
+	        }
+
+	        void drawCurve(BezierCurve curve) {
+	          additionals();
+	          curve.draw();
+
+	          nextPanel();
+	          stroke(0);
+	          line(0,0,0,dim);
+
+	          stroke(0,50);
+	          translate(3*dim/4,dim/2);
+	          line(-3*dim/4,0,dim/4,0);
+	          line(0,-dim/2,0,dim/2);
+
+	          curve.align().draw(color(150));
+	        }</textarea>
+
+	 */
+
+/***/ },
+/* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(192);
+	var content = __webpack_require__(194);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(195)(content, {});
+	var update = __webpack_require__(197)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28417,21 +28718,21 @@
 	}
 
 /***/ },
-/* 192 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(193)();
+	exports = module.exports = __webpack_require__(195)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(194) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(196) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 193 */
+/* 195 */
 /***/ function(module, exports) {
 
 	/*
@@ -28487,13 +28788,13 @@
 
 
 /***/ },
-/* 194 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
 
 /***/ },
-/* 195 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

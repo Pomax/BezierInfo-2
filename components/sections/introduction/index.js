@@ -3,8 +3,10 @@ var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
 var Introduction = React.createClass({
-  statics: {
-    title: "A lightning introduction"
+  getDefaultProps: function() {
+    return {
+      title: "A lightning introduction"
+    };
   },
 
   drawQuadratic: function(api) {
@@ -26,7 +28,7 @@ var Introduction = React.createClass({
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>{Introduction.title}</SectionHeader>
+        <SectionHeader {...this.props} />
 
         <p>Let's start with the good stuff: when we're talking about Bézier curves, we're talking about the
         things that you can see in the following graphics. They run from some start point to some end point,

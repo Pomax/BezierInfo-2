@@ -3,8 +3,10 @@ var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
 var Extremities = React.createClass({
-  statics: {
-    title: "Component functions"
+  getDefaultProps: function() {
+    return {
+      title: "Component functions"
+    };
   },
 
   setupQuadratic: function(api) {
@@ -63,7 +65,7 @@ var Extremities = React.createClass({
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>{ Extremities.title }</SectionHeader>
+        <SectionHeader {...this.props} />
 
         <p>Now that we understand (well, superficially anyway) the component functions, we can find the extremities of our
         Bézier curve by finding maxima and minima on the component functions, by solving the equations B'(t) = 0 and B''(t) = 0.

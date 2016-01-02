@@ -3,14 +3,16 @@ var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
 var Derivatives = React.createClass({
-  statics: {
-    title: "Derivatives"
+  getDefaultProps: function() {
+    return {
+      title: "Derivatives"
+    };
   },
 
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>{ Derivatives.title }</SectionHeader>
+        <SectionHeader {...this.props} />
 
         <p>There's a number of useful things that you can do with Bézier curves based on their derivative,
         and one of the more amusing observations about Bézier curves is that their derivatives are, in fact,

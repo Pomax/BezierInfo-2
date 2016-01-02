@@ -3,8 +3,10 @@ var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
 var deCasteljau = React.createClass({
-  statics: {
-    title: "de Casteljau's algorithm"
+  getDefaultProps: function() {
+    return {
+      title: "de Casteljau's algorithm"
+    };
   },
 
   setup: function(api) {
@@ -45,7 +47,7 @@ var deCasteljau = React.createClass({
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>{deCasteljau.title}</SectionHeader>
+        <SectionHeader {...this.props} />
         <p>If we want to draw Bézier curves we can run through all values of <i>t</i> from 0 to 1 and then
         compute the weighted basis function, getting the <i>x</i>/<i>y</i> values we need to plot, but the
         more complex the curve gets, the more expensive this becomes. Instead, we can use "de Casteljau's

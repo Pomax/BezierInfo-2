@@ -3,8 +3,10 @@ var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
 var Flattening = React.createClass({
-  statics: {
-    title: "Simplified drawing"
+  getDefaultProps: function() {
+    return {
+      title: "Simplified drawing"
+    };
   },
 
   setupQuadratic: function(api) {
@@ -58,7 +60,7 @@ var Flattening = React.createClass({
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>{ Flattening.title }</SectionHeader>
+        <SectionHeader {...this.props} />
 
         <p>We can also simplify the drawing process by "sampling" the curve at certain points, and then joining those points up with straight lines, a process known as "flattening", as we are reducing a curve to a simple sequence of straight, "flat" lines.</p>
 

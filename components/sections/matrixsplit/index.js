@@ -3,14 +3,16 @@ var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
 var MatrixSplit = React.createClass({
-  statics: {
-    title: "Splitting curves using matrices"
+  getDefaultProps: function() {
+    return {
+      title: "Splitting curves using matrices"
+    };
   },
 
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>{ MatrixSplit.title }</SectionHeader>
+        <SectionHeader {...this.props} />
 
         <p>Another way to split curves is to exploit the matrix representation of
         a Bézier curve. In <a href="#matrix">the section on matrices</a> we saw that

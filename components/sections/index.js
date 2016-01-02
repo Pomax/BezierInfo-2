@@ -19,13 +19,13 @@ module.exports = {
   derivatives: require("./derivatives"),
   pointvectors: require("./pointvectors"),
   components: require("./components"),
-  extremities: require("./extremities")
+  extremities: require("./extremities"),
+  boundingbox: require("./boundingbox"),
+  aligning: require("./aligning")
 };
 
 
 /*
-  boundingbox: require("./boundingbox"),
-  aligning: require("./aligning"),
   tightbounds: require("./tightbounds"),
   canonical: require("./canonical"),
 

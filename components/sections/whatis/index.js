@@ -4,8 +4,10 @@ var SectionHeader = require("../../SectionHeader.jsx");
 
 
 var Whatis = React.createClass({
-  statics: {
-    title: "So what makes a Bézier Curve?"
+  getDefaultProps: function() {
+    return {
+      title: "So what makes a Bézier Curve?"
+    };
   },
 
   interpolation: require("./interpolation"),
@@ -18,7 +20,7 @@ var Whatis = React.createClass({
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>{Whatis.title}</SectionHeader>
+        <SectionHeader {...this.props} />
 
         <p>Playing with the points for curves may have given you a feel for how Bézier curves behaves, but
         what <em>are</em> Bézier curves, really? There are two ways to explain what a Bézier curve is, and

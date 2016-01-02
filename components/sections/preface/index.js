@@ -1,14 +1,16 @@
 var React = require("react");
 
 var Preface = React.createClass({
-  statics: {
-    title: "Preface"
+  getDefaultProps: function() {
+    return {
+      title: "Preface"
+    };
   },
 
   render: function() {
     return (
       <section>
-        <h2>{Preface.title}</h2>
+        <h2>{this.props.title}</h2>
 
         <p>In order to draw things in 2D, we usually rely on lines, which typically get classified
         into two categories: straight lines, and curves. The first of these are as easy to draw as they

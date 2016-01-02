@@ -3,8 +3,10 @@ var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
 var Splitting = React.createClass({
-  statics: {
-    title: "Splitting curves"
+  getDefaultProps: function() {
+    return {
+      title: "Splitting curves"
+    };
   },
 
   setupCubic: function(api) {
@@ -100,7 +102,7 @@ var Splitting = React.createClass({
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>{ Splitting.title }</SectionHeader>
+        <SectionHeader {...this.props} />
 
         <p>With de Casteljau's algorithm we also find all the points we need to split up a Bézier curve into two, smaller
         curves, which taken together form the original curve. When we construct de Casteljau's skeleton for some value

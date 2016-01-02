@@ -3,8 +3,10 @@ var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
 var PointVectors = React.createClass({
-  statics: {
-    title: "Tangents and normals"
+  getDefaultProps: function() {
+    return {
+      title: "Tangents and normals"
+    };
   },
 
   setupQuadratic: function(api) {
@@ -41,7 +43,7 @@ var PointVectors = React.createClass({
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>{ PointVectors.title }</SectionHeader>
+        <SectionHeader {...this.props} />
 
         <p>If you want to move objects along a curve, or "away from" a curve, the two vectors you're most interested
         in are the tangent vector and normal vector for curve points. These are actually really easy to find. For

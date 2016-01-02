@@ -2,14 +2,16 @@ var React = require("react");
 var SectionHeader = require("../../SectionHeader.jsx");
 
 var Matrix = React.createClass({
-  statics: {
-    title: "Bézier curvatures as matrix operations"
+  getDefaultProps: function() {
+    return {
+      title: "Bézier curvatures as matrix operations"
+    };
   },
 
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>{Matrix.title}</SectionHeader>
+        <SectionHeader {...this.props} />
 
         <p>We can also represent Bézier as matrix operations, by expressing the Bézier formula
         as a polynomial basis function, the weight matrix, and the actual coordinates as matrix.

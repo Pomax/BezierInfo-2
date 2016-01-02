@@ -3,8 +3,10 @@ var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
 var Components = React.createClass({
-  statics: {
-    title: "Component functions"
+  getDefaultProps: function() {
+    return {
+      title: "Component functions"
+    };
   },
 
   setupQuadratic: function(api) {
@@ -48,7 +50,7 @@ var Components = React.createClass({
   render: function() {
     return (
       <section>
-        <SectionHeader {...this.props}>{ Components.title }</SectionHeader>
+        <SectionHeader {...this.props} />
 
         <p>One of the first things people run into when they start using Bézier curves in their own programs is
         "I know how to draw the curve, but how do I determine the bounding box?". It's actually reasonably straight
