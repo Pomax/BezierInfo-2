@@ -7,20 +7,41 @@
  *  do async loaders (unfortunately).
  *
  */
+var className="LaTeX SVG";
+var fs = require("fs");
+var API = require("mathjax-node/lib/mj-single");
 
-// fine the --latex option
-var hash, base64, latex;
-
-hash = process.argv.indexOf("--hash");
-if (latex === -1) {
-  hash = Date.now();
-} else {
-  hash = process.argv[hash+1];
+function cleanUp(latex) {
+  // strip any \[ and \], which is an block-level LaTeX markup indicator for MathJax:
+  latex = latex.replace(/^'/,'').replace(/'$/,'').replace('\\[','').replace('\\]','');
+  // Accented letters need shimming. For now, at least, until I figure out
+  // how to make mathjax-node use a full STIX or the like for typesetting.
+  latex = latex.replace(/é/g,'\\acute{e}');
+  // done.
+  return latex;
 }
 
-latex = process.argv.indexOf("--latex");
+// Set up the MathJax processor
+API.config({
+  MathJax: {
+    TeX: {
+      extensions: [
+        "AMSmath.js",
+        "AMSsymbols.js",
+        "autoload-all.js",
+        "color.js"
+      ]
+    }
+  }
+});
+API.start();
+
+// Get the LaTeX we need, and the filename it'll need to write to
+var hash = process.argv.indexOf("--hash");
+var latex = process.argv.indexOf("--latex");
+
 if (latex === -1) {
-  base64 = process.argv.indexOf("--base64");
+  var base64 = process.argv.indexOf("--base64");
   if (base64 === -1) {
     console.error("missing [--latex] or [--base64] runtime option");
     process.exit(1);
@@ -37,55 +58,13 @@ if (latex === -1) {
   }
 }
 
-
-// strip any \[ and \], which is an block-level LaTeX markup indicator for MathJax:
-latex = latex.replace(/^'/,'').replace(/'$/,'').replace('\\[','').replace('\\]','');
-
-// Accented letters need shimming. For now, at least, until I figure out
-// how to make mathjax-node use a full STIX or the like for typesetting.
-latex = latex.replace(/é/g,'\\acute{e}');
-
-// set up the MathJax processor
-var API = require("mathjax-node/lib/mj-single");
-API.config({
-  MathJax: {
-    TeX: {
-      extensions: [
-        "AMSmath.js",
-        "AMSsymbols.js",
-        "autoload-all.js",
-        "color.js"
-      ]
-    }
-  }
-});
-API.start();
-
-
-// find style="..." declarations and rewrite them to style={{...}} format
-var toReactStyle = function(input) {
-  return input.replace(/style="([^"]+)"/g, function(a, b) {
-    var c = {};
-    b = b.split(';');
-    b.forEach(function(v) {
-      v = v.split(':').map(function(s) { return s.trim(); });
-      v[0] = v[0].replace(/-(\w)/g,function(a, b) {
-        return b.toUpperCase();
-      });
-      c[v[0]] = v[1];
-    });
-    return "style={" + JSON.stringify(c) + "}";
-  });
-};
-
-var fs = require("fs");
+var hash = (latex === -1) ? Date.now() : process.argv[hash+1];
 var filename = "images/latex/" + hash + ".svg";
 var destination = __dirname + "/../" + filename;
-var className="LaTeX SVG";
 
 // convert the passed LaTeX to SVG form
 API.typeset({
-  math: latex,
+  math: cleanUp(latex),
   format: "TeX",
   svg: true
 }, function (data) {

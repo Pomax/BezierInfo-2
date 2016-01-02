@@ -276,37 +276,3 @@ function Bezier(3,t,w[]):
 });
 
 module.exports = Control;
-
-
-
-
-
-/**
-
-        <textarea class="sketch-code" data-sketch-preset="ratios" data-sketch-title="Quadratic interpolations">
-        int order = 3;
-        </textarea>
-
-        <textarea class="sketch-code" data-sketch-preset="ratios" data-sketch-title="Cubic interpolations">
-        int order = 4;
-        </textarea>
-
-        <textarea class="sketch-code" data-sketch-preset="ratios" data-sketch-title="15th order interpolations">
-        int order = 15;
-        </textarea>
-
- **/
-
-/**
-
-        void setupCurve() {
-          setupDefaultCubic();
-        }
-
-        void drawCurve(BezierCurve curve) {
-          curve.draw();
-        }</Graphic>
-
-
-**/
-

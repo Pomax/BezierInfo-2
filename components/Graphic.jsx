@@ -24,16 +24,37 @@ var Graphic = React.createClass({
   offset: { x: 0, y: 0},
   lpts: [],
   colorSeed: 0,
+  playing: false,
+  frame: 0,
+  playinterval: 33,
+
+  animate: function animate() {
+    if (this.playing) {
+      this.frame++;
+      // requestAnimationFrame is spectacularly too fast
+      setTimeout(this.animate, this.playinterval);
+      this.props.draw(this,this.curve);
+    }
+  },
+
+  getFrame: function() { return this.frame; },
+  getPlayInterval: function() { return this.playinterval; },
+  play: function() { this.playing = true; this.animate(); },
+  pause: function() { this.playing = false; },
 
   render: function() {
     var href = "data:text/plain," + this.props.code;
     return (
       <figure className={this.props.inline ? "inline": false}>
         <canvas ref="canvas"
+                tabIndex="0"
                 onMouseDown={this.mouseDown}
                 onMouseMove={this.mouseMove}
                 onMouseUp={this.mouseUp}
-                onClick={this.mouseClick}
+                onClick={this.onClick}
+                onKeyUp={this.onKeyUp}
+                onKeyDown={this.onKeyDown}
+                onKeyPress={this.onKeyPress}
                 />
         <figcaption>{this.props.title}</figcaption>
       </figure>
@@ -55,6 +76,10 @@ var Graphic = React.createClass({
     if (this.props.draw) {
       this.props.draw(this,this.curve);
     }
+
+    if (this.props.autoplay) {
+      this.play();
+    }
   },
 
   mouseDown: function(evt) {
@@ -69,6 +94,10 @@ var Graphic = React.createClass({
         this.cy = p.y;
       }
     });
+
+    if (this.props.mouseDown) {
+      this.props.mouseDown(evt, this);
+    }
   },
 
   mouseMove: function(evt) {
@@ -96,7 +125,11 @@ var Graphic = React.createClass({
       this.curve.update();
     }
 
-    if (this.props.draw) {
+    if (this.props.mouseMove) {
+      this.props.mouseMove(evt, this);
+    }
+
+    if (!this.playing && this.props.draw) {
       this.props.draw(this, this.curve);
     }
   },
@@ -105,12 +138,46 @@ var Graphic = React.createClass({
     if(!this.moving) return;
     this.moving = false;
     this.mp = false;
+    if (this.props.onMouseUp) {
+      this.props.onMouseUp(evt, this);
+    }
   },
 
-  mouseClick: function(evt) {
+  onClick: function(evt) {
     fix(evt);
     this.mx = evt.offsetX;
     this.my = evt.offsetY;
+    if (this.props.onClick) {
+      this.props.onClick(evt, this);
+    }
+  },
+
+
+  onKeyUp: function(evt) {
+    if (this.props.onKeyUp) {
+      this.props.onKeyUp(evt, this);
+      if (!this.playing && this.props.draw) {
+        this.props.draw(this, this.curve);
+      }
+    }
+  },
+
+  onKeyDown: function(evt) {
+    if (this.props.onKeyDown) {
+      this.props.onKeyDown(evt, this);
+      if (!this.playing && this.props.draw) {
+        this.props.draw(this, this.curve);
+      }
+    }
+  },
+
+  onKeyPress: function(evt) {
+    if (this.props.onKeyPress) {
+      this.props.onKeyPress(evt, this);
+      if (!this.playing && this.props.draw) {
+        this.props.draw(this, this.curve);
+      }
+    }
   },
 
 
@@ -204,7 +271,7 @@ var Graphic = React.createClass({
     this.ctx.fillStyle = "transparent";
   },
 
-  drawSkeleton: function(curve, offset) {
+  drawSkeleton: function(curve, offset, nocoords) {
     offset = offset || { x:0, y:0 };
     var pts = curve.points;
     this.ctx.strokeStyle = "lightgrey";
@@ -213,7 +280,9 @@ var Graphic = React.createClass({
     else {this.drawLine(pts[2], pts[3], offset); }
     this.ctx.strokeStyle = "black";
     this.drawPoints(pts, offset);
-    this.drawCoordinates(curve, offset);
+    if (!nocoords) {
+      this.drawCoordinates(curve, offset);
+    }
   },
 
   drawHull: function(curve, t, offset) {
@@ -238,7 +307,7 @@ var Graphic = React.createClass({
     var pts = curve.points;
     this.setFill("black");
     pts.forEach(p => {
-      this.text(`(${p.x},${p.y})`, {x:p.x + 5, y:p.y + 10});
+      this.text(`(${p.x},${p.y})`, {x:p.x + offset.x + 5, y:p.y + offset.y + 10});
     });
   },
 

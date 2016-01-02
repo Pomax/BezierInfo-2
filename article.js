@@ -62,7 +62,7 @@
 	var React = __webpack_require__(8);
 	var ReactDOM = __webpack_require__(165);
 	var Article = __webpack_require__(166);
-	var style = __webpack_require__(183);
+	var style = __webpack_require__(187);
 
 	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"));
 
@@ -19754,15 +19754,14 @@
 	  explanation: __webpack_require__(178),
 	  control: __webpack_require__(180),
 	  matrix: __webpack_require__(181),
-	  decasteljau: __webpack_require__(182)
+	  decasteljau: __webpack_require__(182),
+	  flattening: __webpack_require__(183),
+	  splitting: __webpack_require__(184),
+	  matrixsplit: __webpack_require__(185),
+	  reordering: __webpack_require__(186)
 	};
 
 	/*
-
-	  flattening: require("./flattening"),
-	  splitting: require("./splitting"),
-	  matrixsplit: require("./matrixsplit"),
-	  reordering: require("./reordering"),
 
 	  derivatives: require("./derivatives"),
 	  pointvectors: require("./pointvectors"),
@@ -19797,6 +19796,46 @@
 	  circles_cubic: require("./circles_cubic"),
 	  arcapproximation: require("./arcapproximation")
 	*/
+
+	/*
+
+	  A lightning introduction
+	  What is a Bézier curve?
+	  The basics of Bézier curves
+	  Controlling Bézier curvatures
+	  Bézier curvatures as matrix operations
+	  de Casteljau's algorithm
+	  Simplified drawing
+	  Splitting curves
+	  Splitting curves using matrices
+	  Lowering and elevating curve order
+	  Derivatives
+	  Tangents and normals
+	  Component functions
+	  Finding extremities
+	  Bounding boxes
+	  Aligning curves
+	  Tight boxes
+	  The canonical form (for cubic curves)
+	  Arc length
+	  Approximated arc length
+	  Tracing a curve at fixed distance intervals
+	  Intersections
+	  Curve/curve intersection
+	  Curve moulding (using the projection ratio)
+	  Creating a curve from three points
+	  Bézier curves and Catmull-Rom curves
+	  Creating a Catmull-Rom curve from three points
+	  Forming poly-Bézier curves
+	  Boolean shape operations
+	  Projecting a point onto a Bézier curve
+	  Curve offsetting
+	  Graduated curve offsetting
+	  Circles and quadratic Bézier curves
+	  Circles and cubic Bézier curves
+	  Approximating Bézier curves with circular arcs
+
+	 */
 
 /***/ },
 /* 168 */
@@ -20023,6 +20062,31 @@
 	  offset: { x: 0, y: 0 },
 	  lpts: [],
 	  colorSeed: 0,
+	  playing: false,
+	  frame: 0,
+	  playinterval: 33,
+
+	  animate: function animate() {
+	    if (this.playing) {
+	      this.frame++;
+	      // requestAnimationFrame is spectacularly too fast
+	      setTimeout(this.animate, this.playinterval);
+	      this.props.draw(this, this.curve);
+	    }
+	  },
+
+	  getFrame: function getFrame() {
+	    return this.frame;
+	  },
+	  getPlayInterval: function getPlayInterval() {
+	    return this.playinterval;
+	  },
+	  play: function play() {
+	    this.playing = true;this.animate();
+	  },
+	  pause: function pause() {
+	    this.playing = false;
+	  },
 
 	  render: function render() {
 	    var href = "data:text/plain," + this.props.code;
@@ -20030,10 +20094,14 @@
 	      "figure",
 	      { className: this.props.inline ? "inline" : false },
 	      React.createElement("canvas", { ref: "canvas",
+	        tabIndex: "0",
 	        onMouseDown: this.mouseDown,
 	        onMouseMove: this.mouseMove,
 	        onMouseUp: this.mouseUp,
-	        onClick: this.mouseClick
+	        onClick: this.onClick,
+	        onKeyUp: this.onKeyUp,
+	        onKeyDown: this.onKeyDown,
+	        onKeyPress: this.onKeyPress
 	      }),
 	      React.createElement(
 	        "figcaption",
@@ -20058,6 +20126,10 @@
 	    if (this.props.draw) {
 	      this.props.draw(this, this.curve);
 	    }
+
+	    if (this.props.autoplay) {
+	      this.play();
+	    }
 	  },
 
 	  mouseDown: function mouseDown(evt) {
@@ -20074,6 +20146,10 @@
 	        _this.cy = p.y;
 	      }
 	    });
+
+	    if (this.props.mouseDown) {
+	      this.props.mouseDown(evt, this);
+	    }
 	  },
 
 	  mouseMove: function mouseMove(evt) {
@@ -20101,7 +20177,11 @@
 	      this.curve.update();
 	    }
 
-	    if (this.props.draw) {
+	    if (this.props.mouseMove) {
+	      this.props.mouseMove(evt, this);
+	    }
+
+	    if (!this.playing && this.props.draw) {
 	      this.props.draw(this, this.curve);
 	    }
 	  },
@@ -20110,12 +20190,45 @@
 	    if (!this.moving) return;
 	    this.moving = false;
 	    this.mp = false;
+	    if (this.props.onMouseUp) {
+	      this.props.onMouseUp(evt, this);
+	    }
 	  },
 
-	  mouseClick: function mouseClick(evt) {
+	  onClick: function onClick(evt) {
 	    fix(evt);
 	    this.mx = evt.offsetX;
 	    this.my = evt.offsetY;
+	    if (this.props.onClick) {
+	      this.props.onClick(evt, this);
+	    }
+	  },
+
+	  onKeyUp: function onKeyUp(evt) {
+	    if (this.props.onKeyUp) {
+	      this.props.onKeyUp(evt, this);
+	      if (!this.playing && this.props.draw) {
+	        this.props.draw(this, this.curve);
+	      }
+	    }
+	  },
+
+	  onKeyDown: function onKeyDown(evt) {
+	    if (this.props.onKeyDown) {
+	      this.props.onKeyDown(evt, this);
+	      if (!this.playing && this.props.draw) {
+	        this.props.draw(this, this.curve);
+	      }
+	    }
+	  },
+
+	  onKeyPress: function onKeyPress(evt) {
+	    if (this.props.onKeyPress) {
+	      this.props.onKeyPress(evt, this);
+	      if (!this.playing && this.props.draw) {
+	        this.props.draw(this, this.curve);
+	      }
+	    }
 	  },
 
 	  /**
@@ -20207,7 +20320,7 @@
 	    this.ctx.fillStyle = "transparent";
 	  },
 
-	  drawSkeleton: function drawSkeleton(curve, offset) {
+	  drawSkeleton: function drawSkeleton(curve, offset, nocoords) {
 	    offset = offset || { x: 0, y: 0 };
 	    var pts = curve.points;
 	    this.ctx.strokeStyle = "lightgrey";
@@ -20219,7 +20332,9 @@
 	    }
 	    this.ctx.strokeStyle = "black";
 	    this.drawPoints(pts, offset);
-	    this.drawCoordinates(curve, offset);
+	    if (!nocoords) {
+	      this.drawCoordinates(curve, offset);
+	    }
 	  },
 
 	  drawHull: function drawHull(curve, t, offset) {
@@ -20246,7 +20361,7 @@
 	    var pts = curve.points;
 	    this.setFill("black");
 	    pts.forEach(function (p) {
-	      _this2.text("(" + p.x + "," + p.y + ")", { x: p.x + 5, y: p.y + 10 });
+	      _this2.text("(" + p.x + "," + p.y + ")", { x: p.x + offset.x + 5, y: p.y + offset.y + 10 });
 	    });
 	  },
 
@@ -23378,7 +23493,9 @@
 	   */
 	  var Bezier = function(coords) {
 	    var args = (coords && coords.forEach) ? coords : [].slice.call(arguments);
+	    var coordlen = false;
 	    if(typeof args[0] === "object") {
+	      coordlen = args.length;
 	      var newargs = [];
 	      args.forEach(function(point) {
 	        ['x','y','z'].forEach(function(d) {
@@ -23389,12 +23506,23 @@
 	      });
 	      args = newargs;
 	    }
+	    var higher = false;
 	    var len = args.length;
-	    if(len!==6 && len!==8 && len!==9 && len!==12) {
-	      console.log(coords);
-	      throw new Error("This Bezier curve library only supports quadratic and cubic curves (in 2d and 3d)");
+	    if (coordlen) {
+	      if(coordlen>4) {
+	        if (arguments.length !== 1) {
+	          throw new Error("Only new Bezier(point[]) is accepted for 4th and higher order curves");
+	        }
+	        higher = true;
+	      }
+	    } else {
+	      if(len!==6 && len!==8 && len!==9 && len!==12) {
+	        if (arguments.length !== 1) {
+	          throw new Error("Only new Bezier(point[]) is accepted for 4th and higher order curves");
+	        }
+	      }
 	    }
-	    var _3d = (len === 9 || len === 12);
+	    var _3d = (!higher && (len === 9 || len === 12)) || (coords && coords[0] && typeof coords[0].z !== "undefined");
 	    this._3d = _3d;
 	    var points = [];
 	    for(var idx=0, step=(_3d ? 3 : 2); idx<len; idx+=step) {
@@ -25366,35 +25494,6 @@
 
 	module.exports = Control;
 
-	/**
-
-	        <textarea class="sketch-code" data-sketch-preset="ratios" data-sketch-title="Quadratic interpolations">
-	        int order = 3;
-	        </textarea>
-
-	        <textarea class="sketch-code" data-sketch-preset="ratios" data-sketch-title="Cubic interpolations">
-	        int order = 4;
-	        </textarea>
-
-	        <textarea class="sketch-code" data-sketch-preset="ratios" data-sketch-title="15th order interpolations">
-	        int order = 15;
-	        </textarea>
-
-	 **/
-
-	/**
-
-	        void setupCurve() {
-	          setupDefaultCubic();
-	        }
-
-	        void drawCurve(BezierCurve curve) {
-	          curve.draw();
-	        }</Graphic>
-
-
-	**/
-
 /***/ },
 /* 181 */
 /***/ function(module, exports, __webpack_require__) {
@@ -25894,13 +25993,1140 @@
 /* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var React = __webpack_require__(8);
+	var Graphic = __webpack_require__(170);
+	var SectionHeader = __webpack_require__(175);
+
+	var Flattening = React.createClass({
+	  displayName: "Flattening",
+
+	  statics: {
+	    title: "Simplified drawing"
+	  },
+
+	  setupQuadratic: function setupQuadratic(api) {
+	    var curve = api.getDefaultQuadratic();
+	    api.setCurve(curve);
+	    api.steps = 3;
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    var curve = api.getDefaultCubic();
+	    api.setCurve(curve);
+	    api.steps = 5;
+	  },
+
+	  drawFlattened: function drawFlattened(api, curve) {
+	    api.reset();
+	    api.setColor("#DDD");
+	    api.drawSkeleton(curve);
+	    api.setColor("#DDD");
+	    api.drawCurve(curve);
+	    var step = 1 / api.steps;
+	    var p0 = curve.points[0],
+	        pc;
+	    for (var t = step; t < 1.0 + step; t += step) {
+	      pc = curve.get(Math.min(t, 1));
+	      api.setColor("red");
+	      api.drawLine(p0, pc);
+	      p0 = pc;
+	    }
+	    api.setFill("black");
+	    api.text("Curve approximation using " + api.steps + " segments", { x: 10, y: 15 });
+	  },
+
+	  values: {
+	    "+": 1,
+	    "-": -1
+	  },
+
+	  onKeyDown: function onKeyDown(e, api) {
+	    e.preventDefault();
+	    var v = this.values[e.key];
+	    if (v) {
+	      api.steps += v;
+	      if (api.steps < 1) {
+	        api.steps = 1;
+	      }
+	    }
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(
+	        SectionHeader,
+	        this.props,
+	        Flattening.title
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We can also simplify the drawing process by \"sampling\" the curve at certain points, and then joining those points up with straight lines, a process known as \"flattening\", as we are reducing a curve to a simple sequence of straight, \"flat\" lines."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We can do this is by saying \"we want X segments\", and then sampling the curve at intervals that are spaced such that we end up with the number of segments we wanted. The advantage of this method is that it's fast: instead of evaluating 100 or even 1000 curve coordinates, we can sample a much lower number and still end up with a curve that sort-of-kind-of looks good enough. The disadvantage of course is that we lose the precision of working with \"the real curve\", so we usually can't use the flattened for for doing true intersection detection, or curvature alignment."
+	      ),
+	      React.createElement(Graphic, { preset: "twopanel", title: "Flattening a quadratic curve", setup: this.setupQuadratic, draw: this.drawFlattened, onKeyDown: this.onKeyDown }),
+	      React.createElement(Graphic, { preset: "twopanel", title: "Flattening a cubic curve", setup: this.setupCubic, draw: this.drawFlattened, onKeyDown: this.onKeyDown }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Try clicking on the sketch and using your '+' and '-' keys to lower the number of segments for both the quadratic and cubic curve. You'll notice that for certain curvatures, a low number of segments works quite well, but for more complex curvatures (try this for the cubic curve), a higher number is required to capture the curvature changes properly."
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "howtocode" },
+	        React.createElement(
+	          "h3",
+	          null,
+	          "How to implement curve flattening"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Let's just use the algorithm we just specified, and implement that:"
+	        ),
+	        React.createElement(
+	          "pre",
+	          null,
+	          "function flattenCurve(curve, segmentCount):",
+	          '\n',
+	          "  step = 1/segmentCount;",
+	          '\n',
+	          "  coordinates = [curve.getXValue(0), curve.getYValue(0)]",
+	          '\n',
+	          "  for(i=1; i <= segmentCount; i++):",
+	          '\n',
+	          "    t = i*step;",
+	          '\n',
+	          "    coordinates.push[curve.getXValue(t), curve.getYValue(t)]",
+	          '\n',
+	          "  return coordinates;"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "And done, that's the algorithm implemented. That just leaves drawing the resulting \"curve\" as a sequence of lines:"
+	        ),
+	        React.createElement(
+	          "pre",
+	          null,
+	          "function drawFlattenedCurve(curve, segmentCount):",
+	          '\n',
+	          "  coordinates = flattenCurve(curve, segmentCount)",
+	          '\n',
+	          "  coord = coordinates[0], _coords;",
+	          '\n',
+	          "  for(i=1; i < coordinates.length; i++):",
+	          '\n',
+	          "    _coords = coordinates[i]",
+	          '\n',
+	          "    line(coords, _coords)",
+	          '\n',
+	          "    coords = _coords"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "We start with the first coordinate as reference point, and then just draw lines between each point and its next point."
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Flattening;
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(8);
+	var Graphic = __webpack_require__(170);
+	var SectionHeader = __webpack_require__(175);
+
+	var Splitting = React.createClass({
+	  displayName: "Splitting",
+
+	  statics: {
+	    title: "Splitting curves"
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    var curve = api.getDefaultCubic();
+	    api.setCurve(curve);
+	    api.forward = true;
+	  },
+
+	  drawSplit: function drawSplit(api, curve) {
+	    api.setPanelCount(2);
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+
+	    var offset = { x: 0, y: 0 };
+	    var t = 0.5;
+	    var pt = curve.get(0.5);
+	    var split = curve.split(t);
+	    api.drawCurve(split.left);
+	    api.drawCurve(split.right);
+	    api.setColor("red");
+	    api.drawCircle(pt, 3);
+
+	    api.setColor("black");
+	    offset.x = api.getPanelWidth();
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: api.getPanelHeight() }, offset);
+
+	    api.setColor("lightgrey");
+	    api.drawCurve(curve, offset);
+	    api.drawCircle(pt, 4);
+
+	    offset.x -= 20;
+	    offset.y -= 20;
+	    api.drawSkeleton(split.left, offset, true);
+	    api.drawCurve(split.left, offset);
+
+	    offset.x += 40;
+	    offset.y += 40;
+	    api.drawSkeleton(split.right, offset, true);
+	    api.drawCurve(split.right, offset);
+	  },
+
+	  drawAnimated: function drawAnimated(api, curve) {
+	    api.setPanelCount(3);
+	    api.reset();
+
+	    var frame = api.getFrame();
+	    var interval = 5 * api.getPlayInterval();
+	    var t = frame % interval / interval;
+	    var forward = frame % (2 * interval) < interval;
+	    if (forward) {
+	      t = t % 1;
+	    } else {
+	      t = 1 - t % 1;
+	    }
+	    var offset = { x: 0, y: 0 };
+
+	    api.setColor("lightblue");
+	    api.drawHull(curve, t);
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+	    var pt = curve.get(t);
+	    api.drawCircle(pt, 4);
+
+	    api.setColor("black");
+	    offset.x += api.getPanelWidth();
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: api.getPanelHeight() }, offset);
+
+	    var split = curve.split(t);
+
+	    api.setColor("lightgrey");
+	    api.drawCurve(curve, offset);
+	    api.drawHull(curve, t, offset);
+	    api.setColor("black");
+	    api.drawCurve(split.left, offset);
+	    api.drawPoints(split.left.points, offset);
+	    api.setFill("black");
+	    api.text("Left side of curve split at t = " + (100 * t | 0) / 100, { x: 10 + offset.x, y: 15 + offset.y });
+
+	    offset.x += api.getPanelWidth();
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: api.getPanelHeight() }, offset);
+
+	    api.setColor("lightgrey");
+	    api.drawCurve(curve, offset);
+	    api.drawHull(curve, t, offset);
+	    api.setColor("black");
+	    api.drawCurve(split.right, offset);
+	    api.drawPoints(split.right.points, offset);
+	    api.setFill("black");
+	    api.text("Right side of curve split at t = " + (100 * t | 0) / 100, { x: 10 + offset.x, y: 15 + offset.y });
+	  },
+
+	  togglePlay: function togglePlay(evt, api) {
+	    if (api.playing) {
+	      api.pause();
+	    } else {
+	      api.play();
+	    }
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(
+	        SectionHeader,
+	        this.props,
+	        Splitting.title
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "With de Casteljau's algorithm we also find all the points we need to split up a Bézier curve into two, smaller curves, which taken together form the original curve. When we construct de Casteljau's skeleton for some value",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        ", the procedure gives us all the points we need to split a curve at that ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " value: one curve is defined by all the inside skeleton points found prior to our on-curve point, with the other curve being defined by all the inside skeleton points after our on-curve point."
+	      ),
+	      React.createElement(Graphic, { title: "Splitting a curve", setup: this.setupCubic, draw: this.drawSplit }),
+	      React.createElement(
+	        "div",
+	        { className: "howtocode" },
+	        React.createElement(
+	          "h3",
+	          null,
+	          "implementing curve splitting"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "We can implement curve splitting by bolting some extra logging onto the de Casteljau function:"
+	        ),
+	        React.createElement(
+	          "pre",
+	          null,
+	          "left=[]",
+	          '\n',
+	          "right=[]",
+	          '\n',
+	          "function drawCurve(points[], t):",
+	          '\n',
+	          "  if(points.length==1):",
+	          '\n',
+	          "    left.add(points[0])",
+	          '\n',
+	          "    right.add(points[0])",
+	          '\n',
+	          "    draw(points[0])",
+	          '\n',
+	          "  else:",
+	          '\n',
+	          "    newpoints=array(points.size-1)",
+	          '\n',
+	          "    for(i=0; i<newpoints.length; i++):",
+	          '\n',
+	          "      if(i==0):",
+	          '\n',
+	          "        left.add(points[i])",
+	          '\n',
+	          "      if(i==newpoints.length-1):",
+	          '\n',
+	          "        right.add(points[i+1])",
+	          '\n',
+	          "      newpoints[i] = (1-t) * points[i] + t * points[i+1]",
+	          '\n',
+	          "    drawCurve(newpoints, t)"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "After running this function for some value ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          ", the ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "left"
+	          ),
+	          " and ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "right"
+	          ),
+	          " arrays will contain all the coordinates for two new curves - one to the \"left\" of our ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          " value, the other on the \"right\", of the same order as the original curve, and overlayed exactly on the original curve."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "This is best illustrated with an animated graphic (click to play/pause):"
+	      ),
+	      React.createElement(Graphic, { preset: "threepanel", title: "Bézier curve splitting", setup: this.setupCubic, draw: this.drawAnimated, onClick: this.togglePlay })
+	    );
+	  }
+	});
+
+	module.exports = Splitting;
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(8);
+	var Graphic = __webpack_require__(170);
+	var SectionHeader = __webpack_require__(175);
+
+	var MatrixSplit = React.createClass({
+	  displayName: "MatrixSplit",
+
+	  statics: {
+	    title: "Splitting curves using matrices"
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(
+	        SectionHeader,
+	        this.props,
+	        MatrixSplit.title
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Another way to split curves is to exploit the matrix representation of a Bézier curve. In ",
+	        React.createElement(
+	          "a",
+	          { href: "#matrix" },
+	          "the section on matrices"
+	        ),
+	        " we saw that we can represent curves as matrix multiplications. Specifically, we saw these two forms for the quadratic, and cubic curves, respectively (using the reversed Bézier coefficients vector for legibility):"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/8fa7f5a1b32d06d66b0a4d0f000b2496e0bacccd.svg" })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "and"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6fd34f4126772cb9ba06e36b9e40df95994cf847.svg" })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Let's say we want to split the curve at some point ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "t = z"
+	        ),
+	        ", forming two new (obviously smaller) Bézier curves. To find the coordinates for these two Bézier curves, we can use the matrix representation and some linear algebra. First, we split out the the actual \"point on the curve\" information as a new matrix multiplication:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/a2d3c6b5b68d86adf40db56f7723a45aa5a0f7a6.svg" })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "and"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/1e2a1516ca2ce995a0ddebf218b7528bd762b686.svg" })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "If we could compact these matrices back to a form ",
+	        React.createElement(
+	          "strong",
+	          null,
+	          "[t values] · [bezier matrix] · [column matrix]"
+	        ),
+	        ", with the first two staying the same, then that column matrix on the right would be the coordinates of a new Bézier curve that describes the first segment, from ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "t = 0"
+	        ),
+	        " to ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "t = z"
+	        ),
+	        ". As it turns out, we can do this quite easily, by exploiting some simple rules of linear algebra (and if you don't care about the derivations, just skip to the end of the box for the results!)."
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "note" },
+	        React.createElement(
+	          "h2",
+	          null,
+	          "Deriving new hull coordinates"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Deriving the two segments upon splitting a curve takes a few steps, and the higher the curve order, the more work it is, so let's look at the quadratic curve first:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/2aad48dc956ff2551caae8d7d35f299b395d6a28.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/dc9f128759d56fd5b1e6099da9d7e11e83bea104.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/b2f197498c75c7bf59bf4e9791e4e948a5699d8e.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/ab88c77e6c5b3e13ad44665606ad0352040ce89a.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "We do this, because [",
+	          React.createElement(
+	            "em",
+	            null,
+	            "M · M",
+	            React.createElement(
+	              "sup",
+	              null,
+	              "-1"
+	            )
+	          ),
+	          "] is the identity matrix (a bit like multiplying something by x/x in calculus. It doesn't do anything to the function, but it does allow you to rewrite it to something that may be easier to work with, or can be broken up differently). Adding that as matrix multiplication has no effect on the total formula, but it does allow us to change the matrix sequence [",
+	          React.createElement(
+	            "em",
+	            null,
+	            "something · M"
+	          ),
+	          "] to a sequence [",
+	          React.createElement(
+	            "em",
+	            null,
+	            "M · something"
+	          ),
+	          "], and that makes a world of difference: if we know what [",
+	          React.createElement(
+	            "em",
+	            null,
+	            "M",
+	            React.createElement(
+	              "sup",
+	              null,
+	              "-1"
+	            ),
+	            " · Z · M"
+	          ),
+	          "] is, we can apply that to our coordinates, and be left with a proper matrix representation of a quadratic Bézier curve (which is [",
+	          React.createElement(
+	            "em",
+	            null,
+	            "T · M · P"
+	          ),
+	          "]), with a new set of coordinates that represent the curve from",
+	          React.createElement(
+	            "em",
+	            null,
+	            "t = 0"
+	          ),
+	          " to ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "t = z"
+	          ),
+	          ". So let's get computing:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/4744abca018b8ce799a19e39e45bb1021989c00c.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Excellent! Now we can form our new quadratic curve:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/38cf32cf7e00f9e2a5ef18f352f93a10c55ebc99.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d67b68b7fbd11a041232c144e31122309fb9d782.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/8b9cf2edc06c8efabdf614f554b21fb929b0765d.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement(
+	            "strong",
+	            null,
+	            React.createElement(
+	              "em",
+	              null,
+	              "Brilliant"
+	            )
+	          ),
+	          ": if we want a subcurve from ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "t = 0"
+	          ),
+	          "to ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "t = z"
+	          ),
+	          ", we can keep the first coordinate the same (which makes sense), our control point becomes a z-ratio mixture of the original control point and the start point, and the new end point is a mixture that looks oddly similar to a bernstein polynomial of degree two, except it uses (z-1) rather than (1-z)... These new coordinates are actually really easy to compute directly!"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Of course, that's only one of the two curves. Getting the section from ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "t = z"
+	          ),
+	          "to ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "t = 1"
+	          ),
+	          " requires doing this again. We first observe what what we just did is actually evaluate the general interval [0,",
+	          React.createElement(
+	            "em",
+	            null,
+	            "z"
+	          ),
+	          "], which we wrote down simplified becuase of that zero, but we actually evaluated this:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e94f3c7fda60e80707370b02140840311bf33d75.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/5e90d865f1093a974f5aa1c8525c45649137a688.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "If we want the interval [",
+	          React.createElement(
+	            "em",
+	            null,
+	            "z"
+	          ),
+	          ",1], we will be evaluating this instead:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/42efec3a2fe4620906cbf25bc11a28b354097b2c.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/373ca089b9e3928414a23931298dadf2886f1d71.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "We're going to do the same trick, to turn ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "[something · M]"
+	          ),
+	          " into ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "[M · something]"
+	          ),
+	          ":"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/4511ca44d7a85ba755774fc82dfbf9fa14f94f71.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "So, our final second curve looks like:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e04671db313e31b678512b59f5aff9de01dedf45.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d16d8b52374301de6eb2aca5ba798799f0759b5a.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6dd685fe5c634305918f67db4ed693c0095de0d2.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement(
+	            "strong",
+	            null,
+	            React.createElement(
+	              "em",
+	              null,
+	              "Nice"
+	            )
+	          ),
+	          ": we see the same as before; can keep the last coordinate the same (which makes sense), our control point becomes a z-ratio mixture of the original control point and the end point, and the new start point is a mixture that looks oddly similar to a bernstein polynomial of degree two, except it uses (z-1) rather than (1-z). These new coordinates are ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "also"
+	          ),
+	          "really easy to compute directly!"
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So, using linear algebra rather than de Casteljau's algorithm, we have determined that for any quadratic curve split at some value ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "t = z"
+	        ),
+	        ", we get two subcurves that are described as Bézier curves with simple-to-derive coordinates."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/5bd82c66c21d9d4778726bde0ded0070e6a917ab.svg" })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "and"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/836fb6adcdca2ac5372e04d38becbfe355988ba9.svg" })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We can do the same for cubic curves. However, I'll spare you the actual derivation (don't let that stop you from writing that out yourself, though) and simply show you the resulting new coordinate sets:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6c4f49fdad56663b8955f3eb1b9b42a2435d9b13.svg" })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "and"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/c925370c4e7896c34d1a315db126364538918ea3.svg" })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So, looking at our matrices, did we really need to compute the second segment matrix? No, we didn't. Actually having one segment's matrix means we implicitly have the other: push the values of each row in the matrix ",
+	        React.createElement(
+	          "strong",
+	          null,
+	          React.createElement(
+	            "em",
+	            null,
+	            "Q"
+	          )
+	        ),
+	        " to the right, with zeroes getting pushed off the right edge and appearing back on the left, and then flip the matrix vertically. Presto, you just \"calculated\" ",
+	        React.createElement(
+	          "strong",
+	          null,
+	          React.createElement(
+	            "em",
+	            null,
+	            "Q'"
+	          )
+	        ),
+	        "."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Implementing curve splitting this way requires less recursion, and is just straight arithmetic with cached values, so can be cheaper on systems were recursion is expensive. If you're doing computation with devices that are good at matrix multiplication, chopping up a Bézier curve with this method will be a lot faster than applying de Casteljau."
+	      )
+	    );
+	  }
+	});
+
+	module.exports = MatrixSplit;
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(8);
+	var Graphic = __webpack_require__(170);
+	var SectionHeader = __webpack_require__(175);
+
+	var Reordering = React.createClass({
+	  displayName: "Reordering",
+
+	  statics: {
+	    title: "Lowering and elevating curve order"
+	  },
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      order: 0
+	    };
+	  },
+
+	  setup: function setup(api) {
+	    var points = [];
+	    var w = api.getPanelWidth(),
+	        h = api.getPanelHeight();
+	    for (var i = 0; i < 10; i++) {
+	      points.push({
+	        x: w / 2 + Math.random() * 20 + Math.cos(Math.PI * 2 * i / 10) * (w / 2 - 40),
+	        y: h / 2 + Math.random() * 20 + Math.sin(Math.PI * 2 * i / 10) * (h / 2 - 40)
+	      });
+	    }
+	    var curve = new api.Bezier(points);
+	    api.setCurve(curve);
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.reset();
+	    var pts = curve.points;
+
+	    this.setState({
+	      order: pts.length
+	    });
+
+	    var p0 = pts[0];
+
+	    // we can't "just draw" this curve, since it'll be an arbitrary order,
+	    // And the canvas only does 2nd and 3rd - we use de Casteljau's algorithm:
+	    for (var t = 0; t <= 1; t += 0.01) {
+	      var q = JSON.parse(JSON.stringify(pts));
+	      while (q.length > 1) {
+	        for (var i = 0; i < q.length - 1; i++) {
+	          q[i] = {
+	            x: q[i].x + (q[i + 1].x - q[i].x) * t,
+	            y: q[i].y + (q[i + 1].y - q[i].y) * t
+	          };
+	        }
+	        q.splice(q.length - 1, 1);
+	      }
+	      api.drawLine(p0, q[0]);
+	      p0 = q[0];
+	    }
+
+	    p0 = pts[0];
+	    api.setColor("black");
+	    api.drawCircle(p0, 3);
+	    pts.forEach(function (p) {
+	      if (p === p0) return;
+	      api.setColor("#DDD");
+	      api.drawLine(p0, p);
+	      api.setColor("black");
+	      api.drawCircle(p, 3);
+	      p0 = p;
+	    });
+	  },
+
+	  // Improve this based on http://www.sirver.net/blog/2011/08/23/degree-reduction-of-bezier-curves/
+	  lower: function lower(curve) {
+	    var pts = curve.points,
+	        q = [],
+	        n = pts.length;
+	    pts.forEach(function (p, k) {
+	      if (!k) {
+	        return q[k] = p;
+	      }
+	      var f1 = k / n,
+	          f2 = 1 - f1;
+	      q[k] = {
+	        x: f1 * p.x + f2 * pts[k - 1].x,
+	        y: f1 * p.y + f2 * pts[k - 1].y
+	      };
+	    });
+	    q.splice(n - 1, 1);
+	    q[n - 2] = pts[n - 1];
+	    curve.points = q;
+	    return curve;
+	  },
+
+	  onKeyDown: function onKeyDown(evt, api) {
+	    evt.preventDefault();
+	    if (evt.key === "ArrowUp") {
+	      api.setCurve(api.curve.raise());
+	    } else if (evt.key === "ArrowDown") {
+	      api.setCurve(this.lower(api.curve));
+	    }
+	  },
+
+	  getOrder: function getOrder() {
+	    var order = this.state.order;
+	    if (order % 10 === 1 && order !== 11) {
+	      order += "st";
+	    } else if (order % 10 === 2 && order !== 12) {
+	      order += "nd";
+	    } else if (order % 10 === 3 && order !== 13) {
+	      order += "rd";
+	    } else {
+	      order += "th";
+	    }
+	    return order;
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(
+	        SectionHeader,
+	        this.props,
+	        Reordering.title
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "One interesting property of Bézier curves is that an ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n",
+	          React.createElement(
+	            "sup",
+	            null,
+	            "th"
+	          )
+	        ),
+	        " order curve can always be perfectly represented by an ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "(n+1)",
+	          React.createElement(
+	            "sup",
+	            null,
+	            "th"
+	          )
+	        ),
+	        " order curve, by giving the higher order curve specific control points."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "If we have a curve with three points, then we can create a four point curve that exactly reproduce the original curve as long as we give it the same start and end points, and for its two control points we pick \"1/3",
+	        React.createElement(
+	          "sup",
+	          null,
+	          "rd"
+	        ),
+	        " start + 2/3",
+	        React.createElement(
+	          "sup",
+	          null,
+	          "rd"
+	        ),
+	        " control\" and \"2/3",
+	        React.createElement(
+	          "sup",
+	          null,
+	          "rd"
+	        ),
+	        " control + 1/3",
+	        React.createElement(
+	          "sup",
+	          null,
+	          "rd"
+	        ),
+	        " end\", and now we have exactly the same curve as before, except represented as a cubic curve, rather than a quadratic curve."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The general rule for raising an ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n",
+	          React.createElement(
+	            "sup",
+	            null,
+	            "th"
+	          )
+	        ),
+	        " order curve to an ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "(n+1)",
+	          React.createElement(
+	            "sup",
+	            null,
+	            "th"
+	          )
+	        ),
+	        "order curve is as follows (observing that the start and end weights are the same as the start and end weights for the old curve):"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/c6061bb273e862f3a91b83c6a8b4713a959e0dbf.svg" })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "However, this rule also has as direct consequence that you ",
+	        React.createElement(
+	          "strong",
+	          null,
+	          "cannot"
+	        ),
+	        " generally safely lower a curve from ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n",
+	          React.createElement(
+	            "sup",
+	            null,
+	            "th"
+	          )
+	        ),
+	        " order to ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "(n-1)",
+	          React.createElement(
+	            "sup",
+	            null,
+	            "th"
+	          )
+	        ),
+	        " order, because the control points cannot be \"pulled apart\" cleanly. We can try to, but the resulting curve will not be identical to the original, and may in fact look completely different."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We can apply this to a (semi) random curve, as is done in the following graphic. Select the sketch and press your up and down cursor keys to elevate or lower the curve order."
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "A " + this.getOrder() + " order Bézier curve", setup: this.setup, draw: this.draw, onKeyDown: this.onKeyDown }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "There is a good, if mathematical, explanation on the matrices necessary for optimal reduction over on ",
+	        React.createElement(
+	          "a",
+	          { href: "http://www.sirver.net/blog/2011/08/23/degree-reduction-of-bezier-curves/" },
+	          "Sirver's Castle"
+	        ),
+	        ", which given time will find its way in a more direct description into this article."
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Reordering;
+
+	/*
+	void setupCurve() {
+	          int d = dim - 2*pad;
+	          int order = 10;
+	          ArrayList<Point> pts = new ArrayList<Point>();
+
+	          float dst = d/2.5, nx, ny, a=0, step = 2*PI/order, r;
+	          for(a=0; a<2*PI; a+=step) {
+	            r = random(-dst/4,dst/4);
+	            pts.add(new Point(d/2 + cos(a) * (r+dst), d/2 + sin(a) * (r+dst)));
+	            dst -= 1.2;
+	          }
+
+	          Point[] points = new Point[pts.size()];
+	          for(int p=0,last=points.length; p<last; p++) { points[p] = pts.get(p); }
+	          curves.add(new BezierCurve(points));
+	          reorder();
+	        }
+
+	        void drawCurve(BezierCurve curve) {
+	          curve.draw();
+	        }</textarea>
+	 */
+
+/***/ },
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(184);
+	var content = __webpack_require__(188);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(187)(content, {});
+	var update = __webpack_require__(191)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25917,21 +27143,21 @@
 	}
 
 /***/ },
-/* 184 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(185)();
+	exports = module.exports = __webpack_require__(189)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(186) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(190) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 185 */
+/* 189 */
 /***/ function(module, exports) {
 
 	/*
@@ -25987,13 +27213,13 @@
 
 
 /***/ },
-/* 186 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
 
 /***/ },
-/* 187 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

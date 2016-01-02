@@ -9,16 +9,15 @@ module.exports = {
   explanation: require("./explanation"),
   control: require("./control"),
   matrix: require("./matrix"),
-  decasteljau: require("./decasteljau")
+  decasteljau: require("./decasteljau"),
+  flattening: require("./flattening"),
+  splitting: require("./splitting"),
+  matrixsplit: require("./matrixsplit"),
+  reordering: require("./reordering")
 };
 
 
 /*
-
-  flattening: require("./flattening"),
-  splitting: require("./splitting"),
-  matrixsplit: require("./matrixsplit"),
-  reordering: require("./reordering"),
 
   derivatives: require("./derivatives"),
   pointvectors: require("./pointvectors"),
@@ -53,3 +52,43 @@ module.exports = {
   circles_cubic: require("./circles_cubic"),
   arcapproximation: require("./arcapproximation")
 */
+
+/*
+
+  A lightning introduction
+  What is a Bézier curve?
+  The basics of Bézier curves
+  Controlling Bézier curvatures
+  Bézier curvatures as matrix operations
+  de Casteljau's algorithm
+  Simplified drawing
+  Splitting curves
+  Splitting curves using matrices
+  Lowering and elevating curve order
+  Derivatives
+  Tangents and normals
+  Component functions
+  Finding extremities
+  Bounding boxes
+  Aligning curves
+  Tight boxes
+  The canonical form (for cubic curves)
+  Arc length
+  Approximated arc length
+  Tracing a curve at fixed distance intervals
+  Intersections
+  Curve/curve intersection
+  Curve moulding (using the projection ratio)
+  Creating a curve from three points
+  Bézier curves and Catmull-Rom curves
+  Creating a Catmull-Rom curve from three points
+  Forming poly-Bézier curves
+  Boolean shape operations
+  Projecting a point onto a Bézier curve
+  Curve offsetting
+  Graduated curve offsetting
+  Circles and quadratic Bézier curves
+  Circles and cubic Bézier curves
+  Approximating Bézier curves with circular arcs
+
+ */
