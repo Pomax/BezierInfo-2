@@ -7,19 +7,20 @@ module.exports = {
   introduction: require("./introduction"),
   whatis: require("./whatis"),
   explanation: require("./explanation"),
+
   control: require("./control"),
   matrix: require("./matrix"),
   decasteljau: require("./decasteljau"),
   flattening: require("./flattening"),
   splitting: require("./splitting"),
   matrixsplit: require("./matrixsplit"),
-  reordering: require("./reordering")
+  reordering: require("./reordering"),
+
+  derivatives: require("./derivatives")
 };
 
 
 /*
-
-  derivatives: require("./derivatives"),
   pointvectors: require("./pointvectors"),
   components: require("./components"),
   extremities: require("./extremities"),

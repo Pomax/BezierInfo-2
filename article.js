@@ -62,7 +62,7 @@
 	var React = __webpack_require__(8);
 	var ReactDOM = __webpack_require__(165);
 	var Article = __webpack_require__(166);
-	var style = __webpack_require__(187);
+	var style = __webpack_require__(188);
 
 	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"));
 
@@ -19752,18 +19752,19 @@
 	  introduction: __webpack_require__(169),
 	  whatis: __webpack_require__(176),
 	  explanation: __webpack_require__(178),
+
 	  control: __webpack_require__(180),
 	  matrix: __webpack_require__(181),
 	  decasteljau: __webpack_require__(182),
 	  flattening: __webpack_require__(183),
 	  splitting: __webpack_require__(184),
 	  matrixsplit: __webpack_require__(185),
-	  reordering: __webpack_require__(186)
+	  reordering: __webpack_require__(186),
+
+	  derivatives: __webpack_require__(187)
 	};
 
 	/*
-
-	  derivatives: require("./derivatives"),
 	  pointvectors: require("./pointvectors"),
 	  components: require("./components"),
 	  extremities: require("./extremities"),
@@ -27122,13 +27123,417 @@
 /* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var React = __webpack_require__(8);
+	var Graphic = __webpack_require__(170);
+	var SectionHeader = __webpack_require__(175);
+
+	var Derivatives = React.createClass({
+	  displayName: "Derivatives",
+
+	  statics: {
+	    title: "Derivatives"
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(
+	        SectionHeader,
+	        this.props,
+	        Derivatives.title
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "There's a number of useful things that you can do with Bézier curves based on their derivative, and one of the more amusing observations about Bézier curves is that their derivatives are, in fact, also Bézier curves. In fact, the derivation of a Bézier curve is relatively straight forward, although we do need a bit of math. First, let's look at the derivative rule for Bézier curves, which is:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/88980e34e303819cc83b3f815c4cb0d23adb43c0.svg" })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "which we can also write (observing that ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "b"
+	        ),
+	        " in this formula is the same as our ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "w"
+	        ),
+	        " weights, and that ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n"
+	        ),
+	        " times a summation is the same as a summation where each term is multiplied by ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n"
+	        ),
+	        ") as:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d9db9970ee356d89609ffb125e05ccfc4c9d5953.svg" })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Or, in plain text: the derivative of an n",
+	        React.createElement(
+	          "sup",
+	          null,
+	          "th"
+	        ),
+	        " degree Bézier curve is an (n-1)",
+	        React.createElement(
+	          "sup",
+	          null,
+	          "th"
+	        ),
+	        "degree Bézier curve, with one fewer term, and new weights w'",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "0"
+	        ),
+	        "...w'",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "n-1"
+	        ),
+	        " derived from the original weights as n(w",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "i+1"
+	        ),
+	        " - w",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "i"
+	        ),
+	        "), so for a 3rd degree curve, with four weights, the derivative has three new weights w'",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "0"
+	        ),
+	        "=3(w",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "1"
+	        ),
+	        "-w",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "0"
+	        ),
+	        "), w'",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "1"
+	        ),
+	        "=3(w",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "2"
+	        ),
+	        "-w",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "1"
+	        ),
+	        ") and w'",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "2"
+	        ),
+	        "= 3(w",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "3"
+	        ),
+	        "-w",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "2"
+	        ),
+	        ")."
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "note" },
+	        React.createElement(
+	          "h3",
+	          null,
+	          "\"Slow down, why is that true?\""
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Sometimes just being told \"this is the derivative\" is nice, but you might want to see why this is indeed the case. As such, let's have a look at the proof for this derivative. First off, the weights are independent of the full Bézier function, so the derivative involves only the derivative of the polynomial basis function. So, let's find that:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d68cfe7a615370ea397c6a2ea6a21cec8d7ed02c.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Applying the ",
+	          React.createElement(
+	            "a",
+	            { href: "http://en.wikipedia.org/wiki/Product_rule" },
+	            "product"
+	          ),
+	          " and",
+	          React.createElement(
+	            "a",
+	            { href: "http://en.wikipedia.org/wiki/Chain_rule" },
+	            "chain"
+	          ),
+	          " rules gives us:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d10b1cb74feda7a252a74331b50e68aca8e4dd88.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Which is hard to work with, so let's expand that properly:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/436b6bb60413609fd094ded553e13688d5c1cfc0.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Now, the trick is to turn this expression into something that has binomial coefficients again, so we want to end up with things that look like \"x! over y!(x-y)!\". If we can do that in a way that involves terms of ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "n-1"
+	          ),
+	          " and ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "k-1"
+	          ),
+	          ", we'll be on the right track."
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/72cd5c996c6eb56b6a703d8c5173229f84e41b70.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "And that's the first part done: the two components inside the parentheses are actually regular, lower order Bezier expressions:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/af0674d7495234a3f2da87b36edd0d9ad9b5aac6.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Now to apply this to our weighted Bezier curves. We'll write out the plain curve formula that we saw earlier, and then work our way through to its derivative:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/62cf61b0eb80ff494661f6273594b4ddd04da950.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "If we expand this (with some color to show how terms line up), and reorder the terms by increasing values for ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "k"
+	          ),
+	          "we see the following:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d3a75ae6f52a15e0214f9be4a8c7c641853e20cc.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Two of these terms fall way: the first term falls away because there is no -1",
+	          React.createElement(
+	            "sup",
+	            null,
+	            "st"
+	          ),
+	          " term in a summation. As such, it always contributes \"nothing\", so we can safely completely ignore it for the purpose of finding the derivative function. The other term is the very last term in this expansion: one involving ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "B",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "n-1,n"
+	            )
+	          ),
+	          ". This term would have a binomial coefficient of [",
+	          React.createElement(
+	            "i",
+	            null,
+	            "i"
+	          ),
+	          " choose ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "i+1"
+	          ),
+	          "], which is a non-existent binomial coefficient. Again, this term would contribute \"nothing\", so we can ignore it, too. This means we're left with:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/dd07865f420b458f83a65499a29634a3505c436d.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "And that's just a summation of lower order curves:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/f9f28c09d4d8c0e13fe0f3b85cb9dcaa71122ffb.svg" })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "We can rewrite this as a normal summation, and we're done:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/3d7bd3dd345d9b414547a4ba8b5c477f2f270356.svg" })
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Let's rewrite that in a form similar to our original formula, so we can see the difference. We will first list our original formula for Bézier curves, and then the derivative:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e41083ef7693be5384f724a8b354b5a38c9b0ed4.svg" })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/02f103ac6f738b12ad175a1e39b51926baae4338.svg" })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "What are the differences? In terms of the actual Bézier curve, virtually nothing! We lowered the order (rather than ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n"
+	        ),
+	        ", it's now ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n-1"
+	        ),
+	        "), but it's still the same Bézier function. The only real difference is in how the weights change when we derive the curve's function. If we have four points A, B, C, and D, then the derivative will have three points, the second derivative two, and the third derivative one:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/2d1ef31eed0c14347202cafcd96d3203861378d0.svg" })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We can keep performing this trick for as long as we have more than one weight. Once we have one weight left, the next step will see ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "k = 0"
+	        ),
+	        ", and the result of our \"Bézier function\" summation is zero, because we're not adding anything at all. As such, a quadratic curve has no second derivative, a cubic curve has no third derivative, and generalized: an ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n",
+	          React.createElement(
+	            "sup",
+	            null,
+	            "th"
+	          )
+	        ),
+	        " order curve has ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n-1"
+	        ),
+	        " (meaningful) derivatives, with any further derivative being zero."
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Derivatives;
+
+/***/ },
+/* 188 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(188);
+	var content = __webpack_require__(189);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(191)(content, {});
+	var update = __webpack_require__(192)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -27145,21 +27550,21 @@
 	}
 
 /***/ },
-/* 188 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(189)();
+	exports = module.exports = __webpack_require__(190)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(190) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(191) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 189 */
+/* 190 */
 /***/ function(module, exports) {
 
 	/*
@@ -27215,13 +27620,13 @@
 
 
 /***/ },
-/* 190 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
 
 /***/ },
-/* 191 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
