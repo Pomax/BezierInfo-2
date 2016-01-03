@@ -62,7 +62,7 @@
 	var React = __webpack_require__(8);
 	var ReactDOM = __webpack_require__(165);
 	var Article = __webpack_require__(166);
-	var style = __webpack_require__(194);
+	var style = __webpack_require__(195);
 
 	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"));
 
@@ -19767,12 +19767,11 @@
 	  extremities: __webpack_require__(190),
 	  boundingbox: __webpack_require__(191),
 	  aligning: __webpack_require__(192),
-	  tightbounds: __webpack_require__(193)
+	  tightbounds: __webpack_require__(193),
+	  canonical: __webpack_require__(194)
 	};
 
 	/*
-	  canonical: require("./canonical"),
-
 	  arclength: require("./arclength"),
 	  arclengthapprox: require("./arclengthapprox"),
 	  tracing: require("./tracing"),
@@ -19799,9 +19798,6 @@
 	*/
 
 	/*
-
-
-	  The canonical form (for cubic curves)
 	  Arc length
 	  Approximated arc length
 	  Tracing a curve at fixed distance intervals
@@ -19819,8 +19815,7 @@
 	  Circles and quadratic Bézier curves
 	  Circles and cubic Bézier curves
 	  Approximating Bézier curves with circular arcs
-
-	 */
+	*/
 
 /***/ },
 /* 168 */
@@ -20139,27 +20134,30 @@
 
 	  mouseMove: function mouseMove(evt) {
 	    fix(evt);
-	    var found = false;
-	    this.lpts.forEach(function (p) {
-	      var mx = evt.offsetX;
-	      var my = evt.offsetY;
-	      if (Math.abs(mx - p.x) < 10 && Math.abs(my - p.y) < 10) {
-	        found = found || true;
+	    if (!this.props.static) {
+
+	      var found = false;
+	      this.lpts.forEach(function (p) {
+	        var mx = evt.offsetX;
+	        var my = evt.offsetY;
+	        if (Math.abs(mx - p.x) < 10 && Math.abs(my - p.y) < 10) {
+	          found = found || true;
+	        }
+	      });
+	      this.cvs.style.cursor = found ? "pointer" : "default";
+
+	      this.hover = {
+	        x: evt.offsetX,
+	        y: evt.offsetY
+	      };
+
+	      if (this.moving) {
+	        this.ox = evt.offsetX - this.mx;
+	        this.oy = evt.offsetY - this.my;
+	        this.mp.x = this.cx + this.ox;
+	        this.mp.y = this.cy + this.oy;
+	        this.curve.update();
 	      }
-	    });
-	    this.cvs.style.cursor = found ? "pointer" : "default";
-
-	    this.hover = {
-	      x: evt.offsetX,
-	      y: evt.offsetY
-	    };
-
-	    if (this.moving) {
-	      this.ox = evt.offsetX - this.mx;
-	      this.oy = evt.offsetY - this.my;
-	      this.mp.x = this.cx + this.ox;
-	      this.mp.y = this.cy + this.oy;
-	      this.curve.update();
 	    }
 
 	    if (this.props.mouseMove) {
@@ -20229,6 +20227,13 @@
 	    this.colorSeed = 0;
 	  },
 
+	  setSize: function setSize(w, h) {
+	    defaultWidth = w;
+	    defaultHeight = h;
+	    this.refs.canvas.width = w;
+	    this.refs.canvas.height = h;
+	  },
+
 	  getPanelWidth: function getPanelWidth() {
 	    return defaultWidth;
 	  },
@@ -20243,6 +20248,13 @@
 
 	  getDefaultCubic: function getDefaultCubic() {
 	    return new this.Bezier(120, 160, 35, 200, 220, 260, 220, 40);
+	  },
+
+	  toImage: function toImage() {
+	    var dataURL = this.refs.canvas.toDataURL();
+	    var img = new Image();
+	    img.src = dataURL;
+	    return img;
 	  },
 
 	  setPanelCount: function setPanelCount(c) {
@@ -20446,6 +20458,24 @@
 	    this.ctx.stroke();
 	  },
 
+	  drawPath: function drawPath(path, offset) {
+	    var _this3 = this;
+
+	    offset = offset || { x: 0, y: 0 };
+	    var ox = offset.x + this.offset.x;
+	    var oy = offset.y + this.offset.y;
+	    this.ctx.beginPath();
+	    path.forEach(function (p, idx) {
+	      if (idx === 0) {
+	        return _this3.ctx.moveTo(p.x + ox, p.y + oy);
+	      }
+	      _this3.ctx.lineTo(p.x + ox, p.y + oy);
+	    });
+	    if (closed) this.ctx.closePath();
+	    this.ctx.fill();
+	    this.ctx.stroke();
+	  },
+
 	  drawShape: function drawShape(shape, offset) {
 	    offset = offset || { x: 0, y: 0 };
 	    var ox = offset.x + this.offset.x;
@@ -20477,6 +20507,24 @@
 	      offset.y += this.offset.y;
 	    }
 	    this.ctx.fillText(_text, offset.x, offset.y);
+	  },
+
+	  image: function image(_image, offset) {
+	    var _this4 = this;
+
+	    offset = offset || { x: 0, y: 0 };
+	    if (this.offset) {
+	      offset.x += this.offset.x;
+	      offset.y += this.offset.y;
+	    }
+	    if (_image.loaded) {
+	      this.ctx.drawImage(_image, offset.x, offset.y);
+	    } else {
+	      _image.onload = function () {
+	        _image.loaded = true;
+	        _this4.ctx.drawImage(_image, offset.x, offset.y);
+	      };
+	    }
 	  },
 
 	  drawAxes: function drawAxes(pad, xlabel, xs, xe, ylabel, ys, ye, offset) {
@@ -28741,13 +28789,572 @@
 /* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var React = __webpack_require__(8);
+	var Graphic = __webpack_require__(170);
+	var SectionHeader = __webpack_require__(175);
+
+	var Canonical = React.createClass({
+	  displayName: "Canonical",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Canonical form (for cubic curves)"
+	    };
+	  },
+
+	  setup: function setup(api) {
+	    var curve = api.getDefaultCubic();
+	    api.setCurve(curve);
+	    api.reset();
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.setPanelCount(2);
+	    api.reset();
+
+	    var w = api.getPanelWidth(),
+	        h = api.getPanelHeight(),
+	        unit = this.unit;
+
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+
+	    api.offset.x += 400;
+	    api.image(this.mapImage);
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: h });
+
+	    var npts = [{ x: 0, y: 0 }, { x: 0, y: unit }, { x: unit, y: unit }, this.forwardTransform(curve.points, unit)];
+
+	    var canonical = new api.Bezier(npts);
+	    var center = { x: w / 2, y: h / 2 };
+	    api.setColor("blue");
+	    api.drawCurve(canonical, center);
+	    api.drawCircle(npts[3], 3, center);
+	  },
+
+	  forwardTransform: function forwardTransform(pts, s) {
+	    s = s || 1;
+	    var p1 = pts[0],
+	        p2 = pts[1],
+	        p3 = pts[2],
+	        p4 = pts[3];
+
+	    var xn = -p1.x + p4.x - (-p1.x + p2.x) * (-p1.y + p4.y) / (-p1.y + p2.y);
+	    var xd = -p1.x + p3.x - (-p1.x + p2.x) * (-p1.y + p3.y) / (-p1.y + p2.y);
+	    var np4x = s * xn / xd;
+
+	    var yt1 = s * (-p1.y + p4.y) / (-p1.y + p2.y);
+	    var yt2 = s - s * (-p1.y + p3.y) / (-p1.y + p2.y);
+	    var yp = yt2 * xn / xd;
+	    var np4y = yt1 + yp;
+
+	    return { x: np4x, y: np4y };
+	  },
+
+	  drawBase: function drawBase(api, curve) {
+	    var w = 400,
+	        h = w,
+	        unit = this.unit = w / 5,
+	        center = { x: w / 2, y: h / 2 };
+	    api.setSize(w, h);
+
+	    // axes + gridlines
+	    api.setColor("lightgrey");
+	    for (var x = 0; x < w; x += unit / 2) {
+	      api.drawLine({ x: x, y: 0 }, { x: x, y: h });
+	    }
+	    for (var y = 0; y < h; y += unit / 2) {
+	      api.drawLine({ x: 0, y: y }, { x: w, y: y });
+	    }
+	    api.setColor("black");
+	    api.drawLine({ x: w / 2, y: 0 }, { x: w / 2, y: h });
+	    api.drawLine({ x: 0, y: h / 2 }, { x: w, y: h / 2 });
+
+	    // Inflection border:
+	    api.setColor("green");
+	    api.drawLine({ x: -w / 2, y: unit }, { x: w / 2, y: unit }, center);
+
+	    // the three stable points
+	    api.setColor("black");
+	    api.setFill("black");
+	    api.drawCircle({ x: 0, y: 0 }, 4, center);
+	    api.text("(0,0)", { x: 5 + center.x, y: 15 + center.y });
+	    api.drawCircle({ x: 0, y: unit }, 4, center);
+	    api.text("(0,1)", { x: 5 + center.x, y: unit + 15 + center.y });
+	    api.drawCircle({ x: unit, y: unit }, 4, center);
+	    api.text("(1,1)", { x: unit + 5 + center.x, y: unit + 15 + center.y });
+
+	    // cusp parabola:
+	    api.setWeight(1.5);
+	    api.setColor("#FF0000");
+	    api.setFill(api.getColor());
+	    var pts = [];
+	    var px = 1,
+	        py = 1;
+	    for (x = -10; x <= 1; x += 0.01) {
+	      y = (-x * x + 2 * x + 3) / 4;
+	      if (x > -10) {
+	        pts.push({ x: unit * px, y: unit * py });
+	        api.drawLine({ x: unit * px, y: unit * py }, { x: unit * x, y: unit * y }, center);
+	      }
+	      px = x;
+	      py = y;
+	    }
+	    pts.push({ x: unit * px, y: unit * py });
+	    api.text("Curve form has cusp →", { x: w / 2 - unit * 2, y: h / 2 + unit / 2.5 });
+
+	    // loop/arch transition boundary, elliptical section
+	    api.setColor("#FF00FF");
+	    api.setFill(api.getColor());
+	    var sqrt = Math.sqrt;
+	    for (x = 1; x >= 0; x -= 0.005) {
+	      pts.push({ x: unit * px, y: unit * py });
+	      y = 0.5 * (sqrt(3) * sqrt(4 * x - x * x) - x);
+	      api.drawLine({ x: unit * px, y: unit * py }, { x: unit * x, y: unit * y }, center);
+	      px = x;
+	      py = y;
+	    }
+	    pts.push({ x: unit * px, y: unit * py });
+	    api.text("← Curve forms a loop at t = 1", { x: w / 2 + unit / 4, y: h / 2 + unit / 1.5 });
+
+	    // loop/arch transition boundary, parabolic section
+	    api.setColor("#3300FF");
+	    api.setFill(api.getColor());
+	    for (x = 0; x > -w; x -= 0.01) {
+	      pts.push({ x: unit * px, y: unit * py });
+	      y = (-x * x + 3 * x) / 3;
+	      api.drawLine({ x: unit * px, y: unit * py }, { x: unit * x, y: unit * y }, center);
+	      px = x;
+	      py = y;
+	    }
+	    pts.push({ x: unit * px, y: unit * py });
+	    api.text("← Curve forms a loop at t = 0", { x: w / 2 - unit + 10, y: h / 2 - unit * 1.25 });
+
+	    // shape fill
+	    api.setColor("transparent");
+	    api.setFill("rgba(255,120,100,0.2)");
+	    api.drawPath(pts, center);
+	    pts = [{ x: -w / 2, y: unit }, { x: w / 2, y: unit }, { x: w / 2, y: h }, { x: -w / 2, y: h }];
+	    api.setFill("rgba(0,200,0,0.2)");
+	    api.drawPath(pts, center);
+
+	    // further labels
+	    api.setColor("black");
+	    api.setFill(api.getColor());
+	    api.text("← Curve form has one inflection →", { x: w / 2 - unit, y: h / 2 + unit * 1.75 });
+	    api.text("← Plain curve ↕", { x: w / 2 + unit / 2, y: h / 6 });
+	    api.text("↕ Double inflection", { x: 10, y: h / 2 - 10 });
+
+	    this.mapImage = api.toImage();
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "While quadratic curves are relatively simple curves to analyze, the same cannot be said of the cubic curve. As a curvature controlled by more than one control points, it exhibits all kinds of features like loops, cusps, odd colinear features, and up to two inflection points because the curvature can change direction up to three times. Now, knowing what kind of curve we're dealing with means that some algorithms can be run more efficiently than if we have to implement them as generic solvers, so is there a way to determine the curve type without lots of work?"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "As it so happens, the answer is yes and the solution we're going to look at was presented by Maureen C. Stone from Xerox PARC and Tony D. deRose from the University of Washington in their joint paper",
+	        React.createElement(
+	          "a",
+	          { href: "http://graphics.pixar.com/people/derose/publications/CubicClassification/paper.pdf" },
+	          "\"A Geometric Characterization of Parametric Cubic curves\""
+	        ),
+	        ". It was published in 1989, and defines curves as having a \"canonical\" form (i.e. a form that all curves can be reduced to) from which we can immediately tell which features a curve will have. So how does it work?"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The first observation that makes things work is that if we have a cubic curve with four points, we can apply a linear transformation to these points such that three of the points end up on (0,0), (0,1) and (1,1), with the last point then being \"somewhere\". After applying that transformation, the location of that last point can then tell us what kind of curve we're dealing with. Specifically, we see the following breakdown:"
+	      ),
+	      React.createElement(Graphic, { "static": true, preset: "simple", title: "The canonical curve map", setup: this.setup, draw: this.drawBase }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "This is a fairly funky image, so let's see how it breaks down. We see the three fixed points at (0,0), (0,1) and (1,1), and then the fourth point is somewhere. Depending on where it is, our curve will have certain features. Namely, if the fourth point is..."
+	      ),
+	      React.createElement(
+	        "ol",
+	        null,
+	        React.createElement(
+	          "li",
+	          null,
+	          "anywhere on and in the red zone, the curve will be self-intersecting, yielding either a cusp or a loop. Anywhere inside the the red zone, this will be a loop. We won't know ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "where"
+	          ),
+	          " that loop is (in terms of ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          " values), but we are guaranteed that there is one."
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "on the left (red) edge, the curve will have a cusp. We again don't know ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "where"
+	          ),
+	          ", just that it has one. This edge is described by the function: ",
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/1d1a2bae56f2fcf053698cedd90ee823db01923e.svg", style: { width: "12.45015rem", height: "2.3998500000000003rem" } })
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "on the lower right (pink) edge, the curve will have a loop at t=1, so we know the end coordinate of the curve also lies ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "on"
+	          ),
+	          " the curve. This edge is described by the function: ",
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d08de7d34c31607f02365c9243591293e6c2e47c.svg", style: { width: "16.050150000000002rem", height: "2.6248500000000003rem" } })
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "on the top (blue) edge, the curve will have a loop at t=0, so we know the start coordinate of the curve also lies ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "on"
+	          ),
+	          " the curve. This edge is described by the function: ",
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/14d0162b3132e35e8c7c9dd73d76990f5d4bf251.svg", style: { width: "10.650150000000002rem", height: "2.3998500000000003rem" } })
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "inside the green zone, the curve will have a single inflection, switching concave/convex once."
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "between the red and green zones, the curve has two inflections, meaning its curvature switches between concave/convex form twice."
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "anywhere on the right of the red zone, the curve will have no inflections. It'll just be a well-behaved arch."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Of course, this map is fairly small, but the regions extend to infinity, with well defined boundaries."
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "note" },
+	        React.createElement(
+	          "h3",
+	          null,
+	          "Wait, where do those lines come from?"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Without repeating the paper mentioned at the top of this section, the loop-boundaries come from rewriting the curve into canonical form, and then solving the formulae for which constraints must hold for which possible curve properties. In the paper these functions yield formulae for where you will find cusp points, or loops where we know t=0 or t=1, but those functions are derived for the full cubic expression, meaning they apply to t=-∞ to t=∞... For Bézier curves we only care about the \"clipped interval\" t=0 to t=1, so some of the properties that apply when you look at the curve over an infinite interval simply don't apply to the Bézier curve interval."
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "The right bound for the loop region, indicating where the curve switches from \"having inflections\" to \"having a loop\", for the general cubic curve, is actually mirrored over x=1, but for Bézier curves this right half doesn't apply, so we don't need to pay attention to it. Similarly, the boundaries for t=0 and t=1 loops are also nice clean curves but get \"cut off\" when we only look at what the general curve does over the interval t=0 to t=1."
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "For the full details, head over to the paper and read through sections 3 and 4. If you still remember your high school precalculus, you can probably follow along with this paper, although you might have to read it a few times before all the bits \"click\"."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So now the question becomes: how do we manipulate our curve so that it fits this canonical form, with three fixed points, and one \"free\" point? Enter linear algerba. Don't worry, I'll be doing all the math for you, as well as show you what the effect is on our curves, but basically we're going to be using linear algebra, rather than calculus, because \"it's way easier\". Sometimes a calculus approach is very hard to work with, when the equivalent geometrical solution is super obvious."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The approach is going to start with a curve that doesn't have all-colinear points (so we need to make sure the points don't all fall on a straight line), and then applying four graphics operations that you will probably have heard of: translation (moving all points by some fixed x- and y-distance), scaling (multiplying all points by some x and y scale factor), and shearing (an operation that turns rectangles into parallelograms)."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Step 1: we translate any curve by -p1.x and -p1.y, so that the curve starts at (0,0). We're going to make use of an interesting trick here, by pretending our 2D coordinates are 3D, with the ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "z"
+	        ),
+	        "coordinate simply always being 1. This is an old trick in graphics to overcome the limitations of 2D transformations: without it, we can only turn (x,y) coordinates into new coordinates of the form (ax + by, cx + dy), which means we can't do translation, since that requires we end up with some kind of (x + a, y + b). If we add a bogus ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "z"
+	        ),
+	        " coordinate that is always 1, then we can suddenly add arbitrary values. For example:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/cdac718c131773f05bf57bea11b29608703bb2f8.svg", style: { width: "34.05015rem", height: "4.05rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Sweet! ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "z"
+	        ),
+	        " stays 1, so we can effectively ignore it entirely, but we added some plain values to our x and y coordinates. So, if we want to subtract p1.x and p1.y, we use:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/4ea0dfd93cbd1bc6d57906997a69b5080a444684.svg", style: { width: "32.09985rem", height: "4.1998500000000005rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Running all our coordinates through this transformation gives a new set of coordinates, let's call those ",
+	        React.createElement(
+	          "b",
+	          null,
+	          "U"
+	        ),
+	        ", where the first coordinate lies on (0,0), and the rest is still somewhat free. Our next job is to make sure point 2 ends up lying on the ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "x=0"
+	        ),
+	        " line, so what we want is a transformation matrix that, when we run it, subtracts ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "x"
+	        ),
+	        " from whatever ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "x"
+	        ),
+	        " we currently have. This is called ",
+	        React.createElement(
+	          "a",
+	          { href: "https://en.wikipedia.org/wiki/Shear_matrix" },
+	          "shearing"
+	        ),
+	        ", and the typical x-shear matrix and its transformation looks like this:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/799395fa2ef61911f3e662533f35817661000bd9.svg", style: { width: "15.67485rem", height: "4.05rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So we want some shearing value that, when multiplied by ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "y"
+	        ),
+	        ", yields ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "-x"
+	        ),
+	        ", so our x coordinate becomes zero. That value is simpy ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "-x/y"
+	        ),
+	        ", because ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "-x/y * y = -x"
+	        ),
+	        ". Done:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/a3a6b5c609ff9a71eb36a873873a67a00917c91c.svg", style: { width: "9.9rem", height: "4.87485rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Now, running this on all our points generates a new set of coordinates, let's call those V, which now have point 1 on (0,0) and point 2 on (0, some-value), and we wanted it at (0,1), so we need to [do some scaling](https://en.wikipedia.org/wiki/Scaling_%28geometry%29) to make sure it ends up at (0,1). Additionally, we want point 3 to end up on (1,1), so we can also scale x to make sure its x-coordinate will be 1 after we run the transform. That means we'll be x-scaling by 1/point3",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "x"
+	        ),
+	        ", and y-scaling by point2",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "y"
+	        ),
+	        ". This is really easy:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d6b0373e8b51e235101bfee1f10aedac8f206df4.svg", style: { width: "10.04985rem", height: "5.3248500000000005rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Then, finally, this generates a new set of coordinates, let's call those W, of which point 1 lies on (0,0), point 2 lies on (0,1), and point three lies on (1, ...) so all that's left is to make sure point 3 ends up at (1,1) - but we can't scale! Point 2 is already in the right place, and y-scaling would move it out of (0,1) again, so our only option is to y-shear point three, just like how we x-sheared point 2 earlier. In this case, we do the same trick, but with `y/x` rather than `x/y` because we're not x-shearing but y-shearing. Additionally, we don't actually want to end up at zero (which is what we did before) so we need to shear towards an offset, in this case 1:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/f58dafbe7e11676c9acb801da9c8bd8e517a0651.svg", style: { width: "10.125rem", height: "4.95rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "And this generates our final set of four coordinates. Of these, we already know that points 1 through 3 are (0,0), (0,1) and (1,1), and only the last coordinate is \"free\". In fact, given any four starting coordinates, the resulting \"transformation mapped\" coordinate will be:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/4f35775e6daaa3b7de6f300151fbc30b930bdcc0.svg", style: { width: "31.57515rem", height: "8.1rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "That looks very complex, but notice that every coordinate value is being offset by the initial translation, and a lot of terms in there repeat: it's pretty easy to calculate this fast, since there's so much we can cache and reuse while we compute this mapped coordinate!"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "First, let's just do that translation step as a \"preprocessing\" operation so we don't have to subtract the values all the time. What does that leave?"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/1975f7410a031ab336f0a2fdd0eb0d985ba59d17.svg", style: { width: "24.67485rem", height: "4.05rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Suddenly things look a lot simpler: the mapped x is fairly straight forward to compute, and we see that the mapped y actually contains the mapped x in its entirety, so we'll have that part already available when we need to evaluate it. In fact, let's pull out all those common factors to see just how simple this is:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/286deb8f60e93f365f218d3b12c491ba43ff5c1f.svg", style: { width: "29.100150000000003rem", height: "2.6248500000000003rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "That's kind of super-simple to write out in code, I think you'll agree. Coding math tends to be easier than the formulae initially make it look!"
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "note" },
+	        React.createElement(
+	          "h3",
+	          null,
+	          "How do you track all that?"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Doing maths can be a pain, so whenever possible, I like to make computers do the work for me. Especially for things like this, I simply use ",
+	          React.createElement(
+	            "a",
+	            { href: "http://www.wolfram.com/mathematica" },
+	            "Mathematica"
+	          ),
+	          ". Tracking all this math by hand is insane, and we invented computers, literally, to do this for us. I have no reason to use pen and paper when I can write out what I want to do in a program, and have the program do the math for me. And real math, too, with symbols, not with numbers. In fact, ",
+	          React.createElement(
+	            "a",
+	            { href: "http://pomax.github.io/gh-weblog/downloads/canonical-curve.nb" },
+	            "here's"
+	          ),
+	          " the Mathematica notebook if you want to see how this works for yourself."
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Now, I know, you're thinking \"but Mathematica is super expensive!\" and that's true, it's ",
+	          React.createElement(
+	            "a",
+	            { href: "http://www.wolfram.com/mathematica-home-edition" },
+	            "$295 for home use"
+	          ),
+	          ", but it's ",
+	          React.createElement(
+	            "strong",
+	            null,
+	            "also"
+	          ),
+	          " ",
+	          React.createElement(
+	            "a",
+	            { href: "http://www.wolfram.com/raspberry-pi" },
+	            "free when you buy a $35 raspberry pi"
+	          ),
+	          ". Obviously, I bought a raspberry pi, and I encourage you to do the same. With that, as long as you know what you want to ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "do"
+	          ),
+	          ", Mathematica can just do it for you. And we don't have to be geniusses to work out what the maths looks like. That's what we have computers for."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So, let's write up a sketch that'll show us the canonical form for any curve drawn in blue, overlaid on our canonical map, so that we can immediately tell which features our curve must have, based on where the fourth coordinate is located on the map:"
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "A cubic curve mapped to canonical form", setup: this.setup, draw: this.draw })
+	    );
+	  }
+	});
+
+	module.exports = Canonical;
+
+/***/ },
+/* 195 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(195);
+	var content = __webpack_require__(196);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(198)(content, {});
+	var update = __webpack_require__(199)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28764,21 +29371,21 @@
 	}
 
 /***/ },
-/* 195 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(196)();
+	exports = module.exports = __webpack_require__(197)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(197) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(198) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 196 */
+/* 197 */
 /***/ function(module, exports) {
 
 	/*
@@ -28834,13 +29441,13 @@
 
 
 /***/ },
-/* 197 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
 
 /***/ },
-/* 198 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

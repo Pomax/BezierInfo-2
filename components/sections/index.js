@@ -22,13 +22,12 @@ module.exports = {
   extremities: require("./extremities"),
   boundingbox: require("./boundingbox"),
   aligning: require("./aligning"),
-  tightbounds: require("./tightbounds")
+  tightbounds: require("./tightbounds"),
+  canonical: require("./canonical")
 };
 
 
 /*
-  canonical: require("./canonical"),
-
   arclength: require("./arclength"),
   arclengthapprox: require("./arclengthapprox"),
   tracing: require("./tracing"),
@@ -55,9 +54,6 @@ module.exports = {
 */
 
 /*
-
-
-  The canonical form (for cubic curves)
   Arc length
   Approximated arc length
   Tracing a curve at fixed distance intervals
@@ -75,5 +71,4 @@ module.exports = {
   Circles and quadratic Bézier curves
   Circles and cubic Bézier curves
   Approximating Bézier curves with circular arcs
-
- */
+*/

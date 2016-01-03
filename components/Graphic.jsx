@@ -102,27 +102,30 @@ var Graphic = React.createClass({
 
   mouseMove: function(evt) {
     fix(evt);
-    var found = false;
-    this.lpts.forEach(p => {
-      var mx = evt.offsetX;
-      var my = evt.offsetY;
-      if(Math.abs(mx-p.x)<10 && Math.abs(my-p.y)<10) {
-        found = found || true;
+    if(!this.props.static) {
+
+      var found = false;
+      this.lpts.forEach(p => {
+        var mx = evt.offsetX;
+        var my = evt.offsetY;
+        if(Math.abs(mx-p.x)<10 && Math.abs(my-p.y)<10) {
+          found = found || true;
+        }
+      });
+      this.cvs.style.cursor = found ? "pointer" : "default";
+
+      this.hover = {
+        x: evt.offsetX,
+        y: evt.offsetY
+      };
+
+      if(this.moving) {
+        this.ox = evt.offsetX - this.mx;
+        this.oy = evt.offsetY - this.my;
+        this.mp.x = this.cx + this.ox;
+        this.mp.y = this.cy + this.oy;
+        this.curve.update();
       }
-    });
-    this.cvs.style.cursor = found ? "pointer" : "default";
-
-    this.hover = {
-      x: evt.offsetX,
-      y: evt.offsetY
-    };
-
-    if(this.moving) {
-      this.ox = evt.offsetX - this.mx;
-      this.oy = evt.offsetY - this.my;
-      this.mp.x = this.cx + this.ox;
-      this.mp.y = this.cy + this.oy;
-      this.curve.update();
     }
 
     if (this.props.mouseMove) {
@@ -195,6 +198,13 @@ var Graphic = React.createClass({
     this.colorSeed = 0;
   },
 
+  setSize: function(w,h) {
+    defaultWidth = w;
+    defaultHeight = h;
+    this.refs.canvas.width = w;
+    this.refs.canvas.height = h;
+  },
+
   getPanelWidth: function() {
     return defaultWidth;
   },
@@ -209,6 +219,13 @@ var Graphic = React.createClass({
 
   getDefaultCubic: function() {
     return new this.Bezier(120,160,35,200,220,260,220,40);
+  },
+
+  toImage: function() {
+    var dataURL = this.refs.canvas.toDataURL();
+    var img = new Image();
+    img.src = dataURL;
+    return img;
   },
 
   setPanelCount: function(c) {
@@ -412,6 +429,22 @@ var Graphic = React.createClass({
     this.ctx.stroke();
   },
 
+  drawPath: function(path, offset) {
+    offset = offset || { x:0, y:0 };
+    var ox = offset.x + this.offset.x;
+    var oy = offset.y + this.offset.y;
+    this.ctx.beginPath();
+    path.forEach((p,idx) => {
+      if (idx === 0) {
+        return this.ctx.moveTo(p.x + ox, p.y + oy);
+      }
+      this.ctx.lineTo(p.x + ox, p.y + oy);
+    });
+    if (closed) this.ctx.closePath();
+    this.ctx.fill();
+    this.ctx.stroke();
+  },
+
   drawShape: function(shape, offset) {
     offset = offset || { x:0, y:0 };
     var ox = offset.x + this.offset.x;
@@ -457,6 +490,22 @@ var Graphic = React.createClass({
       offset.y += this.offset.y;
     }
     this.ctx.fillText(text, offset.x, offset.y);
+  },
+
+  image: function(image, offset) {
+    offset = offset || { x:0, y:0 };
+    if (this.offset) {
+      offset.x += this.offset.x;
+      offset.y += this.offset.y;
+    }
+    if (image.loaded) {
+      this.ctx.drawImage(image,offset.x,offset.y);
+    } else {
+      image.onload = () => {
+        image.loaded = true;
+        this.ctx.drawImage(image,offset.x,offset.y);
+      };
+    }
   },
 
   drawAxes: function(pad, xlabel, xs, xe, ylabel, ys, ye, offset) {
