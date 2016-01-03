@@ -21,12 +21,12 @@ module.exports = {
   components: require("./components"),
   extremities: require("./extremities"),
   boundingbox: require("./boundingbox"),
-  aligning: require("./aligning")
+  aligning: require("./aligning"),
+  tightbounds: require("./tightbounds")
 };
 
 
 /*
-  tightbounds: require("./tightbounds"),
   canonical: require("./canonical"),
 
   arclength: require("./arclength"),
@@ -56,23 +56,7 @@ module.exports = {
 
 /*
 
-  A lightning introduction
-  What is a Bézier curve?
-  The basics of Bézier curves
-  Controlling Bézier curvatures
-  Bézier curvatures as matrix operations
-  de Casteljau's algorithm
-  Simplified drawing
-  Splitting curves
-  Splitting curves using matrices
-  Lowering and elevating curve order
-  Derivatives
-  Tangents and normals
-  Component functions
-  Finding extremities
-  Bounding boxes
-  Aligning curves
-  Tight boxes
+
   The canonical form (for cubic curves)
   Arc length
   Approximated arc length

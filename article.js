@@ -62,7 +62,7 @@
 	var React = __webpack_require__(8);
 	var ReactDOM = __webpack_require__(165);
 	var Article = __webpack_require__(166);
-	var style = __webpack_require__(193);
+	var style = __webpack_require__(194);
 
 	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"));
 
@@ -19695,15 +19695,15 @@
 	    return React.createElement(Type, { key: name, ref: name, name: name, number: entry });
 	  },
 
-	  generateNavItem: function generateNavItem(name, entry) {
-	    var Type = this.state.sections[name];
+	  generateNavItem: function generateNavItem(section, entry) {
+	    var name = section.props.name;
 	    return React.createElement(
 	      "li",
 	      { key: name, "data-number": entry },
 	      React.createElement(
 	        "a",
 	        { href: '#' + name },
-	        Type.title || name
+	        section.props.title
 	      )
 	    );
 	  },
@@ -19722,7 +19722,7 @@
 	          React.createElement(
 	            "ul",
 	            { className: "navigation" },
-	            this.sectionMap(this.generateNavItem)
+	            sections.map(this.generateNavItem)
 	          )
 	        )
 	      ),
@@ -19766,11 +19766,11 @@
 	  components: __webpack_require__(189),
 	  extremities: __webpack_require__(190),
 	  boundingbox: __webpack_require__(191),
-	  aligning: __webpack_require__(192)
+	  aligning: __webpack_require__(192),
+	  tightbounds: __webpack_require__(193)
 	};
 
 	/*
-	  tightbounds: require("./tightbounds"),
 	  canonical: require("./canonical"),
 
 	  arclength: require("./arclength"),
@@ -19800,23 +19800,7 @@
 
 	/*
 
-	  A lightning introduction
-	  What is a Bézier curve?
-	  The basics of Bézier curves
-	  Controlling Bézier curvatures
-	  Bézier curvatures as matrix operations
-	  de Casteljau's algorithm
-	  Simplified drawing
-	  Splitting curves
-	  Splitting curves using matrices
-	  Lowering and elevating curve order
-	  Derivatives
-	  Tangents and normals
-	  Component functions
-	  Finding extremities
-	  Bounding boxes
-	  Aligning curves
-	  Tight boxes
+
 	  The canonical form (for cubic curves)
 	  Arc length
 	  Approximated arc length
@@ -20339,7 +20323,7 @@
 	  },
 
 	  drawHull: function drawHull(curve, t, offset) {
-	    var hull = curve.hull(t);
+	    var hull = typeof curve === "array" ? curve : curve.hull(t);
 	    if (hull.length === 6) {
 	      this.drawLine(hull[0], hull[1], offset);
 	      this.drawLine(hull[1], hull[2], offset);
@@ -28646,62 +28630,124 @@
 
 	module.exports = Aligning;
 
-	/*
-	        void setupCurve() {
-	          setupDefaultQuadratic();
-	        }
-
-	        void drawCurve(BezierCurve curve) {
-	          additionals();
-	          curve.draw();
-
-	          nextPanel();
-	          stroke(0);
-	          line(0,0,0,dim);
-
-	          stroke(0,50);
-	          translate(3*dim/4,dim/2);
-	          line(-3*dim/4,0,dim/4,0);
-	          line(0,-dim/2,0,dim/2);
-
-	          curve.align().draw(color(150));
-	        }</textarea>
-
-
-
-	        void setupCurve() {
-	          setupDefaultCubic();
-	        }
-
-	        void drawCurve(BezierCurve curve) {
-	          additionals();
-	          curve.draw();
-
-	          nextPanel();
-	          stroke(0);
-	          line(0,0,0,dim);
-
-	          stroke(0,50);
-	          translate(3*dim/4,dim/2);
-	          line(-3*dim/4,0,dim/4,0);
-	          line(0,-dim/2,0,dim/2);
-
-	          curve.align().draw(color(150));
-	        }</textarea>
-
-	 */
-
 /***/ },
 /* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(8);
+	var Graphic = __webpack_require__(170);
+	var SectionHeader = __webpack_require__(175);
+
+	var TightBounds = React.createClass({
+	  displayName: "TightBounds",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Tight boxes"
+	    };
+	  },
+
+	  setupQuadratic: function setupQuadratic(api) {
+	    var curve = api.getDefaultQuadratic();
+	    api.setCurve(curve);
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    var curve = api.getDefaultCubic();
+	    api.setCurve(curve);
+	  },
+
+	  align: function align(points, line) {
+	    var tx = line.p1.x,
+	        ty = line.p1.y,
+	        a = -Math.atan2(line.p2.y - ty, line.p2.x - tx),
+	        cos = Math.cos,
+	        sin = Math.sin,
+	        d = function d(v) {
+	      return {
+	        x: (v.x - tx) * cos(a) - (v.y - ty) * sin(a),
+	        y: (v.x - tx) * sin(a) + (v.y - ty) * cos(a),
+	        a: a
+	      };
+	    };
+	    return points.map(d);
+	  },
+
+	  // FIXME: I'm not satisfied with needing to turn a bbox[] into a point[],
+	  //        this needs a bezier.js solution, really, with a  call curve.tightbbox()
+	  transpose: function transpose(points, angle, offset) {
+	    var tx = offset.x,
+	        ty = offset.y,
+	        cos = Math.cos,
+	        sin = Math.sin,
+	        v = [points.x.min, points.y.min, points.x.max, points.y.max],
+	        points = [{ x: v[0], y: v[1] }, { x: v[2], y: v[1] }, { x: v[2], y: v[3] }, { x: v[0], y: v[3] }].map(function (p) {
+	      var x = p.x,
+	          y = p.y;
+	      return {
+	        x: x * cos(angle) - y * sin(angle) + tx,
+	        y: x * sin(angle) + y * cos(angle) + ty
+	      };
+	    });
+	    return points;
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+
+	    var pts = curve.points;
+	    var line = { p1: pts[0], p2: pts[pts.length - 1] };
+	    var apts = this.align(pts, line);
+	    var angle = -apts[0].a;
+	    var aligned = new api.Bezier(apts);
+	    var bbox = aligned.bbox();
+	    var tpts = this.transpose(bbox, angle, pts[0]);
+
+	    api.setColor("#00FF00");
+	    api.drawLine(tpts[0], tpts[1]);
+	    api.drawLine(tpts[1], tpts[2]);
+	    api.drawLine(tpts[2], tpts[3]);
+	    api.drawLine(tpts[3], tpts[0]);
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "With our knowledge of bounding boxes, and curve alignment, We can now form the \"tight\" bounding box for curves. We first align  our curve, recording the translation we performed, \"T\", and the rotation angle we used, \"R\". We then determine the aligned curve's normal bounding box. Once we have that, we can map that bounding box back to our original curve by rotating it by -R, and then translating it by -T. We now have nice tight bounding boxes for our curves:"
+	      ),
+	      React.createElement(Graphic, { preset: "twopanel", title: "Aligning a quadratic curve", setup: this.setupQuadratic, draw: this.draw }),
+	      React.createElement(Graphic, { preset: "twopanel", title: "Aligning a cubic curve", setup: this.setupCubic, draw: this.draw }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "These are, strictly speaking, not necessarily the tightest possible bounding boxes. It is possible to compute the optimal bounding box by determining which spanning lines we need to effect a minimal box area, but because of the parametric nature of Bézier curves this is actually a rather costly operation, and the gain in bounding precision is often not worth it. If there is high demand for it, I'll add a section on how to precisely compute the best fit bounding box, but the maths is fairly gruelling and just not really worth spending time on."
+	      )
+	    );
+	  }
+	});
+
+	module.exports = TightBounds;
+
+/***/ },
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(194);
+	var content = __webpack_require__(195);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(197)(content, {});
+	var update = __webpack_require__(198)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28718,21 +28764,21 @@
 	}
 
 /***/ },
-/* 194 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(195)();
+	exports = module.exports = __webpack_require__(196)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(196) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(197) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\n#ribbonimg {\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 195 */
+/* 196 */
 /***/ function(module, exports) {
 
 	/*
@@ -28788,13 +28834,13 @@
 
 
 /***/ },
-/* 196 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
 
 /***/ },
-/* 197 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

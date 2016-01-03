@@ -286,7 +286,7 @@ var Graphic = React.createClass({
   },
 
   drawHull: function(curve, t, offset) {
-    var hull = curve.hull(t);
+    var hull = typeof curve === "array" ? curve : curve.hull(t);
     if(hull.length === 6) {
       this.drawLine(hull[0], hull[1], offset);
       this.drawLine(hull[1], hull[2], offset);

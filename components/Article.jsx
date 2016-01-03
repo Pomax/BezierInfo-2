@@ -31,9 +31,9 @@ var Article = React.createClass({
     return <Type key={name} ref={name} name={name} number={entry}/>;
   },
 
-  generateNavItem: function(name, entry) {
-    var Type = this.state.sections[name];
-    return <li key={name} data-number={entry}><a href={'#' + name}>{Type.title || name}</a></li>;
+  generateNavItem: function(section, entry) {
+    var name = section.props.name;
+    return <li key={name} data-number={entry}><a href={'#' + name}>{ section.props.title }</a></li>;
   },
 
   render: function() {
@@ -42,7 +42,7 @@ var Article = React.createClass({
       <div ref="navigation">
         <navigation>
           <ul className="navigation">
-          { this.sectionMap(this.generateNavItem) }
+          { sections.map(this.generateNavItem) }
           </ul>
         </navigation>
       </div>
