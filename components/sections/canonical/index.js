@@ -16,12 +16,14 @@ var Canonical = React.createClass({
   },
 
   draw: function(api, curve) {
+    var w = 400,
+        h = w,
+        unit = this.unit,
+        center = {x:w/2, y:h/2};
+
+    api.setSize(w,h);
     api.setPanelCount(2);
     api.reset();
-
-    var w = api.getPanelWidth(),
-        h = api.getPanelHeight(),
-        unit = this.unit;
 
     api.drawSkeleton(curve);
     api.drawCurve(curve);
@@ -38,7 +40,6 @@ var Canonical = React.createClass({
     ];
 
     var canonical = new api.Bezier(npts);
-    var center = {x:w/2, y:h/2};
     api.setColor("blue");
     api.drawCurve(canonical, center);
     api.drawCircle(npts[3], 3, center);
@@ -65,6 +66,7 @@ var Canonical = React.createClass({
         h = w,
         unit = this.unit = w/5,
         center = {x:w/2, y:h/2};
+
     api.setSize(w,h);
 
     // axes + gridlines

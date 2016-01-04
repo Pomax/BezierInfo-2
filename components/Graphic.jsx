@@ -10,10 +10,12 @@ var fix = function(e) {
   e.offsetY = e.clientY - rect.top;
 };
 
-var defaultWidth = 275;
-var defaultHeight = 275;
 
 var Graphic = React.createClass({
+
+  defaultWidth: 275,
+  defaultHeight: 275,
+
   Bezier: require("bezier-js"),
   curve: false,
   mx:0,
@@ -63,8 +65,8 @@ var Graphic = React.createClass({
 
   componentDidMount: function() {
     var cvs = this.refs.canvas;
-    cvs.width = defaultWidth;
-    cvs.height = defaultHeight;
+    cvs.width = this.defaultWidth;
+    cvs.height = this.defaultHeight;
     this.cvs = cvs;
     var ctx = cvs.getContext("2d");
     this.ctx = ctx;
@@ -199,18 +201,18 @@ var Graphic = React.createClass({
   },
 
   setSize: function(w,h) {
-    defaultWidth = w;
-    defaultHeight = h;
+    this.defaultWidth = w;
+    this.defaultHeight = h;
     this.refs.canvas.width = w;
     this.refs.canvas.height = h;
   },
 
   getPanelWidth: function() {
-    return defaultWidth;
+    return this.defaultWidth;
   },
 
   getPanelHeight: function() {
-    return defaultHeight;
+    return this.defaultHeight;
   },
 
   getDefaultQuadratic: function() {
@@ -230,7 +232,7 @@ var Graphic = React.createClass({
 
   setPanelCount: function(c) {
     var cvs = this.refs.canvas;
-    cvs.width = c*defaultWidth;
+    cvs.width = c * this.defaultWidth;
   },
 
   setCurve: function(c) {
