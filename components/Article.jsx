@@ -1,5 +1,6 @@
 var React = require("react");
 var ReactDOM = require("react-dom");
+var Ribbon = require("./Ribbon.jsx");
 
 var Article = React.createClass({
 
@@ -39,6 +40,7 @@ var Article = React.createClass({
   render: function() {
     var sections = this.sectionMap(this.generateSection);
     return (<div>
+      <Ribbon />
       <div ref="navigation">
         <navigation>
           <ul className="navigation">

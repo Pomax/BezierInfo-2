@@ -1,5 +1,6 @@
 html, body {
   font-family: Verdana;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -44,19 +45,13 @@ article {
 
 a, a:visited { color: rgb(0,0,200); text-decoration: none; }
 
-#ribbonimg {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 999;
-}
-
 footer {
   font-style: italic;
   margin: 2em 0 1em 0;
   background: inherit;
 }
 
+@import "ribbon.less";
 @import "navigation.less";
 @import "section.less";
 @import "howtocode.less";

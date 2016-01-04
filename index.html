@@ -15,14 +15,15 @@
     <meta property="og:author" content="Mike 'Pomax' Kamermans">
     <meta property="og:section" content="Bézier Curves">
     <meta property="og:tag" content="Bézier Curves">
+
+    <style>
+      body { width: 800px; margin: auto; }
+      h1, h2 { text-align: center; }
+      h1 { font-size: 300%; margin: 0.2em; }
+      p { margin: 2em; text-align: justify; }
+    </style>
   </head>
   <body>
-    <!-- This page lives on github -->
-    <img id="ribbonimg" src="images/ribbon.png" alt="This page on GitHub" border=0 usemap="#githubmap">
-    <map name="githubmap">
-      <area shape="poly" coords="30,0, 200,0, 200,114" href="http://github.com/pomax/BezierInfo-2" alt="This page on GitHub">
-    </map>
-
     <article>
       <header>
         <h1>A Primer on Bézier Curves</h1>
@@ -30,7 +31,10 @@
       </header>
 
       <!-- React does its magic here -->
-      <div id="article"></div>
+      <div id="article">
+        <p>Loading book content...</p>
+        <p>If you have JavaScript disabled, you'll have to enable it, as this book heavily relies on JS rendering, both for the base content (it's been written as a React application) and all the interactive graphics, which rely on JS not just for the user interaction but also for the live-drawing (none of the graphics in this book are flat images, they're all live-rendered).</p>
+      </div>
     </article>
 
     <script src="article.js"></script>
