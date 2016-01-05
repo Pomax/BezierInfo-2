@@ -1,3 +1,109 @@
+var React = require("react");
+var Graphic = require("../../Graphic.jsx");
+var SectionHeader = require("../../SectionHeader.jsx");
+
+var sin = Math.sin;
+var tau = Math.PI*2;
+
+var Arclength = React.createClass({
+  getDefaultProps: function() {
+    return {
+      title: "Arc length"
+    };
+  },
+
+  setup: function(api) {
+    var w = api.getPanelWidth();
+    var h = api.getPanelHeight();
+    var generator;
+    if (!this.generator) {
+      generator = ((v,scale) => {
+        scale = scale || 1;
+        return {
+          x: v*w/tau,
+          y: scale * sin(v)
+        };
+      });
+      generator.start = 0;
+      generator.end = tau;
+      generator.step = 0.1;
+      generator.scale = h/3;
+      this.generator = generator;
+    }
+  },
+
+  drawSine: function(api, dheight) {
+    var w = api.getPanelWidth();
+    var h = api.getPanelHeight();
+    var generator = this.generator;
+    generator.dheight = dheight;
+
+    api.setColor("black");
+    api.drawLine({x:0,y:h/2}, {x:w,y:h/2});
+    api.drawFunction(generator, {x:0, y:h/2});
+  },
+
+  drawSlices: function(api, steps) {
+    var w = api.getPanelWidth();
+    var h = api.getPanelHeight();
+    var f = w/tau;
+    var area = 0;
+    var c = steps <= 25 ? 1 : 0;
+    api.reset();
+    api.setColor("transparent");
+    api.setFill("rgba(150,150,255, 0.4)");
+    for (var step=tau/steps, i=step/2, v, p1, p2; i<tau+step/2; i+=step) {
+      v = this.generator(i);
+      p1 = {x:v.x - f*step/2 + c, y: 0};
+      p2 = {x:v.x + f*step/2 - c, y: v.y * this.generator.scale};
+
+      if (!c) { api.setFill("rgba(150,150,255,"+(0.4 + 0.3*Math.random())+")"); }
+      api.drawRect(p1, p2, {x:0, y:h/2});
+      area += step * Math.abs(v.y * this.generator.scale);
+    }
+    api.setFill("black");
+    var trueArea = ((100 * 4 * h/3)|0)/100;
+    var currArea = ((100 * area)|0)/100;
+    api.text("Approximating with "+steps+" strips (true area: "+trueArea+"): " + currArea, {x: 10, y: h-15});
+  },
+
+  drawCoarseIntegral: function(api) {
+    api.reset();
+    this.drawSlices(api, 10);
+    this.drawSine(api);
+  },
+
+  drawFineIntegral: function(api) {
+    api.reset();
+    this.drawSlices(api, 24);
+    this.drawSine(api);
+  },
+
+  drawSuperFineIntegral: function(api) {
+    api.reset();
+    this.drawSlices(api, 99);
+    this.drawSine(api);
+  },
+
+  setupCurve: function(api) {
+    var curve = api.getDefaultCubic();
+    api.setCurve(curve);
+  },
+
+  drawCurve: function(api, curve) {
+    api.reset();
+    api.drawSkeleton(curve);
+    api.drawCurve(curve);
+    var len = curve.length();
+    api.setFill("black");
+    api.text("Curve length: "+len+" pixels", {x:10, y:15});
+  },
+
+  render: function() {
+    return (
+      <section>
+        <SectionHeader {...this.props} />
+
         <p>How long is a Bézier curve? As it turns out, that's not actually an easy question, because the answer
         requires maths that —much like root finding— cannot generally be solved the traditional way. If we
         have a parametric curve with <i>f<sub>x</sub>(t)</i> and <i>f<sub>y</sub>(t)</i>, then the length of the
@@ -23,7 +129,7 @@
         calculate the arc length. Let me just repeat this, because it's fairly crucial: <strong><em>for cubic and higher Bézier curves,
         there is no way to solve this function if you want to use it "for all possible coordinates".</em></strong></p>
 
-        <p>Seriously: <a href="https://en.wikipedia.org/wiki/Abel%E2%80%93Ruffini_theorem">It cannot be done.</a>.</p>
+        <p>Seriously: <a href="https://en.wikipedia.org/wiki/Abel%E2%80%93Ruffini_theorem">It cannot be done.</a></p>
 
         <p>So we turn to numerical approaches again. The method we'll look at here is the
         <a href="http://www.youtube.com/watch?v=unWguclP-Ds&feature=BFa&list=PLC8FC40C714F5E60F&index=1">Gauss
@@ -35,74 +141,51 @@
 
         <p>\[
           \int_{-1}^{1}\sqrt{ \left (dx/dt \right )^2+\left (dy/dt \right )^2} dt
-          ≃
-          \left [ C_1 \cdot f\left(t_1\right)
-                 \ +\ ...
-                 \ +\ C_n \cdot f\left(t_n\right)
+          \simeq
+          \left [
+            \underset{strip\ 1}{ \underbrace{ C_1 \cdot f\left(t_1\right) }}
+            \ +\ ...
+            \ +\ \underset{strip\ n}{ \underbrace{ C_n \cdot f\left(t_n\right) }}
           \right ]
           =
-          \sum_{i=1}^{n}{C_i \cdot f\left(t_i\right)}
+          \underset{strips\ 1\ through\ n}{
+            \underbrace{
+              \sum_{i=1}^{n}{
+                C_i \cdot f\left(t_i\right)
+              }
+            }
+          }
         \]</p>
 
         <p>In plain text: an integral function can always be treated as the sum of an (infinite) number of
         (infinitely thin) rectangular strips sitting "under" the function's plotted graph. To illustrate
-        this idea, the following graph shows the integral for a sinoid function. If we pick thin enough
-        strips, we'd get a "perfect" fit for all the strips from the midline to the actual function values:</p>
+        this idea, the following graph shows the integral for a sinoid function. The more strips we use (and
+        of course the more we use, the thinner they get) the closer we get to the true area under the curve, and
+        thus the better the approximation:</p>
 
-        <textarea class="sketch-code" data-sketch-preset="empty" data-sketch-title="A function's approximated integral">
-        void drawFunction() {
-          float x=0, y=dim/2, nx, ny;
-          stroke(0);
-          for(float t=0; t<=2*PI; t+=0.05) {
-            nx = map(t,0,2*PI,0,dim);
-            ny = map(sin(t), -1,1, pad,dim-pad);
-            line(x,y,nx,ny);
-            x=nx;y=ny;
-          }
-          stroke(255);
-          fill(0,0,255,100);
-          x=0;
-          y=dim/2;
-          for(float t=0; t<=2*PI+0.2; t+=0.2) {
-            nx = map(t,0,2*PI,0,dim);
-            ny = map(sin(t), -1,1, pad,dim-pad);
-            rect(x-(nx-x)/2,dim/2,nx-x,y-(dim/2));
-            x=nx;y=ny;
-          }
-        }</textarea>
+        <div className="figure">
+          <Graphic inline={true} preset="empty" title="A function's approximated integral" setup={this.setup} draw={this.drawCoarseIntegral}/>
+          <Graphic inline={true} preset="empty" title="A better approximation" setup={this.setup} draw={this.drawFineIntegral}/>
+          <Graphic inline={true} preset="empty" title="An even better approximation" setup={this.setup} draw={this.drawSuperFineIntegral}/>
+        </div>
 
-        <textarea class="sketch-code" data-sketch-preset="empty" data-sketch-title="A better approximation">
-        void drawFunction() {
-          float x=0, y=dim/2, nx, ny;
-          stroke(0);
-          for(float t=0; t<=2*PI; t+=0.05) {
-            nx = map(t,0,2*PI,0,dim);
-            ny = map(sin(t), -1,1, pad,dim-pad);
-            line(x,y,nx,ny);
-            x=nx;y=ny;
-          }
-          stroke(255);
-          fill(0,0,255,100);
-          x=0;
-          y=dim/2;
-          for(float t=0; t<=2*PI+0.1; t+=0.1) {
-            nx = map(t,0,2*PI,0,dim);
-            ny = map(sin(t), -1,1, pad,dim-pad);
-            rect(x-(nx-x)/2,dim/2,nx-x,y-(dim/2));
-            x=nx;y=ny;
-          }
-        }</textarea>
 
         <p>Now, infinitely many terms to sum and infinitely thin rectangles are not something that computers
         can work with, so instead we're going to approximate the infinite summation by using a sum of a finite
         number of "just thin" rectangular strips. As long as we use a high enough number of thin enough rectangular
         strips, this will give us an approximation that is pretty close to what the real value is.</p>
 
-        <p>So, the trick is to come up with useful rectangular strips. A naive way is to simply create <i>n</i>
-        strips, all with the same width, but there is a far better way using special values for <i>C</i> and
-        <i>f(t)</i> depending on the value of <i>n</i>, which indicates how many strips we'll use.</p>
+        <p>So, the trick is to come up with useful rectangular strips. A naive way is to simply create <i>n</i> strips,
+        all with the same width, but there is a far better way using special values for <i>C</i> and <i>f(t)</i> depending
+        on the value of <i>n</i>, which indicates how many strips we'll use, and it's called the Legendre-Gauss quadrature.</p>
 
-        <div class="note">
+        <p>This approach uses strips that are <em>not</em> spaced evenly, but instead spaces them in a special way that works
+        remarkably well. If you look at the earlier sinoid graphic, you could imagine that we could probably get a result
+        similar to the one with 99 strips if we used fewer strips, but spaced them so that the steeper the curve is, the
+        thinner we make the strip, and conversely, the flatter the curve is (especially near the tops of the function),
+        the wider we make the strip. That's akin to how the Legendre values work.</p>
+
+        <div className="note">
 
           <p>Note that one requirement for the approach we'll use is that the integral must run from -1 to 1. That's no good, because
           we're dealing with Bézier curves, and the length of a section of curve applies to values which run from 0 to "some
@@ -113,7 +196,7 @@
           <p>\[\begin{array}{l}
             \int_{0}^{z}\sqrt{ \left (dx/dt \right )^2+\left (dy/dt \right )^2} dt
             \\
-            ≃ \
+            \simeq \
             \frac{z}{2} \cdot \left [ C_1 \cdot f\left(\frac{z}{2} \cdot t_1 + \frac{z}{2}\right)
                                       + ...
                                       + C_n \cdot f\left(\frac{z}{2} \cdot t_n + \frac{z}{2}\right)
@@ -130,8 +213,9 @@
           because that derivative notation is handy on paper, but not when we have to implement it. We'll also
           need to know what these <i>C<sub>i</sub></i> and <i>t<sub>i</sub></i> values should be. Luckily, that's
           less work because there are actually many tables available that give these values, for any <i>n</i>,
-          so if we want to approximate our integral with only two terms (which is a bit low, really) then
-          <a href="legendre-gauss.html">these tables</a> would tell us that for <i>n=2</i> we must use the following values:</p>
+          so if we want to approximate our integral with only two terms (which is a bit low, really)
+          then <a href="legendre-gauss.html">these tables</a> would tell us that for <i>n=2</i> we must use the
+          following values:</p>
 
           <p>\[\begin{array}{l}
           C_1 = 1 \\
@@ -156,42 +240,17 @@
           as we know the full description for the Bézier curve functions B<sub>x</sub>(t) and B<sub>y</sub>(t).</p>
         </div>
 
-        <p>If we use the Legendre-Gauss values for our <i>C</i> values (thickness for each strip) and <i>t</i>
-        values (location of each strip), we can determine the approximate length of a Bézier curve by computing the
+        <p>If we use the Legendre-Gauss values for our <i>C</i> values (thickness for each strip) and <i>t</i> values
+        (location of each strip), we can determine the approximate length of a Bézier curve by computing the
         Legendre-Gauss sum. The following graphic shows a cubic curve, with its computed lengths; Go ahead and
-        change the curve, to see how its length changes (the sketch allows curve order elevation and lowering,
-        in case you want to try more complex, or simpler, curves), and use your "+" and "-" keys to change the number
-        of intervals the Legendre-Gauss integral is approximated with (to a maximum of 23, with the sketch always
-        telling you the result of a 24 interval arc length computation).</p>
+        change the curve, to see how its length changes. One thing worth trying is to see if you can make a straight
+        line, and see if the length matches what you'd expect. What if you form a line with the control points
+        on the outside, and the start/end points on the inside?</p>
 
-        <textarea class="sketch-code" data-sketch-preset="simple" data-sketch-title="Arc length for a Bézier curve">
-        void setupCurve() {
-          setupDefaultCubic();
-          offsetting();
-          offset = 20;
-        }
+        <Graphic preset="simple" title="Arc length for a Bézier curve" setup={this.setupCurve} draw={this.drawCurve}/>
+      </section>
+    );
+  }
+});
 
-        void drawCurve(BezierCurve curve) {
-          if(offset<1) { offset = 1; }
-          if(offset>23) { offset = 23; }
-          int resolution = 100000;
-          curve.draw();
-          pushStyle();
-          fill(0);
-          float ref = curve.getCurveLength();
-          float f = curve.getCurveLength(offset);
-          if (f<0) {
-            curves.clear();
-            curves.add(curve.lower());
-            redraw();
-            return;
-          }
-          float fo = int(resolution*f)/resolution;
-          text("curve length using "+offset+" intervals: "+fo+"px", 5, 15);
-
-          float fn = int(resolution*ref)/resolution;
-          float fe = 100*abs(ref-f)/ref;
-          fe = int(resolution*fe)/resolution;
-          text("24 interval arc length: "+fn+" (error: "+fe+"%)", 5, dim-5);
-          popStyle();
-        }</textarea>
+module.exports = Arclength;

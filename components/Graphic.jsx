@@ -331,12 +331,15 @@ var Graphic = React.createClass({
   },
 
   drawFunction: function(generator, offset) {
-    var p0 = generator(0),
-        plast = generator(1),
+    var start = generator.start || 0,
+        p0 = generator(start),
+        end = generator.end || 1,
+        plast = generator(end),
         step = generator.step || 0.01,
+        scale = generator.scale || 1,
         p, t;
-    for (t=step; t<1.0; t+=step) {
-      p = generator(t);
+    for (t=step; t<end; t+=step) {
+      p = generator(t, scale);
       this.drawLine(p0, p, offset);
       p0 = p;
     }
@@ -426,7 +429,16 @@ var Graphic = React.createClass({
     offset = offset || { x:0, y:0 };
     var ox = offset.x + this.offset.x;
     var oy = offset.y + this.offset.y;
-    this.ctx.rect(p1.x, p1.y, p2.x-p1.x, p2.y-p1.y);
+    var x = p1.x + ox,
+        y = p1.y + oy,
+        w = p2.x-p1.x,
+        h = p2.y-p1.y;
+    this.ctx.beginPath();
+    this.ctx.moveTo(x,y);
+    this.ctx.lineTo(x+w, y);
+    this.ctx.lineTo(x+w, y+h);
+    this.ctx.lineTo(x,y+h);
+    this.ctx.closePath();
     this.ctx.fill();
     this.ctx.stroke();
   },

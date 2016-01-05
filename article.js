@@ -63,7 +63,7 @@
 	var React = __webpack_require__(9);
 	var ReactDOM = __webpack_require__(166);
 	var Article = __webpack_require__(167);
-	var style = __webpack_require__(197);
+	var style = __webpack_require__(200);
 
 	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"));
 
@@ -19803,14 +19803,14 @@
 	  boundingbox: __webpack_require__(193),
 	  aligning: __webpack_require__(194),
 	  tightbounds: __webpack_require__(195),
-	  canonical: __webpack_require__(196)
+	  canonical: __webpack_require__(196),
+
+	  arclength: __webpack_require__(197),
+	  arclengthapprox: __webpack_require__(198),
+	  tracing: __webpack_require__(199)
 	};
 
 	/*
-	  arclength: require("./arclength"),
-	  arclengthapprox: require("./arclengthapprox"),
-	  tracing: require("./tracing"),
-
 	  intersections: require("./intersections"),
 	  curveintersection: require("./curveintersection"),
 	  moulding: require("./moulding"),
@@ -19833,9 +19833,6 @@
 	*/
 
 	/*
-	  Arc length
-	  Approximated arc length
-	  Tracing a curve at fixed distance intervals
 	  Intersections
 	  Curve/curve intersection
 	  Curve moulding (using the projection ratio)
@@ -20061,11 +20058,11 @@
 	  e.offsetY = e.clientY - rect.top;
 	};
 
-	var defaultWidth = 275;
-	var defaultHeight = 275;
-
 	var Graphic = React.createClass({
 	  displayName: "Graphic",
+
+	  defaultWidth: 275,
+	  defaultHeight: 275,
 
 	  Bezier: __webpack_require__(175),
 	  curve: false,
@@ -20128,8 +20125,8 @@
 
 	  componentDidMount: function componentDidMount() {
 	    var cvs = this.refs.canvas;
-	    cvs.width = defaultWidth;
-	    cvs.height = defaultHeight;
+	    cvs.width = this.defaultWidth;
+	    cvs.height = this.defaultHeight;
 	    this.cvs = cvs;
 	    var ctx = cvs.getContext("2d");
 	    this.ctx = ctx;
@@ -20263,18 +20260,18 @@
 	  },
 
 	  setSize: function setSize(w, h) {
-	    defaultWidth = w;
-	    defaultHeight = h;
+	    this.defaultWidth = w;
+	    this.defaultHeight = h;
 	    this.refs.canvas.width = w;
 	    this.refs.canvas.height = h;
 	  },
 
 	  getPanelWidth: function getPanelWidth() {
-	    return defaultWidth;
+	    return this.defaultWidth;
 	  },
 
 	  getPanelHeight: function getPanelHeight() {
-	    return defaultHeight;
+	    return this.defaultHeight;
 	  },
 
 	  getDefaultQuadratic: function getDefaultQuadratic() {
@@ -20294,7 +20291,7 @@
 
 	  setPanelCount: function setPanelCount(c) {
 	    var cvs = this.refs.canvas;
-	    cvs.width = c * defaultWidth;
+	    cvs.width = c * this.defaultWidth;
 	  },
 
 	  setCurve: function setCurve(c) {
@@ -20398,13 +20395,16 @@
 	  },
 
 	  drawFunction: function drawFunction(generator, offset) {
-	    var p0 = generator(0),
-	        plast = generator(1),
+	    var start = generator.start || 0,
+	        p0 = generator(start),
+	        end = generator.end || 1,
+	        plast = generator(end),
 	        step = generator.step || 0.01,
+	        scale = generator.scale || 1,
 	        p,
 	        t;
-	    for (t = step; t < 1.0; t += step) {
-	      p = generator(t);
+	    for (t = step; t < end; t += step) {
+	      p = generator(t, scale);
 	      this.drawLine(p0, p, offset);
 	      p0 = p;
 	    }
@@ -20488,7 +20488,16 @@
 	    offset = offset || { x: 0, y: 0 };
 	    var ox = offset.x + this.offset.x;
 	    var oy = offset.y + this.offset.y;
-	    this.ctx.rect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
+	    var x = p1.x + ox,
+	        y = p1.y + oy,
+	        w = p2.x - p1.x,
+	        h = p2.y - p1.y;
+	    this.ctx.beginPath();
+	    this.ctx.moveTo(x, y);
+	    this.ctx.lineTo(x + w, y);
+	    this.ctx.lineTo(x + w, y + h);
+	    this.ctx.lineTo(x, y + h);
+	    this.ctx.closePath();
 	    this.ctx.fill();
 	    this.ctx.stroke();
 	  },
@@ -25042,19 +25051,15 @@
 	          null,
 	          "We could naively implement the basis function as a mathematical construct, using the function as our guide, like this:"
 	        ),
-	        React.createElement(
-	          "pre",
-	          null,
-	          "function Bezier(n,t):",
-	          '\n',
-	          "  sum = 0",
-	          '\n',
-	          "  for(k=0; k<n; k++):",
-	          '\n',
-	          "    sum += n!/(k!*(n-k)!) * (1-t)^(n-k) * t^(k)",
-	          '\n',
-	          "  return sum"
-	        ),
+	        "<pre>function Bezier(n,t):",
+	        '\n',
+	        "  sum = 0",
+	        '\n',
+	        "  for(k=0; k<n; k++):",
+	        '\n',
+	        "    sum += n!/(k!*(n-k)!) * (1-t)^(n-k) * t^(k)",
+	        '\n',
+	        "  return sum</pre>",
 	        React.createElement(
 	          "p",
 	          null,
@@ -25071,95 +25076,83 @@
 	          null,
 	          "We can generate this as a list of lists lightning fast, and then never have to compute the binomial terms because we have a lookup table:"
 	        ),
-	        React.createElement(
-	          "pre",
-	          null,
-	          "lut = [      [1],           // n=0",
-	          '\n',
-	          "            [1,1],          // n=1",
-	          '\n',
-	          "           [1,2,1],         // n=2",
-	          '\n',
-	          "          [1,3,3,1],        // n=3",
-	          '\n',
-	          "         [1,4,6,4,1],       // n=4",
-	          '\n',
-	          "        [1,5,10,10,5,1],    // n=5",
-	          '\n',
-	          "       [1,6,15,20,15,6,1]]  // n=6",
-	          '\n',
-	          '\n',
-	          "binomial(n,k):",
-	          '\n',
-	          "  while(n &gt;= lut.length):",
-	          '\n',
-	          "    s = lut.length",
-	          '\n',
-	          "    nextRow = new array(size=s+1)",
-	          '\n',
-	          "    nextRow[0] = 1",
-	          '\n',
-	          "    for(i=1, prev=s-1; i&ltprev; i++):",
-	          '\n',
-	          "      nextRow[i] = lut[prev][i-1] + lut[prev][i]",
-	          '\n',
-	          "    nextRow[s] = 1",
-	          '\n',
-	          "    lut.add(nextRow)",
-	          '\n',
-	          "  return lut[n][k]"
-	        ),
+	        "<pre>lut = [      [1],           // n=0",
+	        '\n',
+	        "            [1,1],          // n=1",
+	        '\n',
+	        "           [1,2,1],         // n=2",
+	        '\n',
+	        "          [1,3,3,1],        // n=3",
+	        '\n',
+	        "         [1,4,6,4,1],       // n=4",
+	        '\n',
+	        "        [1,5,10,10,5,1],    // n=5",
+	        '\n',
+	        "       [1,6,15,20,15,6,1]]  // n=6",
+	        '\n',
+	        '\n',
+	        "binomial(n,k):",
+	        '\n',
+	        "  while(n &gt;= lut.length):",
+	        '\n',
+	        "    s = lut.length",
+	        '\n',
+	        "    nextRow = new array(size=s+1)",
+	        '\n',
+	        "    nextRow[0] = 1",
+	        '\n',
+	        "    for(i=1, prev=s-1; i&ltprev; i++):",
+	        '\n',
+	        "      nextRow[i] = lut[prev][i-1] + lut[prev][i]",
+	        '\n',
+	        "    nextRow[s] = 1",
+	        '\n',
+	        "    lut.add(nextRow)",
+	        '\n',
+	        "  return lut[n][k]</pre>",
 	        React.createElement(
 	          "p",
 	          null,
 	          "So what's going on here? First, we declare a lookup table with a size that's reasonably large enough to accommodate most lookups. Then, we declare a function to get us the values we need, and we make sure that if an n/k pair is requested that isn't in the LUT yet, we expand it first. Our basis function now looks like this:"
 	        ),
-	        React.createElement(
-	          "pre",
-	          null,
-	          "function Bezier(n,t):",
-	          '\n',
-	          "  sum = 0",
-	          '\n',
-	          "  for(k=0; k<n; k++):",
-	          '\n',
-	          "    sum += binomial(n,k) * (1-t)^(n-k) * t^(k)",
-	          '\n',
-	          "  return sum"
-	        ),
+	        "<pre>function Bezier(n,t):",
+	        '\n',
+	        "  sum = 0",
+	        '\n',
+	        "  for(k=0; k<n; k++):",
+	        '\n',
+	        "    sum += binomial(n,k) * (1-t)^(n-k) * t^(k)",
+	        '\n',
+	        "  return sum</pre>",
 	        React.createElement(
 	          "p",
 	          null,
 	          "Perfect. Of course, we can optimize further. For most computer graphics purposes, we don't need arbitrary curves. We need quadratic and  cubic curves (this primer actually does do arbitrary curves, so you'll find code similar to shown here), which means we can drastically simplify the code:"
 	        ),
-	        React.createElement(
-	          "pre",
-	          null,
-	          "function Bezier(2,t):",
-	          '\n',
-	          "  t2 = t * t",
-	          '\n',
-	          "  mt = 1-t",
-	          '\n',
-	          "  mt2 = mt * mt",
-	          '\n',
-	          "  return mt2 + 2*mt*t + t2",
-	          '\n',
-	          '\n',
-	          "function Bezier(3,t):",
-	          '\n',
-	          "  t2 = t * t",
-	          '\n',
-	          "  t3 = t2 * t",
-	          '\n',
-	          "  mt = 1-t",
-	          '\n',
-	          "  mt2 = mt * mt",
-	          '\n',
-	          "  mt3 = mt2 * mt",
-	          '\n',
-	          "  return mt3 + 3*mt2*t + 3*mt*t2 + t3"
-	        ),
+	        "<pre>function Bezier(2,t):",
+	        '\n',
+	        "  t2 = t * t",
+	        '\n',
+	        "  mt = 1-t",
+	        '\n',
+	        "  mt2 = mt * mt",
+	        '\n',
+	        "  return mt2 + 2*mt*t + t2",
+	        '\n',
+	        '\n',
+	        "function Bezier(3,t):",
+	        '\n',
+	        "  t2 = t * t",
+	        '\n',
+	        "  t3 = t2 * t",
+	        '\n',
+	        "  mt = 1-t",
+	        '\n',
+	        "  mt2 = mt * mt",
+	        '\n',
+	        "  mt3 = mt2 * mt",
+	        '\n',
+	        "  return mt3 + 3*mt2*t + 3*mt*t2 + t3</pre>",
 	        React.createElement(
 	          "p",
 	          null,
@@ -25505,52 +25498,44 @@
 	          null,
 	          "Given that we already know how to implement basis function, adding in the control points is remarkably easy:"
 	        ),
-	        React.createElement(
-	          "pre",
-	          null,
-	          "function Bezier(n,t,w[]):",
-	          '\n',
-	          "  sum = 0",
-	          '\n',
-	          "  for(k=0; k<n; k++):",
-	          '\n',
-	          "    sum += w[k] * binomial(n,k) * (1-t)^(n-k) * t^(k)",
-	          '\n',
-	          "  return sum"
-	        ),
+	        "<pre>function Bezier(n,t,w[]):",
+	        '\n',
+	        "  sum = 0",
+	        '\n',
+	        "  for(k=0; k<n; k++):",
+	        '\n',
+	        "    sum += w[k] * binomial(n,k) * (1-t)^(n-k) * t^(k)",
+	        '\n',
+	        "  return sum</pre>",
 	        React.createElement(
 	          "p",
 	          null,
 	          "And for the extremely optimized versions:"
 	        ),
-	        React.createElement(
-	          "pre",
-	          null,
-	          "function Bezier(2,t,w[]):",
-	          '\n',
-	          "  t2 = t * t",
-	          '\n',
-	          "  mt = 1-t",
-	          '\n',
-	          "  mt2 = mt * mt",
-	          '\n',
-	          "  return w[0]*mt2 + w[1]*2*mt*t + w[2]*t2",
-	          '\n',
-	          '\n',
-	          "function Bezier(3,t,w[]):",
-	          '\n',
-	          "  t2 = t * t",
-	          '\n',
-	          "  t3 = t2 * t",
-	          '\n',
-	          "  mt = 1-t",
-	          '\n',
-	          "  mt2 = mt * mt",
-	          '\n',
-	          "  mt3 = mt2 * mt",
-	          '\n',
-	          "  return w[0]*mt3 + 3*w[1]*mt2*t + 3*w[2]*mt*t2 + w[3]*t3"
-	        ),
+	        "<pre>function Bezier(2,t,w[]):",
+	        '\n',
+	        "  t2 = t * t",
+	        '\n',
+	        "  mt = 1-t",
+	        '\n',
+	        "  mt2 = mt * mt",
+	        '\n',
+	        "  return w[0]*mt2 + w[1]*2*mt*t + w[2]*t2",
+	        '\n',
+	        '\n',
+	        "function Bezier(3,t,w[]):",
+	        '\n',
+	        "  t2 = t * t",
+	        '\n',
+	        "  t3 = t2 * t",
+	        '\n',
+	        "  mt = 1-t",
+	        '\n',
+	        "  mt2 = mt * mt",
+	        '\n',
+	        "  mt3 = mt2 * mt",
+	        '\n',
+	        "  return w[0]*mt3 + 3*w[1]*mt2*t + 3*w[2]*mt*t2 + w[3]*t3</pre>",
 	        React.createElement(
 	          "p",
 	          null,
@@ -25971,25 +25956,21 @@
 	          null,
 	          "Let's just use the algorithm we just specified, and implement that:"
 	        ),
-	        React.createElement(
-	          "pre",
-	          null,
-	          "function drawCurve(points[], t):",
-	          '\n',
-	          "  if(points.length==1):",
-	          '\n',
-	          "    draw(points[0])",
-	          '\n',
-	          "  else:",
-	          '\n',
-	          "    newpoints=array(points.size-1)",
-	          '\n',
-	          "    for(i=0; i<newpoints.length; i++):",
-	          '\n',
-	          "      newpoints[i] = (1-t) * points[i] + t * points[i+1]",
-	          '\n',
-	          "    drawCurve(newpoints, t)"
-	        ),
+	        "<pre>function drawCurve(points[], t):",
+	        '\n',
+	        "  if(points.length==1):",
+	        '\n',
+	        "    draw(points[0])",
+	        '\n',
+	        "  else:",
+	        '\n',
+	        "    newpoints=array(points.size-1)",
+	        '\n',
+	        "    for(i=0; i<newpoints.length; i++):",
+	        '\n',
+	        "      newpoints[i] = (1-t) * points[i] + t * points[i+1]",
+	        '\n',
+	        "    drawCurve(newpoints, t)</pre>",
 	        React.createElement(
 	          "p",
 	          null,
@@ -26007,29 +25988,25 @@
 	          ),
 	          " values:"
 	        ),
-	        React.createElement(
-	          "pre",
-	          null,
-	          "function drawCurve(points[], t):",
-	          '\n',
-	          "  if(points.length==1):",
-	          '\n',
-	          "    draw(points[0])",
-	          '\n',
-	          "  else:",
-	          '\n',
-	          "    newpoints=array(points.size-1)",
-	          '\n',
-	          "    for(i=0; i<newpoints.length; i++):",
-	          '\n',
-	          "      x = (1-t) * points[i].x + t * points[i+1].x",
-	          '\n',
-	          "      y = (1-t) * points[i].y + t * points[i+1].y",
-	          '\n',
-	          "      newpoints[i] = new point(x,y)",
-	          '\n',
-	          "    drawCurve(newpoints, t)"
-	        ),
+	        "<pre>function drawCurve(points[], t):",
+	        '\n',
+	        "  if(points.length==1):",
+	        '\n',
+	        "    draw(points[0])",
+	        '\n',
+	        "  else:",
+	        '\n',
+	        "    newpoints=array(points.size-1)",
+	        '\n',
+	        "    for(i=0; i<newpoints.length; i++):",
+	        '\n',
+	        "      x = (1-t) * points[i].x + t * points[i+1].x",
+	        '\n',
+	        "      y = (1-t) * points[i].y + t * points[i+1].y",
+	        '\n',
+	        "      newpoints[i] = new point(x,y)",
+	        '\n',
+	        "    drawCurve(newpoints, t)</pre>",
 	        React.createElement(
 	          "p",
 	          null,
@@ -26105,12 +26082,10 @@
 	  },
 
 	  values: {
-	    "107": 1, // numpad + key
-	    "187": 1, // =/+ main board key
-	    "109": -1, // numpad - key
-	    "189": -1 // -/_ main board key
-	  },
+	    "38": 1, // up arrow
+	    "40": -1 },
 
+	  // down arrow
 	  onKeyDown: function onKeyDown(e, api) {
 	    var v = this.values[e.keyCode];
 	    if (v) {
@@ -26142,7 +26117,7 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        "Try clicking on the sketch and using your '+' and '-' keys to lower the number of segments for both the quadratic and cubic curve. You'll notice that for certain curvatures, a low number of segments works quite well, but for more complex curvatures (try this for the cubic curve), a higher number is required to capture the curvature changes properly."
+	        "Try clicking on the sketch and using your up and down arrow keys to lower the number of segments for both the quadratic and cubic curve. You'll notice that for certain curvatures, a low number of segments works quite well, but for more complex curvatures (try this for the cubic curve), a higher number is required to capture the curvature changes properly."
 	      ),
 	      React.createElement(
 	        "div",
@@ -26157,45 +26132,37 @@
 	          null,
 	          "Let's just use the algorithm we just specified, and implement that:"
 	        ),
-	        React.createElement(
-	          "pre",
-	          null,
-	          "function flattenCurve(curve, segmentCount):",
-	          '\n',
-	          "  step = 1/segmentCount;",
-	          '\n',
-	          "  coordinates = [curve.getXValue(0), curve.getYValue(0)]",
-	          '\n',
-	          "  for(i=1; i <= segmentCount; i++):",
-	          '\n',
-	          "    t = i*step;",
-	          '\n',
-	          "    coordinates.push[curve.getXValue(t), curve.getYValue(t)]",
-	          '\n',
-	          "  return coordinates;"
-	        ),
+	        "<pre>function flattenCurve(curve, segmentCount):",
+	        '\n',
+	        "  step = 1/segmentCount;",
+	        '\n',
+	        "  coordinates = [curve.getXValue(0), curve.getYValue(0)]",
+	        '\n',
+	        "  for(i=1; i <= segmentCount; i++):",
+	        '\n',
+	        "    t = i*step;",
+	        '\n',
+	        "    coordinates.push[curve.getXValue(t), curve.getYValue(t)]",
+	        '\n',
+	        "  return coordinates;</pre>",
 	        React.createElement(
 	          "p",
 	          null,
 	          "And done, that's the algorithm implemented. That just leaves drawing the resulting \"curve\" as a sequence of lines:"
 	        ),
-	        React.createElement(
-	          "pre",
-	          null,
-	          "function drawFlattenedCurve(curve, segmentCount):",
-	          '\n',
-	          "  coordinates = flattenCurve(curve, segmentCount)",
-	          '\n',
-	          "  coord = coordinates[0], _coords;",
-	          '\n',
-	          "  for(i=1; i < coordinates.length; i++):",
-	          '\n',
-	          "    _coords = coordinates[i]",
-	          '\n',
-	          "    line(coords, _coords)",
-	          '\n',
-	          "    coords = _coords"
-	        ),
+	        "<pre>function drawFlattenedCurve(curve, segmentCount):",
+	        '\n',
+	        "  coordinates = flattenCurve(curve, segmentCount)",
+	        '\n',
+	        "  coord = coordinates[0], _coords;",
+	        '\n',
+	        "  for(i=1; i < coordinates.length; i++):",
+	        '\n',
+	        "    _coords = coordinates[i]",
+	        '\n',
+	        "    line(coords, _coords)",
+	        '\n',
+	        "    coords = _coords</pre>",
 	        React.createElement(
 	          "p",
 	          null,
@@ -26361,41 +26328,37 @@
 	          null,
 	          "We can implement curve splitting by bolting some extra logging onto the de Casteljau function:"
 	        ),
-	        React.createElement(
-	          "pre",
-	          null,
-	          "left=[]",
-	          '\n',
-	          "right=[]",
-	          '\n',
-	          "function drawCurve(points[], t):",
-	          '\n',
-	          "  if(points.length==1):",
-	          '\n',
-	          "    left.add(points[0])",
-	          '\n',
-	          "    right.add(points[0])",
-	          '\n',
-	          "    draw(points[0])",
-	          '\n',
-	          "  else:",
-	          '\n',
-	          "    newpoints=array(points.size-1)",
-	          '\n',
-	          "    for(i=0; i<newpoints.length; i++):",
-	          '\n',
-	          "      if(i==0):",
-	          '\n',
-	          "        left.add(points[i])",
-	          '\n',
-	          "      if(i==newpoints.length-1):",
-	          '\n',
-	          "        right.add(points[i+1])",
-	          '\n',
-	          "      newpoints[i] = (1-t) * points[i] + t * points[i+1]",
-	          '\n',
-	          "    drawCurve(newpoints, t)"
-	        ),
+	        "<pre>left=[]",
+	        '\n',
+	        "right=[]",
+	        '\n',
+	        "function drawCurve(points[], t):",
+	        '\n',
+	        "  if(points.length==1):",
+	        '\n',
+	        "    left.add(points[0])",
+	        '\n',
+	        "    right.add(points[0])",
+	        '\n',
+	        "    draw(points[0])",
+	        '\n',
+	        "  else:",
+	        '\n',
+	        "    newpoints=array(points.size-1)",
+	        '\n',
+	        "    for(i=0; i<newpoints.length; i++):",
+	        '\n',
+	        "      if(i==0):",
+	        '\n',
+	        "        left.add(points[i])",
+	        '\n',
+	        "      if(i==newpoints.length-1):",
+	        '\n',
+	        "        right.add(points[i+1])",
+	        '\n',
+	        "      newpoints[i] = (1-t) * points[i] + t * points[i+1]",
+	        '\n',
+	        "    drawCurve(newpoints, t)</pre>",
 	        React.createElement(
 	          "p",
 	          null,
@@ -28147,132 +28110,130 @@
 	      React.createElement(
 	        "div",
 	        { className: "note" },
-	        React.createElement(
-	          "pre",
-	          null,
-	          '\n',
-	          "// A helper function to filter for values in the [0,1] interval:",
-	          '\n',
-	          "function accept(t) ",
-	          '{',
-	          '\n',
-	          "  return 0<=t && t <=1;",
-	          '\n',
-	          '}',
-	          '\n',
-	          '\n',
-	          "// A special cuberoot function, which we can use because we don't care about complex roots:",
-	          '\n',
-	          "function crt(v) ",
-	          '{',
-	          '\n',
-	          "  if(v<0) return -Math.pow(-v,1/3);",
-	          '\n',
-	          "  return Math.pow(v,1/3);",
-	          '\n',
-	          '}',
-	          '\n',
-	          '\n',
-	          "// Now then: given cubic coordinates pa, pb, pc, pd, find all roots.",
-	          '\n',
-	          "function getCubicRoots(pa, pb, pc, pd) ",
-	          '{',
-	          '\n',
-	          "  var d = (-pa + 3*pb - 3*pc + pd),",
-	          '\n',
-	          "      a = (3*pa - 6*pb + 3*pc) / d,",
-	          '\n',
-	          "      b = (-3*pa + 3*pb) / d,",
-	          '\n',
-	          "      c = pa / d;",
-	          '\n',
-	          '\n',
-	          "  var p = (3*b - a*a)/3,",
-	          '\n',
-	          "      p3 = p/3,",
-	          '\n',
-	          "      q = (2*a*a*a - 9*a*b + 27*c)/27,",
-	          '\n',
-	          "      q2 = q/2,",
-	          '\n',
-	          "      discriminant = q2*q2 + p3*p3*p3;",
-	          '\n',
-	          '\n',
-	          "  // and some variables we're going to use later on:",
-	          '\n',
-	          "  var u1,v1,root1,root2,root3;",
-	          '\n',
-	          '\n',
-	          "  // three possible real roots:",
-	          '\n',
-	          "  if (discriminant < 0) ",
-	          '{',
-	          '\n',
-	          "    var mp3  = -p/3,",
-	          '\n',
-	          "        mp33 = mp3*mp3*mp3,",
-	          '\n',
-	          "        r    = sqrt( mp33 ),",
-	          '\n',
-	          "        t    = -q / (2*r),",
-	          '\n',
-	          "        cosphi = t<-1 ? -1 : t>1 ? 1 : t,",
-	          '\n',
-	          "        phi  = acos(cosphi),",
-	          '\n',
-	          "        crtr = cuberoot(r),",
-	          '\n',
-	          "        t1   = 2*crtr;",
-	          '\n',
-	          "    root1 = t1 * cos(phi/3) - a/3;",
-	          '\n',
-	          "    root2 = t1 * cos((phi+2*pi)/3) - a/3;",
-	          '\n',
-	          "    root3 = t1 * cos((phi+4*pi)/3) - a/3;",
-	          '\n',
-	          "    return [root1, root2, root3].filter(accept);",
-	          '\n',
-	          "  ",
-	          '}',
-	          '\n',
-	          '\n',
-	          "  // three real roots, but two of them are equal:",
-	          '\n',
-	          "  else if(discriminant === 0) ",
-	          '{',
-	          '\n',
-	          "    u1 = q2 < 0 ? cuberoot(-q2) : -cuberoot(q2);",
-	          '\n',
-	          "    root1 = 2*u1 - a/3;",
-	          '\n',
-	          "    root2 = -u1 - a/3;",
-	          '\n',
-	          "    return [root1, root2].filter(accept);",
-	          '\n',
-	          "  ",
-	          '}',
-	          '\n',
-	          '\n',
-	          "  // one real root, two complex roots",
-	          '\n',
-	          "  else ",
-	          '{',
-	          '\n',
-	          "    var sd = sqrt(discriminant);",
-	          '\n',
-	          "    u1 = cuberoot(sd - q2);",
-	          '\n',
-	          "    v1 = cuberoot(sd + q2);",
-	          '\n',
-	          "    root1 = u1 - v1 - a/3;",
-	          '\n',
-	          "    return [root1].filter(accept);",
-	          '\n',
-	          "  ",
-	          '}',
-	          '\n',
-	          '}'
-	        )
+	        "<pre>",
+	        '\n',
+	        "// A helper function to filter for values in the [0,1] interval:",
+	        '\n',
+	        "function accept(t) ",
+	        '{',
+	        '\n',
+	        "  return 0<=t && t <=1;",
+	        '\n',
+	        '}',
+	        '\n',
+	        '\n',
+	        "// A special cuberoot function, which we can use because we don't care about complex roots:",
+	        '\n',
+	        "function crt(v) ",
+	        '{',
+	        '\n',
+	        "  if(v<0) return -Math.pow(-v,1/3);",
+	        '\n',
+	        "  return Math.pow(v,1/3);",
+	        '\n',
+	        '}',
+	        '\n',
+	        '\n',
+	        "// Now then: given cubic coordinates pa, pb, pc, pd, find all roots.",
+	        '\n',
+	        "function getCubicRoots(pa, pb, pc, pd) ",
+	        '{',
+	        '\n',
+	        "  var d = (-pa + 3*pb - 3*pc + pd),",
+	        '\n',
+	        "      a = (3*pa - 6*pb + 3*pc) / d,",
+	        '\n',
+	        "      b = (-3*pa + 3*pb) / d,",
+	        '\n',
+	        "      c = pa / d;",
+	        '\n',
+	        '\n',
+	        "  var p = (3*b - a*a)/3,",
+	        '\n',
+	        "      p3 = p/3,",
+	        '\n',
+	        "      q = (2*a*a*a - 9*a*b + 27*c)/27,",
+	        '\n',
+	        "      q2 = q/2,",
+	        '\n',
+	        "      discriminant = q2*q2 + p3*p3*p3;",
+	        '\n',
+	        '\n',
+	        "  // and some variables we're going to use later on:",
+	        '\n',
+	        "  var u1,v1,root1,root2,root3;",
+	        '\n',
+	        '\n',
+	        "  // three possible real roots:",
+	        '\n',
+	        "  if (discriminant < 0) ",
+	        '{',
+	        '\n',
+	        "    var mp3  = -p/3,",
+	        '\n',
+	        "        mp33 = mp3*mp3*mp3,",
+	        '\n',
+	        "        r    = sqrt( mp33 ),",
+	        '\n',
+	        "        t    = -q / (2*r),",
+	        '\n',
+	        "        cosphi = t<-1 ? -1 : t>1 ? 1 : t,",
+	        '\n',
+	        "        phi  = acos(cosphi),",
+	        '\n',
+	        "        crtr = cuberoot(r),",
+	        '\n',
+	        "        t1   = 2*crtr;",
+	        '\n',
+	        "    root1 = t1 * cos(phi/3) - a/3;",
+	        '\n',
+	        "    root2 = t1 * cos((phi+2*pi)/3) - a/3;",
+	        '\n',
+	        "    root3 = t1 * cos((phi+4*pi)/3) - a/3;",
+	        '\n',
+	        "    return [root1, root2, root3].filter(accept);",
+	        '\n',
+	        "  ",
+	        '}',
+	        '\n',
+	        '\n',
+	        "  // three real roots, but two of them are equal:",
+	        '\n',
+	        "  else if(discriminant === 0) ",
+	        '{',
+	        '\n',
+	        "    u1 = q2 < 0 ? cuberoot(-q2) : -cuberoot(q2);",
+	        '\n',
+	        "    root1 = 2*u1 - a/3;",
+	        '\n',
+	        "    root2 = -u1 - a/3;",
+	        '\n',
+	        "    return [root1, root2].filter(accept);",
+	        '\n',
+	        "  ",
+	        '}',
+	        '\n',
+	        '\n',
+	        "  // one real root, two complex roots",
+	        '\n',
+	        "  else ",
+	        '{',
+	        '\n',
+	        "    var sd = sqrt(discriminant);",
+	        '\n',
+	        "    u1 = cuberoot(sd - q2);",
+	        '\n',
+	        "    v1 = cuberoot(sd + q2);",
+	        '\n',
+	        "    root1 = u1 - v1 - a/3;",
+	        '\n',
+	        "    return [root1].filter(accept);",
+	        '\n',
+	        "  ",
+	        '}',
+	        '\n',
+	        '}',
+	        "</pre>"
 	      ),
 	      React.createElement(
 	        "p",
@@ -28846,12 +28807,14 @@
 	  },
 
 	  draw: function draw(api, curve) {
+	    var w = 400,
+	        h = w,
+	        unit = this.unit,
+	        center = { x: w / 2, y: h / 2 };
+
+	    api.setSize(w, h);
 	    api.setPanelCount(2);
 	    api.reset();
-
-	    var w = api.getPanelWidth(),
-	        h = api.getPanelHeight(),
-	        unit = this.unit;
 
 	    api.drawSkeleton(curve);
 	    api.drawCurve(curve);
@@ -28863,7 +28826,6 @@
 	    var npts = [{ x: 0, y: 0 }, { x: 0, y: unit }, { x: unit, y: unit }, this.forwardTransform(curve.points, unit)];
 
 	    var canonical = new api.Bezier(npts);
-	    var center = { x: w / 2, y: h / 2 };
 	    api.setColor("blue");
 	    api.drawCurve(canonical, center);
 	    api.drawCircle(npts[3], 3, center);
@@ -28893,6 +28855,7 @@
 	        h = w,
 	        unit = this.unit = w / 5,
 	        center = { x: w / 2, y: h / 2 };
+
 	    api.setSize(w, h);
 
 	    // axes + gridlines
@@ -29383,13 +29346,914 @@
 /* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var React = __webpack_require__(9);
+	var Graphic = __webpack_require__(172);
+	var SectionHeader = __webpack_require__(177);
+
+	var sin = Math.sin;
+	var tau = Math.PI * 2;
+
+	var Arclength = React.createClass({
+	  displayName: "Arclength",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Arc length"
+	    };
+	  },
+
+	  setup: function setup(api) {
+	    var w = api.getPanelWidth();
+	    var h = api.getPanelHeight();
+	    var generator;
+	    if (!this.generator) {
+	      generator = function (v, scale) {
+	        scale = scale || 1;
+	        return {
+	          x: v * w / tau,
+	          y: scale * sin(v)
+	        };
+	      };
+	      generator.start = 0;
+	      generator.end = tau;
+	      generator.step = 0.1;
+	      generator.scale = h / 3;
+	      this.generator = generator;
+	    }
+	  },
+
+	  drawSine: function drawSine(api, dheight) {
+	    var w = api.getPanelWidth();
+	    var h = api.getPanelHeight();
+	    var generator = this.generator;
+	    generator.dheight = dheight;
+
+	    api.setColor("black");
+	    api.drawLine({ x: 0, y: h / 2 }, { x: w, y: h / 2 });
+	    api.drawFunction(generator, { x: 0, y: h / 2 });
+	  },
+
+	  drawSlices: function drawSlices(api, steps) {
+	    var w = api.getPanelWidth();
+	    var h = api.getPanelHeight();
+	    var f = w / tau;
+	    var area = 0;
+	    var c = steps <= 25 ? 1 : 0;
+	    api.reset();
+	    api.setColor("transparent");
+	    api.setFill("rgba(150,150,255, 0.4)");
+	    for (var step = tau / steps, i = step / 2, v, p1, p2; i < tau + step / 2; i += step) {
+	      v = this.generator(i);
+	      p1 = { x: v.x - f * step / 2 + c, y: 0 };
+	      p2 = { x: v.x + f * step / 2 - c, y: v.y * this.generator.scale };
+
+	      if (!c) {
+	        api.setFill("rgba(150,150,255," + (0.4 + 0.3 * Math.random()) + ")");
+	      }
+	      api.drawRect(p1, p2, { x: 0, y: h / 2 });
+	      area += step * Math.abs(v.y * this.generator.scale);
+	    }
+	    api.setFill("black");
+	    var trueArea = (100 * 4 * h / 3 | 0) / 100;
+	    var currArea = (100 * area | 0) / 100;
+	    api.text("Approximating with " + steps + " strips (true area: " + trueArea + "): " + currArea, { x: 10, y: h - 15 });
+	  },
+
+	  drawCoarseIntegral: function drawCoarseIntegral(api) {
+	    api.reset();
+	    this.drawSlices(api, 10);
+	    this.drawSine(api);
+	  },
+
+	  drawFineIntegral: function drawFineIntegral(api) {
+	    api.reset();
+	    this.drawSlices(api, 24);
+	    this.drawSine(api);
+	  },
+
+	  drawSuperFineIntegral: function drawSuperFineIntegral(api) {
+	    api.reset();
+	    this.drawSlices(api, 99);
+	    this.drawSine(api);
+	  },
+
+	  setupCurve: function setupCurve(api) {
+	    var curve = api.getDefaultCubic();
+	    api.setCurve(curve);
+	  },
+
+	  drawCurve: function drawCurve(api, curve) {
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+	    var len = curve.length();
+	    api.setFill("black");
+	    api.text("Curve length: " + len + " pixels", { x: 10, y: 15 });
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "How long is a Bézier curve? As it turns out, that's not actually an easy question, because the answer requires maths that —much like root finding— cannot generally be solved the traditional way. If we have a parametric curve with ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "f",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "x"
+	          ),
+	          "(t)"
+	        ),
+	        " and ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "f",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "y"
+	          ),
+	          "(t)"
+	        ),
+	        ", then the length of the curve, measured from start point to some point ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t = z"
+	        ),
+	        ", is computed using the following seemingly straight forward (if a bit overwhelming) formula:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/837e8de2c6bbb595c960cc59b1c73f5fd954ed49.svg", style: { width: "10.42515rem", height: "2.475rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "or, more commonly written using Leibnitz notation as:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/ff4c9156d20783c9b4dfab8b40e1f328b1a7cb3f.svg", style: { width: "17.1rem", height: "2.475rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "This formula says that the length of a parametric curve is in fact equal to the ",
+	        React.createElement(
+	          "b",
+	          null,
+	          "area"
+	        ),
+	        " underneath a function that looks a remarkable amount like Pythagoras' rule for computing the diagonal of a straight angled triangle. This sounds pretty simple, right? Sadly, it's far from simple... cutting straight to after the chase is over: for quadratic curves, this formula generates an ",
+	        React.createElement(
+	          "a",
+	          { href: "http://www.wolframalpha.com/input/?i=antiderivative+for+sqrt((2*(1-t)*t*B+%2b+t^2*C)'^2+%2b+(2*(1-t)*t*E)'^2)&incParTime=true" },
+	          "unwieldy computation"
+	        ),
+	        ", and we're simply not going to implement things that way. For cubic Bézier curves, things get even more fun, because there is no \"closed form\" solution, meaning that due to the way calculus works, there is no generic formula that allows you to calculate the arc length. Let me just repeat this, because it's fairly crucial: ",
+	        React.createElement(
+	          "strong",
+	          null,
+	          React.createElement(
+	            "em",
+	            null,
+	            "for cubic and higher Bézier curves, there is no way to solve this function if you want to use it \"for all possible coordinates\"."
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Seriously: ",
+	        React.createElement(
+	          "a",
+	          { href: "https://en.wikipedia.org/wiki/Abel%E2%80%93Ruffini_theorem" },
+	          "It cannot be done."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So we turn to numerical approaches again. The method we'll look at here is the",
+	        React.createElement(
+	          "a",
+	          { href: "http://www.youtube.com/watch?v=unWguclP-Ds&feature=BFa&list=PLC8FC40C714F5E60F&index=1" },
+	          "Gauss quadrature"
+	        ),
+	        ". This approximation is a really neat trick, because for any ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n",
+	          React.createElement(
+	            "sup",
+	            null,
+	            "th"
+	          )
+	        ),
+	        " degree polynomial it finds approximated values for an integral really efficiently. Explaining this procedure in length is way beyond the scope of this page, so if you're interested in finding out why it works, I can recommend the University of South Florida video lecture on the procedure, linked in this very paragraph. The general solution we're looking for is the following:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e641a11b88dfad7294a5ac881a6e96cff78d165b.svg", style: { width: "37.800000000000004rem", height: "5.175rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "In plain text: an integral function can always be treated as the sum of an (infinite) number of (infinitely thin) rectangular strips sitting \"under\" the function's plotted graph. To illustrate this idea, the following graph shows the integral for a sinoid function. The more strips we use (and of course the more we use, the thinner they get) the closer we get to the true area under the curve, and thus the better the approximation:"
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "figure" },
+	        React.createElement(Graphic, { inline: true, preset: "empty", title: "A function's approximated integral", setup: this.setup, draw: this.drawCoarseIntegral }),
+	        React.createElement(Graphic, { inline: true, preset: "empty", title: "A better approximation", setup: this.setup, draw: this.drawFineIntegral }),
+	        React.createElement(Graphic, { inline: true, preset: "empty", title: "An even better approximation", setup: this.setup, draw: this.drawSuperFineIntegral })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Now, infinitely many terms to sum and infinitely thin rectangles are not something that computers can work with, so instead we're going to approximate the infinite summation by using a sum of a finite number of \"just thin\" rectangular strips. As long as we use a high enough number of thin enough rectangular strips, this will give us an approximation that is pretty close to what the real value is."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So, the trick is to come up with useful rectangular strips. A naive way is to simply create ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n"
+	        ),
+	        " strips, all with the same width, but there is a far better way using special values for ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "C"
+	        ),
+	        " and ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "f(t)"
+	        ),
+	        " depending on the value of ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "n"
+	        ),
+	        ", which indicates how many strips we'll use, and it's called the Legendre-Gauss quadrature."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "This approach uses strips that are ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "not"
+	        ),
+	        " spaced evenly, but instead spaces them in a special way that works remarkably well. If you look at the earlier sinoid graphic, you could imagine that we could probably get a result similar to the one with 99 strips if we used fewer strips, but spaced them so that the steeper the curve is, the thinner we make the strip, and conversely, the flatter the curve is (especially near the tops of the function), the wider we make the strip. That's akin to how the Legendre values work."
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "note" },
+	        React.createElement(
+	          "p",
+	          null,
+	          "Note that one requirement for the approach we'll use is that the integral must run from -1 to 1. That's no good, because we're dealing with Bézier curves, and the length of a section of curve applies to values which run from 0 to \"some value smaller than or equal to 1\" (let's call that value ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "z"
+	          ),
+	          "). Thankfully, we can quite easily transform any integral interval to any other integral interval, by shifting and scaling the inputs. Doing so, we get the following:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/e7527ab0efe6939a3d624817b79dd9d7c0aab234.svg", style: { width: "24.15015rem", height: "5.92515rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "That may look a bit more complicated, but the fraction involving ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "z"
+	          ),
+	          " is a fixed number, so the summation, and the evaluation of the ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "f(t)"
+	          ),
+	          " values are still pretty simple."
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "So, what do we need to perform this calculation? For one, we'll need an explicit formula for ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "f(t)"
+	          ),
+	          ", because that derivative notation is handy on paper, but not when we have to implement it. We'll also need to know what these ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "i"
+	            )
+	          ),
+	          " and ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "i"
+	            )
+	          ),
+	          " values should be. Luckily, that's less work because there are actually many tables available that give these values, for any ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "n"
+	          ),
+	          ", so if we want to approximate our integral with only two terms (which is a bit low, really) then ",
+	          React.createElement(
+	            "a",
+	            { href: "legendre-gauss.html" },
+	            "these tables"
+	          ),
+	          " would tell us that for ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "n=2"
+	          ),
+	          " we must use the following values:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/0b8b61bfd61f468e2c9945adf467a9e1df562226.svg", style: { width: "4.80015rem", height: "6.82515rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Which means that in order for us to approximate the integral, we must plug these values into the approximate function, which gives us:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6b811f42d667044a6440a803006d0a278baabd0a.svg", style: { width: "34.95015rem", height: "3.15rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "We can program that pretty easily, provided we have that ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "f(t)"
+	          ),
+	          " available, which we do, as we know the full description for the Bézier curve functions B",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "x"
+	          ),
+	          "(t) and B",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "y"
+	          ),
+	          "(t)."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "If we use the Legendre-Gauss values for our ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "C"
+	        ),
+	        " values (thickness for each strip) and ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " values (location of each strip), we can determine the approximate length of a Bézier curve by computing the Legendre-Gauss sum. The following graphic shows a cubic curve, with its computed lengths; Go ahead and change the curve, to see how its length changes. One thing worth trying is to see if you can make a straight line, and see if the length matches what you'd expect. What if you form a line with the control points on the outside, and the start/end points on the inside?"
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "Arc length for a Bézier curve", setup: this.setupCurve, draw: this.drawCurve })
+	    );
+	  }
+	});
+
+	module.exports = Arclength;
+
+/***/ },
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(9);
+	var Graphic = __webpack_require__(172);
+	var SectionHeader = __webpack_require__(177);
+
+	var sin = Math.sin;
+	var tau = Math.PI * 2;
+
+	var ArclengthApprox = React.createClass({
+	  displayName: "ArclengthApprox",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Approximated arc length"
+	    };
+	  },
+
+	  setupQuadratic: function setupQuadratic(api) {
+	    var curve = api.getDefaultQuadratic();
+	    api.setCurve(curve);
+	    api.steps = 10;
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    var curve = api.getDefaultCubic();
+	    api.setCurve(curve);
+	    api.steps = 16;
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.reset();
+	    api.drawSkeleton(curve);
+
+	    var pts = curve.getLUT(api.steps);
+
+	    var step = 1 / api.steps;
+	    var p0 = curve.points[0],
+	        pc;
+	    for (var t = step; t < 1.0 + step; t += step) {
+	      pc = curve.get(Math.min(t, 1));
+	      api.setColor("red");
+	      api.drawLine(p0, pc);
+	      p0 = pc;
+	    }
+
+	    var len = curve.length();
+	    var alen = 0;
+	    for (var i = 0, p0, p1, dx, dy; i < pts.length - 1; i++) {
+	      p0 = pts[i];
+	      p1 = pts[i + 1];
+	      dx = p1.x - p0.x;
+	      dy = p1.y - p0.y;
+	      alen += Math.sqrt(dx * dx + dy * dy);
+	    }
+	    alen = (100 * alen | 0) / 100;
+	    len = (100 * len | 0) / 100;
+
+	    api.text("Approximate length, " + api.steps + " steps: " + alen + " (true: " + len + ")", { x: 10, y: 15 });
+	  },
+
+	  values: {
+	    "38": 1, // up arrow
+	    "40": -1 },
+
+	  // down arrow
+	  onKeyDown: function onKeyDown(e, api) {
+	    var v = this.values[e.keyCode];
+	    if (v) {
+	      e.preventDefault();
+	      api.steps += v;
+	      if (api.steps < 1) {
+	        api.steps = 1;
+	      }
+	      console.log(api.steps);
+	    }
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Sometimes, we don't actually need the precision of a true arc length, and we can get away with simply computing the approximate arc length instead. The by far fastest way to do this is to flatten the curve and then simply calculate the linear distance from point to point. This will come with an error, but this can be made arbitrarily small by increasing the segment count."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "If we combine the work done in the previous sections on curve flattening and arc length computation, we can implement these with minimal effort:"
+	      ),
+	      React.createElement(Graphic, { preset: "twopanel", title: "Approximate quadratic curve arc length", setup: this.setupQuadratic, draw: this.draw, onKeyDown: this.onKeyDown }),
+	      React.createElement(Graphic, { preset: "twopanel", title: "Approximate cubic curve arc length", setup: this.setupCubic, draw: this.draw, onKeyDown: this.onKeyDown }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Try clicking on the sketch and using your up and down arrow keys to lower the number of segments for both the quadratic and cubic curve. You may notice that the error in length is actually pretty significant, even if the percentage is fairly low: if the number of segments used yields an error of 0.1% or higher, the flattened curve already looks fairly obviously flattened. And of course, the longer the curve, the more significant the error will be."
+	      )
+	    );
+	  }
+	});
+
+	module.exports = ArclengthApprox;
+
+	/*
+
+	        void setupCurve() {
+	          setupDefaultQuadratic();
+	          offsetting();
+	          offset = 16;
+	        }
+
+	        void drawCurve(BezierCurve curve) {
+	          additionals();
+	          curve.draw();
+
+	          nextPanel();
+	          stroke(0);
+	          float x = curve.getXValue(0),
+	                y = curve.getYValue(0),
+	                x2, y2, step = 1/offset, t,
+	                length=0;
+	          for(int i=1; i<=offset; i++) {
+	            t = i*step;
+	            x2 = curve.getXValue(t);
+	            y2 = curve.getYValue(t);
+	            line(x,y,x2,y2);
+	            length += dist(x,y,x2,y2);
+	            x = x2;
+	            y = y2;
+	          }
+
+	          float arclength = curve.getCurveLength();
+	          float error = 100 * (arclength - length) / arclength;
+
+	          length = nfc(length, 3, 3);
+	          arclength = nfc(arclength, 3, 3);
+	          error = nfc(error, 3, 3);
+	          if(error.indexOf(".")===0) { error = "0" + error; }
+
+	          fill(0);
+	          text("Approximate arc length based on "+offset+" segments: " + length, -dim/4, dim-20);
+	          text("True length: " + arclength + ", error: " + error + "%", -dim/4, dim-5);
+	        }</textarea>
+
+
+	        void setupCurve() {
+	          setupDefaultCubic();
+	          offsetting();
+	          offset = 24;
+	        }
+
+	        void drawCurve(BezierCurve curve) {
+	          additionals();
+	          curve.draw();
+
+	          nextPanel();
+	          stroke(0);
+	          float x = curve.getXValue(0),
+	                y = curve.getYValue(0),
+	                x2, y2, step = 1/offset, t,
+	                length=0;
+	          for(int i=1; i<=offset; i++) {
+	            t = i*step;
+	            x2 = curve.getXValue(t);
+	            y2 = curve.getYValue(t);
+	            line(x,y,x2,y2);
+	            length += dist(x,y,x2,y2);
+	            x = x2;
+	            y = y2;
+	          }
+
+	          float arclength = curve.getCurveLength();
+	          float error = 100 * (arclength - length) / arclength;
+
+	          length = nfc(length, 3, 3);
+	          arclength = nfc(arclength, 3, 3);
+	          error = nfc(error, 3, 3);
+	          if(error.indexOf(".")===0) { error = "0" + error; }
+
+	          fill(0);
+	          text("Approximate arc length based on "+offset+" segments: " + length, -dim/4, dim-20);
+	          text("True length: " + arclength + ", error: " + error + "%", -dim/4, dim-5);
+	        }</textarea>
+
+	 */
+
+/***/ },
+/* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(9);
+	var Graphic = __webpack_require__(172);
+	var SectionHeader = __webpack_require__(177);
+
+	var map = function map(v, ds, de, ts, te) {
+	  return ts + (v - ds) / (de - ds) * (te - ts);
+	};
+
+	var Tracing = React.createClass({
+	  displayName: "Tracing",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Tracing a curve at fixed distance intervals"
+	    };
+	  },
+
+	  setup: function setup(api) {
+	    var curve = api.getDefaultCubic();
+	    api.setCurve(curve);
+	    api.steps = 8;
+	  },
+
+	  generate: function generate(api, curve, offset, pad, fwh) {
+	    offset.x += pad;
+	    offset.y += pad;
+	    var len = curve.length();
+	    var pts = [{ x: 0, y: 0, d: 0 }];
+	    for (var v = 1, t, d; v <= 100; v++) {
+	      t = v / 100;
+	      d = curve.split(t).left.length();
+	      pts.push({
+	        x: map(t, 0, 1, 0, fwh),
+	        y: map(d, 0, len, 0, fwh),
+	        d: d,
+	        t: t
+	      });
+	    }
+	    return pts;
+	  },
+
+	  draw: function draw(api, curve, offset) {
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+
+	    var len = curve.length();
+	    var w = api.getPanelWidth();
+	    var h = api.getPanelHeight();
+	    var pad = 20;
+	    var fwh = w - 2 * pad;
+
+	    offset.x += w;
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: h }, offset);
+	    api.drawAxes(pad, "t", 0, 1, "d", 0, len, offset);
+
+	    return this.generate(api, curve, offset, pad, fwh);
+	  },
+
+	  plotOnly: function plotOnly(api, curve) {
+	    api.setPanelCount(2);
+	    var offset = { x: 0, y: 0 };
+	    var pts = this.draw(api, curve, offset);
+	    for (var i = 0; i < pts.length - 1; i++) {
+	      api.drawLine(pts[i], pts[i + 1], offset);
+	    }
+	  },
+
+	  values: {
+	    "38": 1, // up arrow
+	    "40": -1 },
+
+	  // down arrow
+	  onKeyDown: function onKeyDown(e, api) {
+	    var v = this.values[e.keyCode];
+	    if (v) {
+	      e.preventDefault();
+	      api.steps += v;
+	      if (api.steps < 1) {
+	        api.steps = 1;
+	      }
+	      console.log(api.steps);
+	    }
+	  },
+
+	  drawColoured: function drawColoured(api, curve) {
+	    api.setPanelCount(3);
+	    var w = api.getPanelWidth();
+	    var h = api.getPanelHeight();
+	    var pad = 20;
+	    var fwh = w - 2 * pad;
+
+	    var offset = { x: 0, y: 0 };
+	    var len = curve.length();
+	    var pts = this.draw(api, curve, offset);
+	    var s = api.steps,
+	        i,
+	        p,
+	        ts = [];
+	    for (i = 0; i <= s; i++) {
+	      var target = i * len / s;
+	      // find the t nearest our target distance
+	      for (p = 0; p < pts.length; p++) {
+	        if (pts[p].d > target) {
+	          p--;
+	          break;
+	        }
+	      }
+	      if (p < 0) p = 0;
+	      if (p === pts.length) p = pts.length - 1;
+	      ts.push(pts[p]);
+	    }
+
+	    for (var i = 0; i < pts.length - 1; i++) {
+	      api.drawLine(pts[i], pts[i + 1], offset);
+	    }
+
+	    ts.forEach(function (p) {
+	      var pt = { x: map(p.t, 0, 1, 0, fwh), y: 0 };
+	      var pd = { x: 0, y: map(p.d, 0, len, 0, fwh) };
+	      api.setColor("black");
+	      api.drawCircle(pt, 3, offset);
+	      api.drawCircle(pd, 3, offset);
+	      api.setColor("lightgrey");
+	      api.drawLine(pt, { x: pt.x, y: pd.y }, offset);
+	      api.drawLine(pd, { x: pt.x, y: pd.y }, offset);
+	    });
+
+	    var offset = { x: 2 * w, y: 0 };
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: h }, offset);
+
+	    var idx = 0,
+	        colors = ["rgb(240,0,200)", "rgb(0,40,200)"];
+	    api.setColor(colors[idx]);
+	    var p0 = curve.get(pts[0].t);
+	    api.drawCircle(curve.get(0), 4, offset);
+
+	    for (var i = 1, p1; i < pts.length; i++) {
+	      p1 = curve.get(pts[i].t);
+	      api.drawLine(p0, p1, offset);
+	      if (ts.indexOf(pts[i]) !== -1) {
+	        api.setColor(colors[++idx % colors.length]);
+	        api.drawCircle(p1, 4, offset);
+	      }
+	      p0 = p1;
+	    }
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Say you want to draw a curve with a dashed line, rather than a solid line, or you want to move something along the curve at fixed distance intervals over time, like a train along a track, and you want to use Bézier curves."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Now you have a problem."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The reason you have a problem is that Bézier curves are parametric functions with non-linear behaviour, whereas moving a train along a track is about as close to a practical example of linear behaviour as you can get. The problem we're faced with is that we can't just pick ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " values at some fixed interval and expect the Bézier functions to generate points that are spaced a fixed distance apart. In fact, let's look at the relation between \"distance long a curve\" and \"",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " value\", by plotting them against one another."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The following graphic shows a particularly illustrative curve, and it's length-to-",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " plot. For linear traversal, this line needs to be straight, running from (0,0) to (length,1). This is, it's safe to say, not what we'll see, we'll see something wobbly instead. To make matters even worse, the length-to-",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " function is also of a much higher order than our curve is: while the curve we're using for this exercise is a cubic curve, able to switch concave/convex form twice at best, the plot shows that the distance function along the curve is able to switch forms three times (to see this, try creating an S curve with the start/end close together, but the control points far apart)."
+	      ),
+	      React.createElement(Graphic, { preset: "twopanel", title: "The t-for-distance function", setup: this.setup, draw: this.plotOnly }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We see a function that might be invertible, but we won't be able to do so, symbolically. You may remember from the section on arc length that we cannot actually compute the true arc length function as an expression of ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        ", which means we also can't compute the true inverted function that gives ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " as an expression of length. So how do we fix this?"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "One way is to do what the graphic does: simply run through the curve, determine its",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        "-for-length values as a set of discrete values at some high resolution (the graphic uses 100 discrete points), and then use those as a basis for finding an appropriate ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " value, given a distance along the curve. This works quite well, actually, and is fairly fast."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We can use some colour to show the difference between distance-based and time based intervals: the following graph is similar to the previous one, except it segments the curve in terms of equal-distance intervals. This shows as regular colour intervals going down the graph, but the mapping to ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " values is not linear, so there will be (highly) irregular intervals along the horizontal axis. It also shows the curve in an alternating colouring based on the t-for-distance values we find our LUT:"
+	      ),
+	      React.createElement(Graphic, { preset: "threepanel", title: "Fixed-interval coloring a curve", setup: this.setup, draw: this.drawColoured, onKeyDown: this.onKeyDown }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Use your up and down arrow keys to increase or decrease the number of equidistant segments used to colour the curve."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "However, are there better ways? One such way is discussed in \"",
+	        React.createElement(
+	          "a",
+	          { href: "http://www.geometrictools.com/Documentation/MovingAlongCurveSpecifiedSpeed.pdf" },
+	          "Moving Along a Curve with Specified Speed"
+	        ),
+	        "\" by David Eberly of Geometric Tools, LLC, but basically because we have no explicit length function (or rather, one we don't have to constantly compute for different intervals), you may simply be better off with a traditional lookup table (LUT)."
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Tracing;
+
+/***/ },
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(198);
+	var content = __webpack_require__(201);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(201)(content, {});
+	var update = __webpack_require__(204)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -29406,21 +30270,21 @@
 	}
 
 /***/ },
-/* 198 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(199)();
+	exports = module.exports = __webpack_require__(202)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(200) + ");\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n.ribbon {\n  position: fixed;\n  top: 0;\n  right: 0;\n}\n.ribbon img {\n  position: relative;\n  z-index: 999;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(203) + ");\n  font-size: 16px;\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n.ribbon {\n  position: fixed;\n  top: 0;\n  right: 0;\n}\n.ribbon img {\n  position: relative;\n  z-index: 999;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 199 */
+/* 202 */
 /***/ function(module, exports) {
 
 	/*
@@ -29476,13 +30340,13 @@
 
 
 /***/ },
-/* 200 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
 
 /***/ },
-/* 201 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

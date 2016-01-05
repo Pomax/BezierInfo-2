@@ -23,15 +23,15 @@ module.exports = {
   boundingbox: require("./boundingbox"),
   aligning: require("./aligning"),
   tightbounds: require("./tightbounds"),
-  canonical: require("./canonical")
+  canonical: require("./canonical"),
+
+  arclength: require("./arclength"),
+  arclengthapprox: require("./arclengthapprox"),
+  tracing: require("./tracing")
 };
 
 
 /*
-  arclength: require("./arclength"),
-  arclengthapprox: require("./arclengthapprox"),
-  tracing: require("./tracing"),
-
   intersections: require("./intersections"),
   curveintersection: require("./curveintersection"),
   moulding: require("./moulding"),
@@ -54,9 +54,6 @@ module.exports = {
 */
 
 /*
-  Arc length
-  Approximated arc length
-  Tracing a curve at fixed distance intervals
   Intersections
   Curve/curve intersection
   Curve moulding (using the projection ratio)
