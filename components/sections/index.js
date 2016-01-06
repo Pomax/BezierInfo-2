@@ -29,12 +29,12 @@ module.exports = {
   arclengthapprox: require("./arclengthapprox"),
   tracing: require("./tracing"),
 
-  intersections: require("./intersections")
+  intersections: require("./intersections"),
+  curveintersection: require("./curveintersection")
 };
 
 
 /*
-  curveintersection: require("./curveintersection"),
   moulding: require("./moulding"),
   pointcurves: require("./pointcurves"),
 
@@ -55,7 +55,6 @@ module.exports = {
 */
 
 /*
-  Curve/curve intersection
   Curve moulding (using the projection ratio)
   Creating a curve from three points
   Bézier curves and Catmull-Rom curves

@@ -16,11 +16,14 @@
     <meta property="og:section" content="Bézier Curves">
     <meta property="og:tag" content="Bézier Curves">
 
+    <!-- these rules will get overwritten by the style in the article.js React bundle -->
     <style>
+      html, body, article { height: 100%; margin: 0; }
       body { width: 800px; margin: auto; }
       header h1, header h2 { text-align: center; }
       header h1 { font-size: 300%; margin: 0.2em; }
       p.jsnote { margin: 2em; text-align: justify; }
+      p.jsnote:first-child { width:10em; margin: auto; }
     </style>
   </head>
   <body>
@@ -30,10 +33,13 @@
         <h2>A free, online book for when you really need to know how to do Bézier things.</h2>
       </header>
 
-      <!-- React does its magic here -->
       <div id="article">
-        <p class="jsnote">Loading book content...</p>
-        <p class="jsnote">If you have JavaScript disabled, you'll have to enable it, as this book heavily relies on JS rendering, both for the base content (it's been written as a React application) and all the interactive graphics, which rely on JS not just for the user interaction but also for the live-drawing (none of the graphics in this book are flat images, they're all live-rendered).</p>
+        <!-- This content only shows for as long as JS/React hasn't loaded the page content -->
+        <p class="jsnote">Loading book content<span id="loader">...</span></p>
+
+        <p class="enabling jsnote">If you have JavaScript disabled, you'll have to enable it, as this book heavily relies on JS rendering, both for the base content (it's been written as a React application) and all the interactive graphics, which rely on JS not just for the user interaction but also for the live-drawing (none of the graphics in this book are flat images, they're all live-rendered).</p>
+
+        <script>var n=document.querySelector(".enabling");n.parentNode.removeChild(n);(function update(el,str){str=(str.length===3)?'':str+'.';el.textContent=str;setTimeout(function(){update(el,str);},333);}(document.querySelector("#loader"),"..."));</script>
       </div>
     </article>
 

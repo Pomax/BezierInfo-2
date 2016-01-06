@@ -63,7 +63,7 @@
 	var React = __webpack_require__(9);
 	var ReactDOM = __webpack_require__(166);
 	var Article = __webpack_require__(167);
-	var style = __webpack_require__(201);
+	var style = __webpack_require__(202);
 
 	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"));
 
@@ -19809,11 +19809,11 @@
 	  arclengthapprox: __webpack_require__(198),
 	  tracing: __webpack_require__(199),
 
-	  intersections: __webpack_require__(200)
+	  intersections: __webpack_require__(200),
+	  curveintersection: __webpack_require__(201)
 	};
 
 	/*
-	  curveintersection: require("./curveintersection"),
 	  moulding: require("./moulding"),
 	  pointcurves: require("./pointcurves"),
 
@@ -19834,7 +19834,6 @@
 	*/
 
 	/*
-	  Curve/curve intersection
 	  Curve moulding (using the projection ratio)
 	  Creating a curve from three points
 	  Bézier curves and Catmull-Rom curves
@@ -20099,6 +20098,11 @@
 	  pause: function pause() {
 	    this.playing = false;
 	  },
+	  redraw: function redraw() {
+	    if (this.props.draw) {
+	      this.props.draw(this, this.curve);
+	    }
+	  },
 
 	  render: function render() {
 	    var href = "data:text/plain," + this.props.code;
@@ -20118,7 +20122,9 @@
 	      React.createElement(
 	        "figcaption",
 	        null,
-	        this.props.title
+	        this.props.title,
+	        " ",
+	        this.props.children
 	      )
 	    );
 	  },
@@ -30565,13 +30571,409 @@
 /* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var React = __webpack_require__(9);
+	var Graphic = __webpack_require__(172);
+	var SectionHeader = __webpack_require__(177);
+
+	var abs = Math.abs;
+
+	var CurveIntersections = React.createClass({
+	  displayName: "CurveIntersections",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Curve/curve intersection"
+	    };
+	  },
+
+	  setup: function setup(api) {
+	    this.api = api;
+	    api.setPanelCount(3);
+	    var curve1 = new api.Bezier(10, 100, 90, 30, 40, 140, 220, 220);
+	    var curve2 = new api.Bezier(5, 150, 180, 20, 80, 250, 210, 190);
+	    api.setCurve(curve1, curve2);
+	    this.pairReset();
+	  },
+
+	  pairReset: function pairReset() {
+	    this.prevstep = 0;
+	    this.step = 0;
+	  },
+
+	  draw: function draw(api, curves) {
+	    var _this = this;
+
+	    api.reset();
+	    var offset = { x: 0, y: 0 };
+	    curves.forEach(function (curve) {
+	      api.drawSkeleton(curve);
+	      api.drawCurve(curve);
+	    });
+
+	    // next panel: iterations
+	    var w = api.getPanelWidth();
+	    var h = api.getPanelHeight();
+	    offset.x += w;
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: h }, offset);
+
+	    if (this.step === 0) {
+	      this.pairs = [{ c1: curves[0], c2: curves[1] }];
+	    }
+
+	    if (this.step !== this.prevstep) {
+	      var pairs = this.pairs;
+	      var clen = pairs.length;
+	      this.pairs = [];
+	      this.finals = [];
+	      pairs.forEach(function (p) {
+	        if (p.c1.length() < 1 && p.c2.length() < 1) {
+	          return _this.finals.push(p);
+	        }
+
+	        var s1 = p.c1.split(0.5);
+	        api.setColor("black");
+	        api.drawCurve(p.c1, offset);
+	        api.setColor("red");
+	        api.drawbbox(s1.left.bbox(), offset);
+	        api.drawbbox(s1.right.bbox(), offset);
+
+	        var s2 = p.c2.split(0.5);
+	        api.setColor("black");
+	        api.drawCurve(p.c2, offset);
+	        api.setColor("blue");
+	        api.drawbbox(s2.left.bbox(), offset);
+	        api.drawbbox(s2.right.bbox(), offset);
+
+	        if (s1.left.overlaps(s2.left)) {
+	          _this.pairs.push({ c1: s1.left, c2: s2.left });
+	        }
+	        if (s1.left.overlaps(s2.right)) {
+	          _this.pairs.push({ c1: s1.left, c2: s2.right });
+	        }
+	        if (s1.right.overlaps(s2.left)) {
+	          _this.pairs.push({ c1: s1.right, c2: s2.left });
+	        }
+	        if (s1.right.overlaps(s2.right)) {
+	          _this.pairs.push({ c1: s1.right, c2: s2.right });
+	        }
+	      });
+	      this.prevstep = this.step;
+	    } else {
+	      this.pairs.forEach(function (p) {
+	        api.setColor("black");
+	        api.drawCurve(p.c1, offset);
+	        api.drawCurve(p.c2, offset);
+	        api.setColor("red");
+	        api.drawbbox(p.c1.bbox(), offset);
+	        api.setColor("blue");
+	        api.drawbbox(p.c2.bbox(), offset);
+	      });
+	    }
+
+	    if (this.pairs.length === 0) {
+	      this.pairReset();
+	      this.draw(api, curves);
+	    }
+
+	    // next panel: results
+	    offset.x += w;
+	    api.setColor("black");
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: h }, offset);
+
+	    // get intersections as coordinates
+	    var results = curves[0].intersects(curves[1]).map(function (s) {
+	      var tvals = s.split('/').map(function (v) {
+	        return parseFloat(v);
+	      });
+	      return { t1: tvals[0], t2: tvals[1] };
+	    });
+
+	    // filter out likely duplicates
+	    var curr = results[0],
+	        _,
+	        same = function same(a, b) {
+	      return abs(a.t1 - b.t1) < 0.01 && abs(a.t2 - b.t2) < 0.01;
+	    };
+	    for (var i = 1; i < results.length; i++) {
+	      var _ = results[i];
+	      if (same(curr, _)) {
+	        results.splice(i--, 1);
+	      } else {
+	        curr = _;
+	      }
+	    }
+
+	    api.setColor("lightblue");
+	    api.drawCurve(curves[0], offset);
+	    api.drawCurve(curves[1], offset);
+
+	    api.setColor("blue");
+	    results.forEach(function (tvals) {
+	      api.drawCircle(curves[0].get(tvals.t1), 3, offset);
+	    });
+	  },
+
+	  stepUp: function stepUp() {
+	    this.step++;
+	    this.api.redraw();
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Using de Casteljau's algorithm to split the curve we can now implement curve/curve intersection finding using a \"divide and conquer\" technique:"
+	      ),
+	      React.createElement(
+	        "ul",
+	        null,
+	        React.createElement(
+	          "li",
+	          null,
+	          "Take two curves ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "1"
+	            )
+	          ),
+	          " and ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "2"
+	            )
+	          ),
+	          ", and treat them as a pair."
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "If their bounding boxes overlap, split up each curve into two sub-curves"
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "With ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "1.1"
+	            )
+	          ),
+	          ", ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "1.2"
+	            )
+	          ),
+	          ", ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "2.1"
+	            )
+	          ),
+	          " and ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "2.2"
+	            )
+	          ),
+	          ", form four new pairs (",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "1.1"
+	            )
+	          ),
+	          ",",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "2.1"
+	            )
+	          ),
+	          "), (",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "1.1"
+	            )
+	          ),
+	          ", ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "2.2"
+	            )
+	          ),
+	          "), (",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "1.2"
+	            )
+	          ),
+	          ",",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "2.1"
+	            )
+	          ),
+	          "), and (",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "1.2"
+	            )
+	          ),
+	          ",",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C",
+	            React.createElement(
+	              "sub",
+	              null,
+	              "2.2"
+	            )
+	          ),
+	          ")."
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "For each pair, check whether their bounding boxes overlap.",
+	          React.createElement(
+	            "ul",
+	            null,
+	            React.createElement(
+	              "li",
+	              null,
+	              "If their bounding boxes do not overlap, discard the pair, as there is no intersection between this pair of curves."
+	            ),
+	            React.createElement(
+	              "li",
+	              null,
+	              "If there ",
+	              React.createElement(
+	                "em",
+	                null,
+	                "is"
+	              ),
+	              " overlap, rerun all steps for this pair."
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Once the sub-curves we form are so small that they effectively occupy sub-pixel areas, we consider an intersection found."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "This algorithm will start with a single pair, \"balloon\" until it runs in parallel for a large number of potential sub-pairs, and then taper back down as it homes in on intersection coordinates, ending up with as many pairs as there are intersections."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The following graphic applies this algorithm to a pair of cubic curves, one step at a time, so you can see the algorithm in action. Click the button to run a single step in the algorithm, after setting up your curves in some creative arrangement. The algorithm resets once it's found a solution, so you can try this with lots of different curves (can you find the configuration that yields the maximum number of intersections between two cubic curves? Nine intersections!)"
+	      ),
+	      React.createElement(
+	        Graphic,
+	        { preset: "clipping", title: "Curve/curve intersections", setup: this.setup, draw: this.draw },
+	        React.createElement(
+	          "button",
+	          { onClick: this.stepUp },
+	          "advance one step"
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Self-intersection is dealt with in the same way, except we turn a curve into two or more curves first based on the inflection points. We then form all possible curve pairs with the resultant segments, and run exactly the same algorithm. All non-overlapping curve pairs will be removed after the first iteration, and the remaining steps home in on the curve's self-intersection points."
+	      )
+	    );
+	  }
+	});
+
+	module.exports = CurveIntersections;
+
+/***/ },
+/* 202 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(202);
+	var content = __webpack_require__(203);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(205)(content, {});
+	var update = __webpack_require__(206)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30588,21 +30990,21 @@
 	}
 
 /***/ },
-/* 202 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(203)();
+	exports = module.exports = __webpack_require__(204)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(204) + ");\n  font-size: 16px;\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n.ribbon {\n  position: fixed;\n  top: 0;\n  right: 0;\n}\n.ribbon img {\n  position: relative;\n  z-index: 999;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(205) + ");\n  font-size: 16px;\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  height: auto;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n.ribbon {\n  position: fixed;\n  top: 0;\n  right: 0;\n}\n.ribbon img {\n  position: relative;\n  z-index: 999;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 203 */
+/* 204 */
 /***/ function(module, exports) {
 
 	/*
@@ -30658,13 +31060,13 @@
 
 
 /***/ },
-/* 204 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
 
 /***/ },
-/* 205 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

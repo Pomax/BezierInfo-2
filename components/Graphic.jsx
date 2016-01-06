@@ -43,6 +43,7 @@ var Graphic = React.createClass({
   getPlayInterval: function() { return this.playinterval; },
   play: function() { this.playing = true; this.animate(); },
   pause: function() { this.playing = false; },
+  redraw: function() { if (this.props.draw) { this.props.draw(this, this.curve); }},
 
   render: function() {
     var href = "data:text/plain," + this.props.code;
@@ -58,7 +59,7 @@ var Graphic = React.createClass({
                 onKeyDown={this.onKeyDown}
                 onKeyPress={this.onKeyPress}
                 />
-        <figcaption>{this.props.title}</figcaption>
+        <figcaption>{this.props.title} {this.props.children}</figcaption>
       </figure>
     );
   },
