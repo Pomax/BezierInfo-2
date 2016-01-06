@@ -27,12 +27,13 @@ module.exports = {
 
   arclength: require("./arclength"),
   arclengthapprox: require("./arclengthapprox"),
-  tracing: require("./tracing")
+  tracing: require("./tracing"),
+
+  intersections: require("./intersections")
 };
 
 
 /*
-  intersections: require("./intersections"),
   curveintersection: require("./curveintersection"),
   moulding: require("./moulding"),
   pointcurves: require("./pointcurves"),
@@ -54,7 +55,6 @@ module.exports = {
 */
 
 /*
-  Intersections
   Curve/curve intersection
   Curve moulding (using the projection ratio)
   Creating a curve from three points

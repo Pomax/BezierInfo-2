@@ -126,7 +126,16 @@ var Graphic = React.createClass({
         this.oy = evt.offsetY - this.my;
         this.mp.x = this.cx + this.ox;
         this.mp.y = this.cy + this.oy;
-        this.curve.update();
+        if (this.curve.forEach) {
+          for (var i=0, c, _pts; i<this.curve.length; i++) {
+            c = this.curve[i];
+            _pts = c.points;
+            if (_pts.indexOf(this.mp)>-1) {
+              c.update();
+              break;
+            }
+          }
+        } else { this.curve.update(); }
       }
     }
 
@@ -207,6 +216,16 @@ var Graphic = React.createClass({
     this.refs.canvas.height = h;
   },
 
+  setCurve: function(c) {
+    var pts = [];
+    c = Array.from(arguments);
+    c.forEach(nc => {
+      pts = pts.concat(nc.points);
+    });
+    this.curve = c.length === 1 ? c[0] : c;
+    this.lpts = pts;
+  },
+
   getPanelWidth: function() {
     return this.defaultWidth;
   },
@@ -233,11 +252,6 @@ var Graphic = React.createClass({
   setPanelCount: function(c) {
     var cvs = this.refs.canvas;
     cvs.width = c * this.defaultWidth;
-  },
-
-  setCurve: function(c) {
-    this.curve = c;
-    this.lpts = c.points;
   },
 
   setOffset: function(f) {
@@ -293,10 +307,12 @@ var Graphic = React.createClass({
   drawSkeleton: function(curve, offset, nocoords) {
     offset = offset || { x:0, y:0 };
     var pts = curve.points;
-    this.ctx.strokeStyle = "lightgrey";
-    this.drawLine(pts[0], pts[1], offset);
-    if(pts.length === 3) { this.drawLine(pts[1], pts[2], offset); }
-    else {this.drawLine(pts[2], pts[3], offset); }
+    if(pts.length>2) {
+      this.ctx.strokeStyle = "lightgrey";
+      this.drawLine(pts[0], pts[1], offset);
+      if(pts.length === 3) { this.drawLine(pts[1], pts[2], offset); }
+      else {this.drawLine(pts[2], pts[3], offset); }
+    }
     this.ctx.strokeStyle = "black";
     this.drawPoints(pts, offset);
     if (!nocoords) {
@@ -348,10 +364,22 @@ var Graphic = React.createClass({
 
   drawCurve: function(curve, offset) {
     offset = offset || { x:0, y:0 };
+    var p = curve.points, i;
+
+    if (p.length <= 3 || 5 <= p.length) {
+      var points = curve.getLUT(100);
+      var p0 = points[0];
+      points.forEach((p1,i) => {
+        if(!i) return;
+        this.drawLine(p0, p1, offset);
+        p0 = p1;
+      });
+      return;
+    }
+
     var ox = offset.x + this.offset.x;
     var oy = offset.y + this.offset.y;
     this.ctx.beginPath();
-    var p = curve.points, i;
     this.ctx.moveTo(p[0].x + ox, p[0].y + oy);
     if(p.length === 3) {
       this.ctx.quadraticCurveTo(
@@ -359,7 +387,7 @@ var Graphic = React.createClass({
         p[2].x + ox, p[2].y + oy
       );
     }
-    if(p.length === 4) {
+    else if(p.length === 4) {
       this.ctx.bezierCurveTo(
         p[1].x + ox, p[1].y + oy,
         p[2].x + ox, p[2].y + oy,

@@ -63,7 +63,7 @@
 	var React = __webpack_require__(9);
 	var ReactDOM = __webpack_require__(166);
 	var Article = __webpack_require__(167);
-	var style = __webpack_require__(200);
+	var style = __webpack_require__(201);
 
 	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"));
 
@@ -19807,11 +19807,12 @@
 
 	  arclength: __webpack_require__(197),
 	  arclengthapprox: __webpack_require__(198),
-	  tracing: __webpack_require__(199)
+	  tracing: __webpack_require__(199),
+
+	  intersections: __webpack_require__(200)
 	};
 
 	/*
-	  intersections: require("./intersections"),
 	  curveintersection: require("./curveintersection"),
 	  moulding: require("./moulding"),
 	  pointcurves: require("./pointcurves"),
@@ -19833,7 +19834,6 @@
 	*/
 
 	/*
-	  Intersections
 	  Curve/curve intersection
 	  Curve moulding (using the projection ratio)
 	  Creating a curve from three points
@@ -20188,7 +20188,18 @@
 	        this.oy = evt.offsetY - this.my;
 	        this.mp.x = this.cx + this.ox;
 	        this.mp.y = this.cy + this.oy;
-	        this.curve.update();
+	        if (this.curve.forEach) {
+	          for (var i = 0, c, _pts; i < this.curve.length; i++) {
+	            c = this.curve[i];
+	            _pts = c.points;
+	            if (_pts.indexOf(this.mp) > -1) {
+	              c.update();
+	              break;
+	            }
+	          }
+	        } else {
+	          this.curve.update();
+	        }
 	      }
 	    }
 
@@ -20266,6 +20277,16 @@
 	    this.refs.canvas.height = h;
 	  },
 
+	  setCurve: function setCurve(c) {
+	    var pts = [];
+	    c = Array.from(arguments);
+	    c.forEach(function (nc) {
+	      pts = pts.concat(nc.points);
+	    });
+	    this.curve = c.length === 1 ? c[0] : c;
+	    this.lpts = pts;
+	  },
+
 	  getPanelWidth: function getPanelWidth() {
 	    return this.defaultWidth;
 	  },
@@ -20292,11 +20313,6 @@
 	  setPanelCount: function setPanelCount(c) {
 	    var cvs = this.refs.canvas;
 	    cvs.width = c * this.defaultWidth;
-	  },
-
-	  setCurve: function setCurve(c) {
-	    this.curve = c;
-	    this.lpts = c.points;
 	  },
 
 	  setOffset: function setOffset(f) {
@@ -20352,12 +20368,14 @@
 	  drawSkeleton: function drawSkeleton(curve, offset, nocoords) {
 	    offset = offset || { x: 0, y: 0 };
 	    var pts = curve.points;
-	    this.ctx.strokeStyle = "lightgrey";
-	    this.drawLine(pts[0], pts[1], offset);
-	    if (pts.length === 3) {
-	      this.drawLine(pts[1], pts[2], offset);
-	    } else {
-	      this.drawLine(pts[2], pts[3], offset);
+	    if (pts.length > 2) {
+	      this.ctx.strokeStyle = "lightgrey";
+	      this.drawLine(pts[0], pts[1], offset);
+	      if (pts.length === 3) {
+	        this.drawLine(pts[1], pts[2], offset);
+	      } else {
+	        this.drawLine(pts[2], pts[3], offset);
+	      }
 	    }
 	    this.ctx.strokeStyle = "black";
 	    this.drawPoints(pts, offset);
@@ -20412,17 +20430,30 @@
 	  },
 
 	  drawCurve: function drawCurve(curve, offset) {
+	    var _this3 = this;
+
 	    offset = offset || { x: 0, y: 0 };
+	    var p = curve.points,
+	        i;
+
+	    if (p.length <= 3 || 5 <= p.length) {
+	      var points = curve.getLUT(100);
+	      var p0 = points[0];
+	      points.forEach(function (p1, i) {
+	        if (!i) return;
+	        _this3.drawLine(p0, p1, offset);
+	        p0 = p1;
+	      });
+	      return;
+	    }
+
 	    var ox = offset.x + this.offset.x;
 	    var oy = offset.y + this.offset.y;
 	    this.ctx.beginPath();
-	    var p = curve.points,
-	        i;
 	    this.ctx.moveTo(p[0].x + ox, p[0].y + oy);
 	    if (p.length === 3) {
 	      this.ctx.quadraticCurveTo(p[1].x + ox, p[1].y + oy, p[2].x + ox, p[2].y + oy);
-	    }
-	    if (p.length === 4) {
+	    } else if (p.length === 4) {
 	      this.ctx.bezierCurveTo(p[1].x + ox, p[1].y + oy, p[2].x + ox, p[2].y + oy, p[3].x + ox, p[3].y + oy);
 	    }
 	    this.ctx.stroke();
@@ -20503,7 +20534,7 @@
 	  },
 
 	  drawPath: function drawPath(path, offset) {
-	    var _this3 = this;
+	    var _this4 = this;
 
 	    offset = offset || { x: 0, y: 0 };
 	    var ox = offset.x + this.offset.x;
@@ -20511,9 +20542,9 @@
 	    this.ctx.beginPath();
 	    path.forEach(function (p, idx) {
 	      if (idx === 0) {
-	        return _this3.ctx.moveTo(p.x + ox, p.y + oy);
+	        return _this4.ctx.moveTo(p.x + ox, p.y + oy);
 	      }
-	      _this3.ctx.lineTo(p.x + ox, p.y + oy);
+	      _this4.ctx.lineTo(p.x + ox, p.y + oy);
 	    });
 	    if (closed) this.ctx.closePath();
 	    this.ctx.fill();
@@ -20554,7 +20585,7 @@
 	  },
 
 	  image: function image(_image, offset) {
-	    var _this4 = this;
+	    var _this5 = this;
 
 	    offset = offset || { x: 0, y: 0 };
 	    if (this.offset) {
@@ -20566,7 +20597,7 @@
 	    } else {
 	      _image.onload = function () {
 	        _image.loaded = true;
-	        _this4.ctx.drawImage(_image, offset.x, offset.y);
+	        _this5.ctx.drawImage(_image, offset.x, offset.y);
 	      };
 	    }
 	  },
@@ -23187,10 +23218,10 @@
 	      return sqrt(l);
 	    },
 	    length: function(derivativeFn) {
-	      var z=0.5,sum=0,len=this.Tvalues.length,i,t;
+	      var z=0.5,sum=0,len=utils.Tvalues.length,i,t;
 	      for(i=0; i<len; i++) {
-	        t = z * this.Tvalues[i] + z;
-	        sum += this.Cvalues[i] * this.arcfn(t,derivativeFn);
+	        t = z * utils.Tvalues[i] + z;
+	        sum += utils.Cvalues[i] * utils.arcfn(t,derivativeFn);
 	      }
 	      return z * sum;
 	    },
@@ -23216,7 +23247,7 @@
 	      return s;
 	    },
 	    pointsToString: function(points) {
-	      return "[" + points.map(this.pointToString).join(", ") + "]";
+	      return "[" + points.map(utils.pointToString).join(", ") + "]";
 	    },
 	    copy: function(obj) {
 	      return JSON.parse(JSON.stringify(obj));
@@ -23251,10 +23282,10 @@
 	          x2 = p2.x, y2 = p2.y,
 	          x3 = p3.x, y3 = p3.y,
 	          x4 = p4.x, y4 = p4.y;
-	      return this.lli8(x1,y1,x2,y2,x3,y3,x4,y4);
+	      return utils.lli8(x1,y1,x2,y2,x3,y3,x4,y4);
 	    },
 	    lli: function(v1, v2) {
-	      return this.lli4(v1,v1.c,v2,v2.c);
+	      return utils.lli4(v1,v1.c,v2,v2.c);
 	    },
 	    makeline: function(p1,p2) {
 	      var x1 = p1.x, y1 = p1.y, x2 = p2.x, y2 = p2.y, dx = (x2-x1)/3, dy = (y2-y1)/3;
@@ -23275,7 +23306,7 @@
 	      }
 	    },
 	    shapeintersections: function(s1, bbox1, s2, bbox2) {
-	      if(!this.bboxoverlap(bbox1, bbox2)) return [];
+	      if(!utils.bboxoverlap(bbox1, bbox2)) return [];
 	      var intersections = [];
 	      var a1 = [s1.startcap, s1.forward, s1.back, s1.endcap];
 	      var a2 = [s2.startcap, s2.forward, s2.back, s2.endcap];
@@ -23298,16 +23329,16 @@
 	    makeshape: function(forward, back) {
 	      var bpl = back.points.length;
 	      var fpl = forward.points.length;
-	      var start  = this.makeline(back.points[bpl-1], forward.points[0]);
-	      var end    = this.makeline(forward.points[fpl-1], back.points[0]);
+	      var start  = utils.makeline(back.points[bpl-1], forward.points[0]);
+	      var end    = utils.makeline(forward.points[fpl-1], back.points[0]);
 	      var shape  = {
 	        startcap: start,
 	        forward: forward,
 	        back: back,
 	        endcap: end,
-	        bbox: this.findbbox([start, forward, back, end])
+	        bbox: utils.findbbox([start, forward, back, end])
 	      };
-	      var self = this;
+	      var self = utils;
 	      shape.intersections = function(s2) {
 	        return self.shapeintersections(shape,shape.bbox,s2,s2.bbox);
 	      };
@@ -23341,7 +23372,7 @@
 	    roots: function(points, line) {
 	      line = line || {p1:{x:0,y:0},p2:{x:1,y:0}};
 	      var order = points.length - 1;
-	      var p = this.align(points, line);
+	      var p = utils.align(points, line);
 	      var reduce = function(t) { return 0<=t && t <=1; };
 
 	      if (order === 2) {
@@ -23661,9 +23692,14 @@
 	    return new Bezier(list);
 	  };
 
-	  Bezier.utils = utils;
+	  var getUtils = function() {
+	    return utils;
+	  };
+
+	  Bezier.getUtils = getUtils;
 
 	  Bezier.prototype = {
+	    getUtils: getUtils,
 	    valueOf: function() {
 	      return this.toString();
 	    },
@@ -23710,13 +23746,15 @@
 	    length: function() {
 	      return utils.length(this.derivative.bind(this));
 	    },
+	    _lut: [],
 	    getLUT: function(steps) {
 	      steps = steps || 100;
-	      var points = [];
+	      if (this._lut.length === steps) { return this._lut; }
+	      this._lut = [];
 	      for(var t=0; t<=steps; t++) {
-	        points.push(this.compute(t/steps));
+	        this._lut.push(this.compute(t/steps));
 	      }
-	      return points;
+	      return this._lut;
 	    },
 	    get: function(t) {
 	      return this.compute(t);
@@ -23728,32 +23766,62 @@
 	      // shortcuts
 	      if(t===0) { return this.points[0]; }
 	      if(t===1) { return this.points[this.order]; }
-	      // plain computation
-	      var mt = 1-t,
-	          mt2 = mt*mt,
-	          t2 = t*t,
-	          a,b,c,d = 0,
-	          p = this.points;
-	      if(this.order===2) {
-	        p = [p[0], p[1], p[2], ZERO];
-	        a = mt2;
-	        b = mt*t*2;
-	        c = t2;
+
+	      var p = this.points;
+	      var mt = 1-t;
+
+	      // linear?
+	      if(this.order===1) {
+	        ret = {
+	          x: mt*p[0].x + t*p[1].x,
+	          y: mt*p[0].y + t*p[1].y
+	        };
+	        if (this._3d) { ret.z = mt*p[0].z + t*p[1].z; }
+	        return ret;
 	      }
-	      if(this.order===3) {
-	        a = mt2*mt;
-	        b = mt2*t*3;
-	        c = mt*t2*3;
-	        d = t*t2;
+
+	      // quadratic/cubic curve?
+	      if(this.order<4) {
+	        var mt2 = mt*mt,
+	            t2 = t*t,
+	            a,b,c,d = 0;
+	        if(this.order===2) {
+	          p = [p[0], p[1], p[2], ZERO];
+	          a = mt2;
+	          b = mt*t*2;
+	          c = t2;
+	        }
+	        else if(this.order===3) {
+	          a = mt2*mt;
+	          b = mt2*t*3;
+	          c = mt*t2*3;
+	          d = t*t2;
+	        }
+	        var ret = {
+	          x: a*p[0].x + b*p[1].x + c*p[2].x + d*p[3].x,
+	          y: a*p[0].y + b*p[1].y + c*p[2].y + d*p[3].y
+	        };
+	        if(this._3d) {
+	          ret.z = a*p[0].z + b*p[1].z + c*p[2].z + d*p[3].z;
+	        }
+	        return ret;
 	      }
-	      var ret = {
-	        x: a*p[0].x + b*p[1].x + c*p[2].x + d*p[3].x,
-	        y: a*p[0].y + b*p[1].y + c*p[2].y + d*p[3].y
-	      };
-	      if(this._3d) {
-	        ret.z = a*p[0].z + b*p[1].z + c*p[2].z + d*p[3].z;
+
+	      // higher order curves: use de Casteljau's computation
+	      var dCpts = JSON.parse(JSON.stringify(this.points));
+	      while(dCpts.length > 1) {
+	        for (var i=0; i<dCpts.length-1; i++) {
+	          dCpts[i] = {
+	            x: dCpts[i].x + (dCpts[i+1].x - dCpts[i].x) * t,
+	            y: dCpts[i].y + (dCpts[i+1].y - dCpts[i].y) * t
+	          };
+	          if (typeof dCpts[i].z !== "undefined") {
+	            dCpts[i] = dCpts[i].z + (dCpts[i+1].z - dCpts[i].z) * t
+	          }
+	        }
+	        dCpts.splice(dCpts.length-1, 1);
 	      }
-	      return ret;
+	      return dCpts[0];
 	    },
 	    raise: function() {
 	      var p = this.points, np = [p[0]], i, k=p.length, pi, pim;
@@ -27908,7 +27976,7 @@
 
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      title: "Component functions"
+	      title: "Finding extreminities"
 	    };
 	  },
 
@@ -30293,13 +30361,328 @@
 /* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var React = __webpack_require__(9);
+	var Graphic = __webpack_require__(172);
+	var SectionHeader = __webpack_require__(177);
+
+	var min = Math.min,
+	    max = Math.max;
+
+	var Intersections = React.createClass({
+	  displayName: "Intersections",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Intersections"
+	    };
+	  },
+
+	  setupLines: function setupLines(api) {
+	    var curve1 = new api.Bezier([50, 50, 150, 110]);
+	    var curve2 = new api.Bezier([50, 250, 170, 170]);
+	    api.setCurve(curve1, curve2);
+	  },
+
+	  drawLineIntersection: function drawLineIntersection(api, curves) {
+	    api.reset();
+
+	    var lli = curves[0].getUtils().lli4;
+	    var p = lli(curves[0].points[0], curves[0].points[1], curves[1].points[0], curves[1].points[1]);
+
+	    var mark = 0;
+	    curves.forEach(function (curve) {
+	      api.drawSkeleton(curve);
+	      api.setColor("black");
+	      if (p) {
+	        var pts = curve.points,
+	            mx = min(pts[0].x, pts[1].x),
+	            my = min(pts[0].y, pts[1].y),
+	            Mx = max(pts[0].x, pts[1].x),
+	            My = max(pts[0].y, pts[1].y);
+	        if (mx <= p.x && my <= p.y && Mx >= p.x && My >= p.y) {
+	          api.setColor("#00FF00");
+	          mark++;
+	        }
+	      }
+	      api.drawCurve(curve);
+	    });
+
+	    if (p) {
+	      api.setColor(mark < 2 ? "red" : "#00FF00");
+	      api.drawCircle(p, 3);
+	    }
+	  },
+
+	  setupQuadratic: function setupQuadratic(api) {
+	    var curve1 = api.getDefaultQuadratic();
+	    var curve2 = new api.Bezier([15, 250, 220, 20]);
+	    api.setCurve(curve1, curve2);
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    var curve1 = new api.Bezier([100, 240, 30, 60, 210, 230, 160, 30]);
+	    var curve2 = new api.Bezier([25, 260, 230, 20]);
+	    api.setCurve(curve1, curve2);
+	  },
+
+	  draw: function draw(api, curves) {
+	    api.reset();
+	    curves.forEach(function (curve) {
+	      api.drawSkeleton(curve);
+	      api.drawCurve(curve);
+	    });
+
+	    var utils = curves[0].getUtils();
+	    var line = { p1: curves[1].points[0], p2: curves[1].points[1] };
+	    var acpts = utils.align(curves[0].points, line);
+	    var nB = new api.Bezier(acpts);
+	    var roots = utils.roots(nB.points);
+	    roots.forEach(function (t) {
+	      var p = curves[0].get(t);
+	      api.drawCircle(p, 3);
+	      api.text("t = " + t, { x: p.x + 5, y: p.y + 10 });
+	    });
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Let's look at some more things we will want to do with Bézier curves. Almost immediately after figuring out how to get bounding boxes to work, people tend to run into the problem that even though the minimal bounding box (based on rotation) is tight, it's not sufficient to perform true collision detection. It's a good first step to make sure there ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "might"
+	        ),
+	        " be a collision (if there is no bounding box overlap, there can't be one), but in order to do real collision detection we need to know whether or not there's an intersection on the actual curve."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We'll do this in steps, because it's a bit of a journey to get to curve/curve intersection checking. First, let's start simple, by implementing a line-line intersection checker. While we can solve this the traditional calculus way (determine the functions for both lines, then compute the intersection by equating them and solving for two unknowns), linear algebra actually offers a nicer solution."
+	      ),
+	      React.createElement(
+	        "h3",
+	        null,
+	        "Line-line intersections"
+	      ),
+	      React.createElement(
+	        "p",
+	        { id: "intersection_ll" },
+	        "if we have two line segments with two coordinates each, segments A-B and C-D, we can find the intersection of the lines these segments are an intervals on by linear algebra, using the procedure outlined in this ",
+	        React.createElement(
+	          "a",
+	          { href: "http://www.topcoder.com/tc?module=Static&d1=tutorials&d2=geometry2#line_line_intersection" },
+	          "top coder"
+	        ),
+	        " article. Of course, we need to make sure that the intersection isn't just on the lines our line segments lie on, but also on our line segments themselves, so after we find the intersection we need to verify it lies without the bounds of our original line segments."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The following graphic implements this intersection detection, showing a red point for an intersection on the lines our segments lie on (thus being a virtual intersection point), and a green point for an intersection that lies on both segments (being a real intersection point)."
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "Line/line intersections", setup: this.setupLines, draw: this.drawLineIntersection }),
+	      React.createElement(
+	        "div",
+	        { className: "howtocode" },
+	        React.createElement(
+	          "h3",
+	          null,
+	          "Implementing line-line intersections"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Let's have a look at how to implement a line-line intersection checking function. The basics are covered in the article mentioned above, but sometimes you need more function signatures, because you might not want to call your function with eight distinct parameters. Maybe you're using point structs or the line. Let's get coding:"
+	        ),
+	        React.createElement(
+	          "pre",
+	          null,
+	          "lli8 = function(x1,y1,x2,y2,x3,y3,x4,y4):",
+	          '\n',
+	          "  var nx=(x1*y2-y1*x2)*(x3-x4)-(x1-x2)*(x3*y4-y3*x4),",
+	          '\n',
+	          "      ny=(x1*y2-y1*x2)*(y3-y4)-(y1-y2)*(x3*y4-y3*x4),",
+	          '\n',
+	          "      d=(x1-x2)*(y3-y4)-(y1-y2)*(x3-x4);",
+	          '\n',
+	          "  if d=0:",
+	          '\n',
+	          "    return false",
+	          '\n',
+	          "  return point(nx/d, ny/d)",
+	          '\n',
+	          '\n',
+	          "lli4 = function(p1,p2,p3,p4):",
+	          '\n',
+	          "  var x1 = p1.x, y1 = p1.y,",
+	          '\n',
+	          "      x2 = p2.x, y2 = p2.y,",
+	          '\n',
+	          "      x3 = p3.x, y3 = p3.y,",
+	          '\n',
+	          "      x4 = p4.x, y4 = p4.y;",
+	          '\n',
+	          "  return lli8(x1,y1,x2,y2,x3,y3,x4,y4)",
+	          '\n',
+	          '\n',
+	          '\n',
+	          "lli = function(line1, line2):",
+	          '\n',
+	          "  return lli4(line1.p1, line1.p2, line2.p1, line2.p2)"
+	        )
+	      ),
+	      React.createElement(
+	        "h3",
+	        null,
+	        "What about curve-line intersections?"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Curve/line intersection is more work, but we've already seen the techniques we need to use in order to perform it: first we translate/rotate both the line and curve together, in such a way that the line coincides with the x-axis. This will position the curve in a way that makes it cross the line at points where its y-function is zero. By doing this, the problem of finding intersections between a curve and a line has now become the problem of performing root finding on our translated/rotated curve, as we already covered in the section on finding extremities."
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "Quadratic curve/line intersections", setup: this.setupQuadratic, draw: this.draw }),
+	      React.createElement(Graphic, { preset: "simple", title: "Cubic curve/line intersections", setup: this.setupCubic, draw: this.draw }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Curve/curve intersection, however, is more complicated. Since we have no straight line to align to, we can't simply align one of the curves and be left with a simple procedure. Instead, we'll need to apply two techniques we've not covered yet: de Casteljau's algorithm, and curve splitting."
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Intersections;
+
+	/*
+
+	        Point p1, p2, p3, p4;
+
+	        void setupCurve() {
+	          p1 = new Point(50,50);
+	          p2 = new Point(150,110);
+	          curves.add(new BezierCurve(new Point[]{p1,p2}, false));
+	          p3 = new Point(50,250);
+	          p4 = new Point(170,170);
+	          curves.add(new BezierCurve(new Point[]{p3,p4}, false));
+	        }
+
+	        void drawCurve(BezierCurve curve) {
+	          // draw the lines through p1/p2 and p3/p4
+	          stroke(0,50);
+	          float dx = 10*(p2.x-p1.x), dy = 10*(p2.y-p1.y);
+	          line(p1.x-dx,p1.y-dy,p2.x+dx,p2.y+dy);
+	          dx = 10*(p4.x-p3.x); dy = 10*(p4.y-p3.y);
+	          line(p3.x-dx,p3.y-dy,p4.x+dx,p4.y+dy);
+
+	          // show the line segments
+	          curves.get(0).draw();
+	          curves.get(1).draw();
+
+	          // show the intersection point
+	          Point ntr = comp.getProjection(p1,p2,p3,p4);
+
+	          // red if virtual intersection, green if real
+	          boolean oncurves = true;
+	          if(min(p1.x,p2.x) > ntr.x || ntr.x > max(p1.x,p2.x) ||
+	             min(p1.y,p2.y) > ntr.y || ntr.y > max(p1.y,p2.y)) oncurves = false;
+	          if(oncurves) {
+	            if(min(p3.x,p4.x) > ntr.x || ntr.x > max(p3.x,p4.x) ||
+	              min(p3.y,p4.y) > ntr.y || ntr.y > max(p3.y,p4.y)) oncurves = false; }
+
+	          stroke(oncurves?0:255, oncurves?255:0, 0);
+	          ellipse(ntr.x,ntr.y,5,5);
+	        }</textarea>
+
+
+
+	        Point p1, p2;
+
+	        void setupCurve() {
+	          p1 = new Point(40,60);
+	          p2 = new Point(260,200);
+	          curves.add(new BezierCurve(new Point[]{
+	            p1, p2
+	          }, false));
+	          curves.add(new BezierCurve(new Point[]{
+	            new Point(25,150),
+	            new Point(180,30),
+	            new Point(230,250)
+	          }));
+	        }
+
+	        void drawCurve(BezierCurve curve) {
+	          curves.get(0).draw();
+	          curves.get(1).draw();
+
+	          BezierCurve aligned = curves.get(1).align(p1,p2);
+	          float[] roots = comp.findAllRoots(0, aligned.y_values);
+	          fill(150,0,150);
+	          float x, y;
+	          for(float t: roots) {
+	            if(t<0 || t>1) continue;
+	            x = curves.get(1).getXValue(t);
+	            y = curves.get(1).getYValue(t);
+	            ellipse(x,y,5,5);
+	            text(""+round(1000*t)/1000,x+10,y);
+	          }
+	        }</textarea>
+
+	        <textarea class="sketch-code" data-sketch-preset="simple" data-sketch-title="Cubic curve/line intersections">
+	        Point p1, p2;
+
+	        void setupCurve() {
+	          p1 = new Point(100,20);
+	          p2 = new Point(195,255);
+	          curves.add(new BezierCurve(new Point[]{
+	            p1, p2
+	          }, false));
+	          curves.add(new BezierCurve(new Point[]{
+	            new Point(150,125),
+	            new Point(40,30),
+	            new Point(270,115),
+	            new Point(145,200)
+	          }));
+	        }
+
+	        void drawCurve(BezierCurve curve) {
+	          curves.get(0).draw();
+	          curves.get(1).draw();
+
+	          BezierCurve aligned = curves.get(1).align(p1,p2);
+	          float[] roots = comp.findAllRoots(0, aligned.y_values);
+	          fill(150,0,150);
+	          float x, y;
+	          for(float t: roots) {
+	            if(t<0 || t>1) continue;
+	            x = curves.get(1).getXValue(t);
+	            y = curves.get(1).getYValue(t);
+	            ellipse(x,y,5,5);
+	            text(""+round(1000*t)/1000,x+10,y);
+	          }
+	        }</textarea>
+
+	 */
+
+/***/ },
+/* 201 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(201);
+	var content = __webpack_require__(202);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(204)(content, {});
+	var update = __webpack_require__(205)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30316,21 +30699,21 @@
 	}
 
 /***/ },
-/* 201 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(202)();
+	exports = module.exports = __webpack_require__(203)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(203) + ");\n  font-size: 16px;\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n.ribbon {\n  position: fixed;\n  top: 0;\n  right: 0;\n}\n.ribbon img {\n  position: relative;\n  z-index: 999;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(204) + ");\n  font-size: 16px;\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n.ribbon {\n  position: fixed;\n  top: 0;\n  right: 0;\n}\n.ribbon img {\n  position: relative;\n  z-index: 999;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 202 */
+/* 203 */
 /***/ function(module, exports) {
 
 	/*
@@ -30386,13 +30769,13 @@
 
 
 /***/ },
-/* 203 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
 
 /***/ },
-/* 204 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

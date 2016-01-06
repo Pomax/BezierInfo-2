@@ -5,7 +5,7 @@ var SectionHeader = require("../../SectionHeader.jsx");
 var Extremities = React.createClass({
   getDefaultProps: function() {
     return {
-      title: "Component functions"
+      title: "Finding extreminities"
     };
   },
 
