@@ -219,7 +219,7 @@ var Graphic = React.createClass({
 
   setCurve: function(c) {
     var pts = [];
-    c = Array.from(arguments);
+    c = Array.prototype.slice.call(arguments);
     c.forEach(nc => {
       pts = pts.concat(nc.points);
     });
