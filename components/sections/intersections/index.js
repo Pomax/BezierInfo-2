@@ -21,7 +21,12 @@ var Intersections = React.createClass({
     api.reset();
 
     var lli = curves[0].getUtils().lli4;
-    var p = lli(curves[0].points[0], curves[0].points[1], curves[1].points[0], curves[1].points[1]);
+    var p = lli(
+      curves[0].points[0],
+      curves[0].points[1],
+      curves[1].points[0],
+      curves[1].points[1]
+    );
 
     var mark = 0;
     curves.forEach(curve => {
@@ -124,13 +129,12 @@ var Intersections = React.createClass({
     return false
   return point(nx/d, ny/d)
 
-lli4 = function(p1,p2,p3,p4):
+lli4 = function(p1, p2, p3, p4):
   var x1 = p1.x, y1 = p1.y,
       x2 = p2.x, y2 = p2.y,
       x3 = p3.x, y3 = p3.y,
       x4 = p4.x, y4 = p4.y;
   return lli8(x1,y1,x2,y2,x3,y3,x4,y4)
-
 
 lli = function(line1, line2):
   return lli4(line1.p1, line1.p2, line2.p1, line2.p2)</pre>
@@ -159,113 +163,3 @@ lli = function(line1, line2):
 });
 
 module.exports = Intersections;
-
-/*
-
-        Point p1, p2, p3, p4;
-
-        void setupCurve() {
-          p1 = new Point(50,50);
-          p2 = new Point(150,110);
-          curves.add(new BezierCurve(new Point[]{p1,p2}, false));
-          p3 = new Point(50,250);
-          p4 = new Point(170,170);
-          curves.add(new BezierCurve(new Point[]{p3,p4}, false));
-        }
-
-        void drawCurve(BezierCurve curve) {
-          // draw the lines through p1/p2 and p3/p4
-          stroke(0,50);
-          float dx = 10*(p2.x-p1.x), dy = 10*(p2.y-p1.y);
-          line(p1.x-dx,p1.y-dy,p2.x+dx,p2.y+dy);
-          dx = 10*(p4.x-p3.x); dy = 10*(p4.y-p3.y);
-          line(p3.x-dx,p3.y-dy,p4.x+dx,p4.y+dy);
-
-          // show the line segments
-          curves.get(0).draw();
-          curves.get(1).draw();
-
-          // show the intersection point
-          Point ntr = comp.getProjection(p1,p2,p3,p4);
-
-          // red if virtual intersection, green if real
-          boolean oncurves = true;
-          if(min(p1.x,p2.x) > ntr.x || ntr.x > max(p1.x,p2.x) ||
-             min(p1.y,p2.y) > ntr.y || ntr.y > max(p1.y,p2.y)) oncurves = false;
-          if(oncurves) {
-            if(min(p3.x,p4.x) > ntr.x || ntr.x > max(p3.x,p4.x) ||
-              min(p3.y,p4.y) > ntr.y || ntr.y > max(p3.y,p4.y)) oncurves = false; }
-
-          stroke(oncurves?0:255, oncurves?255:0, 0);
-          ellipse(ntr.x,ntr.y,5,5);
-        }</textarea>
-
-
-
-        Point p1, p2;
-
-        void setupCurve() {
-          p1 = new Point(40,60);
-          p2 = new Point(260,200);
-          curves.add(new BezierCurve(new Point[]{
-            p1, p2
-          }, false));
-          curves.add(new BezierCurve(new Point[]{
-            new Point(25,150),
-            new Point(180,30),
-            new Point(230,250)
-          }));
-        }
-
-        void drawCurve(BezierCurve curve) {
-          curves.get(0).draw();
-          curves.get(1).draw();
-
-          BezierCurve aligned = curves.get(1).align(p1,p2);
-          float[] roots = comp.findAllRoots(0, aligned.y_values);
-          fill(150,0,150);
-          float x, y;
-          for(float t: roots) {
-            if(t<0 || t>1) continue;
-            x = curves.get(1).getXValue(t);
-            y = curves.get(1).getYValue(t);
-            ellipse(x,y,5,5);
-            text(""+round(1000*t)/1000,x+10,y);
-          }
-        }</textarea>
-
-        <textarea class="sketch-code" data-sketch-preset="simple" data-sketch-title="Cubic curve/line intersections">
-        Point p1, p2;
-
-        void setupCurve() {
-          p1 = new Point(100,20);
-          p2 = new Point(195,255);
-          curves.add(new BezierCurve(new Point[]{
-            p1, p2
-          }, false));
-          curves.add(new BezierCurve(new Point[]{
-            new Point(150,125),
-            new Point(40,30),
-            new Point(270,115),
-            new Point(145,200)
-          }));
-        }
-
-        void drawCurve(BezierCurve curve) {
-          curves.get(0).draw();
-          curves.get(1).draw();
-
-          BezierCurve aligned = curves.get(1).align(p1,p2);
-          float[] roots = comp.findAllRoots(0, aligned.y_values);
-          fill(150,0,150);
-          float x, y;
-          for(float t: roots) {
-            if(t<0 || t>1) continue;
-            x = curves.get(1).getXValue(t);
-            y = curves.get(1).getYValue(t);
-            ellipse(x,y,5,5);
-            text(""+round(1000*t)/1000,x+10,y);
-          }
-        }</textarea>
-
- */
