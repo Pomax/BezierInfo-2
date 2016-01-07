@@ -13,7 +13,6 @@ var Tracing = React.createClass({
     var curve = api.getDefaultCubic();
     api.setCurve(curve);
     api.steps = 8;
-    this.map = curve.getUtils().map;
   },
 
   generate: function(api, curve, offset, pad, fwh) {
@@ -25,8 +24,8 @@ var Tracing = React.createClass({
       t = v/100;
       d = curve.split(t).left.length();
       pts.push({
-        x: this.map(t, 0,1,   0,fwh),
-        y: this.map(d, 0,len, 0,fwh),
+        x: api.utils.map(t, 0,1,   0,fwh),
+        y: api.utils.map(d, 0,len, 0,fwh),
         d: d,
         t: t
       });
@@ -108,8 +107,8 @@ var Tracing = React.createClass({
     }
 
     ts.forEach(p => {
-      var pt = { x: this.map(p.t,0,1,0,fwh), y: 0 };
-      var pd = { x: 0, y: this.map(p.d,0,len,0,fwh) };
+      var pt = { x: api.utils.map(p.t,0,1,0,fwh), y: 0 };
+      var pd = { x: 0, y: api.utils.map(p.d,0,len,0,fwh) };
       api.setColor("black");
       api.drawCircle(pt, 3, offset);
       api.drawCircle(pd, 3, offset);

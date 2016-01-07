@@ -63,7 +63,7 @@
 	var React = __webpack_require__(9);
 	var ReactDOM = __webpack_require__(166);
 	var Article = __webpack_require__(167);
-	var style = __webpack_require__(203);
+	var style = __webpack_require__(205);
 
 	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"), function () {
 	  // trigger a #hash navigation
@@ -19817,12 +19817,13 @@
 
 	  intersections: __webpack_require__(200),
 	  curveintersection: __webpack_require__(201),
-	  moulding: __webpack_require__(202)
+
+	  abc: __webpack_require__(202),
+	  moulding: __webpack_require__(203),
+	  pointcurves: __webpack_require__(204)
 	};
 
 	/*
-	  pointcurves: require("./pointcurves"),
-
 	  catmullconv: require("./catmullconv"),
 	  catmullmoulding: require("./catmullmoulding"),
 
@@ -19840,8 +19841,7 @@
 	*/
 
 	/*
-	  Curve moulding (using the projection ratio)
-	  Creating a curve from three points
+
 	  Bézier curves and Catmull-Rom curves
 	  Creating a Catmull-Rom curve from three points
 	  Forming poly-Bézier curves
@@ -20063,13 +20063,16 @@
 	  e.offsetY = e.clientY - rect.top;
 	};
 
+	var Bezier = __webpack_require__(175);
+
 	var Graphic = React.createClass({
 	  displayName: "Graphic",
 
 	  defaultWidth: 275,
 	  defaultHeight: 275,
 
-	  Bezier: __webpack_require__(175),
+	  Bezier: Bezier,
+	  utils: Bezier.getUtils(),
 	  curve: false,
 	  mx: 0,
 	  my: 0,
@@ -20218,7 +20221,7 @@
 	              break;
 	            }
 	          }
-	        } else {
+	        } else if (this.curve && this.curve.update) {
 	          this.curve.update();
 	        }
 	      }
@@ -20239,7 +20242,6 @@
 
 	  mouseUp: function mouseUp(evt) {
 	    this.down = false;
-	    this.dragging = false;
 	    if (!this.moving) {
 	      if (this.props.onMouseUp) {
 	        this.props.onMouseUp(evt, this);
@@ -20607,13 +20609,13 @@
 	    this.ctx.stroke();
 	  },
 
-	  text: function text(_text, offset) {
+	  text: function text(_text, coord, offset) {
 	    offset = offset || { x: 0, y: 0 };
 	    if (this.offset) {
 	      offset.x += this.offset.x;
 	      offset.y += this.offset.y;
 	    }
-	    this.ctx.fillText(_text, offset.x, offset.y);
+	    this.ctx.fillText(_text, coord.x + offset.x, coord.y + offset.y);
 	  },
 
 	  image: function image(_image, offset) {
@@ -30159,7 +30161,6 @@
 	    var curve = api.getDefaultCubic();
 	    api.setCurve(curve);
 	    api.steps = 8;
-	    this.map = curve.getUtils().map;
 	  },
 
 	  generate: function generate(api, curve, offset, pad, fwh) {
@@ -30171,8 +30172,8 @@
 	      t = v / 100;
 	      d = curve.split(t).left.length();
 	      pts.push({
-	        x: this.map(t, 0, 1, 0, fwh),
-	        y: this.map(d, 0, len, 0, fwh),
+	        x: api.utils.map(t, 0, 1, 0, fwh),
+	        y: api.utils.map(d, 0, len, 0, fwh),
 	        d: d,
 	        t: t
 	      });
@@ -30225,8 +30226,6 @@
 	  },
 
 	  drawColoured: function drawColoured(api, curve) {
-	    var _this = this;
-
 	    api.setPanelCount(3);
 	    var w = api.getPanelWidth();
 	    var h = api.getPanelHeight();
@@ -30259,8 +30258,8 @@
 	    }
 
 	    ts.forEach(function (p) {
-	      var pt = { x: _this.map(p.t, 0, 1, 0, fwh), y: 0 };
-	      var pd = { x: 0, y: _this.map(p.d, 0, len, 0, fwh) };
+	      var pt = { x: api.utils.map(p.t, 0, 1, 0, fwh), y: 0 };
+	      var pd = { x: 0, y: api.utils.map(p.d, 0, len, 0, fwh) };
 	      api.setColor("black");
 	      api.drawCircle(pt, 3, offset);
 	      api.drawCircle(pd, 3, offset);
@@ -30438,7 +30437,7 @@
 	  drawLineIntersection: function drawLineIntersection(api, curves) {
 	    api.reset();
 
-	    var lli = curves[0].getUtils().lli4;
+	    var lli = api.utils.lli4;
 	    var p = lli(curves[0].points[0], curves[0].points[1], curves[1].points[0], curves[1].points[1]);
 
 	    var mark = 0;
@@ -30484,7 +30483,7 @@
 	      api.drawCurve(curve);
 	    });
 
-	    var utils = curves[0].getUtils();
+	    var utils = api.utils;
 	    var line = { p1: curves[1].points[0], p2: curves[1].points[1] };
 	    var acpts = utils.align(curves[0].points, line);
 	    var nB = new api.Bezier(acpts);
@@ -31020,13 +31019,19 @@
 
 	var abs = Math.abs;
 
-	var Moulding = React.createClass({
-	  displayName: "Moulding",
+	var ABC = React.createClass({
+	  displayName: "ABC",
 
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      title: "Moulding a curve"
+	      title: "The 'ABC' curve identity"
 	    };
+	  },
+
+	  onClick: function onClick(evt, api) {
+	    api.t = api.curve.on({ x: evt.offsetX, y: evt.offsetY }, 7);
+	    if (api.t < 0.05 || api.t > 0.95) api.t = false;
+	    api.redraw();
 	  },
 
 	  setupQuadratic: function setupQuadratic(api) {
@@ -31054,7 +31059,7 @@
 	      api.drawCircle(api.curve.get(api.t), 3);
 	      api.setColor("lightgrey");
 	      var hull = api.drawHull(curve, api.t);
-	      var utils = api.curve.getUtils();
+	      var utils = api.utils;
 
 	      var A, B, C;
 
@@ -31088,159 +31093,7 @@
 	      var d2 = utils.dist(B, C);
 	      var ratio = d1 / d2;
 
-	      api.text("d1 (A-B): " + utils.round(d1, 2) + ", d2 (B-C): " + utils.round(d2, 2) + ", ratio (d1/d2): " + utils.round(ratio, 4), { x: 10, y: h - 2 });
-	    }
-	  },
-
-	  onClickWithRedraw: function onClickWithRedraw(evt, api) {
-	    this.onClick(evt, api);
-	    api.redraw();
-	  },
-
-	  onClick: function onClick(evt, api) {
-	    api.t = api.curve.on({ x: evt.offsetX, y: evt.offsetY }, 7);
-	    if (api.t < 0.05 || api.t > 0.95) api.t = false;
-	  },
-
-	  markQB: function markQB(evt, api) {
-	    this.onClick(evt, api);
-	    if (api.t) {
-	      var t = api.t,
-	          t2 = 2 * t,
-	          top = t2 * t - t2,
-	          bottom = top + 1,
-	          ratio = abs(top / bottom),
-	          curve = api.curve,
-	          A = api.A = curve.points[1],
-	          B = api.B = curve.get(t);
-	      api.C = curve.getUtils().lli4(A, B, curve.points[0], curve.points[2]);
-	      api.ratio = ratio;
-	    }
-	  },
-
-	  markCB: function markCB(evt, api) {
-	    this.onClick(evt, api);
-	    if (api.t) {
-	      var t = api.t,
-	          mt = 1 - t,
-	          t3 = t * t * t,
-	          mt3 = mt * mt * mt,
-	          bottom = t3 + mt3,
-	          top = bottom - 1,
-	          ratio = abs(top / bottom),
-	          curve = api.curve,
-	          hull = curve.hull(t),
-	          A = api.A = hull[5],
-	          B = api.B = curve.get(t),
-	          db = api.db = curve.derivative(t);
-	      api.C = curve.getUtils().lli4(A, B, curve.points[0], curve.points[3]);
-	      api.ratio = ratio;
-	    }
-	  },
-
-	  drag: function drag(evt, api) {
-	    if (!api.t) return;
-
-	    var newB = api.newB = {
-	      x: evt.offsetX,
-	      y: evt.offsetY
-	    };
-	    // find the current ABC and ratio values:
-	    var A = api.A;
-	    var B = api.B;
-	    var C = api.C;
-
-	    // now that we know A, B, C and the AB:BC ratio, we can compute the new A' based on the desired B'
-	    var newA = api.newA = {
-	      x: newB.x - (C.x - newB.x) / api.ratio,
-	      y: newB.y - (C.y - newB.y) / api.ratio
-	    };
-	  },
-
-	  dragQB: function dragQB(evt, api) {
-	    if (!api.t) return;
-	    this.drag(evt, api);
-
-	    var curve = api.curve;
-	    api.update = [api.newA];
-	  },
-
-	  dragCB: function dragCB(evt, api) {
-	    if (!api.t) return;
-	    this.drag(evt, api);
-
-	    // preserve struts for B when repositioning
-	    var curve = api.curve,
-	        hull = curve.hull(api.t),
-	        B = api.B,
-	        Bl = hull[7],
-	        Br = hull[8],
-	        dbl = { x: Bl.x - B.x, y: Bl.y - B.y },
-	        dbr = { x: Br.x - B.x, y: Br.y - B.y },
-	        pts = curve.points,
-
-	    // find new point on s--c1
-	    p1 = { x: api.newB.x + dbl.x, y: api.newB.y + dbl.y },
-	        sc1 = {
-	      x: api.newA.x - (api.newA.x - p1.x) / (1 - api.t),
-	      y: api.newA.y - (api.newA.y - p1.y) / (1 - api.t)
-	    },
-
-	    // find new point on c2--e
-	    p2 = { x: api.newB.x + dbr.x, y: api.newB.y + dbr.y },
-	        sc2 = {
-	      x: api.newA.x + (p2.x - api.newA.x) / api.t,
-	      y: api.newA.y + (p2.y - api.newA.y) / api.t
-	    },
-
-	    // construct new c1` based on the fact that s--sc1 is s--c1 * t
-	    nc1 = {
-	      x: pts[0].x + (sc1.x - pts[0].x) / api.t,
-	      y: pts[0].y + (sc1.y - pts[0].y) / api.t
-	    },
-
-	    // construct new c2` based on the fact that e--sc2 is e--c2 * (1-t)
-	    nc2 = {
-	      x: pts[3].x - (pts[3].x - sc2.x) / (1 - api.t),
-	      y: pts[3].y - (pts[3].y - sc2.y) / (1 - api.t)
-	    };
-
-	    api.p1 = p1;
-	    api.p2 = p2;
-	    api.sc1 = sc1;
-	    api.sc2 = sc2;
-	    api.nc1 = nc1;
-	    api.nc2 = nc2;
-
-	    api.update = [nc1, nc2];
-	  },
-
-	  commit: function commit(evt, api) {
-	    if (!api.t) return;
-	    api.setCurve(api.newcurve);
-	    api.t = false;
-	    api.redraw();
-	  },
-
-	  drawMould: function drawMould(api, curve) {
-	    api.reset();
-	    api.drawSkeleton(curve);
-	    api.drawCurve(curve);
-
-	    if (api.t) {
-	      api.npts = [curve.points[0]].concat(api.update).concat([curve.points.slice(-1)[0]]);
-	      api.newcurve = new api.Bezier(api.npts);
-	      api.drawCurve(api.newcurve);
-
-	      api.setColor("lightgrey");
-	      api.drawHull(api.newcurve, api.t);
-	      api.drawLine(api.npts[0], api.npts.slice(-1)[0]);
-	      api.drawLine(api.newA, api.C);
-
-	      api.setColor("grey");
-	      api.drawCircle(api.newB, 3);
-	      api.drawCircle(api.newA, 3);
-	      api.drawCircle(api.C, 3);
+	      api.text("d1 (A-B): " + utils.round(d1, 2) + ", d2 (B-C): " + utils.round(d2, 2) + ", ratio (d1/d2): " + utils.round(ratio, 4), { x: 10, y: h - 7 });
 	    }
 	  },
 
@@ -31303,9 +31156,9 @@
 	        "div",
 	        { className: "figure" },
 	        React.createElement(Graphic, { inline: true, preset: "abc", title: "Projections in a quadratic Bézier curve",
-	          setup: this.setupQuadratic, draw: this.draw, onClick: this.onClickWithRedraw }),
+	          setup: this.setupQuadratic, draw: this.draw, onClick: this.onClick }),
 	        React.createElement(Graphic, { inline: true, preset: "abc", title: "Projections in a cubic Bézier curve",
-	          setup: this.setupCubic, draw: this.draw, onClick: this.onClickWithRedraw })
+	          setup: this.setupCubic, draw: this.draw, onClick: this.onClick })
 	      ),
 	      React.createElement(
 	        "p",
@@ -31521,33 +31374,315 @@
 	          ),
 	          " onto the line between start and end may actually lie on that line before the start, or after the end, and there are no simple ratios that we can exploit."
 	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = ABC;
+
+/***/ },
+/* 203 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(9);
+	var Graphic = __webpack_require__(172);
+	var SectionHeader = __webpack_require__(177);
+
+	var abs = Math.abs;
+
+	var Moulding = React.createClass({
+	  displayName: "Moulding",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Manipulating a curve"
+	    };
+	  },
+
+	  setupQuadratic: function setupQuadratic(api) {
+	    api.setPanelCount(3);
+	    var curve = api.getDefaultQuadratic();
+	    curve.points[2].x -= 30;
+	    api.setCurve(curve);
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    api.setPanelCount(3);
+	    var curve = new api.Bezier([100, 230, 30, 160, 200, 50, 210, 160]);
+	    curve.points[2].y -= 20;
+	    api.setCurve(curve);
+	    api.lut = curve.getLUT(100);
+	  },
+
+	  saveCurve: function saveCurve(evt, api) {
+	    if (!api.t) return;
+	    api.setCurve(api.newcurve);
+	    api.t = false;
+	    api.redraw();
+	  },
+
+	  findTValue: function findTValue(evt, api) {
+	    var t = api.curve.on({ x: evt.offsetX, y: evt.offsetY }, 7);
+	    if (t < 0.05 || t > 0.95) return false;
+	    return t;
+	  },
+
+	  markQB: function markQB(evt, api) {
+	    api.t = this.findTValue(evt, api);
+	    if (api.t) {
+	      var t = api.t,
+	          t2 = 2 * t,
+	          top = t2 * t - t2,
+	          bottom = top + 1,
+	          ratio = abs(top / bottom),
+	          curve = api.curve,
+	          A = api.A = curve.points[1],
+	          B = api.B = curve.get(t);
+	      api.C = api.utils.lli4(A, B, curve.points[0], curve.points[2]);
+	      api.ratio = ratio;
+	    }
+	  },
+
+	  markCB: function markCB(evt, api) {
+	    api.t = this.findTValue(evt, api);
+	    if (api.t) {
+	      var t = api.t,
+	          mt = 1 - t,
+	          t3 = t * t * t,
+	          mt3 = mt * mt * mt,
+	          bottom = t3 + mt3,
+	          top = bottom - 1,
+	          ratio = abs(top / bottom),
+	          curve = api.curve,
+	          hull = curve.hull(t),
+	          A = api.A = hull[5],
+	          B = api.B = curve.get(t),
+	          db = api.db = curve.derivative(t);
+	      api.C = api.utils.lli4(A, B, curve.points[0], curve.points[3]);
+	      api.ratio = ratio;
+	    }
+	  },
+
+	  drag: function drag(evt, api) {
+	    if (!api.t) return;
+
+	    var newB = api.newB = {
+	      x: evt.offsetX,
+	      y: evt.offsetY
+	    };
+	    // find the current ABC and ratio values:
+	    var A = api.A;
+	    var B = api.B;
+	    var C = api.C;
+
+	    // now that we know A, B, C and the AB:BC ratio, we can compute the new A' based on the desired B'
+	    var newA = api.newA = {
+	      x: newB.x - (C.x - newB.x) / api.ratio,
+	      y: newB.y - (C.y - newB.y) / api.ratio
+	    };
+	  },
+
+	  dragQB: function dragQB(evt, api) {
+	    if (!api.t) return;
+	    this.drag(evt, api);
+
+	    var curve = api.curve;
+	    api.update = [api.newA];
+	  },
+
+	  dragCB: function dragCB(evt, api) {
+	    if (!api.t) return;
+	    this.drag(evt, api);
+
+	    // preserve struts for B when repositioning
+	    var curve = api.curve,
+	        hull = curve.hull(api.t),
+	        B = api.B,
+	        Bl = hull[7],
+	        Br = hull[8],
+	        dbl = { x: Bl.x - B.x, y: Bl.y - B.y },
+	        dbr = { x: Br.x - B.x, y: Br.y - B.y },
+	        pts = curve.points,
+
+	    // find new point on s--c1
+	    p1 = { x: api.newB.x + dbl.x, y: api.newB.y + dbl.y },
+	        sc1 = {
+	      x: api.newA.x - (api.newA.x - p1.x) / (1 - api.t),
+	      y: api.newA.y - (api.newA.y - p1.y) / (1 - api.t)
+	    },
+
+	    // find new point on c2--e
+	    p2 = { x: api.newB.x + dbr.x, y: api.newB.y + dbr.y },
+	        sc2 = {
+	      x: api.newA.x + (p2.x - api.newA.x) / api.t,
+	      y: api.newA.y + (p2.y - api.newA.y) / api.t
+	    },
+
+	    // construct new c1` based on the fact that s--sc1 is s--c1 * t
+	    nc1 = {
+	      x: pts[0].x + (sc1.x - pts[0].x) / api.t,
+	      y: pts[0].y + (sc1.y - pts[0].y) / api.t
+	    },
+
+	    // construct new c2` based on the fact that e--sc2 is e--c2 * (1-t)
+	    nc2 = {
+	      x: pts[3].x - (pts[3].x - sc2.x) / (1 - api.t),
+	      y: pts[3].y - (pts[3].y - sc2.y) / (1 - api.t)
+	    };
+
+	    api.p1 = p1;
+	    api.p2 = p2;
+	    api.sc1 = sc1;
+	    api.sc2 = sc2;
+	    api.nc1 = nc1;
+	    api.nc2 = nc2;
+
+	    api.update = [nc1, nc2];
+	  },
+
+	  drawMould: function drawMould(api, curve) {
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+
+	    var w = api.getPanelWidth(),
+	        h = api.getPanelHeight(),
+	        offset = { x: w, y: 0 },
+	        round = api.utils.round;
+
+	    api.setColor("black");
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: h }, offset);
+	    api.drawLine({ x: w, y: 0 }, { x: w, y: h }, offset);
+
+	    if (api.t) {
+	      api.drawCircle(curve.get(api.t), 3);
+	      api.npts = [curve.points[0]].concat(api.update).concat([curve.points.slice(-1)[0]]);
+	      api.newcurve = new api.Bezier(api.npts);
+
+	      api.setColor("lightgrey");
+	      api.drawCurve(api.newcurve);
+	      var newhull = api.drawHull(api.newcurve, api.t, offset);
+	      api.drawLine(api.npts[0], api.npts.slice(-1)[0], offset);
+	      api.drawLine(api.newA, api.newB, offset);
+
+	      api.setColor("grey");
+	      api.drawCircle(api.newA, 3, offset);
+	      api.setColor("blue");
+	      api.drawCircle(api.B, 3, offset);
+	      api.drawCircle(api.C, 3, offset);
+	      api.drawCircle(api.newB, 3, offset);
+	      api.drawLine(api.B, api.C, offset);
+	      api.drawLine(api.newB, api.C, offset);
+
+	      api.setFill("black");
+	      api.text("A'", api.newA, { x: offset.x + 7, y: offset.y + 1 });
+	      api.text("start", curve.get(0), { x: offset.x + 7, y: offset.y + 1 });
+	      api.text("end", curve.get(1), { x: offset.x + 7, y: offset.y + 1 });
+	      api.setFill("blue");
+	      api.text("B'", api.newB, { x: offset.x + 7, y: offset.y + 1 });
+	      api.text("B, at t = " + round(api.t, 2), api.B, { x: offset.x + 7, y: offset.y + 1 });
+	      api.text("C", api.C, { x: offset.x + 7, y: offset.y + 1 });
+
+	      if (curve.order === 3) {
+	        var hull = curve.hull(api.t);
+	        api.drawLine(hull[7], hull[8], offset);
+	        api.drawLine(newhull[7], newhull[8], offset);
+	        api.drawCircle(newhull[7], 3, offset);
+	        api.drawCircle(newhull[8], 3, offset);
+	        api.text("e1", newhull[7], { x: offset.x + 7, y: offset.y + 1 });
+	        api.text("e2", newhull[8], { x: offset.x + 7, y: offset.y + 1 });
+	      }
+
+	      offset.x += w;
+
+	      api.setColor("lightgrey");
+	      api.drawSkeleton(api.newcurve, offset);
+	      api.setColor("black");
+	      api.drawCurve(api.newcurve, offset);
+	    } else {
+	      offset.x += w;
+	      api.drawCurve(curve, offset);
+	    }
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Armed with knowledge of the \"ABC\" relation, we can now update a curve interactively, by letting people click anywhere on the curve, find the ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "t"
+	        ),
+	        "-value matching that coordinate, and then letting them drag that point around. With every drag update we'll have a new point \"B\", which we can combine with the fixed point \"C\" to find our new point A. Once we have those, we can reconstruct the de Casteljau skeleton and thus construct a new curve with the same start/end points as the original curve, passing through the user-selected point B, with correct new control points."
+	      ),
+	      React.createElement(Graphic, { preset: "moulding", title: "Moulding a quadratic Bézier curve",
+	        setup: this.setupQuadratic, draw: this.drawMould,
+	        onClick: this.placeMouldPoint, onMouseDown: this.markQB, onMouseDrag: this.dragQB, onMouseUp: this.saveCurve }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Click-dragging a point on the curve shows what we're using to compute the new coordinates: while dragging you will see the original points B and its corresponding ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        "-value, the original point C for that ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        "-value, as well as the new point B' based on the mouse cursor. Since we know the ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        "-value for this configuration, we can compute the ABC ratio for this configuration, and we know that our new point A' should like at a distance:"
 	      ),
 	      React.createElement(
 	        "p",
 	        null,
-	        "So, with this knowledge, let's change a curve's shape by click-dragging some part of it. The follow graphics let us click-drag somewhere on the curve, repositioning point ",
-	        React.createElement(
-	          "i",
-	          null,
-	          "B"
-	        ),
-	        " according to a simple rule: we keep the original point ",
-	        React.createElement(
-	          "i",
-	          null,
-	          "B"
-	        ),
-	        "'s tangent:"
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/462bb8410d6ca4437b8f47450ce72683c61a673e.svg", style: { width: "15.975rem", height: "2.3998500000000003rem" } })
 	      ),
 	      React.createElement(
-	        "div",
-	        { className: "figure" },
-	        React.createElement(Graphic, { inline: true, preset: "moulding", title: "Moulding a quadratic Bézier curve",
-	          setup: this.setupQuadratic, draw: this.drawMould,
-	          onClick: this.placeMouldPoint, onMouseDown: this.markQB, onMouseDrag: this.dragQB, onMouseUp: this.commit }),
-	        React.createElement(Graphic, { inline: true, preset: "moulding", title: "Moulding a cubic Bézier curve",
-	          setup: this.setupCubic, draw: this.drawMould,
-	          onClick: this.placeMouldPoint, onMouseDown: this.markCB, onMouseDrag: this.dragCB, onMouseUp: this.commit })
+	        "p",
+	        null,
+	        "For quadratic curves, this means we're done, since the new point A' is equivalent to the new quadratic control point. For cubic curves, we need to do a little more work:"
+	      ),
+	      React.createElement(Graphic, { preset: "moulding", title: "Moulding a cubic Bézier curve",
+	        setup: this.setupCubic, draw: this.drawMould,
+	        onClick: this.placeMouldPoint, onMouseDown: this.markCB, onMouseDrag: this.dragCB, onMouseUp: this.saveCurve }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "To help understand what's going on, the cubic graphic shows the full de Casteljau construction \"hull\" when repositioning point B. We compute A` in exactly the same way as before, but we also record the final strut line that forms B in the original curve. Given A', B', and the endpoints e1 and e2 of the strut line relative to B', we can now compute where the new control points should be. Remember that B' lies on line e1--e2 at a distance ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        ", because that's how Bézier curves work. In the same manner, we know the distance A--e1 is only line-interval [0,t] of the full segment, and A--e2 is only line-interval [t,1], so constructing the new control points is fairly easy:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/f01b855b4fca9fd7a54779aafc8a3b780eba5848.svg", style: { width: "9.59985rem", height: "5.09985rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "And that's cubic curve manipulation."
 	      )
 	    );
 	  }
@@ -31556,16 +31691,249 @@
 	module.exports = Moulding;
 
 /***/ },
-/* 203 */
+/* 204 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(9);
+	var Graphic = __webpack_require__(172);
+	var SectionHeader = __webpack_require__(177);
+
+	var abs = Math.abs;
+
+	var PointCurves = React.createClass({
+	  displayName: "PointCurves",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Creating a curve from three points"
+	    };
+	  },
+
+	  setup: function setup(api) {
+	    api.lpts = [];
+	  },
+
+	  onClick: function onClick(evt, api) {
+	    if (api.lpts.length == 3) {
+	      api.lpts = [];
+	    }
+	    api.lpts.push({
+	      x: evt.offsetX,
+	      y: evt.offsetY
+	    });
+	    api.redraw();
+	  },
+
+	  getQRatio: function getQRatio(t) {
+	    var t2 = 2 * t,
+	        top = t2 * t - t2,
+	        bottom = top + 1;
+	    return abs(top / bottom);
+	  },
+
+	  getCRatio: function getCRatio(t) {
+	    var mt = 1 - t,
+	        t3 = t * t * t,
+	        mt3 = mt * mt * mt,
+	        bottom = t3 + mt3,
+	        top = bottom - 1;
+	    return abs(top / bottom);
+	  },
+
+	  drawQuadratic: function drawQuadratic(api, curve) {
+	    var w = api.getPanelWidth(),
+	        h = api.getPanelHeight(),
+	        offset = { x: w, y: 0 },
+	        labels = ["start", "t=0.5", "end"];
+
+	    api.reset();
+
+	    api.setFill("black");
+	    api.lpts.forEach(function (p, i) {
+	      api.drawCircle(p, 3);
+	      api.text(labels[i], p, { x: 5, y: 2 });
+	    });
+
+	    api.setColor("black");
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: h }, offset);
+	    api.drawLine({ x: w, y: 0 }, { x: w, y: h }, offset);
+
+	    if (api.lpts.length === 3) {
+	      var S = api.lpts[0],
+	          E = api.lpts[2],
+	          B = api.lpts[1],
+	          C = {
+	        x: (S.x + E.x) / 2,
+	        y: (S.y + E.y) / 2
+	      };
+	      api.setColor("blue");
+	      api.drawLine(S, E);
+	      api.drawLine(B, C);
+	      api.drawCircle(C, 3);
+	      var ratio = this.getQRatio(0.5),
+	          A = {
+	        x: B.x + (B.x - C.x) / ratio,
+	        y: B.y + (B.y - C.y) / ratio
+	      },
+	          curve = new api.Bezier([S, A, E]);
+	      api.setColor("lightgrey");
+	      api.drawLine(A, B);
+	      api.drawLine(A, S);
+	      api.drawLine(A, E);
+	      api.setColor("black");
+	      api.drawCircle(A, 3);
+	      api.drawCurve(curve);
+	    }
+	  },
+
+	  drawCubic: function drawCubic(api, curve) {
+	    var w = api.getPanelWidth(),
+	        h = api.getPanelHeight(),
+	        offset = { x: w, y: 0 },
+	        labels = ["start", "t=0.5", "end"];
+
+	    api.reset();
+
+	    api.setFill("black");
+	    api.lpts.forEach(function (p, i) {
+	      api.drawCircle(p, 3);
+	      api.text(labels[i], p, { x: 5, y: 2 });
+	    });
+
+	    api.setColor("black");
+	    api.drawLine({ x: 0, y: 0 }, { x: 0, y: h }, offset);
+	    api.drawLine({ x: w, y: 0 }, { x: w, y: h }, offset);
+
+	    if (api.lpts.length === 3) {
+	      var S = api.lpts[0],
+	          E = api.lpts[2],
+	          B = api.lpts[1],
+	          C = {
+	        x: (S.x + E.x) / 2,
+	        y: (S.y + E.y) / 2
+	      };
+	      api.setColor("blue");
+	      api.drawLine(S, E);
+	      api.drawLine(B, C);
+	      api.drawCircle(C, 3);
+	      var ratio = this.getCRatio(0.5),
+	          A = {
+	        x: B.x + (B.x - C.x) / ratio,
+	        y: B.y + (B.y - C.y) / ratio
+	      },
+	          e1 = {
+	        x: B.x - (E.x - S.x) / 4,
+	        y: B.y - (E.y - S.y) / 4
+	      },
+	          e2 = {
+	        x: B.x + (E.x - S.x) / 4,
+	        y: B.y + (E.y - S.y) / 4
+	      },
+	          v1 = {
+	        x: A.x + (e1.x - A.x) * 2,
+	        y: A.y + (e1.y - A.y) * 2
+	      },
+	          v2 = {
+	        x: A.x + (e2.x - A.x) * 2,
+	        y: A.y + (e2.y - A.y) * 2
+	      },
+	          nc1 = {
+	        x: S.x + (v1.x - S.x) * 2,
+	        y: S.y + (v1.y - S.y) * 2
+	      },
+	          nc2 = {
+	        x: E.x + (v2.x - E.x) * 2,
+	        y: E.y + (v2.y - E.y) * 2
+	      },
+	          curve = new api.Bezier([S, nc1, nc2, E]);
+	      api.drawLine(e1, e2);
+	      api.setColor("lightgrey");
+	      api.drawLine(A, C);
+	      api.drawLine(A, v1);
+	      api.drawLine(A, v2);
+	      api.drawLine(S, nc1);
+	      api.drawLine(E, nc2);
+	      api.drawLine(nc1, nc2);
+	      api.setColor("black");
+	      api.drawCircle(A, 3);
+	      api.drawCircle(nc1, 3);
+	      api.drawCircle(nc2, 3);
+	      api.drawCurve(curve);
+	    }
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Given the preceding section on curve manipulation, we can also generate quadratic and cubic curves from any three points. However, unlike circle-fitting, which requires only three points, Bézier curve fitting requires three points, as well as a ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " value (so we can figure out where point 'C' needs to be) and in cade of quadratic curves, a tangent that lets us place those points 'e1' and 'e2' around our point 'B'."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "There's some freedom here, so for illustrative purposes we're going to pretend ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " is simply 0.5, which puts C in the middle of the start--end line segment, and then we'll also set the cubic curve's tangent to half the length of start--end, centered on B."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Using these \"default\" values for curve creation, we can already get fairly respectable curves; Click three times on each of the following sketches to set up the points that should be used to form a quadratic and cubic curve, respectively:"
+	      ),
+	      React.createElement(Graphic, { preset: "generate", title: "Fitting a quadratic Bézier curve", setup: this.setup, draw: this.drawQuadratic,
+	        onClick: this.onClick }),
+	      React.createElement(Graphic, { preset: "generate", title: "Fitting a cubic Bézier curve", setup: this.setup, draw: this.drawCubic,
+	        onClick: this.onClick }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "In each graphic, the blue parts are the values that we \"just have\" simply by setting up our three points, and deciding on which ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        "-value (and tangent, for cubic curves) we're working with. There are many ways to determine a combination of ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " and tangent values that lead to a more \"aesthetic\" curve, but this will be left as an exercise to the reader, since there are many, and aesthetics are often quite personal."
+	      )
+	    );
+	  }
+	});
+
+	module.exports = PointCurves;
+
+/***/ },
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(204);
+	var content = __webpack_require__(206);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(207)(content, {});
+	var update = __webpack_require__(209)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -31582,21 +31950,21 @@
 	}
 
 /***/ },
-/* 204 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(205)();
+	exports = module.exports = __webpack_require__(207)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(206) + ");\n  font-size: 16px;\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  height: auto;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n.ribbon {\n  position: fixed;\n  top: 0;\n  right: 0;\n}\n.ribbon img {\n  position: relative;\n  z-index: 999;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(208) + ");\n  font-size: 16px;\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  height: auto;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n.ribbon {\n  position: fixed;\n  top: 0;\n  right: 0;\n}\n.ribbon img {\n  position: relative;\n  z-index: 999;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 205 */
+/* 207 */
 /***/ function(module, exports) {
 
 	/*
@@ -31652,13 +32020,13 @@
 
 
 /***/ },
-/* 206 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
 
 /***/ },
-/* 207 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

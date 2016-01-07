@@ -20,7 +20,7 @@ var Intersections = React.createClass({
   drawLineIntersection: function(api, curves) {
     api.reset();
 
-    var lli = curves[0].getUtils().lli4;
+    var lli = api.utils.lli4;
     var p = lli(
       curves[0].points[0],
       curves[0].points[1],
@@ -71,7 +71,7 @@ var Intersections = React.createClass({
       api.drawCurve(curve);
     });
 
-    var utils = curves[0].getUtils();
+    var utils = api.utils;
     var line = { p1: curves[1].points[0], p2: curves[1].points[1] };
     var acpts = utils.align(curves[0].points, line);
     var nB = new api.Bezier(acpts);

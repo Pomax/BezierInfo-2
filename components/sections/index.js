@@ -31,13 +31,14 @@ module.exports = {
 
   intersections: require("./intersections"),
   curveintersection: require("./curveintersection"),
-  moulding: require("./moulding")
+
+  abc: require("./abc"),
+  moulding: require("./moulding"),
+  pointcurves: require("./pointcurves")
 };
 
 
 /*
-  pointcurves: require("./pointcurves"),
-
   catmullconv: require("./catmullconv"),
   catmullmoulding: require("./catmullmoulding"),
 
@@ -55,8 +56,7 @@ module.exports = {
 */
 
 /*
-  Curve moulding (using the projection ratio)
-  Creating a curve from three points
+
   Bézier curves and Catmull-Rom curves
   Creating a Catmull-Rom curve from three points
   Forming poly-Bézier curves

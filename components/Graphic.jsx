@@ -11,12 +11,15 @@ var fix = function(e) {
 };
 
 
+var Bezier = require("bezier-js");
+
 var Graphic = React.createClass({
 
   defaultWidth: 275,
   defaultHeight: 275,
 
-  Bezier: require("bezier-js"),
+  Bezier: Bezier,
+  utils: Bezier.getUtils(),
   curve: false,
   mx:0,
   my:0,
@@ -145,7 +148,7 @@ var Graphic = React.createClass({
               break;
             }
           }
-        } else { this.curve.update(); }
+        } else if (this.curve && this.curve.update) { this.curve.update(); }
       }
     }
 
@@ -164,7 +167,6 @@ var Graphic = React.createClass({
 
   mouseUp: function(evt) {
     this.down = false;
-    this.dragging = false;
     if(!this.moving) {
       if (this.props.onMouseUp) {
         this.props.onMouseUp(evt, this);
@@ -546,13 +548,13 @@ var Graphic = React.createClass({
     this.ctx.stroke();
   },
 
-  text: function(text, offset) {
+  text: function(text, coord, offset) {
     offset = offset || { x:0, y:0 };
     if (this.offset) {
       offset.x += this.offset.x;
       offset.y += this.offset.y;
     }
-    this.ctx.fillText(text, offset.x, offset.y);
+    this.ctx.fillText(text, coord.x + offset.x, coord.y + offset.y);
   },
 
   image: function(image, offset) {

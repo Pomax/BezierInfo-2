@@ -7,85 +7,40 @@ var abs = Math.abs;
 var Moulding = React.createClass({
   getDefaultProps: function() {
     return {
-      title: "Moulding a curve"
+      title: "Manipulating a curve"
     };
   },
 
   setupQuadratic: function(api) {
+    api.setPanelCount(3);
     var curve = api.getDefaultQuadratic();
-    curve.points[0].y -= 10;
+    curve.points[2].x -= 30;
     api.setCurve(curve);
   },
 
   setupCubic: function(api) {
-    var curve = api.getDefaultCubic();
+    api.setPanelCount(3);
+    var curve = new api.Bezier([100,230, 30,160, 200,50, 210,160]);
     curve.points[2].y -= 20;
     api.setCurve(curve);
     api.lut = curve.getLUT(100);
   },
 
-  draw: function(api, curve) {
-    api.reset();
-    api.drawSkeleton(curve);
-    api.drawCurve(curve);
-
-    var h = api.getPanelHeight();
-
-    api.setColor("black");
-    if (!!api.t) {
-      api.drawCircle(api.curve.get(api.t),3);
-      api.setColor("lightgrey");
-      var hull = api.drawHull(curve, api.t);
-      var utils = api.curve.getUtils();
-
-      var A, B, C;
-
-      if(hull.length === 6) {
-        A = curve.points[1];
-        B = hull[5];
-        C = utils.lli4(A, B, curve.points[0], curve.points[2]);
-        api.setColor("lightgrey");
-        api.drawLine(curve.points[0], curve.points[2]);
-      } else if(hull.length === 10) {
-        A = hull[5]
-        B = hull[9];
-        C = utils.lli4(A, B, curve.points[0], curve.points[3]);
-        api.setColor("lightgrey");
-        api.drawLine(curve.points[0], curve.points[3]);
-      }
-
-      api.setColor("#00FF00");
-      api.drawLine(A,B);
-      api.setColor("red");
-      api.drawLine(B,C);
-      api.setColor("black");
-      api.drawCircle(C,3);
-
-      api.setFill("black");
-      api.text("A", {x:10 + A.x, y: A.y});
-      api.text("B", {x:10 + B.x, y: B.y});
-      api.text("C", {x:10 + C.x, y: C.y});
-
-      var d1 = utils.dist(A, B);
-      var d2 = utils.dist(B, C);
-      var ratio = d1/d2;
-
-      api.text("d1 (A-B): " + utils.round(d1,2) + ", d2 (B-C): "+ utils.round(d2,2) + ", ratio (d1/d2): " + utils.round(ratio,4), {x:10, y:h-2});
-    }
-  },
-
-  onClickWithRedraw: function(evt, api) {
-    this.onClick(evt, api);
+  saveCurve: function(evt, api) {
+    if (!api.t) return;
+    api.setCurve(api.newcurve);
+    api.t = false;
     api.redraw();
   },
 
-  onClick: function(evt, api) {
-    api.t = api.curve.on({x: evt.offsetX, y: evt.offsetY},7);
-    if (api.t < 0.05 || api.t > 0.95) api.t = false;
+  findTValue: function(evt, api) {
+    var t = api.curve.on({x: evt.offsetX, y: evt.offsetY},7);
+    if (t < 0.05 || t > 0.95) return false;
+    return t;
   },
 
   markQB: function(evt, api) {
-    this.onClick(evt, api);
+    api.t = this.findTValue(evt, api);
     if(api.t) {
       var t = api.t,
           t2 = 2*t,
@@ -95,13 +50,13 @@ var Moulding = React.createClass({
           curve = api.curve,
           A = api.A = curve.points[1],
           B = api.B = curve.get(t);
-      api.C = curve.getUtils().lli4(A, B, curve.points[0], curve.points[2]);
+      api.C = api.utils.lli4(A, B, curve.points[0], curve.points[2]);
       api.ratio = ratio;
     }
   },
 
   markCB: function(evt, api) {
-    this.onClick(evt, api);
+    api.t = this.findTValue(evt, api);
     if(api.t) {
       var t = api.t,
           mt = (1-t),
@@ -115,7 +70,7 @@ var Moulding = React.createClass({
           A = api.A = hull[5],
           B = api.B = curve.get(t),
           db = api.db = curve.derivative(t);
-      api.C = curve.getUtils().lli4(A, B, curve.points[0], curve.points[3]);
+      api.C = api.utils.lli4(A, B, curve.points[0], curve.points[3]);
       api.ratio = ratio;
     }
   },
@@ -193,32 +148,68 @@ var Moulding = React.createClass({
     api.update = [nc1, nc2];
   },
 
-  commit: function(evt, api) {
-    if (!api.t) return;
-    api.setCurve(api.newcurve);
-    api.t = false;
-    api.redraw();
-  },
-
   drawMould: function(api, curve) {
     api.reset();
     api.drawSkeleton(curve);
     api.drawCurve(curve);
 
+    var w = api.getPanelWidth(),
+        h = api.getPanelHeight(),
+        offset = {x:w, y:0},
+        round = api.utils.round;
+
+    api.setColor("black");
+    api.drawLine({x:0,y:0},{x:0,y:h}, offset);
+    api.drawLine({x:w,y:0},{x:w,y:h}, offset);
+
     if (api.t) {
+      api.drawCircle(curve.get(api.t),3);
       api.npts = [curve.points[0]].concat(api.update).concat([curve.points.slice(-1)[0]]);
       api.newcurve = new api.Bezier(api.npts);
-      api.drawCurve(api.newcurve);
 
       api.setColor("lightgrey");
-      api.drawHull(api.newcurve, api.t);
-      api.drawLine(api.npts[0], api.npts.slice(-1)[0]);
-      api.drawLine(api.newA, api.C);
+      api.drawCurve(api.newcurve);
+      var newhull = api.drawHull(api.newcurve, api.t, offset);
+      api.drawLine(api.npts[0], api.npts.slice(-1)[0], offset);
+      api.drawLine(api.newA, api.newB, offset);
 
       api.setColor("grey");
-      api.drawCircle(api.newB, 3);
-      api.drawCircle(api.newA, 3);
-      api.drawCircle(api.C, 3);
+      api.drawCircle(api.newA, 3, offset);
+      api.setColor("blue");
+      api.drawCircle(api.B, 3, offset);
+      api.drawCircle(api.C, 3, offset);
+      api.drawCircle(api.newB, 3, offset);
+      api.drawLine(api.B, api.C, offset);
+      api.drawLine(api.newB, api.C, offset);
+
+      api.setFill("black");
+      api.text("A'", api.newA, {x:offset.x + 7, y:offset.y + 1});
+      api.text("start", curve.get(0), {x:offset.x + 7, y:offset.y + 1});
+      api.text("end", curve.get(1), {x:offset.x + 7, y:offset.y + 1});
+      api.setFill("blue");
+      api.text("B'", api.newB, {x:offset.x + 7, y:offset.y + 1});
+      api.text("B, at t = "+round(api.t,2), api.B, {x:offset.x + 7, y:offset.y + 1});
+      api.text("C", api.C, {x:offset.x + 7, y:offset.y + 1});
+
+      if(curve.order === 3) {
+        var hull = curve.hull(api.t);
+        api.drawLine(hull[7], hull[8], offset);
+        api.drawLine(newhull[7], newhull[8], offset);
+        api.drawCircle(newhull[7], 3, offset);
+        api.drawCircle(newhull[8], 3, offset);
+        api.text("e1", newhull[7], {x:offset.x + 7, y:offset.y + 1});
+        api.text("e2", newhull[8], {x:offset.x + 7, y:offset.y + 1});
+      }
+
+      offset.x += w;
+
+      api.setColor("lightgrey");
+      api.drawSkeleton(api.newcurve, offset);
+      api.setColor("black");
+      api.drawCurve(api.newcurve, offset);
+    } else {
+      offset.x += w;
+      api.drawCurve(curve, offset);
     }
   },
 
@@ -227,98 +218,45 @@ var Moulding = React.createClass({
       <section>
         <SectionHeader {...this.props} />
 
-        <p>De Casteljau's algorithm is the pivotal algorithm when it comes to Bézier curves. You can use it not just to split
-        curves, but also to draw them efficiently (especially for high-order Bézier curves), as well as to come up with curves
-        based on three points and a tangent. Particularly this last thing is really useful because it lets us "mould" a curve,
-        by picking it up at some point, and dragging that point around to change the curve's shape.</p>
+        <p>Armed with knowledge of the "ABC" relation, we can now update a curve interactively, by letting people click anywhere
+        on the curve, find the <em>t</em>-value matching that coordinate, and then letting them drag that point around. With every
+        drag update we'll have a new point "B", which we can combine with the fixed point "C" to find our new point A. Once we have
+        those, we can reconstruct the de Casteljau skeleton and thus construct a new curve with the same start/end points as the
+        original curve, passing through the user-selected point B, with correct new control points.</p>
 
-        <p>How does that work? Succinctly: we run de Casteljau's algorithm in reverse!</p>
+        <Graphic preset="moulding" title="Moulding a quadratic Bézier curve"
+                 setup={this.setupQuadratic} draw={this.drawMould}
+                 onClick={this.placeMouldPoint} onMouseDown={this.markQB} onMouseDrag={this.dragQB} onMouseUp={this.saveCurve}/>
 
-        <p>Let's start out with a pre-existing curve, defined by <i>start</i>, two control points, and <i>end</i>. We can
-        mould this curve by picking a point somewhere on the curve, at some <i>t</i> value, and the moving it to a new
-        location and reconstructing the curve that goes through <i>start</i>, our new point with the original tangent,
-        and <i>end</i>. In order to see how and why we can do this, let's look at some identity information for Bézier
-        curves. There's actually a hidden goldmine of identities that we can exploit when doing Bézier operations, and
-        this will only scratch the surface. But, in a good way!</p>
+        <p>Click-dragging a point on the curve shows what we're using to compute the new coordinates: while dragging you will
+        see the original points B and its corresponding <i>t</i>-value, the original point C for that <i>t</i>-value,
+        as well as the new point B' based on the mouse cursor. Since we know the <i>t</i>-value for this configuration,
+        we can compute the ABC ratio for this configuration, and we know that our new point A' should like at a distance:</p>
 
-        <p>In the following graphic, click anywhere on the curves to see the identity information that we'll
-        be using to run de Casteljau in reverse (you can manipulate the curve even after picking a point.
-        Note the "ratio" value when you do so: does it change?):</p>
+        <p>\[
+          A' = B' + \frac{B' - C}{ratio} = B' - \frac{C - B'}{ratio}
+        \]</p>
 
-        <div className="figure">
-          <Graphic inline={true} preset="abc" title="Projections in a quadratic Bézier curve"
-                   setup={this.setupQuadratic} draw={this.draw} onClick={this.onClickWithRedraw} />
-          <Graphic inline={true} preset="abc" title="Projections in a cubic Bézier curve"
-                   setup={this.setupCubic} draw={this.draw} onClick={this.onClickWithRedraw} />
-        </div>
+        <p>For quadratic curves, this means we're done, since the new point A' is equivalent to the new quadratic control point.
+        For cubic curves, we need to do a little more work:</p>
 
-        <p>So, what exactly do we see in these graphics? First off, there's the three points <i>A</i>, <i>B</i> and <i>C</i>.</p>
+        <Graphic preset="moulding" title="Moulding a cubic Bézier curve"
+                 setup={this.setupCubic} draw={this.drawMould}
+                 onClick={this.placeMouldPoint} onMouseDown={this.markCB} onMouseDrag={this.dragCB} onMouseUp={this.saveCurve}/>
 
-        <p>Point <i>B</i> is our "on curve" point, A is the first "strut" point when running de Casteljau's
-        algorithm in reverse; for quadratic curves, this happens to also be the curve's control point. For cubic
-        curves, it's the "top of the triangle" for the struts that lead to point <i>B</i>. Point <i>C</i>, finally,
-        is the intersection of the line that goes through <i>A</i> and <i>B</i> and the baseline,
-        between our start and end points.</p>
+        <p>To help understand what's going on, the cubic graphic shows the full de Casteljau construction "hull" when repositioning
+        point B. We compute A` in exactly the same way as before, but we also record the final strut line that forms B in the original
+        curve. Given A', B', and the endpoints e1 and e2 of the strut line relative to B', we can now compute where the new control points
+        should be. Remember that B' lies on line e1--e2 at a distance <i>t</i>, because that's how Bézier curves work. In the same manner,
+        we know the distance A--e1 is only line-interval [0,t] of the full segment, and A--e2 is only line-interval [t,1], so constructing
+        the new control points is fairly easy:</p>
 
-        <p>There is some important identity information here: as long as we don't pick a new <i>t</i> coordinate,
-        the location of point <i>C</i> on the line <i>start-end</i> represents a fixed ratio distance. We can drag
-        around the control points as much as we like, that point won't move at all, and if we can drag around
-        the start or end point, C will stay at the same ratio-value. For instance, if it was located midway between
-        start and end, it'll stay midway between start and end, even if the line segment between start and end
-        becomes longer or shorter.</p>
+        <p>\[\begin{align}
+            C1' &= A' + \frac{e1 - A'}{t} \\
+            C2' &= A' + \frac{e2 - A'}{1 - t}
+        \end{align}\]</p>
 
-        <p>We can also see that the distances for the lines <i>d1 = A-B</i> and <i>d2 = B-C</i> may vary, but the
-        ratio between them, <i>d1/d2</i>, is a constant value. We can drag any of the start, end, or control points
-        around as much as we like, but that value also stays the same.</p>
-
-        <div className="note">
-          <p>In fact, because the distance ratio is a fixed value for each point <i>B</i>, which we get by picking
-          some <i>t</i> value on our curve, the distance ratio is actually an identity function for Bézier curves.
-          If we were to plot all the ratio values for all possible <i>t</i> values for quadratic and cubic curves,
-          we'd see two very interesting functions: asymptotic at <i>t=0</i> and <i>t=1</i>, tending towards positive
-          infinity, with a zero-derivative minimum at <i>t=0.5</i>.</p>
-
-          <p>Since these are ratios, we can actually express the ratio values as a function of <i>t</i>. I actually
-          failed at coming up with the precise functions, but thanks to some help from
-          <a href="http://mathoverflow.net/questions/122257/finding-the-formula-for-Bézier-curve-ratios-hull-point-point-baseline">Boris
-          Zbarsky</a> we can see that the ratio functions are actually remarkably simple:</p>
-
-          <table style={{width:"100%", border:0}}>
-            <tbody>
-              <tr>
-                <td>
-                  <p>Quadratic curves:\[
-                    ratio(t)_2 = \left | \frac{2t^2 - 2t}{2t^2 - 2t + 1} \right |
-                  \]</p>
-                </td><td>
-                  <p>Cubic curves: \[
-                    ratio(t)_3 = \left | \frac{t^3 + (1-t)^3 - 1}{t^3 + (1-t)^3} \right |
-                  \]</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <p>Unfortunately, this trick only works for quadratic and cubic curves. Once we hit higher order curves,
-          things become a lot less predictable; the "fixed point <i>C</i>" is no longer fixed, moving around as we
-          move the control points, and projections of <i>B</i> onto the line between start and end may actually
-          lie on that line before the start, or after the end, and there are no simple ratios that we can exploit.</p>
-        </div>
-
-        <p>So, with this knowledge, let's change a curve's shape by click-dragging some part of it. The follow
-        graphics let us click-drag somewhere on the curve, repositioning point <i>B</i> according to a simple
-        rule: we keep the original point <i>B</i>'s tangent:</p>
-
-        <div className="figure">
-          <Graphic inline={true} preset="moulding" title="Moulding a quadratic Bézier curve"
-                   setup={this.setupQuadratic} draw={this.drawMould}
-                   onClick={this.placeMouldPoint} onMouseDown={this.markQB} onMouseDrag={this.dragQB} onMouseUp={this.commit}/>
-
-          <Graphic inline={true} preset="moulding" title="Moulding a cubic Bézier curve"
-                   setup={this.setupCubic} draw={this.drawMould}
-                   onClick={this.placeMouldPoint} onMouseDown={this.markCB} onMouseDrag={this.dragCB} onMouseUp={this.commit}/>
-        </div>
-
+        <p>And that's cubic curve manipulation.</p>
       </section>
     );
   }
