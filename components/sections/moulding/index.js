@@ -74,6 +74,11 @@ var Moulding = React.createClass({
     }
   },
 
+  onClickWithRedraw: function(evt, api) {
+    this.onClick(evt, api);
+    api.redraw();
+  },
+
   onClick: function(evt, api) {
     api.t = api.curve.on({x: evt.offsetX, y: evt.offsetY},7);
     if (api.t < 0.05 || api.t > 0.95) api.t = false;
@@ -241,8 +246,10 @@ var Moulding = React.createClass({
         Note the "ratio" value when you do so: does it change?):</p>
 
         <div className="figure">
-          <Graphic inline={true} preset="abc" title="Projections in a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onClick={this.onClick}/>
-          <Graphic inline={true} preset="abc" title="Projections in a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onClick={this.onClick}/>
+          <Graphic inline={true} preset="abc" title="Projections in a quadratic Bézier curve"
+                   setup={this.setupQuadratic} draw={this.draw} onClick={this.onClickWithRedraw} />
+          <Graphic inline={true} preset="abc" title="Projections in a cubic Bézier curve"
+                   setup={this.setupCubic} draw={this.draw} onClick={this.onClickWithRedraw} />
         </div>
 
         <p>So, what exactly do we see in these graphics? First off, there's the three points <i>A</i>, <i>B</i> and <i>C</i>.</p>

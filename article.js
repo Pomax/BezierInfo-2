@@ -31092,6 +31092,11 @@
 	    }
 	  },
 
+	  onClickWithRedraw: function onClickWithRedraw(evt, api) {
+	    this.onClick(evt, api);
+	    api.redraw();
+	  },
+
 	  onClick: function onClick(evt, api) {
 	    api.t = api.curve.on({ x: evt.offsetX, y: evt.offsetY }, 7);
 	    if (api.t < 0.05 || api.t > 0.95) api.t = false;
@@ -31297,8 +31302,10 @@
 	      React.createElement(
 	        "div",
 	        { className: "figure" },
-	        React.createElement(Graphic, { inline: true, preset: "abc", title: "Projections in a quadratic Bézier curve", setup: this.setupQuadratic, draw: this.draw, onClick: this.onClick }),
-	        React.createElement(Graphic, { inline: true, preset: "abc", title: "Projections in a cubic Bézier curve", setup: this.setupCubic, draw: this.draw, onClick: this.onClick })
+	        React.createElement(Graphic, { inline: true, preset: "abc", title: "Projections in a quadratic Bézier curve",
+	          setup: this.setupQuadratic, draw: this.draw, onClick: this.onClickWithRedraw }),
+	        React.createElement(Graphic, { inline: true, preset: "abc", title: "Projections in a cubic Bézier curve",
+	          setup: this.setupCubic, draw: this.draw, onClick: this.onClickWithRedraw })
 	      ),
 	      React.createElement(
 	        "p",
