@@ -30,12 +30,12 @@ module.exports = {
   tracing: require("./tracing"),
 
   intersections: require("./intersections"),
-  curveintersection: require("./curveintersection")
+  curveintersection: require("./curveintersection"),
+  moulding: require("./moulding")
 };
 
 
 /*
-  moulding: require("./moulding"),
   pointcurves: require("./pointcurves"),
 
   catmullconv: require("./catmullconv"),

@@ -49,7 +49,8 @@ var CurveIntersections = React.createClass({
       this.pairs = [];
       this.finals = [];
       pairs.forEach(p => {
-        if(p.c1.length() < 1 && p.c2.length() <1) {
+
+        if(p.c1.length() < 0.6 && p.c2.length() < 0.6) {
           return this.finals.push(p);
         }
 

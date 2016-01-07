@@ -63,9 +63,15 @@
 	var React = __webpack_require__(9);
 	var ReactDOM = __webpack_require__(166);
 	var Article = __webpack_require__(167);
-	var style = __webpack_require__(202);
+	var style = __webpack_require__(203);
 
-	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"));
+	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"), function () {
+	  // trigger a #hash navigation
+	  if (window.location.hash) {
+	    var hash = window.location.hash;
+	    window.location.hash = hash;
+	  }
+	});
 
 /***/ },
 /* 9 */
@@ -19810,11 +19816,11 @@
 	  tracing: __webpack_require__(199),
 
 	  intersections: __webpack_require__(200),
-	  curveintersection: __webpack_require__(201)
+	  curveintersection: __webpack_require__(201),
+	  moulding: __webpack_require__(202)
 	};
 
 	/*
-	  moulding: require("./moulding"),
 	  pointcurves: require("./pointcurves"),
 
 	  catmullconv: require("./catmullconv"),
@@ -20156,6 +20162,11 @@
 	    fix(evt);
 	    this.mx = evt.offsetX;
 	    this.my = evt.offsetY;
+
+	    this.moving = false;
+	    this.dragging = false;
+	    this.down = true;
+
 	    this.lpts.forEach(function (p) {
 	      if (Math.abs(_this.mx - p.x) < 10 && Math.abs(_this.my - p.y) < 10) {
 	        _this.moving = true;
@@ -20165,14 +20176,18 @@
 	      }
 	    });
 
-	    if (this.props.mouseDown) {
-	      this.props.mouseDown(evt, this);
+	    if (this.props.onMouseDown) {
+	      this.props.onMouseDown(evt, this);
 	    }
 	  },
 
 	  mouseMove: function mouseMove(evt) {
 	    fix(evt);
 	    if (!this.props.static) {
+
+	      if (this.down) {
+	        this.dragging = true;
+	      }
 
 	      var found = false;
 	      this.lpts.forEach(function (p) {
@@ -20209,8 +20224,12 @@
 	      }
 	    }
 
-	    if (this.props.mouseMove) {
-	      this.props.mouseMove(evt, this);
+	    if (this.props.onMouseMove) {
+	      this.props.onMouseMove(evt, this);
+	    }
+
+	    if (this.dragging && this.props.onMouseDrag) {
+	      this.props.onMouseDrag(evt, this);
 	    }
 
 	    if (!this.playing && this.props.draw) {
@@ -20219,7 +20238,14 @@
 	  },
 
 	  mouseUp: function mouseUp(evt) {
-	    if (!this.moving) return;
+	    this.down = false;
+	    this.dragging = false;
+	    if (!this.moving) {
+	      if (this.props.onMouseUp) {
+	        this.props.onMouseUp(evt, this);
+	      }
+	      return;
+	    }
 	    this.moving = false;
 	    this.mp = false;
 	    if (this.props.onMouseUp) {
@@ -20231,7 +20257,7 @@
 	    fix(evt);
 	    this.mx = evt.offsetX;
 	    this.my = evt.offsetY;
-	    if (this.props.onClick) {
+	    if (!this.dragging && this.props.onClick) {
 	      this.props.onClick(evt, this);
 	    }
 	  },
@@ -20285,7 +20311,7 @@
 
 	  setCurve: function setCurve(c) {
 	    var pts = [];
-	    c = Array.from(arguments);
+	    c = Array.prototype.slice.call(arguments);
 	    c.forEach(function (nc) {
 	      pts = pts.concat(nc.points);
 	    });
@@ -23271,6 +23297,12 @@
 	      dot = dx1*dx2 + dy1*dy2;
 	      return atan2(cross, dot);
 	    },
+	    // round as string, to avoid rounding errors
+	    round: function(v, d) {
+	      var s = '' + v;
+	      var pos = s.indexOf(".");
+	      return parseFloat(s.substring(0,pos+1+d));
+	    },
 	    dist: function(p1, p2) {
 	      var dx = p1.x - p2.x,
 	          dy = p1.y - p2.y;
@@ -23761,6 +23793,19 @@
 	        this._lut.push(this.compute(t/steps));
 	      }
 	      return this._lut;
+	    },
+	    on: function(point, error) {
+	      error = error || 5;
+	      var lut = this.getLUT(), hits = [], c, t=0;
+	      for(var i=0; i<lut.length; i++) {
+	        c = lut[i];
+	        if (utils.dist(c,point) < error) {
+	          hits.push(c)
+	          t += i / lut.length;
+	        }
+	      }
+	      if(!hits.length) return false;
+	      return t /= hits.length;
 	    },
 	    get: function(t) {
 	      return this.compute(t);
@@ -30101,10 +30146,6 @@
 	var Graphic = __webpack_require__(172);
 	var SectionHeader = __webpack_require__(177);
 
-	var map = function map(v, ds, de, ts, te) {
-	  return ts + (v - ds) / (de - ds) * (te - ts);
-	};
-
 	var Tracing = React.createClass({
 	  displayName: "Tracing",
 
@@ -30118,6 +30159,7 @@
 	    var curve = api.getDefaultCubic();
 	    api.setCurve(curve);
 	    api.steps = 8;
+	    this.map = curve.getUtils().map;
 	  },
 
 	  generate: function generate(api, curve, offset, pad, fwh) {
@@ -30129,8 +30171,8 @@
 	      t = v / 100;
 	      d = curve.split(t).left.length();
 	      pts.push({
-	        x: map(t, 0, 1, 0, fwh),
-	        y: map(d, 0, len, 0, fwh),
+	        x: this.map(t, 0, 1, 0, fwh),
+	        y: this.map(d, 0, len, 0, fwh),
 	        d: d,
 	        t: t
 	      });
@@ -30183,6 +30225,8 @@
 	  },
 
 	  drawColoured: function drawColoured(api, curve) {
+	    var _this = this;
+
 	    api.setPanelCount(3);
 	    var w = api.getPanelWidth();
 	    var h = api.getPanelHeight();
@@ -30215,8 +30259,8 @@
 	    }
 
 	    ts.forEach(function (p) {
-	      var pt = { x: map(p.t, 0, 1, 0, fwh), y: 0 };
-	      var pd = { x: 0, y: map(p.d, 0, len, 0, fwh) };
+	      var pt = { x: _this.map(p.t, 0, 1, 0, fwh), y: 0 };
+	      var pd = { x: 0, y: _this.map(p.d, 0, len, 0, fwh) };
 	      api.setColor("black");
 	      api.drawCircle(pt, 3, offset);
 	      api.drawCircle(pd, 3, offset);
@@ -30628,7 +30672,8 @@
 	      this.pairs = [];
 	      this.finals = [];
 	      pairs.forEach(function (p) {
-	        if (p.c1.length() < 1 && p.c2.length() < 1) {
+
+	        if (p.c1.length() < 0.6 && p.c2.length() < 0.6) {
 	          return _this.finals.push(p);
 	        }
 
@@ -30967,13 +31012,553 @@
 /* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var React = __webpack_require__(9);
+	var Graphic = __webpack_require__(172);
+	var SectionHeader = __webpack_require__(177);
+
+	var abs = Math.abs;
+
+	var Moulding = React.createClass({
+	  displayName: "Moulding",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Moulding a curve"
+	    };
+	  },
+
+	  setupQuadratic: function setupQuadratic(api) {
+	    var curve = api.getDefaultQuadratic();
+	    curve.points[0].y -= 10;
+	    api.setCurve(curve);
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    var curve = api.getDefaultCubic();
+	    curve.points[2].y -= 20;
+	    api.setCurve(curve);
+	    api.lut = curve.getLUT(100);
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+
+	    var h = api.getPanelHeight();
+
+	    api.setColor("black");
+	    if (!!api.t) {
+	      api.drawCircle(api.curve.get(api.t), 3);
+	      api.setColor("lightgrey");
+	      var hull = api.drawHull(curve, api.t);
+	      var utils = api.curve.getUtils();
+
+	      var A, B, C;
+
+	      if (hull.length === 6) {
+	        A = curve.points[1];
+	        B = hull[5];
+	        C = utils.lli4(A, B, curve.points[0], curve.points[2]);
+	        api.setColor("lightgrey");
+	        api.drawLine(curve.points[0], curve.points[2]);
+	      } else if (hull.length === 10) {
+	        A = hull[5];
+	        B = hull[9];
+	        C = utils.lli4(A, B, curve.points[0], curve.points[3]);
+	        api.setColor("lightgrey");
+	        api.drawLine(curve.points[0], curve.points[3]);
+	      }
+
+	      api.setColor("#00FF00");
+	      api.drawLine(A, B);
+	      api.setColor("red");
+	      api.drawLine(B, C);
+	      api.setColor("black");
+	      api.drawCircle(C, 3);
+
+	      api.setFill("black");
+	      api.text("A", { x: 10 + A.x, y: A.y });
+	      api.text("B", { x: 10 + B.x, y: B.y });
+	      api.text("C", { x: 10 + C.x, y: C.y });
+
+	      var d1 = utils.dist(A, B);
+	      var d2 = utils.dist(B, C);
+	      var ratio = d1 / d2;
+
+	      api.text("d1 (A-B): " + utils.round(d1, 2) + ", d2 (B-C): " + utils.round(d2, 2) + ", ratio (d1/d2): " + utils.round(ratio, 4), { x: 10, y: h - 2 });
+	    }
+	  },
+
+	  onClick: function onClick(evt, api) {
+	    api.t = api.curve.on({ x: evt.offsetX, y: evt.offsetY }, 7);
+	    if (api.t < 0.05 || api.t > 0.95) api.t = false;
+	  },
+
+	  markQB: function markQB(evt, api) {
+	    this.onClick(evt, api);
+	    if (api.t) {
+	      var t = api.t,
+	          t2 = 2 * t,
+	          top = t2 * t - t2,
+	          bottom = top + 1,
+	          ratio = abs(top / bottom),
+	          curve = api.curve,
+	          A = api.A = curve.points[1],
+	          B = api.B = curve.get(t);
+	      api.C = curve.getUtils().lli4(A, B, curve.points[0], curve.points[2]);
+	      api.ratio = ratio;
+	    }
+	  },
+
+	  markCB: function markCB(evt, api) {
+	    this.onClick(evt, api);
+	    if (api.t) {
+	      var t = api.t,
+	          mt = 1 - t,
+	          t3 = t * t * t,
+	          mt3 = mt * mt * mt,
+	          bottom = t3 + mt3,
+	          top = bottom - 1,
+	          ratio = abs(top / bottom),
+	          curve = api.curve,
+	          hull = curve.hull(t),
+	          A = api.A = hull[5],
+	          B = api.B = curve.get(t),
+	          db = api.db = curve.derivative(t);
+	      api.C = curve.getUtils().lli4(A, B, curve.points[0], curve.points[3]);
+	      api.ratio = ratio;
+	    }
+	  },
+
+	  drag: function drag(evt, api) {
+	    if (!api.t) return;
+
+	    var newB = api.newB = {
+	      x: evt.offsetX,
+	      y: evt.offsetY
+	    };
+	    // find the current ABC and ratio values:
+	    var A = api.A;
+	    var B = api.B;
+	    var C = api.C;
+
+	    // now that we know A, B, C and the AB:BC ratio, we can compute the new A' based on the desired B'
+	    var newA = api.newA = {
+	      x: newB.x - (C.x - newB.x) / api.ratio,
+	      y: newB.y - (C.y - newB.y) / api.ratio
+	    };
+	  },
+
+	  dragQB: function dragQB(evt, api) {
+	    if (!api.t) return;
+	    this.drag(evt, api);
+
+	    var curve = api.curve;
+	    api.update = [api.newA];
+	  },
+
+	  dragCB: function dragCB(evt, api) {
+	    if (!api.t) return;
+	    this.drag(evt, api);
+
+	    // preserve struts for B when repositioning
+	    var curve = api.curve,
+	        hull = curve.hull(api.t),
+	        B = api.B,
+	        Bl = hull[7],
+	        Br = hull[8],
+	        dbl = { x: Bl.x - B.x, y: Bl.y - B.y },
+	        dbr = { x: Br.x - B.x, y: Br.y - B.y },
+	        pts = curve.points,
+
+	    // find new point on s--c1
+	    p1 = { x: api.newB.x + dbl.x, y: api.newB.y + dbl.y },
+	        sc1 = {
+	      x: api.newA.x - (api.newA.x - p1.x) / (1 - api.t),
+	      y: api.newA.y - (api.newA.y - p1.y) / (1 - api.t)
+	    },
+
+	    // find new point on c2--e
+	    p2 = { x: api.newB.x + dbr.x, y: api.newB.y + dbr.y },
+	        sc2 = {
+	      x: api.newA.x + (p2.x - api.newA.x) / api.t,
+	      y: api.newA.y + (p2.y - api.newA.y) / api.t
+	    },
+
+	    // construct new c1` based on the fact that s--sc1 is s--c1 * t
+	    nc1 = {
+	      x: pts[0].x + (sc1.x - pts[0].x) / api.t,
+	      y: pts[0].y + (sc1.y - pts[0].y) / api.t
+	    },
+
+	    // construct new c2` based on the fact that e--sc2 is e--c2 * (1-t)
+	    nc2 = {
+	      x: pts[3].x - (pts[3].x - sc2.x) / (1 - api.t),
+	      y: pts[3].y - (pts[3].y - sc2.y) / (1 - api.t)
+	    };
+
+	    api.p1 = p1;
+	    api.p2 = p2;
+	    api.sc1 = sc1;
+	    api.sc2 = sc2;
+	    api.nc1 = nc1;
+	    api.nc2 = nc2;
+
+	    api.update = [nc1, nc2];
+	  },
+
+	  commit: function commit(evt, api) {
+	    if (!api.t) return;
+	    api.setCurve(api.newcurve);
+	    api.t = false;
+	    api.redraw();
+	  },
+
+	  drawMould: function drawMould(api, curve) {
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+
+	    if (api.t) {
+	      api.npts = [curve.points[0]].concat(api.update).concat([curve.points.slice(-1)[0]]);
+	      api.newcurve = new api.Bezier(api.npts);
+	      api.drawCurve(api.newcurve);
+
+	      api.setColor("lightgrey");
+	      api.drawHull(api.newcurve, api.t);
+	      api.drawLine(api.npts[0], api.npts.slice(-1)[0]);
+	      api.drawLine(api.newA, api.C);
+
+	      api.setColor("grey");
+	      api.drawCircle(api.newB, 3);
+	      api.drawCircle(api.newA, 3);
+	      api.drawCircle(api.C, 3);
+	    }
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "De Casteljau's algorithm is the pivotal algorithm when it comes to Bézier curves. You can use it not just to split curves, but also to draw them efficiently (especially for high-order Bézier curves), as well as to come up with curves based on three points and a tangent. Particularly this last thing is really useful because it lets us \"mould\" a curve, by picking it up at some point, and dragging that point around to change the curve's shape."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "How does that work? Succinctly: we run de Casteljau's algorithm in reverse!"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Let's start out with a pre-existing curve, defined by ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "start"
+	        ),
+	        ", two control points, and ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "end"
+	        ),
+	        ". We can mould this curve by picking a point somewhere on the curve, at some ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " value, and the moving it to a new location and reconstructing the curve that goes through ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "start"
+	        ),
+	        ", our new point with the original tangent, and ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "end"
+	        ),
+	        ". In order to see how and why we can do this, let's look at some identity information for Bézier curves. There's actually a hidden goldmine of identities that we can exploit when doing Bézier operations, and this will only scratch the surface. But, in a good way!"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "In the following graphic, click anywhere on the curves to see the identity information that we'll be using to run de Casteljau in reverse (you can manipulate the curve even after picking a point. Note the \"ratio\" value when you do so: does it change?):"
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "figure" },
+	        React.createElement(Graphic, { inline: true, preset: "abc", title: "Projections in a quadratic Bézier curve", setup: this.setupQuadratic, draw: this.draw, onClick: this.onClick }),
+	        React.createElement(Graphic, { inline: true, preset: "abc", title: "Projections in a cubic Bézier curve", setup: this.setupCubic, draw: this.draw, onClick: this.onClick })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So, what exactly do we see in these graphics? First off, there's the three points ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "A"
+	        ),
+	        ", ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "B"
+	        ),
+	        " and ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "C"
+	        ),
+	        "."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Point ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "B"
+	        ),
+	        " is our \"on curve\" point, A is the first \"strut\" point when running de Casteljau's algorithm in reverse; for quadratic curves, this happens to also be the curve's control point. For cubic curves, it's the \"top of the triangle\" for the struts that lead to point ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "B"
+	        ),
+	        ". Point ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "C"
+	        ),
+	        ", finally, is the intersection of the line that goes through ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "A"
+	        ),
+	        " and ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "B"
+	        ),
+	        " and the baseline, between our start and end points."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "There is some important identity information here: as long as we don't pick a new ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " coordinate, the location of point ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "C"
+	        ),
+	        " on the line ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "start-end"
+	        ),
+	        " represents a fixed ratio distance. We can drag around the control points as much as we like, that point won't move at all, and if we can drag around the start or end point, C will stay at the same ratio-value. For instance, if it was located midway between start and end, it'll stay midway between start and end, even if the line segment between start and end becomes longer or shorter."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We can also see that the distances for the lines ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "d1 = A-B"
+	        ),
+	        " and ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "d2 = B-C"
+	        ),
+	        " may vary, but the ratio between them, ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "d1/d2"
+	        ),
+	        ", is a constant value. We can drag any of the start, end, or control points around as much as we like, but that value also stays the same."
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "note" },
+	        React.createElement(
+	          "p",
+	          null,
+	          "In fact, because the distance ratio is a fixed value for each point ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "B"
+	          ),
+	          ", which we get by picking some ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          " value on our curve, the distance ratio is actually an identity function for Bézier curves. If we were to plot all the ratio values for all possible ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          " values for quadratic and cubic curves, we'd see two very interesting functions: asymptotic at ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t=0"
+	          ),
+	          " and ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t=1"
+	          ),
+	          ", tending towards positive infinity, with a zero-derivative minimum at ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t=0.5"
+	          ),
+	          "."
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Since these are ratios, we can actually express the ratio values as a function of ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          ". I actually failed at coming up with the precise functions, but thanks to some help from",
+	          React.createElement(
+	            "a",
+	            { href: "http://mathoverflow.net/questions/122257/finding-the-formula-for-Bézier-curve-ratios-hull-point-point-baseline" },
+	            "Boris Zbarsky"
+	          ),
+	          " we can see that the ratio functions are actually remarkably simple:"
+	        ),
+	        React.createElement(
+	          "table",
+	          { style: { width: "100%", border: 0 } },
+	          React.createElement(
+	            "tbody",
+	            null,
+	            React.createElement(
+	              "tr",
+	              null,
+	              React.createElement(
+	                "td",
+	                null,
+	                React.createElement(
+	                  "p",
+	                  null,
+	                  "Quadratic curves:",
+	                  React.createElement("img", { className: "LaTeX SVG", src: "images/latex/3607174eca6cb8780f98cc902e2b6eab50237b3e.svg", style: { width: "11.775150000000002rem", height: "2.7rem" } })
+	                )
+	              ),
+	              React.createElement(
+	                "td",
+	                null,
+	                React.createElement(
+	                  "p",
+	                  null,
+	                  "Cubic curves: ",
+	                  React.createElement("img", { className: "LaTeX SVG", src: "images/latex/7f5e48e56c0a0fb80040fdc84a9713c62eb2c416.svg", style: { width: "13.80015rem", height: "2.77515rem" } })
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Unfortunately, this trick only works for quadratic and cubic curves. Once we hit higher order curves, things become a lot less predictable; the \"fixed point ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "C"
+	          ),
+	          "\" is no longer fixed, moving around as we move the control points, and projections of ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "B"
+	          ),
+	          " onto the line between start and end may actually lie on that line before the start, or after the end, and there are no simple ratios that we can exploit."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So, with this knowledge, let's change a curve's shape by click-dragging some part of it. The follow graphics let us click-drag somewhere on the curve, repositioning point ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "B"
+	        ),
+	        " according to a simple rule: we keep the original point ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "B"
+	        ),
+	        "'s tangent:"
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "figure" },
+	        React.createElement(Graphic, { inline: true, preset: "moulding", title: "Moulding a quadratic Bézier curve",
+	          setup: this.setupQuadratic, draw: this.drawMould,
+	          onClick: this.placeMouldPoint, onMouseDown: this.markQB, onMouseDrag: this.dragQB, onMouseUp: this.commit }),
+	        React.createElement(Graphic, { inline: true, preset: "moulding", title: "Moulding a cubic Bézier curve",
+	          setup: this.setupCubic, draw: this.drawMould,
+	          onClick: this.placeMouldPoint, onMouseDown: this.markCB, onMouseDrag: this.dragCB, onMouseUp: this.commit })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Moulding;
+
+/***/ },
+/* 203 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(203);
+	var content = __webpack_require__(204);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(206)(content, {});
+	var update = __webpack_require__(207)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30990,21 +31575,21 @@
 	}
 
 /***/ },
-/* 203 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(204)();
+	exports = module.exports = __webpack_require__(205)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(205) + ");\n  font-size: 16px;\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  height: auto;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n.ribbon {\n  position: fixed;\n  top: 0;\n  right: 0;\n}\n.ribbon img {\n  position: relative;\n  z-index: 999;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(206) + ");\n  font-size: 16px;\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  height: auto;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n.ribbon {\n  position: fixed;\n  top: 0;\n  right: 0;\n}\n.ribbon img {\n  position: relative;\n  z-index: 999;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note * {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 204 */
+/* 205 */
 /***/ function(module, exports) {
 
 	/*
@@ -31060,13 +31645,13 @@
 
 
 /***/ },
-/* 205 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
 
 /***/ },
-/* 206 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

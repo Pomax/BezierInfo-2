@@ -89,6 +89,11 @@ var Graphic = React.createClass({
     fix(evt);
     this.mx = evt.offsetX;
     this.my = evt.offsetY;
+
+    this.moving = false;
+    this.dragging = false;
+    this.down = true;
+
     this.lpts.forEach(p => {
       if(Math.abs(this.mx - p.x)<10 && Math.abs(this.my - p.y)<10) {
         this.moving = true;
@@ -98,14 +103,18 @@ var Graphic = React.createClass({
       }
     });
 
-    if (this.props.mouseDown) {
-      this.props.mouseDown(evt, this);
+    if (this.props.onMouseDown) {
+      this.props.onMouseDown(evt, this);
     }
   },
 
   mouseMove: function(evt) {
     fix(evt);
     if(!this.props.static) {
+
+      if (this.down) {
+        this.dragging = true;
+      }
 
       var found = false;
       this.lpts.forEach(p => {
@@ -140,8 +149,12 @@ var Graphic = React.createClass({
       }
     }
 
-    if (this.props.mouseMove) {
-      this.props.mouseMove(evt, this);
+    if (this.props.onMouseMove) {
+      this.props.onMouseMove(evt, this);
+    }
+
+    if (this.dragging && this.props.onMouseDrag) {
+      this.props.onMouseDrag(evt, this);
     }
 
     if (!this.playing && this.props.draw) {
@@ -150,7 +163,14 @@ var Graphic = React.createClass({
   },
 
   mouseUp: function(evt) {
-    if(!this.moving) return;
+    this.down = false;
+    this.dragging = false;
+    if(!this.moving) {
+      if (this.props.onMouseUp) {
+        this.props.onMouseUp(evt, this);
+      }
+      return;
+    }
     this.moving = false;
     this.mp = false;
     if (this.props.onMouseUp) {
@@ -162,7 +182,7 @@ var Graphic = React.createClass({
     fix(evt);
     this.mx = evt.offsetX;
     this.my = evt.offsetY;
-    if (this.props.onClick) {
+    if (!this.dragging && this.props.onClick) {
       this.props.onClick(evt, this);
     }
   },
