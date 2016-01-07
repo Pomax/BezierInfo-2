@@ -31677,7 +31677,12 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/f01b855b4fca9fd7a54779aafc8a3b780eba5848.svg", style: { width: "9.59985rem", height: "5.09985rem" } })
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/5b1a60c2b3381e68ec8c73e4d1e25b3f4ac3630e.svg", style: { width: "9.975150000000001rem", height: "5.09985rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/0cdd7c4c591857fa9a5e4a8463192ccadc4954a5.svg", style: { width: "11.700000000000001rem", height: "4.64985rem" } })
 	      ),
 	      React.createElement(
 	        "p",
