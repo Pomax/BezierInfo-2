@@ -251,10 +251,19 @@ var Moulding = React.createClass({
         we know the distance A--e1 is only line-interval [0,t] of the full segment, and A--e2 is only line-interval [t,1], so constructing
         the new control points is fairly easy:</p>
 
-        <p>\[\begin{align}
-            C1' &= A' + \frac{e1 - A'}{t} \\
-            C2' &= A' + \frac{e2 - A'}{1 - t}
-        \end{align}\]</p>
+        <p>\[
+            \left \{ \begin{align}
+            v1 &= A' + \frac{e1 - A'}{t} \\
+            v2 &= A' + \frac{e2 - A'}{1 - t}
+            \end{align} \right .
+        \]</p>
+
+        <p>\[
+            \left \{ \begin{align}
+            C1' &= v1 + \frac{v1 - start}{t} \\
+            C2' &= v2 + \frac{v2 - end}{1 - t}
+            \end{align} \right .
+        \]</p>
 
         <p>And that's cubic curve manipulation.</p>
       </section>
