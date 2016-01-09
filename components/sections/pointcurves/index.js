@@ -12,7 +12,11 @@ var PointCurves = React.createClass({
   },
 
   setup: function(api) {
-    api.lpts = [];
+    api.lpts = [
+      {x:56, y:153},
+      {x:144,y:83},
+      {x:188,y:185}
+    ];
   },
 
   onClick: function(evt, api) {
@@ -209,8 +213,8 @@ var PointCurves = React.createClass({
         <p>In each graphic, the blue parts are the values that we "just have" simply by setting up
         our three points, combined with our decision on which <i>t</i> value to use (and construction line
         orientation and length for cubic curves). There are of course many ways to determine a combination
-        of <i>t</i> and tangent values that lead to a more "aesthetic" curve, but this will be left as an
-        exercise to the reader, since there are many, and aesthetics are often quite personal.</p>
+        of <i>t</i> and tangent values that lead to a more "æsthetic" curve, but this will be left as an
+        exercise to the reader, since there are many, and æsthetics are often quite personal.</p>
       </section>
     );
   }

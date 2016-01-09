@@ -343,6 +343,28 @@ var Graphic = React.createClass({
     }
   },
 
+  drawGrid: function(xcount, ycount, offset) {
+    var w = this.defaultWidth,
+        h = this.defaultHeight,
+        xstep = w/xcount,
+        ox = xstep/2,
+        ystep = h/ycount,
+        oy = ystep/2,
+        x, xv, y, yv, p1, p2;
+    for (x=0; x<xcount; x++) {
+      xv = ox + (x*xstep);
+      p1 = {x:xv, y:0};
+      p2 = {x:xv, y:h};
+      this.drawLine(p1, p2, offset);
+    }
+    for (y=0; y<ycount; y++) {
+      yv = oy + (y*ystep);
+      p1 = {x:0, y:yv};
+      p2 = {x:w, y:yv};
+      this.drawLine(p1, p2, offset);
+    }
+  },
+
   drawHull: function(curve, t, offset) {
     var hull = typeof curve === "array" ? curve : curve.hull(t);
     if(hull.length === 6) {

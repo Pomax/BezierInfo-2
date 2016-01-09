@@ -7,7 +7,7 @@ var abs = Math.abs;
 var ABC = React.createClass({
   getDefaultProps: function() {
     return {
-      title: "The 'ABC' curve identity"
+      title: "The projection identity"
     };
   },
 
@@ -69,7 +69,7 @@ var ABC = React.createClass({
 
       api.setFill("black");
       api.text("A", {x:10 + A.x, y: A.y});
-      api.text("B", {x:10 + B.x, y: B.y});
+      api.text("B (t = " + api.utils.round(api.t,2) + ")", {x:10 + B.x, y: B.y});
       api.text("C", {x:10 + C.x, y: C.y});
 
       var d1 = utils.dist(A, B);
@@ -78,6 +78,59 @@ var ABC = React.createClass({
 
       api.text("d1 (A-B): " + utils.round(d1,2) + ", d2 (B-C): "+ utils.round(d2,2) + ", ratio (d1/d2): " + utils.round(ratio,4), {x:10, y:h-7});
     }
+  },
+
+  setCT: function(evt,api) {
+     api.t = evt.offsetX / api.getPanelWidth();
+  },
+
+  drawCTgraph: function(api) {
+    api.reset();
+    api.setColor("black");
+    var w = api.getPanelWidth();
+    var h = api.getPanelHeight();
+    var pad = 20;
+    var fwh = w - 2*pad;
+    api.drawAxes(pad, "t",0,1, "u",0,1);
+    api.setColor("blue");
+    var uPoint = function(t) {
+      var value = api.u(t),
+          res = { x: pad + t*fwh, y: pad + value*fwh };
+      return res;
+    }
+    api.drawFunction(uPoint);
+    if (api.t) {
+      var v = api.u(api.t),
+          v1 = api.utils.round(v,3),
+          v2 = api.utils.round(1-v,3),
+          up = uPoint(api.t);
+      api.drawLine({x:up.x,y:pad}, up);
+      api.drawLine({x:pad,y:up.y}, up);
+      api.drawCircle(up,3);
+      api.setFill("blue");
+      api.text("    t = " + api.utils.round(api.t,3), {x:up.x+10, y:up.y-7});
+      api.text("u(t) = " + api.utils.round(v,3), {x:up.x+10, y:up.y+7});
+      api.setFill("black");
+      api.text("C = "+v1+" * start + "+v2+" * end", {x:w/2 - pad, y:pad+fwh});
+    }
+  },
+
+  drawQCT: function(api) {
+    api.u = api.u || function(t) {
+      var top = (t-1) * (t-1),
+          bottom = 2*t*t - 2*t + 1;
+      return top/bottom;
+    };
+    this.drawCTgraph(api);
+  },
+
+  drawCCT: function(api) {
+    api.u = api.u || function(t) {
+      var top = (1-t) * (1-t) * (1-t),
+         bottom = t*t*t + top;
+      return top/bottom;
+    };
+    this.drawCTgraph(api);
   },
 
   render: function() {
@@ -92,16 +145,15 @@ var ABC = React.createClass({
 
         <p>How does that work? Succinctly: we run de Casteljau's algorithm in reverse!</p>
 
-        <p>Let's start out with a pre-existing curve, defined by <i>start</i>, two control points, and <i>end</i>. We can
-        mould this curve by picking a point somewhere on the curve, at some <i>t</i> value, and the moving it to a new
-        location and reconstructing the curve that goes through <i>start</i>, our new point with the original tangent,
-        and <i>end</i>. In order to see how and why we can do this, let's look at some identity information for Bézier
-        curves. There's actually a hidden goldmine of identities that we can exploit when doing Bézier operations, and
-        this will only scratch the surface. But, in a good way!</p>
+        <p>In order to run de Casteljau's algorithm in reverse, we need a few basic things: a start and end point, a point
+        on the curve that want to be moving around, which has an associated <i>t</i> value, and a point we've not explicitly
+        talked about before, and as far as I know has no explicit name, but lives one iteration higher in the de Casteljau
+        process then our on-curve point does. I like to call it "A" for reasons that will become obvious.</p>
 
-        <p>In the following graphic, click anywhere on the curves to see the identity information that we'll
-        be using to run de Casteljau in reverse (you can manipulate the curve even after picking a point.
-        Note the "ratio" value when you do so: does it change?):</p>
+        <p>So let's use graphics instead of text to see where this "A" is, because text only gets us so far: in the
+        following graphic, click anywhere on the curves to see the identity information that we'll be using to run
+        de Casteljau in reverse (you can manipulate the curve even after picking a point. Note the "ratio" value
+        when you do so: does it change?):</p>
 
         <div className="figure">
           <Graphic inline={true} preset="abc" title="Projections in a quadratic Bézier curve"
@@ -110,52 +162,81 @@ var ABC = React.createClass({
                    setup={this.setupCubic} draw={this.draw} onClick={this.onClick} />
         </div>
 
-        <p>So, what exactly do we see in these graphics? First off, there's the three points <i>A</i>, <i>B</i> and <i>C</i>.</p>
+        <p>Clicking anywhere on the curves shows us three things:</p>
 
-        <p>Point <i>B</i> is our "on curve" point, A is the first "strut" point when running de Casteljau's
-        algorithm in reverse; for quadratic curves, this happens to also be the curve's control point. For cubic
-        curves, it's the "top of the triangle" for the struts that lead to point <i>B</i>. Point <i>C</i>, finally,
-        is the intersection of the line that goes through <i>A</i> and <i>B</i> and the baseline,
-        between our start and end points.</p>
+        <ol>
+          <li>our on-curve point; let's call that <b>B</b>,</li>
+          <li>a point at the tip of B's "hat", on de Casteljau step up; let's call that <b>A</b>, and</li>
+          <li>a point that we get by projecting B onto the start--end baseline; let's call that <b>C</b>.</li>
+        </ol>
 
-        <p>There is some important identity information here: as long as we don't pick a new <i>t</i> coordinate,
-        the location of point <i>C</i> on the line <i>start-end</i> represents a fixed ratio distance. We can drag
-        around the control points as much as we like, that point won't move at all, and if we can drag around
-        the start or end point, C will stay at the same ratio-value. For instance, if it was located midway between
-        start and end, it'll stay midway between start and end, even if the line segment between start and end
-        becomes longer or shorter.</p>
+        <p>These three values ABC hide an important identity formula for quadratic and cubic Bézier curves:
+        for any point on the curve with some <i>t</i> value, the ratio distance of C along baseline is fixed:
+        if some <i>t</i> value sets up a C that is 20% away from the start and 80% away from the end, then it
+        doesn't matter where the start, end, or control points are: for that <i>t</i> value, C will <em>always</em> lie
+        at 20% from the start and 80% from the end point. Go ahead, pick an on-curve point in either graphic
+        and then move all the other points around: if you only move the control points, start and end won't move,
+        and so neither will C, and if you move either start or end point, C will move but its relative position
+        will not change. The following function stays true:</p>
 
-        <p>We can also see that the distances for the lines <i>d1 = A-B</i> and <i>d2 = B-C</i> may vary, but the
-        ratio between them, <i>d1/d2</i>, is a constant value. We can drag any of the start, end, or control points
-        around as much as we like, but that value also stays the same.</p>
+        <p>\[
+          C = u \cdot P_{start} + (1-u) \cdot P_{end}
+        \]</p>
+
+        <p>So that just leaves finding A.</p>
 
         <div className="note">
-          <p>In fact, because the distance ratio is a fixed value for each point <i>B</i>, which we get by picking
-          some <i>t</i> value on our curve, the distance ratio is actually an identity function for Bézier curves.
-          If we were to plot all the ratio values for all possible <i>t</i> values for quadratic and cubic curves,
-          we'd see two very interesting functions: asymptotic at <i>t=0</i> and <i>t=1</i>, tending towards positive
-          infinity, with a zero-derivative minimum at <i>t=0.5</i>.</p>
+          <p>While that relation is fixed, the function <i>u(t)</i> differs depending on whether we're working
+          with quadratic or cubic curves:</p>
 
-          <p>Since these are ratios, we can actually express the ratio values as a function of <i>t</i>. I actually
-          failed at coming up with the precise functions, but thanks to some help from
-          <a href="http://mathoverflow.net/questions/122257/finding-the-formula-for-Bézier-curve-ratios-hull-point-point-baseline">Boris
-          Zbarsky</a> we can see that the ratio functions are actually remarkably simple:</p>
+          <p>\[\begin{align}
+            & u(t)_{quadratic} = \frac{(t-1)^2}{2t^2 - 2t + 1} \\
+            & u(t)_{cubic} = \frac{(1-t)^3}{t^3 + (1-t)^3}
+          \end{align}\]</p>
 
-          <table style={{width:"100%", border:0}}>
-            <tbody>
-              <tr>
-                <td>
-                  <p>Quadratic curves:\[
-                    ratio(t)_2 = \left | \frac{2t^2 - 2t}{2t^2 - 2t + 1} \right |
-                  \]</p>
-                </td><td>
-                  <p>Cubic curves: \[
-                    ratio(t)_3 = \left | \frac{t^3 + (1-t)^3 - 1}{t^3 + (1-t)^3} \right |
-                  \]</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <p>So, if we know the start and end coordinates, and we know the <i>t</i> value, we know C:</p>
+
+          <div className="figure">
+            <Graphic inline={true} preset="abc" title="Quadratic value of C for t" draw={this.drawQCT} onMouseMove={this.setCT}/>
+            <Graphic inline={true} preset="abc" title="Cubic value of C for t" draw={this.drawCCT} onMouseMove={this.setCT}/>
+          </div>
+
+          <p>Mouse-over the graphs to see the expression for C, given the <i>t</i> value at the mouse pointer.</p>
+        </div>
+
+        <p>There's also another important bit of information that is inherent to the ABC values: while the distances
+        between A and B, and B and C, are dynamic (based on where we put B), the <em>ratio</em> between the two
+        distances is stable: given some <i>t</i> value, the following always holds:</p>
+
+        <p>\[
+          ratio(t) = \frac{distance(B,C)}{distance(A,B)} = Constant
+        \]</p>
+
+        <p>This leads to a pretty powerful bit of knowledge: merely by knowing the <i>t</i> value of some on curve
+        point, we know where C has to be (as per the above note), and because we know B and C, and thus have the
+        distance between them, we know where A has to be:</p>
+
+        <p>\[
+          A = B - \frac{C - B}{ratio(t)} = B + \frac{B - C}{ratio(t)}
+        \]</p>
+
+        <p>And that's it, all values found.</p>
+
+        <div className="note">
+          <p>Much like the <i>u(t)</i> function in the above note, the <i>ratio(t)</i> function depends
+          on whether we're looking at quadratic or cubic curves. Their form is intrinsically related to
+          the <i>u(t)</i> function in that they both come rolling out of the same function evalution,
+          explained over on <a href="http://mathoverflow.net/questions/122257/finding-the-formula-for-Bézier-curve-ratios-hull-point-point-baseline">MathOverflow</a> by
+          Boris Zbarsky and myself. The ratio functions are the "s(t)" functions from the answers there,
+          while the "u(t)" functions have the same name both here and on MathOverflow.</p>
+
+          <p>\[
+            ratio(t)_{quadratic} = \left | \frac{2t^2 - 2t}{2t^2 - 2t + 1} \right |
+          \]</p>
+
+          <p>\[
+            ratio(t)_{cubic} = \left | \frac{t^3 + (1-t)^3 - 1}{t^3 + (1-t)^3} \right |
+          \]</p>
 
           <p>Unfortunately, this trick only works for quadratic and cubic curves. Once we hit higher order curves,
           things become a lot less predictable; the "fixed point <i>C</i>" is no longer fixed, moving around as we
@@ -163,6 +244,11 @@ var ABC = React.createClass({
           lie on that line before the start, or after the end, and there are no simple ratios that we can exploit.</p>
         </div>
 
+        <p>So: if we know B and its corresponding <i>t</i> value, then we know all the ABC values, which
+        —together with a start and end coordinate— gives us the necessary information to reconstruct a curve's
+        "de Casteljau skeleton", which means that two points and a value between 0 and 1, we can come up with
+        a curve. And that opens up possibilities: curve manipulation by dragging an on-curve point, curve fitting
+        of "a bunch of coordinates", these are useful things, and we'll look at both in the next sections.</p>
       </section>
     );
   }

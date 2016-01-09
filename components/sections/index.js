@@ -34,14 +34,14 @@ module.exports = {
 
   abc: require("./abc"),
   moulding: require("./moulding"),
-  pointcurves: require("./pointcurves")
+  pointcurves: require("./pointcurves"),
+
+  catmullconv: require("./catmullconv"),
+  catmullmoulding: require("./catmullmoulding")
 };
 
 
 /*
-  catmullconv: require("./catmullconv"),
-  catmullmoulding: require("./catmullmoulding"),
-
   polybezier: require("./polybezier"),
   shapes: require("./shapes"),
 
@@ -56,9 +56,6 @@ module.exports = {
 */
 
 /*
-
-  Bézier curves and Catmull-Rom curves
-  Creating a Catmull-Rom curve from three points
   Forming poly-Bézier curves
   Boolean shape operations
   Projecting a point onto a Bézier curve

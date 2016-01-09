@@ -234,7 +234,7 @@ var Moulding = React.createClass({
         we can compute the ABC ratio for this configuration, and we know that our new point A' should like at a distance:</p>
 
         <p>\[
-          A' = B' + \frac{B' - C}{ratio} = B' - \frac{C - B'}{ratio}
+          A' = B' - \frac{C - B'}{ratio} = B' + \frac{B - C}{ratio}
         \]</p>
 
         <p>For quadratic curves, this means we're done, since the new point A' is equivalent to the new quadratic control point.
@@ -249,7 +249,9 @@ var Moulding = React.createClass({
         curve. Given A', B', and the endpoints e1 and e2 of the strut line relative to B', we can now compute where the new control points
         should be. Remember that B' lies on line e1--e2 at a distance <i>t</i>, because that's how Bézier curves work. In the same manner,
         we know the distance A--e1 is only line-interval [0,t] of the full segment, and A--e2 is only line-interval [t,1], so constructing
-        the new control points is fairly easy:</p>
+        the new control points is fairly easy.</p>
+
+        <p>First, we construct the one-level-of-de-Casteljau-up points:</p>
 
         <p>\[
             \left \{ \begin{align}
@@ -257,6 +259,8 @@ var Moulding = React.createClass({
             v2 &= A' + \frac{e2 - A'}{1 - t}
             \end{align} \right .
         \]</p>
+
+        <p>And then we can compute the new control points:</p>
 
         <p>\[
             \left \{ \begin{align}
