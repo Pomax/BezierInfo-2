@@ -150,15 +150,14 @@ var PolyBezier = React.createClass({
 
   moveQuadraticPoint: function(api, i) {
     this.moveCubicPoint(api,i);
-    var anchor, toMove, fixed;
 
     // then move the other control points
     [-1,1].forEach(v => {
-      anchor = i - v + api.lpts.length;
+      var anchor = i - v + api.lpts.length;
       anchor = api.lpts[anchor % api.lpts.length];
-      fixed = i - 2*v + api.lpts.length;
+      var fixed = i - 2*v + api.lpts.length;
       fixed = api.lpts[fixed % api.lpts.length];
-      toMove = i - 3*v + api.lpts.length;
+      var toMove = i - 3*v + api.lpts.length;
       toMove = api.lpts[toMove % api.lpts.length];
       var a = atan2(fixed.y - anchor.y, fixed.x - anchor.x),
           dx = toMove.x - fixed.x,
