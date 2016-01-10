@@ -32,11 +32,10 @@ var BoundingBox = React.createClass({
       <section>
         <SectionHeader {...this.props} />
 
-
         <p>If we have the extremities, and the start/end points, a simple for loop that tests for min/max values for
         x and y means we have the four values we need to box in our curve:</p>
 
-        <p id="bounds_p"><i>Computing the bounding box for a Bézier curve</i></p>
+        <p><i>Computing the bounding box for a Bézier curve</i>:</p>
 
         <ol>
           <li>Find all <i>t</i> value(s) for the curve derivative's x- and y-roots.</li>
