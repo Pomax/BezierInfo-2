@@ -2,9 +2,6 @@ var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
-var sin = Math.sin;
-var tau = Math.PI*2;
-
 var ArclengthApprox = React.createClass({
   getDefaultProps: function() {
     return {

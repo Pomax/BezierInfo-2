@@ -45,9 +45,7 @@ var PointCurves = React.createClass({
   },
 
   drawQuadratic: function(api, curve) {
-    var w = api.getPanelWidth(),
-        h = api.getPanelHeight(),
-        labels = ["start","t=0.5","end"];
+    var labels = ["start","t=0.5","end"];
 
     api.reset();
 
@@ -90,9 +88,7 @@ var PointCurves = React.createClass({
   },
 
   drawCubic: function(api, curve) {
-    var w = api.getPanelWidth(),
-        h = api.getPanelHeight(),
-        labels = ["start","t=0.5","end"];
+    var labels = ["start","t=0.5","end"];
 
     api.reset();
 

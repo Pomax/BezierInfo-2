@@ -11,6 +11,8 @@ var webpackLoaders = [
   __dirname + '/lib/p-loader'
 ];
 
+var plugins = [];
+
 // Dev mode: make certain concessions to speed up dev work:
 if(process.argv.indexOf("--prod") === -1) {
   // use the webpack hot Reload server:
@@ -19,6 +21,9 @@ if(process.argv.indexOf("--prod") === -1) {
   // allow textareas in  dev mode:
   webpackLoaders.push(__dirname + '/lib/textarea-loader');
 }
+
+// Prod mode: make sure to minify the bundle
+else { plugins.push(new webpack.optimize.UglifyJsPlugin()); }
 
 // And the final config that webpack will read in.
 module.exports = {
@@ -38,4 +43,5 @@ module.exports = {
       }
     ]
   },
+  plugins: plugins
 };

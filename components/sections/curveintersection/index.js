@@ -45,7 +45,6 @@ var CurveIntersections = React.createClass({
 
     if(this.step !== this.prevstep) {
       var pairs = this.pairs;
-      var clen = pairs.length;
       this.pairs = [];
       this.finals = [];
       pairs.forEach(p => {

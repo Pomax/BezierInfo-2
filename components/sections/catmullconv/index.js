@@ -1,5 +1,4 @@
 var React = require("react");
-var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
 var CatmullRomConversion = React.createClass({

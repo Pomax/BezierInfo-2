@@ -31,8 +31,7 @@ var Extremities = React.createClass({
         pts = curve.points,
         w = api.getPanelWidth(),
         h = api.getPanelHeight(),
-        offset = { x: w, y: 0 },
-        extremities;
+        offset = { x: w, y: 0 };
 
     var x_pts = JSON.parse(JSON.stringify(pts)).map((p,t) => { return {x:w*t/tf, y:p.x}; });
     api.setColor("black");

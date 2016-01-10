@@ -2,8 +2,6 @@ var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
-var abs = Math.abs;
-
 var ABC = React.createClass({
   getDefaultProps: function() {
     return {
@@ -88,7 +86,6 @@ var ABC = React.createClass({
     api.reset();
     api.setColor("black");
     var w = api.getPanelWidth();
-    var h = api.getPanelHeight();
     var pad = 20;
     var fwh = w - 2*pad;
     api.drawAxes(pad, "t",0,1, "u",0,1);

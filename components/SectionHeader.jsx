@@ -1,5 +1,4 @@
 var React = require("react");
-var ReactDOM = require("react-dom");
 
 var SectionHeader = React.createClass({
   render: function() {

@@ -2,7 +2,7 @@ var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
-var sin = Math.sin, cos = Math.cos, tan = Math.tan, abs = Math.abs;
+var sin = Math.sin, cos = Math.cos, tan = Math.tan;
 
 var CirclesCubic = React.createClass({
   getDefaultProps: function() {
@@ -100,7 +100,6 @@ var CirclesCubic = React.createClass({
     api.drawCircle(guess.points[2], 3);
 
     // real curve
-    var offset = {x:api.w, y:0};
     api.drawSkeleton(curve);
     api.setColor("black");
     api.drawLine(curve.points[1], curve.points[2]);

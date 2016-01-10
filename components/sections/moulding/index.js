@@ -68,8 +68,8 @@ var Moulding = React.createClass({
           curve = api.curve,
           hull = curve.hull(t),
           A = api.A = hull[5],
-          B = api.B = curve.get(t),
-          db = api.db = curve.derivative(t);
+          B = api.B = curve.get(t);
+      api.db = curve.derivative(t);
       api.C = api.utils.lli4(A, B, curve.points[0], curve.points[3]);
       api.ratio = ratio;
     }
@@ -82,23 +82,17 @@ var Moulding = React.createClass({
       x: evt.offsetX,
       y: evt.offsetY
     };
-    // find the current ABC and ratio values:
-    var A = api.A;
-    var B = api.B;
-    var C = api.C;
 
     // now that we know A, B, C and the AB:BC ratio, we can compute the new A' based on the desired B'
-    var newA = api.newA = {
-      x: newB.x - (C.x - newB.x) / api.ratio,
-      y: newB.y - (C.y - newB.y) / api.ratio
+    api.newA = {
+      x: newB.x - (api.C.x - newB.x) / api.ratio,
+      y: newB.y - (api.C.y - newB.y) / api.ratio
     };
   },
 
   dragQB: function(evt, api) {
     if (!api.t) return;
     this.drag(evt, api);
-
-    var curve = api.curve;
     api.update = [api.newA];
   },
 

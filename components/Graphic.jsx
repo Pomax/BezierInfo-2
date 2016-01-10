@@ -1,5 +1,4 @@
 var React = require("react");
-var ReactDOM = require("react-dom");
 var chroma = require("chroma-js");
 
 var fix = function(e) {
@@ -49,7 +48,7 @@ var Graphic = React.createClass({
   redraw: function() { if (this.props.draw) { this.props.draw(this, this.curve); }},
 
   render: function() {
-    var href = "data:text/plain," + this.props.code;
+    //var href = "data:text/plain," + this.props.code;
     return (
       <figure className={this.props.inline ? "inline": false}>
         <canvas ref="canvas"
@@ -416,7 +415,7 @@ var Graphic = React.createClass({
 
   drawCurve: function(curve, offset) {
     offset = offset || { x:0, y:0 };
-    var p = curve.points, i;
+    var p = curve.points;
 
     if (p.length <= 3 || 5 <= p.length) {
       var points = curve.getLUT(100);
