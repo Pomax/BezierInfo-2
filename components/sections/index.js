@@ -39,10 +39,7 @@ module.exports = {
   catmullconv: require("./catmullconv"),
   catmullmoulding: require("./catmullmoulding"),
 
-  /*
-    // This requires bezier.js to have a proper poly implementation
-    polybezier: require("./polybezier"),
-  */
+  polybezier: require("./polybezier"),
 
   /*
     // This section is way too much work to port, and not worth implementing given paper.js etc.

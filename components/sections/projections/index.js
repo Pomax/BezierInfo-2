@@ -46,6 +46,7 @@ var Projections = React.createClass({
     api.drawCurve(curve);
     if (api.mousePt) {
       api.setColor("red");
+      api.setFill("red");
       api.drawCircle(api.mousePt, 3);
       // naive t value
       var t = this.findClosest(api._lut, api.mousePt, api.utils.dist);
@@ -53,6 +54,7 @@ var Projections = React.createClass({
       var p = curve.get(t);
       api.drawLine(p, api.mousePt);
       api.drawCircle(p, 3);
+      api.text("t = "+api.utils.round(t,2), p, {x:10, y:3});
     }
   },
 

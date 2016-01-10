@@ -24,7 +24,7 @@ var Graphic = React.createClass({
   my:0,
   cx:0,
   cy:0,
-  mp: { x: 0, y: 0},
+  mp: false,
   offset: { x: 0, y: 0},
   lpts: [],
   colorSeed: 0,
@@ -96,10 +96,11 @@ var Graphic = React.createClass({
     this.dragging = false;
     this.down = true;
 
-    this.lpts.forEach(p => {
+    this.lpts.forEach((p,idx) => {
       if(Math.abs(this.mx - p.x)<10 && Math.abs(this.my - p.y)<10) {
         this.moving = true;
         this.mp = p;
+        this.mp_idx = idx;
         this.cx = p.x;
         this.cy = p.y;
       }
