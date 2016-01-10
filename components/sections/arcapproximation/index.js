@@ -24,6 +24,23 @@ var Introduction = React.createClass({
   setupCubic: function(api) {
     var curve = api.getDefaultCubic();
     api.setCurve(curve);
+    api.error = 0.5;
+  },
+
+  values: {
+    "38": 0.1,   // up arrow
+    "40": -0.1,  // down arrow
+  },
+
+  onKeyDown: function(e, api) {
+    var v = this.values[e.keyCode];
+    if(v) {
+      e.preventDefault();
+      api.error += v;
+      if (api.error < 0.1) {
+        api.error = 0.1;
+      }
+    }
   },
 
   getCCenter: function(api, p1, p2, p3) {
@@ -111,7 +128,7 @@ var Introduction = React.createClass({
 
   drawSingleArc: function(api, curve) {
     api.reset();
-    var arcs = curve.arcs(0.5);
+    var arcs = curve.arcs(api.error);
     api.drawSkeleton(curve);
     api.drawCurve(curve);
 
@@ -120,11 +137,14 @@ var Introduction = React.createClass({
     api.setFill("rgba(200,0,0,0.4)");
     api.debug = true;
     api.drawArc(a);
+
+    api.setFill("black");
+    api.text("Arc approximation with total error " + api.utils.round(api.error,1), {x:10, y:15});
   },
 
   drawArcs: function(api, curve) {
     api.reset();
-    var arcs = curve.arcs(0.5);
+    var arcs = curve.arcs(api.error);
     api.drawSkeleton(curve);
     api.drawCurve(curve);
     arcs.forEach(a => {
@@ -132,6 +152,9 @@ var Introduction = React.createClass({
       api.setFill(api.getColor());
       api.drawArc(a);
     });
+
+    api.setFill("black");
+    api.text("Arc approximation with total error " + api.utils.round(api.error,1) + " per arc segment", {x:10, y:15});
   },
 
   render: function() {
@@ -210,11 +233,11 @@ var Introduction = React.createClass({
 
         <p>The following graphic shows the result of this approach, with a default error threshold of 0.5, meaning that
           if an arc is off by a <em>combined</em> half pixel over both verification points, then we treat the arc as bad.
-          This is an extremely simple error policy, but already works really well. Note that the graphic is still interactive,
-          and you can use your '+' and '-' keys to increase to decrease the error threshold, to see what the effect
-          of a smaller or larger error threshold is.</p>
+          This is an extremely simple error policy, but already works really well. Note that the graphic is still
+          interactive, and you can use your up and down cursor keys keys to increase or decrease the error threshold,
+          to see what the effect of a smaller or larger error threshold is.</p>
 
-        <Graphic preset="simple" title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawSingleArc} />
+        <Graphic preset="simple" title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawSingleArc} onKeyDown={this.onKeyDown} />
 
         <p>With that in place, all that's left now is to "restart" the procedure by treating the found arc's
           end point as the new to-be-determined arc's starting point, and using points further down the curve. We
@@ -223,7 +246,7 @@ var Introduction = React.createClass({
           so you can see how picking a different threshold changes the number of arcs that are necessary to
           reasonably approximate a curve:</p>
 
-        <Graphic preset="simple" title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawArcs} />
+        <Graphic preset="simple" title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawArcs} onKeyDown={this.onKeyDown} />
 
         <p>So... what is this good for? Obviously, If you're working with technologies that can't do curves,
           but can do lines and circles, then the answer is pretty straight-forward, but what else? There are

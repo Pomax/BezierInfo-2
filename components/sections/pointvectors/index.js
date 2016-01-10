@@ -22,16 +22,17 @@ var PointVectors = React.createClass({
   draw: function(api, curve) {
     api.reset();
     api.drawSkeleton(curve);
-    api.drawCurve(curve);
 
-    var i,t,p,tg,n,td=0.25,nd=20;
+    var i,t,p,tg,n,m,nd=20;
     for(i=0; i<=10; i++) {
       t = i/10.0;
       p = curve.get(t);
       tg = curve.derivative(t);
+      m = Math.sqrt(tg.x*tg.x + tg.y*tg.y);
+      tg = {x:tg.x/m, y:tg.y/m};
       n = curve.normal(t);
       api.setColor("blue");
-      api.drawLine(p, {x:p.x+tg.x*td, y:p.y+tg.y*td});
+      api.drawLine(p, {x:p.x+tg.x*nd, y:p.y+tg.y*nd});
       api.setColor("red");
       api.drawLine(p, {x:p.x+n.x*nd, y:p.y+n.y*nd});
       api.setColor("black");
@@ -132,7 +133,8 @@ var PointVectors = React.createClass({
         </div>
 
         <p>The following two graphics show the tangent and normal along a quadratic and cubic curve, with
-        the direction vector coloured blue, and the normal vector coloured red.</p>
+        the direction vector coloured blue, and the normal vector coloured red (the markers are spaced out
+        evenly as <i>t</i>-intervals, not spaced equidistant).</p>
 
         <div className="figure">
           <Graphic preset="simple" title="Quadratic Bézier tangents and normals" inline={true} setup={this.setupQuadratic} draw={this.draw}/>

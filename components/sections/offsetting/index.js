@@ -27,15 +27,33 @@ var Offsetting = React.createClass({
   draw: function(api, curve) {
     api.reset();
     api.drawSkeleton(curve);
-    api.drawCurve(curve);
+
+    var reduced = curve.reduce();
+    reduced.forEach(c => {
+      api.setRandomColor();
+      api.drawCurve(c);
+      api.drawCircle(c.points[0], 3);
+    });
+    var last = reduced.slice(-1)[0];
+    api.drawCircle(last.points[3] || last.points[2],3);
 
     api.setColor("red");
     var offset = curve.offset(api.distance);
-    offset.forEach(c => api.drawCurve(c));
+    offset.forEach(c => {
+      api.drawCircle(c.points[0],1);
+      api.drawCurve(c)
+    });
+    last = offset.slice(-1)[0];
+    api.drawCircle(last.points[3] || last.points[2],1);
 
     api.setColor("blue");
     offset = curve.offset(-api.distance);
-    offset.forEach(c => api.drawCurve(c));
+    offset.forEach(c => {
+      api.drawCircle(c.points[0],1);
+      api.drawCurve(c)
+    });
+    last = offset.slice(-1)[0];
+    api.drawCircle(last.points[3] || last.points[2],1);
   },
 
   values: {
@@ -153,8 +171,17 @@ var Offsetting = React.createClass({
         with respect to the curve's scaling origin (which is the intersection of the point normals at the start
         and end points).</p>
 
+        <p>A good way to do this reduction is to first find the curve's extreme points, as explained in the earlier
+        section on curve extremities, and use these as initial splitting points. After this initial split, we can
+        check each individual segment to see if it's "safe enough" based on where the center of the curve is. If the
+        on-curve point for <i>t=0.5</i> is too far off from the center, we simply split the segment down the middle.
+        Generally this is more than enough to end up with safe segments.</p>
+
         <p>The following graphics show off curve offsetting, and you can use your up and down cursor keys to control
-        the distance at which the curve gets offset:</p>
+        the distance at which the curve gets offset. The curve first gets reduced to safe segments, each of which is
+        then offset at the desired distance. Especially for simple curves, particularly easily set up for quadratic
+        curves, no reduction is necessary, but the more twisty the curve gets, the more the curve needs to be reduced
+        in order to get segments that can safely be scaled.</p>
 
         <Graphic preset="simple" title="Offsetting a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.onKeyDown} />
         <Graphic preset="simple" title="Offsetting a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onKeyDown={this.onKeyDown} />

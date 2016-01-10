@@ -27740,22 +27740,23 @@
 	  draw: function draw(api, curve) {
 	    api.reset();
 	    api.drawSkeleton(curve);
-	    api.drawCurve(curve);
 
 	    var i,
 	        t,
 	        p,
 	        tg,
 	        n,
-	        td = 0.25,
+	        m,
 	        nd = 20;
 	    for (i = 0; i <= 10; i++) {
 	      t = i / 10.0;
 	      p = curve.get(t);
 	      tg = curve.derivative(t);
+	      m = Math.sqrt(tg.x * tg.x + tg.y * tg.y);
+	      tg = { x: tg.x / m, y: tg.y / m };
 	      n = curve.normal(t);
 	      api.setColor("blue");
-	      api.drawLine(p, { x: p.x + tg.x * td, y: p.y + tg.y * td });
+	      api.drawLine(p, { x: p.x + tg.x * nd, y: p.y + tg.y * nd });
 	      api.setColor("red");
 	      api.drawLine(p, { x: p.x + n.x * nd, y: p.y + n.y * nd });
 	      api.setColor("black");
@@ -27903,7 +27904,13 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        "The following two graphics show the tangent and normal along a quadratic and cubic curve, with the direction vector coloured blue, and the normal vector coloured red."
+	        "The following two graphics show the tangent and normal along a quadratic and cubic curve, with the direction vector coloured blue, and the normal vector coloured red (the markers are spaced out evenly as ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        "-intervals, not spaced equidistant)."
 	      ),
 	      React.createElement(
 	        "div",
@@ -32798,19 +32805,33 @@
 	  draw: function draw(api, curve) {
 	    api.reset();
 	    api.drawSkeleton(curve);
-	    api.drawCurve(curve);
+
+	    var reduced = curve.reduce();
+	    reduced.forEach(function (c) {
+	      api.setRandomColor();
+	      api.drawCurve(c);
+	      api.drawCircle(c.points[0], 3);
+	    });
+	    var last = reduced.slice(-1)[0];
+	    api.drawCircle(last.points[3] || last.points[2], 3);
 
 	    api.setColor("red");
 	    var offset = curve.offset(api.distance);
 	    offset.forEach(function (c) {
-	      return api.drawCurve(c);
+	      api.drawCircle(c.points[0], 1);
+	      api.drawCurve(c);
 	    });
+	    last = offset.slice(-1)[0];
+	    api.drawCircle(last.points[3] || last.points[2], 1);
 
 	    api.setColor("blue");
 	    offset = curve.offset(-api.distance);
 	    offset.forEach(function (c) {
-	      return api.drawCurve(c);
+	      api.drawCircle(c.points[0], 1);
+	      api.drawCurve(c);
 	    });
+	    last = offset.slice(-1)[0];
+	    api.drawCircle(last.points[3] || last.points[2], 1);
 	  },
 
 	  values: {
@@ -33142,7 +33163,18 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        "The following graphics show off curve offsetting, and you can use your up and down cursor keys to control the distance at which the curve gets offset:"
+	        "A good way to do this reduction is to first find the curve's extreme points, as explained in the earlier section on curve extremities, and use these as initial splitting points. After this initial split, we can check each individual segment to see if it's \"safe enough\" based on where the center of the curve is. If the on-curve point for ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t=0.5"
+	        ),
+	        " is too far off from the center, we simply split the segment down the middle. Generally this is more than enough to end up with safe segments."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The following graphics show off curve offsetting, and you can use your up and down cursor keys to control the distance at which the curve gets offset. The curve first gets reduced to safe segments, each of which is then offset at the desired distance. Especially for simple curves, particularly easily set up for quadratic curves, no reduction is necessary, but the more twisty the curve gets, the more the curve needs to be reduced in order to get segments that can safely be scaled."
 	      ),
 	      React.createElement(Graphic, { preset: "simple", title: "Offsetting a quadratic Bézier curve", setup: this.setupQuadratic, draw: this.draw, onKeyDown: this.onKeyDown }),
 	      React.createElement(Graphic, { preset: "simple", title: "Offsetting a cubic Bézier curve", setup: this.setupCubic, draw: this.draw, onKeyDown: this.onKeyDown }),
@@ -34473,6 +34505,23 @@
 	  setupCubic: function setupCubic(api) {
 	    var curve = api.getDefaultCubic();
 	    api.setCurve(curve);
+	    api.error = 0.5;
+	  },
+
+	  values: {
+	    "38": 0.1, // up arrow
+	    "40": -0.1 },
+
+	  // down arrow
+	  onKeyDown: function onKeyDown(e, api) {
+	    var v = this.values[e.keyCode];
+	    if (v) {
+	      e.preventDefault();
+	      api.error += v;
+	      if (api.error < 0.1) {
+	        api.error = 0.1;
+	      }
+	    }
 	  },
 
 	  getCCenter: function getCCenter(api, p1, p2, p3) {
@@ -34570,7 +34619,7 @@
 
 	  drawSingleArc: function drawSingleArc(api, curve) {
 	    api.reset();
-	    var arcs = curve.arcs(0.5);
+	    var arcs = curve.arcs(api.error);
 	    api.drawSkeleton(curve);
 	    api.drawCurve(curve);
 
@@ -34579,11 +34628,14 @@
 	    api.setFill("rgba(200,0,0,0.4)");
 	    api.debug = true;
 	    api.drawArc(a);
+
+	    api.setFill("black");
+	    api.text("Arc approximation with total error " + api.utils.round(api.error, 1), { x: 10, y: 15 });
 	  },
 
 	  drawArcs: function drawArcs(api, curve) {
 	    api.reset();
-	    var arcs = curve.arcs(0.5);
+	    var arcs = curve.arcs(api.error);
 	    api.drawSkeleton(curve);
 	    api.drawCurve(curve);
 	    arcs.forEach(function (a) {
@@ -34591,6 +34643,9 @@
 	      api.setFill(api.getColor());
 	      api.drawArc(a);
 	    });
+
+	    api.setFill("black");
+	    api.text("Arc approximation with total error " + api.utils.round(api.error, 1) + " per arc segment", { x: 10, y: 15 });
 	  },
 
 	  render: function render() {
@@ -34799,9 +34854,9 @@
 	          null,
 	          "combined"
 	        ),
-	        " half pixel over both verification points, then we treat the arc as bad. This is an extremely simple error policy, but already works really well. Note that the graphic is still interactive, and you can use your '+' and '-' keys to increase to decrease the error threshold, to see what the effect of a smaller or larger error threshold is."
+	        " half pixel over both verification points, then we treat the arc as bad. This is an extremely simple error policy, but already works really well. Note that the graphic is still interactive, and you can use your up and down cursor keys keys to increase or decrease the error threshold, to see what the effect of a smaller or larger error threshold is."
 	      ),
-	      React.createElement(Graphic, { preset: "simple", title: "Arc approximation of a Bézier curve", setup: this.setupCubic, draw: this.drawSingleArc }),
+	      React.createElement(Graphic, { preset: "simple", title: "Arc approximation of a Bézier curve", setup: this.setupCubic, draw: this.drawSingleArc, onKeyDown: this.onKeyDown }),
 	      React.createElement(
 	        "p",
 	        null,
@@ -34813,7 +34868,7 @@
 	        ),
 	        ", at which point we are done. Again, the following graphic allows for '+' and '-' key input to increase or decrease the error threshold, so you can see how picking a different threshold changes the number of arcs that are necessary to reasonably approximate a curve:"
 	      ),
-	      React.createElement(Graphic, { preset: "simple", title: "Arc approximation of a Bézier curve", setup: this.setupCubic, draw: this.drawArcs }),
+	      React.createElement(Graphic, { preset: "simple", title: "Arc approximation of a Bézier curve", setup: this.setupCubic, draw: this.drawArcs, onKeyDown: this.onKeyDown }),
 	      React.createElement(
 	        "p",
 	        null,
