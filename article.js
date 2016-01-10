@@ -28039,7 +28039,7 @@
 
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      title: "Finding extreminities"
+	      title: "Finding extremities: root finding"
 	    };
 	  },
 
