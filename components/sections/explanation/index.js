@@ -5,15 +5,60 @@ var SectionHeader = require("../../SectionHeader.jsx");
 var Explanation = React.createClass({
   getDefaultProps: function() {
     return {
-      title: "The basics of Bézier curves"
+      title: "The mathematics of Bézier curves"
     };
   },
 
-  circle: require("./circle"),
+  values: {
+    "38": 0.1,   // up arrow
+    "40": -0.1,  // down arrow
+  },
 
-  componentWillMount: function() {
-    this.setup = this.circle.setup.bind(this);
-    this.draw = this.circle.draw.bind(this);
+  onKeyDown: function(e, api) {
+    var v = this.values[e.keyCode];
+    if(v) {
+      e.preventDefault();
+      api.step += v;
+      if (api.step < 0.1) {
+        api.step = 0.1;
+      }
+    }
+  },
+
+  setup: function(api) {
+    api.step = 5;
+  },
+
+  draw: function(api, curve) {
+    var dim = api.getPanelWidth(),
+        w = dim,
+        h = dim,
+        w2 = w/2,
+        h2 = h/2,
+        w4 = w2/2,
+        h4 = h2/2;
+
+    api.reset();
+    api.setColor("black");
+    api.drawLine({x:0,y:h2},{x:w,y:h2});
+    api.drawLine({x:w2,y:0},{x:w2,y:h});
+
+    var offset = {x:w2, y:h2};
+    for(var t=0, p; t<=api.step; t+=0.1) {
+      p = {
+        x: w4 * Math.cos(t),
+        y: h4 * Math.sin(t)
+      };
+      api.drawPoint(p, offset);
+      var modulo = t % 1;
+      if(modulo<0.05 || modulo> 0.95) {
+        api.text("t = " + Math.round(t), {
+          x: offset.x + 1.25 * w4 * Math.cos(t) - 10,
+          y: offset.y + 1.25 * h4 * Math.sin(t) + 5
+        });
+        api.drawCircle(p, 2, offset);
+      }
+    }
   },
 
   render: function() {
@@ -78,9 +123,10 @@ var Explanation = React.createClass({
         which we can use as (<i>x</i>,<i>y</i>) coordinates in a graph. The above set of functions,
         for instance, generates points on a circle: We can range <i>t</i> from negative to positive
         infinity, and the resulting (<i>x</i>,<i>y</i>) coordinates will always lie on a circle with
-        radius 1 around the origin (0,0). If we plot it for <i>t</i> from 0 to 5, we get this:</p>
+        radius 1 around the origin (0,0). If we plot it for <i>t</i> from 0 to 5, we get this (use
+        your up and down cursor keys to change the plot end value):</p>
 
-        <Graphic preset="empty" title="A (partial) circle: x=sin(t), y=cos(t)" setup={this.setup} draw={this.draw}/>
+        <Graphic preset="empty" title="A (partial) circle: x=sin(t), y=cos(t)" static={true} setup={this.setup} draw={this.draw} onKeyDown={this.onKeyDown}/>
 
         <p>Bézier curves are (one in many classes of) parametric functions, and are characterised
         by using the same base function for all its dimensions. Unlike the above example,
