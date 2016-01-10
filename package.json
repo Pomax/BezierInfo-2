@@ -44,6 +44,7 @@
     "less-loader": "^2.2.2",
     "less-watch-compiler": "^1.1.4",
     "mathjax-node": "^0.4.0",
+    "paper": "^0.9.25",
     "raw-loader": "^0.5.1",
     "react": "^0.14.3",
     "react-component-visibility": "0.0.8",

@@ -14,6 +14,8 @@ var Bezier = require("bezier-js");
 
 var Graphic = React.createClass({
 
+  Paper: false,
+
   defaultWidth: 275,
   defaultHeight: 275,
 
@@ -73,6 +75,11 @@ var Graphic = React.createClass({
     this.cvs = cvs;
     var ctx = cvs.getContext("2d");
     this.ctx = ctx;
+
+    if (this.props.paperjs) {
+      var Paper = this.Paper = require("../lib/vendor/paperjs/paper-core");
+      this.project = new Paper.Project(cvs);
+    }
 
     if (this.props.setup) {
       this.props.setup(this);

@@ -41,10 +41,7 @@ module.exports = {
 
   polybezier: require("./polybezier"),
 
-  /*
-    // This section is way too much work to port, and not worth implementing given paper.js etc.
-    shapes: require("./shapes"), //   Boolean shape operations
-  */
+  shapes: require("./shapes"),
 
   projections: require("./projections"),
   offsetting: require("./offsetting"),
