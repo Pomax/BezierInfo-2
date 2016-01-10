@@ -1,3 +1,61 @@
+var React = require("react");
+var Graphic = require("../../Graphic.jsx");
+var SectionHeader = require("../../SectionHeader.jsx");
+
+var Offsetting = React.createClass({
+  getDefaultProps: function() {
+    return {
+      title: "Curve offsetting"
+    };
+  },
+
+  setup: function(api, curve) {
+    api.setCurve(curve);
+    api.distance = 20;
+  },
+
+  setupQuadratic: function(api) {
+    var curve = api.getDefaultQuadratic();
+    this.setup(api, curve);
+  },
+
+  setupCubic: function(api) {
+    var curve = api.getDefaultCubic();
+    this.setup(api, curve);
+  },
+
+  draw: function(api, curve) {
+    api.reset();
+    api.drawSkeleton(curve);
+    api.drawCurve(curve);
+
+    api.setColor("red");
+    var offset = curve.offset(api.distance);
+    offset.forEach(c => api.drawCurve(c));
+
+    api.setColor("blue");
+    offset = curve.offset(-api.distance);
+    offset.forEach(c => api.drawCurve(c));
+  },
+
+  values: {
+    "38": 1,   // up arrow
+    "40": -1,  // down arrow
+  },
+
+  onKeyDown: function(e, api) {
+    var v = this.values[e.keyCode];
+    if(v) {
+      e.preventDefault();
+      api.distance += v;
+    }
+  },
+
+  render: function() {
+    return (
+      <section>
+        <SectionHeader {...this.props} />
+
         <p>Perhaps you are like me, and you've been writing various small programs that use Bézier curves in some way or another,
         and at some point you make the step to implementing path extrusion. But you don't want to do it pixel based, you want to
         stay in the vector world. You find that extruding lines is relatively easy, and tracing outlines is coming along nicely
@@ -11,7 +69,7 @@
         <p>Bottom line: <strong>you can't</strong>. So you cheat. We're not going to do true curve scaling, or rather curve
         offsetting, because that's impossible. Instead we're going to try to generate 'looks good enough' offset curves.</p>
 
-        <div class="note">
+        <div className="note">
           <h2>"What do you mean, you can't. Prove it."</h2>
 
           <p>First off, when I say "you can't" what I really mean is "you can't offset a Bézier curve with another
@@ -95,47 +153,20 @@
         with respect to the curve's scaling origin (which is the intersection of the point normals at the start
         and end points).</p>
 
-        <textarea class="sketch-code" data-sketch-preset="simple" data-sketch-title="Offsetting a quadratic Bézier curve">
-        void setupCurve() {
-          setupDefaultQuadratic();
-          offsetting();
-          offset = 20;
-        }
+        <p>The following graphics show off curve offsetting, and you can use your up and down cursor keys to control
+        the distance at which the curve gets offset:</p>
 
-        void drawCurve(BezierCurve curve) {
-          additionals();
-          curve.draw();
-
-          if(offset>0) {
-            noAdditionals();
-            BezierCurve[] offsetCurve = curve.offset(offset);
-            for(BezierCurve b: offsetCurve) { b.draw(); b.getPoint(0).draw(); b.getPoint(1).draw();}
-            offsetCurve = curve.offset(-offset);
-            for(BezierCurve b: offsetCurve) { b.draw(); b.getPoint(0).draw(); b.getPoint(1).draw();}
-          }
-        }</textarea>
-
-        <textarea class="sketch-code" data-sketch-preset="simple" data-sketch-title="Offsetting a cubic Bézier curve">
-        void setupCurve() {
-          setupDefaultCubic();
-          offsetting();
-          offset = 20;
-        }
-
-        void drawCurve(BezierCurve curve) {
-          additionals();
-          curve.draw();
-
-          if(offset>0) {
-            noAdditionals();
-            BezierCurve[] offsetCurve = curve.offset(offset);
-            for(BezierCurve b: offsetCurve) { b.draw(); b.getPoint(0).draw(); b.getPoint(1).draw();}
-            offsetCurve = curve.offset(-offset);
-            for(BezierCurve b: offsetCurve) { b.draw(); b.getPoint(0).draw(); b.getPoint(1).draw();}
-          }
-        }</textarea>
+        <Graphic preset="simple" title="Offsetting a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.onKeyDown} />
+        <Graphic preset="simple" title="Offsetting a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onKeyDown={this.onKeyDown} />
 
         <p>You may notice that this may still lead to small 'jumps' in the sub-curves when moving the
         curve around. This is caused by the fact that we're still performing a naive form of offsetting,
         moving the control points the same distance as the start and end points. If the curve is large
         enough, this may still lead to incorrect offsets.</p>
+
+      </section>
+    );
+  }
+});
+
+module.exports = Offsetting;

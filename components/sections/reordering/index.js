@@ -158,27 +158,3 @@ var Reordering = React.createClass({
 });
 
 module.exports = Reordering;
-
-/*
-void setupCurve() {
-          int d = dim - 2*pad;
-          int order = 10;
-          ArrayList<Point> pts = new ArrayList<Point>();
-
-          float dst = d/2.5, nx, ny, a=0, step = 2*PI/order, r;
-          for(a=0; a<2*PI; a+=step) {
-            r = random(-dst/4,dst/4);
-            pts.add(new Point(d/2 + cos(a) * (r+dst), d/2 + sin(a) * (r+dst)));
-            dst -= 1.2;
-          }
-
-          Point[] points = new Point[pts.size()];
-          for(int p=0,last=points.length; p<last; p++) { points[p] = pts.get(p); }
-          curves.add(new BezierCurve(points));
-          reorder();
-        }
-
-        void drawCurve(BezierCurve curve) {
-          curve.draw();
-        }</textarea>
- */

@@ -37,31 +37,23 @@ module.exports = {
   pointcurves: require("./pointcurves"),
 
   catmullconv: require("./catmullconv"),
-  catmullmoulding: require("./catmullmoulding")
-};
+  catmullmoulding: require("./catmullmoulding"),
 
+  /*
+    // This requires bezier.js to have a proper poly implementation
+    polybezier: require("./polybezier"),
+  */
 
-/*
-  polybezier: require("./polybezier"),
-  shapes: require("./shapes"),
+  /*
+    // This section is way too much work to port, and not worth implementing given paper.js etc.
+    shapes: require("./shapes"), //   Boolean shape operations
+  */
 
   projections: require("./projections"),
-
   offsetting: require("./offsetting"),
   graduatedoffset: require("./graduatedoffset"),
 
   circles: require("./circles"),
   circles_cubic: require("./circles_cubic"),
   arcapproximation: require("./arcapproximation")
-*/
-
-/*
-  Forming poly-Bézier curves
-  Boolean shape operations
-  Projecting a point onto a Bézier curve
-  Curve offsetting
-  Graduated curve offsetting
-  Circles and quadratic Bézier curves
-  Circles and cubic Bézier curves
-  Approximating Bézier curves with circular arcs
-*/
+};

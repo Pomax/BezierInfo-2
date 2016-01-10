@@ -1,3 +1,58 @@
+var React = require("react");
+var Graphic = require("../../Graphic.jsx");
+var SectionHeader = require("../../SectionHeader.jsx");
+
+var GraduatedOffsetting = React.createClass({
+  getDefaultProps: function() {
+    return {
+      title: "Graduated curve offsetting"
+    };
+  },
+
+  setup: function(api, curve) {
+    api.setCurve(curve);
+    api.distance = 20;
+  },
+
+  setupQuadratic: function(api) {
+    var curve = api.getDefaultQuadratic();
+    this.setup(api, curve);
+  },
+
+  setupCubic: function(api) {
+    var curve = api.getDefaultCubic();
+    this.setup(api, curve);
+  },
+
+  draw: function(api, curve) {
+    api.reset();
+    api.drawSkeleton(curve);
+    api.drawCurve(curve);
+
+
+    api.setColor("blue");
+    var outline = curve.outline(0,0,api.distance,api.distance);
+    outline.curves.forEach(c => api.drawCurve(c));
+  },
+
+  values: {
+    "38": 1,   // up arrow
+    "40": -1,  // down arrow
+  },
+
+  onKeyDown: function(e, api) {
+    var v = this.values[e.keyCode];
+    if(v) {
+      e.preventDefault();
+      api.distance += v;
+    }
+  },
+
+  render: function() {
+    return (
+      <section>
+        <SectionHeader {...this.props} />
+
         <p>What if we want to do graduated offsetting, starting at some distance <i>s</i> but ending
         at some other distance <i>e</i>? well, if we can compute the length of a curve (which we can
         if we use the Legendre-Gauss quadrature approach) then we can also determine how far "along the
@@ -21,46 +76,18 @@
           <li>end: <i>map(<strong>S+length(subcurve)</strong>, 0,L, s,e)</i></li>
         </ul>
 
-        At each of the relevant points (start, end, and the projections of the control points onto
+        <p>At each of the relevant points (start, end, and the projections of the control points onto
         the curve) we know the curve's normal, so offsetting is simply a matter of taking our original
         point, and moving it along the normal vector by the offset distance for each point. Doing so
         will give us the following result (these have with a starting width of 0, and an end width
-        of 40 pixels, but can be controlled with your + and - keys):</p>
+        of 40 pixels, but can be controlled with your up and down cursor keys):</p>
 
-        <textarea class="sketch-code" data-sketch-preset="simple" data-sketch-title="Graduated offsetting a quadratic Bézier curve">
-        void setupCurve() {
-          setupDefaultQuadratic();
-          offsetting();
-          offset = 20;
-        }
+        <Graphic preset="simple" title="Offsetting a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.onKeyDown}/>
+        <Graphic preset="simple" title="Offsetting a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onKeyDown={this.onKeyDown}/>
 
-        void drawCurve(BezierCurve curve) {
-          additionals();
-          curve.draw();
-          if(offset>0) {
-            noAdditionals();
-            BezierCurve[] offsetCurve = curve.offset(offset, 0, 1);
-            for(BezierCurve b: offsetCurve) { b.draw(); b.getPoint(0).draw(); b.getPoint(1).draw();}
-            offsetCurve = curve.offset(-offset, 0, 1);
-            for(BezierCurve b: offsetCurve) { b.draw(); b.getPoint(0).draw(); b.getPoint(1).draw();}
-          }
-        }</textarea>
+      </section>
+    );
+  }
+});
 
-        <textarea class="sketch-code" data-sketch-preset="simple" data-sketch-title="Graduated offsetting a cubic Bézier curve">
-        void setupCurve() {
-          setupDefaultCubic();
-          offsetting();
-          offset = 20;
-        }
-
-        void drawCurve(BezierCurve curve) {
-          additionals();
-          curve.draw();
-          if(offset>0) {
-            noAdditionals();
-            BezierCurve[] offsetCurve = curve.offset(offset, 0, 1);
-            for(BezierCurve b: offsetCurve) { b.draw(); b.getPoint(0).draw(); b.getPoint(1).draw();}
-            offsetCurve = curve.offset(-offset, 0, 1);
-            for(BezierCurve b: offsetCurve) { b.draw(); b.getPoint(0).draw(); b.getPoint(1).draw();}
-          }
-        }</textarea>
+module.exports = GraduatedOffsetting;

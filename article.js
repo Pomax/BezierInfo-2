@@ -64,7 +64,7 @@
 	var React = __webpack_require__(10);
 	var ReactDOM = __webpack_require__(167);
 	var Article = __webpack_require__(168);
-	var style = __webpack_require__(208);
+	var style = __webpack_require__(214);
 
 	ReactDOM.render(React.createElement(Article, null), document.getElementById("article"), function () {
 	  // trigger a #hash navigation
@@ -19824,33 +19824,26 @@
 	  pointcurves: __webpack_require__(205),
 
 	  catmullconv: __webpack_require__(206),
-	  catmullmoulding: __webpack_require__(207)
+	  catmullmoulding: __webpack_require__(207),
+
+	  /*
+	    // This requires bezier.js to have a proper poly implementation
+	    polybezier: require("./polybezier"),
+	  */
+
+	  /*
+	    // This section is way too much work to port, and not worth implementing given paper.js etc.
+	    shapes: require("./shapes"), //   Boolean shape operations
+	  */
+
+	  projections: __webpack_require__(208),
+	  offsetting: __webpack_require__(209),
+	  graduatedoffset: __webpack_require__(210),
+
+	  circles: __webpack_require__(211),
+	  circles_cubic: __webpack_require__(212),
+	  arcapproximation: __webpack_require__(213)
 	};
-
-	/*
-	  polybezier: require("./polybezier"),
-	  shapes: require("./shapes"),
-
-	  projections: require("./projections"),
-
-	  offsetting: require("./offsetting"),
-	  graduatedoffset: require("./graduatedoffset"),
-
-	  circles: require("./circles"),
-	  circles_cubic: require("./circles_cubic"),
-	  arcapproximation: require("./arcapproximation")
-	*/
-
-	/*
-	  Forming poly-Bézier curves
-	  Boolean shape operations
-	  Projecting a point onto a Bézier curve
-	  Curve offsetting
-	  Graduated curve offsetting
-	  Circles and quadratic Bézier curves
-	  Circles and cubic Bézier curves
-	  Approximating Bézier curves with circular arcs
-	*/
 
 /***/ },
 /* 171 */
@@ -20309,9 +20302,13 @@
 	    this.refs.canvas.height = h;
 	  },
 
+	  setCurves: function setCurves(c) {
+	    this.setCurve(c);
+	  },
+
 	  setCurve: function setCurve(c) {
 	    var pts = [];
-	    c = Array.prototype.slice.call(arguments);
+	    c = typeof c === "array" ? c : Array.prototype.slice.call(arguments);
 	    c.forEach(function (nc) {
 	      pts = pts.concat(nc.points);
 	    });
@@ -20403,11 +20400,11 @@
 	    if (pts.length > 2) {
 	      this.ctx.strokeStyle = "lightgrey";
 	      this.drawLine(pts[0], pts[1], offset);
-	      if (pts.length === 3) {
-	        this.drawLine(pts[1], pts[2], offset);
-	      } else {
-	        this.drawLine(pts[2], pts[3], offset);
+	      var last = pts.length - 2;
+	      for (var i = 1; i < last; i++) {
+	        this.drawLine(pts[i], pts[i + 1], offset);
 	      }
+	      this.drawLine(pts[last], pts[last + 1], offset);
 	    }
 	    this.ctx.strokeStyle = "black";
 	    this.drawPoints(pts, offset);
@@ -23761,9 +23758,12 @@
 	    return utils;
 	  };
 
-	  Bezier.getUtils = getUtils;
+	  var buildPoly = function(c) {
+	    return new PolyBezier(c);
+	  };
 
 	  Bezier.prototype = {
+	    buildPoly: buildPoly,
 	    getUtils: getUtils,
 	    valueOf: function() {
 	      return this.toString();
@@ -24398,6 +24398,8 @@
 	    }
 	  };
 
+	  Bezier.getUtils = getUtils;
+	  Bezier.buildPoly = buildPoly;
 
 	  if(typeof module !== "undefined" && module.exports) {
 	    module.exports = Bezier;
@@ -27304,30 +27306,6 @@
 
 	module.exports = Reordering;
 
-	/*
-	void setupCurve() {
-	          int d = dim - 2*pad;
-	          int order = 10;
-	          ArrayList<Point> pts = new ArrayList<Point>();
-
-	          float dst = d/2.5, nx, ny, a=0, step = 2*PI/order, r;
-	          for(a=0; a<2*PI; a+=step) {
-	            r = random(-dst/4,dst/4);
-	            pts.add(new Point(d/2 + cos(a) * (r+dst), d/2 + sin(a) * (r+dst)));
-	            dst -= 1.2;
-	          }
-
-	          Point[] points = new Point[pts.size()];
-	          for(int p=0,last=points.length; p<last; p++) { points[p] = pts.get(p); }
-	          curves.add(new BezierCurve(points));
-	          reorder();
-	        }
-
-	        void drawCurve(BezierCurve curve) {
-	          curve.draw();
-	        }</textarea>
-	 */
-
 /***/ },
 /* 190 */
 /***/ function(module, exports, __webpack_require__) {
@@ -28638,6 +28616,96 @@
 	          "i",
 	          null,
 	          "Computing the bounding box for a Bézier curve"
+	        )
+	      ),
+	      React.createElement(
+	        "ol",
+	        null,
+	        React.createElement(
+	          "li",
+	          null,
+	          "Find all ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          " value(s) for the curve derivative's x- and y-roots."
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Discard any ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          " value that's lower than 0 or higher than 1, because Bézier curves only use the interval [0,1]."
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Determine the lowest and highest value when plugging the values ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t=0"
+	          ),
+	          ", ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t=1"
+	          ),
+	          " and each of the found roots into the original functions: the lowest value is the lower bound, and the highest value is the upper bound for the bounding box we want to construct."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement(
+	          "ol",
+	          null,
+	          React.createElement(
+	            "li",
+	            null,
+	            "Find all ",
+	            React.createElement(
+	              "i",
+	              null,
+	              "t"
+	            ),
+	            " value(s) for the curve derivative's x- and y-roots."
+	          ),
+	          React.createElement(
+	            "li",
+	            null,
+	            "Discard any ",
+	            React.createElement(
+	              "i",
+	              null,
+	              "t"
+	            ),
+	            " value that's lower than 0 or higher than 1, because Bézier curves only use the interval [0,1]."
+	          ),
+	          React.createElement(
+	            "li",
+	            null,
+	            "Determine the lowest and highest value when plugging the values ",
+	            React.createElement(
+	              "i",
+	              null,
+	              "t=0"
+	            ),
+	            ", ",
+	            React.createElement(
+	              "i",
+	              null,
+	              "t=1"
+	            ),
+	            " and each of the found roots into the original functions: the lowest value is the lower bound, and the highest value is the upper bound for the bounding box we want to construct."
+	          )
 	        )
 	      ),
 	      React.createElement(
@@ -30557,6 +30625,7 @@
 	        ),
 	        " article. Of course, we need to make sure that the intersection isn't just on the lines our line segments lie on, but also on our line segments themselves, so after we find the intersection we need to verify it lies without the bounds of our original line segments."
 	      ),
+	      React.createElement("p", null),
 	      React.createElement(
 	        "p",
 	        null,
@@ -32483,13 +32552,2290 @@
 /* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var React = __webpack_require__(10);
+	var Graphic = __webpack_require__(173);
+	var SectionHeader = __webpack_require__(178);
+
+	var Projections = React.createClass({
+	  displayName: "Projections",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Projecting a point onto a Bézier curve"
+	    };
+	  },
+
+	  setup: function setup(api) {
+	    api.setSize(320, 320);
+	    var curve = new api.Bezier([{ x: 248, y: 188 }, { x: 218, y: 294 }, { x: 45, y: 290 }, { x: 12, y: 236 }, { x: 14, y: 82 }, { x: 186, y: 177 }, { x: 221, y: 90 }, { x: 18, y: 156 }, { x: 34, y: 57 }, { x: 198, y: 18 }]);
+	    api.setCurve(curve);
+	    api._lut = curve.getLUT();
+	  },
+
+	  findClosest: function findClosest(LUT, p, dist) {
+	    var i,
+	        end = LUT.length,
+	        d,
+	        dd = dist(LUT[0], p),
+	        f = 0;
+	    for (i = 1; i < end; i++) {
+	      d = dist(LUT[i], p);
+	      if (d < dd) {
+	        f = i;dd = d;
+	      }
+	    }
+	    return f / (end - 1);
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+	    if (api.mousePt) {
+	      api.setColor("red");
+	      api.drawCircle(api.mousePt, 3);
+	      // naive t value
+	      var t = this.findClosest(api._lut, api.mousePt, api.utils.dist);
+	      // no real point in refining for illustration purposes
+	      var p = curve.get(t);
+	      api.drawLine(p, api.mousePt);
+	      api.drawCircle(p, 3);
+	    }
+	  },
+
+	  onMouseMove: function onMouseMove(evt, api) {
+	    api.mousePt = { x: evt.offsetX, y: evt.offsetY };
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Say we have a Bézier curve and some point, not on the curve, of which we want to know which ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " value on the curve gives us an on-curve point closest to our off-curve point. Or: say we want to find the projection of a random point onto a curve. How do we do that?"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "If the Bézier curve is of low enough order, we might be able to ",
+	        React.createElement(
+	          "a",
+	          { href: "http://jazzros.blogspot.ca/2011/03/projecting-point-on-bezier-curve.html" },
+	          "work out the maths for how to do this"
+	        ),
+	        ", and get a perfect ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " value back, but in general this is an incredibly hard problem and the easiest solution is, really, a numerical approach again. We'll be finding our ideal ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " value using a ",
+	        React.createElement(
+	          "a",
+	          { href: "https://en.wikipedia.org/wiki/Binary_search_algorithm" },
+	          "binary search"
+	        ),
+	        ". First, we do a coarse distance-check based on ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " values associated with the curve's \"to draw\" coordinates (using a lookup table, or LUT). This is pretty fast. Then we run this algorithm:"
+	      ),
+	      React.createElement(
+	        "ol",
+	        null,
+	        React.createElement(
+	          "li",
+	          null,
+	          "with the ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          " value we found, start with some small interval around ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          " (1/length_of_LUT on either side is a reasonable start),"
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "if the distance to ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t ± interval/2"
+	          ),
+	          " is larger than the distance to ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          ", try again with the interval reduced to half its original length."
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "if the distance to ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t ± interval/2"
+	          ),
+	          " is smaller than the distance to ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          ", replace ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          " with the smaller-distance value."
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "after reducing the interval, or changing ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          ", go back to step 1."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We keep repeating this process until the interval is small enough to claim the difference in precision found is irrelevant for the purpose we're trying to find ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " for. In this case, I'm arbitrarily fixing it at 0.0001."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The following graphic demonstrates the result of this procedure.Simply move the cursor around, and if it does not lie on top of the curve, you will see a line that projects the cursor onto the curve based on an iteratively found \"ideal\" ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " value."
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "Projecting a point onto a Bézier curve", setup: this.setup, draw: this.draw, onMouseMove: this.onMouseMove })
+	    );
+	  }
+	});
+
+	module.exports = Projections;
+
+/***/ },
+/* 209 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(10);
+	var Graphic = __webpack_require__(173);
+	var SectionHeader = __webpack_require__(178);
+
+	var Offsetting = React.createClass({
+	  displayName: "Offsetting",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Curve offsetting"
+	    };
+	  },
+
+	  setup: function setup(api, curve) {
+	    api.setCurve(curve);
+	    api.distance = 20;
+	  },
+
+	  setupQuadratic: function setupQuadratic(api) {
+	    var curve = api.getDefaultQuadratic();
+	    this.setup(api, curve);
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    var curve = api.getDefaultCubic();
+	    this.setup(api, curve);
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+
+	    api.setColor("red");
+	    var offset = curve.offset(api.distance);
+	    offset.forEach(function (c) {
+	      return api.drawCurve(c);
+	    });
+
+	    api.setColor("blue");
+	    offset = curve.offset(-api.distance);
+	    offset.forEach(function (c) {
+	      return api.drawCurve(c);
+	    });
+	  },
+
+	  values: {
+	    "38": 1, // up arrow
+	    "40": -1 },
+
+	  // down arrow
+	  onKeyDown: function onKeyDown(e, api) {
+	    var v = this.values[e.keyCode];
+	    if (v) {
+	      e.preventDefault();
+	      api.distance += v;
+	    }
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Perhaps you are like me, and you've been writing various small programs that use Bézier curves in some way or another, and at some point you make the step to implementing path extrusion. But you don't want to do it pixel based, you want to stay in the vector world. You find that extruding lines is relatively easy, and tracing outlines is coming along nicely (although junction caps and fillets are a bit of a hassle), and then decide to do things properly and add Bézier curves to the mix. Now you have a problem."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Unlike lines, you can't simply extrude a Bézier curve by taking a copy and moving it around, because of the curvatures; rather than a uniform thickness you get an extrusion that looks too thin in places, if you're lucky, but more likely will self-intersect. The trick, then, is to scale the curve, rather than simply copying it. But how do you scale a Bézier curve?"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Bottom line: ",
+	        React.createElement(
+	          "strong",
+	          null,
+	          "you can't"
+	        ),
+	        ". So you cheat. We're not going to do true curve scaling, or rather curve offsetting, because that's impossible. Instead we're going to try to generate 'looks good enough' offset curves."
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "note" },
+	        React.createElement(
+	          "h2",
+	          null,
+	          "\"What do you mean, you can't. Prove it.\""
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "First off, when I say \"you can't\" what I really mean is \"you can't offset a Bézier curve with another Bézier curve\". not even by using a really high order curve. You can find the function that describes the offset curve, but it won't be a polynomial, and as such it cannot be represented as a Bézier curve, which",
+	          React.createElement(
+	            "strong",
+	            null,
+	            "has"
+	          ),
+	          " to be a polynomial. Let's look at why this is:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "From a mathematical point of view, an offset curve ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "O(t)"
+	          ),
+	          " is a curve such that, given our original curve",
+	          React.createElement(
+	            "i",
+	            null,
+	            "B(t)"
+	          ),
+	          ", any point on ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "O(t)"
+	          ),
+	          " is a fixed distance ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "d"
+	          ),
+	          " away from coordinate ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "B(t)"
+	          ),
+	          ". So let's math that:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/f42dfae5e080278d4d9c88e676d31dff74860cf5.svg", style: { width: "7.275150000000001rem", height: "1.125rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "However, we're working in 2D, and ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "d"
+	          ),
+	          " is a single value, so we want to turn it into a vector. If we want a point distance ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "d"
+	          ),
+	          " \"away\" from the curve ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "B(t)"
+	          ),
+	          " then what we really mean is that we want a point at ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "d"
+	          ),
+	          " times the \"normal vector\" from point ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "B(t)"
+	          ),
+	          ", where the \"normal\" is a vector that runs perpendicular (\"at a right angle\") to the tangent at ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "B(t)"
+	          ),
+	          ". Easy enough:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/c62661326e9ec0208c1d11591acc4909e589836f.svg", style: { width: "10.125rem", height: "1.125rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Now this still isn't very useful unless we know what the formula for ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "N(t)"
+	          ),
+	          " is, so let's find out.",
+	          React.createElement(
+	            "i",
+	            null,
+	            "N(t)"
+	          ),
+	          " runs perpendicular to the original curve tangent, and we know that the tangent is simply",
+	          React.createElement(
+	            "i",
+	            null,
+	            "B'(t)"
+	          ),
+	          ", so we could just rotate that 90 degrees and be done with it. However, we need to ensure that ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "N(t)"
+	          ),
+	          " has the same magnitude for every ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t"
+	          ),
+	          ", or the offset curve won't be at a uniform distance, thus not being an offset curve at all. The easiest way to guarantee this is to make sure",
+	          React.createElement(
+	            "i",
+	            null,
+	            "N(t)"
+	          ),
+	          " always has length 1, which we can achieve by dividing ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "B'(t)"
+	          ),
+	          " by its magnitude:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/5463af92f852ed28c136cf1f816d83de5e871b87.svg", style: { width: "9.450000000000001rem", height: "3.15rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Determining the length requires computing an arc length, and this is where things get Tricky with a capital T. First off, to compute arc length from some start ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "a"
+	          ),
+	          " to end ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "b"
+	          ),
+	          ", we must use the formula we saw earlier. Noting that \"length\" is usually denoted with double vertical bars:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/c88f6bfdac5d20c87e772233bd824cf571a8ff6d.svg", style: { width: "12.45015rem", height: "2.6248500000000003rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "So if we want the length of the tangent, we plug in ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "B'(t)"
+	          ),
+	          ", with ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t = 0"
+	          ),
+	          " as start and",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t = 1"
+	          ),
+	          " as end:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d2494003129cb1b9daf8238cce813997b6387197.svg", style: { width: "15.150150000000002rem", height: "2.6248500000000003rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "And that's where things go wrong. It doesn't even really matter what the second derivative for ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "B(t)"
+	          ),
+	          "is, that square root is screwing everything up, because it turns our nice polynomials into things that are no longer polynomials."
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "There is a small class of polynomials where the square root is also a polynomial, but they're utterly useless to us: any polynomial with unweighted binomial coefficients has a square root that is also a polynomial. Now, you might think that Bézier curves are just fine because they do, but they don't; remember that only the ",
+	          React.createElement(
+	            "strong",
+	            null,
+	            "base"
+	          ),
+	          " function has binomial coefficients. That's before we factor in our coordinates, which turn it into a non-binomial polygon. The only way to make sure the functions stay binomial is to make all our coordinates have the same value. And that's not a curve, that's a point. We can already create offset curves for points, we call them circles, and they have much simpler functions than Bézier curves."
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "So, since the tangent length isn't a polynomial, the normalised tangent won't be a polynomial either, which means ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "N(t)"
+	          ),
+	          " won't be a polynomial, which means that ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "d"
+	          ),
+	          " times ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "N(t)"
+	          ),
+	          " won't be a polynomial, which means that, ultimately, ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "O(t)"
+	          ),
+	          " won't be a polynomial, which means that even if we can determine the function for ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "O(t)"
+	          ),
+	          " just fine (and that's far from trivial!), it simply cannot be represented as a Bézier curve."
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "And that's one reason why Bézier curves are tricky: there are actually a ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "lot"
+	          ),
+	          " of curves that cannot be represent as a Bézier curve at all. They can't even model their own offset curves. They're weird that way. So how do all those other programs do it? Well, much like we're about to do, they cheat. We're going to approximate an offset curve in a way that will look relatively close to what the real offset curve would look like, if we could compute it."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So, you cannot offset a Bézier curve perfectly with another Bézier curve, no matter how high-order you make that other Bézier curve. However, we can chop up a curve into \"safe\" sub-curves (where safe means that all the control points are always on a single side of the baseline, and the midpoint of the curve at ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t=0.5"
+	        ),
+	        " is roughly in the centre of the polygon defined by the curve coordinates) and then point-scale those sub-curves with respect to the curve's scaling origin (which is the intersection of the point normals at the start and end points)."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The following graphics show off curve offsetting, and you can use your up and down cursor keys to control the distance at which the curve gets offset:"
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "Offsetting a quadratic Bézier curve", setup: this.setupQuadratic, draw: this.draw, onKeyDown: this.onKeyDown }),
+	      React.createElement(Graphic, { preset: "simple", title: "Offsetting a cubic Bézier curve", setup: this.setupCubic, draw: this.draw, onKeyDown: this.onKeyDown }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "You may notice that this may still lead to small 'jumps' in the sub-curves when moving the curve around. This is caused by the fact that we're still performing a naive form of offsetting, moving the control points the same distance as the start and end points. If the curve is large enough, this may still lead to incorrect offsets."
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Offsetting;
+
+/***/ },
+/* 210 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(10);
+	var Graphic = __webpack_require__(173);
+	var SectionHeader = __webpack_require__(178);
+
+	var GraduatedOffsetting = React.createClass({
+	  displayName: "GraduatedOffsetting",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Graduated curve offsetting"
+	    };
+	  },
+
+	  setup: function setup(api, curve) {
+	    api.setCurve(curve);
+	    api.distance = 20;
+	  },
+
+	  setupQuadratic: function setupQuadratic(api) {
+	    var curve = api.getDefaultQuadratic();
+	    this.setup(api, curve);
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    var curve = api.getDefaultCubic();
+	    this.setup(api, curve);
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.reset();
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+
+	    api.setColor("blue");
+	    var outline = curve.outline(0, 0, api.distance, api.distance);
+	    outline.curves.forEach(function (c) {
+	      return api.drawCurve(c);
+	    });
+	  },
+
+	  values: {
+	    "38": 1, // up arrow
+	    "40": -1 },
+
+	  // down arrow
+	  onKeyDown: function onKeyDown(e, api) {
+	    var v = this.values[e.keyCode];
+	    if (v) {
+	      e.preventDefault();
+	      api.distance += v;
+	    }
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "What if we want to do graduated offsetting, starting at some distance ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "s"
+	        ),
+	        " but ending at some other distance ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "e"
+	        ),
+	        "? well, if we can compute the length of a curve (which we can if we use the Legendre-Gauss quadrature approach) then we can also determine how far \"along the line\" any point on the curve is. With that knowledge, we can offset a curve so that its offset curve is not uniformly wide, but graduated between with two different offset widths at the start and end."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Like normal offsetting we cut up our curve in sub-curves, and then check at which distance along the original curve each sub-curve starts and ends, as well as to which point on the curve each of the control points map. This gives us the distance-along-the-curve for each interesting point in the sub-curve. If we call the total length of all sub-curves seen prior to seeing \"the\\ current\" sub-curve ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "S"
+	        ),
+	        " (and if the current sub-curve is the first one, ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "S"
+	        ),
+	        " is zero), and we call the full length of our original curve ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "L"
+	        ),
+	        ", then we get the following graduation values:"
+	      ),
+	      React.createElement(
+	        "ul",
+	        null,
+	        React.createElement(
+	          "li",
+	          null,
+	          "start: map ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "S"
+	          ),
+	          " from interval (",
+	          React.createElement(
+	            "i",
+	            null,
+	            "0,L"
+	          ),
+	          ") to interval ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "(s,e)"
+	          )
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "c1: ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "map(",
+	            React.createElement(
+	              "strong",
+	              null,
+	              "S+d1"
+	            ),
+	            ", 0,L, s,e)"
+	          ),
+	          ", d1 = distance along curve to projection of c1"
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "c2: ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "map(",
+	            React.createElement(
+	              "strong",
+	              null,
+	              "S+d2"
+	            ),
+	            ", 0,L, s,e)"
+	          ),
+	          ", d2 = distance along curve to projection of c2"
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "..."
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "end: ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "map(",
+	            React.createElement(
+	              "strong",
+	              null,
+	              "S+length(subcurve)"
+	            ),
+	            ", 0,L, s,e)"
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "At each of the relevant points (start, end, and the projections of the control points onto the curve) we know the curve's normal, so offsetting is simply a matter of taking our original point, and moving it along the normal vector by the offset distance for each point. Doing so will give us the following result (these have with a starting width of 0, and an end width of 40 pixels, but can be controlled with your up and down cursor keys):"
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "Offsetting a quadratic Bézier curve", setup: this.setupQuadratic, draw: this.draw, onKeyDown: this.onKeyDown }),
+	      React.createElement(Graphic, { preset: "simple", title: "Offsetting a cubic Bézier curve", setup: this.setupCubic, draw: this.draw, onKeyDown: this.onKeyDown })
+	    );
+	  }
+	});
+
+	module.exports = GraduatedOffsetting;
+
+/***/ },
+/* 211 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(10);
+	var Graphic = __webpack_require__(173);
+	var SectionHeader = __webpack_require__(178);
+
+	var sin = Math.sin,
+	    cos = Math.cos;
+
+	var Circles = React.createClass({
+	  displayName: "Circles",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Circles and quadratic Bézier curves"
+	    };
+	  },
+
+	  setup: function setup(api) {
+	    api.w = api.getPanelWidth();
+	    api.h = api.getPanelHeight();
+	    api.pad = 20;
+	    api.r = api.w / 2 - api.pad;
+	    api.mousePt = false;
+	    api.angle = 0;
+	    var spt = { x: api.w - api.pad, y: api.h / 2 };
+	    api.setCurve(new api.Bezier(spt, spt, spt));
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.reset();
+	    api.setColor("lightgrey");
+	    api.drawGrid(1, 1);
+	    api.setColor("red");
+	    api.drawCircle({ x: api.w / 2, y: api.h / 2 }, api.r);
+	    api.setColor("transparent");
+	    api.setFill("rgba(100,255,100,0.4)");
+	    var p = {
+	      x: api.w / 2,
+	      y: api.h / 2,
+	      r: api.r,
+	      s: api.angle < 0 ? api.angle : 0,
+	      e: api.angle < 0 ? 0 : api.angle
+	    };
+	    api.drawArc(p);
+	    api.setColor("black");
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+	  },
+
+	  onMouseMove: function onMouseMove(evt, api) {
+	    var x = evt.offsetX - api.w / 2,
+	        y = evt.offsetY - api.h / 2;
+	    var angle = Math.atan2(y, x);
+	    var pts = api.curve.points;
+	    // new control
+	    var r = api.r,
+	        b = (cos(angle) - 1) / sin(angle);
+	    pts[1] = {
+	      x: api.w / 2 + r * (cos(angle) - b * sin(angle)),
+	      y: api.w / 2 + r * (sin(angle) + b * cos(angle))
+	    };
+	    // new endpoint
+	    pts[2] = {
+	      x: api.w / 2 + api.r * cos(angle),
+	      y: api.w / 2 + api.r * sin(angle)
+	    };
+	    api.setCurve(new api.Bezier(pts));
+	    api.angle = angle;
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Circles and Bézier curves are very different beasts, and circles are infinitely easier to work with than Bézier curves. Their formula is much simpler, and they can be drawn more efficiently. But, sometimes you don't have the luxury of using circles, or ellipses, or arcs. Sometimes, all you have are Bézier curves. For instance, if you're doing font design, fonts have no concept of geometric shapes, they only know straight lines, and Bézier curves. OpenType fonts with TrueType outlines only know quadratic Bézier curves, and OpenType fonts with Type 2 outlines only know cubic Bézier curves. So how do you draw a circle, or an ellipse, or an arc?"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "You approximate."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We already know that Bézier curves cannot model all curves that we can think of, and this includes perfect circles, as well as ellipses, and their arc counterparts. However, we can certainly approximate them to a degree that is visually acceptable. Quadratic and cubic curves offer us different curvature control, so in order to approximate a circle we will first need to figure out what the error is if we try to approximate arcs of increasing degree with quadratic and cubic curves, and where the coordinates even lie."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Since arcs are mid-point-symmetrical, we need the control points to set up a symmetrical curve. For quadratic curves this means that the control point will be somewhere on a line that intersects the baseline at a right angle. And we don't get any choice on where that will be, since the derivatives at the start and end point have to line up, so our control point will lie at the intersection of the tangents at the start and end point."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "First, let's try to fit the quadratic curve onto a circular arc. In the following sketch you can move the mouse around over a unit circle, to see how well, or poorly, a quadratic curve can approximate the arc from (1,0) to where your mouse cursor is:"
+	      ),
+	      React.createElement(Graphic, { preset: "arcfitting", title: "Quadratic Bézier arc approximation", setup: this.setup, draw: this.draw, onMouseMove: this.onMouseMove }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "As you can see, things go horribly wrong quite quickly; even trying to approximate a quarter circle using a quadratic curve is a bad idea. An eighth of a turns might look okay, but how okay is okay? Let's apply some maths and find out. What we're interested in is how far off our on-curve coordinates are with respect to a circular arc, given a specific start and end angle. We'll be looking at how much space there is between the circular arc, and the quadratic curve's midpoint."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We start out with our start and end point, and for convenience we will place them on a unit circle (a circle around 0,0 with radius 1), at some angle ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "φ"
+	        ),
+	        ":"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/2647fcf65a5b6ae1fabcf966381789da74f8d9c8.svg", style: { width: "13.275rem", height: "2.6248500000000003rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "What we want to find is the intersection of the tangents, so we want a point C such that:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/7e2ad0e0c3f7657ad9065dae2a19843ea774fdf7.svg", style: { width: "20.77515rem", height: "2.6248500000000003rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "i.e. we want a point that lies on the vertical line through A (at some distance ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "a"
+	        ),
+	        "from A) and also lies on the tangent line through B (at some distance ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "b"
+	        ),
+	        " from B). Solving this gives us:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/18532746db89b4c10d25ea0bfd306fb7cfe40bdb.svg", style: { width: "14.99985rem", height: "2.7rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "First we solve for ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "b"
+	        ),
+	        ":"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/b85310895d0e8cb3a52ea0f9586c2221590224d5.svg", style: { width: "39.07485rem", height: "1.125rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "which yields:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/a7c3eb36101731d97c32f2de3cefb250dac469de.svg", style: { width: "6.9750000000000005rem", height: "2.7rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "which we can then substitute in the expression for ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "a"
+	        ),
+	        ":"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/ecc5f81ecfb31640da20a1d175e60a9e6eba0d47.svg", style: { width: "16.50015rem", height: "13.275rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "A quick check shows that plugging these values for ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "a"
+	        ),
+	        " and ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "b"
+	        ),
+	        " into the expressions for C",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "x"
+	        ),
+	        " and C",
+	        React.createElement(
+	          "sub",
+	          null,
+	          "y"
+	        ),
+	        " give the same x/y coordinates for both \"",
+	        React.createElement(
+	          "i",
+	          null,
+	          "a"
+	        ),
+	        " away from A\" and \"",
+	        React.createElement(
+	          "i",
+	          null,
+	          "b"
+	        ),
+	        " away from B\", so let's continue: now that we know the coordinate values for C, we know where our on-curve point T for ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t=0.5"
+	        ),
+	        " (or angle φ/2) is, because we can just evaluate the Bézier polynomial, and we know where the circle arc's actual point P is for angle φ/2:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/6c96fe14c45ab95b5b70bf25d31cca6023daab08.svg", style: { width: "13.350150000000001rem", height: "2.025rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We compute T, observing that if ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t=0.5"
+	        ),
+	        ", the polynomial values (1-t)², 2(1-t)t, and t² are 0.25, 0.5, and 0.25 respectively:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/0ada8ece1a7c8b57ff1e5e2c094985b4b06107d8.svg", style: { width: "18.225rem", height: "2.17485rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Which, worked out for the x and y components, gives:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/9e3bc5e868dfbb5ddd67e6686d5c9e476addb3a9.svg", style: { width: "29.025000000000002rem", height: "5.175rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "And the distance between these two is the standard Euclidean distance:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/fd8fba88b596108794afc089566c5fd1e61c99e4.svg", style: { width: "27.675rem", height: "9.525150000000002rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So, what does this distance function look like when we plot it for a number of ranges for the angle φ, such as a half circle, quarter circle and eighth circle?"
+	      ),
+	      React.createElement(
+	        "table",
+	        null,
+	        React.createElement(
+	          "tbody",
+	          null,
+	          React.createElement(
+	            "tr",
+	            null,
+	            React.createElement(
+	              "td",
+	              null,
+	              React.createElement(
+	                "p",
+	                null,
+	                React.createElement(
+	                  "a",
+	                  { href: "http://www.wolframalpha.com/input/?i=plot+sqrt%28%281%2F4+*+%28sin%28x%29+%2B+2tan%28x%2F2%29%29+-+sin%28x%2F2%29%29%5E2+%2B+%282sin%5E4%28x%2F4%29%29%5E2%29+for+0+%3C%3D+x+%3C%3D+pi" },
+	                  React.createElement("img", { src: "images/arc-q-pi.gif" })
+	                )
+	              ),
+	              React.createElement(
+	                "p",
+	                null,
+	                "plotted for 0 ≤ φ ≤ π:"
+	              )
+	            ),
+	            React.createElement(
+	              "td",
+	              null,
+	              React.createElement(
+	                "p",
+	                null,
+	                React.createElement(
+	                  "a",
+	                  { href: "http://www.wolframalpha.com/input/?i=plot+sqrt%28%281%2F4+*+%28sin%28x%29+%2B+2tan%28x%2F2%29%29+-+sin%28x%2F2%29%29%5E2+%2B+%282sin%5E4%28x%2F4%29%29%5E2%29+for+0+%3C%3D+x+%3C%3D+pi%2F2" },
+	                  React.createElement("img", { src: "images/arc-q-pi2.gif" })
+	                )
+	              ),
+	              React.createElement(
+	                "p",
+	                null,
+	                "plotted for 0 ≤ φ ≤ ½π:"
+	              )
+	            ),
+	            React.createElement(
+	              "td",
+	              null,
+	              React.createElement(
+	                "p",
+	                null,
+	                React.createElement(
+	                  "a",
+	                  { href: "http://www.wolframalpha.com/input/?i=plot+sqrt%28%281%2F4+*+%28sin%28x%29+%2B+2tan%28x%2F2%29%29+-+sin%28x%2F2%29%29%5E2+%2B+%282sin%5E4%28x%2F4%29%29%5E2%29+for+0+%3C%3D+x+%3C%3D+pi%2F4" },
+	                  React.createElement("img", { src: "images/arc-q-pi4.gif" })
+	                )
+	              ),
+	              React.createElement(
+	                "p",
+	                null,
+	                "plotted for 0 ≤ φ ≤ ¼π:"
+	              )
+	            )
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We now see why the eighth circle arc looks decent, but the quarter circle arc doesn't: an error of roughly 0.06 at ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t=0.5"
+	        ),
+	        " means we're 6% off the mark... we will already be off by one pixel on a circle with pixel radius 17. Any decent sized quarter circle arc, say with radius 100px, will be way off if approximated by a quadratic curve! For the eighth circle arc, however, the error is only roughly 0.003, or 0.3%, which explains why it looks so close to the actual eighth circle arc. In fact, if we want a truly tiny error, like 0.001, we'll have to contend with an angle of (rounded) 0.593667, which equates to roughly 34 degrees. We'd need 11 quadratic curves to form a full circle with that precision! (technically, 10 and ten seventeenth, but we can't do partial curves, so we have to round up). That's a whole lot of curves just to get a shape that can be drawn using a simple function!"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "In fact, let's flip the function around, so that if we plug in the precision error, labelled ε, we get back the maximum angle for that precision:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/b49051569e754f994300fbaf004d1b4445b0941f.svg", style: { width: "18.225rem", height: "4.5rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "And frankly, things are starting to look a bit ridiculous at this point, we're doing way more maths than we've ever done, but thankfully this is as far as we need the maths to take us: If we plug in the precisions 0.1, 0.01, 0.001 and 0.0001 we get the radians values 1.748, 1.038, 0.594 and 0.3356; in degrees, that means we can cover roughly 100 degrees (requiring four curves), 59.5 degrees (requiring six curves), 34 degrees (requiring 11 curves), and 19.2 degrees (requiring a whopping nineteen curves). "
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The bottom line? ",
+	        React.createElement(
+	          "strong",
+	          null,
+	          "Quadratic curves are kind of lousy"
+	        ),
+	        " if you want circular (or elliptical, which are circles that have been squashed in one dimension) curves. We can do better, even if it's just by raising the order of our curve once. So let's try the same thing for cubic curves."
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Circles;
+
+/***/ },
+/* 212 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(10);
+	var Graphic = __webpack_require__(173);
+	var SectionHeader = __webpack_require__(178);
+
+	var sin = Math.sin,
+	    cos = Math.cos,
+	    tan = Math.tan,
+	    abs = Math.abs;
+
+	var CirclesCubic = React.createClass({
+	  displayName: "CirclesCubic",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Circles and cubic Bézier curves"
+	    };
+	  },
+
+	  setup: function setup(api) {
+	    api.setSize(400, 400);
+	    api.w = api.getPanelWidth();
+	    api.h = api.getPanelHeight();
+	    api.pad = 80;
+	    api.r = api.w / 2 - api.pad;
+	    api.mousePt = false;
+	    api.angle = 0;
+	    var spt = { x: api.w - api.pad, y: api.h / 2 };
+	    api.setCurve(new api.Bezier(spt, spt, spt, spt));
+	  },
+
+	  guessCurve: function guessCurve(S, B, E) {
+	    var C = {
+	      x: (S.x + E.x) / 2,
+	      y: (S.y + E.y) / 2
+	    },
+	        A = {
+	      x: B.x + (B.x - C.x) / 3, // cubic ratio at t=0.5 is 1/3
+	      y: B.y + (B.y - C.y) / 3
+	    },
+	        bx = (E.x - S.x) / 4,
+	        by = (E.y - S.y) / 4,
+	        e1 = {
+	      x: B.x - bx,
+	      y: B.y - by
+	    },
+	        e2 = {
+	      x: B.x + bx,
+	      y: B.y + by
+	    },
+	        v1 = {
+	      x: A.x + (e1.x - A.x) * 2,
+	      y: A.y + (e1.y - A.y) * 2
+	    },
+	        v2 = {
+	      x: A.x + (e2.x - A.x) * 2,
+	      y: A.y + (e2.y - A.y) * 2
+	    },
+	        nc1 = {
+	      x: S.x + (v1.x - S.x) * 2,
+	      y: S.y + (v1.y - S.y) * 2
+	    },
+	        nc2 = {
+	      x: E.x + (v2.x - E.x) * 2,
+	      y: E.y + (v2.y - E.y) * 2
+	    };
+	    return [nc1, nc2];
+	  },
+
+	  draw: function draw(api, curve) {
+	    api.reset();
+
+	    api.setColor("lightgrey");
+	    api.drawGrid(1, 1);
+	    api.setColor("rgba(255,0,0,0.4)");
+	    api.drawCircle({ x: api.w / 2, y: api.h / 2 }, api.r);
+	    api.setColor("transparent");
+	    api.setFill("rgba(100,255,100,0.4)");
+	    var p = {
+	      x: api.w / 2,
+	      y: api.h / 2,
+	      r: api.r,
+	      s: api.angle < 0 ? api.angle : 0,
+	      e: api.angle < 0 ? 0 : api.angle
+	    };
+	    api.drawArc(p);
+
+	    // guessed curve
+	    var B = {
+	      x: api.w / 2 + api.r * cos(api.angle / 2),
+	      y: api.w / 2 + api.r * sin(api.angle / 2)
+	    };
+	    var S = curve.points[0],
+	        E = curve.points[3],
+	        nc = this.guessCurve(S, B, E);
+	    var guess = new api.Bezier([S, nc[0], nc[1], E]);
+	    api.setColor("rgb(140,140,255)");
+	    api.drawLine(guess.points[0], guess.points[1]);
+	    api.drawLine(guess.points[1], guess.points[2]);
+	    api.drawLine(guess.points[2], guess.points[3]);
+	    api.setColor("blue");
+	    api.drawCurve(guess);
+	    api.drawCircle(guess.points[1], 3);
+	    api.drawCircle(guess.points[2], 3);
+
+	    // real curve
+	    var offset = { x: api.w, y: 0 };
+	    api.drawSkeleton(curve);
+	    api.setColor("black");
+	    api.drawLine(curve.points[1], curve.points[2]);
+	    api.drawCurve(curve);
+	  },
+
+	  onMouseMove: function onMouseMove(evt, api) {
+	    var x = evt.offsetX - api.w / 2,
+	        y = evt.offsetY - api.h / 2;
+	    if (x > api.w / 2) return;
+
+	    var angle = Math.atan2(y, x);
+	    if (angle < 0) {
+	      angle = 2 * Math.PI + angle;
+	    }
+	    var pts = api.curve.points;
+	    // new control 1
+	    var r = api.r,
+	        f = 4 * tan(angle / 4) / 3;
+	    pts[1] = {
+	      x: api.w / 2 + r,
+	      y: api.w / 2 + r * f
+	    };
+	    // new control 2
+	    pts[2] = {
+	      x: api.w / 2 + api.r * (cos(angle) + f * sin(angle)),
+	      y: api.w / 2 + api.r * (sin(angle) - f * cos(angle))
+	    };
+	    // new endpoint
+	    pts[3] = {
+	      x: api.w / 2 + api.r * cos(angle),
+	      y: api.w / 2 + api.r * sin(angle)
+	    };
+	    api.setCurve(new api.Bezier(pts));
+	    api.angle = angle;
+	  },
+
+	  drawCircle: function drawCircle(api) {
+	    api.setSize(325, 325);
+	    api.reset();
+	    var w = api.getPanelWidth(),
+	        h = api.getPanelHeight(),
+	        pad = 60,
+	        r = w / 2 - pad,
+	        k = 0.55228,
+	        offset = { x: -pad / 2, y: 0 };
+	    var curve = new api.Bezier([{ x: w / 2 + r, y: h / 2 }, { x: w / 2 + r, y: h / 2 + k * r }, { x: w / 2 + k * r, y: h / 2 + r }, { x: w / 2, y: h / 2 + r }]);
+	    api.setColor("lightgrey");
+	    api.drawLine({ x: 0, y: h / 2 }, { x: w + pad, y: h / 2 }, offset);
+	    api.drawLine({ x: w / 2, y: 0 }, { x: w / 2, y: h }, offset);
+
+	    var pts = curve.points;
+
+	    api.setColor("red");
+	    api.drawCircle(pts[0], 3, offset);
+	    api.drawCircle(pts[1], 3, offset);
+	    api.drawCircle(pts[2], 3, offset);
+	    api.drawCircle(pts[3], 3, offset);
+	    api.drawCurve(curve, offset);
+	    api.setColor("rgb(255,160,160)");
+	    api.drawLine(pts[0], pts[1], offset);
+	    api.drawLine(pts[1], pts[2], offset);
+	    api.drawLine(pts[2], pts[3], offset);
+
+	    api.setFill("red");
+	    api.text(pts[0].x - w / 2 + "," + (pts[0].y - h / 2), { x: pts[0].x + 7, y: pts[0].y + 3 }, offset);
+	    api.text(pts[1].x - w / 2 + "," + (pts[1].y - h / 2), { x: pts[1].x + 7, y: pts[1].y + 3 }, offset);
+	    api.text(pts[2].x - w / 2 + "," + (pts[2].y - h / 2), { x: pts[2].x + 7, y: pts[2].y + 7 }, offset);
+	    api.text(pts[3].x - w / 2 + "," + (pts[3].y - h / 2), { x: pts[3].x, y: pts[3].y + 13 }, offset);
+
+	    pts.forEach(function (p) {
+	      p.x = -(p.x - w);
+	    });
+	    api.setColor("blue");
+	    api.drawCurve(curve, offset);
+
+	    pts.forEach(function (p) {
+	      p.y = -(p.y - h);
+	    });
+	    api.setColor("green");
+	    api.drawCurve(curve, offset);
+
+	    pts.forEach(function (p) {
+	      p.x = -(p.x - w);
+	    });
+	    api.setColor("purple");
+	    api.drawCurve(curve, offset);
+
+	    api.setColor("black");
+	    api.setFill("black");
+	    api.drawLine({ x: w / 2, y: h / 2 }, { x: w / 2 + r - 2, y: h / 2 }, offset);
+	    api.drawLine({ x: w / 2, y: h / 2 }, { x: w / 2, y: h / 2 + r - 2 }, offset);
+	    api.text("r = " + r, { x: w / 2 + r / 3, y: h / 2 + 10 }, offset);
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "In the previous section we tried to approximate a circular arc with a quadratic curve, and it mostly made us unhappy. Cubic curves are much better suited to this task, so what do we need to do?"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "For cubic curves, we basically want the curve to pass through three points on the circle: the start point, the mid point at \"angle/2\", and the end point at \"angle\". We then also need to make sure the control points are such that the start and end tangent lines line up with the circle's tangent lines at the start and end point."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The first thing we can do is \"guess\" what the curve should look like, based on the previously outlined curve-through-three-points procedure. This will give use a curve with correct start, mid and end points, but possibly incorrect derivatives at the start and end, because the control points might not be in the right spot. We can then slide the control points along the lines that connect them to their respective end point, until they effect the corrected derivative at the start and end points.  However, if you look back at the section on fitting curves through three points, the rules used were such that they optimized for a near perfect hemisphere, so using the same guess won't be all that useful: guessing the solution based on knowing the solution is not really guessing."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So have a graphical look at a \"bad\" guess versus the true fit, where we'll be using the bad guess and the description in the second paragraph to derive the maths for the true fit:"
+	      ),
+	      React.createElement(Graphic, { preset: "arcfitting", title: "Cubic Bézier arc approximation", setup: this.setup, draw: this.draw, onMouseMove: this.onMouseMove }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We see two curves here; in blue, our \"guessed\" curve and its control points, and in grey/black, the true curve fit, with proper control points that were shifted in, along line between our guessed control points, such that the derivatives at the start and end points are correct."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We can already seethat cubic curves are a lot better than quadratic curves, and don't look all that wrong until we go well past a quarter circle; ⅜th starts to hint at problems, and half a circle has an obvious \"gap\" between the real circle and the cubic approximation. Anything past that just looks plain ridiculous... but quarter curves actually look pretty okay!"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So, maths time again: how okay is \"okay\"? Let's apply some more maths to find out."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Unlike for the quadratic curve, we can't use ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t=0.5"
+	        ),
+	        " as our reference point because by its very nature it's one of the three points that are actually guaranteed to lie on the circular curve. Instead, we need a different ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " value. If we run some analysis on the curve we find that the actual ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " value at which the curve is furthest from what it should be is 0.211325 (rounded), but we don't know \"why\", since finding this value involves root-finding, and is nearly impossible to do symbolically without pages and pages of math just to express one of the possible solutions."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So instead of walking you through the derivation for that value, let's simply take that ",
+	        React.createElement(
+	          "i",
+	          null,
+	          "t"
+	        ),
+	        " value and see what the error is for circular arcs with an angle ranging from 0 to 2π:"
+	      ),
+	      React.createElement(
+	        "table",
+	        null,
+	        React.createElement(
+	          "tbody",
+	          null,
+	          React.createElement(
+	            "tr",
+	            null,
+	            React.createElement(
+	              "td",
+	              null,
+	              React.createElement(
+	                "p",
+	                null,
+	                React.createElement("img", { src: "images/arc-c-2pi.gif" })
+	              ),
+	              React.createElement(
+	                "p",
+	                null,
+	                "plotted for 0 ≤ φ ≤ 2π:"
+	              )
+	            ),
+	            React.createElement(
+	              "td",
+	              null,
+	              React.createElement(
+	                "p",
+	                null,
+	                React.createElement("img", { src: "images/arc-c-pi.gif" })
+	              ),
+	              React.createElement(
+	                "p",
+	                null,
+	                "plotted for 0 ≤ φ ≤ π:"
+	              )
+	            ),
+	            React.createElement(
+	              "td",
+	              null,
+	              React.createElement(
+	                "p",
+	                null,
+	                React.createElement("img", { src: "images/arc-c-pi2.gif" })
+	              ),
+	              React.createElement(
+	                "p",
+	                null,
+	                "plotted for 0 ≤ φ ≤ ½π:"
+	              )
+	            )
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "We see that cubic Bézier curves are much better when it comes to approximating circular arcs, with an error of less than 0.027 at the two \"bulge\" points for a quarter circle (which had an error of 0.06 for quadratic curves at the mid point), and an error near 0.001 for an eighth of a circle, so we're getting less than half the error for a quarter circle, or: at a slightly lower error, we're getting twice the arc. This makes cubic curves quite useful!"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "In fact, the precision of a cubic curve at a quarter circle is considered \"good enough\" by so many people that it's generally considered \"just fine\" to use four cubic Bézier curves to fake a full circle when no circle primitives are available; generally, people won't notice that it's not a real circle unless you also happen to overlay an actual circle, so that the difference becomes obvious."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So with the error analysis out of the way, how do we actually compute the coordinates needed to get that \"true fit\" cubic curve? The first observation is that we already know the start and end points, because they're the same as for the quadratic attempt:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/2647fcf65a5b6ae1fabcf966381789da74f8d9c8.svg", style: { width: "13.275rem", height: "2.6248500000000003rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "But we now need to find two control points, rather than one. If we want the derivatives at the start and end point to match the circle, then the first control point can only lie somewhere on the vertical line through S, and the second control point can only lie somewhere on the line tangent to point E, which means:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/4aa65a2d8e20a4d3df3ef42dd89322898507fc60.svg", style: { width: "8.325000000000001rem", height: "2.55015rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "where \"a\" is some scaling factor, and:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/b70d86486bfa2d3b3810a026e45d3e5f0a9040cc.svg", style: { width: "11.62485rem", height: "2.6248500000000003rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "where \"b\" is also some scaling factor."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Starting with this information, we slowly maths our way to success, but I won't lie: the maths for this is pretty trig-heavy, and it's easy to get lost if you remember (or know!) some of the core trigonoetric identities, so if you just want to see the final result just skip past the next section!"
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "note" },
+	        React.createElement(
+	          "h2",
+	          null,
+	          "Let's do this thing."
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Unlike for the quadratic case, we need some more information in order to compute ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "a"
+	          ),
+	          " and ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "b"
+	          ),
+	          ", since they're no longer dependent variables. First, we observe that the curve is symmetrical, so whatever values we end up finding for C",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "1"
+	          ),
+	          " will apply to C",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "2"
+	          ),
+	          " as well (rotated along its tangent), so we'll focus on finding the location of C",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "1"
+	          ),
+	          " only. So here's where we do something that you might not expect: we're going to ignore for a moment, because we're going to have a much easier time if we just solve this problem with geometry first, then move to calculus to solve a much simpler problem."
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "If we look at the triangle that is formed between our starting point, or initial guess C",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "1"
+	          ),
+	          "and our real C",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "1"
+	          ),
+	          ", there's something funny going on: if we treat the line ",
+	          '{',
+	          "start,guess",
+	          '}',
+	          " as our opposite side, the line ",
+	          '{',
+	          "guess,real",
+	          '}',
+	          " as our adjacent side, with ",
+	          '{',
+	          "start,real",
+	          '}',
+	          " our hypothenuse, then the angle for the corner hypothenuse/adjacent is half that of the arc we're covering. Try it: if you place the end point at a quarter circle (pi/2, or 90 degrees), the angle in our triangle is half a quarter (pi/4, or 45 degrees). With that knowledge, and a knowledge of what the length of any of our lines segments are (as a function), we can determine where our control points are, and thus have everything we need to find the error distance function. Of the three lines, the one we can easiest determine is ",
+	          '{',
+	          "start,guess",
+	          '}',
+	          ", so let's find out what the guessed control point is. Again geometrically, because we have the benefit of an on-curve ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t=0.5"
+	          ),
+	          " value."
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "The distance from our guessed point to the start point is exactly the same as the projection distance we looked at earlier. Using ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t=0.5"
+	          ),
+	          " as our point \"B\" in the \"A,B,C\" projection, then we know the length of the line segment ",
+	          '{',
+	          "C,A",
+	          '}',
+	          ", since it's d",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "1"
+	          ),
+	          " = ",
+	          '{',
+	          "A,B",
+	          '}',
+	          " + d",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "2"
+	          ),
+	          " = ",
+	          '{',
+	          "B,C",
+	          '}',
+	          ":"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/5666f6b7888ed2b25f0a7eacb744836b53f495a1.svg", style: { width: "27.675rem", height: "2.32515rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "So that just leaves us to find the distance from ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t=0.5"
+	          ),
+	          " to the baseline for an arbitrary angle φ, which is the distance from the centre of the circle to our ",
+	          React.createElement(
+	            "i",
+	            null,
+	            "t=0.5"
+	          ),
+	          " point, minus the distance from the centre to the line that runs from start point to end point. The first is the same as the point P we found for the quadratic curve:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/bc0fcba1b3029fcf4a39369939fae2114cf3710e.svg", style: { width: "13.350150000000001rem", height: "2.025rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "And the distance from the origin to the line start/end is another application of angles, since the triangle ",
+	          '{',
+	          "origin,start,C",
+	          '}',
+	          " has known angles, and two known sides. We can find the length of the line ",
+	          '{',
+	          "origin,C",
+	          '}',
+	          ", which lets us trivially compute the coordinate for C:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/2d7e1a3fdf255e9825d04dc78bebf4d0aa5ac3fb.svg", style: { width: "18.675rem", height: "5.3248500000000005rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "With the coordinate C, and knowledge of coordinate B, we can determine coordinate A, and get a vector that is identical to the vector ",
+	          '{',
+	          "start,guess",
+	          '}',
+	          ":"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/1aca5690b4d65bdecdaf16830b34eaebe61017bc.svg", style: { width: "27.675rem", height: "3.67515rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d11c1b908e8005bc191cfbdaa5d4b3155b1dd326.svg", style: { width: "14.99985rem", height: "3.29985rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "Which means we can now determine the distance ",
+	          '{',
+	          "start,guessed",
+	          '}',
+	          ", which is the same as the distance",
+	          '{',
+	          "C,A",
+	          '}',
+	          ", and use that to determine the vertical distance from our start point to our C",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "1"
+	          ),
+	          ":"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/7d160b85a16406c718ea341c4e37079323af6c8b.svg", style: { width: "17.850150000000003rem", height: "4.64985rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "And after this tedious detour to find the coordinate for C",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "1"
+	          ),
+	          ", we can find C",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "2"
+	          ),
+	          " fairly simply, since it's lies at distance -C",
+	          React.createElement(
+	            "sub",
+	            null,
+	            "1y"
+	          ),
+	          " along the end point's tangent:"
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          React.createElement("img", { className: "LaTeX SVG", src: "images/latex/f97514c85d33669d0f08f949122c5b77e8b695a3.svg", style: { width: "36.675000000000004rem", height: "6.89985rem" } })
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          "And that's it, we have all four points now for an approximation of an arbitrary circular arc with angle φ."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So, to recap, given an angle φ, the new control coordinates are:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/aeb0f03c7e7ab953b42809b929b916e9eac29dea.svg", style: { width: "15.075000000000001rem", height: "2.55015rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "and"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/c0f4622098262b66b7e7422707899c4f24b4c4cb.svg", style: { width: "23.02515rem", height: "2.6248500000000003rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "And, because the \"quarter curve\" special case comes up so incredibly often, let's look at what these new control points mean for the curve coordinates of a quarter curve, by simply filling in φ = π/2:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/d8a8760275419b09e8709d03934eb7fc248d4890.svg", style: { width: "28.65015rem", height: "1.94985rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Which, in decimal values, rounded to six significant digits, is:"
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        React.createElement("img", { className: "LaTeX SVG", src: "images/latex/a0009bec4d1d506181ac32d1e4bcc7279b37ec4d.svg", style: { width: "28.65015rem", height: "1.125rem" } })
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Of course, this is for a circle with radius 1, so if you have a different radius circle, simply multiply the coordinate by the radius you need. And then finally, forming a full curve is now a simple a matter of mirroring these coordinates about the origin:"
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "Cubic Bézier circle approximation", draw: this.drawCircle, "static": true })
+	    );
+	  }
+	});
+
+	module.exports = CirclesCubic;
+
+/***/ },
+/* 213 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(10);
+	var Graphic = __webpack_require__(173);
+	var SectionHeader = __webpack_require__(178);
+
+	var atan2 = Math.atan2,
+	    PI = Math.PI,
+	    TAU = 2 * PI,
+	    cos = Math.cos,
+	    sin = Math.sin;
+
+	var Introduction = React.createClass({
+	  displayName: "Introduction",
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: "Approximating Bézier curves with circular arcs"
+	    };
+	  },
+
+	  setupCircle: function setupCircle(api) {
+	    var curve = new api.Bezier(70, 70, 140, 40, 240, 130);
+	    api.setCurve(curve);
+	  },
+
+	  setupQuadratic: function setupQuadratic(api) {
+	    var curve = api.getDefaultQuadratic();
+	    api.setCurve(curve);
+	  },
+
+	  setupCubic: function setupCubic(api) {
+	    var curve = api.getDefaultCubic();
+	    api.setCurve(curve);
+	  },
+
+	  getCCenter: function getCCenter(api, p1, p2, p3) {
+	    // deltas
+	    var dx1 = p2.x - p1.x,
+	        dy1 = p2.y - p1.y,
+	        dx2 = p3.x - p2.x,
+	        dy2 = p3.y - p2.y;
+
+	    // perpendiculars (quarter circle turned)
+	    var dx1p = dx1 * cos(PI / 2) - dy1 * sin(PI / 2),
+	        dy1p = dx1 * sin(PI / 2) + dy1 * cos(PI / 2),
+	        dx2p = dx2 * cos(PI / 2) - dy2 * sin(PI / 2),
+	        dy2p = dx2 * sin(PI / 2) + dy2 * cos(PI / 2);
+
+	    // chord midpoints
+	    var mx1 = (p1.x + p2.x) / 2,
+	        my1 = (p1.y + p2.y) / 2,
+	        mx2 = (p2.x + p3.x) / 2,
+	        my2 = (p2.y + p3.y) / 2;
+
+	    // midpoint offsets
+	    var mx1n = mx1 + dx1p,
+	        my1n = my1 + dy1p,
+	        mx2n = mx2 + dx2p,
+	        my2n = my2 + dy2p;
+
+	    // intersection of these lines:
+	    var i = api.utils.lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
+	    var r = api.utils.dist(i, p1);
+
+	    // arc start/end values, over mid point
+	    var s = atan2(p1.y - i.y, p1.x - i.x),
+	        m = atan2(p2.y - i.y, p2.x - i.x),
+	        e = atan2(p3.y - i.y, p3.x - i.x);
+
+	    // determine arc direction (cw/ccw correction)
+	    var __;
+	    if (s < e) {
+	      // if s<m<e, arc(s, e)
+	      // if m<s<e, arc(e, s + TAU)
+	      // if s<e<m, arc(e, s + TAU)
+	      if (s > m || m > e) {
+	        s += TAU;
+	      }
+	      if (s > e) {
+	        __ = e;e = s;s = __;
+	      }
+	    } else {
+	      // if e<m<s, arc(e, s)
+	      // if m<e<s, arc(s, e + TAU)
+	      // if e<s<m, arc(s, e + TAU)
+	      if (e < m && m < s) {
+	        __ = e;e = s;s = __;
+	      } else {
+	        e += TAU;
+	      }
+	    }
+
+	    // assign and done.
+	    i.s = s;
+	    i.e = e;
+	    i.r = r;
+	    return i;
+	  },
+
+	  drawCircle: function drawCircle(api, curve) {
+	    api.reset();
+	    var pts = curve.points;
+
+	    // get center
+	    var C = this.getCCenter(api, pts[0], pts[1], pts[2]);
+	    api.setColor("black");
+	    pts.forEach(function (p) {
+	      return api.drawCircle(p, 3);
+	    });
+	    api.drawCircle(C, 3);
+
+	    // chords and perpendicular lines
+	    api.setColor("blue");
+	    api.drawLine(pts[0], pts[1]);
+	    api.drawLine({ x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 }, C);
+
+	    api.setColor("red");
+	    api.drawLine(pts[1], pts[2]);
+	    api.drawLine({ x: (pts[1].x + pts[2].x) / 2, y: (pts[1].y + pts[2].y) / 2 }, C);
+
+	    api.setColor("green");
+	    api.drawLine(pts[2], pts[0]);
+	    api.drawLine({ x: (pts[2].x + pts[0].x) / 2, y: (pts[2].y + pts[0].y) / 2 }, C);
+
+	    api.setColor("grey");
+	    api.drawCircle(C, api.utils.dist(C, pts[0]));
+	  },
+
+	  drawSingleArc: function drawSingleArc(api, curve) {
+	    api.reset();
+	    var arcs = curve.arcs(0.5);
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+
+	    var a = arcs[0];
+	    api.setColor("red");
+	    api.setFill("rgba(200,0,0,0.4)");
+	    api.debug = true;
+	    api.drawArc(a);
+	  },
+
+	  drawArcs: function drawArcs(api, curve) {
+	    api.reset();
+	    var arcs = curve.arcs(0.5);
+	    api.drawSkeleton(curve);
+	    api.drawCurve(curve);
+	    arcs.forEach(function (a) {
+	      api.setRandomColor(0.3);
+	      api.setFill(api.getColor());
+	      api.drawArc(a);
+	    });
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "section",
+	      null,
+	      React.createElement(SectionHeader, this.props),
+	      React.createElement(
+	        "p",
+	        null,
+	        "Let's look at converting Bézier curves into sequences of circular arcs. We already saw in the section on circle approximation that this will never yield a perfect equivalent, but sometimes you need circular arcs, such as when you're working with fabrication machinery, or simple vector languages that understand lines and circles, but not much else."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The approach is fairly simple: pick a starting point on the curve, and pick two points that are further along the curve. Determine the circle that goes through those three points, and see if it fits the part of the curve we're trying to approximate. Decent fit? Try spacing the points further apart. Bad fit? Try spacing the points closer together. Keep doing this until you've found the \"good approximation/bad approximation\" boundary, record the \"good\" arc, and then move the starting point up to overlap the end point we previously found. Rinse and repeat until we've covered the entire curve."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So: step 1, how do we find a circle through three points? That part is actually really simple. You may remember (if you ever learned it!) that a line between two points on a circle is called a ",
+	        React.createElement(
+	          "a",
+	          { href: "https://en.wikipedia.org/wiki/Chord_%28geometry%29" },
+	          "chord"
+	        ),
+	        ", and one property of chords is that the line from the center of any chord, perpendicular to that chord, passes through the center of the circle."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So: if we have have three points, we have three (different) chords, and consequently, three (different) lines that go from those chords through the center of the circle. So we find the centers of the chords, find the perpendicular lines, find the intersection of those lines, and thus find the center of the circle."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The following graphic shows this procedure with a different colour for each chord and its associated perpendicular through the center. You can move the points around as much as you like, those lines will always meet!"
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "Finding a circle through three points", setup: this.setupCircle, draw: this.drawCircle }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So, with the procedure on how to find a circle through three points, finding the arc through those points is straight-forward: pick one of the three points as start point, pick another as an end point, and the arc has to necessarily go from the start point, over the remaining point, to the end point."
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So how can we convert a Bezier curve into a (sequence of) circular arc(s)?"
+	      ),
+	      React.createElement(
+	        "ul",
+	        null,
+	        React.createElement(
+	          "li",
+	          null,
+	          "Start at ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "t=0"
+	          )
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Pick two points further down the curve at some value ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "m = t + n"
+	          ),
+	          " and ",
+	          React.createElement(
+	            "em",
+	            null,
+	            "e = t + 2n"
+	          )
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Find the arc that these points define"
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "Determine how close the found arc is to the curve:",
+	          React.createElement(
+	            "ul",
+	            null,
+	            React.createElement(
+	              "li",
+	              null,
+	              "Pick two additional points ",
+	              React.createElement(
+	                "em",
+	                null,
+	                "e1 = t + n/2"
+	              ),
+	              " and ",
+	              React.createElement(
+	                "em",
+	                null,
+	                "e2 = t + n + n/2"
+	              ),
+	              "."
+	            ),
+	            React.createElement(
+	              "li",
+	              null,
+	              "These points, if the arc is a good approximation of the curve interval chosen, should lie ",
+	              React.createElement(
+	                "em",
+	                null,
+	                "on"
+	              ),
+	              " the circle, so their distance to the center of the circle should be the same as the distance from any of the three other points to the center."
+	            ),
+	            React.createElement(
+	              "li",
+	              null,
+	              "For point points, determine the (absolute) error between the radius of the circle, and the",
+	              React.createElement(
+	                "em",
+	                null,
+	                "actual"
+	              ),
+	              " distance from the center of the circle to the point on the curve."
+	            ),
+	            React.createElement(
+	              "li",
+	              null,
+	              "If this error is too high, we consider the arc bad, and try a smaller interval."
+	            )
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The result of this is shown in the next graphic: we start at a guaranteed failure: s=0, e=1. That's the entire curve. The midpoint is simply at ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "t=0.5"
+	        ),
+	        ", and then we start performing a ",
+	        React.createElement(
+	          "a",
+	          { href: "https://en.wikipedia.org/wiki/Binary_search_algorithm" },
+	          "Binary Search"
+	        ),
+	        "."
+	      ),
+	      React.createElement(
+	        "ol",
+	        null,
+	        React.createElement(
+	          "li",
+	          null,
+	          "We start with ",
+	          (0, 0.5, 1)
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "That'll fail, so we retry with the interval halved: ",
+	          (0, 0.25, 0.5)
+	        ),
+	        React.createElement(
+	          "ul",
+	          null,
+	          React.createElement(
+	            "li",
+	            null,
+	            "If that arc's good, we move back up by half distance: ",
+	            (0, 0.375, 0.75),
+	            "."
+	          ),
+	          React.createElement(
+	            "li",
+	            null,
+	            "However, if the arc was still bad, we move ",
+	            React.createElement(
+	              "em",
+	              null,
+	              "down"
+	            ),
+	            " by half the distance: ",
+	            (0, 0.125, 0.25),
+	            "."
+	          )
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "We keep doing this over and over until we have two arcs found in sequence of which the first arc is good, and the second arc is bad. When we find that pair, we've found the boundary between a good approximation and a bad approximation, and we pick the former"
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        "The following graphic shows the result of this approach, with a default error threshold of 0.5, meaning that if an arc is off by a ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "combined"
+	        ),
+	        " half pixel over both verification points, then we treat the arc as bad. This is an extremely simple error policy, but already works really well. Note that the graphic is still interactive, and you can use your '+' and '-' keys to increase to decrease the error threshold, to see what the effect of a smaller or larger error threshold is."
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "Arc approximation of a Bézier curve", setup: this.setupCubic, draw: this.drawSingleArc }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "With that in place, all that's left now is to \"restart\" the procedure by treating the found arc's end point as the new to-be-determined arc's starting point, and using points further down the curve. We keep trying this until the found end point is for ",
+	        React.createElement(
+	          "em",
+	          null,
+	          "t=1"
+	        ),
+	        ", at which point we are done. Again, the following graphic allows for '+' and '-' key input to increase or decrease the error threshold, so you can see how picking a different threshold changes the number of arcs that are necessary to reasonably approximate a curve:"
+	      ),
+	      React.createElement(Graphic, { preset: "simple", title: "Arc approximation of a Bézier curve", setup: this.setupCubic, draw: this.drawArcs }),
+	      React.createElement(
+	        "p",
+	        null,
+	        "So... what is this good for? Obviously, If you're working with technologies that can't do curves, but can do lines and circles, then the answer is pretty straight-forward, but what else? There are some reasons why you might need this technique: using circular arcs means you can determine whether a coordinate lies \"on\" your curve really easily: simply compute the distance to each circular arc center, and if any of those are close to the arc radii, at an angle betwee the arc start and end: bingo, this point can be treated as lying \"on the curve\". Another benefit is that this approximation is \"linear\": you can almost trivially travel along the arcs at fixed speed. You can also trivially compute the arc length of the approximated curve (it's a bit like curve flattening). The only thing to bear in mind is that this is a lossy equivalence: things that you compute based on the approximation are guaranteed \"off\" by some small value, and depending on how much precision you need, arc approximation is either going to be super useful, or completely useless. It's up to you to decide which, based on your application!"
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Introduction;
+
+/***/ },
+/* 214 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(209);
+	var content = __webpack_require__(215);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(212)(content, {});
+	var update = __webpack_require__(218)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -32506,21 +34852,21 @@
 	}
 
 /***/ },
-/* 209 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(210)();
+	exports = module.exports = __webpack_require__(216)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(211) + ");\n  font-size: 16px;\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  height: auto;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n.ribbon {\n  position: fixed;\n  top: 0;\n  right: 0;\n}\n.ribbon img {\n  position: relative;\n  z-index: 999;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note h1,\ndiv.note h2,\ndiv.note h3,\ndiv.note h4,\ndiv.note h5,\ndiv.note h6,\ndiv.note p {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n  outline: none;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  font-family: Verdana;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n}\nbody {\n  background: url(" + __webpack_require__(217) + ");\n  font-size: 16px;\n}\nheader,\nsection,\nfooter {\n  width: 960px;\n  margin: 0 auto;\n}\nheader {\n  font-family: Times;\n  text-align: center;\n  margin-bottom: 2rem;\n}\nheader h1 {\n  font-size: 360%;\n  margin: 0;\n  margin-bottom: 1rem;\n}\nheader h2 {\n  font-size: 125%;\n  margin: 0;\n}\narticle {\n  font-family: Verdana;\n  width: 960px;\n  height: auto;\n  margin: auto;\n  background: rgba(255, 255, 255, 0.74);\n  border: solid rgba(255, 0, 0, 0.35);\n  border-width: 0;\n  border-left-width: 1px;\n  padding: 1em;\n  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);\n}\na,\na:visited {\n  color: #0000c8;\n  text-decoration: none;\n}\nfooter {\n  font-style: italic;\n  margin: 2em 0 1em 0;\n  background: inherit;\n}\n.ribbon {\n  position: fixed;\n  top: 0;\n  right: 0;\n}\n.ribbon img {\n  position: relative;\n  z-index: 999;\n}\nnavigation {\n  font-family: Georgia;\n  display: block;\n  width: 70%;\n  margin: 0 auto;\n  padding: 0;\n  border: 1px solid grey;\n}\nnavigation ul {\n  background: #F2F2F9;\n  list-style: none;\n  margin: 0;\n  padding: 0.5em 1em;\n}\nnavigation ul li:nth-child(n+2):before {\n  content: \"\\A7\" attr(data-number) \". \";\n}\nsection {\n  margin-top: 4em;\n}\nsection p {\n  text-align: justify;\n}\nsection h2[data-num] {\n  border-bottom: 1px solid grey;\n}\nsection h2[data-num]:before {\n  content: \"\\A7\" attr(data-num) \" \\2014   \";\n}\nsection h2 a,\nsection h2 a:active,\nsection h2 a:hover,\nsection h2 a:visited {\n  text-decoration: none;\n  color: inherit;\n}\ndiv.note {\n  font-size: 90%;\n  margin: 1em 2em;\n  padding: 1em;\n  border: 1px solid grey;\n  background: rgba(150, 150, 50, 0.05);\n}\ndiv.note h1,\ndiv.note h2,\ndiv.note h3,\ndiv.note h4,\ndiv.note h5,\ndiv.note h6,\ndiv.note p {\n  margin: 0;\n  padding: 0;\n}\ndiv.note p {\n  margin: 1em 0;\n}\ndiv.note div.MathJax_Display {\n  margin: 1em 0;\n}\n.howtocode {\n  border: 1px solid #8d94bd;\n  padding: 0 1em;\n  margin: 0 2em;\n  overflow-x: hidden;\n}\n.howtocode h3 {\n  margin: 0 -1em;\n  padding: 0;\n  background: #91bef7;\n  padding-left: 0.5em;\n  color: white;\n  text-shadow: 1px 1px 0 #000000;\n  cursor: pointer;\n}\n.howtocode pre {\n  border: 1px solid #8d94bd;\n  background: rgba(223, 226, 243, 0.32);\n  margin: 0.5em;\n  padding: 0.5em;\n}\nfigure {\n  display: inline-block;\n  border: 1px solid grey;\n  background: #F0F0F0;\n  padding: 0.5em 0.5em 0 0.5em;\n  text-align: center;\n}\nfigure.inline {\n  border: none;\n  margin: 0;\n}\nfigure canvas {\n  display: inline-block;\n  background: white;\n  border: 1px solid lightgrey;\n}\nfigure canvas:focus {\n  border: 1px solid grey;\n  outline: none;\n}\nfigure figcaption {\n  text-align: center;\n  padding: 0.5em 0;\n  font-style: italic;\n  font-size: 90%;\n}\nfigure:not([class=inline]) + figure:not([class=inline]) {\n  margin-top: 2em;\n}\ndiv.figure {\n  display: inline-block;\n  border: 1px solid grey;\n  text-align: center;\n}\ngithub-issues {\n  position: relative;\n  display: block;\n  width: 100%;\n  border: 1px solid #EEE;\n  border-left: 0.3em solid #e5ecf3;\n  background: white;\n  padding: 0 0.3em;\n  width: 95%;\n  margin: auto;\n  min-height: 33px;\n  font: 13px Helvetica, arial, freesans, clean, sans-serif;\n}\ngithub-issues github-issue + github-issue {\n  margin-top: 1em;\n}\ngithub-issues github-issue h3 {\n  font-size: 100%;\n  background: #e5ecf3;\n  margin: 0;\n  position: relative;\n  left: -0.5%;\n  width: 101%;\n  font-weight: bold;\n  border-bottom: 1px solid #999;\n}\ngithub-issues github-issue a {\n  position: absolute;\n  top: 2px;\n  right: 10px;\n  padding: 0 4px;\n  color: #4183C4!important;\n  background: white;\n  line-height: 10px;\n  font-size: 10px;\n}\nimg.LaTeX {\n  display: block;\n  margin-left: 2em;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 210 */
+/* 216 */
 /***/ function(module, exports) {
 
 	/*
@@ -32576,13 +34922,13 @@
 
 
 /***/ },
-/* 211 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "images/packed/7d3b28205544712db60d1bb7973f10f3.png";
 
 /***/ },
-/* 212 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

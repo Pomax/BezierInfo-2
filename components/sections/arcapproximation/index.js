@@ -1,3 +1,144 @@
+var React = require("react");
+var Graphic = require("../../Graphic.jsx");
+var SectionHeader = require("../../SectionHeader.jsx");
+
+var atan2 = Math.atan2, PI = Math.PI, TAU = 2*PI, cos = Math.cos, sin = Math.sin;
+
+var Introduction = React.createClass({
+  getDefaultProps: function() {
+    return {
+      title: "Approximating Bézier curves with circular arcs"
+    };
+  },
+
+  setupCircle: function(api) {
+    var curve = new api.Bezier(70,70, 140,40, 240,130);
+    api.setCurve(curve);
+  },
+
+  setupQuadratic: function(api) {
+    var curve = api.getDefaultQuadratic();
+    api.setCurve(curve);
+  },
+
+  setupCubic: function(api) {
+    var curve = api.getDefaultCubic();
+    api.setCurve(curve);
+  },
+
+  getCCenter: function(api, p1, p2, p3) {
+    // deltas
+    var dx1 = (p2.x - p1.x),
+        dy1 = (p2.y - p1.y),
+        dx2 = (p3.x - p2.x),
+        dy2 = (p3.y - p2.y);
+
+    // perpendiculars (quarter circle turned)
+    var dx1p = dx1 * cos(PI/2) - dy1 * sin(PI/2),
+        dy1p = dx1 * sin(PI/2) + dy1 * cos(PI/2),
+        dx2p = dx2 * cos(PI/2) - dy2 * sin(PI/2),
+        dy2p = dx2 * sin(PI/2) + dy2 * cos(PI/2);
+
+    // chord midpoints
+    var mx1 = (p1.x + p2.x)/2,
+        my1 = (p1.y + p2.y)/2,
+        mx2 = (p2.x + p3.x)/2,
+        my2 = (p2.y + p3.y)/2;
+
+    // midpoint offsets
+    var mx1n = mx1 + dx1p,
+        my1n = my1 + dy1p,
+        mx2n = mx2 + dx2p,
+        my2n = my2 + dy2p;
+
+    // intersection of these lines:
+    var i = api.utils.lli8(mx1,my1,mx1n,my1n, mx2,my2,mx2n,my2n);
+    var r = api.utils.dist(i,p1);
+
+    // arc start/end values, over mid point
+    var s = atan2(p1.y - i.y, p1.x - i.x),
+        m = atan2(p2.y - i.y, p2.x - i.x),
+        e = atan2(p3.y - i.y, p3.x - i.x);
+
+    // determine arc direction (cw/ccw correction)
+    var __;
+    if (s<e) {
+      // if s<m<e, arc(s, e)
+      // if m<s<e, arc(e, s + TAU)
+      // if s<e<m, arc(e, s + TAU)
+      if (s>m || m>e) { s += TAU; }
+      if (s>e) { __=e; e=s; s=__; }
+    } else {
+      // if e<m<s, arc(e, s)
+      // if m<e<s, arc(s, e + TAU)
+      // if e<s<m, arc(s, e + TAU)
+      if (e<m && m<s) { __=e; e=s; s=__; } else { e += TAU; }
+    }
+
+    // assign and done.
+    i.s = s;
+    i.e = e;
+    i.r = r;
+    return i;
+  },
+
+  drawCircle: function(api, curve) {
+    api.reset();
+    var pts = curve.points;
+
+    // get center
+    var C = this.getCCenter(api, pts[0], pts[1], pts[2]);
+    api.setColor("black");
+    pts.forEach(p => api.drawCircle(p,3));
+    api.drawCircle(C, 3);
+
+    // chords and perpendicular lines
+    api.setColor("blue");
+    api.drawLine(pts[0], pts[1]);
+    api.drawLine({x: (pts[0].x + pts[1].x)/2, y: (pts[0].y + pts[1].y)/2}, C);
+
+    api.setColor("red");
+    api.drawLine(pts[1], pts[2]);
+    api.drawLine({x: (pts[1].x + pts[2].x)/2, y: (pts[1].y + pts[2].y)/2}, C);
+
+    api.setColor("green");
+    api.drawLine(pts[2], pts[0]);
+    api.drawLine({x: (pts[2].x + pts[0].x)/2, y: (pts[2].y + pts[0].y)/2}, C);
+
+    api.setColor("grey");
+    api.drawCircle(C, api.utils.dist(C,pts[0]));
+  },
+
+  drawSingleArc: function(api, curve) {
+    api.reset();
+    var arcs = curve.arcs(0.5);
+    api.drawSkeleton(curve);
+    api.drawCurve(curve);
+
+    var a = arcs[0];
+    api.setColor("red");
+    api.setFill("rgba(200,0,0,0.4)");
+    api.debug = true;
+    api.drawArc(a);
+  },
+
+  drawArcs: function(api, curve) {
+    api.reset();
+    var arcs = curve.arcs(0.5);
+    api.drawSkeleton(curve);
+    api.drawCurve(curve);
+    arcs.forEach(a => {
+      api.setRandomColor(0.3);
+      api.setFill(api.getColor());
+      api.drawArc(a);
+    });
+  },
+
+  render: function() {
+    return (
+      <section>
+        <SectionHeader {...this.props} />
+
         <p>Let's look at converting Bézier curves into sequences of circular arcs. We already saw in the
           section on circle approximation that this will never yield a perfect equivalent, but sometimes
           you need circular arcs, such as when you're working with fabrication machinery, or simple vector
@@ -14,40 +155,25 @@
         <p>So: step 1, how do we find a circle through three points? That part is actually really simple.
           You may remember (if you ever learned it!) that a line between two points on a circle is called
           a <a href="https://en.wikipedia.org/wiki/Chord_%28geometry%29">chord</a>, and one property of
-          chords is that the line from the center of the chord, perpendicular to the chord, passes through
-          the center of the circle. So: if we have have three points, we have two (different) chords, and
-          consequently, two (different) lines that go from those chords through the center of the circle:
-          find the centers of the chords, find the perpendicular lines, find the intersection of those lines,
-          find the center of the circle that goes through all three points.</p>
+          chords is that the line from the center of any chord, perpendicular to that chord, passes through
+          the center of the circle.</p>
 
-        <textarea class="sketch-code" data-sketch-preset="simple" data-sketch-title="Finding a circle through three points">
-        void setupCurve() {
-          setupDefaultQuadratic();
-        }
+        <p>So: if we have have three points, we have three (different) chords, and consequently, three
+          (different) lines that go from those chords through the center of the circle. So we find the
+          centers of the chords, find the perpendicular lines, find the intersection of those lines,
+          and thus find the center of the circle.</p>
 
-        void drawCurve(BezierCurve curve) {
-          curve.drawPoints();
-          CircleAbstractor ca = new CircleAbstractor(curve);
-          Point[] p = curve.points;
-          CircleAbstractor.Point cp = ca.getCCenter(p[0], p[1], p[2]);
-          stroke(0,100);
-          noFill();
-          ellipse(cp.x, cp.y, cp.r*2, cp.r*2);
-          ellipse(cp.x, cp.y, 5, 5);
-          fill(0);
-          text((int)cp.x+","+(int)cp.y, cp.x + 5, cp.y+5);
+        <p>The following graphic shows this procedure with a different colour for each chord and its
+          associated perpendicular through the center. You can move the points around as much as you
+          like, those lines will always meet!</p>
 
-          stroke(200,0,0);
-          line(cp.x, cp.y, (p[0].x+p[1].x)/2, (p[0].y+p[1].y)/2);
-          line(p[0].x,p[0].y,p[1].x,p[1].y);
-
-          stroke(0,0,255);
-          line(cp.x, cp.y, (p[1].x+p[2].x)/2, (p[1].y+p[2].y)/2);
-          line(p[2].x,p[2].y,p[1].x,p[1].y);
-        }</textarea>
+        <Graphic preset="simple" title="Finding a circle through three points" setup={this.setupCircle} draw={this.drawCircle} />
 
         <p>So, with the procedure on how to find a circle through three points, finding the arc through those points
-          is straight-forward. Let's apply this to a Bezier curve:</p>
+          is straight-forward: pick one of the three points as start point, pick another as an end point, and
+          the arc has to necessarily go from the start point, over the remaining point, to the end point.</p>
+
+        <p>So how can we convert a Bezier curve into a (sequence of) circular arc(s)?</p>
 
         <ul>
           <li>Start at <em>t=0</em></li>
@@ -67,8 +193,8 @@
         </ul>
 
         <p>The result of this is shown in the next graphic: we start at a guaranteed failure: s=0, e=1. That's
-          the entire curve. The midpoint is simply at <em>t=0.5</em>, and then we start performing a
-          <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">Binary Search</a>.</p>
+          the entire curve. The midpoint is simply at <em>t=0.5</em>, and then we start performing
+          a <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">Binary Search</a>.</p>
 
         <ol>
           <li>We start with {0, 0.5, 1}</li>
@@ -88,31 +214,7 @@
           and you can use your '+' and '-' keys to increase to decrease the error threshold, to see what the effect
           of a smaller or larger error threshold is.</p>
 
-        <textarea class="sketch-code" data-sketch-preset="simple" data-sketch-title="Arc approximation of a Bézier curve">
-        void setupCurve() {
-          setupDefaultCubic();
-          offsetting();
-          offset = 5;
-        }
-
-        void drawCurve(BezierCurve curve) {
-          double threshold = 0.5;
-          if (offset < 1) offset = 1;
-          if (0 < offset && offset < 10) threshold = offset/10;
-          else if (10 < offset && offset < 110) threshold = offset-10;
-          else if (110 < offset) threshold = 100 + (offset-110)*10;
-
-          curve.draw();
-          CircleAbstractor ca = new CircleAbstractor(curve, threshold);
-          stroke(255,0,0);
-          fill(0,50);
-          for (CircleAbstractor.Point c : ca.getCircles()) {
-            arc(c.x, c.y, 2*c.r, 2*c.r, c.s, c.e);
-            break;
-          }
-          fill(0);
-          text("error threshold: "+ca.errorThreshold, 5, 15);
-        }</textarea>
+        <Graphic preset="simple" title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawSingleArc} />
 
         <p>With that in place, all that's left now is to "restart" the procedure by treating the found arc's
           end point as the new to-be-determined arc's starting point, and using points further down the curve. We
@@ -121,33 +223,7 @@
           so you can see how picking a different threshold changes the number of arcs that are necessary to
           reasonably approximate a curve:</p>
 
-        <textarea class="sketch-code" data-sketch-preset="simple" data-sketch-title="Arc approximation of a Bézier curve">
-        void setupCurve() {
-          setupDefaultCubic();
-          offsetting();
-          offset = 5;
-        }
-
-        void drawCurve(BezierCurve curve) {
-          double threshold = 0.5;
-          if (offset < 1) offset = 1;
-          if (0 < offset && offset < 10) threshold = offset/10;
-          else if (10 < offset && offset < 110) threshold = offset-10;
-          else if (110 < offset) threshold = 100 + (offset-110)*10;
-
-          CircleAbstractor ca = new CircleAbstractor(curve, threshold);
-          stroke(255,0,0);
-          fill(0,50);
-          ArrayList<CircleAbstractor.Point> circles = ca.getCircles();
-          for (CircleAbstractor.Point c : circles) {
-            arc(c.x, c.y, 2*c.r, 2*c.r, c.s, c.e);
-          }
-          curve.drawControlLines();
-          curve.drawPoints();
-          fill(0);
-          text("error threshold: "+ca.errorThreshold, 5, 15);
-          text("Approximated the curve using " + circles.size() + " arcs.", 5, dim-5);
-        }</textarea>
+        <Graphic preset="simple" title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawArcs} />
 
         <p>So... what is this good for? Obviously, If you're working with technologies that can't do curves,
           but can do lines and circles, then the answer is pretty straight-forward, but what else? There are
@@ -161,3 +237,9 @@
           approximation are guaranteed "off" by some small value, and depending on how much precision you
           need, arc approximation is either going to be super useful, or completely useless. It's up to you
           to decide which, based on your application!</p>
+      </section>
+    );
+  }
+});
+
+module.exports = Introduction;

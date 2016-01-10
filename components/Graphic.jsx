@@ -239,13 +239,17 @@ var Graphic = React.createClass({
     this.refs.canvas.height = h;
   },
 
+  setCurves: function(c) {
+    this.setCurve(c);
+  },
+
   setCurve: function(c) {
     var pts = [];
-    c = Array.prototype.slice.call(arguments);
+    c = (typeof c === "array") ? c : Array.prototype.slice.call(arguments);
     c.forEach(nc => {
       pts = pts.concat(nc.points);
     });
-    this.curve = c.length === 1 ? c[0] : c;
+    this.curve = (c.length === 1) ? c[0] : c;
     this.lpts = pts;
   },
 
@@ -333,8 +337,11 @@ var Graphic = React.createClass({
     if(pts.length>2) {
       this.ctx.strokeStyle = "lightgrey";
       this.drawLine(pts[0], pts[1], offset);
-      if(pts.length === 3) { this.drawLine(pts[1], pts[2], offset); }
-      else {this.drawLine(pts[2], pts[3], offset); }
+      var last = pts.length-2;
+      for (var i=1; i<last; i++) {
+        this.drawLine(pts[i], pts[i+1], offset);
+      }
+      this.drawLine(pts[last], pts[last+1], offset);
     }
     this.ctx.strokeStyle = "black";
     this.drawPoints(pts, offset);
