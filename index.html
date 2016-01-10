@@ -60,20 +60,8 @@
     </article>
 
     <script src="article.js"></script>
-
-    <!-- for social stuff -->
-    <script type="text/disabled">
-      if(window.location.toString().indexOf("localhost") === -1) {
-        // no tracking info: http://support.addthis.com/customer/portal/articles/1013558-removing-all-hashtags-anchors-from-your-urls
-        var addthis_config = addthis_config||{};
-        addthis_config.data_track_clickback = false;
-        addthis_config.data_track_addressbar = false;
-        var script = document.createElement("script");
-        script.setAttribute("async", true);
-        script.src = "http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-516a3187281448fc";
-        document.head.appendChild(script);
-      }
-    </script>
-    
+  
+    <!-- referral tracking, because I like knowing who's linking to my book -->  
+    <script src="lib/site/referrer.js" async></script>
   </body>
 </html>
