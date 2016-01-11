@@ -50,6 +50,7 @@ var Shapes = React.createClass({
       new Point(mx-w2 + unit*2, my-h2)
     );
     path.closePath(true);
+    path.strokeColor = "rgb(100,100,255)";
     return path;
   },
 
@@ -67,19 +68,16 @@ var Shapes = React.createClass({
   onMouseMove: function(evt, api) {
     var cx = evt.offsetX;
     var cy = evt.offsetY;
-    api.c2.remove();
-    api.c2 = this.formPath(api, cx, cy);
+    api.c2.position = {x:cx, y:cy};
   },
 
   draw: function(api) {
-    api.project.clear();
+    if (api.c3) { api.c3.remove(); }
     var c1 = api.c1,
         c2 = api.c2,
-        c3 = c1.unite(c2);
-    api.project.activeLayer.addChildren([c1,c2,c3]);
-    c1.strokeColor = "rgb(100,100,255)";
-    c2.strokeColor = "rgb(100,100,255)";
+        c3 = api.c3 = c1.unite(c2);
     c3.strokeColor = "red";
+    api.Paper.view.draw();
   },
 
   render: function() {

@@ -78,7 +78,7 @@ var Graphic = React.createClass({
 
     if (this.props.paperjs) {
       var Paper = this.Paper = require("../lib/vendor/paperjs/paper-core");
-      this.project = new Paper.Project(cvs);
+      Paper.setup(cvs);
     }
 
     if (this.props.setup) {
