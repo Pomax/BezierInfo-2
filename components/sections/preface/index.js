@@ -54,8 +54,8 @@ var Preface = React.createClass({
 
           <p>This page uses interactive examples, as well as "real" maths (in LaTeX form) which
           is typeset using the most excellent <a href="http://MathJax.org">MathJax</a> library.
-          All the examples also have a "view source" option, which lets you see how things were
-          implemented using the Bezier.js library.</p>
+          This page is still in rewriting, but once done, all examples will also have a "view source"
+          option, which lets you see how things were implemented using the Bezier.js library.</p>
 
           <h2>How complicated is the maths going to be?</h2>
 
