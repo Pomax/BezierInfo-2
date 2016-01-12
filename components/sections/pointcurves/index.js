@@ -40,7 +40,7 @@ var PointCurves = React.createClass({
         t3 = t*t*t,
         mt3 = mt*mt*mt,
         bottom = t3 + mt3,
-        top = bottom - 1
+        top = bottom - 1;
     return abs(top/bottom);
   },
 
@@ -65,7 +65,7 @@ var PointCurves = React.createClass({
           B = api.lpts[1],
           C = {
             x: (S.x + E.x)/2,
-            y: (S.y + E.y)/2,
+            y: (S.y + E.y)/2
           };
       api.setColor("blue");
       api.drawLine(S, E);
@@ -75,8 +75,8 @@ var PointCurves = React.createClass({
           A = {
             x: B.x + (B.x-C.x)/ratio,
             y: B.y + (B.y-C.y)/ratio
-          },
-          curve = new api.Bezier([S, A, E]);
+          };
+      curve = new api.Bezier([S, A, E]);
       api.setColor("lightgrey");
       api.drawLine(A, B);
       api.drawLine(A, S);
@@ -108,7 +108,7 @@ var PointCurves = React.createClass({
           B = api.lpts[1],
           C = {
             x: (S.x + E.x)/2,
-            y: (S.y + E.y)/2,
+            y: (S.y + E.y)/2
           };
 
       api.setColor("blue");
@@ -155,7 +155,7 @@ var PointCurves = React.createClass({
             y: E.y + (v2.y-E.y)*2
           };
 
-      var curve = new api.Bezier([S, nc1, nc2, E]);
+      curve = new api.Bezier([S, nc1, nc2, E]);
       api.drawLine(e1, e2);
       api.setColor("lightgrey");
       api.drawLine(A, C);

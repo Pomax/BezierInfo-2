@@ -61,8 +61,8 @@ var Tracing = React.createClass({
   },
 
   values: {
-    "38": 1,   // up arrow
-    "40": -1,  // down arrow
+    "38": 1,  // up arrow
+    "40": -1  // down arrow
   },
 
   onKeyDown: function(e, api) {
@@ -102,7 +102,7 @@ var Tracing = React.createClass({
       ts.push(pts[p]);
     }
 
-    for(var i=0; i<pts.length-1; i++) {
+    for(i=0; i<pts.length-1; i++) {
       api.drawLine(pts[i], pts[i+1], offset);
     }
 
@@ -117,15 +117,15 @@ var Tracing = React.createClass({
       api.drawLine(pd, {x:pt.x, y:pd.y}, offset);
     });
 
-    var offset = {x:2*w, y:0};
+    offset = {x:2*w, y:0};
     api.drawLine({x:0,y:0}, {x:0,y:h}, offset);
 
     var idx=0, colors = ["rgb(240,0,200)", "rgb(0,40,200)"];
     api.setColor(colors[idx]);
-    var p0 = curve.get(pts[0].t);
+    var p0 = curve.get(pts[0].t), p1;
     api.drawCircle(curve.get(0), 4, offset);
 
-    for (var i=1, p1; i<pts.length; i++) {
+    for (i=1, p1; i<pts.length; i++) {
       p1 = curve.get(pts[i].t);
       api.drawLine(p0, p1, offset);
       if (ts.indexOf(pts[i]) !== -1) {

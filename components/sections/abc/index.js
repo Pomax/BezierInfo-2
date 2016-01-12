@@ -36,7 +36,7 @@ var ABC = React.createClass({
     var h = api.getPanelHeight();
 
     api.setColor("black");
-    if (!!api.t) {
+    if (api.t) {
       api.drawCircle(api.curve.get(api.t),3);
       api.setColor("lightgrey");
       var hull = api.drawHull(curve, api.t);
@@ -51,7 +51,7 @@ var ABC = React.createClass({
         api.setColor("lightgrey");
         api.drawLine(curve.points[0], curve.points[2]);
       } else if(hull.length === 10) {
-        A = hull[5]
+        A = hull[5];
         B = hull[9];
         C = utils.lli4(A, B, curve.points[0], curve.points[3]);
         api.setColor("lightgrey");
@@ -79,7 +79,7 @@ var ABC = React.createClass({
   },
 
   setCT: function(evt,api) {
-     api.t = evt.offsetX / api.getPanelWidth();
+    api.t = evt.offsetX / api.getPanelWidth();
   },
 
   drawCTgraph: function(api) {
@@ -94,7 +94,7 @@ var ABC = React.createClass({
       var value = api.u(t),
           res = { x: pad + t*fwh, y: pad + value*fwh };
       return res;
-    }
+    };
     api.drawFunction(uPoint);
     if (api.t) {
       var v = api.u(api.t),
@@ -124,7 +124,7 @@ var ABC = React.createClass({
   drawCCT: function(api) {
     api.u = api.u || function(t) {
       var top = (1-t) * (1-t) * (1-t),
-         bottom = t*t*t + top;
+          bottom = t*t*t + top;
       return top/bottom;
     };
     this.drawCTgraph(api);

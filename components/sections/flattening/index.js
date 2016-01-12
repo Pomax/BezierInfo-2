@@ -40,8 +40,8 @@ var Flattening = React.createClass({
   },
 
   values: {
-    "38": 1,   // up arrow
-    "40": -1,  // down arrow
+    "38": 1,  // up arrow
+    "40": -1  // down arrow
   },
 
   onKeyDown: function(e, api) {

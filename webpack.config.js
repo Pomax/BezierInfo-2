@@ -6,6 +6,7 @@ var entry = ['./components/App.jsx'];
 // Necessary webpack loaders for converting our content:
 var webpackLoaders = [
   'babel-loader',
+  'eslint',
   __dirname + '/lib/latex-loader',
   __dirname + '/lib/pre-loader',
   __dirname + '/lib/p-loader'
@@ -13,17 +14,18 @@ var webpackLoaders = [
 
 var plugins = [];
 
-// Dev mode: make certain concessions to speed up dev work:
-if(process.argv.indexOf("--prod") === -1) {
+// Dev mode: make certain concessions to speed up dev work.
+if(process.argv.indexOf("--prod") === -1 && process.argv.indexOf("--lint")) {
   // use the webpack hot Reload server:
   entry.push('webpack/hot/dev-server');
-
-  // allow textareas in  dev mode:
+  // allow code in textareas when in dev mode:
   webpackLoaders.push(__dirname + '/lib/textarea-loader');
 }
 
 // Prod mode: make sure to minify the bundle
-else { plugins.push(new webpack.optimize.UglifyJsPlugin()); }
+else if(process.argv.indexOf("--prod") > -1) {
+  plugins.push(new webpack.optimize.UglifyJsPlugin());
+}
 
 // And the final config that webpack will read in.
 module.exports = {
@@ -43,5 +45,8 @@ module.exports = {
       }
     ]
   },
-  plugins: plugins
+  plugins: plugins,
+  eslint: {
+    configFile: __dirname + '/.eslintrc'
+  }
 };

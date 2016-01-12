@@ -48,7 +48,7 @@ var Reordering = React.createClass({
           q[i] = {
             x: q[i].x + (q[i+1].x - q[i].x) * t,
             y: q[i].y + (q[i+1].y - q[i].y) * t
-          }
+          };
         }
         q.splice(q.length-1, 1);
       }

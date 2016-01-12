@@ -33,8 +33,8 @@ var Derivatives = React.createClass({
         <p>Or, in plain text: the derivative of an n<sup>th</sup> degree Bézier curve is an (n-1)<sup>th</sup>
         degree Bézier curve, with one fewer term, and new weights w'<sub>0</sub>...w'<sub>n-1</sub> derived
         from the original weights as n(w<sub>i+1</sub> - w<sub>i</sub>), so for a 3rd degree curve, with four weights,
-        the derivative has three new weights w'<sub>0</sub>=3(w<sub>1</sub>-w<sub>0</sub>),
-        w'<sub>1</sub>=3(w<sub>2</sub>-w<sub>1</sub>) and w'<sub>2</sub>= 3(w<sub>3</sub>-w<sub>2</sub>).</p>
+        the derivative has three new weights w'<sub>0</sub> = 3(w<sub>1</sub>-w<sub>0</sub>),
+        w'<sub>1</sub> = 3(w<sub>2</sub>-w<sub>1</sub>) and w'<sub>2</sub> = 3(w<sub>3</sub>-w<sub>2</sub>).</p>
 
         <div className="note">
           <h3>"Slow down, why is that true?"</h3>

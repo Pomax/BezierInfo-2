@@ -32,16 +32,13 @@ var CatmullRomMoulding = React.createClass({
   convert: function(p1, p2, p3, p4) {
     var t = 0.5;
     return [
-      p2,
-      {
+      p2, {
         x: p2.x + (p3.x-p1.x)/(6*t),
-        y: p2.y + (p3.y-p1.y)/(6*t),
-      },
-      {
+        y: p2.y + (p3.y-p1.y)/(6*t)
+      }, {
         x: p3.x - (p4.x-p2.x)/(6*t),
-        y: p3.y - (p4.y-p2.y)/(6*t),
-      },
-      p3
+        y: p3.y - (p4.y-p2.y)/(6*t)
+      }, p3
     ];
   },
 

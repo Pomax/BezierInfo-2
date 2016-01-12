@@ -252,7 +252,7 @@ var Graphic = React.createClass({
 
   setCurve: function(c) {
     var pts = [];
-    c = (typeof c === "array") ? c : Array.prototype.slice.call(arguments);
+    c = (c instanceof Array) ? c : Array.prototype.slice.call(arguments);
     c.forEach(nc => {
       pts = pts.concat(nc.points);
     });
@@ -380,7 +380,7 @@ var Graphic = React.createClass({
   },
 
   drawHull: function(curve, t, offset) {
-    var hull = typeof curve === "array" ? curve : curve.hull(t);
+    var hull = (curve instanceof Array) ? curve : curve.hull(t);
     if(hull.length === 6) {
       this.drawLine(hull[0], hull[1], offset);
       this.drawLine(hull[1], hull[2], offset);

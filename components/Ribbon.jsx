@@ -1,7 +1,7 @@
 var React = require('react');
 
 var Ribbon = React.createClass({
-  getInitialState() {
+  getInitialState: function() {
     return {
       href: "http://github.com/pomax/BezierInfo-2"
     };

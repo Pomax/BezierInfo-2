@@ -102,9 +102,9 @@ var CurveIntersections = React.createClass({
     });
 
     // filter out likely duplicates
-    var curr = results[0], _, same = ((a,b) => abs(a.t1-b.t1) < 0.01 && abs(a.t2-b.t2) < 0.01);
-    for(var i=1; i<results.length; i++) {
-      var _ = results[i];
+    var curr = results[0], _, i, same = ((a,b) => abs(a.t1-b.t1) < 0.01 && abs(a.t2-b.t2) < 0.01);
+    for(i=1; i<results.length; i++) {
+      _ = results[i];
       if (same(curr, _)) {
         results.splice(i--,1);
       } else { curr = _; }

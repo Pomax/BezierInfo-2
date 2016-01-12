@@ -23,7 +23,7 @@ var PolyBezier = React.createClass({
           // subsequent curve
           {x:pad,y:h-pad}, {x:pad,y:cy},
           // final curve control point
-          {x:pad,y:pad},
+          {x:pad,y:pad}
         ];
     api.lpts = pts;
   },

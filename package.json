@@ -4,10 +4,11 @@
   "description": "pomax.github.io/bezierinfo",
   "main": "build.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --prod",
+    "latex": "node tools/mathjax",
     "start": "webpack-dev-server --progress --colors --hot --inline",
-    "latex": "node tools/mathjax"
+    "style": "webpack --jscs",
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,9 @@
     "block-loader": "^2.0.0",
     "chroma-js": "^1.1.1",
     "css-loader": "^0.23.0",
+    "eslint": "^1.10.3",
+    "eslint-loader": "^1.2.0",
+    "eslint-plugin-react": "^3.15.0",
     "file-loader": "^0.8.5",
     "image-size": "^0.4.0",
     "jsmin": "^1.0.1",
@@ -44,7 +48,6 @@
     "less-loader": "^2.2.2",
     "less-watch-compiler": "^1.1.4",
     "mathjax-node": "^0.4.0",
-    "paper": "^0.9.25",
     "raw-loader": "^0.5.1",
     "react": "^0.14.3",
     "react-component-visibility": "0.0.8",

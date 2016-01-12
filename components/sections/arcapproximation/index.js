@@ -28,8 +28,8 @@ var Introduction = React.createClass({
   },
 
   values: {
-    "38": 0.1,   // up arrow
-    "40": -0.1,  // down arrow
+    "38": 0.1,  // up arrow
+    "40": -0.1  // down arrow
   },
 
   onKeyDown: function(e, api) {

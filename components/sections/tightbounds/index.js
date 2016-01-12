@@ -42,20 +42,19 @@ var TightBounds = React.createClass({
         ty = offset.y,
         cos = Math.cos,
         sin = Math.sin,
-        v = [points.x.min, points.y.min, points.x.max, points.y.max],
-        points = [
-          {x: v[0], y: v[1] },
-          {x: v[2], y: v[1] },
-          {x: v[2], y: v[3] },
-          {x: v[0], y: v[3] }
-        ].map(p => {
-          var x=p.x, y=p.y;
-          return {
-            x: x*cos(angle) - y*sin(angle) + tx,
-            y: x*sin(angle) + y*cos(angle) + ty
-          };
-        });
-    return points;
+        v = [points.x.min, points.y.min, points.x.max, points.y.max];
+    return [
+      {x: v[0], y: v[1] },
+      {x: v[2], y: v[1] },
+      {x: v[2], y: v[3] },
+      {x: v[0], y: v[3] }
+    ].map(p => {
+      var x=p.x, y=p.y;
+      return {
+        x: x*cos(angle) - y*sin(angle) + tx,
+        y: x*sin(angle) + y*cos(angle) + ty
+      };
+    });
   },
 
   draw: function(api, curve) {

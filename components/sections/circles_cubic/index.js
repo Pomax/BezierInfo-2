@@ -77,7 +77,7 @@ var CirclesCubic = React.createClass({
       y: api.h/2,
       r: api.r,
       s: api.angle < 0 ? api.angle : 0,
-      e: api.angle < 0 ? 0 : api.angle,
+      e: api.angle < 0 ? 0 : api.angle
     };
     api.drawArc(p);
 

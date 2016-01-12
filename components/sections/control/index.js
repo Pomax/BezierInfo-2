@@ -24,7 +24,7 @@ var Control = React.createClass({
     api.setRandomColor();
     api.drawFunction(generator);
     api.setFill(api.getColor());
-    if (!!label) api.text(label, where);
+    if (label) api.text(label, where);
   },
 
   drawLerpBox: function(api, dim, pad, p) {
@@ -38,7 +38,7 @@ var Control = React.createClass({
 
   drawLerpPoint: function(api, tf, pad, fwh, p) {
     p.y = pad + tf*fwh;
-    api.drawCircle(p, 3)
+    api.drawCircle(p, 3);
     api.setFill("black");
     api.text(((tf*10000)|0)/100 + "%", {x:p.x+10, y:p.y+4});
     api.noFill();
@@ -136,19 +136,19 @@ var Control = React.createClass({
 
     api.drawAxes(pad, "t",0,1, "S","0%","100%");
 
-    var factors = [1,15,105,455,1365,3003,5005,6435,6435,5005,3003,1365,455,105,15,1]
+    var factors = [1,15,105,455,1365,3003,5005,6435,6435,5005,3003,1365,455,105,15,1];
 
-    var p = api.hover;
+    var p = api.hover, n;
     if (p && p.x >= pad && p.x <= dim-pad) {
       this.drawLerpBox(api, dim, pad, p);
-      for(var n=0; n<=15; n++) {
+      for(n=0; n<=15; n++) {
         var t = (p.x-pad)/fwh,
             tf = factors[n] * Math.pow(1-t, 15-n) * Math.pow(t, n);
         this.drawLerpPoint(api, tf, pad, fwh, p);
       }
     }
 
-    for(var n=0; n<=15; n++) {
+    for(n=0; n<=15; n++) {
       var label = false, position = false;
       if (n===0) {
         label = "first term";

@@ -1,0 +1,31 @@
+{
+  "rules": {
+    "indent": [2, 2, {
+      "VariableDeclarator": {
+        "var": 2,
+        "let": 2,
+        "const": 3
+      }
+    }],
+    "no-empty": [2],
+    "no-console": [0],
+    "comma-dangle": [2],
+    "no-unused-vars": [0],
+    "linebreak-style": [2, "unix"],
+    "semi": [2, "always"]
+  },
+  "env": {
+    "commonjs": true,
+    "es6": true,
+    "browser": true
+  },
+  "extends": "eslint:recommended",
+  "ecmaFeatures": {
+    "es6": true,
+    "jsx": true,
+    "experimentalObjectRestSpread": true
+  },
+  "plugins": [
+    "react"
+  ]
+}

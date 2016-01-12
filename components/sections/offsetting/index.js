@@ -41,7 +41,7 @@ var Offsetting = React.createClass({
     var offset = curve.offset(api.distance);
     offset.forEach(c => {
       api.drawCircle(c.points[0],1);
-      api.drawCurve(c)
+      api.drawCurve(c);
     });
     last = offset.slice(-1)[0];
     api.drawCircle(last.points[3] || last.points[2],1);
@@ -50,15 +50,15 @@ var Offsetting = React.createClass({
     offset = curve.offset(-api.distance);
     offset.forEach(c => {
       api.drawCircle(c.points[0],1);
-      api.drawCurve(c)
+      api.drawCurve(c);
     });
     last = offset.slice(-1)[0];
     api.drawCircle(last.points[3] || last.points[2],1);
   },
 
   values: {
-    "38": 1,   // up arrow
-    "40": -1,  // down arrow
+    "38": 1,  // up arrow
+    "40": -1 // down arrow
   },
 
   onKeyDown: function(e, api) {

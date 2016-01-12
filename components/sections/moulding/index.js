@@ -113,7 +113,7 @@ var Moulding = React.createClass({
         p1 = {x: api.newB.x + dbl.x, y: api.newB.y + dbl.y},
         sc1 = {
           x: api.newA.x - (api.newA.x - p1.x)/(1-api.t),
-          y: api.newA.y - (api.newA.y - p1.y)/(1-api.t),
+          y: api.newA.y - (api.newA.y - p1.y)/(1-api.t)
         },
         // find new point on c2--e
         p2 = {x: api.newB.x + dbr.x, y: api.newB.y + dbr.y},

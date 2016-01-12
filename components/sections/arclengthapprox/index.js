@@ -38,7 +38,7 @@ var ArclengthApprox = React.createClass({
 
     var len = curve.length();
     var alen = 0;
-    for(var i=0,p0,p1,dx,dy; i<pts.length-1; i++) {
+    for(var i=0,p1,dx,dy; i<pts.length-1; i++) {
       p0 = pts[i];
       p1 = pts[i+1];
       dx = p1.x-p0.x;
@@ -52,8 +52,8 @@ var ArclengthApprox = React.createClass({
   },
 
   values: {
-    "38": 1,   // up arrow
-    "40": -1,  // down arrow
+    "38": 1,  // up arrow
+    "40": -1  // down arrow
   },
 
   onKeyDown: function(e, api) {

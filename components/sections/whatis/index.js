@@ -24,7 +24,8 @@ var Whatis = React.createClass({
         p2=pts[1],
         p3 = pts[2],
         p1e, p2e, m, t, i,
-        offset = {x:0, y:0};
+        offset = {x:0, y:0},
+        d,v,tvp;
 
     api.reset();
 
@@ -44,7 +45,7 @@ var Whatis = React.createClass({
     api.text("Curve points generated this way", {x:5, y:15}, offset);
 
     api.setColor("lightgrey");
-    for(var t=1,d=20,v,tvp; t<d; t++) {
+    for(t=1,d=20,v,tvp; t<d; t++) {
       v = t/d;
       tvp = curve.get(v);
       api.drawCircle(tvp,2,offset);
@@ -68,7 +69,7 @@ var Whatis = React.createClass({
       m = {
         x: p1e.x + t * (p2e.x - p1e.x),
         y: p1e.y + t * (p2e.y - p1e.y)
-      }
+      };
 
       offset = {x:0, y:0};
       api.drawCircle(p1e,3, offset);
@@ -98,8 +99,8 @@ var Whatis = React.createClass({
   },
 
   values: {
-    "38": 1,   // up arrow
-    "40": -1,  // down arrow
+    "38": 1,  // up arrow
+    "40": -1  // down arrow
   },
 
   onKeyDown: function(e, api) {
