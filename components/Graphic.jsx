@@ -1,6 +1,8 @@
 var React = require("react");
 var chroma = require("chroma-js");
+var Bezier = require("bezier-js");
 
+// event coordinate fix
 var fix = function(e) {
   e = e || window.event;
   var target = e.target || e.srcElement,
@@ -9,11 +11,7 @@ var fix = function(e) {
   e.offsetY = e.clientY - rect.top;
 };
 
-
-var Bezier = require("bezier-js");
-
 var Graphic = React.createClass({
-
   Paper: false,
 
   defaultWidth: 275,
@@ -62,7 +60,7 @@ var Graphic = React.createClass({
                 onKeyUp={this.onKeyUp}
                 onKeyDown={this.onKeyDown}
                 onKeyPress={this.onKeyPress}
-                />
+        />
         <figcaption>{this.props.title} {this.props.children}</figcaption>
       </figure>
     );

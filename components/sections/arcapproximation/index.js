@@ -1,10 +1,25 @@
 var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
-
+var keyHandling = require("../../decorators/keyhandling-decorator.jsx");
 var atan2 = Math.atan2, PI = Math.PI, TAU = 2*PI, cos = Math.cos, sin = Math.sin;
 
 var Introduction = React.createClass({
+  statics: {
+    keyHandlingOptions: {
+      propName: "error",
+      values: {
+        "38": 0.1,  // up arrow
+        "40": -0.1  // down arrow
+      },
+      controller: function(api) {
+        if (api.error < 0.1) {
+          api.error = 0.1;
+        }
+      }
+    }
+  },
+
   getDefaultProps: function() {
     return {
       title: "Approximating Bézier curves with circular arcs"
@@ -25,22 +40,6 @@ var Introduction = React.createClass({
     var curve = api.getDefaultCubic();
     api.setCurve(curve);
     api.error = 0.5;
-  },
-
-  values: {
-    "38": 0.1,  // up arrow
-    "40": -0.1  // down arrow
-  },
-
-  onKeyDown: function(e, api) {
-    var v = this.values[e.keyCode];
-    if(v) {
-      e.preventDefault();
-      api.error += v;
-      if (api.error < 0.1) {
-        api.error = 0.1;
-      }
-    }
   },
 
   getCCenter: function(api, p1, p2, p3) {
@@ -237,7 +236,7 @@ var Introduction = React.createClass({
           interactive, and you can use your up and down cursor keys keys to increase or decrease the error threshold,
           to see what the effect of a smaller or larger error threshold is.</p>
 
-        <Graphic preset="simple" title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawSingleArc} onKeyDown={this.onKeyDown} />
+        <Graphic preset="simple" title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawSingleArc} onKeyDown={this.props.onKeyDown} />
 
         <p>With that in place, all that's left now is to "restart" the procedure by treating the found arc's
           end point as the new to-be-determined arc's starting point, and using points further down the curve. We
@@ -246,7 +245,7 @@ var Introduction = React.createClass({
           so you can see how picking a different threshold changes the number of arcs that are necessary to
           reasonably approximate a curve:</p>
 
-        <Graphic preset="simple" title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawArcs} onKeyDown={this.onKeyDown} />
+        <Graphic preset="simple" title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawArcs} onKeyDown={this.props.onKeyDown} />
 
         <p>So... what is this good for? Obviously, If you're working with technologies that can't do curves,
           but can do lines and circles, then the answer is pretty straight-forward, but what else? There are
@@ -265,4 +264,4 @@ var Introduction = React.createClass({
   }
 });
 
-module.exports = Introduction;
+module.exports = keyHandling(Introduction);

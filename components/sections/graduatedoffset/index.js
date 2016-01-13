@@ -1,8 +1,19 @@
 var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
+var keyHandling = require("../../decorators/keyhandling-decorator.jsx");
 
 var GraduatedOffsetting = React.createClass({
+  statics: {
+    keyHandlingOptions: {
+      propName: "distance",
+      values: {
+        "38": 1,  // up arrow
+        "40": -1 // down arrow
+      }
+    }
+  },
+
   getDefaultProps: function() {
     return {
       title: "Graduated curve offsetting"
@@ -33,19 +44,6 @@ var GraduatedOffsetting = React.createClass({
     api.setColor("blue");
     var outline = curve.outline(0,0,api.distance,api.distance);
     outline.curves.forEach(c => api.drawCurve(c));
-  },
-
-  values: {
-    "38": 1,  // up arrow
-    "40": -1  // down arrow
-  },
-
-  onKeyDown: function(e, api) {
-    var v = this.values[e.keyCode];
-    if(v) {
-      e.preventDefault();
-      api.distance += v;
-    }
   },
 
   render: function() {
@@ -82,12 +80,11 @@ var GraduatedOffsetting = React.createClass({
         will give us the following result (these have with a starting width of 0, and an end width
         of 40 pixels, but can be controlled with your up and down cursor keys):</p>
 
-        <Graphic preset="simple" title="Offsetting a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.onKeyDown}/>
-        <Graphic preset="simple" title="Offsetting a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onKeyDown={this.onKeyDown}/>
-
+        <Graphic preset="simple" title="Offsetting a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.props.onKeyDown}/>
+        <Graphic preset="simple" title="Offsetting a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onKeyDown={this.props.onKeyDown}/>
       </section>
     );
   }
 });
 
-module.exports = GraduatedOffsetting;
+module.exports = keyHandling(GraduatedOffsetting);

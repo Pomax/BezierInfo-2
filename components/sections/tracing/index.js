@@ -1,8 +1,24 @@
 var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
+var keyHandling = require("../../decorators/keyhandling-decorator.jsx");
 
 var Tracing = React.createClass({
+  statics: {
+    keyHandlingOptions: {
+      propName: "steps",
+      values: {
+        "38": 1,  // up arrow
+        "40": -1 // down arrow
+      },
+      controller: function(api) {
+        if (api.steps < 1) {
+          api.steps = 1;
+        }
+      }
+    }
+  },
+
   getDefaultProps: function() {
     return {
       title: "Tracing a curve at fixed distance intervals"
@@ -57,23 +73,6 @@ var Tracing = React.createClass({
     var pts = this.draw(api, curve, offset);
     for(var i=0; i<pts.length-1; i++) {
       api.drawLine(pts[i], pts[i+1], offset);
-    }
-  },
-
-  values: {
-    "38": 1,  // up arrow
-    "40": -1  // down arrow
-  },
-
-  onKeyDown: function(e, api) {
-    var v = this.values[e.keyCode];
-    if(v) {
-      e.preventDefault();
-      api.steps += v;
-      if (api.steps < 1) {
-        api.steps = 1;
-      }
-      console.log(api.steps);
     }
   },
 
@@ -155,11 +154,11 @@ var Tracing = React.createClass({
         apart. In fact, let's look at the relation between "distance long a curve" and
         "<i>t</i> value", by plotting them against one another.</p>
 
-        <p>The following graphic shows a particularly illustrative curve, and it's length-to-<i>t</i> plot.
+        <p>The following graphic shows a particularly illustrative curve, and it's length-to-t plot.
         For linear traversal, this line needs to be straight, running from (0,0) to (length,1). This is,
         it's safe to say, not what we'll see, we'll see something wobbly instead. To make matters even
         worse, the length-to-<i>t</i> function is also of a much higher order than our curve is: while
-        the curve we're using for this exercise is a cubic curve, able to switch concave/convex form twice
+        the curve we're using for this exercise is a cubic curve, which can switch concave/convex form once
         at best, the plot shows that the distance function along the curve is able to switch forms three
         times (to see this, try creating an S curve with the start/end close together, but the control
         points far apart).</p>
@@ -183,7 +182,7 @@ var Tracing = React.createClass({
         along the horizontal axis. It also shows the curve in an alternating colouring based on the
         t-for-distance values we find our LUT:</p>
 
-        <Graphic preset="threepanel" title="Fixed-interval coloring a curve" setup={this.setup} draw={this.drawColoured} onKeyDown={this.onKeyDown}/>
+        <Graphic preset="threepanel" title="Fixed-interval coloring a curve" setup={this.setup} draw={this.drawColoured} onKeyDown={this.props.onKeyDown}/>
 
         <p>Use your up and down arrow keys to increase or decrease the number of equidistant segments
         used to colour the curve.</p>
@@ -199,4 +198,4 @@ var Tracing = React.createClass({
   }
 });
 
-module.exports = Tracing;
+module.exports = keyHandling(Tracing);

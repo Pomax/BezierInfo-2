@@ -38,6 +38,7 @@ module.exports = {
     loaders: [
       { test: /\.(png|gif)$/, loader: "file?name=images/packed/[hash].[ext]" },
       { test: /\.less$/, loader: "style!css!less" },
+      { test: /\.json$/, loader: "json" },
       {
         test: /.jsx?$/,
         include: /components/,

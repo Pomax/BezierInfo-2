@@ -2,7 +2,6 @@
   "name": "bezierinfo",
   "version": "1.0.0",
   "description": "pomax.github.io/bezierinfo",
-  "main": "build.js",
   "scripts": {
     "build": "webpack --prod",
     "latex": "node tools/mathjax",
@@ -43,6 +42,7 @@
     "file-loader": "^0.8.5",
     "image-size": "^0.4.0",
     "jsmin": "^1.0.1",
+    "json-loader": "^0.5.4",
     "json-stringify-safe": "^5.0.1",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",

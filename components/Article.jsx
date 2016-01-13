@@ -34,7 +34,8 @@ var Article = React.createClass({
 
   generateNavItem: function(section, entry) {
     var name = section.props.name;
-    return <li key={name} data-number={entry}><a href={'#' + name}>{ section.props.title }</a></li>;
+    var title = section.props.title;
+    return <li key={name} data-number={entry}><a href={'#' + name}>{ title }</a></li>;
   },
 
   render: function() {

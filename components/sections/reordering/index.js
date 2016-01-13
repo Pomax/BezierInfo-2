@@ -1,8 +1,39 @@
 var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
+var keyHandling = require("../../decorators/keyhandling-decorator.jsx");
 
 var Reordering = React.createClass({
+  statics: {
+    // Improve this based on http://www.sirver.net/blog/2011/08/23/degree-reduction-of-bezier-curves/
+    lower: function(curve) {
+      var pts = curve.points, q=[], n = pts.length;
+      pts.forEach((p,k) => {
+        if (!k) { return (q[k] = p); }
+        var f1 = k/n, f2 = 1 - f1;
+        q[k] = {
+          x: f1 * p.x + f2 * pts[k-1].x,
+          y: f1 * p.y + f2 * pts[k-1].y
+        };
+      });
+      q.splice(n-1,1);
+      q[n-2] = pts[n-1];
+      curve.points = q;
+      return curve;
+    },
+
+    keyHandlingOptions: {
+      values: {
+        "38": function(api) {
+          api.setCurve(api.curve.raise());
+        },
+        "40": function(api) {
+          api.setCurve(Reordering.lower(api.curve));
+        }
+      }
+    }
+  },
+
   getDefaultProps: function() {
     return {
       title: "Lowering and elevating curve order"
@@ -69,32 +100,6 @@ var Reordering = React.createClass({
     });
   },
 
-  // Improve this based on http://www.sirver.net/blog/2011/08/23/degree-reduction-of-bezier-curves/
-  lower: function(curve) {
-    var pts = curve.points, q=[], n = pts.length;
-    pts.forEach((p,k) => {
-      if (!k) { return (q[k] = p); }
-      var f1 = k/n, f2 = 1 - f1;
-      q[k] = {
-        x: f1 * p.x + f2 * pts[k-1].x,
-        y: f1 * p.y + f2 * pts[k-1].y
-      };
-    });
-    q.splice(n-1,1);
-    q[n-2] = pts[n-1];
-    curve.points = q;
-    return curve;
-  },
-
-  onKeyDown: function(evt, api) {
-    evt.preventDefault();
-    if(evt.key === "ArrowUp") {
-      api.setCurve(api.curve.raise());
-    } else if(evt.key === "ArrowDown") {
-      api.setCurve(this.lower(api.curve));
-    }
-  },
-
   getOrder: function() {
     var order = this.state.order;
     if (order%10 === 1 && order !== 11) {
@@ -146,7 +151,7 @@ var Reordering = React.createClass({
         <p>We can apply this to a (semi) random curve, as is done in the following graphic. Select the sketch
         and press your up and down cursor keys to elevate or lower the curve order.</p>
 
-        <Graphic preset="simple" title={"A " + this.getOrder() + " order Bézier curve"} setup={this.setup} draw={this.draw} onKeyDown={this.onKeyDown} />
+        <Graphic preset="simple" title={"A " + this.getOrder() + " order Bézier curve"} setup={this.setup} draw={this.draw} onKeyDown={this.props.onKeyDown} />
 
         <p>There is a good, if mathematical, explanation on the matrices necessary for optimal reduction
         over on <a href="http://www.sirver.net/blog/2011/08/23/degree-reduction-of-bezier-curves/">Sirver's Castle</a>,
@@ -157,4 +162,4 @@ var Reordering = React.createClass({
   }
 });
 
-module.exports = Reordering;
+module.exports = keyHandling(Reordering);

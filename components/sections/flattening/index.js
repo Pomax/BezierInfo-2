@@ -1,8 +1,24 @@
 var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
+var keyHandling = require("../../decorators/keyhandling-decorator.jsx");
 
 var Flattening = React.createClass({
+  statics: {
+    keyHandlingOptions: {
+      propName: "steps",
+      values: {
+        "38": 1,  // up arrow
+        "40": -1  // down arrow
+      },
+      controller: function(api) {
+        if (api.steps < 1) {
+          api.steps = 1;
+        }
+      }
+    }
+  },
+
   getDefaultProps: function() {
     return {
       title: "Simplified drawing"
@@ -106,4 +122,4 @@ var Flattening = React.createClass({
   }
 });
 
-module.exports = Flattening;
+module.exports = keyHandling(Flattening);

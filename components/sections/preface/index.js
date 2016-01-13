@@ -47,15 +47,19 @@ var Preface = React.createClass({
         <p>So, what if you need to program them yourself? What are the pitfalls? How do you draw them?
         What are the bounding boxes, how do you determine intersections, how can you extrude a curve,
         in short: how do you do everything that you might want when you do with these curves? That's
-        what this page is for. Prepare to be mathed.</p>
+        what this page is for. Prepare to be mathed!</p>
 
-        <div>
-          <h2>All Bézier graphics are interactive.</h2>
+        <p>—Pomax (or in the tweetworld, <a href="https://twitter.com/TheRealPomax">@TheRealPomax</a>)</p>
 
-          <p>This page uses interactive examples, as well as "real" maths (in LaTeX form) which
-          is typeset using the most excellent <a href="http://MathJax.org">MathJax</a> library.
-          This page is still in rewriting, but once done, all examples will also have a "view source"
-          option, which lets you see how things were implemented using the Bezier.js library.</p>
+        <div className="note">
+          <h2>Note: All Bézier graphics are interactive.</h2>
+
+          <p>This page uses interactive examples, relying heavily on <a href="http://pomax.github.io/bezierjs/">Bezier.js</a>,
+          as well as "real" maths (in LaTeX form) which is typeset using the most excellent <a href="http://MathJax.org">MathJax</a> library.
+          The page is generated offline as a React application, using Webpack, which has made adding
+          "view source" options considerably more challenging. I'm still trying to figure out how to
+          add them back in, but it didn't feel like it should hold up deploying this update compared
+          to the previous years' version.</p>
 
           <h2>How complicated is the maths going to be?</h2>
 
@@ -74,8 +78,6 @@ var Preface = React.createClass({
           but you can use the issue tracker for that as well. Once the rewrite is done, I'll add a general
           comment section back in, and maybe a more topical "select this section of text and hit the
           'question' button to ask a question about it" system. We'll see.
-
-          <p>—Pomax (or in the tweetworld, <a href="https://twitter.com/TheRealPomax">@TheRealPomax</a>)</p>
         </div>
       </section>
     );

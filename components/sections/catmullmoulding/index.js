@@ -1,8 +1,19 @@
 var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
+var keyHandling = require("../../decorators/keyhandling-decorator.jsx");
 
 var CatmullRomMoulding = React.createClass({
+  statics: {
+    keyHandlingOptions: {
+      propName: "distance",
+      values: {
+        "38": 1,  // up arrow
+        "40": -1 // down arrow
+      }
+    }
+  },
+
   getDefaultProps: function() {
     return {
       title: "Creating a Catmull-Rom curve from three points"
@@ -17,16 +28,6 @@ var CatmullRomMoulding = React.createClass({
       {x:188,y:185}
     ];
     api.distance = 0;
-  },
-
-  onKeyDown: function(evt, api) {
-    if (evt.key === "ArrowUp") {
-      evt.preventDefault();
-      api.distance += 1;
-    } else if (evt.key === "ArrowDown") {
-      evt.preventDefault();
-      api.distance -= 1;
-    }
   },
 
   convert: function(p1, p2, p3, p4) {
@@ -167,7 +168,7 @@ var CatmullRomMoulding = React.createClass({
           we want to do this? Because the line p0--p2 acts as departure tangent at p1, and the line p2--p4 acts as
           arrival tangent at p3. Play around with the graphic a bit to get an idea of what all of that meant:</p>
 
-        <Graphic preset="threepanel" title="Catmull-Rom curve fitting" setup={this.setup} draw={this.draw} onKeyDown={this.onKeyDown}/>
+        <Graphic preset="threepanel" title="Catmull-Rom curve fitting" setup={this.setup} draw={this.draw} onKeyDown={this.props.onKeyDown}/>
 
         <p>As should be obvious by now, Catmull-Rom curves are great for "fitting a curvature to some points", but if we want
         to convert that curve to Bézier form we're going to end up with a lot of separate (but visually joined) Bézier curves.
@@ -178,4 +179,4 @@ var CatmullRomMoulding = React.createClass({
   }
 });
 
-module.exports = CatmullRomMoulding;
+module.exports = keyHandling(CatmullRomMoulding);

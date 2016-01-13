@@ -1,28 +1,28 @@
 var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
+var keyHandling = require("../../decorators/keyhandling-decorator.jsx");
 
 var Explanation = React.createClass({
+  statics: {
+    keyHandlingOptions: {
+      propName: "step",
+      values: {
+        "38": 0.1,  // up arrow
+        "40": -0.1  // down arrow
+      },
+      controller: function(api) {
+        if (api.step < 0.1) {
+          api.step = 0.1;
+        }
+      }
+    }
+  },
+
   getDefaultProps: function() {
     return {
       title: "The mathematics of Bézier curves"
     };
-  },
-
-  values: {
-    "38": 0.1,  // up arrow
-    "40": -0.1  // down arrow
-  },
-
-  onKeyDown: function(e, api) {
-    var v = this.values[e.keyCode];
-    if(v) {
-      e.preventDefault();
-      api.step += v;
-      if (api.step < 0.1) {
-        api.step = 0.1;
-      }
-    }
   },
 
   setup: function(api) {
@@ -126,7 +126,7 @@ var Explanation = React.createClass({
         radius 1 around the origin (0,0). If we plot it for <i>t</i> from 0 to 5, we get this (use
         your up and down cursor keys to change the plot end value):</p>
 
-        <Graphic preset="empty" title="A (partial) circle: x=sin(t), y=cos(t)" static={true} setup={this.setup} draw={this.draw} onKeyDown={this.onKeyDown}/>
+        <Graphic preset="empty" title="A (partial) circle: x=sin(t), y=cos(t)" static={true} setup={this.setup} draw={this.draw} onKeyDown={this.props.onKeyDown}/>
 
         <p>Bézier curves are (one in many classes of) parametric functions, and are characterised
         by using the same base function for all its dimensions. Unlike the above example,
@@ -277,4 +277,4 @@ function Bezier(3,t):
   }
 });
 
-module.exports = Explanation;
+module.exports = keyHandling(Explanation);

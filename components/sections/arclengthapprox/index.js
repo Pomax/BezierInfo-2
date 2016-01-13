@@ -1,8 +1,24 @@
 var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
+var keyHandling = require("../../decorators/keyhandling-decorator.jsx");
 
 var ArclengthApprox = React.createClass({
+  statics: {
+    keyHandlingOptions: {
+      propName: "steps",
+      values: {
+        "38": 1,  // up arrow
+        "40": -1 // down arrow
+      },
+      controller: function(api) {
+        if (api.steps < 1) {
+          api.steps = 1;
+        }
+      }
+    }
+  },
+
   getDefaultProps: function() {
     return {
       title: "Approximated arc length"
@@ -51,23 +67,6 @@ var ArclengthApprox = React.createClass({
     api.text("Approximate length, "+api.steps+" steps: "+alen+" (true: "+len+")", {x:10, y: 15});
   },
 
-  values: {
-    "38": 1,  // up arrow
-    "40": -1  // down arrow
-  },
-
-  onKeyDown: function(e, api) {
-    var v = this.values[e.keyCode];
-    if(v) {
-      e.preventDefault();
-      api.steps += v;
-      if (api.steps < 1) {
-        api.steps = 1;
-      }
-      console.log(api.steps);
-    }
-  },
-
   render: function() {
     return (
       <section>
@@ -81,8 +80,8 @@ var ArclengthApprox = React.createClass({
         <p>If we combine the work done in the previous sections on curve flattening and arc length computation, we can
         implement these with minimal effort:</p>
 
-        <Graphic preset="twopanel" title="Approximate quadratic curve arc length" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.onKeyDown} />
-        <Graphic preset="twopanel" title="Approximate cubic curve arc length" setup={this.setupCubic} draw={this.draw} onKeyDown={this.onKeyDown} />
+        <Graphic preset="twopanel" title="Approximate quadratic curve arc length" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.props.onKeyDown} />
+        <Graphic preset="twopanel" title="Approximate cubic curve arc length" setup={this.setupCubic} draw={this.draw} onKeyDown={this.props.onKeyDown} />
 
         <p>Try clicking on the sketch and using your up and down arrow keys to lower the number of segments for both
         the quadratic and cubic curve. You may notice that the error in length is actually pretty significant, even if
@@ -94,87 +93,4 @@ var ArclengthApprox = React.createClass({
   }
 });
 
-module.exports = ArclengthApprox;
-
-/*
-
-        void setupCurve() {
-          setupDefaultQuadratic();
-          offsetting();
-          offset = 16;
-        }
-
-        void drawCurve(BezierCurve curve) {
-          additionals();
-          curve.draw();
-
-          nextPanel();
-          stroke(0);
-          float x = curve.getXValue(0),
-                y = curve.getYValue(0),
-                x2, y2, step = 1/offset, t,
-                length=0;
-          for(int i=1; i<=offset; i++) {
-            t = i*step;
-            x2 = curve.getXValue(t);
-            y2 = curve.getYValue(t);
-            line(x,y,x2,y2);
-            length += dist(x,y,x2,y2);
-            x = x2;
-            y = y2;
-          }
-
-          float arclength = curve.getCurveLength();
-          float error = 100 * (arclength - length) / arclength;
-
-          length = nfc(length, 3, 3);
-          arclength = nfc(arclength, 3, 3);
-          error = nfc(error, 3, 3);
-          if(error.indexOf(".")===0) { error = "0" + error; }
-
-          fill(0);
-          text("Approximate arc length based on "+offset+" segments: " + length, -dim/4, dim-20);
-          text("True length: " + arclength + ", error: " + error + "%", -dim/4, dim-5);
-        }</textarea>
-
-
-        void setupCurve() {
-          setupDefaultCubic();
-          offsetting();
-          offset = 24;
-        }
-
-        void drawCurve(BezierCurve curve) {
-          additionals();
-          curve.draw();
-
-          nextPanel();
-          stroke(0);
-          float x = curve.getXValue(0),
-                y = curve.getYValue(0),
-                x2, y2, step = 1/offset, t,
-                length=0;
-          for(int i=1; i<=offset; i++) {
-            t = i*step;
-            x2 = curve.getXValue(t);
-            y2 = curve.getYValue(t);
-            line(x,y,x2,y2);
-            length += dist(x,y,x2,y2);
-            x = x2;
-            y = y2;
-          }
-
-          float arclength = curve.getCurveLength();
-          float error = 100 * (arclength - length) / arclength;
-
-          length = nfc(length, 3, 3);
-          arclength = nfc(arclength, 3, 3);
-          error = nfc(error, 3, 3);
-          if(error.indexOf(".")===0) { error = "0" + error; }
-
-          fill(0);
-          text("Approximate arc length based on "+offset+" segments: " + length, -dim/4, dim-20);
-          text("True length: " + arclength + ", error: " + error + "%", -dim/4, dim-5);
-        }</textarea>
-
- */
+module.exports = keyHandling(ArclengthApprox);

@@ -1,8 +1,19 @@
 var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
+var keyHandling = require("../../decorators/keyhandling-decorator.jsx");
 
 var Offsetting = React.createClass({
+  statics: {
+    keyHandlingOptions: {
+      propName: "distance",
+      values: {
+        "38": 1,  // up arrow
+        "40": -1 // down arrow
+      }
+    }
+  },
+
   getDefaultProps: function() {
     return {
       title: "Curve offsetting"
@@ -54,19 +65,6 @@ var Offsetting = React.createClass({
     });
     last = offset.slice(-1)[0];
     api.drawCircle(last.points[3] || last.points[2],1);
-  },
-
-  values: {
-    "38": 1,  // up arrow
-    "40": -1 // down arrow
-  },
-
-  onKeyDown: function(e, api) {
-    var v = this.values[e.keyCode];
-    if(v) {
-      e.preventDefault();
-      api.distance += v;
-    }
   },
 
   render: function() {
@@ -183,8 +181,8 @@ var Offsetting = React.createClass({
         curves, no reduction is necessary, but the more twisty the curve gets, the more the curve needs to be reduced
         in order to get segments that can safely be scaled.</p>
 
-        <Graphic preset="simple" title="Offsetting a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.onKeyDown} />
-        <Graphic preset="simple" title="Offsetting a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onKeyDown={this.onKeyDown} />
+        <Graphic preset="simple" title="Offsetting a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.props.onKeyDown} />
+        <Graphic preset="simple" title="Offsetting a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onKeyDown={this.props.onKeyDown} />
 
         <p>You may notice that this may still lead to small 'jumps' in the sub-curves when moving the
         curve around. This is caused by the fact that we're still performing a naive form of offsetting,
@@ -196,4 +194,4 @@ var Offsetting = React.createClass({
   }
 });
 
-module.exports = Offsetting;
+module.exports = keyHandling(Offsetting);
