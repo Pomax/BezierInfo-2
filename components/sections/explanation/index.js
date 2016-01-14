@@ -124,7 +124,7 @@ var Explanation = React.createClass({
         for instance, generates points on a circle: We can range <i>t</i> from negative to positive
         infinity, and the resulting (<i>x</i>,<i>y</i>) coordinates will always lie on a circle with
         radius 1 around the origin (0,0). If we plot it for <i>t</i> from 0 to 5, we get this (use
-        your up and down cursor keys to change the plot end value):</p>
+        your up and down arrow keys to change the plot end value):</p>
 
         <Graphic preset="empty" title="A (partial) circle: x=sin(t), y=cos(t)" static={true} setup={this.setup} draw={this.draw} onKeyDown={this.props.onKeyDown}/>
 

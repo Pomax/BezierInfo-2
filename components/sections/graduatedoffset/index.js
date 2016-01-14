@@ -78,7 +78,7 @@ var GraduatedOffsetting = React.createClass({
         the curve) we know the curve's normal, so offsetting is simply a matter of taking our original
         point, and moving it along the normal vector by the offset distance for each point. Doing so
         will give us the following result (these have with a starting width of 0, and an end width
-        of 40 pixels, but can be controlled with your up and down cursor keys):</p>
+        of 40 pixels, but can be controlled with your up and down arrow keys):</p>
 
         <Graphic preset="simple" title="Offsetting a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.props.onKeyDown}/>
         <Graphic preset="simple" title="Offsetting a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onKeyDown={this.props.onKeyDown}/>

@@ -149,7 +149,7 @@ var Reordering = React.createClass({
         not be identical to the original, and may in fact look completely different.</p>
 
         <p>We can apply this to a (semi) random curve, as is done in the following graphic. Select the sketch
-        and press your up and down cursor keys to elevate or lower the curve order.</p>
+        and press your up and down arrow keys to elevate or lower the curve order.</p>
 
         <Graphic preset="simple" title={"A " + this.getOrder() + " order Bézier curve"} setup={this.setup} draw={this.draw} onKeyDown={this.props.onKeyDown} />
 

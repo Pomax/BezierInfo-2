@@ -175,7 +175,7 @@ var Offsetting = React.createClass({
         on-curve point for <i>t=0.5</i> is too far off from the center, we simply split the segment down the middle.
         Generally this is more than enough to end up with safe segments.</p>
 
-        <p>The following graphics show off curve offsetting, and you can use your up and down cursor keys to control
+        <p>The following graphics show off curve offsetting, and you can use your up and down arrow keys to control
         the distance at which the curve gets offset. The curve first gets reduced to safe segments, each of which is
         then offset at the desired distance. Especially for simple curves, particularly easily set up for quadratic
         curves, no reduction is necessary, but the more twisty the curve gets, the more the curve needs to be reduced

@@ -233,7 +233,7 @@ var Introduction = React.createClass({
         <p>The following graphic shows the result of this approach, with a default error threshold of 0.5, meaning that
           if an arc is off by a <em>combined</em> half pixel over both verification points, then we treat the arc as bad.
           This is an extremely simple error policy, but already works really well. Note that the graphic is still
-          interactive, and you can use your up and down cursor keys keys to increase or decrease the error threshold,
+          interactive, and you can use your up and down arrow keys keys to increase or decrease the error threshold,
           to see what the effect of a smaller or larger error threshold is.</p>
 
         <Graphic preset="simple" title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawSingleArc} onKeyDown={this.props.onKeyDown} />
