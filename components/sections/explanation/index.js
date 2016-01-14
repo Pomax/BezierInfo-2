@@ -226,7 +226,7 @@ var Explanation = React.createClass({
        [1,6,15,20,15,6,1]]  // n=6
 
 binomial(n,k):
-  while(n &gt;= lut.length):
+  while(n >= lut.length):
     s = lut.length
     nextRow = new array(size=s+1)
     nextRow[0] = 1
