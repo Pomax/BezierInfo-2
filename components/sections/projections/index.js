@@ -60,6 +60,7 @@ var Projections = React.createClass({
 
   onMouseMove: function(evt, api) {
     api.mousePt = {x: evt.offsetX, y: evt.offsetY };
+    api._lut = api.curve.getLUT();
   },
 
   render: function() {

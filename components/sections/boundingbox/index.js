@@ -21,10 +21,11 @@ var BoundingBox = React.createClass({
 
   draw: function(api, curve) {
     api.reset();
-    api.drawSkeleton(curve);
-    api.drawCurve(curve);
     api.setColor("#00FF00");
     api.drawbbox(curve.bbox());
+    api.setColor("black");
+    api.drawSkeleton(curve);
+    api.drawCurve(curve);
   },
 
   render: function() {

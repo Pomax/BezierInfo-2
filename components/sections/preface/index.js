@@ -52,7 +52,7 @@ var Preface = React.createClass({
         <p>—Pomax (or in the tweetworld, <a href="https://twitter.com/TheRealPomax">@TheRealPomax</a>)</p>
 
         <div className="note">
-          <h2>Note: All Bézier graphics are interactive.</h2>
+          <h2>Note: virtuall all Bézier graphics are interactive.</h2>
 
           <p>This page uses interactive examples, relying heavily on <a href="http://pomax.github.io/bezierjs/">Bezier.js</a>,
           as well as "real" maths (in LaTeX form) which is typeset using the most excellent <a href="http://MathJax.org">MathJax</a> library.
@@ -60,6 +60,16 @@ var Preface = React.createClass({
           "view source" options considerably more challenging. I'm still trying to figure out how to
           add them back in, but it didn't feel like it should hold up deploying this update compared
           to the previous years' version.</p>
+
+          <h2>This book is open source.</h2>
+
+          <p>This book is an open source software project, and lives on two github repositorites. The
+          first is <a href="https://github.com/pomax/bezierinfo">https://github.com/pomax/bezierinfo</a> and
+          is the purely-for-presentation version you are viewing right now. The other repository is
+          <a href="https://github.com/pomax/BezierInfo-2">https://github.com/pomax/BezierInfo-2</a>, which
+          is the development version, housing all the html, javascript, and css. You can fork either
+          of these, and pretty much do with them as you please, except for passing it off as your
+          own work wholesale, of course =)</p>
 
           <h2>How complicated is the maths going to be?</h2>
 

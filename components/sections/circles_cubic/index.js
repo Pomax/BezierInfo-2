@@ -140,29 +140,32 @@ var CirclesCubic = React.createClass({
   drawCircle: function(api) {
     api.setSize(325,325);
     api.reset();
+
     var w = api.getPanelWidth(),
         h = api.getPanelHeight(),
         pad = 60,
         r = w/2 - pad,
         k = 0.55228,
-        offset = {x: -pad/2, y:0};
+        offset = {x: -pad/2, y:-pad/4};
+
     var curve = new api.Bezier([
       {x:w/2 + r,   y:h/2},
       {x:w/2 + r,   y:h/2 + k*r},
       {x:w/2 + k*r, y:h/2 + r},
       {x:w/2,       y:h/2 + r}
     ]);
+
     api.setColor("lightgrey");
     api.drawLine({x:0,y:h/2}, {x:w+pad,y:h/2}, offset);
-    api.drawLine({x:w/2,y:0}, {x:w/2,y:h}, offset);
+    api.drawLine({x:w/2,y:0}, {x:w/2,y:h+pad}, offset);
 
     var pts = curve.points;
 
     api.setColor("red");
-    api.drawCircle(pts[0], 3, offset);
-    api.drawCircle(pts[1], 3, offset);
-    api.drawCircle(pts[2], 3, offset);
-    api.drawCircle(pts[3], 3, offset);
+    api.drawPoint(pts[0], offset);
+    api.drawPoint(pts[1], offset);
+    api.drawPoint(pts[2], offset);
+    api.drawPoint(pts[3], offset);
     api.drawCurve(curve, offset);
     api.setColor("rgb(255,160,160)");
     api.drawLine(pts[0],pts[1],offset);
@@ -175,23 +178,33 @@ var CirclesCubic = React.createClass({
     api.text((pts[2].x - w/2) + "," + (pts[2].y - h/2), {x: pts[2].x + 7, y: pts[2].y + 7}, offset);
     api.text((pts[3].x - w/2) + "," + (pts[3].y - h/2), {x: pts[3].x, y: pts[3].y + 13}, offset);
 
-    pts.forEach(p => {
-      p.x = -(p.x - w);
-    });
+    pts.forEach(p => { p.x = -(p.x - w); });
     api.setColor("blue");
     api.drawCurve(curve, offset);
+    api.drawLine(pts[2],pts[3],offset);
+    api.drawPoint(pts[2],offset);
+    api.setFill("blue");
+    api.text("reflected", {x: pts[2].x - pad/2, y: pts[2].y + 13}, offset);
+    api.setColor("rgb(200,200,255)");
+    api.drawLine(pts[1],pts[0],offset);
+    api.drawPoint(pts[1],offset);
 
-    pts.forEach(p => {
-      p.y = -(p.y - h);
-    });
+    pts.forEach(p => { p.y = -(p.y - h); });
     api.setColor("green");
     api.drawCurve(curve, offset);
 
-    pts.forEach(p => {
-      p.x = -(p.x - w);
-    });
+    pts.forEach(p => { p.x = -(p.x - w); });
     api.setColor("purple");
     api.drawCurve(curve, offset);
+    api.drawLine(pts[1],pts[0],offset);
+    api.drawPoint(pts[1],offset);
+    api.setFill("purple");
+    api.text("reflected", {x: pts[1].x + 10, y: pts[1].y + 3}, offset);
+    api.setColor("rgb(200,200,255)");
+    api.drawLine(pts[2],pts[3],offset);
+    api.drawPoint(pts[2],offset);
+
+
 
     api.setColor("black");
     api.setFill("black");

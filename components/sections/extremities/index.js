@@ -122,7 +122,11 @@ var Extremities = React.createClass({
 
         <h3>Quartic curves: Cardano's algorithm.</h3>
 
-        <p>Quartic—fourth degree—curves have a cubic function as derivative. Now, cubic functions are a bit of a problem because they're really hard to solve. But, way back in the 16<sup>th</sup> century, <a href="https://en.wikipedia.org/wiki/Gerolamo_Cardano">Gerolamo Cardano</a> figured out that even if the general cubic function is really hard to solve, it can be rewritten to a form for which finding the roots is "easy", and then the only hard part is figuring out how to go from that form to the generic form. So:</p>
+        <p>Quartic—fourth degree—curves have a cubic function as derivative. Now, cubic functions are a bit of a problem because
+        they're really hard to solve. But, way back in the 16<sup>th</sup> century, <a href="https://en.wikipedia.org/wiki/Gerolamo_Cardano">Gerolamo
+        Cardano</a> figured out that even if the general cubic function is really hard to solve, it can be rewritten to a form
+        for which finding the roots is "easy", and then the only hard part is figuring out how to go from that form to the
+        generic form. So:</p>
 
         <p>\[
           very\ hard:\ solve\ at^3 + bt^2 + ct + d = 0\\
@@ -131,21 +135,33 @@ var Extremities = React.createClass({
 
         <p>This is easier because for the "easier formula" we can use <a href="http://www.wolframalpha.com/input/?i=t^3+%2B+pt+%2B+q">regular calculus</a> to find the roots (as a cubic function, however, it can have up to three roots, but two of those can be complex. For the purpose of Bézier curve extremities, we can completely ignore those complex roots, since our <em>t</em> is a plain real number from 0 to 1).</p>
 
-        <p>So, the trick is to figure out how to turn the first formula into the second formula, and to then work out the maths that gives us the roots. This is explained in detail over at <a href="http://www.trans4mind.com/personal_development/mathematics/polynomials/cubicAlgebra.htm">Ken J. Ward's page</a> for solving the cubic equation, so instead of showing the maths, I'm simply going to show the programming code for solving the cubic equation, with the complex roots getting totally ignored.</p>
+        <p>So, the trick is to figure out how to turn the first formula into the second formula, and to then work out the maths that gives us
+        the roots. This is explained in detail over at <a href="http://www.trans4mind.com/personal_development/mathematics/polynomials/cubicAlgebra.htm">Ken
+        J. Ward's page</a> for solving the cubic equation, so instead of showing the maths, I'm simply going to show the programming code for
+        solving the cubic equation, with the complex roots getting totally ignored.</p>
 
-        <div className="note"><pre>
-// A helper function to filter for values in the [0,1] interval:
+
+        <div className="howtocode">
+          <h3>Implementing Cardano's algorithm for finding all real roots</h3>
+
+          <p>The "real roots" part is fairly important, because while you cannot take a square, cube, etc. root of a
+          negative number in the "real" number space (denoted with ℝ), this is perfectly fine in the <a
+          href="https://en.wikipedia.org/wiki/Complex_number">"complex" number</a> space (denoted with ℂ).
+          And, as it so happens, Cardano is also attributed as the first mathematician in history to have
+          made use of complex numbers in his calculations. For this very algorithm!</p>
+
+          <pre>// A helper function to filter for values in the [0,1] interval:
 function accept(t) {
   return 0<=t && t <=1;
 }
 
-// A special cuberoot function, which we can use because we don't care about complex roots:
+// A real-cuberoots-only function:
 function crt(v) {
   if(v<0) return -Math.pow(-v,1/3);
   return Math.pow(v,1/3);
 }
 
-// Now then: given cubic coordinates pa, pb, pc, pd, find all roots.
+// Now then: given cubic coordinates {pa, pb, pc, pd} find all roots.
 function getCubicRoots(pa, pb, pc, pd) {
   var d = (-pa + 3*pb - 3*pc + pd),
       a = (3*pa - 6*pb + 3*pc) / d,
@@ -193,7 +209,8 @@ function getCubicRoots(pa, pb, pc, pd) {
     root1 = u1 - v1 - a/3;
     return [root1].filter(accept);
   }
-}</pre></div>
+}</pre>
+        </div>
 
         <p>And that's it. The maths is complicated, but the code is pretty much just "follow the maths, while caching as many values as we can to reduce recomputing things as much as possible" and now we have a way to find all roots for a cubic function and can just move on with using that to find extremities of our curves.</p>
 
@@ -206,8 +223,9 @@ function getCubicRoots(pa, pb, pc, pd) {
 
         <p>That's a fancy word for saying "rather than solve the function, treat the problem as a sequence of identical
         operations, the performing of which gets us closer and closer to the real answer". As it turns out, there is a
-        really nice numerical root finding algorithm, called the <a href="http://en.wikipedia.org/wiki/Newton-Raphson">Newton-Raphson</a>
-        root finding method (yes, after <strong>that</strong> Newton), which we can make use of.</p>
+        really nice numerical root finding algorithm, called the <a href="http://en.wikipedia.org/wiki/Newton-Raphson">Newton-Raphson</a> root
+        finding method (yes, after <em><a href="https://en.wikipedia.org/wiki/Isaac_Newton">that</a></em> Newton),
+        which we can make use of.</p>
 
         <p>The Newton-Raphson approach consists of picking a value <i>t</i> (any will do), and getting the corresponding
         value at that <i>t</i> value. For normal functions, we can treat that value as a height. If the height is zero,

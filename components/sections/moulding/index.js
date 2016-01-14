@@ -222,7 +222,7 @@ var Moulding = React.createClass({
                  setup={this.setupQuadratic} draw={this.drawMould}
                  onClick={this.placeMouldPoint} onMouseDown={this.markQB} onMouseDrag={this.dragQB} onMouseUp={this.saveCurve}/>
 
-        <p>Click-dragging a point on the curve shows what we're using to compute the new coordinates: while dragging you will
+        <p><strong>Click-dragging the curve itself</strong> shows what we're using to compute the new coordinates: while dragging you will
         see the original points B and its corresponding <i>t</i>-value, the original point C for that <i>t</i>-value,
         as well as the new point B' based on the mouse cursor. Since we know the <i>t</i>-value for this configuration,
         we can compute the ABC ratio for this configuration, and we know that our new point A' should like at a distance:</p>

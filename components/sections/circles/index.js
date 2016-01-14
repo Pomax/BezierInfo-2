@@ -187,25 +187,14 @@ var Circles = React.createClass({
         number of ranges for the angle φ, such as a half circle, quarter circle and eighth circle?</p>
 
         <table><tbody><tr><td>
-          <p>
-            <a href="http://www.wolframalpha.com/input/?i=plot+sqrt%28%281%2F4+*+%28sin%28x%29+%2B+2tan%28x%2F2%29%29+-+sin%28x%2F2%29%29%5E2+%2B+%282sin%5E4%28x%2F4%29%29%5E2%29+for+0+%3C%3D+x+%3C%3D+pi">
-              <img src="images/arc-q-pi.gif"/>
-            </a>
-          </p>
+          <p><img src="images/arc-q-pi.gif"/></p>
           <p>plotted for 0 ≤ φ ≤ π:</p>
         </td><td>
-          <p>
-            <a href="http://www.wolframalpha.com/input/?i=plot+sqrt%28%281%2F4+*+%28sin%28x%29+%2B+2tan%28x%2F2%29%29+-+sin%28x%2F2%29%29%5E2+%2B+%282sin%5E4%28x%2F4%29%29%5E2%29+for+0+%3C%3D+x+%3C%3D+pi%2F2">
-              <img src="images/arc-q-pi2.gif"/>
-            </a>
-          </p>
+          <p><img src="images/arc-q-pi2.gif"/></p>
           <p>plotted for 0 ≤ φ ≤ ½π:</p>
         </td><td>
-          <p>
-            <a href="http://www.wolframalpha.com/input/?i=plot+sqrt%28%281%2F4+*+%28sin%28x%29+%2B+2tan%28x%2F2%29%29+-+sin%28x%2F2%29%29%5E2+%2B+%282sin%5E4%28x%2F4%29%29%5E2%29+for+0+%3C%3D+x+%3C%3D+pi%2F4">
-              <img src="images/arc-q-pi4.gif"/>
-            </a>
-          </p>
+          { this.props.showhref ? "http://www.wolframalpha.com/input/?i=plot+sqrt%28%281%2F4+*+%28sin%28x%29+%2B+2tan%28x%2F2%29%29+-+sin%28x%2F2%29%29%5E2+%2B+%282sin%5E4%28x%2F4%29%29%5E2%29+for+0+%3C%3D+x+%3C%3D+pi%2F4" : null }
+          <p><img src="images/arc-q-pi4.gif"/></p>
           <p>plotted for 0 ≤ φ ≤ ¼π:</p>
         </td></tr></tbody></table>
 

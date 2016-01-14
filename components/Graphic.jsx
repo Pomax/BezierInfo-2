@@ -118,6 +118,7 @@ var Graphic = React.createClass({
 
   mouseMove: function(evt) {
     fix(evt);
+
     if(!this.props.static) {
 
       if (this.down) {
@@ -165,7 +166,7 @@ var Graphic = React.createClass({
       this.props.onMouseDrag(evt, this);
     }
 
-    if (!this.playing && this.props.draw) {
+    if (!this.props.static && !this.playing && this.props.draw) {
       this.props.draw(this, this.curve);
     }
   },
@@ -472,7 +473,7 @@ var Graphic = React.createClass({
   drawPoints: function(points, offset) {
     offset = offset || { x:0, y:0 };
     points.forEach(function(p) {
-      this.drawCircle(p, 3, offset);
+      this.drawCircle(p, (offset.x!==0||offset.y!==0)? 1.5: 3, offset);
     }.bind(this));
   },
 

@@ -58,9 +58,14 @@ var PolyBezier = React.createClass({
       fixed = api.lpts[fixed % api.lpts.length];
       toMove = i + 2*p;
       toMove = api.lpts[toMove % api.lpts.length];
+
       toMove.x = fixed.x + (fixed.x - anchor.x);
       toMove.y = fixed.y + (fixed.y - anchor.y);
     }
+    // then, the furthest point cannot be computed properly!
+    toMove = i + 6;
+    toMove = api.lpts[toMove % api.lpts.length];
+    api.problem = toMove;
   },
 
   movePointsCubicLD: function(api, i) {
@@ -300,8 +305,11 @@ var PolyBezier = React.createClass({
                  onMouseMove={this.linkDerivatives}/>
 
         <p>As you can see, quadratic curves are particularly ill-suited for poly-Bézier curves, as all
-        the control points are effectively linked. Move one of them, and you move all of them. This means
-        that we cannot use quadratic poly-Béziers for anything other than really, really simple shapes.
+        the control points are effectively linked. Move one of them, and you move all of them. Not only that,
+        but if we move the on-curve points, it's possible to get a situation where a control point's positions
+        is different depending on whether it's the reflection of its left or right neighbouring control
+        point: we can't even form a proper rule-conforming curve! This means that we cannot use quadratic
+        poly-Béziers for anything other than really, really simple shapes.
         And even then, they're probably the wrong choice. Cubic curves are pretty decent, but the fact
         that the derivatives are linked means we can't manipulate curves as well as we might if we
         relaxed the constraints a little.</p>
@@ -317,10 +325,9 @@ var PolyBezier = React.createClass({
         <Graphic preset="poly" title="Loosely connected cubic poly-Bézier" setup={this.setupCubic} draw={this.draw} onMouseMove={this.linkDirection}/>
 
         <p>Cubic curves are now better behaved when it comes to dragging control points around, but the
-        quadratic poly-Bézier has a problem: in the example shape, moving one control points will move
-        the control points around it properly, but they in turn define "the next" control point and they
-        do so in incompatible ways! This is one of the many reasons why quadratic curves are not really
-        useful to work with.</p>
+        quadratic poly-Bézier still has the problem that moving one control points will move
+        the control points and may ending up defining "the next" control point in a way that
+        doesn't work. Quadratic curves really aren't very useful to work with...</p>
 
         <p>Finally, we also want to make sure that moving the on-curve coordinates preserves the relative
         positions of the associated control points. With that, we get to the kind of curve control that you
@@ -332,8 +339,8 @@ var PolyBezier = React.createClass({
                  onMouseDown={this.bufferPoints} onMouseMove={this.modelCurve}/>
 
         <p>Again, we see that cubic curves are now rather nice to work with, but quadratic curves have a
-        serious problem: we can move an on-curve point in such a way that we can't compute what needs to
-        "happen next". Move the top point down, below the left and right points, for instance. There
+        new, very serious problem: we can move an on-curve point in such a way that we can't compute what
+        needs to "happen next". Move the top point down, below the left and right points, for instance. There
         is no way to preserve correct control points without a kink at the bottom point. Quadratic curves:
         just not that good...</p>
 

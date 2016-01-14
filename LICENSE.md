@@ -1,3 +1,3 @@
-All files in this repository are all rights reserved, until the rewrite of https://github.com/Pomax/bezierinfo is done, at which point the files will be migrated and will be covered by a different license (quite probably public domain with MIT in jurisdictions that do not recognise public domain).
+All files in this repository are "almost no rights reserved": you may do anything you want with them, except pass them off wholesale as your own. The text, code, and graphics, are all free to use for whatever purpose you see fit. You don't even have to credit me (although if you do, that's always nice), __unless__ you're putting up your own version somewhere (either the whole thing or entire sections start to finish). If you do that, you'll have to credit the source, because your readers should know where the text came from.
 
-Note: I might still change my mind about the future license, so don't bank on it becoming PD/MIT in the slightest, or you might have a bad time.
+- Pomax

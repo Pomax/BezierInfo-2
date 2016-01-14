@@ -43,28 +43,28 @@ var Offsetting = React.createClass({
     reduced.forEach(c => {
       api.setRandomColor();
       api.drawCurve(c);
-      api.drawCircle(c.points[0], 3);
+      api.drawCircle(c.points[0], 1);
     });
     var last = reduced.slice(-1)[0];
-    api.drawCircle(last.points[3] || last.points[2],3);
+    api.drawPoint(last.points[3] || last.points[2]);
 
     api.setColor("red");
     var offset = curve.offset(api.distance);
     offset.forEach(c => {
-      api.drawCircle(c.points[0],1);
+      api.drawPoint(c.points[0]);
       api.drawCurve(c);
     });
     last = offset.slice(-1)[0];
-    api.drawCircle(last.points[3] || last.points[2],1);
+    api.drawPoint(last.points[3] || last.points[2]);
 
     api.setColor("blue");
     offset = curve.offset(-api.distance);
     offset.forEach(c => {
-      api.drawCircle(c.points[0],1);
+      api.drawPoint(c.points[0]);
       api.drawCurve(c);
     });
     last = offset.slice(-1)[0];
-    api.drawCircle(last.points[3] || last.points[2],1);
+    api.drawPoint(last.points[3] || last.points[2]);
   },
 
   render: function() {

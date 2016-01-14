@@ -104,25 +104,37 @@ var Introduction = React.createClass({
 
     // get center
     var C = this.getCCenter(api, pts[0], pts[1], pts[2]);
+    // outer circle
+    api.setColor("grey");
+    api.drawCircle(C, api.utils.dist(C,pts[0]));
+
+    // controllable points
     api.setColor("black");
     pts.forEach(p => api.drawCircle(p,3));
-    api.drawCircle(C, 3);
 
     // chords and perpendicular lines
+    var m;
+
     api.setColor("blue");
     api.drawLine(pts[0], pts[1]);
-    api.drawLine({x: (pts[0].x + pts[1].x)/2, y: (pts[0].y + pts[1].y)/2}, C);
+    m = {x: (pts[0].x + pts[1].x)/2, y: (pts[0].y + pts[1].y)/2};
+    api.drawLine(m, {x:C.x+(C.x-m.x), y:C.y+(C.y-m.y)});
 
     api.setColor("red");
     api.drawLine(pts[1], pts[2]);
-    api.drawLine({x: (pts[1].x + pts[2].x)/2, y: (pts[1].y + pts[2].y)/2}, C);
+    m = {x: (pts[1].x + pts[2].x)/2, y: (pts[1].y + pts[2].y)/2};
+    api.drawLine(m, {x:C.x+(C.x-m.x), y:C.y+(C.y-m.y)});
 
     api.setColor("green");
     api.drawLine(pts[2], pts[0]);
-    api.drawLine({x: (pts[2].x + pts[0].x)/2, y: (pts[2].y + pts[0].y)/2}, C);
+    m = {x: (pts[2].x + pts[0].x)/2, y: (pts[2].y + pts[0].y)/2};
+    api.drawLine(m, {x:C.x+(C.x-m.x), y:C.y+(C.y-m.y)});
 
-    api.setColor("grey");
-    api.drawCircle(C, api.utils.dist(C,pts[0]));
+    // center
+    api.setColor("black");
+    api.drawPoint(C);
+    api.setFill("black");
+    api.text("Intersection point", C, {x:-25, y:10});
   },
 
   drawSingleArc: function(api, curve) {
@@ -133,7 +145,7 @@ var Introduction = React.createClass({
 
     var a = arcs[0];
     api.setColor("red");
-    api.setFill("rgba(200,0,0,0.4)");
+    api.setFill("rgba(255,0,0,0.2)");
     api.debug = true;
     api.drawArc(a);
 
@@ -161,10 +173,12 @@ var Introduction = React.createClass({
       <section>
         <SectionHeader {...this.props} />
 
-        <p>Let's look at converting Bézier curves into sequences of circular arcs. We already saw in the
-          section on circle approximation that this will never yield a perfect equivalent, but sometimes
-          you need circular arcs, such as when you're working with fabrication machinery, or simple vector
-          languages that understand lines and circles, but not much else.</p>
+        <p>Let's look at doing the exact opposite of the previous section: rather than approximating
+        circular arc using Bézier curves, let's approximate Bézier curves using circular arcs.</p>
+
+        <p>We already saw in the section on circle approximation that this will never yield a perfect
+        equivalent, but sometimes you need circular arcs, such as when you're working with fabrication
+        machinery, or simple vector languages that understand lines and circles, but not much else.</p>
 
         <p>The approach is fairly simple: pick a starting point on the curve, and pick two points that are
           further along the curve. Determine the circle that goes through those three points, and see if

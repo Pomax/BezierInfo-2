@@ -82,7 +82,7 @@ var PointCurves = React.createClass({
       api.drawLine(A, S);
       api.drawLine(A, E);
       api.setColor("black");
-      api.drawCircle(A, 3);
+      api.drawCircle(A, 1);
       api.drawCurve(curve);
     }
   },
@@ -114,7 +114,7 @@ var PointCurves = React.createClass({
       api.setColor("blue");
       api.drawLine(S, E);
       api.drawLine(B, C);
-      api.drawCircle(C, 3);
+      api.drawCircle(C, 1);
 
       var ratio = this.getCRatio(0.5),
           A = {
@@ -165,9 +165,9 @@ var PointCurves = React.createClass({
       api.drawLine(E, nc2);
       api.drawLine(nc1, nc2);
       api.setColor("black");
-      api.drawCircle(A, 3);
-      api.drawCircle(nc1, 3);
-      api.drawCircle(nc2, 3);
+      api.drawCircle(A, 1);
+      api.drawCircle(nc1, 1);
+      api.drawCircle(nc2, 1);
       api.drawCurve(curve);
     }
   },

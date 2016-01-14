@@ -59,8 +59,6 @@ var TightBounds = React.createClass({
 
   draw: function(api, curve) {
     api.reset();
-    api.drawSkeleton(curve);
-    api.drawCurve(curve);
 
     var pts = curve.points;
     var line = {p1: pts[0], p2: pts[pts.length-1]};
@@ -75,6 +73,10 @@ var TightBounds = React.createClass({
     api.drawLine(tpts[1], tpts[2]);
     api.drawLine(tpts[2], tpts[3]);
     api.drawLine(tpts[3], tpts[0]);
+
+    api.setColor("black");
+    api.drawSkeleton(curve);
+    api.drawCurve(curve);
   },
 
   render: function() {
