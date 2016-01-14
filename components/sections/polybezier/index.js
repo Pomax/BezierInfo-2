@@ -84,8 +84,11 @@ var PolyBezier = React.createClass({
     if (api.mp) {
       var quad = api.lpts.length === 8;
       var i = api.mp_idx;
-      if (quad && i%2 !== 0) { this.movePointsQuadraticLD(api, i); }
-      else if(i%3 !== 0) { this.movePointsCubicLD(api, i); }
+      if (quad) {
+        if (i%2 !== 0) { this.movePointsQuadraticLD(api, i); }
+      } else {
+        if(i%3 !== 0) { this.movePointsCubicLD(api, i); }
+      }
     }
   },
 
@@ -139,8 +142,11 @@ var PolyBezier = React.createClass({
     if (api.mp) {
       var quad = api.lpts.length === 8;
       var i = api.mp_idx;
-      if (quad && i%2 !== 0) { this.movePointsQuadraticDirOnly(api, i); }
-      else if(i%3 !== 0) { this.movePointsCubicDirOnly(api, i); }
+      if (quad) {
+        if(i%2 !== 0) { this.movePointsQuadraticDirOnly(api, i); }
+      } else {
+        if(i%3 !== 0) { this.movePointsCubicDirOnly(api, i); }
+      }
     }
   },
 
@@ -258,8 +264,8 @@ var PolyBezier = React.createClass({
         of the next segment. This leads to poly-Béziers that are pretty hard to work with, but they're
         the easiest to implement:</p>
 
-        <Graphic preset="poly" title="Loosely connected quadratic poly-Bézier" setup={this.setupQuadratic} draw={this.draw}/>
-        <Graphic preset="poly" title="Loosely connected cubic poly-Bézier" setup={this.setupCubic} draw={this.draw}/>
+        <Graphic preset="poly" title="Unlinked quadratic poly-Bézier" setup={this.setupQuadratic} draw={this.draw}/>
+        <Graphic preset="poly" title="Unlinked cubic poly-Bézier" setup={this.setupCubic} draw={this.draw}/>
 
         <p>Dragging the control points around only affects the curve segments that the control point belongs
         to, and moving an on-curve point leaves the control points where they are, which is not the most useful

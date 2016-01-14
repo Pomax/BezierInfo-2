@@ -13,6 +13,7 @@ var Canonical = React.createClass({
     var curve = api.getDefaultCubic();
     api.setCurve(curve);
     api.reset();
+    api._map_loaded = false;
   },
 
   draw: function(api, curve) {
@@ -29,7 +30,15 @@ var Canonical = React.createClass({
     api.drawCurve(curve);
 
     api.offset.x += 400;
-    api.image(this.mapImage);
+
+    if (api._map_loaded) { api.image(api._map_image); }
+    else { setTimeout((
+      function() {
+        this.drawBase(api, curve);
+        this.draw(api, curve);
+      }
+    ).bind(this), 100); }
+
     api.drawLine({x:0,y:0}, {x:0, y:h});
 
     var npts = [
@@ -62,6 +71,8 @@ var Canonical = React.createClass({
   },
 
   drawBase: function(api, curve) {
+    api.reset();
+
     var w = 400,
         h = w,
         unit = this.unit = w/5,
@@ -152,7 +163,8 @@ var Canonical = React.createClass({
     api.text("← Plain curve ↕", {x:w/2 + unit/2, y: h/6});
     api.text("↕ Double inflection", {x:10, y: h/2 - 10});
 
-    this.mapImage = api.toImage();
+    api._map_image = api.toImage();
+    api._map_loaded = true;
   },
 
 

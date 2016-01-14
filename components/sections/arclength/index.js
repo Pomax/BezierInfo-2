@@ -164,9 +164,9 @@ var Arclength = React.createClass({
         thus the better the approximation:</p>
 
         <div className="figure">
-          <Graphic inline={true} preset="empty" title="A function's approximated integral" setup={this.setup} draw={this.drawCoarseIntegral}/>
-          <Graphic inline={true} preset="empty" title="A better approximation" setup={this.setup} draw={this.drawFineIntegral}/>
-          <Graphic inline={true} preset="empty" title="An even better approximation" setup={this.setup} draw={this.drawSuperFineIntegral}/>
+          <Graphic inline={true} static={true} preset="empty" title="A function's approximated integral" setup={this.setup} draw={this.drawCoarseIntegral}/>
+          <Graphic inline={true} static={true} preset="empty" title="A better approximation" setup={this.setup} draw={this.drawFineIntegral}/>
+          <Graphic inline={true} static={true} preset="empty" title="An even better approximation" setup={this.setup} draw={this.drawSuperFineIntegral}/>
         </div>
 
 

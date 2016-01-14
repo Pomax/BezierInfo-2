@@ -97,13 +97,13 @@ var Graphic = React.createClass({
     this.mx = evt.offsetX;
     this.my = evt.offsetY;
 
-    this.moving = false;
+    this.movingPoint = false;
     this.dragging = false;
     this.down = true;
 
     this.lpts.forEach((p,idx) => {
       if(Math.abs(this.mx - p.x)<10 && Math.abs(this.my - p.y)<10) {
-        this.moving = true;
+        this.movingPoint = true;
         this.mp = p;
         this.mp_idx = idx;
         this.cx = p.x;
@@ -139,7 +139,7 @@ var Graphic = React.createClass({
         y: evt.offsetY
       };
 
-      if(this.moving) {
+      if(this.movingPoint) {
         this.ox = evt.offsetX - this.mx;
         this.oy = evt.offsetY - this.my;
         this.mp.x = this.cx + this.ox;
@@ -172,13 +172,13 @@ var Graphic = React.createClass({
 
   mouseUp: function(evt) {
     this.down = false;
-    if(!this.moving) {
+    if(!this.movingPoint) {
       if (this.props.onMouseUp) {
         this.props.onMouseUp(evt, this);
       }
       return;
     }
-    this.moving = false;
+    this.movingPoint = false;
     this.mp = false;
     if (this.props.onMouseUp) {
       this.props.onMouseUp(evt, this);
