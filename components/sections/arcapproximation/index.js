@@ -241,7 +241,7 @@ var Introduction = React.createClass({
         <p>With that in place, all that's left now is to "restart" the procedure by treating the found arc's
           end point as the new to-be-determined arc's starting point, and using points further down the curve. We
           keep trying this until the found end point is for <em>t=1</em>, at which point we are done. Again,
-          the following graphic allows for '+' and '-' key input to increase or decrease the error threshold,
+          the following graphic allows for up and down arrow key input to increase or decrease the error threshold,
           so you can see how picking a different threshold changes the number of arcs that are necessary to
           reasonably approximate a curve:</p>
 

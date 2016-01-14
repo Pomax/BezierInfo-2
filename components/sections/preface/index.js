@@ -72,7 +72,7 @@ var Preface = React.createClass({
 
           <h2>Questions, comments:</h2>
 
-          If you have suggestions for new sections, hit up the <a href="https://github.com/pomax/bezierinfo/issues">github
+          If you have suggestions for new sections, hit up the <a href="https://github.com/pomax/BezierInfo-2/issues">github
           issue tracker</a> (also reachable from the repo linked to in the upper right). If you have
           questions about the material, there's currently no comment section while I'm doing the rewrite,
           but you can use the issue tracker for that as well. Once the rewrite is done, I'll add a general
