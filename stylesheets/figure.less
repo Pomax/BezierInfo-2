@@ -27,6 +27,19 @@ figure {
     padding: 0.5em 0;
     font-style: italic;
     font-size: 90%;
+
+    button {
+      font-family: Verdana;
+      border: 1px solid grey;
+      border-radius: 3px;
+      background: #FDFDFD;
+      &.selected {
+        background: rgb(200,200,255);
+      }
+      & + button {
+        margin-left: 0.25em;
+      }
+    }
   }
 
   &:not([class=inline]) + figure:not([class=inline]) {

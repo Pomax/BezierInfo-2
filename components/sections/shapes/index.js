@@ -2,11 +2,23 @@ var React = require("react");
 var Graphic = require("../../Graphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
 
+var modes = ["unite","intersect","exclude","subtract"];
+
 var Shapes = React.createClass({
   getDefaultProps: function() {
     return {
       title: "Boolean shape operations"
     };
+  },
+
+  getInitialState: function() {
+    return {
+      mode: modes[0]
+    };
+  },
+
+  setMode: function(mode) {
+    this.setState({ mode: mode });
   },
 
   formPath: function(api, mx, my, w, h) {
@@ -63,6 +75,7 @@ var Shapes = React.createClass({
     cx += pad;
     cy += pad;
     api.c2 = this.formPath(api, cx, cy);
+    this.state.mode = modes[0];
   },
 
   onMouseMove: function(evt, api) {
@@ -75,8 +88,11 @@ var Shapes = React.createClass({
     if (api.c3) { api.c3.remove(); }
     var c1 = api.c1,
         c2 = api.c2,
-        c3 = api.c3 = c1.unite(c2);
+        fn = c1[this.state.mode].bind(c1),
+        c3 = api.c3 = fn(c2);
+
     c3.strokeColor = "red";
+    c3.fillColor = "rgba(255,100,100,0.4)";
     api.Paper.view.draw();
   },
 
@@ -163,11 +179,16 @@ var Shapes = React.createClass({
 
         <p>The following graphic shows Paper.js doing its thing for two shapes: one static, and
         one that is linked to your mouse pointer. If you move the mouse around, you'll see how
-        the shape intersections are resolved, with segments that lie inside each other's shapes
-        marked light blue, and segments that exist outside of the other shape marked in red.</p>
+        the shape intersections are resolved. The base shapes are outlined in blue, and the
+        boolean result is coloured red.</p>
 
         <Graphic preset="simple" title="Boolean shape operations with Paper.js" paperjs={true}
-                 setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}/>
+                 setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}>
+        <br/>{modes.map(mode => {
+          var className = (this.state.mode === mode) ? "selected" : null;
+          return <button className={className} key={mode} onClick={function() { this.setMode(mode); }.bind(this)}>{mode}</button>;
+        })}
+        </Graphic>
       </section>
     );
   }
