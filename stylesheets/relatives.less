@@ -1,0 +1,26 @@
+.relatives {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+
+  border: 1px solid #CCC;
+  padding: 0.25rem 1rem;
+  margin-left: -1rem;
+  box-sizing: content-box;
+
+  &.before {
+    border-width: 1px 0px;
+    margin-bottom: -2rem;
+  }
+
+  &.after {
+    margin-top: 2em;
+    border-width: 1px 0 0 0;
+    border-color: grey;
+    margin-bottom: -1.5rem;
+  }
+
+  .prev:before { content: "← "; }
+  .next:after { content: " →"; }
+}

@@ -19,4 +19,23 @@ navigation {
       }
     }
   }
+
+  &.compact {
+    width: 100%;
+    border: none;
+    border-top: 1px solid grey;
+    padding-top: 2em;
+    margin-top: 2em;
+
+    ul {
+      background: inherit;
+
+      li {
+        display: inline-block;
+        &:not(:last-child) {
+          margin-right: 1em;
+        }
+      }
+    }
+  }
 }

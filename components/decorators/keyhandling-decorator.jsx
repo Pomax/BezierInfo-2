@@ -6,7 +6,8 @@ module.exports = function(Component) {
       propName = options.propName || "",
       values = options.values || {},
       controller = options.controller || noop,
-      getDefaultProps = Component.getDefaultProps;
+      getDefaultProps = Component.getDefaultProps,
+      ref = "wrappedComponent";
 
   return React.createClass({
     values: values,
@@ -26,8 +27,16 @@ module.exports = function(Component) {
       }
     },
 
+    getComponent: function() {
+      var wrappedComponent = this.refs[ref];
+      if (wrappedComponent.getComponent) {
+        return wrappedComponent.getComponent();
+      }
+      return wrappedComponent;
+    },
+
     render: function() {
-      return <Component {...this.props} onKeyDown={this.onKeyDown} />;
+      return <Component {...this.props} onKeyDown={this.onKeyDown} ref={ref} />;
     }
   });
 };

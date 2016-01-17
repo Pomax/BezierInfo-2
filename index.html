@@ -43,20 +43,20 @@
     </div>
 
     <article>
-      <!-- these rules will get overwritten by the style in the article.js React bundle -->
-      <style>
-        header h1, header h2 { text-align: center; }
-        header h1 { font-size: 300%; margin: 0.2em; }
-        p.jsnote { margin: 2em; text-align: justify; }
-        p.jsnote:first-child { width: 13em; margin: auto; }
-      </style>
-
-      <header>
-        <h1>A Primer on Bézier Curves</h1>
-        <h2>A free, online book for when you really need to know how to do Bézier things.</h2>
-      </header>
-
       <div id="article">
+        <!-- these rules will get overwritten by the style in the article.js React bundle -->
+        <style>
+          header h1, header h2 { text-align: center; }
+          header h1 { font-size: 300%; margin: 0.2em; }
+          p.jsnote { margin: 2em; text-align: justify; }
+          p.jsnote:first-child { width: 13em; margin: auto; }
+        </style>
+
+        <header>
+          <h1>A Primer on Bézier Curves</h1>
+          <h2>A free, online book for when you really need to know how to do Bézier things.</h2>
+        </header>
+
         <!-- This content only shows for as long as JS/React hasn't loaded the page content -->
         <p class="jsnote">Loading book content<span id="loader">...</span></p>
 
@@ -66,9 +66,10 @@
       </div>
     </article>
 
-    <script src="article.js" async></script>
-
     <!-- referral tracking, because I like knowing who's linking to my book -->
     <script src="lib/site/referrer.js" async></script>
+
+    <!-- the actual article is a JS bundle -->
+    <script src="article.js" async></script>
   </body>
 </html>

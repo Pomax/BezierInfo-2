@@ -3,6 +3,11 @@ var webpack = require('webpack');
 // Bundle entry point
 var entry = ['./components/App.jsx'];
 
+// However, do we want one full page, or single pages with react-router?
+if(process.argv.indexOf("--singles") !== -1 ) {
+  entry = ['./pages/Routed.jsx'];
+}
+
 // Necessary webpack loaders for converting our content:
 var webpackLoaders = [
   'babel-loader',
@@ -41,7 +46,7 @@ module.exports = {
       { test: /\.json$/, loader: "json" },
       {
         test: /.jsx?$/,
-        include: /components/,
+        include: /(components|pages)/,
         loaders: webpackLoaders
       }
     ]
