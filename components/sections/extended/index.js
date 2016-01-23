@@ -5,7 +5,7 @@ var SectionHeader = require("../../SectionHeader.jsx");
 var Explanation = React.createClass({
   getDefaultProps: function() {
     return {
-      title: "The Bézier interval"
+      title: "The Bézier interval [0,1]"
     };
   },
 
