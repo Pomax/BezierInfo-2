@@ -1,0 +1,91 @@
+<!--
+Bézier'(n,t) = n \cdot \sum_{i=0}^{n-1} (b_{i+1}-b_i) \cdot Bézier(n-1,t)_i
+-->
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="51.333ex" height="7ex" style="vertical-align: -2.833ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" viewBox="0 -1751.9 22081.3 2993.2" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D435" d="M756 545c0 -95 -105 -169 -209 -188c97 -11 155 -69 155 -141c0 -98 -118 -216 -276 -216h-357c-18 0 -27 0 -27 11c0 20 10 20 27 20c79 0 81 8 91 47l134 537c3 12 4 15 4 19c0 13 -9 14 -27 16c-17 2 -38 2 -38 2c-19 0 -28 0 -28 11c0 20 10 20 29 20h336 c120 0 186 -64 186 -138zM665 549c0 44 -21 103 -109 103h-129c-43 0 -45 -3 -54 -38l-62 -248h146c122 0 208 95 208 183zM609 227c0 43 -19 117 -115 117h-189l-69 -279c-5 -18 -5 -20 -5 -23c0 -8 3 -9 13 -10c6 -1 8 -1 22 -1h136c118 0 207 97 207 196Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNLATIN-E9" d="M415 119c0 -19 -45 -130 -167 -130c-115 0 -220 97 -220 231c0 125 92 228 208 228c125 0 179 -97 179 -196c0 -21 -3 -21 -25 -21h-279c0 -36 0 -102 30 -150c23 -37 63 -67 113 -67c10 0 100 0 135 103c2 8 4 14 13 14c5 0 13 -2 13 -12zM349 252 c0 39 -10 174 -113 174c-34 0 -118 -25 -124 -174h237zM346 662c0 -12 -8 -23 -17 -30l-152 -122l-17 18l120 153c4 6 15 17 30 17c18 0 36 -18 36 -36Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D467" d="M467 432c0 -4 -22 -52 -117 -145c-36 -36 -98 -90 -98 -90c-36 -31 -65 -56 -119 -114c9 3 27 3 27 3c21 0 36 -4 70 -17c21 -7 39 -13 59 -13c33 0 97 19 120 84c3 7 5 13 14 13c8 0 12 -5 12 -10c0 -27 -58 -154 -157 -154c-29 0 -47 16 -64 37c-25 29 -35 38 -58 38 c-32 0 -62 -27 -85 -62c-6 -11 -8 -13 -16 -13c0 0 -12 0 -12 10c0 7 35 64 103 131l90 84c19 16 103 88 139 131c-26 0 -37 0 -77 15c-23 8 -42 15 -63 15c-8 0 -66 -1 -85 -47c-2 -6 -4 -11 -13 -11s-12 6 -12 11c0 21 46 114 121 114c33 0 50 -20 69 -43 c15 -17 27 -32 51 -32s45 16 75 64c5 9 8 11 15 11c0 0 11 0 11 -10Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D456" d="M284 625c0 -30 -30 -53 -53 -53c-24 0 -38 17 -38 36c0 27 27 53 54 53c23 0 37 -16 37 -36zM293 143c0 -9 -37 -154 -131 -154c-48 0 -82 35 -82 82c0 21 13 54 23 80c16 43 61 159 69 185c4 10 11 31 11 52c0 32 -17 32 -25 32c-34 0 -74 -30 -101 -124 c-5 -16 -6 -18 -16 -18c0 0 -12 0 -12 10c0 9 38 154 132 154c50 0 82 -37 82 -82c0 -19 -5 -33 -13 -53c-10 -27 -10 -29 -22 -58l-39 -105c-23 -61 -29 -75 -29 -100c0 -23 7 -33 24 -33c51 0 84 61 102 124c5 15 5 18 15 18c3 0 12 0 12 -10Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D452" d="M430 107c0 -12 -84 -118 -227 -118c-98 0 -157 79 -157 181c0 175 151 272 262 272c69 0 107 -41 107 -85c0 -14 -5 -73 -75 -103c-50 -21 -124 -23 -153 -23h-53c-15 -61 -16 -92 -16 -104c0 -32 9 -116 87 -116c12 0 121 0 200 99c6 8 8 10 13 10c6 0 12 -7 12 -13z M382 357c0 34 -27 63 -74 63c-26 0 -129 -15 -168 -167h41c41 0 201 0 201 104Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D45F" d="M436 377c0 -36 -28 -59 -55 -59s-38 19 -38 35c0 26 22 50 52 55c0 0 -16 12 -42 12c-43 0 -72 -26 -80 -33c-24 -22 -52 -69 -56 -82l-32 -130c-4 -18 -38 -154 -40 -158c-7 -20 -25 -28 -37 -28c-15 0 -29 9 -29 27c0 5 6 28 9 43l58 231c13 52 16 63 16 84 c0 38 -14 46 -31 46c-36 0 -56 -48 -73 -119c-6 -22 -7 -23 -17 -23c0 0 -12 0 -12 10c0 3 13 63 31 97c9 18 28 57 74 57c47 0 83 -32 91 -77c19 28 63 77 128 77c51 0 83 -30 83 -65Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-2032" d="M251 710c0 -7 -2 -14 -6 -19l-158 -261h-27l120 297c4 11 18 21 33 21c21 0 38 -17 38 -38Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-28" d="M332 -238c0 -5 -5 -10 -10 -10c-2 0 -4 1 -6 2c-110 83 -215 283 -215 454v84c0 171 105 371 215 454c2 1 4 2 6 2c5 0 10 -5 10 -10c0 -3 -2 -6 -4 -8c-104 -78 -173 -278 -173 -438v-84c0 -160 69 -360 173 -438c2 -2 4 -5 4 -8Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D45B" d="M571 143c0 -8 -37 -154 -131 -154c-47 0 -82 35 -82 82c0 11 1 23 10 46c16 43 65 171 65 233c0 33 -9 70 -54 70c-95 0 -148 -91 -163 -122l-13 -50c-5 -23 -11 -45 -17 -67l-22 -90c-6 -25 -18 -72 -19 -74c-7 -20 -25 -28 -37 -28c-15 0 -29 9 -29 27c0 5 6 28 9 43 l58 231c13 52 16 63 16 84c0 33 -11 46 -31 46c-36 0 -56 -48 -73 -119c-6 -22 -7 -23 -17 -23c0 0 -12 0 -12 10c0 4 14 63 30 97c10 18 29 57 75 57s87 -31 92 -87c17 23 66 87 156 87c72 0 115 -40 115 -107c0 -57 -42 -167 -61 -220c-9 -22 -18 -46 -18 -71 c0 -23 7 -33 24 -33c49 0 82 56 102 124c5 15 5 18 15 18c3 0 12 0 12 -10Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-2C" d="M203 1c0 -117 -80 -194 -91 -194c-5 0 -10 4 -10 11c0 3 0 5 11 16c33 33 68 93 68 167c0 14 -2 15 -2 15s-2 -1 -5 -3c-10 -9 -23 -13 -35 -13c-33 0 -53 26 -53 53c0 28 20 53 53 53c39 0 64 -39 64 -105Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D461" d="M330 420c0 -20 -10 -20 -30 -20h-94l-74 -295c-4 -17 -6 -24 -6 -48c0 -33 10 -46 31 -46c34 0 87 24 130 128c5 11 6 14 15 14c4 0 12 0 12 -10c0 -8 -57 -154 -159 -154c-54 0 -92 38 -92 92c0 18 4 35 76 319h-88c-20 0 -28 0 -28 12c0 19 10 19 30 19h94l39 159 c9 35 37 36 40 36c17 0 29 -10 29 -27c0 -6 -5 -26 -41 -168h88c18 0 28 0 28 -11Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-29" d="M288 208c0 -171 -105 -371 -215 -454c-2 -1 -4 -2 -6 -2c-5 0 -10 5 -10 10c0 3 2 6 4 8c104 78 173 278 173 438v84c0 160 -69 360 -173 438c-2 2 -4 5 -4 8c0 5 5 10 10 10c2 0 4 -1 6 -2c110 -83 215 -283 215 -454v-84Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-3D" d="M722 347c0 -11 -9 -20 -20 -20h-626c-11 0 -20 9 -20 20s9 20 20 20h626c11 0 20 -9 20 -20zM722 153c0 -11 -9 -20 -20 -20h-626c-11 0 -20 9 -20 20s9 20 20 20h626c11 0 20 -9 20 -20Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-22C5" d="M192 250c0 -29 -24 -53 -53 -53s-53 24 -53 53s24 53 53 53s53 -24 53 -53Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNSIZE1-2211" d="M1387 -130l-121 -320h-1182c-18 0 -27 0 -27 11c0 0 0 6 10 18l518 607l-529 724c0 11 0 30 1 33c3 6 4 7 27 7h1182l121 -281h-25c-34 81 -102 126 -127 142c-79 50 -166 67 -220 75c-9 2 -100 16 -234 16h-548l466 -637c7 -10 7 -15 7 -15c0 -5 -2 -8 -9 -16l-509 -597 h603c192 0 290 26 311 31c115 30 221 98 260 202h25Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-30" d="M460 320c0 -79 -5 -157 -37 -226c-44 -95 -120 -116 -174 -116c-49 0 -122 20 -165 101c-41 76 -45 166 -45 241c0 80 5 158 37 227c41 93 114 119 174 119c42 0 124 -16 170 -112c35 -74 40 -154 40 -234zM377 332c0 63 0 139 -10 195c-19 99 -85 117 -118 117 c-25 0 -100 -9 -119 -128c-8 -54 -8 -120 -8 -184c0 -59 0 -151 11 -211c18 -96 77 -121 116 -121c45 0 102 30 117 125c11 64 11 132 11 207Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-2212" d="M722 250c0 -11 -9 -20 -20 -20h-626c-11 0 -20 9 -20 20s9 20 20 20h626c11 0 20 -9 20 -20Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-31" d="M419 0c-35 3 -122 3 -162 3s-127 0 -162 -3v31h32c90 0 93 12 93 48v518c-52 -26 -111 -26 -131 -26v31c32 0 120 0 182 64c23 0 23 -2 23 -26v-561c0 -37 3 -48 93 -48h32v-31Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D44F" d="M415 282c0 -144 -123 -293 -241 -293c-74 0 -127 62 -127 157c0 35 4 51 16 101l82 326c5 21 14 55 14 62c0 10 -2 17 -50 17c-15 0 -24 0 -24 12c0 18 11 19 19 20c26 2 99 10 122 10c13 0 13 -11 13 -11l-74 -301c30 31 71 60 117 60c80 0 133 -69 133 -160zM343 326 c0 64 -27 94 -63 94c-26 0 -71 -15 -120 -80c-9 -11 -9 -13 -15 -35l-22 -92c-16 -63 -16 -82 -16 -101c0 -74 33 -101 67 -101c39 0 85 36 118 103c18 38 51 153 51 212Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-2B" d="M722 250c0 -11 -9 -20 -20 -20h-293v-293c0 -11 -9 -20 -20 -20s-20 9 -20 20v293h-293c-11 0 -20 9 -20 20s9 20 20 20h293v293c0 11 9 20 20 20s20 -9 20 -20v-293h293c11 0 20 -9 20 -20Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D435" x="0" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNLATIN-E9" x="764" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D467" x="1213" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D456" x="1685" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D452" x="2035" y="0"></use>
+<g transform="translate(2506,0)">
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D45F" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNMAIN-2032" x="644" y="583"></use>
+</g>
+ <use xlink:href="#E1-LATINMODERNMAIN-28" x="3285" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D45B" x="3679" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNMAIN-2C" x="4284" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D461" x="4734" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNMAIN-29" x="5100" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNMAIN-3D" x="5771" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D45B" x="6832" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNMAIN-22C5" x="7659" y="0"></use>
+<g transform="translate(8165,0)">
+ <use xlink:href="#E1-LATINMODERNSIZE1-2211" x="0" y="0"></use>
+<g transform="translate(145,-1105)">
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-1D456" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNMAIN-3D" x="350" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNMAIN-30" x="1133" y="0"></use>
+</g>
+<g transform="translate(55,1160)">
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-1D45B" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNMAIN-2212" x="605" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNMAIN-31" x="1388" y="0"></use>
+</g>
+</g>
+ <use xlink:href="#E1-LATINMODERNMAIN-28" x="9614" y="0"></use>
+<g transform="translate(10008,0)">
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D44F" x="0" y="0"></use>
+<g transform="translate(434,-150)">
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-1D456" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNMAIN-2B" x="350" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNMAIN-31" x="1133" y="0"></use>
+</g>
+</g>
+ <use xlink:href="#E1-LATINMODERNMAIN-2212" x="11922" y="0"></use>
+<g transform="translate(12927,0)">
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D44F" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-1D456" x="613" y="-213"></use>
+</g>
+ <use xlink:href="#E1-LATINMODERNMAIN-29" x="13709" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNMAIN-22C5" x="14325" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D435" x="14830" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNLATIN-E9" x="15594" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D467" x="16043" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D456" x="16515" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D452" x="16865" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D45F" x="17336" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNMAIN-28" x="17792" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D45B" x="18186" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNMAIN-2212" x="19013" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNMAIN-31" x="20019" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNMAIN-2C" x="20524" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D461" x="20973" y="0"></use>
+<g transform="translate(21339,0)">
+ <use xlink:href="#E1-LATINMODERNMAIN-29" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-1D456" x="557" y="-213"></use>
+</g>
+</g>
+</svg>

@@ -10,12 +10,7 @@
 var className="LaTeX SVG";
 var fs = require("fs");
 var API = require("mathjax-node/lib/mj-single");
-
-function cleanUp(latex) {
-  // strip any \[ and \], which is an block-level LaTeX markup indicator for MathJax:
-  latex = latex.replace(/^'/,'').replace(/'$/,'').replace('\\[','').replace('\\]','');
-  return latex;
-}
+var cleanUp = require("./cleanup");
 
 // Set up the MathJax processor
 API.config({
@@ -71,6 +66,7 @@ API.typeset(options, function saveToFile(data) {
     console.error(data.errors);
     process.exit(1);
   }
-  fs.writeFileSync(destination, data.svg);
+  var filedata = ["<!--", options.math, "-->", data.svg].join("\n");
+  fs.writeFileSync(destination, filedata);
   process.exit(0);
 });

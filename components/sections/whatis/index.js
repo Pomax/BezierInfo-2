@@ -142,7 +142,6 @@ var Whatis = React.createClass({
             ratio &= \frac{percentage}{100} \\
           \end{align}
         \right ),\ our\ new\ point = p_1 + distance \cdot ratio
-
         \]</p>
 
         <p>So let's look at that in action: the following graphic is interactive in that you can use your

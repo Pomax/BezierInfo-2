@@ -1,0 +1,129 @@
+<!--
+=
+\begin{bmatrix}
+1 & t & t^2
+\end{bmatrix}
+\cdot
+\underset{we\ turn\ this...}{\underbrace{\kern 2.25em Z \cdot M \kern 2.25em}}
+\cdot
+\begin{bmatrix}
+P_1 \\ P_2 \\ P_3
+\end{bmatrix}
+-->
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="39.167ex" height="8.833ex" style="vertical-align: -3.833ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" viewBox="0 -2163.9 16875.4 3827.9" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-3D" d="M722 347c0 -11 -9 -20 -20 -20h-626c-11 0 -20 9 -20 20s9 20 20 20h626c11 0 20 -9 20 -20zM722 153c0 -11 -9 -20 -20 -20h-626c-11 0 -20 9 -20 20s9 20 20 20h626c11 0 20 -9 20 -20Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-5B" d="M256 -230c0 -11 -9 -20 -20 -20h-122v1000h122c11 0 20 -9 20 -20s-9 -20 -20 -20h-82v-920h82c11 0 20 -9 20 -20Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-31" d="M419 0c-35 3 -122 3 -162 3s-127 0 -162 -3v31h32c90 0 93 12 93 48v518c-52 -26 -111 -26 -131 -26v31c32 0 120 0 182 64c23 0 23 -2 23 -26v-561c0 -37 3 -48 93 -48h32v-31Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D461" d="M330 420c0 -20 -10 -20 -30 -20h-94l-74 -295c-4 -17 -6 -24 -6 -48c0 -33 10 -46 31 -46c34 0 87 24 130 128c5 11 6 14 15 14c4 0 12 0 12 -10c0 -8 -57 -154 -159 -154c-54 0 -92 38 -92 92c0 18 4 35 76 319h-88c-20 0 -28 0 -28 12c0 19 10 19 30 19h94l39 159 c9 35 37 36 40 36c17 0 29 -10 29 -27c0 -6 -5 -26 -41 -168h88c18 0 28 0 28 -11Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-32" d="M449 174l-28 -174h-371c0 24 0 26 11 37l192 214c55 62 105 141 105 221c0 82 -43 163 -134 163c-58 0 -112 -37 -135 -102c3 1 5 1 13 1c35 0 53 -26 53 -52c0 -41 -35 -53 -52 -53c-3 0 -53 0 -53 56c0 89 74 181 187 181c122 0 212 -80 212 -194 c0 -100 -60 -154 -216 -292l-106 -103h180c22 0 88 0 95 8c10 15 17 59 22 89h25Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-5D" d="M164 -250h-122c-11 0 -20 9 -20 20s9 20 20 20h82v920h-82c-11 0 -20 9 -20 20s9 20 20 20h122v-1000Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-22C5" d="M192 250c0 -29 -24 -53 -53 -53s-53 24 -53 53s24 53 53 53s53 -24 53 -53Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D44D" d="M723 674c0 -6 -2 -11 -3 -15l-559 -625h171c170 0 218 72 262 208c7 21 8 25 17 25s13 -6 13 -11c0 -4 -3 -11 -4 -15l-71 -221c-6 -19 -7 -20 -31 -20h-435c-18 0 -25 0 -25 9c0 3 4 18 4 18l559 625h-163c-156 0 -208 -66 -246 -184c-2 -3 -4 -10 -13 -10 c-12 0 -12 11 -12 11s1 9 3 14l55 180c6 19 7 20 31 20h422c20 0 25 0 25 -9Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D440" d="M1044 672c0 -20 -9 -20 -32 -20c-75 0 -77 -10 -86 -46l-133 -533c-5 -18 -5 -20 -5 -24c0 -18 28 -18 65 -18c19 0 28 0 28 -11c0 -20 -13 -20 -19 -20c-41 0 -84 3 -125 3l-124 -3c-3 0 -15 0 -15 12c0 19 11 19 28 19c79 0 81 8 91 47l143 573h-1l-404 -633 c-5 -7 -11 -18 -22 -18c-12 0 -13 11 -15 23l-86 620h-1l-136 -545c-3 -11 -4 -16 -4 -23c0 -23 11 -43 68 -44c7 0 18 0 18 -11c0 -20 -13 -20 -18 -20c-33 0 -69 3 -103 3c-33 0 -68 -3 -100 -3c-8 0 -14 3 -14 12c0 18 13 19 18 19c81 3 98 35 108 75l127 509 c3 12 4 15 4 19c0 11 -6 14 -22 16c-12 1 -30 2 -43 2c-20 0 -29 0 -29 12c0 19 11 19 30 19h137c26 0 28 0 31 -23l78 -566l365 570c12 19 13 19 39 19h132c17 0 27 0 27 -11Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-23DF" d="M492 -116c-7 -75 -40 -142 -86 -142h-80c-32 0 -69 -37 -74 -90c0 -3 -3 -5 -6 -5s-6 2 -6 5c-5 53 -42 90 -74 90h-80c-46 0 -79 67 -86 142c0 4 3 7 6 7s6 -2 6 -5c5 -53 42 -90 74 -90h80c37 0 67 -45 80 -103c13 58 43 103 80 103h80c32 0 69 37 74 90c0 3 3 5 6 5 s6 -3 6 -7Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNSIZE7-E111" d="M1002 -294h-492c-254 0 -474 117 -509 214c-1 1 -1 3 -1 5c0 7 6 13 13 13c6 0 10 -4 12 -9c32 -88 256 -121 485 -121h492v-102Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNSIZE7-E114" d="M1001 -75c0 -2 0 -4 -1 -5c-35 -97 -255 -214 -509 -214h-491v102h491c229 0 453 33 485 121c2 5 6 9 12 9c7 0 13 -6 13 -13Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNSIZE7-E113" d="M2003 -192v-102h-505c-260 0 -484 -29 -484 -116c0 -8 -6 -13 -13 -13s-13 5 -13 13c0 87 -224 116 -484 116h-504v102h504c249 0 446 -89 497 -176c51 87 248 176 497 176h505Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNSIZE7-E112" d="M994 -294h-989h-5v102h5h989v-102Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D464" d="M691 372c0 -48 -32 -182 -66 -260c-26 -60 -70 -123 -145 -123c-30 0 -99 6 -125 70c-40 -70 -87 -70 -104 -70c-75 0 -142 35 -142 126c0 38 12 84 56 202c7 17 18 45 18 70c0 32 -16 33 -25 33c-35 0 -74 -31 -101 -124c-5 -16 -6 -18 -16 -18c0 0 -12 0 -12 10 c0 9 37 154 132 154c49 0 82 -37 82 -82c0 -20 -6 -34 -17 -64c-47 -123 -52 -162 -52 -194c0 -17 0 -91 80 -91c39 0 69 31 92 84c-1 5 -1 7 -1 18c0 18 2 36 9 66c7 26 54 217 57 224c7 20 25 28 37 28c15 0 29 -9 29 -27c0 -6 -10 -43 -15 -65l-42 -168 c-4 -14 -11 -45 -11 -73c0 -57 27 -87 74 -87c49 0 84 35 110 88c26 51 55 149 55 183c0 48 -25 74 -36 85c-9 8 -15 14 -15 27c0 22 25 48 50 48c17 0 44 -15 44 -70Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D452" d="M430 107c0 -12 -84 -118 -227 -118c-98 0 -157 79 -157 181c0 175 151 272 262 272c69 0 107 -41 107 -85c0 -14 -5 -73 -75 -103c-50 -21 -124 -23 -153 -23h-53c-15 -61 -16 -92 -16 -104c0 -32 9 -116 87 -116c12 0 121 0 200 99c6 8 8 10 13 10c6 0 12 -7 12 -13z M382 357c0 34 -27 63 -74 63c-26 0 -129 -15 -168 -167h41c41 0 201 0 201 104Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D462" d="M543 143c0 0 -13 -63 -30 -99c-16 -32 -39 -55 -74 -55c-43 0 -78 26 -89 67c-17 -22 -53 -67 -119 -67c-54 0 -123 25 -123 120c0 49 21 111 58 210c6 15 17 44 17 68c0 32 -16 33 -25 33c-38 0 -76 -37 -101 -124c-5 -16 -6 -18 -16 -18c0 0 -12 0 -12 10 c0 9 37 154 132 154c50 0 82 -37 82 -82c0 -19 -5 -33 -17 -63c-26 -69 -54 -148 -54 -204c0 -37 10 -82 62 -82c73 0 113 80 114 84l75 301c8 34 34 35 39 35c15 0 29 -9 29 -27c0 -6 -10 -44 -15 -67c-4 -15 -14 -53 -17 -68l-28 -108c-8 -35 -20 -82 -20 -104 c0 -33 10 -46 31 -46c42 0 61 68 75 124c3 14 4 18 14 18c3 0 12 0 12 -10Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D45F" d="M436 377c0 -36 -28 -59 -55 -59s-38 19 -38 35c0 26 22 50 52 55c0 0 -16 12 -42 12c-43 0 -72 -26 -80 -33c-24 -22 -52 -69 -56 -82l-32 -130c-4 -18 -38 -154 -40 -158c-7 -20 -25 -28 -37 -28c-15 0 -29 9 -29 27c0 5 6 28 9 43l58 231c13 52 16 63 16 84 c0 38 -14 46 -31 46c-36 0 -56 -48 -73 -119c-6 -22 -7 -23 -17 -23c0 0 -12 0 -12 10c0 3 13 63 31 97c9 18 28 57 74 57c47 0 83 -32 91 -77c19 28 63 77 128 77c51 0 83 -30 83 -65Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D45B" d="M571 143c0 -8 -37 -154 -131 -154c-47 0 -82 35 -82 82c0 11 1 23 10 46c16 43 65 171 65 233c0 33 -9 70 -54 70c-95 0 -148 -91 -163 -122l-13 -50c-5 -23 -11 -45 -17 -67l-22 -90c-6 -25 -18 -72 -19 -74c-7 -20 -25 -28 -37 -28c-15 0 -29 9 -29 27c0 5 6 28 9 43 l58 231c13 52 16 63 16 84c0 33 -11 46 -31 46c-36 0 -56 -48 -73 -119c-6 -22 -7 -23 -17 -23c0 0 -12 0 -12 10c0 4 14 63 30 97c10 18 29 57 75 57s87 -31 92 -87c17 23 66 87 156 87c72 0 115 -40 115 -107c0 -57 -42 -167 -61 -220c-9 -22 -18 -46 -18 -71 c0 -23 7 -33 24 -33c49 0 82 56 102 124c5 15 5 18 15 18c3 0 12 0 12 -10Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-210E" d="M546 143c0 -8 -37 -154 -131 -154c-47 0 -82 35 -82 82c0 20 5 32 13 55c24 61 62 170 62 224c0 36 -11 70 -54 70s-74 -19 -96 -35c-34 -27 -65 -83 -68 -92c-1 -6 -9 -39 -11 -45c-5 -23 -11 -45 -17 -67l-22 -90l-19 -76c-5 -14 -21 -26 -37 -26c-9 0 -29 5 -29 28 c0 6 0 8 4 22l145 576l3 20c0 10 -2 17 -50 17c-15 0 -24 0 -24 12c0 18 11 19 19 20c26 2 99 10 122 10c13 0 13 -11 13 -11l-78 -318c37 46 85 77 148 77c75 0 115 -42 115 -107c0 -58 -45 -177 -61 -220c-9 -22 -18 -46 -18 -71c0 -23 7 -33 24 -33c55 0 87 71 102 124 c5 15 5 18 15 18c3 0 12 0 12 -10Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D456" d="M284 625c0 -30 -30 -53 -53 -53c-24 0 -38 17 -38 36c0 27 27 53 54 53c23 0 37 -16 37 -36zM293 143c0 -9 -37 -154 -131 -154c-48 0 -82 35 -82 82c0 21 13 54 23 80c16 43 61 159 69 185c4 10 11 31 11 52c0 32 -17 32 -25 32c-34 0 -74 -30 -101 -124 c-5 -16 -6 -18 -16 -18c0 0 -12 0 -12 10c0 9 38 154 132 154c50 0 82 -37 82 -82c0 -19 -5 -33 -13 -53c-10 -27 -10 -29 -22 -58l-39 -105c-23 -61 -29 -75 -29 -100c0 -23 7 -33 24 -33c51 0 84 61 102 124c5 15 5 18 15 18c3 0 12 0 12 -10Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D460" d="M420 356c0 -39 -24 -56 -46 -56s-31 15 -31 29c0 22 20 44 48 45c-15 39 -65 46 -90 46c-88 0 -112 -61 -112 -90c0 -45 40 -52 76 -60c44 -9 73 -14 100 -42c12 -12 31 -37 31 -73c0 -45 -39 -166 -201 -166c-86 0 -143 40 -143 97c0 45 30 66 56 66c21 0 37 -12 37 -35 c0 -28 -25 -58 -63 -53c23 -53 100 -53 114 -53c120 0 143 84 143 110c0 55 -52 66 -104 76c-29 6 -103 21 -103 99c0 44 37 146 169 146c76 0 119 -41 119 -86Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-2E" d="M192 53c0 -29 -24 -53 -53 -53s-53 24 -53 53s24 53 53 53s53 -24 53 -53Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNNORMAL-1D443" d="M754 532c0 -112 -139 -216 -281 -216h-170l-62 -250c-1 -6 -3 -11 -3 -17c0 -18 28 -18 65 -18c19 0 28 0 28 -11c0 -20 -13 -20 -20 -20c-21 0 -43 2 -65 2l-64 1l-127 -3c-3 0 -15 0 -15 12c0 19 11 19 28 19c79 0 81 8 91 47l134 537c3 12 4 15 4 19 c0 11 -6 14 -22 16c-12 1 -30 2 -43 2c-20 0 -29 0 -29 12c0 19 11 19 30 19h324c131 0 197 -74 197 -151zM661 556c0 69 -53 96 -136 96h-96c-43 0 -45 -3 -54 -38l-68 -272h141c44 0 104 8 154 53c39 36 59 122 59 161Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNMAIN-33" d="M457 171c0 -102 -91 -193 -213 -193c-109 0 -202 66 -202 157c0 44 32 58 56 58c29 0 56 -20 56 -56c0 -38 -31 -60 -66 -55c35 -59 110 -76 153 -76c44 0 113 29 113 165c0 98 -37 166 -119 166h-44c-17 0 -24 0 -24 11c0 10 7 11 15 12c7 0 31 2 39 3c25 1 59 4 89 52 c26 44 28 102 28 114c0 90 -55 112 -96 112c-36 0 -102 -13 -133 -62c15 0 62 0 62 -50c0 -29 -20 -51 -51 -51c-29 0 -51 19 -51 52c0 76 76 136 177 136c96 0 184 -56 184 -138c0 -79 -58 -149 -140 -176c104 -21 167 -99 167 -181Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNSYMBOLS-23A1" d="M647 1470c0 -17 -13 -30 -30 -30h-236v-1440h-60v1500h296c17 0 30 -13 30 -30Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNSYMBOLS-23A3" d="M647 30c0 -17 -13 -30 -30 -30h-296v1500h60v-1440h236c17 0 30 -13 30 -30Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNSYMBOLS-23A2" d="M381 0h-60v1000h60v-1000Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNSYMBOLS-23A4" d="M346 0h-60v1440h-236c-17 0 -30 13 -30 30s13 30 30 30h296v-1500Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNSYMBOLS-23A6" d="M346 0h-296c-17 0 -30 13 -30 30s13 30 30 30h236v1440h60v-1500Z"></path>
+<path stroke-width="10" id="E1-LATINMODERNSYMBOLS-23A5" d="M346 1000v-1000h-60v1000h60Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-LATINMODERNMAIN-3D" x="0" y="0"></use>
+<g transform="translate(1060,0)">
+ <use xlink:href="#E1-LATINMODERNMAIN-5B"></use>
+<g transform="translate(450,0)">
+ <use xlink:href="#E1-LATINMODERNMAIN-31" x="-11" y="-71"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D461" x="1494" y="-71"></use>
+<g transform="translate(2860,0)">
+<g transform="translate(0,-71)">
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D461" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNMAIN-32" x="517" y="513"></use>
+</g>
+</g>
+</g>
+ <use xlink:href="#E1-LATINMODERNMAIN-5D" x="4300" y="0"></use>
+</g>
+ <use xlink:href="#E1-LATINMODERNMAIN-22C5" x="5866" y="0"></use>
+<g transform="translate(6371,0)">
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D44D" x="2250" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNMAIN-22C5" x="3200" y="0"></use>
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D440" x="3705" y="0"></use>
+<g transform="translate(0,-138)">
+ <use xlink:href="#E1-LATINMODERNSIZE7-E111" x="-5" y="0"></use>
+<g transform="translate(994.4712161860049,0) scale(1.5057567627990163,1)">
+ <use xlink:href="#E1-LATINMODERNSIZE7-E112"></use>
+</g>
+ <use xlink:href="#E1-LATINMODERNSIZE7-E113" x="2498" y="0"></use>
+<g transform="translate(4499.193438408228,0) scale(1.5057567627990163,1)">
+ <use xlink:href="#E1-LATINMODERNSIZE7-E112"></use>
+</g>
+ <use xlink:href="#E1-LATINMODERNSIZE7-E114" x="5998" y="0"></use>
+</g>
+<g transform="translate(1113,-1236)">
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-1D464" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-1D452" x="721" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-1D461" x="1661" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-1D462" x="2027" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-1D45F" x="2604" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-1D45B" x="3060" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-1D461" x="4135" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-210E" x="4501" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-1D456" x="5082" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNNORMAL-1D460" x="5432" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNMAIN-2E" x="5906" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNMAIN-2E" x="6189" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNMAIN-2E" x="6472" y="0"></use>
+</g>
+</g>
+ <use xlink:href="#E1-LATINMODERNMAIN-22C5" x="13598" y="0"></use>
+<g transform="translate(14103,0)">
+<g transform="translate(0,2150)">
+ <use xlink:href="#E1-LATINMODERNSYMBOLS-23A1" x="0" y="-1510"></use>
+<g transform="translate(0,-2321.5686274509803) scale(1,0.8431372549019608)">
+ <use xlink:href="#E1-LATINMODERNSYMBOLS-23A2"></use>
+</g>
+ <use xlink:href="#E1-LATINMODERNSYMBOLS-23A3" x="0" y="-3790"></use>
+</g>
+<g transform="translate(839,0)">
+<g transform="translate(-11,0)">
+<g transform="translate(0,1350)">
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D443" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNMAIN-31" x="914" y="-213"></use>
+</g>
+<g transform="translate(0,-50)">
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D443" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNMAIN-32" x="914" y="-213"></use>
+</g>
+<g transform="translate(0,-1450)">
+ <use xlink:href="#E1-LATINMODERNNORMAL-1D443" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-LATINMODERNMAIN-33" x="914" y="-213"></use>
+</g>
+</g>
+</g>
+<g transform="translate(2099,2150)">
+ <use xlink:href="#E1-LATINMODERNSYMBOLS-23A4" x="0" y="-1510"></use>
+<g transform="translate(0,-2321.5686274509803) scale(1,0.8431372549019608)">
+ <use xlink:href="#E1-LATINMODERNSYMBOLS-23A5"></use>
+</g>
+ <use xlink:href="#E1-LATINMODERNSYMBOLS-23A6" x="0" y="-3790"></use>
+</g>
+</g>
+</g>
+</svg>

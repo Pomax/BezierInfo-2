@@ -12,7 +12,7 @@ var sectionList = require("./sections"),
 
 var FullArticle = React.createClass({
   render: function() {
-    return <Page content={ allSections }/>;
+    return <Page>{ allSections }</Page>;
   }
 });
 

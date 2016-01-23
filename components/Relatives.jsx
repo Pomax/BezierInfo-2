@@ -7,8 +7,6 @@ var pageIDs = Object.keys(sections);
 
 var Relatives = React.createClass({
   getInitialState() {
-    console.log(this.props);
-
     var prev = this.props.prev;
     if (prev > -1) {
       prev = {
@@ -34,11 +32,19 @@ var Relatives = React.createClass({
   render: function() {
     if (!this.props.prev && !this.props.next) return null;
     return (
-      <div className={"relatives " + this.props.position}>
-        { !this.state.next ? null : <Link className="next" to={this.state.next.to}>{this.props.next + ". " + this.state.next.title}</Link> }
-        { this.state.prev ? <Link to="/">Index</Link> : null }
-        { !this.state.prev ? null : <Link className="prev" to={this.state.prev.to}>{this.props.prev + ". " + this.state.prev.title}</Link> }
-      </div>
+      <table className={"relatives " + this.props.position}>
+        <tbody>
+          <tr>
+            <td>
+              {!this.state.prev ? null : <Link className="prev" to={this.state.prev.to}>{this.props.prev + ". " + this.state.prev.title}</Link>}
+            </td><td className='toc'>
+              <Link to="/">ToC</Link>
+            </td><td>
+              {!this.state.next ? null : <Link className="next" to={this.state.next.to}>{this.props.next + ". " + this.state.next.title}</Link>}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     );
   }
 });

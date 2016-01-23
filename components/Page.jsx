@@ -7,24 +7,51 @@ var Navigation = require("./Navigation.jsx");
 var Footer = require("./Footer.jsx");
 
 var Page = React.createClass({
-  render: function() {
-    var nav = <Navigation compact={this.props.compact}/>;
-    var orderedContent = [nav].concat();
-    if (this.props.compact) {
-      orderedContent.splice(0,1);
-      orderedContent.push(nav);
-    }
+  renderCompactContent: function(nav) {
     return (
       <div>
-        <Ribbon/>
-        <Header/>
-        {nav}
         <Relatives prev={this.props.prev} next={this.props.next} position="before" />
-        {this.props.content}
+        {this.props.children}
         <Relatives prev={this.props.prev} next={this.props.next} position="after" />
-        <Footer/>
       </div>
     );
+  },
+
+  renderCompactRoot: function(nav) {
+    return (
+      <div>
+        {this.props.children}
+        {nav}
+      </div>
+    );
+  },
+
+  renderPageContent: function(nav) {
+    return (
+      <div>
+        {nav}
+        {this.props.children}
+      </div>
+    );
+  },
+
+  render: function() {
+    var content;
+    var compact = this.props.compact;
+    var isRoot = this.props.name === '/';
+    var nav = <Navigation compact={compact && !isRoot}/>;
+
+    if (compact) {
+      if (isRoot) {
+        content = this.renderCompactRoot(nav);
+      } else {
+        content = this.renderCompactContent(nav);
+      }
+    } else {
+      content = this.renderPageContent(nav);
+    }
+
+    return <div><Ribbon/><Header/>{ content }<Footer/></div>;
   }
 });
 

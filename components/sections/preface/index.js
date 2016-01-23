@@ -52,7 +52,7 @@ var Preface = React.createClass({
         <p>—Pomax (or in the tweetworld, <a href="https://twitter.com/TheRealPomax">@TheRealPomax</a>)</p>
 
         <div className="note">
-          <h2>Note: virtuall all Bézier graphics are interactive.</h2>
+          <h2>Note: virtually all Bézier graphics are interactive.</h2>
 
           <p>This page uses interactive examples, relying heavily on <a href="http://pomax.github.io/bezierjs/">Bezier.js</a>,
           as well as "real" maths (in LaTeX form) which is typeset using the most excellent <a href="http://MathJax.org">MathJax</a> library.
