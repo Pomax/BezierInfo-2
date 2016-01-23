@@ -7,9 +7,9 @@ module.exports = {
   introduction: require("./introduction"),
   whatis: require("./whatis"),
   explanation: require("./explanation"),
+  control: require("./control"),
   extended: require("./extended"),
 
-  control: require("./control"),
   matrix: require("./matrix"),
   decasteljau: require("./decasteljau"),
   flattening: require("./flattening"),

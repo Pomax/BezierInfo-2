@@ -48,49 +48,39 @@ var Explanation = React.createClass({
         <SectionHeader {...this.props} />
 
         <p>Now that we know the mathematics behind Bézier curves, there's one curious thing that you may have
-        noticed: they always run from <i>t-0</i> to <i>t=1</i>. That might seem obvious, but even if you're
-        a seasoned mathematician, the first question you should have when you see that is "Why?", because
-        it's fairly arbitrary. Or, at least, it would seem arbitrary.</p>
+        noticed: they always run from <i>t-0</i> to <i>t=1</i>. Why that particular interval?</p>
 
-        <p>It's actually mostly to do with how we run from "the start" of our curve to "the end" of our curve.
-        We want the curve to start at the first coordinate we define, and end at the last coordinate we define,
-        and that pretty much tells us we want the interval [0,1], because of interpolation. If we want to mix
-        two values, the easiest way to do that is to use the super simple formula</p>
+        <p>It all has to do with how we run from "the start" of our curve to "the end" of our curve. If we have
+        a value that is a mixture of two other values, then the general formula for this is:</p>
 
         <p>\[
           mixture = a \cdot value_1 + b \cdot value_2
         \]</p>
 
-        <p>but this is two variables, and that's inconvenient. If we can express that <i>b</i> in terms
-        of <i>a</i> we'll be much better off, and the easiest way to do that is to do something like this:</p>
+        <p>The obvious start and end values here need to be <i>a=1, b=0</i>, so that the mixed value is 100%
+        value 1, and 0% value 2, and <i>a=0, b=1</i>, so that the mixed value is 0% value 1 and 100% value 2.
+        Additionally, we don't want "a" and "b" to be independent: if they are, then we could just pick
+        whatever values we like, and end up with a mixed value that is, for example, 100% value
+        1 <strong>and</strong> 100% value 2. In principle that's fine, but for Bézier curves we always
+        want mixed values <em>between</em> the start and end point, so we need to make sure we can
+        never set "a" and "b" to some values that lead to a mix value that sums to more than 100%. And
+        that's easy:</p>
 
         <p>\[
-          m = a \cdot value_1 + f(a) \cdot value_2
+          m = a \cdot value_1 + (1 - a) \cdot value_2
         \]</p>
 
-        <p>Now, if we pick the following, things get really easy:</p>
+        <p>With this we can guarantee that we never sum above 100%. By restricting <i>a</i> to values
+        in the interval [0,1], we will always be somewhere between our two values (inclusively), and
+        we will always sum to a 100% mix.</p>
 
-        <p>\[
-          m = a \cdot value_1 + f(a)=(C-a) \cdot value_2, C = constant
-        \]</p>
+        <p>But... what if we use this form, used in the assumption that we will only ever use values
+        between 0 and 1, and instead use values outside of that interval? Do things go horribly wrong?
+        Well... not really, but we get to "see more".</p>
 
-        <p>I know, that doesn't look easier, but the important part is the "C - a" part. All we're doing is
-        subtracting <i>a</i> from a constant, plain number. And the most obvious number in mathematics is
-        the "unit" number. That would be 1.</p>
-
-        <p>\[
-          m = a \cdot value_1 + (1-a) \cdot value_2
-        \]</p>
-
-        <p>By picking any number <i>a</i> between 0 and 1, we can now cover the full mix of 100% value 1, 0% value 2,
-        to 0% value 1 and 100% value 2.</p>
-
-        <p>but... it's just an "artificial" restriction, what if we use the functions that assume our values
-        are going to be between 0 and 1, and instead feed them values outside of that interval? In the case
-        of Bézier curves, not a whole lot: the curve simply "keeps going" in what become more and more of a
-        straight line, as the polynomials "straighten out". Because of the polynomial form that Bézier curves
-        use, most of the curvy bits are in the [0,1] interval, but let's plot some Bézier curves without
-        that interval restriction. What do they look like?</p>
+        <p>In the case of Bézier curves, extending the interval simply makes our curve "keep going".
+        Bézier curves are simply segments on some polynomial curve, so if we pick a wider interval
+        we simply get to see more of the curve. So what do they look like?</p>
 
         <p>The following two graphics show you Bézier curves rendered "the usual way", as well as the curves
         they "lie on" if we were to extend the <i>t</i> values much further. As you can see, there's a lot
