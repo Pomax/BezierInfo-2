@@ -14,8 +14,11 @@ navigation {
     padding: 0.5em 1em;
 
     li {
-      &:nth-child(n+2):before {
+      &:nth-child(n+2)[data-number]:before {
        content: "§" attr(data-number) ". "
+      }
+      &:nth-child(n+2):not([data-number]) {
+       margin: 5px 0;
       }
     }
   }

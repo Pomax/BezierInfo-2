@@ -22,7 +22,8 @@ var Navigation = React.createClass({
       <div ref="navigation">
         <navigation className={ this.props.compact ? "compact" : null }>
           <ul className="navigation">
-          { sectionPages.map(this.generateNavItem) }
+            { sectionPages.map(this.generateNavItem) }
+            <li><a href="#comments">Comments and questions</a></li>
           </ul>
         </navigation>
       </div>

@@ -67,8 +67,22 @@
         <script>var n=document.querySelector(".enabling");n.parentNode.removeChild(n);(function update(el,str){str=(str.length===3)?'':str+'.';el.textContent=str;setTimeout(function(){update(el,str);},333);}(document.querySelector("#loader"),"..."));</script>
       </div>
     </article>
-    
-    <div id="disqus_thread"></div>
+
+    <section id="comments">
+      <style>
+      #comments {
+          margin-top: 0px;
+          width: calc(960px + 2em);
+          border-top: 1px solid rgba(255, 0, 0, 0.5);
+          padding-top: 3em;
+      }
+      </style>
+      <h2>Comments and questions</h2>
+      <div id="disqus_thread"></div>
+    </section>
+
+    <!-- Disqus commenting -->
+    <script src="lib/site/disqus.js" async></script>
 
     <!-- referral tracking, because I like knowing who's linking to my book -->
     <script src="lib/site/referrer.js" async></script>

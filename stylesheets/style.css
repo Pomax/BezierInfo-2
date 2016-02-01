@@ -75,8 +75,11 @@ navigation ul {
   margin: 0;
   padding: 0.5em 1em;
 }
-navigation ul li:nth-child(n+2):before {
+navigation ul li:nth-child(n+2)[data-number]:before {
   content: "§" attr(data-number) ". ";
+}
+navigation ul li:nth-child(n+2):not([data-number]) {
+  margin: 5px 0;
 }
 navigation.compact {
   width: 100%;
