@@ -67,11 +67,16 @@
         <script>var n=document.querySelector(".enabling");n.parentNode.removeChild(n);(function update(el,str){str=(str.length===3)?'':str+'.';el.textContent=str;setTimeout(function(){update(el,str);},333);}(document.querySelector("#loader"),"..."));</script>
       </div>
     </article>
+    
+    <div id="disqus_thread"></div>
 
     <!-- referral tracking, because I like knowing who's linking to my book -->
     <script src="lib/site/referrer.js" async></script>
 
     <!-- the actual article is a JS bundle -->
     <script src="article.js" async></script>
+
+    <!-- Disqus commenting -->
+    <script src="lib/site/disqus.js"></script>
   </body>
 </html>
