@@ -87,8 +87,8 @@ var Explanation = React.createClass({
         more "shape" hidden in the rest of the curve, and we can model those parts by moving the curve
         points around.</p>
 
-        <Graphic preset="simple" title="Quadratic infinite internval Bézier curve" setup={this.setupQuadratic} draw={this.draw} />
-        <Graphic preset="simple" title="Cubic infinite internval Bézier curve" setup={this.setupCubic} draw={this.draw} />
+        <Graphic preset="simple" title="Quadratic infinite interval Bézier curve" setup={this.setupQuadratic} draw={this.draw} />
+        <Graphic preset="simple" title="Cubic infinite interval Bézier curve" setup={this.setupCubic} draw={this.draw} />
 
         <p>In fact, there are curves used in graphics design and computer modelling that do the opposite
         of Bézier curves, where rather than fixing the interval, and giving you free coordinates, they fix
