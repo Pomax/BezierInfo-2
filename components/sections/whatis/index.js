@@ -119,7 +119,7 @@ var Whatis = React.createClass({
       <section>
         <SectionHeader {...this.props} />
 
-        <p>Playing with the points for curves may have given you a feel for how Bézier curves behaves, but
+        <p>Playing with the points for curves may have given you a feel for how Bézier curves behave, but
         what <em>are</em> Bézier curves, really? There are two ways to explain what a Bézier curve is, and
         they turn out to be the entirely equivalent, but one of them uses complicated maths, and the other
         uses really simple maths. So... let's start with the simple explanation:</p>
