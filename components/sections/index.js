@@ -50,5 +50,7 @@ module.exports = {
 
   circles: require("./circles"),
   circles_cubic: require("./circles_cubic"),
-  arcapproximation: require("./arcapproximation")
+  arcapproximation: require("./arcapproximation"),
+
+  comments: require("./comments")
 };

@@ -263,13 +263,13 @@ var CirclesCubic = React.createClass({
         and see what the error is for circular arcs with an angle ranging from 0 to 2π:</p>
 
         <table><tbody><tr><td>
-          <p><img src="images/arc-c-2pi.gif"/></p>
+          <p><img src="images/arc-c-2pi.gif" height="187px"/></p>
           <p>plotted for 0 ≤ φ ≤ 2π:</p>
         </td><td>
-          <p><img src="images/arc-c-pi.gif"/></p>
+          <p><img src="images/arc-c-pi.gif" height="187px"/></p>
           <p>plotted for 0 ≤ φ ≤ π:</p>
         </td><td>
-          <p><img src="images/arc-c-pi2.gif"/></p>
+          <p><img src="images/arc-c-pi2.gif" height="187px"/></p>
           <p>plotted for 0 ≤ φ ≤ ½π:</p>
         </td></tr></tbody></table>
 

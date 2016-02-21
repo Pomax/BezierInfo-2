@@ -187,7 +187,7 @@ var ABC = React.createClass({
           with quadratic or cubic curves:</p>
 
           <p>\[\begin{align}
-            & u(t)_{quadratic} = \frac{(t-1)^2}{2t^2 - 2t + 1} \\
+            & u(t)_{quadratic} = \frac{(1-t)^2}{t^2 + (1-t)^2} \\
             & u(t)_{cubic} = \frac{(1-t)^3}{t^3 + (1-t)^3}
           \end{align}\]</p>
 
@@ -228,7 +228,7 @@ var ABC = React.createClass({
           while the "u(t)" functions have the same name both here and on MathOverflow.</p>
 
           <p>\[
-            ratio(t)_{quadratic} = \left | \frac{2t^2 - 2t}{2t^2 - 2t + 1} \right |
+            ratio(t)_{quadratic} = \left | \frac{t^2 + (1-t)^2 - 1}{t^2 + (1-t)^2} \right |
           \]</p>
 
           <p>\[
