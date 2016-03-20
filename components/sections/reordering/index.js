@@ -140,7 +140,7 @@ var Reordering = React.createClass({
                         \underset{polynomial\ term}{\underbrace{(1-t)^{k-i} \cdot t^{i}}}
                         \ \cdot \
                         \underset{new\ weights}{\underbrace{\left ( \frac{(k-i) \cdot w_i + i \cdot w_{i-1}}{k} \right )}}
-          \ ,\ with\ k = n+1
+          \ ,\ with\ k = n+1\ and\ w_{i-1}=0\ when\ i = 0
         \]</p>
 
         <p>However, this rule also has as direct consequence that you <strong>cannot</strong> generally

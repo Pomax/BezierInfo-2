@@ -24,6 +24,7 @@ module.exports = {
   boundingbox: require("./boundingbox"),
   aligning: require("./aligning"),
   tightbounds: require("./tightbounds"),
+  inflections: require("./inflections"),
   canonical: require("./canonical"),
 
   arclength: require("./arclength"),

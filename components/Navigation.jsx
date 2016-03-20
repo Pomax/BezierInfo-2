@@ -13,6 +13,8 @@ var Navigation = React.createClass({
     if (this.props.fullNav) {
       link = <Link to={name}>{title}</Link>;
     }
+    var last = sectionPages.length - 1;
+    if (entry===last) entry = null;
     return <li key={name} data-number={entry}>{link}</li>;
   },
 
@@ -23,7 +25,6 @@ var Navigation = React.createClass({
         <navigation className={ this.props.compact ? "compact" : null }>
           <ul className="navigation">
             { sectionPages.map(this.generateNavItem) }
-            <li><a href="#comments">Comments and questions</a></li>
           </ul>
         </navigation>
       </div>

@@ -41,7 +41,7 @@ var Extremities = React.createClass({
     var xcurve = new api.Bezier(x_pts);
     api.drawCurve(xcurve, offset);
     api.setColor("red");
-    xcurve.inflections().y.forEach(t => {
+    xcurve.extrema().y.forEach(t => {
       var p = xcurve.get(t);
       api.drawCircle(p, 3, offset);
     });
@@ -55,7 +55,7 @@ var Extremities = React.createClass({
     var ycurve = new api.Bezier(y_pts);
     api.drawCurve(ycurve, offset);
     api.setColor("red");
-    ycurve.inflections().y.forEach(t => {
+    ycurve.extrema().y.forEach(t => {
       var p = ycurve.get(t);
       api.drawCircle(p, 3, offset);
     });
