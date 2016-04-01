@@ -10,7 +10,8 @@
     "less": "node ./node_modules/less/bin/lessc stylesheets/style.less > stylesheets/style.css",
     "singles": "npm run dev -- --singles",
     "start": "npm run dev",
-    "style": "webpack --jscs"
+    "style": "webpack --jscs",
+    "svgo": "svgo"
   },
   "repository": {
     "type": "git",
