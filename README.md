@@ -1,4 +1,6 @@
-# Dev repository for https://Pomax.github.io/bezierinfo
+# BezierInfo-2
+
+Dev repository for https://Pomax.github.io/bezierinfo
 
 ## Working on the code
 
