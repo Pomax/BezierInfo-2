@@ -96,7 +96,7 @@ var Control = React.createClass({
       this.drawLerpBox(api, dim, pad, p);
       var t = (p.x-pad)/fwh;
       this.drawLerpPoint(api, (1-t)*(1-t)*(1-t), pad, fwh, p);
-      this.drawLerpPoint(api, 2*(1-t)*(1-t)*(t), pad, fwh, p);
+      this.drawLerpPoint(api, 3*(1-t)*(1-t)*(t), pad, fwh, p);
       this.drawLerpPoint(api, 3*(1-t)*(t)*(t), pad, fwh, p);
       this.drawLerpPoint(api, (t)*(t)*(t), pad, fwh, p);
     }
