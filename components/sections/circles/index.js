@@ -114,8 +114,8 @@ var Circles = React.createClass({
 
         <p>\[ C = S + a \cdot \begin{pmatrix} 0 \\ 1 \end{pmatrix} \ , \ \ C = E + b \cdot \begin{pmatrix} -sin(φ) \\ cos(φ) \end{pmatrix} \]</p>
 
-        <p>i.e. we want a point that lies on the vertical line through A (at some distance <i>a</i>
-        from A) and also lies on the tangent line through B (at some distance <i>b</i> from B). Solving
+        <p>i.e. we want a point that lies on the vertical line through S (at some distance <i>a</i> from S)
+        and also lies on the tangent line through E (at some distance <i>b</i> from E). Solving
         this gives us:</p>
 
         <p>\[ \left\{ \begin{array}{l}
