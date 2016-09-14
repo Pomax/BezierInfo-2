@@ -18,6 +18,7 @@ var BSplineGraphic = React.createClass({
     this.activeDistance = 9;
     this.points = [];
     this.knots = [];
+    this.weights = [];
     this.nodes = [];
     this.cp = undefined;
     this.dx = undefined;
@@ -37,18 +38,39 @@ var BSplineGraphic = React.createClass({
     return <canvas className="bspline-graphic" ref="sketch" />;
   },
 
+  keydownlisten(e)   { this.setKeyboardValues(e); this.keyDown(); },
+  keyuplisten(e)     { this.setKeyboardValues(e); this.keyUp(); },
+  keypresslisten(e)  { this.setKeyboardValues(e); this.keyPressed(); },
+  mousedownlisten(e) { this.setMouseValues(e); this.mouseDown(); },
+  mouseuplisten(e)   { this.setMouseValues(e); this.mouseUp(); },
+  mousemovelisten(e) { this.setMouseValues(e); this.mouseMove(); if(this.isMouseDown && this.mouseDrag) { this.mouseDrag(); }},
+  wheellissten(e)    { e.preventDefault(); this.scrolled(e.deltaY < 0 ? 1 : -1); },
+
   componentDidMount() {
     var cvs = this.cvs = this.refs.sketch;
     // Keyboard event handling
-    cvs.addEventListener("keydown",  (e) => { this.setKeyboardValues(e); if (typeof this.keyDown !== "undefined")    { this.keyDown(); }});
-    cvs.addEventListener("keyup",    (e) => { this.setKeyboardValues(e); if (typeof this.keyUp !== "undefined")      { this.keyUp(); }});
-    cvs.addEventListener("keypress", (e) => { this.setKeyboardValues(e); if (typeof this.keyPressed !== "undefined") { this.keyPressed(); }});
+    cvs.addEventListener("keydown",  this.keydownlisten);
+    cvs.addEventListener("keyup",    this.keyuplisten);
+    cvs.addEventListener("keypress", this.keypresslisten);
     // Mouse event handling
-    cvs.addEventListener("mousedown", (e) => { this.setMouseValues(e); if (typeof this.mouseDown !== "undefined") { this.mouseDown(); }});
-    cvs.addEventListener("mouseup",   (e) => { this.setMouseValues(e); if (typeof this.mouseUp !== "undefined")   { this.mouseUp(); }});
-    cvs.addEventListener("mousemove", (e) => { this.setMouseValues(e); if (typeof this.mouseMove !== "undefined") { this.mouseMove(); } if(this.isMouseDown && this.mouseDrag) { this.mouseDrag(); }});
+    cvs.addEventListener("mousedown", this.mousedownlisten);
+    cvs.addEventListener("mouseup",   this.mouseuplisten);
+    cvs.addEventListener("mousemove", this.mousemovelisten);
+    // Scroll event handling
+    if (this.props.scrolling) { cvs.addEventListener("wheel", this.wheellissten); }
     // Boom let's go
     this.setup();
+  },
+
+  componentWillUnmount() {
+    var cvs = this.cvs = this.refs.sketch;
+    cvs.removeEventListener("keydown",  this.keydownlisten);
+    cvs.removeEventListener("keyup",    this.keyuplisten);
+    cvs.removeEventListener("keypress", this.keypresslisten);
+    cvs.removeEventListener("mousedown", this.mousedownlisten);
+    cvs.removeEventListener("mouseup",   this.mouseuplisten);
+    cvs.removeEventListener("mousemove", this.mousemovelisten);
+    if (this.props.scrolling) { cvs.removeEventListener("wheel", this.wheellissten); }
   },
 
   // base API
@@ -56,14 +78,15 @@ var BSplineGraphic = React.createClass({
   drawCurve(points) {
     points = points || this.points;
     var ctx = this.ctx;
+    var weights = this.weights.length>0 ? this.weights : false;
     ctx.beginPath();
-    var p = interpolate(0, this.degree, points, this.knots);
+    var p = interpolate(0, this.degree, points, this.knots, weights);
     ctx.moveTo(p[0], p[1]);
     for(let t=0.01; t<1; t+=0.01) {
-      p = interpolate(t, this.degree, points, this.knots);
+      p = interpolate(t, this.degree, points, this.knots, weights);
       ctx.lineTo(p[0], p[1]);
     }
-    p = interpolate(1, this.degree, points, this.knots);
+    p = interpolate(1, this.degree, points, this.knots, weights);
     ctx.lineTo(p[0], p[1]);
     ctx.stroke();
     ctx.closePath();
@@ -71,11 +94,12 @@ var BSplineGraphic = React.createClass({
 
   drawKnots(points) {
     var knots = this.knots;
+    var weights = this.weights.length>0 ? this.weights : false;
     knots.forEach((knot,i) => {
       if (i < this.degree) return;
       if (i > knots.length - 1 - this.degree) return;
-      var p = interpolate(knot, this.degree, points, knots, false, false, true);
-      this.ellipse(p[0], p[1], 3);
+      var p = interpolate(knot, this.degree, points, knots, weights, false, true);
+      this.circle(p[0], p[1], 3);
     });
   },
 
@@ -102,11 +126,11 @@ var BSplineGraphic = React.createClass({
         i;
 
     // form the open-uniform knot vector
-    for (i=1; i < l - this.degree; i++) { knots.push(i); }
+    for (i=1; i < l - this.degree; i++) { knots.push(i + this.degree); }
     // add [degree] zeroes at the front
-    for (i=0; i <= this.degree; i++)  { knots = [0].concat(knots); }
+    for (i=0; i <= this.degree; i++)  { knots = [this.degree].concat(knots); }
     // add [degree] max-values to the back
-    for (i=0; i <= this.degree; i++)  { knots.push(m); }
+    for (i=0; i <= this.degree; i++)  { knots.push(m + this.degree); }
 
     return knots;
   },
@@ -136,6 +160,12 @@ var BSplineGraphic = React.createClass({
       nodes.push(node);
     }
     return nodes;
+  },
+
+  formWeights(points) {
+    var weights = [];
+    points.forEach(p => weights.push(1));
+    return weights;
   },
 
   setDegree(d) {
@@ -177,7 +207,7 @@ var BSplineGraphic = React.createClass({
   keyUp() {
     // ... do nothing?
   },
-  
+
   keyPressed() {
     // ... do nothing?
   },
@@ -211,6 +241,28 @@ var BSplineGraphic = React.createClass({
     // ... do nothing?
   },
 
+  scrolled(direction) {
+    this.cp = this.getCurrentPoint(this.mouseX, this.mouseY);
+    if (!this.cp) return;
+    // base case
+    var pos = this.points.indexOf(this.cp);
+    if (this.weights.length>pos) {
+      this.weights[pos] += direction * 0.1;
+      if (this.weights[pos] < 0) {
+        this.weights[pos] = 0;
+      }
+    }
+    // possible multiplicity due to "closed" curves
+    pos = this.points.indexOf(this.cp, pos+1);
+    if (pos!==-1 && this.weights.length>pos) {
+      this.weights[pos] += direction * 0.1;
+      if (this.weights[pos] < 0) {
+        this.weights[pos] = 0;
+      }
+    }
+    this.redraw();
+  },
+
   // keyboard events
   setKeyboardValues(e) {
     if (!e.ctrlKey && !e.metaKey && !e.altKey) {
@@ -226,7 +278,7 @@ var BSplineGraphic = React.createClass({
     this.mouseX = e.clientX - brect.left;
     this.mouseY = e.clientY - brect.top;
   },
-    
+
   // API stuffs
 
   size(w,h) {
@@ -250,7 +302,7 @@ var BSplineGraphic = React.createClass({
     for(let y=spacing; y<this.height-1; y+=spacing) { this.line(0,y,this.width,y); }
   },
 
-  ellipse(x,y,r) {
+  circle(x,y,r) {
     let hr = r/2;
     var ctx = this.ctx;
     ctx.beginPath();
@@ -270,6 +322,9 @@ var BSplineGraphic = React.createClass({
   },
 
   stroke(r,g,b,a) {
+    if (typeof r === "string") {
+      return (this.ctx.strokeStyle = r);
+    }
     if (g===undefined) { g=r; b=r; }
     if (a===undefined) { a = 1; }
     this.ctx.strokeStyle = this.rgba(r,g,b,a);
@@ -278,6 +333,9 @@ var BSplineGraphic = React.createClass({
   noStroke() { this.ctx.strokeStyle = "none"; },
 
   fill(r,g,b,a) {
+    if (typeof r === "string") {
+      return (this.ctx.fillStyle = r);
+    }
     if (g===undefined) { g=r; b=r; }
     if (a===undefined) { a = 1; }
     this.ctx.fillStyle = this.rgba(r,g,b,a);
@@ -290,7 +348,7 @@ var BSplineGraphic = React.createClass({
   beginPath() {
     this.ctx.beginPath(); this.bp = true;
   },
-  
+
   vertex(x,y) {
     if (!this.bp) {
       return this.ctx.lineTo(x,y);

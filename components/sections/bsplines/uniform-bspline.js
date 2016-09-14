@@ -3,7 +3,20 @@ module.exports = {
   activeDistance: 9,
 
   setup() {
-    this.size(600, 300);
+    this.size(400, 400);
+
+    var TAU = Math.PI*2;
+    for (let i=0; i<TAU; i+=TAU/10) {
+      this.points.push({
+        x: this.width/2 + 100 * Math.cos(i),
+        y: this.height/2 + 100 * Math.sin(i)
+      });
+    }
+
+    this.knots = this.formKnots(this.points);
+    if(this.props.controller) {
+      this.props.controller(this, this.knots);
+    }
     this.draw();
   },
 

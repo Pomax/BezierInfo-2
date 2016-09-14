@@ -1,12 +1,22 @@
 var React = require("react");
 var BSplineGraphic = require("../../BSplineGraphic.jsx");
 var SectionHeader = require("../../SectionHeader.jsx");
+var KnotController = require("../../KnotController.jsx");
+var WeightController = require("../../WeightController.jsx");
 
 var BoundingBox = React.createClass({
   getDefaultProps: function() {
     return {
       title: "B-Splines"
     };
+  },
+
+  bindKnots: function(owner, knots, ref) {
+    this.refs[ref].bindKnots(owner, knots);
+  },
+
+  bindWeights: function(owner, weights, closed, ref) {
+    this.refs[ref].bindWeights(owner, weights, closed);
   },
 
   render: function() {
@@ -70,11 +80,11 @@ var BoundingBox = React.createClass({
           point on the curve for some value <code>t</code> in the interval [0,1] (where 0 is the start
           of the curve, and 1 the end, just like for Bezier curves), by evaluting the following function:
         </p>
-        
+
         <p>\[
           Point(t) = \sum^n_{i=0} P_i \cdot N_{i,k}(t)
         \]</p>
-        
+
         <p>
           Which, honestly, doesn't tell us all that much. All we can see is that a point on a B-spline curve
           is defined as "a mix of all the control points, weighted somehow", where the weighting is achieved
@@ -97,7 +107,7 @@ var BoundingBox = React.createClass({
         <p>\[
           N_{i,k}(t) = \left ( \frac{t-knot_i}{knot_{(i+k-1)} - knot_i}\right ) \cdot N_{i,k-1}(t) + \left ( \frac{knot_{(i+k)}-t}{knot_{(i+k)} - knot_{(i+1)}} \right ) \cdot N_{i+1,k-1}(t)
           \]</p>
-        
+
         <p>
           So this is where we see the interpolation: N(t) for an (i,k) pair (that is, for a step in the above summation,
           on a specific knot interval) is a mix between N(t) for (i,k-1) and N(t) for (i+1,k-1), so we see that is a
@@ -105,10 +115,10 @@ var BoundingBox = React.createClass({
           expect that this recursion has to stop at some point; obviously, it does, and specifically it does so for
           the following <code>i</code>/<code>k</code> values:
         </p>
-        
+
         <p>\[
           N_{i,1}(t) = \left\{\begin{matrix}
-                       1& \text{if } t \in [knot_i,knot_{i+1}) \\ 
+                       1& \text{if } t \in [knot_i,knot_{i+1}) \\
                        0& \text{otherwise}
                        \end{matrix}\right.
         \]</p>
@@ -120,13 +130,13 @@ var BoundingBox = React.createClass({
           bounded by <code>knots[d]</code> and <code>knots[n]</code>, which are the start point and end point where curvature
           is controlled by exactly <code>order</code> control points. For instance, for degree 3 (=order 4) and 7 control points,
           with knot vector [1,2,3,4,5,6,7,8,9,10,11], we map <code>t</code> from [the interval 0,1] to the interval [4,8],
-          and then use that value in the functions above, instead. 
+          and then use that value in the functions above, instead.
         </p>
-        
+
         <h2>
           Can we simplify that?
         </h2>
-        
+
         <p>
           We can, yes.
         </p>
@@ -136,18 +146,18 @@ var BoundingBox = React.createClass({
           to a mathematically pleasing solution: to compute a point P(t), we can compute this point by
           evaluating <em>d(t)</em> on a curve section between knots <em>i</em> and <em>i+1</em>:
         </p>
-        
+
         <p>\[
           d^k_i(t) = \alpha_{i,k} \cdot d^{k-1}_i(t) + (1-\alpha_{i,k}) \cdot d^{k-1}_{i-1}(t)
         \]</p>
-        
+
         This is another recursive function, with <em>k</em> values decreasing from the curve order to 1,
         and the value <em>α</em> (alpha) defined by:
 
         <p>\[
           \alpha_{i,k} = \frac{t - knots[i]}{knots[i+1+n-k] - knots[i]}
         \]</p>
-        
+
         <p>
           That looks complicated, but it's not. Computing alpha is just a fraction involving known, plain numbers
           and once we have our alpha value, computing (1-alpha) is literally just "computing one minus alpha".
@@ -156,25 +166,25 @@ var BoundingBox = React.createClass({
           is also computationally cheap because each step only involves very simple maths. Of course as before
           the recursion has to stop:
         </p>
-        
+
         <p>\[
-          d^k_0(t) = 0, \ d^0_i(t) = N_{i,1}(t) = 
+          d^k_0(t) = 0, \ d^0_i(t) = N_{i,1}(t) =
           \left\{\begin{matrix}
-            1& \text{if } t \in [knot_i,knot_{i+1}) \\ 
+            1& \text{if } t \in [knot_i,knot_{i+1}) \\
             0& \text{otherwise}
           \end{matrix}\right.
         \]</p>
-          
+
         <p>
           So, we see two stopping conditions: either <code>i</code> becomes 0, in which case d() is zero,
           or <code>k</code> becomes zero, in which case we get the same "either 1 or 0" that we saw in the N()
           function above.</p>
 
         <p>
-          Thanks to Cox and de Boor, we can compute points on a B-Spline pretty easily: we just need to compute 
+          Thanks to Cox and de Boor, we can compute points on a B-Spline pretty easily: we just need to compute
           a triangle of interconnected values. For instance, d() for i=3, k=3 yields the following triangle:
         </p>
-        
+
         <p>\[\begin{array}{ccccccc}
           d^3_3 &→& d^2_3 &→& d^1_3 &→& d^0_3 (= 0 \text{ or } 1) \\
           &+^{α^3_3 \times …}_{(1-{α^3_3}) \times …}&       &+^{α^2_3 \times …}_{(1-{α^2_3}) \times …}& &+^{α^1_3 \times …}_{(1-{α^1_3}) \times …}&\\
@@ -192,7 +202,7 @@ var BoundingBox = React.createClass({
           That is, we compute d(3,3) as a mixture of d(2,3) and d(2,2): d(3,3) = a(3,3) x d(2,3) + (1-a(3,3)) x d(2,2)... and
           we simply keep expanding our triangle until we reach the terminating function parameters. Done deal!
         </p>
-        
+
         <p>
           One thing we need to keep in mind is that we're working with a spline that is contrained by its control points,
           so even though the \(d^k_i\) values are zero or one at the lowest level, they are really "zero or one, times their
@@ -203,7 +213,7 @@ var BoundingBox = React.createClass({
 
         <p>
           If we run this computation "down", starting at d(3,3), then without special code in place we would be computing quite a
-          few terms multiple times at each step. On the other hand, we can also start with that last "column", we can generate 
+          few terms multiple times at each step. On the other hand, we can also start with that last "column", we can generate
           the terminating d() values first, then compute the a() constants, perform our multiplcations, generate the previous
           step's d() values, compute their a() constants, do the multiplications, etc. until we end up all the way back at the
           top. If we run our computation this way, we don't need any explicit caching, we can just "recycle" the list of numbers
@@ -213,7 +223,7 @@ var BoundingBox = React.createClass({
         <h2>
           Running the computation
         </h2>
-        
+
         <p>
           Unlike the de Casteljau algorithm, where the <code>t</code> value stays the same at every iteration, for B-Splines that
           is not the case, and so we end having to (for each point we evaluate) run a fairly involving bit of recursive computation.
@@ -221,12 +231,12 @@ var BoundingBox = React.createClass({
           Tech</a> page, but an easier to read version is implemented
           by <a href="https://github.com/thibauts/b-spline/blob/master/index.js#L59-L71">b-spline.js</a>, so we'll look at its code.
         </p>
-        
+
         <p>
           Given an input value <code>t</code>, we first map the input to a value from the domain [0,1] to the domain [knots[degree],
           knots[knots.length - 1 - degree]. Then, we find the section number <code>s</code> that this mapped <code>t</code> value lies on:
         </p>
-        
+
         <pre>
         for(s=domain[0]; s < domain[1]; s++) {
           if(knots[s] <= t && t <= knots[s+1]) break;
@@ -247,11 +257,23 @@ var BoundingBox = React.createClass({
             let v[i] = alpha * v[i] + (1-alpha) * v[i-1]
           }
         }</pre>
-        
+
         <p>
           (A nice bit of behaviour in this code is that we work the interpolation "backwards", starting at <code>i=s</code> at
           each level of the interpolation, and we stop when <code>i = s - order + level</code>, so we always end up with a
           value for <code>i</code> such that those <code>v[i-1]</code> don't have an array index that doesn't exist)
+        </p>
+
+        <h2>
+          Open vs. closed paths
+        </h2>
+
+        <p>
+          Much like poly-Beziers, B-Splines can be either open, running from the first point to the last point, or closed,
+          where the first and last point are <em>the same point</em>. However, because B-Splines are an interpolation of
+          curves, not just point, we can't simply make the first and last point the same, we need to link a few point point:
+          for an order <code>d</code> B-Spline, we need to make the last <code>d</code> point the same as the first <code>d</code> points.
+          And the easiest way to do this is to simply append <code>points.splice(0,d)</code> to <code>points</code>. Done!
         </p>
 
         <h2>
@@ -277,14 +299,17 @@ var BoundingBox = React.createClass({
         <h3>Uniform B-Splines</h3>
 
         <p>
-          The most straightforward type of B-spline is the uniform spline. In a uniform spline, the knots are distributed 
+          The most straightforward type of B-spline is the uniform spline. In a uniform spline, the knots are distributed
           uniformly over the entire curve interval. For instance, if we have a knot vector of length twelve, then a uniform
           knot vector would be [0,1,2,3,...,9,10,11]. Or [4,5,6,...,13,14,15], which defines <em>the same intervals</em>,
           or even [0,2,3,...,18,20,22], which also defines <em>the same intervals</em>, just scaled by a constant factor,
           which becomes normalised during interpolation and so does not contribute to the curvature.
         </p>
 
-        <p>SHOW A UNIFORM SPLINE HERE</p>
+        <div className="two-column">
+          <KnotController ref="uniform-spline" />
+          <BSplineGraphic sketch={require('./uniform-bspline')} controller={(owner, knots) => this.bindKnots(owner, knots, "uniform-spline")}/>
+        </div>
 
         <p>
           This is an important point: the intervals that the knot vector defines are <em>relative</em> intervals, so it
@@ -308,7 +333,10 @@ var BoundingBox = React.createClass({
           collapsing <code>order</code> knots creates a situation where all continuity is lost and the curve "kinks".
         </p>
 
-        <p>SHOW A CENTER-CUT SPLINE HERE</p>
+        <div className="two-column">
+          <KnotController ref="center-cut-bspline" />
+          <BSplineGraphic sketch={require('./center-cut-bspline')} controller={(owner, knots) => this.bindKnots(owner, knots, "center-cut-bspline")}/>
+        </div>
 
         <h3>Open-Uniform B-splines</h3>
 
@@ -325,11 +353,14 @@ var BoundingBox = React.createClass({
           "identical" knot vector [0,0,0,0,2,4,6,8,8,8,8], etc. Again, it is the relative differences that determine the curve shape.
         </p>
 
-        <p>SHOW AN OPEN-UNIFORM SPLINE HERE</p>
+        <div className="two-column">
+          <KnotController ref="open-uniform-bspline" />
+          <BSplineGraphic sketch={require('./open-uniform-bspline')} controller={(owner, knots) => this.bindKnots(owner, knots, "open-uniform-bspline")}/>
+        </div>
 
         <h3>Non-uniform B-splines</h3>
 
-        <p>This is essentialy the "free form" version of a B-spline, and also the least interesting to look at, 
+        <p>This is essentialy the "free form" version of a B-spline, and also the least interesting to look at,
         as without any specific reason to pick specific knot intervals, there is nothing particularly interesting
         going on. There is on constraint to the knot vector, and that is that any value <code>knots[k+1]</code>
         should be equal to, or greater than <code>knots[k]</code>.</p>
@@ -343,7 +374,16 @@ var BoundingBox = React.createClass({
         point carries, the close to that point the spline curve will lie, a bit like turning up the gravity
         of a control point.</p>
 
-        <p>SHOW A WEIGHT-MANIPULABLE RATIONAL B-SPLINE HERE</p>
+        <div className="two-column">
+          {
+            // <KnotController ref="rational-uniform-bspline" />
+          }
+          <WeightController ref="rational-uniform-bspline-weights" />
+          <BSplineGraphic scrolling={true} sketch={require('./rational-uniform-bspline')} controller={(owner, knots, weights, closed) => {
+            // this.bindKnots(owner, knots, "rational-uniform-bspline");
+            this.bindWeights(owner, weights, closed, "rational-uniform-bspline-weights");
+          }} />
+        </div>
 
         <p>Of course this brings us to the final topic that any text on B-splines must touch on before calling it
         a day: the NURBS, or Non-Uniform Rational B-Spline (NUBRS is not a plural, the capital S actually just stands
@@ -352,12 +392,10 @@ var BoundingBox = React.createClass({
         as well as in arbitrary-precision 2D design due to the level of control a NURBS curve offers designers.
         </p>
 
-        <p>While a true non-uniform rational B-spline would be hard to work with, when we talk about NURBS we 
+        <p>While a true non-uniform rational B-spline would be hard to work with, when we talk about NURBS we
         typically mean the Open-Uniform Rational B-Spline, or OURBS, but that doesn't roll off the tongue nearly
         as nicely, and so remember that when people talk about NURBS, they typically mean open-uniform, which
         has the useful property of starting the curve at the first control point, and ending it at the last.</p>
-
-        <p>SHOW A NURBS HERE</p>
 
         <h2>Extending our implementation to cover rational splines</h2>
 
@@ -387,7 +425,7 @@ var BoundingBox = React.createClass({
         </p>
 
         <p>
-          Based on our previous example, we take the final 3D point <code>(x', y', w')</code>, which we then 
+          Based on our previous example, we take the final 3D point <code>(x', y', w')</code>, which we then
           turn back into a 2D point by computing <code>(x'/w', y'/w')</code>. And that's it, we're done!
         </p>
 

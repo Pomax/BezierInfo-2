@@ -7,7 +7,7 @@
     "build:singles": "npm run less && webpack --prod --singles",
     "dev": "npm run less && webpack-dev-server --progress --colors --hot --inline",
     "latex": "node tools/mathjax",
-    "less": "node ./node_modules/less/bin/lessc stylesheets/style.less > stylesheets/style.css",
+    "less": "lessc stylesheets/style.less > stylesheets/style.css",
     "singles": "npm run dev -- --singles",
     "start": "npm run dev",
     "style": "webpack --jscs",

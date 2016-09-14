@@ -24,8 +24,9 @@ module.exports = {
     var nt = n+k+1;
     var w2 = this.width/2;
     var h1 = this.height;
+    var step = 0.1;
     var ti = [0,1,2,3,4,5,6];
-    var step = 0.1, t = ti[0];
+    var t = ti[0];
     var N = [[],[],[],[],[],[],[],[]];
 
     var i1 = 0;
@@ -39,7 +40,7 @@ module.exports = {
       }
       N[i][l] = 1;
       //  basis functions calculation
-      for (var m = 2; m <= k; m++) { 
+      for (var m = 2; m <= k; m++) {
         var jb = i-m+1;
         if (jb < 0) {
           jb = 0;
@@ -52,10 +53,20 @@ module.exports = {
       t += step;
     }
 
-    var stw = this.width/6;
+    var colors = [
+      '#C00',
+      '#CC0',
+      '#0C0',
+      '#0CC',
+      '#00C',
+      '#C0C'
+    ];
+
+    var stw = this.width/8;
     for (let j = 0; j < n1; j++) {
       t = ti[0];
       let to = t;
+      this.stroke(colors[j]);
       for (let l = 1; l < w2; l++) {
         t += step;
         let t1 = t;
@@ -67,6 +78,12 @@ module.exports = {
         );
         to = t1;
       }
+    }
+
+    this.stroke(0);
+    this.fill(0);
+    for(let j=0; j<n+k+1; j++) {
+      this.circle(pad + j*stw, h1 - pad, 3);
     }
   }
 };
