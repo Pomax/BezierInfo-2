@@ -57,7 +57,9 @@ var BoundingBox = React.createClass({
         such that at any point along the curve except for our start and end points, our on-curve
         coordinate is defined by four control points.</p>
 
-        <BSplineGraphic sketch={require('./interpolation-graph')} />
+        {
+         // <BSplineGraphic sketch={require('./interpolation-graph')} />
+        }
 
         <p>Consider the difference to be this:</p>
 
@@ -100,7 +102,9 @@ var BoundingBox = React.createClass({
         1</code> knots, defining <code>d + n</code> intervals along the curve, and it is these intervals that
         the above <code>k</code> subscript to the N() function applies to.</p>
 
-        <p>SHOW KNOTS ON THE INTERPOLATION GRAPH HERE</p>
+        {
+          // <p>SHOW KNOTS ON THE INTERPOLATION GRAPH HERE</p>
+        }
 
         <p>Then the N() function itself. What does it look like?</p>
 
