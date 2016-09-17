@@ -12,6 +12,7 @@ var BoundingBox = React.createClass({
   },
 
   bindKnots: function(owner, knots, ref) {
+    console.log(`binding knots for ${ref}`);
     this.refs[ref].bindKnots(owner, knots);
   },
 
@@ -24,63 +25,59 @@ var BoundingBox = React.createClass({
       <section>
         <SectionHeader {...this.props} />
 
-        <p>No discussion on Bezier curves is complete without also giving mention of that other
-        beast in the curve design space: B-Splines. Easily confused to mean Bezier splines, that's
+        <p>No discussion on Bézier curves is complete without also giving mention of that other
+        beast in the curve design space: B-Splines. Easily confused to mean Bézier splines, that's
         not actually what they are; they are "basis function" splines, which makes a lot of difference,
-        which we'll be looking at in this section. We're not going to dive as deep into B-splines as
-        we have for Bezier curves (that would be an entire primer on its own) but we'll be looking at
+        which we'll be looking at in this section. We're not going to dive as deep into B-Splines as
+        we have for Bézier curves (that would be an entire primer on its own) but we'll be looking at
         how B-Splines work, what kind of maths is involved in computing them, and how to draw them
         based on a number of parameters that you can pick for individual B-Splines.</p>
 
-        <p>First off: B-Splines are "piecewise polynomial interpolation curves", where the "single curve"
+        <p>First off: B-Splines are <a href="https://en.wikipedia.org/wiki/Piecewise">"piecewise polynomial interpolation curves"</a>, where the "single curve"
         is built by performing polynomial interpolation over a set of points, using a sliding window
         of a fixed number of points. For instance, a "cubic" B-Spline defined by twelve points will
         have its curve built by evaluating the polynomial interpolation of four points, and the curve
         can be treated as a lot of different sections, each controlled by four points at a time, such
         that the full curve consists of smoothly connected sections defined by points {1,2,3,4}, {2,3,4,5},
-        ..., {8,9,10,11}, and finally {9,10,11,12} for eight sections.</p>
+        ..., {8,9,10,11}, and finally {9,10,11,12}, for eight sections.</p>
 
-        <p>What do they look like? They look like this! Simply click to place some point, with the
-        stipulation that you need at least four point to see any curve. More than four points simply
-        draws a longer B-spline curve.</p>
+        <p>What do they look like? They look like this! .. okay that's an empty graph, but simply
+        click to place some point, with the stipulation that you need at least four point to see
+        any curve. More than four points simply draws a longer B-Spline curve:</p>
 
         <BSplineGraphic sketch={require('./basic-sketch')} />
 
         <p>The important part to notice here is that we are <strong>not</strong> doing the same thing
-        with B-Splines that we do for poly-Beziers or Catmull-Rom curves: both of the latter simply
+        with B-Splines that we do for poly-Béziers or Catmull-Rom curves: both of the latter simply
         define new sections as literally "new sections based on new points", so a 12 point cubic
-        poly-Bezier curve is actually impossible, because we start with a four point curve, and then
+        poly-Bézier curve is actually impossible, because we start with a four point curve, and then
         add three more points for each section that follows, so we can only have 4, 7, 10, 13, 16, etc
-        point Poly-Beziers. Similarly, while Catmull-Rom curves can grow by adding single points, this
-        addition of a single point introduces three implicit Bezier points. Cubic B-Splines, on the other
+        point Poly-Béziers. Similarly, while Catmull-Rom curves can grow by adding single points, this
+        addition of a single point introduces three implicit Bézier points. Cubic B-Splines, on the other
         hand, are smooth interpolations of <em>each possible curve involving four consecutive points</em>,
         such that at any point along the curve except for our start and end points, our on-curve
         coordinate is defined by four control points.</p>
 
-        {
-         // <BSplineGraphic sketch={require('./interpolation-graph')} />
-        }
-
         <p>Consider the difference to be this:</p>
 
         <ul>
-          <li>for Bezier curves, the curve is defined as an interpolation of points, but:</li>
+          <li>for Bézier curves, the curve is defined as an interpolation of points, but:</li>
           <li>for B-Splines, the curve is defined as an interpolation of <em>curves</em>.</li>
         </ul>
 
         <p>In order to make this interpolation of curves work, the maths is necessarily more complex
-        than the maths for Bezier curves, so let's have a look at how things work.</p>
+        than the maths for Bézier curves, so let's have a look at how things work.</p>
 
         <h2>
           How to compute a B-Spline curve: some maths
         </h2>
 
         <p>
-          Given a B-spline of degree <code>d</code> and thus order <code>k=d+1</code> (so a quadratic
-          B-spline is degree 2 and order 3, a cubic B-spline is degree 3 and order 4, etc) and <code>n</code> control
+          Given a B-Spline of degree <code>d</code> and thus order <code>k=d+1</code> (so a quadratic
+          B-Spline is degree 2 and order 3, a cubic B-Spline is degree 3 and order 4, etc) and <code>n</code> control
           points <code>P<sub>0</sub></code> through <code>P<sub>n-1</sub></code>, we can compute a
           point on the curve for some value <code>t</code> in the interval [0,1] (where 0 is the start
-          of the curve, and 1 the end, just like for Bezier curves), by evaluting the following function:
+          of the curve, and 1 the end, just like for Bézier curves), by evaluting the following function:
         </p>
 
         <p>\[
@@ -88,23 +85,19 @@ var BoundingBox = React.createClass({
         \]</p>
 
         <p>
-          Which, honestly, doesn't tell us all that much. All we can see is that a point on a B-spline curve
+          Which, honestly, doesn't tell us all that much. All we can see is that a point on a B-Spline curve
           is defined as "a mix of all the control points, weighted somehow", where the weighting is achieved
-          through the <em>N(...)</em>em> function, subscipted with an obvious parameter <code>i</code>, which
+          through the <em>N(...)</em> function, subscipted with an obvious parameter <code>i</code>, which
           comes from our summation, and some magical parameter <code>k</code>. So we need to know two things:
-          1: what does N(t) do, and 2: what is that <code>k</code>? Let's cover both, in reverse order.
+          1. what does N(t) do, and 2. what is that <code>k</code>? Let's cover both, in reverse order.
         </p>
 
         <p>The parameter <code>k</code> represents the "knot interval" over which a section of curve is defined.
-        As we learned earlier, a B-spline curve is itself an interpoliation of curves, and we can treat each
+        As we learned earlier, a B-Spline curve is itself an interpoliation of curves, and we can treat each
         transition where a control point starts or tops influencing the total curvature as a "knot on the curve".
-        Doing so for a degree <code>d</code> B-spline with <code>n</code> control point gives us <code>d + n +
+        Doing so for a degree <code>d</code> B-Spline with <code>n</code> control point gives us <code>d + n +
         1</code> knots, defining <code>d + n</code> intervals along the curve, and it is these intervals that
         the above <code>k</code> subscript to the N() function applies to.</p>
-
-        {
-          // <p>SHOW KNOTS ON THE INTERPOLATION GRAPH HERE</p>
-        }
 
         <p>Then the N() function itself. What does it look like?</p>
 
@@ -114,8 +107,8 @@ var BoundingBox = React.createClass({
 
         <p>
           So this is where we see the interpolation: N(t) for an (i,k) pair (that is, for a step in the above summation,
-          on a specific knot interval) is a mix between N(t) for (i,k-1) and N(t) for (i+1,k-1), so we see that is a
-          recursive iteration where <code>i</code> goes up, and <code>k</code> goes down, so it seem reasonable to
+          on a specific knot interval) is a mix between N(t) for (i,k-1) and N(t) for (i+1,k-1), so we see that this is
+          a recursive iteration where <code>i</code> goes up, and <code>k</code> goes down, so it seem reasonable to
           expect that this recursion has to stop at some point; obviously, it does, and specifically it does so for
           the following <code>i</code>/<code>k</code> values:
         </p>
@@ -146,7 +139,7 @@ var BoundingBox = React.createClass({
         </p>
 
         <p>
-          People far smarter than us have looked at this work, and two in particular --<a href="">Cox</a> and <a href="">de Boor</a>-- came
+          People far smarter than us have looked at this work, and two in particular —<a href="http://www.npl.co.uk/people/maurice-cox">Maurice Cox</a> and <a href="https://en.wikipedia.org/wiki/Carl_R._de_Boor">Carl de Boor</a>— came
           to a mathematically pleasing solution: to compute a point P(t), we can compute this point by
           evaluating <em>d(t)</em> on a curve section between knots <em>i</em> and <em>i+1</em>:
         </p>
@@ -209,7 +202,7 @@ var BoundingBox = React.createClass({
 
         <p>
           One thing we need to keep in mind is that we're working with a spline that is contrained by its control points,
-          so even though the \(d^k_i\) values are zero or one at the lowest level, they are really "zero or one, times their
+          so even though the <code>d(..., k)</code> values are zero or one at the lowest level, they are really "zero or one, times their
           respective control point", so in the next section you'll see the algorithm for running through the computation in
           a way that starts with a copy of the control point vector and then works its way up to that single point:
           that's pretty essential!
@@ -223,6 +216,33 @@ var BoundingBox = React.createClass({
           top. If we run our computation this way, we don't need any explicit caching, we can just "recycle" the list of numbers
           we start with and simply update them as we move up the triangle. So, let's implement that!
         </p>
+
+        <h2>
+          Cool, cool... but I don't know what to do with that information
+        </h2>
+
+        <p>I know, this is pretty mathy, so let's have a look at what happens when we change parameters here. We can't change
+        the maths for the interpolation functions, so that gives us only one way to control what happens here: the knot vector
+        itself. As such, let's look at the graph that shows the interpolation functions for a cubic B-Spline with seven points
+        with a uniform knot vector (so we see seven identical functions), representing how much each point (represented by
+        one function each) influences the total curvature, given our knot values. And, because exploration is the key to
+        discovery, let's make the knot vector a thing we can actually manipulate. Normally a proper knot vector has a constraint
+        that any value is strictly equal to, or larger than the previous ones, but screw it this is programming, let's
+        ignore that hard restriction and just mess with the knots however we like.</p>
+
+        <div className="two-column">
+          <KnotController ref="interpolation-graph" />
+          <BSplineGraphic sketch={require('./interpolation-graph')} controller={(owner, knots) => this.bindKnots(owner, knots, "interpolation-graph")}/>
+        </div>
+
+        <p>Changing the values in the knot vector changes how much each point influences the total curvature
+        (with some clever knot value manipulation, we can even make the influence of certain points disappear
+        entirely!), so we can see that while the control points define the hull inside of which we're going
+        to be drawing a curve, it is actually the knot vector that determines the actual <em>shape</em> of
+        the curve inside that hull.</p>
+
+        <p>After reading the rest of this section you may want to come back here to try some specific knot vectors,
+        and see if the resulting interpolation landscape makes sense given what you will now think should happen!</p>
 
         <h2>
           Running the computation
@@ -265,7 +285,7 @@ var BoundingBox = React.createClass({
         <p>
           (A nice bit of behaviour in this code is that we work the interpolation "backwards", starting at <code>i=s</code> at
           each level of the interpolation, and we stop when <code>i = s - order + level</code>, so we always end up with a
-          value for <code>i</code> such that those <code>v[i-1]</code> don't have an array index that doesn't exist)
+          value for <code>i</code> such that those <code>v[i-1]</code> don't try to use an array index that doesn't exist)
         </p>
 
         <h2>
@@ -273,11 +293,19 @@ var BoundingBox = React.createClass({
         </h2>
 
         <p>
-          Much like poly-Beziers, B-Splines can be either open, running from the first point to the last point, or closed,
+          Much like poly-Béziers, B-Splines can be either open, running from the first point to the last point, or closed,
           where the first and last point are <em>the same point</em>. However, because B-Splines are an interpolation of
           curves, not just point, we can't simply make the first and last point the same, we need to link a few point point:
           for an order <code>d</code> B-Spline, we need to make the last <code>d</code> point the same as the first <code>d</code> points.
           And the easiest way to do this is to simply append <code>points.splice(0,d)</code> to <code>points</code>. Done!
+        </p>
+
+        <p>
+          Of course if we want to manipulate these kind of curves we need to make sure to mark them as "closed" so that
+          we know the coordinate for <code>points[0]</code> and <code>points[n-k]</code> etc. are the same coordinate,
+          and manipulating one will equally manipulate the other, but programming generally makes this really easy by
+          storing references to coordinates (or other linked values such as coordinate weights, discussed in the NURBS
+          section) rather than separate coordinate objects.
         </p>
 
         <h2>
@@ -285,7 +313,7 @@ var BoundingBox = React.createClass({
         </h2>
 
         <p>
-          The most important thing to understand when it comes to B-splines is that they work <em>because</em> of the concept
+          The most important thing to understand when it comes to B-Splines is that they work <em>because</em> of the concept
           of a knot vector. As mentioned above, knots represent "where individual control points start/stop influencing
           the curve", but we never looked at the <em>values</em> that go in the knot vector. If you look back at the N() and
           a() functions, you see that interpolations are based on intervals in the knot vector, rather than the actual values
@@ -303,7 +331,7 @@ var BoundingBox = React.createClass({
         <h3>Uniform B-Splines</h3>
 
         <p>
-          The most straightforward type of B-spline is the uniform spline. In a uniform spline, the knots are distributed
+          The most straightforward type of B-Spline is the uniform spline. In a uniform spline, the knots are distributed
           uniformly over the entire curve interval. For instance, if we have a knot vector of length twelve, then a uniform
           knot vector would be [0,1,2,3,...,9,10,11]. Or [4,5,6,...,13,14,15], which defines <em>the same intervals</em>,
           or even [0,2,3,...,18,20,22], which also defines <em>the same intervals</em>, just scaled by a constant factor,
@@ -342,7 +370,7 @@ var BoundingBox = React.createClass({
           <BSplineGraphic sketch={require('./center-cut-bspline')} controller={(owner, knots) => this.bindKnots(owner, knots, "center-cut-bspline")}/>
         </div>
 
-        <h3>Open-Uniform B-splines</h3>
+        <h3>Open-Uniform B-Splines</h3>
 
         <p>
           By combining knot interval collapsing at the start and end of the curve, with uniform knots in between, we
@@ -362,16 +390,16 @@ var BoundingBox = React.createClass({
           <BSplineGraphic sketch={require('./open-uniform-bspline')} controller={(owner, knots) => this.bindKnots(owner, knots, "open-uniform-bspline")}/>
         </div>
 
-        <h3>Non-uniform B-splines</h3>
+        <h3>Non-uniform B-Splines</h3>
 
-        <p>This is essentialy the "free form" version of a B-spline, and also the least interesting to look at,
+        <p>This is essentialy the "free form" version of a B-Spline, and also the least interesting to look at,
         as without any specific reason to pick specific knot intervals, there is nothing particularly interesting
-        going on. There is on constraint to the knot vector, and that is that any value <code>knots[k+1]</code>
+        going on. There is one constraint to the knot vector, and that is that any value <code>knots[k+1]</code>
         should be equal to, or greater than <code>knots[k]</code>.</p>
 
-        <h2>One last thing: Rational B-splines</h2>
+        <h2>One last thing: Rational B-Splines</h2>
 
-        <p>While it is true that this section on B-splines is running quite long already, there is one more thing
+        <p>While it is true that this section on B-Splines is running quite long already, there is one more thing
         we need to talk about, and that's "Rational" splines, where the rationality applies to the "ratio", or relative
         weights, of the control points themselves. By introducing a ratio vector with weights to apply to each
         control point, we greatly increase our influence over the final curve shape: the more weight a control
@@ -389,14 +417,14 @@ var BoundingBox = React.createClass({
           }} />
         </div>
 
-        <p>Of course this brings us to the final topic that any text on B-splines must touch on before calling it
-        a day: the NURBS, or Non-Uniform Rational B-Spline (NUBRS is not a plural, the capital S actually just stands
+        <p>Of course this brings us to the final topic that any text on B-Splines must touch on before calling it
+        a day: the NURBS, or Non-Uniform Rational B-Spline (NURBS is not a plural, the capital S actually just stands
         for "spline", but a lot of people mistakenly treat it as if it is, so now you know better). NURBS are an
         important type of curve in computer-facilitated design, used a lot in 3D modelling (as NURBS surfaces)
         as well as in arbitrary-precision 2D design due to the level of control a NURBS curve offers designers.
         </p>
 
-        <p>While a true non-uniform rational B-spline would be hard to work with, when we talk about NURBS we
+        <p>While a true non-uniform rational B-Spline would be hard to work with, when we talk about NURBS we
         typically mean the Open-Uniform Rational B-Spline, or OURBS, but that doesn't roll off the tongue nearly
         as nicely, and so remember that when people talk about NURBS, they typically mean open-uniform, which
         has the useful property of starting the curve at the first control point, and ending it at the last.</p>
