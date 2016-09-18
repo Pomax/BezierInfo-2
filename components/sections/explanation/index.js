@@ -142,7 +142,7 @@ var Explanation = React.createClass({
 
         <p>If they have a highest order term <i>x³</i> they're called "cubic" polynomials, if it's
         <i>x²</i> it's a "square" polynomial, if it's just <i>x</i> it's a line (and if there aren't
-        even any terms with <i>x</i> it's not a polynomial!)</p>
+        even any terms with <i>x</i> it's a constant polynomial or a zero polynomial.)</p>
 
         <p>Bézier curves are polynomials of <i>t</i>, rather than <i>x</i>, with the value for <i>t</i>
         fixed being between 0 and 1, with coefficients <i>a</i>, <i>b</i> etc. taking the "binomial"
