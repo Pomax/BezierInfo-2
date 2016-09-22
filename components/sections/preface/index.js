@@ -88,6 +88,17 @@ var Preface = React.createClass({
           but you can use the issue tracker for that as well. Once the rewrite is done, I'll add a general
           comment section back in, and maybe a more topical "select this section of text and hit the
           'question' button to ask a question about it" system. We'll see.
+
+          <h2>Buy me a coffee?</h2>
+          
+          <p>If you enjoyed this book, or you simply found it useful for something you were trying to
+          get done, and you were wondering how to let me know you appreciated this book, you can always
+          <a class="link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPRDLNGDANJSW"
+          >buy me a coffee</a>, however much a coffee is where you live. This work has grown over the
+          years, from a small primer to a 70ish print-page-equivalent reader on the subject of Bézier
+          curves, and a lot of coffee went into the making of it. I don't regret a minute I spent
+on writing it, but I can always do with some more coffee to keep on writing!</p>
+          
         </div>
       </section>
     );
