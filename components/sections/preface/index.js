@@ -82,15 +82,15 @@ var Preface = React.createClass({
 
           <h2>Questions, comments:</h2>
 
-          If you have suggestions for new sections, hit up the <a href="https://github.com/pomax/BezierInfo-2/issues">github
+          <p>If you have suggestions for new sections, hit up the <a href="https://github.com/pomax/BezierInfo-2/issues">github
           issue tracker</a> (also reachable from the repo linked to in the upper right). If you have
           questions about the material, there's currently no comment section while I'm doing the rewrite,
           but you can use the issue tracker for that as well. Once the rewrite is done, I'll add a general
           comment section back in, and maybe a more topical "select this section of text and hit the
-          'question' button to ask a question about it" system. We'll see.
+          'question' button to ask a question about it" system. We'll see.</p>
 
           <h2>Buy me a coffee?</h2>
-          
+
           <p>If you enjoyed this book, or you simply found it useful for something you were trying to
           get done, and you were wondering how to let me know you appreciated this book, you can always
           <a class="link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPRDLNGDANJSW"
@@ -98,7 +98,7 @@ var Preface = React.createClass({
           years, from a small primer to a 70ish print-page-equivalent reader on the subject of Bézier
           curves, and a lot of coffee went into the making of it. I don't regret a minute I spent
 on writing it, but I can always do with some more coffee to keep on writing!</p>
-          
+
         </div>
       </section>
     );
