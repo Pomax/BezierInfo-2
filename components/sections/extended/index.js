@@ -94,7 +94,7 @@ var Explanation = React.createClass({
         of Bézier curves, where rather than fixing the interval, and giving you free coordinates, they fix
         the coordinates, but give you freedom over the interval. A great example of this is the <a href="http://levien.com/phd/phd.html">"Spiro"
         curve</a>, which is a curve based on part of a <a href="https://en.wikipedia.org/wiki/Euler_spiral">Cornu Spiral, also
-        known as Euler's Spiral</a>. It's a very easthetically pleasing curve and you'll find it in
+        known as Euler's Spiral</a>. It's a very aesthetically pleasing curve and you'll find it in
         quite a few graphics packages
         like <a href="https://fontforge.github.io">FontForge</a> and <a href="https://inkscape.org">Inkscape</a>, having
         even been used in font design (such as for the Inconsolata font).</p>
