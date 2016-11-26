@@ -54,12 +54,10 @@ var Graphic = React.createClass({
       <figure className={this.props.inline ? "inline": false}>
         <canvas ref="canvas"
                 tabIndex="0"
-                style={
-                  {
-                    width: this.panelCount * this.defaultWidth + "px",
-                    height: this.panelCount * this.defaultHeight + "px",
-                  }
-                }
+                style={{
+                  width: this.panelCount * this.defaultWidth + "px",
+                  height: this.defaultHeight + "px"
+                }}
                 onMouseDown={this.mouseDown}
                 onMouseMove={this.mouseMove}
                 onMouseUp={this.mouseUp}
@@ -254,9 +252,9 @@ var Graphic = React.createClass({
     this.defaultHeight = h;
     var dpr = window.devicePixelRatio || 1;
     this.refs.canvas.style.width = this.panelCount * w + "px";
-    this.refs.canvas.style.height = this.panelCount * h + "px";
+    this.refs.canvas.style.height = h + "px";
     this.refs.canvas.width = this.panelCount * w * dpr;
-    this.refs.canvas.height = this.panelCount * h * dpr;
+    this.refs.canvas.height = h * dpr;
     this.ctx.scale(dpr, dpr);
   },
 
@@ -294,6 +292,8 @@ var Graphic = React.createClass({
     var dataURL = this.refs.canvas.toDataURL();
     var img = new Image();
     img.src = dataURL;
+    var dpr = window.devicePixelRatio || 1;
+    img.devicePixelRatio = dpr;
     return img;
   },
 
@@ -616,12 +616,13 @@ var Graphic = React.createClass({
       offset.x += this.offset.x;
       offset.y += this.offset.y;
     }
+    var dpr = image.devicePixelRatio || 1;
     if (image.loaded) {
-      this.ctx.drawImage(image,offset.x,offset.y);
+      this.ctx.drawImage(image,offset.x,offset.y, image.width/dpr, image.height/dpr);
     } else {
       image.onload = () => {
         image.loaded = true;
-        this.ctx.drawImage(image,offset.x,offset.y);
+        this.ctx.drawImage(image,offset.x,offset.y, image.width/dpr, image.height/dpr);
       };
     }
   },
