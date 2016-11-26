@@ -114,6 +114,10 @@ var Graphic = React.createClass({
     if (this.props.onMouseDown) {
       this.props.onMouseDown(evt, this);
     }
+
+    if ('setCapture' in evt.target) {
+      evt.target.setCapture();
+    }
   },
 
   mouseMove: function(evt) {
@@ -143,8 +147,8 @@ var Graphic = React.createClass({
       if(this.movingPoint) {
         this.ox = evt.offsetX - this.mx;
         this.oy = evt.offsetY - this.my;
-        this.mp.x = this.cx + this.ox;
-        this.mp.y = this.cy + this.oy;
+        this.mp.x = Math.max(0, Math.min(this.defaultWidth, this.cx + this.ox));
+        this.mp.y = Math.max(0, Math.min(this.defaultHeight, this.cy + this.oy));
         if (this.curve.forEach) {
           for (var i=0, c, _pts; i<this.curve.length; i++) {
             c = this.curve[i];
