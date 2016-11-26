@@ -16,6 +16,7 @@ var Graphic = React.createClass({
 
   defaultWidth: 275,
   defaultHeight: 275,
+  panelCount: 1,
 
   Bezier: Bezier,
   utils: Bezier.getUtils(),
@@ -53,6 +54,12 @@ var Graphic = React.createClass({
       <figure className={this.props.inline ? "inline": false}>
         <canvas ref="canvas"
                 tabIndex="0"
+                style={
+                  {
+                    width: this.panelCount * this.defaultWidth + "px",
+                    height: this.panelCount * this.defaultHeight + "px",
+                  }
+                }
                 onMouseDown={this.mouseDown}
                 onMouseMove={this.mouseMove}
                 onMouseUp={this.mouseUp}
@@ -68,11 +75,13 @@ var Graphic = React.createClass({
 
   componentDidMount: function() {
     var cvs = this.refs.canvas;
-    cvs.width = this.defaultWidth;
-    cvs.height = this.defaultHeight;
+    var dpr = window.devicePixelRatio || 1;
+    cvs.width = this.defaultWidth * dpr;
+    cvs.height = this.defaultHeight * dpr;
     this.cvs = cvs;
     var ctx = cvs.getContext("2d");
     this.ctx = ctx;
+    this.ctx.scale(dpr, dpr);
 
     if (this.props.paperjs) {
       var Paper = this.Paper = require("../lib/vendor/paperjs/paper-core");
@@ -234,6 +243,8 @@ var Graphic = React.createClass({
     this.ctx.strokeStyle = "black";
     this.ctx.lineWidth = 1;
     this.ctx.fillStyle = "none";
+    var dpr = window.devicePixelRatio || 1;
+    this.ctx.scale(dpr, dpr);
     this.offset = {x:0, y:0};
     this.colorSeed = 0;
   },
@@ -241,8 +252,12 @@ var Graphic = React.createClass({
   setSize: function(w,h) {
     this.defaultWidth = w;
     this.defaultHeight = h;
-    this.refs.canvas.width = w;
-    this.refs.canvas.height = h;
+    var dpr = window.devicePixelRatio || 1;
+    this.refs.canvas.style.width = this.panelCount * w + "px";
+    this.refs.canvas.style.height = this.panelCount * h + "px";
+    this.refs.canvas.width = this.panelCount * w * dpr;
+    this.refs.canvas.height = this.panelCount * h * dpr;
+    this.ctx.scale(dpr, dpr);
   },
 
   setCurves: function(c) {
@@ -283,8 +298,11 @@ var Graphic = React.createClass({
   },
 
   setPanelCount: function(c) {
+    this.panelCount = c;
     var cvs = this.refs.canvas;
-    cvs.width = c * this.defaultWidth;
+    var dpr = window.devicePixelRatio || 1;
+    cvs.width = c * this.defaultWidth * dpr;
+    cvs.style.width = c * this.defaultWidth + "px";
   },
 
   setOffset: function(f) {
