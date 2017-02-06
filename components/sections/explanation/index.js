@@ -243,7 +243,7 @@ binomial(n,k):
 
 <pre>function Bezier(n,t):
   sum = 0
-  for(k=0; k<n; k++):
+  for(k=0; k<=n; k++):
     sum += binomial(n,k) * (1-t)^(n-k) * t^(k)
   return sum</pre>
 
