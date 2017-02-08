@@ -48,7 +48,7 @@ var Explanation = React.createClass({
         <SectionHeader {...this.props} />
 
         <p>Now that we know the mathematics behind Bézier curves, there's one curious thing that you may have
-        noticed: they always run from <i>t-0</i> to <i>t=1</i>. Why that particular interval?</p>
+        noticed: they always run from <i>t=0</i> to <i>t=1</i>. Why that particular interval?</p>
 
         <p>It all has to do with how we run from "the start" of our curve to "the end" of our curve. If we have
         a value that is a mixture of two other values, then the general formula for this is:</p>
