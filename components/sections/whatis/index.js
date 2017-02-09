@@ -146,7 +146,7 @@ var Whatis = React.createClass({
 
         <p>So let's look at that in action: the following graphic is interactive in that you can use your
         up and down arrow keys to increase or decrease the interpolation ratio, to see what happens. We start
-        with three points, which gives us two lines. Linear interpolation over those lines gives use two
+        with three points, which gives us two lines. Linear interpolation over those lines gives us two
         points, between which we can again perform linear interpolation, yielding a single point. And that
         point —and all points we can form in this way for all ratios taken together— form our Bézier curve:</p>
 
