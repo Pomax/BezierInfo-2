@@ -73,7 +73,7 @@ var Graphic = React.createClass({
 
   componentDidMount: function() {
     var cvs = this.refs.canvas;
-    var dpr = window.devicePixelRatio || 1;
+    var dpr = this.getPixelRatio();
     cvs.width = this.defaultWidth * dpr;
     cvs.height = this.defaultHeight * dpr;
     this.cvs = cvs;
@@ -241,7 +241,7 @@ var Graphic = React.createClass({
     this.ctx.strokeStyle = "black";
     this.ctx.lineWidth = 1;
     this.ctx.fillStyle = "none";
-    var dpr = window.devicePixelRatio || 1;
+    var dpr = this.getPixelRatio();
     this.ctx.scale(dpr, dpr);
     this.offset = {x:0, y:0};
     this.colorSeed = 0;
@@ -250,11 +250,14 @@ var Graphic = React.createClass({
   setSize: function(w,h) {
     this.defaultWidth = w;
     this.defaultHeight = h;
-    var dpr = window.devicePixelRatio || 1;
-    this.refs.canvas.style.width = this.panelCount * w + "px";
-    this.refs.canvas.style.height = h + "px";
-    this.refs.canvas.width = this.panelCount * w * dpr;
-    this.refs.canvas.height = h * dpr;
+
+    var cvs = this.refs.canvas;
+    cvs.style.width = this.panelCount * w + "px";
+    cvs.style.height = h + "px";
+
+    var dpr = this.getPixelRatio();
+    cvs.width = this.panelCount * w * dpr;
+    cvs.height = h * dpr;
     this.ctx.scale(dpr, dpr);
   },
 
@@ -288,20 +291,22 @@ var Graphic = React.createClass({
     return new this.Bezier(120,160,35,200,220,260,220,40);
   },
 
+  getPixelRatio: function () {
+    return window.devicePixelRatio || 1;
+  },
+
   toImage: function() {
     var dataURL = this.refs.canvas.toDataURL();
     var img = new Image();
     img.src = dataURL;
-    var dpr = window.devicePixelRatio || 1;
-    img.devicePixelRatio = dpr;
+    img.devicePixelRatio = this.getPixelRatio();
     return img;
   },
 
   setPanelCount: function(c) {
     this.panelCount = c;
     var cvs = this.refs.canvas;
-    var dpr = window.devicePixelRatio || 1;
-    cvs.width = c * this.defaultWidth * dpr;
+    cvs.width = c * this.defaultWidth * this.getPixelRatio();
     cvs.style.width = c * this.defaultWidth + "px";
   },
 
