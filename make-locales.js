@@ -68,7 +68,7 @@ sections.forEach((cname, number) => {
         // And then some post-processing...
         d = d.replace(/<h1[^>]+>([^<]+)<\/h1>/,function(_,t) {
           title = t;
-          return `<SectionHeader name="${cname}" title="` + t + `" number="${number}"/>`;
+          return `<SectionHeader name="${cname}" title="` + t + `"${ number ? ' number="'+number+'"': ''}/>`;
         });
         d = d.replace('<p></div></p>', '</div>')
              // serious can we fucking not, please.
