@@ -28,7 +28,7 @@
   </head>
   <body>
 
-    <div class="dev">
+    <div class="dev" style="display:none;">
       <style>
         div.dev {
           background: rgb(43, 49, 95);
@@ -46,6 +46,15 @@
         }
       </style>
       DEV PREVIEW ONLY
+      <script>
+        (function() {
+          var loc = window.location.toString();
+          if(loc.indexOf('localhost')!==-1 || loc.indexOf('-2')!==-1) {
+            var e = document.querySelector('div.dev');
+            e.removeAttribute("style");
+          }
+        }());
+      </script>
     </div>
 
     <!-- Because people probably want to share this article -->

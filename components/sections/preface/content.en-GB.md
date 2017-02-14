@@ -1,0 +1,36 @@
+# Preface
+
+In order to draw things in 2D, we usually rely on lines, which typically get classified into two categories: straight lines, and curves. The first of these are as easy to draw as they are easy to make a computer draw. Give a computer the first and last point in the line, and BAM! straight line. No questions asked.
+
+Curves, however, are a much bigger problem. While we can draw curves with ridiculous ease freehand, computers are a bit handicapped in that they can't draw curves unless there is a mathematical function that describes how it should be drawn. In fact, they even need this for straight lines, but the function is ridiculously easy, so we tend to ignore that as far as computers are concerned, all lines are "functions", regardless of whether they're straight or curves. However, that does mean that we need to come up with fast-to-compute functions that lead to nice looking curves on a computer. There's a number of these, and in this article we'll focus on a particular function that has received quite a bit of attention, and is used in pretty much anything that can draw curves: "Bézier" curves
+
+They're named after [Pierre Bézier](https://en.wikipedia.org/wiki/Pierre_B%C3%A9zier), who is principally responsible for getting them known to the world as a curve well-suited for design work (working for Renault and publishing his investigations in 1962), although he was not the first, or only one, to "invent" these type of curves. One might be tempted to say that the mathematician [Paul de Casteljau](https://en.wikipedia.org/wiki/Paul_de_Casteljau) was first, investigating the nature of these curves in 1959 while working at Citroën, coming up with a really elegant way of figuring out how to draw them. However, de Casteljau did not publish his work, making the question "who was first" hard to answer in any absolute sense. Or is it? Bézier curves are, at their core, "Bernstein polynomials", a family of mathematical functions investigated by [Sergei Natanovich Bernstein](https://en.wikipedia.org/wiki/Sergei_Natanovich_Bernstein), with publications on them at least as far back as 1912. Anyway, that's mostly trivia, what you are more likely to care about is that these curves are handy: you can link up multiple Bézier curves so that the combination looks like a single curve. If you've ever drawn Photoshop "paths" or worked with vector drawing programs like Flash, Illustrator or nkscape, those curves you've been drawing are Bézier curves.
+
+So, what if you need to program them yourself? What are the pitfalls? How do you draw them? What are the bounding boxes, how do you determine intersections, how can you extrude a curve, in short: how do you do everything that you might want when you do with these curves? That's what this page is for. Prepare to be mathed!
+
+—Pomax (or in the tweetworld, [@TheRealPomax](https://twitter.com/TheRealPomax))
+
+<div className="note">
+
+## Note: virtually all Bézier graphics are interactive.
+
+This page uses interactive examples, relying heavily on [Bezier.js](http://pomax.github.io/bezierjs), as well as "real" maths (in LaTeX form) which is typeset using the most excellent [MathJax](http://MathJax.org) library. The page is generated offline as a React application, using Webpack, which has made adding "view source" options considerably more challenging. I'm still trying to figure out how to add them back in, but it didn't feel like it should hold up deploying this update compared to the previous years' version.
+
+## This book is open source.
+
+This book is an open source software project, and lives on two github repositorites. The first is [https://github.com/pomax/bezierinfo](https://github.com/pomax/bezierinfo) and is the purely-for-presentation version you are viewing right now. The other repository is [https://github.com/pomax/BezierInfo-2](https://github.com/pomax/BezierInfo-2), which is the development version, housing all the html, javascript, and css. You can fork either of these, and pretty much do with them as you please, except for passing it off as your own work wholesale, of course =)
+
+## How complicated is the maths going to be?
+
+Most of the mathematics in this Primer are early high school maths. If you understand basic arithmetic, and you know how to read English, you should be able to get by just fine. There will at times be *far* more complicated maths, but if you don't feel like digesting them, you can safely skip over them by either skipping over the "detail boxes" in section or by just jumping to the end of a section with maths that looks too involving. The end of sections typically simply list the conclusions so you can just work with those values directly.
+
+## Questions, comments:
+
+If you have suggestions for new sections, hit up the [Github issue tracker](https://github.com/pomax/BezierInfo-2/issues) (also reachable from the repo linked to in the upper right). If you have questions about the material, there's currently no comment section while I'm doing the rewrite, but you can use the issue tracker for that as well. Once the rewrite is done, I'll add a general comment section back in, and maybe a more topical "select this section of text and hit the 'question' button to ask a question about it" system. We'll see.
+
+## Buy me a coffee?
+
+If you enjoyed this book, or you simply found it useful for something you were trying to get done, and you were wondering how to let me know you appreciated this book, you can
+always [buy me a coffee](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPRDLNGDANJSW), however-much a coffee is where you live. This work has grown over the years, from a small primer to a 70ish print-page-equivalent reader on the subject of Bézier curves, and a lot of coffee went into the making of it. I don't regret a minute I spent on writing it, but I can always do with some more coffee to keep on writing!
+
+</div>

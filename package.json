@@ -4,8 +4,7 @@
   "description": "pomax.github.io/bezierinfo",
   "scripts": {
     "build": "npm run less && webpack --prod",
-    "build:singles": "npm run less && webpack --prod --singles",
-    "dev": "npm run less && webpack-dev-server --progress --colors --hot --inline",
+    "dev": "node make-locales && npm run less && webpack-dev-server --progress --colors --hot --inline",
     "latex": "node tools/mathjax",
     "less": "lessc stylesheets/style.less > stylesheets/style.css",
     "singles": "npm run dev -- --singles",
@@ -41,11 +40,12 @@
     "chroma-js": "^1.1.1",
     "css-loader": "^0.23.0",
     "eslint": "^1.10.3",
-    "eslint-loader": "^1.2.0",
-    "eslint-plugin-react": "^3.15.0",
+    "eslint-loader": "^1.6.0",
+    "eslint-plugin-react": "^6.9.0",
     "file-loader": "^0.8.5",
-    "fs-extra": "^0.26.4",
+    "fs-extra": "^0.26.7",
     "history": "^1.17.0",
+    "html-entities": "^1.2.0",
     "image-size": "^0.4.0",
     "jsmin": "^1.0.1",
     "json-loader": "^0.5.4",
@@ -53,6 +53,9 @@
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
     "less-watch-compiler": "^1.1.4",
+    "markdown": "^0.5.0",
+    "markdown-it": "^8.2.2",
+    "marked": "^0.3.6",
     "mathjax-node": "^0.4.0",
     "pirates": "^2.1.0",
     "raw-loader": "^0.5.1",
@@ -64,7 +67,7 @@
     "style-loader": "^0.13.0",
     "svgo": "^0.6.6",
     "uglify-loader": "^1.3.0",
-    "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0"
+    "webpack": "^2.0.0",
+    "webpack-dev-server": "^2.0.0"
   }
 }
