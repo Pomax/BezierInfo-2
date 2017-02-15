@@ -1,4 +1,3 @@
-const glue = '<div className="note">';
 var marked = require("marked");
 var fs = require("fs-extra");
 
@@ -17,34 +16,99 @@ Module.prototype.require = function() {
 };
 
 
-/**
- * Split data up into "markdown" and "latex"
- */
-function chunk(data) {
-  var p = 0, e = 0, chunks = [];
+function chunkDivs(data, chunks, chunkMore) {
+  var p = 0,
+      next = chunkMore ? chunkMore[0] : false,
+      otherChunkers = chunkMore ? chunkMore.slice(1) : false,
+      divMatch = '\n<div className="',
+      divEnd = '">\n',
+      divClosingTag = '</div>\n';
+
   while (p !== -1) {
-    let s = data.indexOf('\n\\[', p);
-    if (s === -1) {
-      chunks.push({
-        latex: false,
-        data: data.substring(p)
-      });
+    // Let's check for a <div className="..."> tag
+    let div = data.indexOf(divMatch, p);
+    if (div === -1) {
+      // No div tags found: we're done here. Parse the remaining
+      // data for whatever else might be in there.
+      performChunking(data.substring(p), chunks, next, otherChunkers);
       break;
     }
 
-    chunks.push({
-      latex: false,
-      data: data.substring(p, s)
-    });
+    // First parse the non-div data for whatever else might be in there.
+    performChunking(data.substring(p, div), chunks, next, otherChunkers);
 
-    e = data.indexOf('\\]\n\n', s) + 4;
-    chunks.push({
-      latex: true,
-      data: data.substring(s, e)
-    });
+    // Now, if we have a div, there's a few options:
+    //
+    // - "figure" contains HTML content, not to be converted
+    // - "note" contains markdown content, to be converted
+    // - "howtocode" contains markdown content, to be converted
+    let className = data.substring(div).match(/className="([^"]+)"/);
+    if (className !== null) { className = className[1]; }
 
-    p = e;
+    let eod, type="div";
+    if (className === "figure") {
+      eod = data.indexOf(divClosingTag, div) + divClosingTag.length;
+      type += ".figure";
+    } else {
+      eod = data.indexOf(divEnd, div) + divEnd.length;
+    }
+
+    chunks.push({ convert: false, type: type, s:div, e:eod, data: data.substring(div, eod) });
+    p = eod;
   }
+}
+
+/**
+ * Split data up into "latex" and "not latex".
+ * Anything that is not latex might still be "not markdown"
+ * though, so we hand that data off to additional chunkers
+ */
+function chunkLatex(data, chunks, chunkMore) {
+  var p = 0,
+      next = chunkMore ? chunkMore[0] : false,
+      otherChunkers = chunkMore ? chunkMore.slice(1) : false,
+      latexEnd = '\\]\n\n';
+
+  while (p !== -1) {
+    // Let's check a LaTeX block
+    let latex = data.indexOf('\n\\[', p);
+    if (latex === -1) {
+      // No LaTeX block found: we're done here. Parse the remaining
+      // data for whatever else might be in there.
+      performChunking(data.substring(p), chunks, next, otherChunkers);
+      break;
+    }
+
+    // First parse the non-LaTeX data for whatever else might be in there.
+    performChunking(data.substring(p, latex), chunks, next, otherChunkers);
+
+    // Then capture the LaTeX block and mark it as "don't convert"
+    let eol = data.indexOf(latexEnd, latex) + latexEnd.length;
+    chunks.push({ convert: false, type: "latex", s:latex, e:eol, data: data.substring(latex, eol) });
+    p = eol;
+  }
+}
+
+// in-place chunking
+function performChunking(data, chunks, chunker, moreChunkers) {
+  // If there's no further chunking function to run, just
+  // record this data as a chunk of convertible data.
+  if (!chunker) {
+    chunks.push({ convert: true, data: data });
+    return "early";
+  }
+
+  // otherwise, perform more chunking.
+  chunker(data, chunks, moreChunkers);
+}
+
+/**
+ * Split data up into "markdown" and "not markdown" parts.
+ * We'll only run markdown conversion on the markdown parts.
+ */
+function chunk(data) {
+  var chunks = [];
+  performChunking(data, chunks, chunkLatex, [chunkDivs]);
   return chunks;
 }
 
@@ -59,26 +123,23 @@ sections.forEach((cname, number) => {
   var data, title;
   try {
     data = fs.readFileSync(loc).toString();
-
-    // convert all non-latex data
-    data = data.split(glue).map(content => {
-      return chunk(content).map(chunk => {
-        if (chunk.latex) return chunk.data;
-        let d = marked(chunk.data)
-        // And then some post-processing...
-        d = d.replace(/<h1[^>]+>([^<]+)<\/h1>/,function(_,t) {
-          title = t;
-          return `<SectionHeader name="${cname}" title="` + t + `"${ number ? ' number="'+number+'"': ''}/>`;
-        });
-        d = d.replace('<p></div></p>', '</div>')
-             // serious can we fucking not, please.
-             .replace(/&#39;/g, "'")
-             .replace(/&amp;/g, '&')
-             .replace(/&quot;/g, '"')
-        return d;
-      }).join('');
-    }).join(glue);
-
+    data = chunk(data).map(block => {
+      // preserver is simple
+      if (!block.convert) return block.data;
+      // markdown conversion is a little more work
+      let d = marked(block.data.trim());
+      // And then some post-processing...
+      d = d.replace(/<h1[^>]+>([^<]+)<\/h1>/,function(_,t) {
+        title = t;
+        return `<SectionHeader name="${cname}" title="` + t + `"${ number ? ' number="'+number+'"': ''}/>`;
+      });
+      d = d.replace('<p></div></p>', '</div>')
+           // serious can we fucking not, please.
+           .replace(/&#39;/g, "'")
+           .replace(/&amp;/g, '&')
+           .replace(/&quot;/g, '"')
+      return d;
+    }).join('');
   } catch (e) {
     data = '';
     title = `Unknown title (${cname})`;

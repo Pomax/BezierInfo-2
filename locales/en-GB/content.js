@@ -12,6 +12,7 @@ module.exports = {
 <p>They're named after <a href="https://en.wikipedia.org/wiki/Pierre_B%C3%A9zier">Pierre Bézier</a>, who is principally responsible for getting them known to the world as a curve well-suited for design work (working for Renault and publishing his investigations in 1962), although he was not the first, or only one, to "invent" these type of curves. One might be tempted to say that the mathematician <a href="https://en.wikipedia.org/wiki/Paul_de_Casteljau">Paul de Casteljau</a> was first, investigating the nature of these curves in 1959 while working at Citroën, coming up with a really elegant way of figuring out how to draw them. However, de Casteljau did not publish his work, making the question "who was first" hard to answer in any absolute sense. Or is it? Bézier curves are, at their core, "Bernstein polynomials", a family of mathematical functions investigated by <a href="https://en.wikipedia.org/wiki/Sergei_Natanovich_Bernstein">Sergei Natanovich Bernstein</a>, with publications on them at least as far back as 1912. Anyway, that's mostly trivia, what you are more likely to care about is that these curves are handy: you can link up multiple Bézier curves so that the combination looks like a single curve. If you've ever drawn Photoshop "paths" or worked with vector drawing programs like Flash, Illustrator or nkscape, those curves you've been drawing are Bézier curves.</p>
 <p>So, what if you need to program them yourself? What are the pitfalls? How do you draw them? What are the bounding boxes, how do you determine intersections, how can you extrude a curve, in short: how do you do everything that you might want when you do with these curves? That's what this page is for. Prepare to be mathed!</p>
 <p>—Pomax (or in the tweetworld, <a href="https://twitter.com/TheRealPomax">@TheRealPomax</a>)</p>
+
 <div className="note">
 <h2 id="note-virtually-all-b-zier-graphics-are-interactive-">Note: virtually all Bézier graphics are interactive.</h2>
 <p>This page uses interactive examples, relying heavily on <a href="http://pomax.github.io/bezierjs">Bezier.js</a>, as well as "real" maths (in LaTeX form) which is typeset using the most excellent <a href="http://MathJax.org">MathJax</a> library. The page is generated offline as a React application, using Webpack, which has made adding "view source" options considerably more challenging. I'm still trying to figure out how to add them back in, but it didn't feel like it should hold up deploying this update compared to the previous years' version.</p>
@@ -22,8 +23,7 @@ module.exports = {
 <h2 id="questions-comments-">Questions, comments:</h2>
 <p>If you have suggestions for new sections, hit up the <a href="https://github.com/pomax/BezierInfo-2/issues">Github issue tracker</a> (also reachable from the repo linked to in the upper right). If you have questions about the material, there's currently no comment section while I'm doing the rewrite, but you can use the issue tracker for that as well. Once the rewrite is done, I'll add a general comment section back in, and maybe a more topical "select this section of text and hit the 'question' button to ask a question about it" system. We'll see.</p>
 <h2 id="buy-me-a-coffee-">Buy me a coffee?</h2>
-<p>If you enjoyed this book, or you simply found it useful for something you were trying to get done, and you were wondering how to let me know you appreciated this book, you can
-always <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPRDLNGDANJSW">buy me a coffee</a>, however-much a coffee is where you live. This work has grown over the years, from a small primer to a 70ish print-page-equivalent reader on the subject of Bézier curves, and a lot of coffee went into the making of it. I don't regret a minute I spent on writing it, but I can always do with some more coffee to keep on writing!</p>
+<p>If you enjoyed this book, or you simply found it useful for something you were trying to get done, and you were wondering how to let me know you appreciated this book, you can always <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPRDLNGDANJSW">buy me a coffee</a>, however-much a coffee is where you live. This work has grown over the years, from a small primer to a 70ish print-page-equivalent reader on the subject of Bézier curves, and a lot of coffee went into the making of it. I don't regret a minute I spent on writing it, but I can always do with some more coffee to keep on writing!</p>
 </div>
 </section>; }
 
@@ -33,11 +33,11 @@ always <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_butto
     "getContent": function(handler) { return <section>
 <SectionHeader name="introduction" title="A lightning introduction" number="1"/>
 <p>Let's start with the good stuff: when we're talking about Bézier curves, we're talking about the things that you can see in the following graphics. They run from some start point to some end point, with their curvature influenced by one or more "intermediate" control points. Now, because all the graphics on this page are interactive, go manipulate those curves a bit: click-drag the points, and see how their shape changes based on what you do.</p>
+
 <div className="figure">
   <Graphic inline={true} title="Quadratic Bézier curves" setup={ handler.drawQuadratic } draw={ handler.drawCurve }/>
   <Graphic inline={true} title="Cubic Bézier curves" setup={ handler.drawCubic } draw={ handler.drawCurve }/>
 </div>
-
 <p>These curves are used a lot in computer aided design and computer aided manufacturing (CAD/CAM) applications, as well as in graphic design programs like Adobe Illustrator and Photoshop, Inkscape, the Gimp, etc. and in graphic technologies like scalable vector graphics (SVG) and OpenType fonts (ttf/otf). A lot of things use Bézier curves, so if you want to learn more about them... prepare to get your learn on!</p>
 </section>; }
 
@@ -162,22 +162,22 @@ Given \left (
 \]
 
 <p>And that's the full description for Bézier curves. Σ in this function indicates that this is a series of additions (using the variable listed below the Σ, starting at ...=&lt;value&gt; and ending at the value listed on top of the Σ).</p>
+
 <div className="howtocode">
-### How to implement the basis function
-
-We could naively implement the basis function as a mathematical construct, using the function as our guide, like this:
-
-<pre>function Bezier(n,t):
+<h3 id="how-to-implement-the-basis-function">How to implement the basis function</h3>
+<p>We could naively implement the basis function as a mathematical construct, using the function as our guide, like this:</p>
+<pre>
+<code>function Bezier(n,t):
   sum = 0
-  for(k=0; k<n; k++):
+  for(k=0; k&lt;n; k++):
     sum += n!/(k!*(n-k)!) * (1-t)^(n-k) * t^(k)
-  return sum</pre>
-
-I say we could, because we're not going to: the factorial function is <em>incredibly</em> expensive. And, as we can see from the above explanation, we can actually create Pascal's triangle quite easily without it: just start at [1], then [1,1], then [1,2,1], then [1,3,3,1], and so on, with each next row fitting 1 more number than the previous row, starting and ending with "1", with all the numbers in between being the sum of the previous row's elements on either side "above" the one we're computing.
-
-We can generate this as a list of lists lightning fast, and then never have to compute the binomial terms because we have a lookup table:
-
-<pre>lut = [      [1],           // n=0
+  return sum
+</code>
+</pre>
+<p>I say we could, because we're not going to: the factorial function is <em>incredibly</em> expensive. And, as we can see from the above explanation, we can actually create Pascal's triangle quite easily without it: just start at [1], then [1,1], then [1,2,1], then [1,3,3,1], and so on, with each next row fitting 1 more number than the previous row, starting and ending with "1", with all the numbers in between being the sum of the previous row's elements on either side "above" the one we're computing.</p>
+<p>We can generate this as a list of lists lightning fast, and then never have to compute the binomial terms because we have a lookup table:</p>
+<pre>
+<code>lut = [      [1],           // n=0
             [1,1],          // n=1
            [1,2,1],         // n=2
           [1,3,3,1],        // n=3
@@ -194,42 +194,110 @@ binomial(n,k):
       nextRow[i] = lut[prev][i-1] + lut[prev][i]
     nextRow[s] = 1
     lut.add(nextRow)
-  return lut[n][k]</pre>
-
-So what's going on here? First, we declare a lookup table with a size that's reasonably large enough to accommodate most lookups. Then, we declare a function to get us the values we need, and we make sure that if an n/k pair is requested that isn't in the LUT yet, we expand it first. Our basis function now looks like this:
-
-<pre>function Bezier(n,t):
+  return lut[n][k]
+</code>
+</pre>
+<p>So what's going on here? First, we declare a lookup table with a size that's reasonably large enough to accommodate most lookups. Then, we declare a function to get us the values we need, and we make sure that if an n/k pair is requested that isn't in the LUT yet, we expand it first. Our basis function now looks like this:</p>
+<pre>
+<code>function Bezier(n,t):
   sum = 0
   for(k=0; k&lt;=n; k++):
-    sum += binomial(n,k) <em> (1-t)^(n-k) </em> t^(k)
-  return sum</pre>
-
-Perfect. Of course, we can optimize further. For most computer graphics purposes, we don't need arbitrary curves. We need quadratic and  cubic curves (this primer actually does do arbitrary curves, so you'll find code similar to shown here), which means we can drastically simplify the code:
-
-<pre>function Bezier(2,t):
-  t2 = t <em> t
+    sum += binomial(n,k) * (1-t)^(n-k) * t^(k)
+  return sum
+</code>
+</pre>
+<p>Perfect. Of course, we can optimize further. For most computer graphics purposes, we don't need arbitrary curves. We need quadratic and  cubic curves (this primer actually does do arbitrary curves, so you'll find code similar to shown here), which means we can drastically simplify the code:</p>
+<pre>
+<code>function Bezier(2,t):
+  t2 = t * t
   mt = 1-t
-  mt2 = mt </em> mt
-  return mt2 + 2<em>mt</em>t + t2
+  mt2 = mt * mt
+  return mt2 + 2*mt*t + t2
 
 function Bezier(3,t):
-  t2 = t <em> t
-  t3 = t2 </em> t
+  t2 = t * t
+  t3 = t2 * t
   mt = 1-t
-  mt2 = mt <em> mt
-  mt3 = mt2 </em> mt
-  return mt3 + 3<em>mt2</em>t + 3<em>mt</em>t2 + t3</pre>
-
-And now we know how to program the basis function. Exellent.
+  mt2 = mt * mt
+  mt3 = mt2 * mt
+  return mt3 + 3*mt2*t + 3*mt*t2 + t3
+</code>
+</pre>
+<p>And now we know how to program the basis function. Exellent.</p>
 </div>
-
 <p>So, now we know what the base function(s) look(s) like, time to add in the magic that makes Bézier curves so special: control points.</p>
 </section>; }
 
   },
   "control": {
-    "title": "Unknown title (control)",
+    "title": "Controlling Bézier curvatures",
     "getContent": function(handler) { return <section>
+<SectionHeader name="control" title="Controlling Bézier curvatures" number="4"/>
+<p>Bézier curves are (like all "splines") interpolation functions, meaning they take a set of points, and generate values somewhere "between" those points. (One of the consequences of this is that you'll never be able to generate a point that lies outside the outline for the control points, commonly called the "hull" for the curve. Useful information!). In fact, we can visualize how each point contributes to the value generated by the function, so we can see which points are important, where, in the curve.</p>
+<p>The following graphs show the interpolation functions for quadratic and cubic curves, with "S" being the strength of a point's contribution to the total sum of the Bézier function. Click or click-drag to see the interpolation percentages for each curve-defining point at a specific <i>t</i> value.</p>
+
+<div className="figure">
+  <Graphic inline={true} preset="simple" title="Quadratic interpolations"  draw={handler.drawQuadraticLerp}/>
+  <Graphic inline={true} preset="simple" title="Cubic interpolations"      draw={handler.drawCubicLerp}/>
+  <Graphic inline={true} preset="simple" title="15th order interpolations" draw={handler.draw15thLerp}/>
+</div>
+<p>Also shown is the interpolation function for a 15<sup>th</sup> order Bézier function. As you can see, the start and end point contribute considerably more to the curve's shape than any other point in the control point set.</p>
+<p>If we want to change the curve, we need to change the weights of each point, effectively changing the interpolations. The way to do this is about as straight forward as possible: just multiply each point with a value that changes its strength. These values are conventionally called "Weights", and we can add them to our original Bézier function:</p>
+
+\[
+  Bézier(n,t) = \sum_{i=0}^{n}
+                \underset{binomial\ term}{\underbrace{\binom{n}{i}}}
+                \cdot\
+                \underset{polynomial\ term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
+                \cdot\
+                \underset{weight}{\underbrace{w_i}}
+\]
+
+<p>That looks complicated, but as it so happens, the "weights" are actually just the coordinate values we want our curve to have: for an <i>n<sup>th</sup>
+</i> order curve, w<sub>0</sub> is our start coordinate, w<sub>n</sub> is our last coordinate, and everything in between is a controlling coordinate. Say we want a cubic curve that starts at (120,160), is controlled by (35,200) and (220,260) and ends at (220,40), we use this Bézier curve:</p>
+
+\[
+\left \{ \begin{matrix}
+  x = BLUE[120] \cdot (1-t)^3 + BLUE[35] \cdot 3 \cdot (1-t)^2 \cdot t + BLUE[220] \cdot 3 \cdot (1-t) \cdot t^2 + BLUE[220] \cdot t^3 \\
+  y = BLUE[160] \cdot (1-t)^3 + BLUE[200] \cdot 3 \cdot (1-t)^2 \cdot t + BLUE[260] \cdot 3 \cdot (1-t) \cdot t^2 + BLUE[40] \cdot t^3
+\end{matrix} \right.
+\]
+
+<p>Which gives us the curve we saw at the top of the article:</p>
+<Graphic preset="simple" title="Our cubic Bézier curve" setup={handler.drawCubic} draw={handler.drawCurve}/>
+
+<p>What else can we do with Bézier curves? Quite a lot, actually. The rest of this article covers a multitude of possible operations and algorithms that we can apply, and the tasks they achieve.</p>
+
+<div className="howtocode">
+<h3 id="how-to-implement-the-weighted-basis-function">How to implement the weighted basis function</h3>
+<p>Given that we already know how to implement basis function, adding in the control points is remarkably easy:</p>
+<pre>
+<code>function Bezier(n,t,w[]):
+  sum = 0
+  for(k=0; k&lt;n; k++):
+    sum += w[k] * binomial(n,k) * (1-t)^(n-k) * t^(k)
+  return sum
+</code>
+</pre>
+<p>And for the extremely optimized versions:</p>
+<pre>
+<code>function Bezier(2,t,w[]):
+  t2 = t * t
+  mt = 1-t
+  mt2 = mt * mt
+  return w[0]*mt2 + w[1]*2*mt*t + w[2]*t2
+
+function Bezier(3,t,w[]):
+  t2 = t * t
+  t3 = t2 * t
+  mt = 1-t
+  mt2 = mt * mt
+  mt3 = mt2 * mt
+  return w[0]*mt3 + 3*w[1]*mt2*t + 3*w[2]*mt*t2 + w[3]*t3
+</code>
+</pre>
+<p>And now we know how to program the weighted basis function.</p>
+</div>
 </section>; }
 
   },

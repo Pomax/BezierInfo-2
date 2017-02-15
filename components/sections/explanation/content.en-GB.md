@@ -96,21 +96,25 @@ It's basically just a sum of "every combination of <i>a</i> and <i>b</i>", progr
 And that's the full description for Bézier curves. Σ in this function indicates that this is a series of additions (using the variable listed below the Σ, starting at ...=&lt;value&gt; and ending at the value listed on top of the Σ).
 
 <div className="howtocode">
+
 ### How to implement the basis function
 
 We could naively implement the basis function as a mathematical construct, using the function as our guide, like this:
 
-<pre>function Bezier(n,t):
+```
+function Bezier(n,t):
   sum = 0
   for(k=0; k<n; k++):
     sum += n!/(k!*(n-k)!) * (1-t)^(n-k) * t^(k)
-  return sum</pre>
+  return sum
+```
 
 I say we could, because we're not going to: the factorial function is *incredibly* expensive. And, as we can see from the above explanation, we can actually create Pascal's triangle quite easily without it: just start at [1], then [1,1], then [1,2,1], then [1,3,3,1], and so on, with each next row fitting 1 more number than the previous row, starting and ending with "1", with all the numbers in between being the sum of the previous row's elements on either side "above" the one we're computing.
 
 We can generate this as a list of lists lightning fast, and then never have to compute the binomial terms because we have a lookup table:
 
-<pre>lut = [      [1],           // n=0
+```
+lut = [      [1],           // n=0
             [1,1],          // n=1
            [1,2,1],         // n=2
           [1,3,3,1],        // n=3
@@ -127,19 +131,23 @@ binomial(n,k):
       nextRow[i] = lut[prev][i-1] + lut[prev][i]
     nextRow[s] = 1
     lut.add(nextRow)
-  return lut[n][k]</pre>
+  return lut[n][k]
+```
 
 So what's going on here? First, we declare a lookup table with a size that's reasonably large enough to accommodate most lookups. Then, we declare a function to get us the values we need, and we make sure that if an n/k pair is requested that isn't in the LUT yet, we expand it first. Our basis function now looks like this:
 
-<pre>function Bezier(n,t):
+```
+function Bezier(n,t):
   sum = 0
   for(k=0; k<=n; k++):
     sum += binomial(n,k) * (1-t)^(n-k) * t^(k)
-  return sum</pre>
+  return sum
+```
 
 Perfect. Of course, we can optimize further. For most computer graphics purposes, we don't need arbitrary curves. We need quadratic and  cubic curves (this primer actually does do arbitrary curves, so you'll find code similar to shown here), which means we can drastically simplify the code:
 
-<pre>function Bezier(2,t):
+```
+function Bezier(2,t):
   t2 = t * t
   mt = 1-t
   mt2 = mt * mt
@@ -151,9 +159,11 @@ function Bezier(3,t):
   mt = 1-t
   mt2 = mt * mt
   mt3 = mt2 * mt
-  return mt3 + 3*mt2*t + 3*mt*t2 + t3</pre>
+  return mt3 + 3*mt2*t + 3*mt*t2 + t3
+```
 
 And now we know how to program the basis function. Exellent.
+
 </div>
 
 So, now we know what the base function(s) look(s) like, time to add in the magic that makes Bézier curves so special: control points.

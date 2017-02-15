@@ -7,7 +7,7 @@ var page = "whatis";
 var Whatis = React.createClass({
   getDefaultProps: function() {
     return {
-      title: "So what makes a Bézier Curve?"
+      title: locale.getTitle(page)
     };
   },
 
