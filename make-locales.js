@@ -15,7 +15,40 @@ Module.prototype.require = function() {
   }
 };
 
+/**
+ *
+ */
+function chunkGraphicJSX(data, chunks, chunkMore) {
+  var p = 0,
+      next = chunkMore ? chunkMore[0] : false,
+      otherChunkers = chunkMore ? chunkMore.slice(1) : false,
+      gfxTag = '<Graphic',
+      gfxEnd = '/>';
 
+  while (p !== -1) {
+    // Let's check a LaTeX block
+    let gfx = data.indexOf(gfxTag, p);
+    if (gfx === -1) {
+      // No <Graphic/> block found: we're done here. Parse the remaining
+      // data for whatever else might be in there.
+      performChunking(data.substring(p), chunks, next, otherChunkers);
+      break;
+    }
+
+    // First parse the non-<Graphic/> data for whatever else might be in there.
+    performChunking(data.substring(p, gfx), chunks, next, otherChunkers);
+
+    // Then capture the <Graphic/> block and mark it as "don't convert"
+    let eol = data.indexOf(gfxEnd, gfx) + gfxEnd.length;
+    chunks.push({ convert: false, type: "gfx", s:gfx, e:eol, data: data.substring(gfx, eol) });
+    p = eol;
+  }
+}
+
+
+/**
+ *
+ */
 function chunkDivs(data, chunks, chunkMore) {
   var p = 0,
       next = chunkMore ? chunkMore[0] : false,
@@ -108,7 +141,7 @@ function performChunking(data, chunks, chunker, moreChunkers) {
  */
 function chunk(data) {
   var chunks = [];
-  performChunking(data, chunks, chunkLatex, [chunkDivs]);
+  performChunking(data, chunks, chunkLatex, [chunkDivs, chunkGraphicJSX]);
   return chunks;
 }
 
