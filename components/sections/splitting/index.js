@@ -1,11 +1,13 @@
 var React = require("react");
-var Graphic = require("../../Graphic.jsx");
-var SectionHeader = require("../../SectionHeader.jsx");
+
+var Locale = require("../../../lib/locale");
+var locale = new Locale("en-GB");
+var page = "splitting";
 
 var Splitting = React.createClass({
   getDefaultProps: function() {
     return {
-      title: "Splitting curves"
+      title: locale.getTitle(page)
     };
   },
 
@@ -101,50 +103,7 @@ var Splitting = React.createClass({
 
   render: function() {
     return (
-      <section>
-        <SectionHeader {...this.props} />
-
-        <p>With de Casteljau's algorithm we also find all the points we need to split up a Bézier curve into two, smaller
-        curves, which taken together form the original curve. When we construct de Casteljau's skeleton for some value
-        <i>t</i>, the procedure gives us all the points we need to split a curve at that <i>t</i> value: one curve is defined
-        by all the inside skeleton points found prior to our on-curve point, with the other curve being defined by all the
-        inside skeleton points after our on-curve point.</p>
-
-        <Graphic title="Splitting a curve" setup={this.setupCubic} draw={this.drawSplit} />
-
-        <div className="howtocode">
-          <h3>implementing curve splitting</h3>
-
-          <p>We can implement curve splitting by bolting some extra logging onto the de Casteljau function:</p>
-
-<pre>left=[]
-right=[]
-function drawCurve(points[], t):
-  if(points.length==1):
-    left.add(points[0])
-    right.add(points[0])
-    draw(points[0])
-  else:
-    newpoints=array(points.size-1)
-    for(i=0; i<newpoints.length; i++):
-      if(i==0):
-        left.add(points[i])
-      if(i==newpoints.length-1):
-        right.add(points[i+1])
-      newpoints[i] = (1-t) * points[i] + t * points[i+1]
-    drawCurve(newpoints, t)</pre>
-
-          <p>After running this function for some value <i>t</i>, the <i>left</i> and <i>right</i> arrays
-          will contain all the coordinates for two new curves - one to the "left" of our <i>t</i> value,
-          the other on the "right", of the same order as the original curve, and overlayed exactly on the
-          original curve.</p>
-        </div>
-
-        <p>This is best illustrated with an animated graphic (click to play/pause):</p>
-
-        <Graphic preset="threepanel" title="Bézier curve splitting" setup={this.setupCubic} draw={this.drawAnimated} onClick={this.togglePlay} />
-
-      </section>
+      <section>{ locale.getContent(page, this) }</section>
     );
   }
 });

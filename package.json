@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "pomax.github.io/bezierinfo",
   "scripts": {
-    "build": "npm run less && webpack --prod",
-    "dev": "node make-locales && npm run less && webpack-dev-server --progress --colors --hot --inline",
+    "localize": "node make-locales",
+    "build": "npm run localize && npm run less && webpack -p",
+    "dev": "npm run localize && npm run less && webpack-dev-server --progress --colors --hot --inline",
     "latex": "node tools/mathjax",
     "less": "lessc stylesheets/style.less > stylesheets/style.css",
     "singles": "npm run dev -- --singles",

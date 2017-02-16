@@ -20,21 +20,9 @@ var webpackLoaders = [
   'eslint-loader',
   __dirname + '/lib/latex-loader',
   __dirname + '/lib/pre-loader',
-  __dirname + '/lib/p-loader'
+  __dirname + '/lib/p-loader',
+  __dirname + '/lib/textarea-loader'
 ];
-
-var plugins = [];
-
-// Dev mode: make certain concessions to speed up dev work.
-if(process.argv.indexOf("--prod") === -1 && process.argv.indexOf("--lint")) {
-  // allow code in textareas when in dev mode:
-  webpackLoaders.push(__dirname + '/lib/textarea-loader');
-}
-
-// Prod mode: make sure to minify the bundle
-else if(process.argv.indexOf("--prod") > -1) {
-  plugins.push(new webpack.optimize.UglifyJsPlugin());
-}
 
 console.log("content for entry:", entry);
 
@@ -67,6 +55,5 @@ module.exports = {
         loaders: webpackLoaders
       }
     ]
-  },
-  plugins: plugins
+  }
 };

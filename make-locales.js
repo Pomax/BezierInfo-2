@@ -161,16 +161,16 @@ sections.forEach((cname, number) => {
       if (!block.convert) return block.data;
       // markdown conversion is a little more work
       let d = marked(block.data.trim());
-      // And then some post-processing...
+      // serious can we fucking not, please.
+      d = d.replace('<p></div></p>', '</div>')
+           .replace(/&amp;/g, '&')
+           .replace(/&#39;/g, "'")
+           .replace(/&quot;/g, '"')
+      // And then title extraction/rewriting
       d = d.replace(/<h1[^>]+>([^<]+)<\/h1>/,function(_,t) {
         title = t;
         return `<SectionHeader name="${cname}" title="` + t + `"${ number ? ' number="'+number+'"': ''}/>`;
       });
-      d = d.replace('<p></div></p>', '</div>')
-           // serious can we fucking not, please.
-           .replace(/&#39;/g, "'")
-           .replace(/&amp;/g, '&')
-           .replace(/&quot;/g, '"')
       return d;
     }).join('');
   } catch (e) {
