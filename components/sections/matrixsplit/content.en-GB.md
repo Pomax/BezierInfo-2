@@ -182,7 +182,7 @@ Deriving the two segments upon splitting a curve takes a few steps, and the high
   \end{bmatrix}
   \cdot
   M
-  \underset{...to\ get\ \ this!}{\underbrace{ \kern 1.25em \cdot \kern 1.25em Q \kern 1.25em \cdot \kern 1.25em}}
+  \underset{...to\ get\ this!}{\underbrace{ \kern 1.25em \cdot \kern 1.25em Q \kern 1.25em \cdot \kern 1.25em}}
   \begin{bmatrix}
   P_1 \\ P_2 \\ P_3
   \end{bmatrix}

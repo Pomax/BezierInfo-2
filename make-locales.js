@@ -2,7 +2,10 @@ var marked = require("marked");
 var fs = require("fs-extra");
 
 // bundle all content in a specific locale for use by the app
-var locale = process.env.locale || "en-GB";
+const defaultLocale = "en-GB";
+var locale = defaultLocale;
+var lpos = process.argv.indexOf('--locale');
+if (lpos !== -1) { locale = process.argv[lpos+1]; }
 
 // shim nodejs so that it knows what to do with jsx files: return empty objects.
 var Module = require('module');
@@ -154,7 +157,17 @@ var index = require("./components/sections");
 var sections = Object.keys(index);
 var content = {};
 sections.forEach((cname, number) => {
-  var loc = `./components/sections/${cname}/content.${locale}.md`;
+
+  // Grab locale file, or defaultLocale file if the chosen locale has
+  // has no translated content (yet)...
+  var localeCode = locale;
+  var loc = `./components/sections/${cname}/content.${localeCode}.md`;
+  if (!fs.existsSync(loc)) {
+    localeCode = defaultLocale;
+    loc = `./components/sections/${cname}/content.${localeCode}.md`;
+  }
+
+  // Read in the content.{lang}.md file
   var data, title;
   try {
     data = fs.readFileSync(loc).toString();
@@ -171,7 +184,7 @@ sections.forEach((cname, number) => {
            .replace(/&#39;/g, "'")
            .replace(/&quot;/g, '"')
 
-      // ``` conversion does odd things
+      // ``` conversion does odd things with <code> tags inside <pre> tags.
       d = d.replace(/<pre>(\r?\n)*<code>/g,'<pre>')
            .replace(/<\/code>(\r?\n)*<\/pre>/g,'</pre>');
 
@@ -183,12 +196,10 @@ sections.forEach((cname, number) => {
 
       return d;
     }).join('');
-  } catch (e) {
-    data = '';
-    title = `Unknown title (${cname})`;
-  }
+  } catch (e) { data = ''; title = `Unknown title (${cname})`; }
 
   content[cname] = {
+    locale: localeCode,
     title: title,
     getContent: "<section>" + data + "</section>"
   };

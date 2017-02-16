@@ -4,27 +4,28 @@ var SectionHeader = require("../../components/SectionHeader.jsx");
 
 module.exports = {
   "preface": {
-    "locale": "en-GB",
-    "title": "Preface",
+    "locale": "zh-CN",
+    "title": "序言",
     "getContent": function(handler) { return <section>
-<SectionHeader name="preface" title="Preface"/>
-<p>In order to draw things in 2D, we usually rely on lines, which typically get classified into two categories: straight lines, and curves. The first of these are as easy to draw as they are easy to make a computer draw. Give a computer the first and last point in the line, and BAM! straight line. No questions asked.</p>
-<p>Curves, however, are a much bigger problem. While we can draw curves with ridiculous ease freehand, computers are a bit handicapped in that they can't draw curves unless there is a mathematical function that describes how it should be drawn. In fact, they even need this for straight lines, but the function is ridiculously easy, so we tend to ignore that as far as computers are concerned, all lines are "functions", regardless of whether they're straight or curves. However, that does mean that we need to come up with fast-to-compute functions that lead to nice looking curves on a computer. There's a number of these, and in this article we'll focus on a particular function that has received quite a bit of attention, and is used in pretty much anything that can draw curves: "Bézier" curves</p>
-<p>They're named after <a href="https://en.wikipedia.org/wiki/Pierre_B%C3%A9zier">Pierre Bézier</a>, who is principally responsible for getting them known to the world as a curve well-suited for design work (working for Renault and publishing his investigations in 1962), although he was not the first, or only one, to "invent" these type of curves. One might be tempted to say that the mathematician <a href="https://en.wikipedia.org/wiki/Paul_de_Casteljau">Paul de Casteljau</a> was first, investigating the nature of these curves in 1959 while working at Citroën, coming up with a really elegant way of figuring out how to draw them. However, de Casteljau did not publish his work, making the question "who was first" hard to answer in any absolute sense. Or is it? Bézier curves are, at their core, "Bernstein polynomials", a family of mathematical functions investigated by <a href="https://en.wikipedia.org/wiki/Sergei_Natanovich_Bernstein">Sergei Natanovich Bernstein</a>, with publications on them at least as far back as 1912. Anyway, that's mostly trivia, what you are more likely to care about is that these curves are handy: you can link up multiple Bézier curves so that the combination looks like a single curve. If you've ever drawn Photoshop "paths" or worked with vector drawing programs like Flash, Illustrator or nkscape, those curves you've been drawing are Bézier curves.</p>
-<p>So, what if you need to program them yourself? What are the pitfalls? How do you draw them? What are the bounding boxes, how do you determine intersections, how can you extrude a curve, in short: how do you do everything that you might want when you do with these curves? That's what this page is for. Prepare to be mathed!</p>
-<p>—Pomax (or in the tweetworld, <a href="https://twitter.com/TheRealPomax">@TheRealPomax</a>)</p>
+<SectionHeader name="preface" title="序言"/>
+<p>我们通常用线条来绘制2D图形，大致分为两种线条：直线和曲线。不论我们动手还是用电脑，都能很容易地画出第一种线条。只要给电脑起点和终点，砰！直线就画出来了。没什么好疑问的。</p>
+<p>然而，绘制曲线却是个大问题。虽然我们可以很容易地徒手画出曲线，但除非给出描述曲线的数学函数，不然计算机无法画出曲线。实际上，画直线时也需要数学函数，但画直线所需的方程式很简单，我们在这里不去考虑。在计算机看来，所有线条都是“函数”，不管它们是直线还是曲线。然而，这就表示我们需要找到能在计算机上表现良好的曲线方程。这样的曲线有很多种，在本文我们主要关注一类特殊的、备受关注的函数，基本上任何画曲线的地方都会用到它：贝塞尔曲线。</p>
+<p>它们是以<a href="https://en.wikipedia.org/wiki/Pierre_B%C3%A9zier">Pierre Bézier</a>命名的，尽管他并不是第一个，或者说唯一“发明”了这种曲线的人，但他让世界知道了这种曲线十分适合设计工作（在1962年为Renault工作并发表了他的研究）。有人也许会说数学家<a href="https://en.wikipedia.org/wiki/Paul_de_Casteljau">Paul de Casteljau</a>是第一个发现这类曲线特性的人，在Citroën工作时，他提出了一种很优雅的方法来画这些曲线。然而，de Casteljau没有发表他的工作，这使得“谁先发现”这一问题很难有一个确切的答案。
+贝塞尔曲线本质上是伯恩斯坦多项式，这是<a href="https://en.wikipedia.org/wiki/Sergei_Natanovich_Bernstein">Sergei Natanovich Bernstein</a>研究的一种数学函数，关于它们的出版物至少可以追溯到1912年。无论如何，这些都只是一些冷知识，你可能更在意的是这些曲线很方便：你可以连接多条贝塞尔曲线，并且连接起来的曲线看起来就像是一条曲线。甚至，在你在Photoshop中画“路径”或使用一些像Flash、Illustrator和Inkscape这样的矢量绘图程序时，所画的曲线都是贝塞尔曲线。</p>
+<p>那么，要是你自己想编程实现它们呢？有哪些陷阱？你怎么画它们？包围盒是怎么样的，怎么确定交点，怎么拉伸曲线，简单来说：你怎么对曲线做一切你想做的事？这就是这篇文章想说的。准备好学习一些数学吧!</p>
+<p>—Pomax (推特账号, <a href="https://twitter.com/TheRealPomax">@TheRealPomax</a>)</p>
 
 <div className="note">
-<h2 id="note-virtually-all-b-zier-graphics-are-interactive-">Note: virtually all Bézier graphics are interactive.</h2>
-<p>This page uses interactive examples, relying heavily on <a href="http://pomax.github.io/bezierjs">Bezier.js</a>, as well as "real" maths (in LaTeX form) which is typeset using the most excellent <a href="http://MathJax.org">MathJax</a> library. The page is generated offline as a React application, using Webpack, which has made adding "view source" options considerably more challenging. I'm still trying to figure out how to add them back in, but it didn't feel like it should hold up deploying this update compared to the previous years' version.</p>
-<h2 id="this-book-is-open-source-">This book is open source.</h2>
-<p>This book is an open source software project, and lives on two github repositorites. The first is <a href="https://github.com/pomax/bezierinfo">https://github.com/pomax/bezierinfo</a> and is the purely-for-presentation version you are viewing right now. The other repository is <a href="https://github.com/pomax/BezierInfo-2">https://github.com/pomax/BezierInfo-2</a>, which is the development version, housing all the html, javascript, and css. You can fork either of these, and pretty much do with them as you please, except for passing it off as your own work wholesale, of course =)</p>
-<h2 id="how-complicated-is-the-maths-going-to-be-">How complicated is the maths going to be?</h2>
-<p>Most of the mathematics in this Primer are early high school maths. If you understand basic arithmetic, and you know how to read English, you should be able to get by just fine. There will at times be <em>far</em> more complicated maths, but if you don't feel like digesting them, you can safely skip over them by either skipping over the "detail boxes" in section or by just jumping to the end of a section with maths that looks too involving. The end of sections typically simply list the conclusions so you can just work with those values directly.</p>
-<h2 id="questions-comments-">Questions, comments:</h2>
-<p>If you have suggestions for new sections, hit up the <a href="https://github.com/pomax/BezierInfo-2/issues">Github issue tracker</a> (also reachable from the repo linked to in the upper right). If you have questions about the material, there's currently no comment section while I'm doing the rewrite, but you can use the issue tracker for that as well. Once the rewrite is done, I'll add a general comment section back in, and maybe a more topical "select this section of text and hit the 'question' button to ask a question about it" system. We'll see.</p>
-<h2 id="buy-me-a-coffee-">Buy me a coffee?</h2>
-<p>If you enjoyed this book, or you simply found it useful for something you were trying to get done, and you were wondering how to let me know you appreciated this book, you can always <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPRDLNGDANJSW">buy me a coffee</a>, however-much a coffee is where you live. This work has grown over the years, from a small primer to a 70ish print-page-equivalent reader on the subject of Bézier curves, and a lot of coffee went into the making of it. I don't regret a minute I spent on writing it, but I can always do with some more coffee to keep on writing!</p>
+<h2 id="-">注意：几乎所有的贝塞尔图形都是可交互的。</h2>
+<p>这个页面使用了基于<a href="http://pomax.github.io/bezierjs">Bezier.js</a> 的可交互例子，还有一些用<a href="http://MathJax.org">MathJax</a> 排版的“真正的”数学（LaTeX形式）。这个页面是用Webpack离线生成的React应用，这便让加入“查看源码”选项更具挑战性了。我仍然试图将它们添加回来，但跟前几年的版本相比，不觉得它能够支撑部署这个更新。</p>
+<h2 id="-">这本书是开源的。</h2>
+<p>这本书是开源的软件项目，现有两个github仓库。第一个<a href="https://github.com/pomax/bezierinfo">https://github.com/pomax/bezierinfo</a>，它是你现在在看的这个，纯粹用来展示的版本。另外一个<a href="https://github.com/pomax/BezierInfo-2">https://github.com/pomax/BezierInfo-2</a>，是带有所有html, javascript和css的开发版本。你可以fork任意一个，随便做些什么，当然除了把它当作自己的作品来商用。 =)</p>
+<h2 id="-">用到的数学将有多复杂？</h2>
+<p>这份入门读物用到的大部分数学知识都是高中所学的。如果你理解基本的计算并能看懂英文的话，就能上手这份材料。有时候会用到<em>复杂</em>一点的数学，但如果你不想深究它们，可以选择跳过段落里的“详解”部分，或者直接跳到章节末尾，避开那些看起来很深入的数学。章节的末尾往往会列出一些结论，因此你可以直接利用这些结论。</p>
+<h2 id="-">问题，评论：</h2>
+<p>如果你有对于新章节的一些建议，点击 <a href="https://github.com/pomax/BezierInfo-2/issues">Github issue tracker</a> （也可以点右上角的repo链接）。如果你有关于材料的一些问题，由于我现在在做改写工作，目前没有评论功能，但你可以用issue跟踪来发表评论。一旦完成重写工作，我会把评论功能加上，或者会有“选择文字段落，点击‘问题’按钮来提问”的系统。到时候我们看看。</p>
+<h2 id="-">给我买杯咖啡？</h2>
+<p>如果你很喜欢这本书，或发现它对你要做的事很有帮助，或者你想知道怎么表达自己对这本书的感激，你可以 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPRDLNGDANJSW">给我买杯咖啡</a> ，所少钱取决于你。这份工作持续了很多年，从一份小小的简要到70多页关于贝塞尔曲线的读物，在完成它的过程中倾注了很多咖啡。我从未后悔花在这上面的每一分钟，但如果有更多咖啡的话，我可以坚持写下去!</p>
 </div>
 </section>; }
 

@@ -2,6 +2,11 @@ var webpack = require('webpack');
 var path = require('path');
 var fs = require('fs');
 
+const defaultLocale = "en-GB";
+var locale = process.env.locale || defaultLocale;
+
+console.log("Using locale: "+locale);
+
 // Bundle entry point
 var entry = ['./components/App.jsx'];
 
@@ -24,13 +29,29 @@ var webpackLoaders = [
   __dirname + '/lib/textarea-loader'
 ];
 
-console.log("content for entry:", entry);
+var resolve = {
+  alias: {
+    LocalizedContent: path.resolve(__dirname, 'locales/en-GB/content.js')
+  }
+};
+
+// switch the locales
+if (locale !== defaultLocale) {
+  resolve = {
+    alias: {
+      LocalizedContent: path.resolve(__dirname, 'locales/' + locale + '/content.js')
+    }
+  };
+  output.filename = 'article.' + locale + '.js';
+  console.log("using " + resolve.alias.LocalizedContent + " for output " + output.filename);
+}
 
 // And the final config that webpack will read in.
 module.exports = {
   entry:  entry,
   target: target,
   output: output,
+  resolve: resolve,
   module: {
     loaders: [
       {

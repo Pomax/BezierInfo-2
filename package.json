@@ -5,7 +5,11 @@
   "scripts": {
     "localize": "node make-locales",
     "build": "npm run localize && npm run less && webpack -p",
+    "build:zh-CN": "npm run localize && npm run less && cross-env LOCALE=zh-CN webpack -p",
+
     "dev": "npm run localize && npm run less && webpack-dev-server --progress --colors --hot --inline",
+    "dev:zh-CN": "npm run localize && npm run less && cross-env LOCALE=zh-CN webpack-dev-server --progress --colors --hot --inline",
+
     "latex": "node tools/mathjax",
     "less": "lessc stylesheets/style.less > stylesheets/style.css",
     "singles": "npm run dev -- --singles",
@@ -39,6 +43,7 @@
     "bezier-js": "^2.0.0",
     "block-loader": "^2.0.0",
     "chroma-js": "^1.1.1",
+    "cross-env": "^3.1.4",
     "css-loader": "^0.23.0",
     "eslint": "^1.10.3",
     "eslint-loader": "^1.6.0",
