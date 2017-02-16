@@ -19,7 +19,7 @@
 
 ## 这本书是开源的。
 
-这本书是开源的软件项目，现有两个github仓库。第一个[https://github.com/pomax/bezierinfo](https://github.com/pomax/bezierinfo) ，它是你现在在看的这个，纯粹用来展示的版本。另外一个[https://github.com/pomax/BezierInfo-2](https://github.com/pomax/BezierInfo-2) ，是带有所有html, javascript和css的开发版本。你可以fork任意一个，随便做些什么，当然除了把它当作自己的作品来商用。 =)
+这本书是开源的软件项目，现有两个github仓库。第一个[https://github.com/pomax/bezierinfo]( https://github.com/pomax/bezierinfo )，它是你现在在看的这个，纯粹用来展示的版本。另外一个[https://github.com/pomax/BezierInfo-2]( https://github.com/pomax/BezierInfo-2 )，是带有所有html, javascript和css的开发版本。你可以fork任意一个，随便做些什么，当然除了把它当作自己的作品来商用。 =)
 
 ## 用到的数学将有多复杂？
 
