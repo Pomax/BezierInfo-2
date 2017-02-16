@@ -209,6 +209,10 @@
     </article>
 
     <!-- the actual article is a JS bundle -->
-    <script src="article.js" async></script>
+    <script>
+      var s = document.createElement("script");
+      s.src = "article.js?ts=" + Date.now();
+      document.head.appendChild(s);
+    </script>
   </body>
 </html>

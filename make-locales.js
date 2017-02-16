@@ -100,7 +100,7 @@ function chunkLatex(data, chunks, chunkMore) {
   var p = 0,
       next = chunkMore ? chunkMore[0] : false,
       otherChunkers = chunkMore ? chunkMore.slice(1) : false,
-      latexEnd = '\\]\n\n';
+      latexEnd = '\\]\n';
 
   while (p !== -1) {
     // Let's check a LaTeX block
@@ -127,7 +127,9 @@ function performChunking(data, chunks, chunker, moreChunkers) {
   // If there's no further chunking function to run, just
   // record this data as a chunk of convertible data.
   if (!chunker) {
-    chunks.push({ convert: true, data: data });
+    if (data.trim()!=='') {
+      chunks.push({ convert: true, data: data });
+    }
     return "early";
   }
 
@@ -159,18 +161,26 @@ sections.forEach((cname, number) => {
     data = chunk(data).map(block => {
       // preserver is simple
       if (!block.convert) return block.data;
+
       // markdown conversion is a little more work
       let d = marked(block.data.trim());
+
       // serious can we fucking not, please.
       d = d.replace('<p></div></p>', '</div>')
            .replace(/&amp;/g, '&')
            .replace(/&#39;/g, "'")
            .replace(/&quot;/g, '"')
+
+      // ``` conversion does odd things
+      d = d.replace(/<pre>(\r?\n)*<code>/g,'<pre>')
+           .replace(/<\/code>(\r?\n)*<\/pre>/g,'</pre>');
+
       // And then title extraction/rewriting
       d = d.replace(/<h1[^>]+>([^<]+)<\/h1>/,function(_,t) {
         title = t;
         return `<SectionHeader name="${cname}" title="` + t + `"${ number ? ' number="'+number+'"': ''}/>`;
       });
+
       return d;
     }).join('');
   } catch (e) {

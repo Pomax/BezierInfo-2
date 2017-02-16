@@ -60,7 +60,6 @@ Given \left (
   \end{align}
 \right ),\ our\ new\ point = p_1 + distance \cdot ratio
 \]
-
 <p>So let's look at that in action: the following graphic is interactive in that you can use your up and down arrow keys to increase or decrease the interpolation ratio, to see what happens. We start with three points, which gives us two lines. Linear interpolation over those lines gives use two points, between which we can again perform linear interpolation, yielding a single point. And that point —and all points we can form in this way for all ratios taken together— form our Bézier curve:</p>
 <Graphic title="Linear Interpolation leading to Bézier curves" setup={handler.setup} draw={handler.draw} onKeyDown={handler.onKeyDown}/>
 <p>And that brings us to the complicated maths: calculus.</p>
@@ -78,7 +77,6 @@ Given \left (
 \[
   f(x) = \cos(x)
 \]
-
 <p>The notation <i>f(x)</i> is the standard way to show that it's a function (by convention called <i>f</i> if we're only listing one) and its output changes based on one variable (in this case, <i>x</i>). Change <i>x</i>, and the output for <i>f(x)</i> changes.</p>
 <p>So far so good. Now, let's look at parametric functions, and how they cheat. Let's take the following two functions:</p>
 
@@ -88,7 +86,6 @@ Given \left (
   f(b) = \sin(b)
 \end{matrix}
 \]
-
 <p>There's nothing really remarkable about them, they're just a sine and cosine function, but you'll notice the inputs have different names. If we change the value for <i>a</i>, we're not going to change the output value for <i>f(b)</i>, since <i>a</i> isn't used in that function. Parametric functions cheat by changing that. In a parametric function all the different functions share a variable, like this:</p>
 
 \[
@@ -97,7 +94,6 @@ Given \left (
   f_b(t) = \sin(t)
 \end{matrix} \right.
 \]
-
 <p>Multiple functions, but only one variable. If we change the value for <i>t</i>, we change the outcome of both <i>f<sub>a</sub>(t)</i> and <i>f<sub>b</sub>(t)</i>. You might wonder how that's useful, and the answer is actually pretty simple: if we change the labels <i>f<sub>a</sub>(t)</i> and <i>f<sub>b</sub>(t)</i> with what we usually mean with them for parametric curves, things might be a lot more obvious:</p>
 
 \[
@@ -106,7 +102,6 @@ Given \left (
   y = \sin(t)
 \end{matrix} \right.
 \]
-
 <p>There we go. <i>x</i>/<i>y</i> coordinates, linked through some mystery value <i>t</i>.</p>
 <p>So, parametric curves don't define a <i>y</i> coordinate in terms of an <i>x</i> coordinate, like normal functions do, but they instead link the values to a "control" variable. If we vary the value of <i>t</i>, then with every change we get <strong>two</strong> values, which we can use as (<i>x</i>,<i>y</i>) coordinates in a graph. The above set of functions, for instance, generates points on a circle: We can range <i>t</i> from negative to positive infinity, and the resulting (<i>x</i>,<i>y</i>) coordinates will always lie on a circle with radius 1 around the origin (0,0). If we plot it for <i>t</i> from 0 to 5, we get this (use your up and down arrow keys to change the plot end value):</p>
 <Graphic preset="empty" title="A (partial) circle: x=sin(t), y=cos(t)" static={true} setup={handler.setup} draw={handler.draw} onKeyDown={handler.props.onKeyDown}/>
@@ -116,7 +111,6 @@ Given \left (
 \[
   f(x) = a \cdot x^3 + b \cdot x^2 + c \cdot x + d
 \]
-
 <p>If they have a highest order term <i>x³</i> they're called "cubic" polynomials, if it's <i>x²</i> it's a "square" polynomial, if it's just <i>x</i> it's a line (and if there aren't even any terms with <i>x</i> it's not a polynomial!)</p>
 <p>Bézier curves are polynomials of <i>t</i>, rather than <i>x</i>, with the value for <i>t</i> fixed being between 0 and 1, with coefficients <i>a</i>, <i>b</i> etc. taking the "binomial" form, which sounds fancy but is actually a pretty simple description for mixing values:</p>
 
@@ -127,7 +121,6 @@ Given \left (
   cubic &= (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
 \end{align*}
 \]
-
 <p>I know what you're thinking: that doesn't look too simple, but if we remove <i>t</i> and add in "times one", things suddenly look pretty easy. Check out these binomial terms:</p>
 
 \[
@@ -138,7 +131,6 @@ Given \left (
   hypercubic &= 1 + 4 + 6 + 4 + 1
 \end{align*}
 \]
-
 <p>Notice that 2 is the same as 1+1, and 3 is 2+1 and 1+2, and 6 is 3+3... As you can see, each time we go up a dimension, we simply start and end with 1, and everything in between is just "the two numbers above it, added together". Now <i>that's</i> easy to remember.</p>
 <p>There's an equally simple way to figure out how the polynomial terms work: if we rename <i>(1-t)</i> to <i>a</i> and <i>t</i> to <i>b</i>, and remove the weights for a moment, we get this:</p>
 
@@ -149,7 +141,6 @@ Given \left (
   cubic &= BLUE[a] \cdot BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot BLUE[a] \cdot RED[b] + BLUE[a] \cdot RED[b] \cdot RED[b] + RED[b] \cdot RED[b] \cdot RED[b]\\
 \end{align*}
 \]
-
 <p>It's basically just a sum of "every combination of <i>a</i> and <i>b</i>", progressively replacing <i>a</i>'s with <i>b</i>'s after every + sign. So that's actually pretty simple too. So now you know binomial polynomials, and just for completeness I'm going to show you the generic function for this:</p>
 
 \[
@@ -158,24 +149,20 @@ Given \left (
                 \cdot\
                 \underset{polynomial\ term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
 \]
-
 <p>And that's the full description for Bézier curves. Σ in this function indicates that this is a series of additions (using the variable listed below the Σ, starting at ...=&lt;value&gt; and ending at the value listed on top of the Σ).</p>
 
 <div className="howtocode">
 <h3 id="how-to-implement-the-basis-function">How to implement the basis function</h3>
 <p>We could naively implement the basis function as a mathematical construct, using the function as our guide, like this:</p>
-<pre>
-<code>function Bezier(n,t):
+<pre>function Bezier(n,t):
   sum = 0
   for(k=0; k&lt;n; k++):
     sum += n!/(k!*(n-k)!) * (1-t)^(n-k) * t^(k)
   return sum
-</code>
 </pre>
 <p>I say we could, because we're not going to: the factorial function is <em>incredibly</em> expensive. And, as we can see from the above explanation, we can actually create Pascal's triangle quite easily without it: just start at [1], then [1,1], then [1,2,1], then [1,3,3,1], and so on, with each next row fitting 1 more number than the previous row, starting and ending with "1", with all the numbers in between being the sum of the previous row's elements on either side "above" the one we're computing.</p>
 <p>We can generate this as a list of lists lightning fast, and then never have to compute the binomial terms because we have a lookup table:</p>
-<pre>
-<code>lut = [      [1],           // n=0
+<pre>lut = [      [1],           // n=0
             [1,1],          // n=1
            [1,2,1],         // n=2
           [1,3,3,1],        // n=3
@@ -193,20 +180,16 @@ binomial(n,k):
     nextRow[s] = 1
     lut.add(nextRow)
   return lut[n][k]
-</code>
 </pre>
 <p>So what's going on here? First, we declare a lookup table with a size that's reasonably large enough to accommodate most lookups. Then, we declare a function to get us the values we need, and we make sure that if an n/k pair is requested that isn't in the LUT yet, we expand it first. Our basis function now looks like this:</p>
-<pre>
-<code>function Bezier(n,t):
+<pre>function Bezier(n,t):
   sum = 0
   for(k=0; k&lt;=n; k++):
     sum += binomial(n,k) * (1-t)^(n-k) * t^(k)
   return sum
-</code>
 </pre>
 <p>Perfect. Of course, we can optimize further. For most computer graphics purposes, we don't need arbitrary curves. We need quadratic and  cubic curves (this primer actually does do arbitrary curves, so you'll find code similar to shown here), which means we can drastically simplify the code:</p>
-<pre>
-<code>function Bezier(2,t):
+<pre>function Bezier(2,t):
   t2 = t * t
   mt = 1-t
   mt2 = mt * mt
@@ -219,7 +202,6 @@ function Bezier(3,t):
   mt2 = mt * mt
   mt3 = mt2 * mt
   return mt3 + 3*mt2*t + 3*mt*t2 + t3
-</code>
 </pre>
 <p>And now we know how to program the basis function. Exellent.</p>
 </div>
@@ -250,7 +232,6 @@ function Bezier(3,t):
                 \cdot\
                 \underset{weight}{\underbrace{w_i}}
 \]
-
 <p>That looks complicated, but as it so happens, the "weights" are actually just the coordinate values we want our curve to have: for an <i>n<sup>th</sup>
 </i> order curve, w<sub>0</sub> is our start coordinate, w<sub>n</sub> is our last coordinate, and everything in between is a controlling coordinate. Say we want a cubic curve that starts at (120,160), is controlled by (35,200) and (220,260) and ends at (220,40), we use this Bézier curve:</p>
 
@@ -260,7 +241,6 @@ function Bezier(3,t):
   y = BLUE[160] \cdot (1-t)^3 + BLUE[200] \cdot 3 \cdot (1-t)^2 \cdot t + BLUE[260] \cdot 3 \cdot (1-t) \cdot t^2 + BLUE[40] \cdot t^3
 \end{matrix} \right.
 \]
-
 <p>Which gives us the curve we saw at the top of the article:</p>
 <Graphic preset="simple" title="Our cubic Bézier curve" setup={handler.drawCubic} draw={handler.drawCurve}/>
 <p>What else can we do with Bézier curves? Quite a lot, actually. The rest of this article covers a multitude of possible operations and algorithms that we can apply, and the tasks they achieve.</p>
@@ -268,17 +248,14 @@ function Bezier(3,t):
 <div className="howtocode">
 <h3 id="how-to-implement-the-weighted-basis-function">How to implement the weighted basis function</h3>
 <p>Given that we already know how to implement basis function, adding in the control points is remarkably easy:</p>
-<pre>
-<code>function Bezier(n,t,w[]):
+<pre>function Bezier(n,t,w[]):
   sum = 0
   for(k=0; k&lt;n; k++):
     sum += w[k] * binomial(n,k) * (1-t)^(n-k) * t^(k)
   return sum
-</code>
 </pre>
 <p>And for the extremely optimized versions:</p>
-<pre>
-<code>function Bezier(2,t,w[]):
+<pre>function Bezier(2,t,w[]):
   t2 = t * t
   mt = 1-t
   mt2 = mt * mt
@@ -291,7 +268,6 @@ function Bezier(3,t,w[]):
   mt2 = mt * mt
   mt3 = mt2 * mt
   return w[0]*mt3 + 3*w[1]*mt2*t + 3*w[2]*mt*t2 + w[3]*t3
-</code>
 </pre>
 <p>And now we know how to program the weighted basis function.</p>
 </div>
@@ -308,13 +284,11 @@ function Bezier(3,t,w[]):
 \[
   mixture = a \cdot value_1 + b \cdot value_2
 \]
-
 <p>The obvious start and end values here need to be <code>a=1, b=0</code>, so that the mixed value is 100% value 1, and 0% value 2, and <code>a=0, b=1</code>, so that the mixed value is 0% value 1 and 100% value 2. Additionally, we don't want "a" and "b" to be independent: if they are, then we could just pick whatever values we like, and end up with a mixed value that is, for example, 100% value 1 <strong>and</strong> 100% value 2. In principle that's fine, but for Bézier curves we always want mixed values <em>between</em> the start and end point, so we need to make sure we can never set "a" and "b" to some values that lead to a mix value that sums to more than 100%. And that's easy:</p>
 
 \[
   m = a \cdot value_1 + (1 - a) \cdot value_2
 \]
-
 <p>With this we can guarantee that we never sum above 100%. By restricting <code>a</code> to values in the interval [0,1], we will always be somewhere between our two values (inclusively), and we will always sum to a 100% mix.</p>
 <p>But... what if we use this form, used in the assumption that we will only ever use values between 0 and 1, and instead use values outside of that interval? Do things go horribly wrong? Well... not really, but we get to "see more".</p>
 <p>In the case of Bézier curves, extending the interval simply makes our curve "keep going". Bézier curves are simply segments on some polynomial curve, so if we pick a wider interval we simply get to see more of the curve. So what do they look like?</p>
@@ -334,13 +308,11 @@ function Bezier(3,t,w[]):
 \[
   B(t) = P_1 \cdot (1-t)^3 + P_2 \cdot 3 \cdot (1-t)^2 \cdot t + P_3 \cdot 3 \cdot (1-t) \cdot t^2 + P_4 \cdot t^3
 \]
-
 <p>Disregarding our actual coordinates for a moment, we have:</p>
 
 \[
   B(t) = (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
 \]
-
 <p>We can write this as a sum of four expressions:</p>
 
 \[
@@ -351,7 +323,6 @@ function Bezier(3,t,w[]):
      & + & t^3 \\
   \end{matrix}
 \]
-
 <p>And we can expand these expressions:</p>
 
 \[
@@ -362,7 +333,6 @@ function Bezier(3,t,w[]):
      & + & t \cdot t \cdot t & = & t^3 \\
   \end{matrix}
 \]
-
 <p>Furthermore, we can make all the 1 and 0 factors explicit:</p>
 
 \[
@@ -373,7 +343,6 @@ function Bezier(3,t,w[]):
      & + & +1 \cdot t^3 + 0 \cdot t^2 + 0 \cdot t + 0 \\
   \end{matrix}
 \]
-
 <p>And <em>that</em>, we can view as a series of four matrix operations:</p>
 
 \[
@@ -382,7 +351,6 @@ function Bezier(3,t,w[]):
   + \begin{bmatrix}t^3 & t^2 & t & 1\end{bmatrix} \cdot \begin{bmatrix}-3 \\ 3 \\ 0 \\ 0\end{bmatrix}
   + \begin{bmatrix}t^3 & t^2 & t & 1\end{bmatrix} \cdot \begin{bmatrix}1 \\ 0 \\ 0 \\ 0\end{bmatrix}
 \]
-
 <p>If we compact this into a single matrix operation, we get:</p>
 
 \[
@@ -393,7 +361,6 @@ function Bezier(3,t,w[]):
        1 &  0 &  0 & 0
     \end{bmatrix}
 \]
-
 <p>This kind of polynomial basis representation is generally written with the bases in increasing order, which means we need to flip our <code>t</code> matrix horizontally, and our big "mixing" matrix upside down:</p>
 
 \[
@@ -404,7 +371,6 @@ function Bezier(3,t,w[]):
       -1 &  3 & -3 & 1
     \end{bmatrix}
 \]
-
 <p>And then finally, we can add in our original coordinates as a single third matrix:</p>
 
 \[
@@ -423,7 +389,6 @@ function Bezier(3,t,w[]):
   P_1 \\ P_2 \\ P_3 \\ P_4
   \end{bmatrix}
 \]
-
 <p>We can perform the same trick for the quadratic curve, in which case we end up with:</p>
 
 \[
@@ -441,7 +406,6 @@ function Bezier(3,t,w[]):
   P_1 \\ P_2 \\ P_3
   \end{bmatrix}
 \]
-
 <p>If we plug in a <code>t</code> value, and then multiply the matrices, we will get exactly the same values as when we evaluate the original polynomial function, or as when we evaluate the curve using progessive linear interpolation.</p>
 <p>
 <strong>So: why would we bother with matrices?</strong> Matrix representations allow us to discover things about functions that would otherwise be hard to tell. It turns out that the curves form <a href="https://en.wikipedia.org/wiki/Triangular_matrix">triangular matrices</a>, and they have a determinant equal to the product of the actual coordinates we use for our curve. It's also invertible, which means there's <a href="https://en.wikipedia.org/wiki/Invertible_matrix#The_invertible_matrix_theorem">a ton of properties</a> that are all satisfied. Of course, the main question is: "Why is this useful to us, now?", and the answer to that is that it's not immediately useful, but you'll be seeing some instances where certain curve properties can be either computed via function manipulation, or via clever use of matrices, and sometimes the matrix approach can be (drastically) faster.</p>
@@ -469,8 +433,7 @@ function Bezier(3,t,w[]):
 <div className="howtocode">
 <h3 id="how-to-implement-de-casteljau-s-algorithm">How to implement de Casteljau's algorithm</h3>
 <p>Let's just use the algorithm we just specified, and implement that:</p>
-<pre>
-<code>function drawCurve(points[], t):
+<pre>function drawCurve(points[], t):
   if(points.length==1):
     draw(points[0])
   else:
@@ -478,11 +441,9 @@ function Bezier(3,t,w[]):
     for(i=0; i&lt;newpoints.length; i++):
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
     drawCurve(newpoints, t)
-</code>
 </pre>
 <p>And done, that's the algorithm implemented. Except usually you don't get the luxury of overloading the "+" operator, so let's also give the code for when you need to work with <code>x</code> and <code>y</code> values:</p>
-<pre>
-<code>function drawCurve(points[], t):
+<pre>function drawCurve(points[], t):
   if(points.length==1):
     draw(points[0])
   else:
@@ -492,7 +453,6 @@ function Bezier(3,t,w[]):
       y = (1-t) * points[i].y + t * points[i+1].y
       newpoints[i] = new point(x,y)
     drawCurve(newpoints, t)
-</code>
 </pre>
 <p>So what does this do? This draws a point, if the passed list of points is only 1 point long. Otherwise it will create a new list of points that sit at the <i>t</i> ratios (i.e. the "markers" outlined in the above algorithm), and then call the draw function for this new list.</p>
 </div>
@@ -514,26 +474,22 @@ function Bezier(3,t,w[]):
 <div className="howtocode">
 <h3 id="how-to-implement-curve-flattening">How to implement curve flattening</h3>
 <p>Let's just use the algorithm we just specified, and implement that:</p>
-<pre>
-<code>function flattenCurve(curve, segmentCount):
+<pre>function flattenCurve(curve, segmentCount):
   step = 1/segmentCount;
   coordinates = [curve.getXValue(0), curve.getYValue(0)]
   for(i=1; i &lt;= segmentCount; i++):
     t = i*step;
     coordinates.push[curve.getXValue(t), curve.getYValue(t)]
   return coordinates;
-</code>
 </pre>
 <p>And done, that's the algorithm implemented. That just leaves drawing the resulting "curve" as a sequence of lines:</p>
-<pre>
-<code>function drawFlattenedCurve(curve, segmentCount):
+<pre>function drawFlattenedCurve(curve, segmentCount):
   coordinates = flattenCurve(curve, segmentCount)
   coord = coordinates[0], _coords;
   for(i=1; i &lt; coordinates.length; i++):
     _coords = coordinates[i]
     line(coords, _coords)
     coords = _coords
-</code>
 </pre>
 <p>We start with the first coordinate as reference point, and then just draw lines between each point and its next point.</p>
 </div>
@@ -549,8 +505,7 @@ function Bezier(3,t,w[]):
 <div className="howtocode">
 <h3 id="implementing-curve-splitting">implementing curve splitting</h3>
 <p>We can implement curve splitting by bolting some extra logging onto the de Casteljau function:</p>
-<pre>
-<code>left=[]
+<pre>left=[]
 right=[]
 function drawCurve(points[], t):
   if(points.length==1):
@@ -566,7 +521,6 @@ function drawCurve(points[], t):
         right.add(points[i+1])
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
     drawCurve(newpoints, t)
-</code>
 </pre>
 <p>After running this function for some value <code>t</code>, the <code>left</code> and <code>right</code> arrays will contain all the coordinates for two new curves - one to the "left" of our <code>t</code> value, the other on the "right", of the same order as the original curve, and overlayed exactly on the original curve.</p>
 </div>
@@ -596,7 +550,6 @@ function drawCurve(points[], t):
   P_1 \\ P_2 \\ P_3
   \end{bmatrix}
 \]
-
 <p>and</p>
 
 \[
@@ -615,7 +568,6 @@ function drawCurve(points[], t):
   P_1 \\ P_2 \\ P_3 \\ P_4
   \end{bmatrix}
 \]
-
 <p>Let's say we want to split the curve at some point <code>t = z</code>, forming two new (obviously smaller) Bézier curves. To find the coordinates for these two Bézier curves, we can use the matrix representation and some linear algebra. First, we split out the the actual "point on the curve" information as a new matrix multiplication:</p>
 
 \[
@@ -654,7 +606,6 @@ function drawCurve(points[], t):
   P_1 \\ P_2 \\ P_3
   \end{bmatrix}
 \]
-
 <p>and</p>
 
 \[
@@ -696,7 +647,6 @@ function drawCurve(points[], t):
   P_1 \\ P_2 \\ P_3 \\ P_4
   \end{bmatrix}
 \]
-
 <p>If we could compact these matrices back to a form <strong>[t values] · [bezier matrix] · [column matrix]</strong>, with the first two staying the same, then that column matrix on the right would be the coordinates of a new Bézier curve that describes the first segment, from <code>t = 0</code> to <code>t = z</code>. As it turns out, we can do this quite easily, by exploiting some simple rules of linear algebra (and if you don't care about the derivations, just skip to the end of the box for the results!).</p>
 
 <div className="note">
@@ -726,7 +676,7 @@ function drawCurve(points[], t):
   \end{bmatrix}
 \]
 
-<p>[
+\[
   =
   \begin{bmatrix}
   1 & t & t^2
@@ -735,9 +685,9 @@ function drawCurve(points[], t):
   \underset{we\ turn\ handler...}{\underbrace{\kern 2.25em Z \cdot M \kern 2.25em}}
   \cdot
   \begin{bmatrix}
-  P_1 \ P_2 \ P_3
+  P_1 \\ P_2 \\ P_3
   \end{bmatrix}
-]</p>
+\]
 
 \[
   =
@@ -752,7 +702,7 @@ function drawCurve(points[], t):
   \end{bmatrix}
 \]
 
-<p>[
+\[
   =
   \begin{bmatrix}
   1 & t & t^2
@@ -761,9 +711,9 @@ function drawCurve(points[], t):
   M
   \underset{...to\ get\ \ this!}{\underbrace{ \kern 1.25em \cdot \kern 1.25em Q \kern 1.25em \cdot \kern 1.25em}}
   \begin{bmatrix}
-  P_1 \ P_2 \ P_3
+  P_1 \\ P_2 \\ P_3
   \end{bmatrix}
-]</p>
+\]
 <p>We do this, because [<em>M · M<sup>-1</sup>
 </em>] is the identity matrix (a bit like multiplying something by x/x in calculus. It doesn't do anything to the function, but it does allow you to rewrite it to something that may be easier to work with, or can be broken up differently). Adding that as matrix multiplication has no effect on the total formula, but it does allow us to change the matrix sequence [<em>something · M</em>] to a sequence [<em>M · something</em>], and that makes a world of difference: if we know what [<em>M<sup>-1</sup> · Z · M</em>] is, we can apply that to our coordinates, and be left with a proper matrix representation of a quadratic Bézier curve (which is [<em>T · M · P</em>]), with a new set of coordinates that represent the curve from <em>t = 0</em> to <em>t = z</em>. So let's get computing:</p>
 
@@ -793,7 +743,6 @@ function drawCurve(points[], t):
   (z - 1)^2 & -2 \cdot (z-1) \cdot z & z^2
   \end{bmatrix}
 \]
-
 <p>Excellent! Now we can form our new quadratic curve:</p>
 
 \[
@@ -821,30 +770,30 @@ function drawCurve(points[], t):
   \right )
 \]
 
-<p>[
+\[
   =
   \begin{bmatrix}
   1 & t & t^2
   \end{bmatrix}
   \cdot
   \begin{bmatrix}
-   1 &  0 & 0 \
-  -2 &  2 & 0 \
+   1 &  0 & 0 \\
+  -2 &  2 & 0 \\
    1 & -2 & 1
   \end{bmatrix}
   \cdot
   \left (
   \begin{bmatrix}
-  1 & 0 & 0 \
-  -(z-1) & z & 0 \
+  1 & 0 & 0 \\
+  -(z-1) & z & 0 \\
   (z - 1)^2 & -2 \cdot (z-1) \cdot z & z^2
   \end{bmatrix}
   \cdot
   \begin{bmatrix}
-  P_1 \ P_2 \ P_3
+  P_1 \\ P_2 \\ P_3
   \end{bmatrix}
   \right )
-]</p>
+\]
 
 \[
   =
@@ -864,7 +813,6 @@ function drawCurve(points[], t):
     z^2 \cdot P_3 - 2 \cdot z \cdot (z-1) \cdot P_2 + (z - 1)^2 \cdot P_1
   \end{bmatrix}
 \]
-
 <p>
 <strong>
 <em>Brilliant</em>
@@ -888,28 +836,28 @@ function drawCurve(points[], t):
   \end{bmatrix}
 \]
 
-<p>[
+\[
   =
   \begin{bmatrix}
   1 & t & t^2
   \end{bmatrix}
   \cdot
   \begin{bmatrix}
-  1 & 0 & 0 \
-  0 & z & 0 \
+  1 & 0 & 0 \\
+  0 & z & 0 \\
   0 & 0 & z^2
   \end{bmatrix}
   \cdot
   \begin{bmatrix}
-   1 &  0 & 0 \
-  -2 &  2 & 0 \
+   1 &  0 & 0 \\
+  -2 &  2 & 0 \\
    1 & -2 & 1
   \end{bmatrix}
   \cdot
   \begin{bmatrix}
-  P_1 \ P_2 \ P_3
+  P_1 \\ P_2 \\ P_3
   \end{bmatrix}
-]</p>
+\]
 <p>If we want the interval [<em>z</em>,1], we will be evaluating this instead:</p>
 
 \[
@@ -929,28 +877,28 @@ function drawCurve(points[], t):
   \end{bmatrix}
 \]
 
-<p>[
+\[
   =
   \begin{bmatrix}
   1 & t & t^2
   \end{bmatrix}
   \cdot
   \begin{bmatrix}
-  1 & z & z^2 \
-  0 & 1-z & 2 \cdot z \cdot (1-z) \
+  1 & z & z^2 \\
+  0 & 1-z & 2 \cdot z \cdot (1-z) \\
   0 & 0 & (1-z)^2
   \end{bmatrix}
   \cdot
   \begin{bmatrix}
-   1 &  0 & 0 \
-  -2 &  2 & 0 \
+   1 &  0 & 0 \\
+  -2 &  2 & 0 \\
    1 & -2 & 1
   \end{bmatrix}
   \cdot
   \begin{bmatrix}
-  P_1 \ P_2 \ P_3
+  P_1 \\ P_2 \\ P_3
   \end{bmatrix}
-]</p>
+\]
 <p>We're going to do the same trick, to turn <code>[something · M]</code> into <code>[M · something]</code>:</p>
 
 \[
@@ -979,7 +927,6 @@ function drawCurve(points[], t):
   0 & 0 & 1
   \end{bmatrix}
 \]
-
 <p>So, our final second curve looks like:</p>
 
 \[
@@ -1007,30 +954,30 @@ function drawCurve(points[], t):
   \right )
 \]
 
-<p>[
+\[
   =
   \begin{bmatrix}
   1 & t & t^2
   \end{bmatrix}
   \cdot
   \begin{bmatrix}
-   1 &  0 & 0 \
-  -2 &  2 & 0 \
+   1 &  0 & 0 \\
+  -2 &  2 & 0 \\
    1 & -2 & 1
   \end{bmatrix}
   \cdot
   \left (
   \begin{bmatrix}
-  (z-1)^2 & -2 \cdot z \cdot (z-1) & z^2 \
-  0 & -(z-1) & z \
+  (z-1)^2 & -2 \cdot z \cdot (z-1) & z^2 \\
+  0 & -(z-1) & z \\
   0 & 0 & 1
   \end{bmatrix}
   \cdot
   \begin{bmatrix}
-  P_1 \ P_2 \ P_3
+  P_1 \\ P_2 \\ P_3
   \end{bmatrix}
   \right )
-]</p>
+\]
 
 \[
   =
@@ -1050,7 +997,6 @@ function drawCurve(points[], t):
     P_3
   \end{bmatrix}
 \]
-
 <p>
 <strong>
 <em>Nice</em>
@@ -1075,7 +1021,6 @@ function drawCurve(points[], t):
     z^2 \cdot P_3 - 2 \cdot z \cdot (z-1) \cdot P_2 + (z - 1)^2 \cdot P_1
   \end{bmatrix}
 \]
-
 <p>and</p>
 
 \[
@@ -1095,7 +1040,6 @@ function drawCurve(points[], t):
     P_3
   \end{bmatrix}
 \]
-
 <p>We can do the same for cubic curves. However, I'll spare you the actual derivation (don't let that stop you from writing that out yourself, though) and simply show you the resulting new coordinate sets:</p>
 
 \[
@@ -1117,7 +1061,6 @@ function drawCurve(points[], t):
     z^3 \cdot P_4 - 3 \cdot z^2 \cdot (z-1) \cdot P_3 + 3 \cdot z \cdot (z-1)^2 \cdot P_2 - (z-1)^3 \cdot P_1
   \end{bmatrix}
 \]
-
 <p>and</p>
 
 \[
@@ -1139,7 +1082,6 @@ function drawCurve(points[], t):
     P_4
   \end{bmatrix}
 \]
-
 <p>So, looking at our matrices, did we really need to compute the second segment matrix? No, we didn't. Actually having one segment's matrix means we implicitly have the other: push the values of each row in the matrix <strong>
 <em>Q</em>
 </strong> to the right, with zeroes getting pushed off the right edge and appearing back on the left, and then flip the matrix vertically. Presto, you just "calculated" <strong>

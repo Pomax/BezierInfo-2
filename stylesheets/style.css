@@ -252,6 +252,9 @@ img.LaTeX {
   display: block;
   margin-left: 2em;
 }
+img.LaTeX + img.LaTeX {
+  margin-top: 2em;
+}
 table {
   margin: 1em 2em;
   padding: 0 1em;
