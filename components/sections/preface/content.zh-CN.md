@@ -19,7 +19,7 @@
 
 ## 这本书是开源的。
 
-这本书是开源的软件项目，现有两个github仓库。第一个[https://github.com/pomax/bezierinfo](https://github.com/pomax/bezierinfo)， 它是你现在在看的这个，纯粹用来展示的版本。另外一个[https://github.com/pomax/BezierInfo-2](https://github.com/pomax/BezierInfo-2)， 是带有所有html, javascript和css的开发版本。你可以fork任意一个，随便做些什么，当然除了把它当作自己的作品来商用。 =)
+这本书是开源的软件项目，现有两个github仓库。第一个[https://github.com/pomax/bezierinfo](https://github.com/pomax/bezierinfo) ，它是你现在在看的这个，纯粹用来展示的版本。另外一个[https://github.com/pomax/BezierInfo-2](https://github.com/pomax/BezierInfo-2) ，是带有所有html, javascript和css的开发版本。你可以fork任意一个，随便做些什么，当然除了把它当作自己的作品来商用。 =)
 
 ## 用到的数学将有多复杂？
 
@@ -31,6 +31,6 @@
 
 ## 给我买杯咖啡？
 
-如果你很喜欢这本书，或发现它对你要做的事很有帮助，或者你想知道怎么表达自己对这本书的感激，你可以 [给我买杯咖啡](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPRDLNGDANJSW), 所少钱取决于你。这份工作持续了很多年，从一份小小的简要到70多页关于贝塞尔曲线的读物，在完成它的过程中倾注了很多咖啡。我从未后悔花在这上面的每一分钟，但如果有更多咖啡的话，我可以坚持写下去!
+如果你很喜欢这本书，或发现它对你要做的事很有帮助，或者你想知道怎么表达自己对这本书的感激，你可以 [给我买杯咖啡](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPRDLNGDANJSW) ，所少钱取决于你。这份工作持续了很多年，从一份小小的简要到70多页关于贝塞尔曲线的读物，在完成它的过程中倾注了很多咖啡。我从未后悔花在这上面的每一分钟，但如果有更多咖啡的话，我可以坚持写下去!
 
 </div>
