@@ -682,7 +682,7 @@ function drawCurve(points[], t):
   1 & t & t^2
   \end{bmatrix}
   \cdot
-  \underset{we\ turn\ handler...}{\underbrace{\kern 2.25em Z \cdot M \kern 2.25em}}
+  \underset{we\ turn\ this...}{\underbrace{\kern 2.25em Z \cdot M \kern 2.25em}}
   \cdot
   \begin{bmatrix}
   P_1 \\ P_2 \\ P_3
@@ -695,7 +695,7 @@ function drawCurve(points[], t):
   1 & t & t^2
   \end{bmatrix}
   \cdot
-  \underset{...into\ handler...}{\underbrace{ M \cdot M^{-1} \cdot Z \cdot M }}
+  \underset{...into\ this...}{\underbrace{ M \cdot M^{-1} \cdot Z \cdot M }}
   \cdot
   \begin{bmatrix}
   P_1 \\ P_2 \\ P_3

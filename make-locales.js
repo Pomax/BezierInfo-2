@@ -197,7 +197,7 @@ sections.forEach((cname, number) => {
 // Now, form a JSX resource for this locale.
 var bcode = JSON.stringify(content, false, 2);
 bcode = bcode.replace(/"<section>/g, "function(handler) { return <section>")
-             .replace(/this\./g, "handler.")
+             .replace(/this\.(\w)/g, "handler.$1")
              .replace(/<\/section>"(,?)/g, "</section>; }$1\n")
              .replace(/\\"/g,'"')
              .replace(/\\n/g,'\n')
