@@ -9,7 +9,7 @@
 
 那么，要是你自己想编程实现它们呢？有哪些陷阱？你怎么画它们？包围盒是怎么样的，怎么确定交点，怎么拉伸曲线，简单来说：你怎么对曲线做一切你想做的事？这就是这篇文章想说的。准备好学习一些数学吧!
 
-—Pomax (推特账号, [@TheRealPomax](https://twitter.com/TheRealPomax)
+—Pomax ( 推特账号, [@TheRealPomax](https://twitter.com/TheRealPomax) )
 
 <div className="note">
 
