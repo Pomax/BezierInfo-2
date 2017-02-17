@@ -6,10 +6,10 @@
     "localize": "node make-locales",
     "build": "npm run localize && npm run less && webpack -p",
     "build:zh-CN": "npm run localize && npm run less && cross-env LOCALE=zh-CN webpack -p",
-
+    "build:ja-JP": "npm run localize && npm run less && cross-env LOCALE=ja-JP webpack -p",
     "dev": "npm run localize && npm run less && webpack-dev-server --progress --colors --hot --inline",
     "dev:zh-CN": "npm run localize && npm run less && cross-env LOCALE=zh-CN webpack-dev-server --progress --colors --hot --inline",
-
+    "dev:ja-JP": "npm run localize && npm run less && cross-env LOCALE=ja-JP webpack-dev-server --progress --colors --hot --inline",
     "latex": "node tools/mathjax",
     "less": "lessc stylesheets/style.less > stylesheets/style.css",
     "singles": "npm run dev -- --singles",
@@ -76,5 +76,8 @@
     "uglify-loader": "^1.3.0",
     "webpack": "^2.0.0",
     "webpack-dev-server": "^2.0.0"
+  },
+  "dependencies": {
+    "glob": "^7.1.1"
   }
 }

@@ -150,73 +150,91 @@ function chunk(data) {
   return chunks;
 }
 
-// Then get the section map. This will try to load .jsx code, which will fail,
-// but the above shim makes a failure simply return an empty object instead.
-// This is good: we only care about the keys, not the content.
-var index = require("./components/sections");
-var sections = Object.keys(index);
-var content = {};
-sections.forEach((cname, number) => {
 
-  // Grab locale file, or defaultLocale file if the chosen locale has
-  // has no translated content (yet)...
-  var localeCode = locale;
-  var loc = `./components/sections/${cname}/content.${localeCode}.md`;
-  if (!fs.existsSync(loc)) {
-    localeCode = defaultLocale;
-    loc = `./components/sections/${cname}/content.${localeCode}.md`;
-  }
+/**
+ * Process a single locale, with `en-GB` fallback for missing files.
+ */
+function processLocale(locale) {
+  // Get the section map. This will try to load .jsx code, which will fail,
+  // but the above shim makes a failure simply return an empty object instead.
+  // This is good: we only care about the keys, not the content.
+  var index = require("./components/sections");
+  var sections = Object.keys(index);
+  var content = {};
+  sections.forEach((cname, number) => {
 
-  // Read in the content.{lang}.md file
-  var data, title;
-  try {
-    data = fs.readFileSync(loc).toString();
-    data = chunk(data).map(block => {
-      // preserver is simple
-      if (!block.convert) return block.data;
+    // Grab locale file, or defaultLocale file if the chosen locale has
+    // has no translated content (yet)...
+    var localeCode = locale;
+    var loc = `./components/sections/${cname}/content.${localeCode}.md`;
+    if (!fs.existsSync(loc)) {
+      localeCode = defaultLocale;
+      loc = `./components/sections/${cname}/content.${localeCode}.md`;
+    }
 
-      // markdown conversion is a little more work
-      let d = marked(block.data.trim());
+    // Read in the content.{lang}.md file
+    var data, title;
+    try {
+      data = fs.readFileSync(loc).toString();
+      data = chunk(data).map(block => {
+        // preserver is simple
+        if (!block.convert) return block.data;
 
-      // serious can we fucking not, please.
-      d = d.replace('<p></div></p>', '</div>')
-           .replace(/&amp;/g, '&')
-           .replace(/&#39;/g, "'")
-           .replace(/&quot;/g, '"')
+        // markdown conversion is a little more work
+        let d = marked(block.data.trim());
 
-      // ``` conversion does odd things with <code> tags inside <pre> tags.
-      d = d.replace(/<pre>(\r?\n)*<code>/g,'<pre>')
-           .replace(/<\/code>(\r?\n)*<\/pre>/g,'</pre>');
+        // serious can we fucking not, please.
+        d = d.replace('<p></div></p>', '</div>')
+            .replace(/&amp;/g, '&')
+            .replace(/&#39;/g, "'")
+            .replace(/&quot;/g, '"')
 
-      // And then title extraction/rewriting
-      d = d.replace(/<h1[^>]+>([^<]+)<\/h1>/,function(_,t) {
-        title = t;
-        return `<SectionHeader name="${cname}" title="` + t + `"${ number ? ' number="'+number+'"': ''}/>`;
-      });
+        // ``` conversion does odd things with <code> tags inside <pre> tags.
+        d = d.replace(/<pre>(\r?\n)*<code>/g,'<pre>')
+            .replace(/<\/code>(\r?\n)*<\/pre>/g,'</pre>');
 
-      return d;
-    }).join('');
-  } catch (e) { data = ''; title = `Unknown title (${cname})`; }
+        // And then title extraction/rewriting
+        d = d.replace(/<h1[^>]+>([^<]+)<\/h1>/,function(_,t) {
+          title = t;
+          return `<SectionHeader name="${cname}" title="` + t + `"${ number ? ' number="'+number+'"': ''}/>`;
+        });
 
-  content[cname] = {
-    locale: localeCode,
-    title: title,
-    getContent: "<section>" + data + "</section>"
-  };
+        return d;
+      }).join('');
+    } catch (e) { data = ''; title = `Unknown title (${cname})`; }
+
+    content[cname] = {
+      locale: localeCode,
+      title: title,
+      getContent: "<section>" + data + "</section>"
+    };
+  });
+
+  var bcode = JSON.stringify(content, false, 2);
+  bcode = bcode.replace(/"<section>/g, "function(handler) { return <section>")
+              .replace(/this\.(\w)/g, "handler.$1")
+              .replace(/<\/section>"(,?)/g, "</section>; }$1\n")
+              .replace(/\\"/g,'"')
+              .replace(/\\n/g,'\n')
+              .replace(/></g,'>\n<')
+              .replace(/\\\\/g, '\\');
+
+  var bundle = `var React = require('react');\nvar Graphic = require("../../components/Graphic.jsx");\nvar SectionHeader = require("../../components/SectionHeader.jsx");\n\nmodule.exports = ${bcode};\n`;
+
+  var dir = `./locales/${locale}`;
+  fs.ensureDir(dir);
+  fs.writeFileSync(`${dir}/content.js`, bundle);
+}
+
+// find all locales used
+var glob = require('glob');
+glob("components/sections/**/content*md", (err, files) => {
+  var locales = [];
+  files.forEach(file => {
+    let locale = file.match(/content\.([^.]+)\.md/)[1];
+    if (locales.indexOf(locale) === -1) {
+      locales.push(locale);
+    }
+  });
+  locales.forEach( processLocale);
 });
-
-// Now, form a JSX resource for this locale.
-var bcode = JSON.stringify(content, false, 2);
-bcode = bcode.replace(/"<section>/g, "function(handler) { return <section>")
-             .replace(/this\.(\w)/g, "handler.$1")
-             .replace(/<\/section>"(,?)/g, "</section>; }$1\n")
-             .replace(/\\"/g,'"')
-             .replace(/\\n/g,'\n')
-             .replace(/></g,'>\n<')
-             .replace(/\\\\/g, '\\');
-
-var bundle = `var React = require('react');\nvar Graphic = require("../../components/Graphic.jsx");\nvar SectionHeader = require("../../components/SectionHeader.jsx");\n\nmodule.exports = ${bcode};\n`;
-
-var dir = `./locales/${locale}`;
-fs.ensureDir(dir);
-fs.writeFileSync(`${dir}/content.js`, bundle);
