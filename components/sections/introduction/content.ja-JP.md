@@ -7,4 +7,4 @@
   <Graphic inline={true} title="3次のベジエ曲線" setup={ this.drawCubic } draw={ this.drawCurve }/>
 </div>
 
-ベジエ曲線は、CAD（computer aided design）や CAM（computer aided manufacturing）のアプリケーションで多用されています。もちろん、Adobe Illustrator・Photoshop・Inkscape・Gimp などのグラフィックデザインアプリケーションや、SVG（scalable vector graphics）・OpenType フォント（otf/ttf）のようなグラフィック技術でも利用されています。ベジエ曲線はたくさんのものに使われていますので、これについてもっと詳しく学びたいのであれば……さあ、準備しましょう！
+ベジエ曲線は、CAD（computer aided designやCAM（computer aided manufacturing）のアプリケーションで多用されています。もちろん、Adobe Illustrator・Photoshop・Inkscape・Gimp などのグラフィックデザインアプリケーションや、SVG（scalable vector graphics）・OpenTypeフォント（otf/ttf）のようなグラフィック技術でも利用されています。ベジエ曲線はたくさんのものに使われていますので、これについてもっと詳しく学びたいのであれば……さあ、準備しましょう！
