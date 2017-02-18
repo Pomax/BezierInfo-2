@@ -103,11 +103,11 @@ function chunkLatex(data, chunks, chunkMore) {
   var p = 0,
       next = chunkMore ? chunkMore[0] : false,
       otherChunkers = chunkMore ? chunkMore.slice(1) : false,
-      latexEnd = '\\]\n';
+      latexEnd = '\\]';
 
   while (p !== -1) {
     // Let's check a LaTeX block
-    let latex = data.indexOf('\n\\[', p);
+    let latex = data.indexOf('\\[', p);
     if (latex === -1) {
       // No LaTeX block found: we're done here. Parse the remaining
       // data for whatever else might be in there.
@@ -150,6 +150,46 @@ function chunk(data) {
   return chunks;
 }
 
+/**
+ * turn locale markdown into locale javascript data
+ */
+function processLocation(loc, fragmentid, number) {
+  var processed = { data: '', title: `Unknown title (${fragmentid})` };
+  try {
+    data = fs.readFileSync(loc).toString();
+    data = chunk(data).map(block => {
+      // preserver is simple
+      if (!block.convert) return block.data;
+
+      // markdown conversion is a little more work
+      let d = marked(block.data.trim());
+
+      // serious can we fucking not, please.
+      d = d.replace('<p></div></p>', '</div>')
+          .replace(/&amp;/g, '&')
+          .replace(/&#39;/g, "'")
+          .replace(/&quot;/g, '"')
+
+      // ``` conversion does odd things with <code> tags inside <pre> tags.
+      d = d.replace(/<pre>(\r?\n)*<code>/g,'<pre>')
+          .replace(/<\/code>(\r?\n)*<\/pre>/g,'</pre>');
+
+      // And then title extraction/rewriting
+      d = d.replace(/<h1[^>]+>([^<]+)<\/h1>/,function(_,t) {
+        processed.title = t;
+        return `<SectionHeader name="${fragmentid}" title="` + t + `"${ number ? ' number="'+number+'"': ''}/>`;
+      });
+
+      return d;
+    }).join('');
+    processed.data = data;
+  } catch (e) {
+    // console.warn(e);
+  }
+
+  return processed;
+}
+
 
 /**
  * Process a single locale, with `en-GB` fallback for missing files.
@@ -161,54 +201,41 @@ function processLocale(locale) {
   var index = require("./components/sections");
   var sections = Object.keys(index);
   var content = {};
-  sections.forEach((cname, number) => {
+  sections.forEach((key, number) => {
 
     // Grab locale file, or defaultLocale file if the chosen locale has
     // has no translated content (yet)...
     var localeCode = locale;
-    var loc = `./components/sections/${cname}/content.${localeCode}.md`;
+    var loc = `./components/sections/${key}/content.${localeCode}.md`;
     if (!fs.existsSync(loc)) {
       localeCode = defaultLocale;
-      loc = `./components/sections/${cname}/content.${localeCode}.md`;
+      loc = `./components/sections/${key}/content.${localeCode}.md`;
     }
 
     // Read in the content.{lang}.md file
-    var data, title;
-    try {
-      data = fs.readFileSync(loc).toString();
-      data = chunk(data).map(block => {
-        // preserver is simple
-        if (!block.convert) return block.data;
+    var processed = processLocation(loc, key, number);
 
-        // markdown conversion is a little more work
-        let d = marked(block.data.trim());
-
-        // serious can we fucking not, please.
-        d = d.replace('<p></div></p>', '</div>')
-            .replace(/&amp;/g, '&')
-            .replace(/&#39;/g, "'")
-            .replace(/&quot;/g, '"')
-
-        // ``` conversion does odd things with <code> tags inside <pre> tags.
-        d = d.replace(/<pre>(\r?\n)*<code>/g,'<pre>')
-            .replace(/<\/code>(\r?\n)*<\/pre>/g,'</pre>');
-
-        // And then title extraction/rewriting
-        d = d.replace(/<h1[^>]+>([^<]+)<\/h1>/,function(_,t) {
-          title = t;
-          return `<SectionHeader name="${cname}" title="` + t + `"${ number ? ' number="'+number+'"': ''}/>`;
-        });
-
-        return d;
-      }).join('');
-    } catch (e) { data = ''; title = `Unknown title (${cname})`; }
-
-    content[cname] = {
+    content[key] = {
       locale: localeCode,
-      title: title,
-      getContent: "<section>" + data + "</section>"
+      title: processed.title,
+      getContent: "<section>" + processed.data + "</section>"
     };
   });
+
+  // We also need to localize the "LocaleSwitcher"
+  var localeCode = locale;
+  var loc = `./components/localized/LocaleSwitcher/content.${localeCode}.md`;
+  if (!fs.existsSync(loc)) {
+    localeCode = defaultLocale;
+    loc = `./components/localized/LocaleSwitcher/content.${localeCode}.md`;
+  }
+  var key = "locale-switcher";
+  var processed = processLocation(loc, key);
+  content[key] = {
+    locale: localeCode,
+    title: key,
+    getContent: "<section>" + processed.data + "</section>"
+  };
 
   var bcode = JSON.stringify(content, false, 2);
   bcode = bcode.replace(/"<section>/g, "function(handler) { return <section>")
@@ -236,5 +263,5 @@ glob("components/sections/**/content*md", (err, files) => {
       locales.push(locale);
     }
   });
-  locales.forEach( processLocale);
+  locales.forEach(processLocale);
 });

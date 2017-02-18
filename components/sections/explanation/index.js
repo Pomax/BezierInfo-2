@@ -2,7 +2,7 @@ var React = require("react");
 var keyHandling = require("../../decorators/keyhandling-decorator.jsx");
 
 var Locale = require("../../../lib/locale");
-var locale = new Locale("en-GB");
+var locale = new Locale();
 var page = "explanation";
 
 var Explanation = React.createClass({
