@@ -31,28 +31,28 @@ module.exports = {
 
   },
   "introduction": {
-    "locale": "en-GB",
-    "title": "A lightning introduction",
+    "locale": "zh-CN",
+    "title": "简单介绍",
     "getContent": function(handler) { return <section>
-<SectionHeader name="introduction" title="A lightning introduction" number="1"/>
-<p>Let's start with the good stuff: when we're talking about Bézier curves, we're talking about the things that you can see in the following graphics. They run from some start point to some end point, with their curvature influenced by one or more "intermediate" control points. Now, because all the graphics on this page are interactive, go manipulate those curves a bit: click-drag the points, and see how their shape changes based on what you do.</p>
+<SectionHeader name="introduction" title="简单介绍" number="1"/>
+<p>让我们有个好的开始：当我们在谈论贝塞尔曲线的时候，所指的就是你在如下图像看到的东西。它们从某些起点开始，到终点结束，并且受到一个或多个的“中间”控制点的影响。本页面上的图形都是可交互的，你可以拖动这些点，看看这些形状在你的操作下会怎么变化。</p>
 
 <div className="figure">
   <Graphic inline={true} title="Quadratic Bézier curves" setup={ handler.drawQuadratic } draw={ handler.drawCurve }/>
   <Graphic inline={true} title="Cubic Bézier curves" setup={ handler.drawCubic } draw={ handler.drawCurve }/>
 </div>
-<p>These curves are used a lot in computer aided design and computer aided manufacturing (CAD/CAM) applications, as well as in graphic design programs like Adobe Illustrator and Photoshop, Inkscape, the Gimp, etc. and in graphic technologies like scalable vector graphics (SVG) and OpenType fonts (ttf/otf). A lot of things use Bézier curves, so if you want to learn more about them... prepare to get your learn on!</p>
+<p>这些曲线在计算机辅助设计和计算机辅助制造应用（CAD/CAM）中用的很多。在图形设计软件中也常用到，像Adobe Illustrator, Photoshop, Inkscape, Gimp等等。还可以应用在一些图形技术中，像矢量图形（SVG）和OpenType字体（ttf/otf）。许多东西都用到贝塞尔曲线，如果你想更了解它们...准备好继续往下学吧！</p>
 </section>; }
 
   },
   "whatis": {
-    "locale": "en-GB",
-    "title": "So what makes a Bézier Curve?",
+    "locale": "zh-CN",
+    "title": "什么构成了贝塞尔曲线？",
     "getContent": function(handler) { return <section>
-<SectionHeader name="whatis" title="So what makes a Bézier Curve?" number="2"/>
-<p>Playing with the points for curves may have given you a feel for how Bézier curves behave, but what <em>are</em> Bézier curves, really? There are two ways to explain what a Bézier curve is, and they turn out to be the entirely equivalent, but one of them uses complicated maths, and the other uses really simple maths. So... let's start with the simple explanation:</p>
-<p>Bezier curves are the result of <a href="https://en.wikipedia.org/wiki/Linear_interpolation">linear interpolations</a>. That sounds complicated but you've been doing linear interpolation since you were very young: any time you had to point at something between two other things, you've been applying linear interpolation. It's simply "picking a point between two points".</p>
-<p>If we know the distance between those two points, and we want a new point that is, say, 20% the distance away from the first point (and thus 80% the distance away from the second point) then we can compute that really easily:</p>
+<SectionHeader name="whatis" title="什么构成了贝塞尔曲线？" number="2"/>
+<p>操作点的移动，看看曲线的变化，可能让你感受到了贝塞尔曲线是如何表现的。但贝塞尔曲线究竟<em>是</em>什么呢？有两种方式来解释贝塞尔曲线，并且可以证明它们完全相等，但是其中一种用到了复杂的数学，另外一种比较简单。所以...我们先从简单的开始吧：</p>
+<p>贝塞尔曲线是<a href="https://en.wikipedia.org/wiki/Linear_interpolation">线性插值</a>的结果。这听起来很复杂，但你在很小的时候就做过线性插值：当你指向两个物体中的另外一个物体时，你就用到了线性插值。它就是很简单的“选出两点之间的一个点”。</p>
+<p>如果我们知道两点之间的距离，并想找出离第一个点20%间距的一个新的点(也就是离第二个点80%的间距)，我们可以通过简单的计算来得到：</p>
 \[
 Given \left (
   \begin{align}
@@ -62,11 +62,11 @@ Given \left (
     ratio &= \frac{percentage}{100} \\
   \end{align}
 \right ),\ our\ new\ point = p_1 + distance \cdot ratio
-\]<p>So let's look at that in action: the following graphic is interactive in that you can use your up and down arrow keys to increase or decrease the interpolation ratio, to see what happens. We start with three points, which gives us two lines. Linear interpolation over those lines gives use two points, between which we can again perform linear interpolation, yielding a single point. And that point —and all points we can form in this way for all ratios taken together— form our Bézier curve:</p>
+\]<p>让我们来通过实际操作看一下：下面的图形都是可交互的，因此你可以通过上下键来增加或减少插值距离，来观察图形的变化。我们从三个点构成的两条线段开始。通过对各条线段进行线性插值得到两个点，对点之间的线段再进行线性插值，产生一个新的点。最终这些点——所有的点都可以通过选取不同的距离插值产生——构成了贝塞尔曲线：</p>
 <Graphic title="Linear Interpolation leading to Bézier curves" setup={handler.setup} draw={handler.draw} onKeyDown={handler.onKeyDown}/>
-<p>And that brings us to the complicated maths: calculus.</p>
-<p>While it doesn't look like that's what we've just done, we actually just drew a quadratic curve, in steps, rather than in a single go. One of the fascinating parts about Bézier curves is that they can both be described in terms of polynomial functions, as well as in terms of very simple interpolations of interpolations of [...]. That, in turn, means we can look at what these curves can do based on both "real maths" (by examining the functions, their derivatives, and all that stuff), as well as by looking at the "mechanical" composition (which tells us that a curve will never extend beyond the points we used to construct it, for instance)</p>
-<p>So let's start looking at Bézier curves a bit more in depth. Their mathematical expressions, the properties we can derive from those, and the various things we can do to, and with, Bézier curves.</p>
+<p>这为我们引出了复杂的数学：微积分。</p>
+<p>虽然我们刚才好像没有用到这个，我们实际上只是逐步地画了一条二次曲线，而不是一次画好。贝塞尔曲线的一个很棒的特性就是它们可以通过多项式方程表示，也可以用很简单的插值形式表示。因此，反过来说，我们可以基于“真正的数学”（检查方程式，导数之类的东西），也可以通过观察曲线的“机械”构成（比如说，可以得知曲线永远不会延伸超过我们用来构造它的点），来看看这些曲线能够做什么。</p>
+<p>让我们从更深的层次来观察贝塞尔曲线。看看它们的数学表达式，从这些表达式衍生得到的属性，以及我们可以对贝塞尔曲线做的事。</p>
 </section>; }
 
   },
