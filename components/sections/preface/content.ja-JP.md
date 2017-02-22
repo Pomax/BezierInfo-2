@@ -12,24 +12,24 @@
 
 <div className="note">
 
-## Note: virtually all Bézier graphics are interactive.
+## 注：ベジエの図はすべてインタラクティブになっています。
 
-This page uses interactive examples, relying heavily on [Bezier.js](http://pomax.github.io/bezierjs), as well as "real" maths (in LaTeX form) which is typeset using the most excellent [MathJax](http://MathJax.org) library. The page is generated offline as a React application, using Webpack, which has made adding "view source" options considerably more challenging. I'm still trying to figure out how to add them back in, but it didn't feel like it should hold up deploying this update compared to the previous years' version.
+このページでは[Bezier.js](http://pomax.github.io/bezierjs)を活用し、インタラクティブな例示を行っています。また、[MathJax](http://mathjax.org)というすばらしいライブラリによって、（LaTeX式の）「本物」の数学組版を行っています。このページはWebpackを使い、Reactアプリケーションとしてオフラインで生成されていますが、このために「ソースを表示」オプションを追加することがかなり難しくなってしまいました。これをどうやって追加すべきかは今もまだ考え中ですが、かといって、数年ぶりとなる今回の更新を延期したくはありませんでした。
 
-## This book is open source.
+## 本書はオープンソースです。
 
-This book is an open source software project, and lives on two github repositorites. The first is [https://github.com/pomax/bezierinfo](https://github.com/pomax/bezierinfo) and is the purely-for-presentation version you are viewing right now. The other repository is [https://github.com/pomax/BezierInfo-2](https://github.com/pomax/BezierInfo-2), which is the development version, housing all the html, javascript, and css. You can fork either of these, and pretty much do with them as you please, except for passing it off as your own work wholesale, of course =)
+この本はオープンソースソフトウェアのプロジェクトで、2つのGitHubリポジトリ上に存在しています。1つ目の[https://github.com/pomax/bezierinfo](https://github.com/pomax/bezierinfo)は表示のためだけに用意されたバージョンで、あなたが今読んでいるものです。もう一方の[https://github.com/pomax/BezierInfo-2](https://github.com/pomax/BezierInfo-2)は開発版で、すべてのHTML・JavaScript・CSSが含まれています。どちらのリポジトリもフォークすることができますし、あなたの好きなように使ってかまいません。ただし、これを自分の成果だと騙って売ることはもちろん除きます。=)
 
-## How complicated is the maths going to be?
+## 数学はどこまで難しくなりますか？
 
-Most of the mathematics in this Primer are early high school maths. If you understand basic arithmetic, and you know how to read English, you should be able to get by just fine. There will at times be *far* more complicated maths, but if you don't feel like digesting them, you can safely skip over them by either skipping over the "detail boxes" in section or by just jumping to the end of a section with maths that looks too involving. The end of sections typically simply list the conclusions so you can just work with those values directly.
+この入門に出てくる数学は、大半が高校初年度程度です。基本的な計算を理解していて、英語の読み方が分かっていれば、こなすことができるはずです。時には*ずっと*難しい数学も出てきますが、もし理解できないように感じたら、そこは読み飛ばしても大丈夫です。節の中の「詳細欄」を飛ばしてもいいですし、厄介そうな数学があれば節の最後まで読み飛ばしてもかまいません。各節の最後にはたいてい結論を並べてありますので、これを直に利用することもできます。
 
-## Questions, comments:
+## 質問・コメント：
 
-If you have suggestions for new sections, hit up the [Github issue tracker](https://github.com/pomax/BezierInfo-2/issues) (also reachable from the repo linked to in the upper right). If you have questions about the material, there's currently no comment section while I'm doing the rewrite, but you can use the issue tracker for that as well. Once the rewrite is done, I'll add a general comment section back in, and maybe a more topical "select this section of text and hit the 'question' button to ask a question about it" system. We'll see.
+新しい節の提案があれば、[GitHubのissueトラッカー](https://github.com/pomax/BezierInfo-2/issues)をクリックしてください（右上にあるリポジトリのリンクからでもたどり着けます）。改訂中のため、現在はこのページにはコメント欄がありませんが、内容に関する質問がある場合にもissueトラッカーを使ってかまいません。改訂が完了したら、総合的なコメント欄を復活させる予定です。あるいは、「質問対象の節を選択して『質問』ボタンをクリック」するような項目別のシステムになるかもしれません。いずれわかります。
 
-## Buy me a coffee?
+## コーヒーをおごってくれませんか？
 
-If you enjoyed this book, or you simply found it useful for something you were trying to get done, and you were wondering how to let me know you appreciated this book, you can always [buy me a coffee](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPRDLNGDANJSW), however-much a coffee is where you live. This work has grown over the years, from a small primer to a 70ish print-page-equivalent reader on the subject of Bézier curves, and a lot of coffee went into the making of it. I don't regret a minute I spent on writing it, but I can always do with some more coffee to keep on writing!
+この本が気に入った場合や、取り組んでいたことに役に立つと思った場合、あるいは、この本への感謝をわたしに伝えるにはどうすればいいのかわからない場合。そのような場合には、[わたしにコーヒーをおごってください](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPRDLNGDANJSW)。あなたが住んでいるところのコーヒー1杯の値段でかまいません。この本は小さな入門からはじまり、印刷で70ページほどに相当するようなベジエ曲線の読み物へと、年々成長してきています。そして、多くのコーヒーが執筆に費やされてきました。わたしは執筆に使った時間が惜しいとは思いませんが、もう少しコーヒーがあれば、ずっと書き続けることができるのです！
 
 </div>
