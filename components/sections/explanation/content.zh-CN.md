@@ -127,7 +127,7 @@ binomial(n,k):
     s = lut.length
     nextRow = new array(size=s+1)
     nextRow[0] = 1
-    for(i=1, prev=s-1; i&ltprev; i++):
+    for(i=1, prev=s-1; i<prev; i++):
       nextRow[i] = lut[prev][i-1] + lut[prev][i]
     nextRow[s] = 1
     lut.add(nextRow)
@@ -163,6 +163,7 @@ function Bezier(3,t):
 ```
 
 现在我们知道如何代用码实现基本方程了。很好。
+
 </div>
 
 既然我们已经知道基本函数的样子，是时候添加一些魔法来使贝塞尔曲线变得特殊了：控制点。

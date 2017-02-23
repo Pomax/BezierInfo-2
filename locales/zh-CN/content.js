@@ -71,48 +71,48 @@ Given \left (
 
   },
   "explanation": {
-    "locale": "en-GB",
-    "title": "The mathematics of Bézier curves",
+    "locale": "zh-CN",
+    "title": "贝塞尔曲线的数学原理",
     "getContent": function(handler) { return <section>
-<SectionHeader name="explanation" title="The mathematics of Bézier curves" number="3"/>
-<p>Bézier curves are a form of "parametric" function. Mathematically speaking, parametric functions are cheats: a "function" is actually a well defined term representing a mapping from any number of inputs to a <strong>single</strong> output. Numbers go in, a single number comes out. Change the numbers that go in, and the number that comes out is still a single number. Parametric functions cheat. They basically say "alright, well, we want multiple values coming out, so we'll just use more than one function". An illustration: Let's say we have a function that maps some value, let's call it <i>x</i>, to some other value, using some kind of number manipulation:</p>
+<SectionHeader name="explanation" title="贝塞尔曲线的数学原理" number="3"/>
+<p>贝塞尔曲线是“参数”方程的一种形式。从数学上讲，参数方程作弊了：“方程”实际上是一个从输入到<strong>唯一</strong>输出的、良好定义的映射关系。几个输入进来，一个输出返回。改变输入变量，还是只有一个输出值。参数方程在这里作弊了。它们基本上干了这么件事，“好吧，我们想要更多的输出值，所以我们用了多个方程”。举个例子：假如我们有一个方程，通过一些计算，将假设为<i>x</i>的一些值映射到另外的值:</p>
 \[
   f(x) = \cos(x)
-\]<p>The notation <i>f(x)</i> is the standard way to show that it's a function (by convention called <i>f</i> if we're only listing one) and its output changes based on one variable (in this case, <i>x</i>). Change <i>x</i>, and the output for <i>f(x)</i> changes.</p>
-<p>So far so good. Now, let's look at parametric functions, and how they cheat. Let's take the following two functions:</p>
+\]<p>记号<i>f(x)</i>是表示函数的标准方式（为了方便起见，如果只有一个的话，我们称函数为<i>f</i>），函数的输出根据一个变量（本例中是<i>x</i>）变化。改变<i>x</i>，<i>f(x)</i>的输出值也会变。</p>
+<p>到目前没什么问题。现在，让我们来看一下参数方程，以及它们是怎么作弊的。我们取以下两个方程：</p>
 \[
 \begin{matrix}
   f(a) = \cos(a) \\
   f(b) = \sin(b)
 \end{matrix}
-\]<p>There's nothing really remarkable about them, they're just a sine and cosine function, but you'll notice the inputs have different names. If we change the value for <i>a</i>, we're not going to change the output value for <i>f(b)</i>, since <i>a</i> isn't used in that function. Parametric functions cheat by changing that. In a parametric function all the different functions share a variable, like this:</p>
+\]<p>这俩方程没什么让人印象深刻的，只不过是正弦函数和余弦函数，但正如你所见，输入变量有两个不同的名字。如果我们改变了<i>a</i>的值，<i>f(b)</i>的输出不会有变化，因为这个方程没有用到<i>a</i>。参数方程通过改变这点来作弊。在参数方程中，所有不同的方程共用一个变量，如下所示：</p>
 \[
 \left \{ \begin{matrix}
   f_a(t) = \cos(t) \\
   f_b(t) = \sin(t)
 \end{matrix} \right.
-\]<p>Multiple functions, but only one variable. If we change the value for <i>t</i>, we change the outcome of both <i>f<sub>a</sub>(t)</i> and <i>f<sub>b</sub>(t)</i>. You might wonder how that's useful, and the answer is actually pretty simple: if we change the labels <i>f<sub>a</sub>(t)</i> and <i>f<sub>b</sub>(t)</i> with what we usually mean with them for parametric curves, things might be a lot more obvious:</p>
+\]<p>多个方程，但只有一个变量。如果我们改变了<i>t</i>的值，<i>f<sub>a</sub>(t)</i>和<i>f<sub>b</sub>(t)</i>的输出都会发生变化。你可能会好奇这有什么用，答案其实很简单：对于参数曲线，如果我们用常用的标记来替代<i>f<sub>a</sub>(t)</i>和<i>f<sub>b</sub>(t)</i>，看起来就有些明朗了：</p>
 \[
 \left \{ \begin{matrix}
   x = \cos(t) \\
   y = \sin(t)
 \end{matrix} \right.
-\]<p>There we go. <i>x</i>/<i>y</i> coordinates, linked through some mystery value <i>t</i>.</p>
-<p>So, parametric curves don't define a <i>y</i> coordinate in terms of an <i>x</i> coordinate, like normal functions do, but they instead link the values to a "control" variable. If we vary the value of <i>t</i>, then with every change we get <strong>two</strong> values, which we can use as (<i>x</i>,<i>y</i>) coordinates in a graph. The above set of functions, for instance, generates points on a circle: We can range <i>t</i> from negative to positive infinity, and the resulting (<i>x</i>,<i>y</i>) coordinates will always lie on a circle with radius 1 around the origin (0,0). If we plot it for <i>t</i> from 0 to 5, we get this (use your up and down arrow keys to change the plot end value):</p>
-<Graphic preset="empty" title="A (partial) circle: x=sin(t), y=cos(t)" static={true} setup={handler.setup} draw={handler.draw} onKeyDown={handler.props.onKeyDown}/>
-<p>Bézier curves are (one in many classes of) parametric functions, and are characterised by using the same base function for all its dimensions. Unlike the above example, where the <i>x</i> and <i>y</i> values use different functions (one uses a sine, the other a cosine), Bézier curves use the "binomial polynomial" for both <i>x</i> and <i>y</i>. So what are binomial polynomials?</p>
-<p>You may remember polynomials from high school, where they're those sums that look like:</p>
+\]<p>好了，通过一些神秘的<i>t</i>值将<i>x</i>/<i>y</i>坐标系联系起来。</p>
+<p>所以，参数曲线不像一般函数那样，通过<i>x</i>坐标来定义<i>y</i>坐标，而是用一个“控制”变量将它们连接起来。如果改变<i>t</i>的值，每次变化时我们都能得到<strong>两个</strong>值，这可以作为图形中的(<i>x</i>,<i>y</i>)坐标。比如上面的方程组，生成位于一个圆上的点：我们可以使<i>t</i>在正负极值间变化，得到的输出(<i>x</i>,<i>y</i>)都会位于一个以原点(0,0)为中心且半径为1的圆上。如果我们画出<i>t</i>从0到5时的值，将得到如下图像（你可以用上下键来改变画的点和值）：</p>
+<Graphic preset="empty" title="(一部分的)圆: x=sin(t), y=cos(t)" static={true} setup={handler.setup} draw={handler.draw} onKeyDown={handler.props.onKeyDown}/>
+<p>贝塞尔曲线是（一种）参数方程，并在它的多个维度上使用相同的基本方程。在上述的例子中<i>x</i>值和<i>y</i>值使用了不同的方程，与此不同的是，贝塞尔曲线的<i>x</i>和<i>y</i>都用了“二项多项式”。那什么是二项多项式呢？</p>
+<p>你可能记得高中所学的多项式，看起来像这样：</p>
 \[
   f(x) = a \cdot x^3 + b \cdot x^2 + c \cdot x + d
-\]<p>If they have a highest order term <i>x³</i> they're called "cubic" polynomials, if it's <i>x²</i> it's a "square" polynomial, if it's just <i>x</i> it's a line (and if there aren't even any terms with <i>x</i> it's not a polynomial!)</p>
-<p>Bézier curves are polynomials of <i>t</i>, rather than <i>x</i>, with the value for <i>t</i> fixed being between 0 and 1, with coefficients <i>a</i>, <i>b</i> etc. taking the "binomial" form, which sounds fancy but is actually a pretty simple description for mixing values:</p>
+\]<p>如果它的最高次项是<i>x³</i>就称为“三次”多项式，如果最高次项是<i>x²</i>，称为“二次”多项式，如果只含有<i>x</i>的项，它就是一条线（不过不含任何<i>x</i>的项它就不是一个多项式！）</p>
+<p>贝塞尔曲线不是x的多项式，它是<i>t</i>的多项式，<i>t</i>的值被限制在0和1之间，并且含有<i>a</i>，<i>b</i>等参数。它采用了二次项的形式，听起来很神奇但实际上就是混合不同值的简单描述：</p>
 \[
 \begin{align*}
   linear &= (1-t) + t \\
   square &= (1-t)^2 + 2 \cdot (1-t) \cdot t + t^2 \\
   cubic &= (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
 \end{align*}
-\]<p>I know what you're thinking: that doesn't look too simple, but if we remove <i>t</i> and add in "times one", things suddenly look pretty easy. Check out these binomial terms:</p>
+\]<p>我明白你在想什么：这看起来并不简单，但如果我们拿掉<i>t</i>并让系数乘以1，事情就会立马简单很多，看看这些二次项：</p>
 \[
 \begin{align*}
   linear &= \hskip{2.5em} 1 + 1 \\
@@ -120,33 +120,33 @@ Given \left (
   cubic &= \hskip{0.85em} 1 + 3 + 3 + 1\\
   hypercubic &= 1 + 4 + 6 + 4 + 1
 \end{align*}
-\]<p>Notice that 2 is the same as 1+1, and 3 is 2+1 and 1+2, and 6 is 3+3... As you can see, each time we go up a dimension, we simply start and end with 1, and everything in between is just "the two numbers above it, added together". Now <i>that's</i> easy to remember.</p>
-<p>There's an equally simple way to figure out how the polynomial terms work: if we rename <i>(1-t)</i> to <i>a</i> and <i>t</i> to <i>b</i>, and remove the weights for a moment, we get this:</p>
+\]<p>需要注意的是，2与1+1相同，3相当于2+1或1+2，6相当于3+3...如你所见，每次我们增加一个维度，只要简单地将头尾置为1，中间的操作都是“将上面的两个数字相加”。现在就能很容易地记住了。</p>
+<p>还有一个简单的办法可以弄清参数项怎么工作的：如果我们将<i>(1-t)</i>重命名为<i>a</i>，将<i>t</i>重命名为<i>b</i>，暂时把权重删掉，可以得到这个：</p>
 \[
 \begin{align*}
   linear &= BLUE[a] + RED[b] \\
   square &= BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot RED[b] + RED[b] \cdot RED[b] \\
   cubic &= BLUE[a] \cdot BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot BLUE[a] \cdot RED[b] + BLUE[a] \cdot RED[b] \cdot RED[b] + RED[b] \cdot RED[b] \cdot RED[b]\\
 \end{align*}
-\]<p>It's basically just a sum of "every combination of <i>a</i> and <i>b</i>", progressively replacing <i>a</i>'s with <i>b</i>'s after every + sign. So that's actually pretty simple too. So now you know binomial polynomials, and just for completeness I'm going to show you the generic function for this:</p>
+\]<p>基本上它就是“每个<i>a</i>和<i>b</i>结合项”的和，在每个加号后面逐步的将<i>a</i>换成<i>b</i>。因此这也很简单。现在你已经知道了二次多项式，为了叙述的完整性，我将给出一般方程：</p>
 \[
   Bézier(n,t) = \sum_{i=0}^{n}
                 \underset{binomial\ term}{\underbrace{\binom{n}{i}}}
                 \cdot\
                 \underset{polynomial\ term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
-\]<p>And that's the full description for Bézier curves. Σ in this function indicates that this is a series of additions (using the variable listed below the Σ, starting at ...=&lt;value&gt; and ending at the value listed on top of the Σ).</p>
+\]<p>这就是贝塞尔曲线完整的描述。在这个函数中的Σ表示了这是一系列的加法（用Σ下面的变量，从...=&lt;值&gt;开始，直到Σ上面的数字结束）。</p>
 
 <div className="howtocode">
-<h3 id="how-to-implement-the-basis-function">How to implement the basis function</h3>
-<p>We could naively implement the basis function as a mathematical construct, using the function as our guide, like this:</p>
+<h3 id="-">如何实现基本方程</h3>
+<p>我们可以用之前说过的方程，来简单地实现基本方程作为数学构造，如下：</p>
 <pre>function Bezier(n,t):
   sum = 0
   for(k=0; k&lt;n; k++):
     sum += n!/(k!*(n-k)!) * (1-t)^(n-k) * t^(k)
   return sum
 </pre>
-<p>I say we could, because we're not going to: the factorial function is <em>incredibly</em> expensive. And, as we can see from the above explanation, we can actually create Pascal's triangle quite easily without it: just start at [1], then [1,1], then [1,2,1], then [1,3,3,1], and so on, with each next row fitting 1 more number than the previous row, starting and ending with "1", with all the numbers in between being the sum of the previous row's elements on either side "above" the one we're computing.</p>
-<p>We can generate this as a list of lists lightning fast, and then never have to compute the binomial terms because we have a lookup table:</p>
+<p>我说我们“可以用”是因为我们不会这么去做：因为阶乘函数开销<em>非常大</em>。并且，正如我们在上面所看到的，我们不用阶乘也能够很容易地构造出帕斯卡三角形：一开始是[1]，接着是[1,2,1],然后是[1,3,3,1]等等。下一行都比上一行多一个数，首尾都为1，中间的数字是上一行两边元素的和。</p>
+<p>我们可以很快的生成这个列表，并在之后使用这个查找表而不用再计算二次多项式的系数：</p>
 <pre>lut = [      [1],           // n=0
             [1,1],          // n=1
            [1,2,1],         // n=2
@@ -160,20 +160,20 @@ binomial(n,k):
     s = lut.length
     nextRow = new array(size=s+1)
     nextRow[0] = 1
-    for(i=1, prev=s-1; i&ltprev; i++):
+    for(i=1, prev=s-1; i&lt;prev; i++):
       nextRow[i] = lut[prev][i-1] + lut[prev][i]
     nextRow[s] = 1
     lut.add(nextRow)
   return lut[n][k]
 </pre>
-<p>So what's going on here? First, we declare a lookup table with a size that's reasonably large enough to accommodate most lookups. Then, we declare a function to get us the values we need, and we make sure that if an n/k pair is requested that isn't in the LUT yet, we expand it first. Our basis function now looks like this:</p>
+<p>这里做了些什么？首先，我们声明了一个足够大的查找表。然后，我们声明了一个函数来获取我们想要的值，并且确保当一个请求的n/k对不在LUT查找表中时，先将表扩大。我们的基本函数如下所示：</p>
 <pre>function Bezier(n,t):
   sum = 0
   for(k=0; k&lt;=n; k++):
     sum += binomial(n,k) * (1-t)^(n-k) * t^(k)
   return sum
 </pre>
-<p>Perfect. Of course, we can optimize further. For most computer graphics purposes, we don't need arbitrary curves. We need quadratic and  cubic curves (this primer actually does do arbitrary curves, so you'll find code similar to shown here), which means we can drastically simplify the code:</p>
+<p>完美。当然我们可以进一步优化。为了大部分的计算机图形学目的，我们不需要任意的曲线。我们需要二次曲线和三次曲线（实际上这篇文章没有涉及任意次的曲线，因此你会在其他地方看到与这些类似的代码），这说明我们可以彻底简化代码:</p>
 <pre>function Bezier(2,t):
   t2 = t * t
   mt = 1-t
@@ -188,9 +188,9 @@ function Bezier(3,t):
   mt3 = mt2 * mt
   return mt3 + 3*mt2*t + 3*mt*t2 + t3
 </pre>
-<p>And now we know how to program the basis function. Exellent.</p>
+<p>现在我们知道如何代用码实现基本方程了。很好。</p>
 </div>
-<p>So, now we know what the base function(s) look(s) like, time to add in the magic that makes Bézier curves so special: control points.</p>
+<p>既然我们已经知道基本函数的样子，是时候添加一些魔法来使贝塞尔曲线变得特殊了：控制点。</p>
 </section>; }
 
   },

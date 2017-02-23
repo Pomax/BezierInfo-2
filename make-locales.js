@@ -48,6 +48,23 @@ function chunkGraphicJSX(data, chunks, chunkMore) {
   }
 }
 
+/**
+ *
+ */
+function chunkDivEnds(data, chunks, chunkMore) {
+  var next = chunkMore ? chunkMore[0] : false,
+      otherChunkers = chunkMore ? chunkMore.slice(1) : false;
+
+  var splt = data.split('</div>');
+  var dlen = splt.length;
+  splt.forEach( function(segment, pos) {
+    performChunking(segment, chunks, next, otherChunkers);
+    if (pos < dlen-1) {
+      chunks.push({ convert: false, type: '</div>', s:-1, e:-1, data: '</div>' });
+    }
+  });
+}
+
 
 /**
  *
@@ -87,8 +104,8 @@ function chunkDivs(data, chunks, chunkMore) {
       type += ".figure";
     } else {
       eod = data.indexOf(divEnd, div) + divEnd.length;
-    }
 
+    }
     chunks.push({ convert: false, type: type, s:div, e:eod, data: data.substring(div, eod) });
     p = eod;
   }
@@ -146,7 +163,7 @@ function performChunking(data, chunks, chunker, moreChunkers) {
  */
 function chunk(data) {
   var chunks = [];
-  performChunking(data, chunks, chunkLatex, [chunkDivs, chunkGraphicJSX]);
+  performChunking(data, chunks, chunkLatex, [chunkDivs, chunkDivEnds, chunkGraphicJSX]);
   return chunks;
 }
 

@@ -127,7 +127,7 @@ binomial(n,k):
     s = lut.length
     nextRow = new array(size=s+1)
     nextRow[0] = 1
-    for(i=1, prev=s-1; i&ltprev; i++):
+    for(i=1, prev=s-1; i<prev; i++):
       nextRow[i] = lut[prev][i-1] + lut[prev][i]
     nextRow[s] = 1
     lut.add(nextRow)
