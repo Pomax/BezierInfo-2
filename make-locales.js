@@ -19,6 +19,48 @@ Module.prototype.require = function() {
 };
 
 /**
+ * fix the stupid nonsense inability for markdown parsers to see link
+ * syntax with `)` in the links themselves.
+ */
+function fixMarkDownLinks(data, chunks, chunkMore) {
+  var p = 0,
+      next = chunkMore ? chunkMore[0] : false,
+      otherChunkers = chunkMore ? chunkMore.slice(1) : false;
+  var fixes = [];
+  data.replace(/\[[^\]]+\]\(/g, function(_match, pos, _fullstring) {
+    // this is the start of a link. Find the offset at which the next `)`
+    // is actually the link closer.
+    var offset = 0;
+    var start = pos + _match.length;
+    var complex = false;
+    for (let d=0, i=start; i<data.length; i++) {
+      if (data[i] === '(') { d++; complex = true; }
+      else if (data[i] === ')') { d--; }
+      if (d<0) { offset = i - start; break; }
+    }
+    var end = start + offset;
+    // we now know the *actual* link length. Safify it.
+    if (complex) { fixes.push({ start, end, data: data.substring(start,end) }); }
+    // and return the matched text because we don't want to replace right now.
+    return _match
+  });
+
+  // let's safify this data, if there was a complex pattern that needs fixin'
+  if (fixes.length>0) {
+    fixes.forEach(fix => {
+      let s = fix.start,
+          e = fix.end,
+          newdata = fix.data.replace(/\(/g, '%28').replace(/\)/g, '%29');
+      // I can't believe I still have to do this in 2017...
+      data = data.substring(0,s) + newdata + data.substring(e);
+    });
+  }
+
+  // alright, let "the rest" deal with this data now.
+  performChunking(data, chunks, next, otherChunkers);
+}
+
+/**
  *
  */
 function chunkGraphicJSX(data, chunks, chunkMore) {
@@ -163,7 +205,7 @@ function performChunking(data, chunks, chunker, moreChunkers) {
  */
 function chunk(data) {
   var chunks = [];
-  performChunking(data, chunks, chunkLatex, [chunkDivs, chunkDivEnds, chunkGraphicJSX]);
+  performChunking(data, chunks, chunkLatex, [chunkDivs, chunkDivEnds, chunkGraphicJSX, fixMarkDownLinks]);
   return chunks;
 }
 
@@ -266,7 +308,7 @@ function processLocale(locale) {
   var bundle = `var React = require('react');\nvar Graphic = require("../../components/Graphic.jsx");\nvar SectionHeader = require("../../components/SectionHeader.jsx");\n\nmodule.exports = ${bcode};\n`;
 
   var dir = `./locales/${locale}`;
-  fs.ensureDir(dir);
+  fs.ensureDirSync(dir);
   fs.writeFileSync(`${dir}/content.js`, bundle);
 }
 

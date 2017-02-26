@@ -1,6 +1,9 @@
 var React = require("react");
-var Graphic = require("../../Graphic.jsx");
-var SectionHeader = require("../../SectionHeader.jsx");
+
+var Locale = require("../../../lib/locale");
+var locale = new Locale();
+var page = "tracing";
+
 var keyHandling = require("../../decorators/keyhandling-decorator.jsx");
 
 var Tracing = React.createClass({
@@ -21,7 +24,7 @@ var Tracing = React.createClass({
 
   getDefaultProps: function() {
     return {
-      title: "Tracing a curve at fixed distance intervals"
+      title: locale.getTitle(page)
     };
   },
 
@@ -136,65 +139,7 @@ var Tracing = React.createClass({
   },
 
   render: function() {
-    return (
-      <section>
-        <SectionHeader {...this.props} />
-
-        <p>Say you want to draw a curve with a dashed line, rather than a solid line,
-        or you want to move something along the curve at fixed distance intervals over
-        time, like a train along a track, and you want to use Bézier curves.</p>
-
-        <p>Now you have a problem.</p>
-
-        <p>The reason you have a problem is that Bézier curves are parametric functions
-        with non-linear behaviour, whereas moving a train along a track is about as
-        close to a practical example of linear behaviour as you can get. The problem
-        we're faced with is that we can't just pick <i>t</i> values at some fixed interval
-        and expect the Bézier functions to generate points that are spaced a fixed distance
-        apart. In fact, let's look at the relation between "distance long a curve" and
-        "<i>t</i> value", by plotting them against one another.</p>
-
-        <p>The following graphic shows a particularly illustrative curve, and it's length-to-t plot.
-        For linear traversal, this line needs to be straight, running from (0,0) to (length,1). This is,
-        it's safe to say, not what we'll see, we'll see something wobbly instead. To make matters even
-        worse, the length-to-<i>t</i> function is also of a much higher order than our curve is: while
-        the curve we're using for this exercise is a cubic curve, which can switch concave/convex form once
-        at best, the plot shows that the distance function along the curve is able to switch forms three
-        times (to see this, try creating an S curve with the start/end close together, but the control
-        points far apart).</p>
-
-        <Graphic preset="twopanel" title="The t-for-distance function" setup={this.setup} draw={this.plotOnly}/>
-
-        <p>We see a function that might be invertible, but we won't be able to do so, symbolically.
-        You may remember from the section on arc length that we cannot actually compute the true
-        arc length function as an expression of <i>t</i>, which means we also can't compute the true
-        inverted function that gives <i>t</i> as an expression of length. So how do we fix this?</p>
-
-        <p>One way is to do what the graphic does: simply run through the curve, determine its
-        <i>t</i>-for-length values as a set of discrete values at some high resolution (the graphic
-        uses 100 discrete points), and then use those as a basis for finding an appropriate <i>t</i> value,
-        given a distance along the curve. This works quite well, actually, and is fairly fast.</p>
-
-        <p>We can use some colour to show the difference between distance-based and time based intervals:
-        the following graph is similar to the previous one, except it segments the curve in terms of
-        equal-distance intervals. This shows as regular colour intervals going down the graph, but
-        the mapping to <i>t</i> values is not linear, so there will be (highly) irregular intervals
-        along the horizontal axis. It also shows the curve in an alternating colouring based on the
-        t-for-distance values we find our LUT:</p>
-
-        <Graphic preset="threepanel" title="Fixed-interval coloring a curve" setup={this.setup} draw={this.drawColoured} onKeyDown={this.props.onKeyDown}/>
-
-        <p>Use your up and down arrow keys to increase or decrease the number of equidistant segments
-        used to colour the curve.</p>
-
-        <p>However, are there better ways? One such way is discussed
-        in "<a href="http://www.geometrictools.com/Documentation/MovingAlongCurveSpecifiedSpeed.pdf">Moving
-        Along a Curve with Specified Speed</a>" by David Eberly of Geometric Tools, LLC, but basically because
-        we have no explicit length function (or rather, one we don't have to constantly compute for different
-        intervals), you may simply be better off with a traditional lookup table (LUT).</p>
-
-      </section>
-    );
+    return <section>{ locale.getContent(page, this) }</section>;
   }
 });
 
