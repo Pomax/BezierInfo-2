@@ -54,22 +54,22 @@
 ベジエ曲線は<i>x</i>の多項式ではなく、<i>t</i>の多項式です。<i>t</i>の値は0から1までの間に制限され、その係数<i>a</i>、<i>b</i>などは「二項係数」の形をとります。というと複雑そうに聞こえますが、実際には値を組み合わせて、とてもシンプルに記述できます。
 
 \[
-\begin{align*}
+\begin{aligned}
   linear &= (1-t) + t \\
   square &= (1-t)^2 + 2 \cdot (1-t) \cdot t + t^2 \\
   cubic &= (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
-\end{align*}
+\end{aligned}
 \]
 
 「そこまでシンプルには見えないよ」と思っていることでしょう。しかし仮に、<i>t</i>を取り去って係数に1を掛けることにしてしまえば、急激に簡単になります。これが二項係数部分の項です。
 
 \[
-\begin{align*}
-  linear &= \hskip{2.5em} 1 + 1 \\
-  square &= \hskip{1.7em} 1 + 2 + 1\\
-  cubic &= \hskip{0.85em} 1 + 3 + 3 + 1\\
+\begin{aligned}
+  linear &= \hspace{2.5em} 1 + 1 \\
+  square &= \hspace{1.7em} 1 + 2 + 1\\
+  cubic &= \hspace{0.85em} 1 + 3 + 3 + 1\\
   hypercubic &= 1 + 4 + 6 + 4 + 1
-\end{align*}
+\end{aligned}
 \]
 
 2は1+1に等しく、3は2+1や1+2に等しく、6は3+3に等しく、……ということに注目してください。見てわかるように、先頭と末尾は単に1になっていますが、中間はどれも次数が増えるたびに「上の2つの数を足し合わせた」ものになっています。<i>これなら</i>覚えやいですね。
@@ -77,11 +77,11 @@
 多項式部分の項がどうなっているのか、同じぐらい簡単な方法で考えることができます。仮に、<i>(1-t)</i>を<i>a</i>に、<i>t</i>を<i>b</i>に書き換え、さらに重みを一旦削除してしまえば、このようになります。
 
 \[
-\begin{align*}
+\begin{aligned}
   linear &= BLUE[a] + RED[b] \\
   square &= BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot RED[b] + RED[b] \cdot RED[b] \\
   cubic &= BLUE[a] \cdot BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot BLUE[a] \cdot RED[b] + BLUE[a] \cdot RED[b] \cdot RED[b] + RED[b] \cdot RED[b] \cdot RED[b]\\
-\end{align*}
+\end{aligned}
 \]
 
 これは要するに、「<i>a</i>と<i>b</i>のすべての組み合わせ」の単なる和です。プラスが出てくるたびに、<i>a</i>を<i>b</i>へと1つずつ置き換えていけばよいのです。こちらも本当に単純です。さて、これで「二項係数多項式」がわかりました。完璧を期するため、この関数の一般の形を示しておきます。

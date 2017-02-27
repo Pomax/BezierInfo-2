@@ -54,22 +54,22 @@ If they have a highest order term <i>x³</i> they're called "cubic" polynomials,
 Bézier curves are polynomials of <i>t</i>, rather than <i>x</i>, with the value for <i>t</i> fixed being between 0 and 1, with coefficients <i>a</i>, <i>b</i> etc. taking the "binomial" form, which sounds fancy but is actually a pretty simple description for mixing values:
 
 \[
-\begin{align*}
+\begin{aligned}
   linear &= (1-t) + t \\
   square &= (1-t)^2 + 2 \cdot (1-t) \cdot t + t^2 \\
   cubic &= (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
-\end{align*}
+\end{aligned}
 \]
 
 I know what you're thinking: that doesn't look too simple, but if we remove <i>t</i> and add in "times one", things suddenly look pretty easy. Check out these binomial terms:
 
 \[
-\begin{align*}
-  linear &= \hskip{2.5em} 1 + 1 \\
-  square &= \hskip{1.7em} 1 + 2 + 1\\
-  cubic &= \hskip{0.85em} 1 + 3 + 3 + 1\\
+\begin{aligned}
+  linear &= \hspace{2.5em} 1 + 1 \\
+  square &= \hspace{1.7em} 1 + 2 + 1\\
+  cubic &= \hspace{0.85em} 1 + 3 + 3 + 1\\
   hypercubic &= 1 + 4 + 6 + 4 + 1
-\end{align*}
+\end{aligned}
 \]
 
 Notice that 2 is the same as 1+1, and 3 is 2+1 and 1+2, and 6 is 3+3... As you can see, each time we go up a dimension, we simply start and end with 1, and everything in between is just "the two numbers above it, added together". Now <i>that's</i> easy to remember.
@@ -77,11 +77,11 @@ Notice that 2 is the same as 1+1, and 3 is 2+1 and 1+2, and 6 is 3+3... As you c
 There's an equally simple way to figure out how the polynomial terms work: if we rename <i>(1-t)</i> to <i>a</i> and <i>t</i> to <i>b</i>, and remove the weights for a moment, we get this:
 
 \[
-\begin{align*}
+\begin{aligned}
   linear &= BLUE[a] + RED[b] \\
   square &= BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot RED[b] + RED[b] \cdot RED[b] \\
   cubic &= BLUE[a] \cdot BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot BLUE[a] \cdot RED[b] + BLUE[a] \cdot RED[b] \cdot RED[b] + RED[b] \cdot RED[b] \cdot RED[b]\\
-\end{align*}
+\end{aligned}
 \]
 
 It's basically just a sum of "every combination of <i>a</i> and <i>b</i>", progressively replacing <i>a</i>'s with <i>b</i>'s after every + sign. So that's actually pretty simple too. So now you know binomial polynomials, and just for completeness I'm going to show you the generic function for this:

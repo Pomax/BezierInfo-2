@@ -139,13 +139,13 @@ var Circles = React.createClass({
 
         <p>which we can then substitute in the expression for <i>a</i>:</p>
 
-        <p>\[ \begin{align*}
+        <p>\[ \begin{aligned}
           a &= sin(φ) + b \cdot cos(φ) \\
           .. &= sin(φ) + \frac{-1 + cos(φ)}{sin(φ)} \cdot cos(φ) \\
           .. &= sin(φ) + \frac{-cos(φ) + cos^2(φ)}{sin(φ)} \\
           .. &= \frac{sin^2(φ) + cos^2(φ) - cos(φ)}{sin(φ)} \\
           a &= \frac{1 - cos(φ)}{sin(φ)}
-        \end{align*} \]</p>
+        \end{aligned} \]</p>
 
         <p>A quick check shows that plugging these values for <i>a</i> and <i>b</i> into the expressions
         for C<sub>x</sub> and C<sub>y</sub> give the same x/y coordinates for both "<i>a</i> away from A"
@@ -167,21 +167,21 @@ var Circles = React.createClass({
         <p>Which, worked out for the x and y components, gives:</p>
 
         <p>\[\begin{array}{l}
-          \left\{\begin{align*}
+          \left\{\begin{aligned}
           T_x &= \frac{1}{4}(3 + cos(φ))\\
           T_y &= \frac{1}{4}\left(\frac{2-2cos(φ)}{sin(φ)} + sin(φ)\right)
                = \frac{1}{4}\left(2tan\left(\frac{φ}{2}\right) + sin(φ)\right)
-          \end{align*}\right.
+          \end{aligned}\right.
         \end{array}\]</p>
 
         <p>And the distance between these two is the standard Euclidean distance:</p>
 
-        <p>\[\begin{align}
+        <p>\[\begin{aligned}
           d_x(φ) &= T_x - P_x = \frac{1}{4}(3 + cos(φ)) - cos(\frac{φ}{2}) = 2sin^4\left(\frac{φ}{4}\right) \ , \\
           d_y(φ) &= T_y - P_y = \frac{1}{4}\left(2tan\left(\frac{φ}{2}\right) + sin(φ)\right) - sin(\frac{φ}{2}) \ , \\
           &⇓\\
           d(φ) &= \sqrt{d^2_x + d^2_y} = \ ... \  = 2sin^4(\frac{φ}{2})\sqrt{\frac{1}{cos^2(\frac{φ}{2})}}
-        \end{align}\]</p>
+        \end{aligned}\]</p>
 
         <p>So, what does this distance function look like when we plot it for a
         number of ranges for the angle φ, such as a half circle, quarter circle and eighth circle?</p>

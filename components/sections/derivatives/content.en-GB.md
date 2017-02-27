@@ -26,48 +26,53 @@ Sometimes just being told "this is the derivative" is nice, but you might want t
 
 Applying the [product](http://en.wikipedia.org/wiki/Product_rule) and [chain](http://en.wikipedia.org/wiki/Chain_rule) rules gives us:
 
-\[\begin{array}{l}
-  ... &= {n \choose k} \left (
+\[
+\begin{array}{l}
+  ... = {n \choose k} \left (
     k \cdot t^{k-1} (1-t)^{n-k} + t^k \cdot (1-t)^{n-k-1} \cdot (n-k) \cdot -1
   \right )
-\end{array}\]
+\end{array}
+\]
 
 Which is hard to work with, so let's expand that properly:
 
-\[\begin{array}{l}
-  ... &= \frac{kn!}{k!(n-k)!} t^{k-1} (1-t)^{n-k} - \frac{(n-k)n!}{k!(n-k)!} t^k (1-t)^{n-1-k}
-\end{array}\]
+\[
+\begin{array}{l}
+  ... = \frac{kn!}{k!(n-k)!} t^{k-1} (1-t)^{n-k} - \frac{(n-k)n!}{k!(n-k)!} t^k (1-t)^{n-1-k}
+\end{array}
+\]
 
 Now, the trick is to turn this expression into something that has binomial coefficients again, so we want to end up with things that look like "x! over y!(x-y)!". If we can do that in a way that involves terms of <i>n-1</i> and <i>k-1</i>, we'll be on the right track.
 
-\[\begin{array}{l}
-  ... &= \frac{n!}{(k-1)!(n-k)!} t^{k-1} (1-t)^{n-k} - \frac{(n-k)n!}{k!(n-k)!} t^k (1-t)^{n-1-k} \\
+\[
+\begin{array}{l}
+  ... = \frac{n!}{(k-1)!(n-k)!} t^{k-1} (1-t)^{n-k} - \frac{(n-k)n!}{k!(n-k)!} t^k (1-t)^{n-1-k} \\
 
-  ... &= n \left (
+  ... = n \left (
     \frac{(n-1)!}{(k-1)!(n-k)!} t^{k-1} (1-t)^{n-k} - \frac{(n-k)(n-1)!}{k!(n-k)!} t^k (1-t)^{n-1-k}
   \right ) \\
 
-  ... &= n \left (
+  ... = n \left (
     \frac{(n-1)!}{(k-1)!((n-1)-(k-1))!} t^{(k-1)} (1-t)^{(n-1)-(k-1)} - \frac{(n-1)!}{k!((n-1)-k)!} t^k (1-t)^{(n-1)-k}
   \right )
-\end{array}\]
+\end{array}
+\]
 
 And that's the first part done: the two components inside the parentheses are actually regular, lower order Bezier expressions:
 
 \[\begin{array}{l}
-  ... &= n \left (
+  ... = n \left (
     \frac{x!}{y!(x-y)!} t^{y} (1-t)^{x-y} - \frac{x!}{k!(x-k)!} t^k (1-t)^{x-k}
   \right )
   \ ,\ with\ x=n-1,\ y=k-1
   \\
-
-
-  ... &= n \left ( B_{(n-1),(k-1)}(t) - B_{(n-1),k}(t) \right )
-\end{array}\]
+  ... = n \left ( B_{(n-1),(k-1)}(t) - B_{(n-1),k}(t) \right )
+\end{array}
+\]
 
 Now to apply this to our weighted Bezier curves. We'll write out the plain curve formula that we saw earlier, and then work our way through to its derivative:
 
-\[\begin{array}{l}
+\[\begin{array}{lcl}
   Bézier_{n,k}(t) &=& B_{n,0}(t) \cdot w_0 + B_{n,1}(t) \cdot w_1 + B_{n,2}(t) \cdot w_2 + B_{n,3}(t) \cdot w_3 + ... \\
   Bézier_{n,k}(t) \frac{d}{dt} &=& n \cdot (B_{n-1,-1}(t) - B_{n-1,0}(t)) \cdot w_0 + \\
                                & & n \cdot (B_{n-1,0}(t) - B_{n-1,1}(t)) \cdot w_1 + \\
@@ -78,7 +83,7 @@ Now to apply this to our weighted Bezier curves. We'll write out the plain curve
 
 If we expand this (with some color to show how terms line up), and reorder the terms by increasing values for <i>k</i> we see the following:
 
-\[\begin{array}{l}
+\[\begin{array}{lclc}
   n \cdot B_{n-1,-1}(t) \cdot w_0 &+& & \\
   n \cdot B_{n-1,BLUE[0]}(t) \cdot w_1 &-& n \cdot B_{n-1,BLUE[0]}(t) \cdot w_0 & + \\
   n \cdot B_{n-1,RED[1]}(t) \cdot w_2 &-& n \cdot B_{n-1,RED[1]}(t) \cdot w_1 & + \\
@@ -89,7 +94,7 @@ If we expand this (with some color to show how terms line up), and reorder the t
 
 Two of these terms fall way: the first term falls away because there is no -1<sup>st</sup> term in a summation. As such, it always contributes "nothing", so we can safely completely ignore it for the purpose of finding the derivative function. The other term is the very last term in this expansion: one involving <i>B<sub>n-1,n</sub></i>. This term would have a binomial coefficient of [<i>i</i> choose <i>i+1</i>], which is a non-existent binomial coefficient. Again, this term would contribute "nothing", so we can ignore it, too. This means we're left with:
 
-\[\begin{array}{l}
+\[\begin{array}{lclc}
   n \cdot B_{n-1,BLUE[0]}(t) \cdot w_1 &-& n \cdot B_{n-1,BLUE[0]}(t) \cdot w_0 &+ \\
   n \cdot B_{n-1,RED[1]}(t) \cdot w_2 &-& \ n \cdot B_{n-1,RED[1]}(t) \cdot w_1 &+ \\
   n \cdot B_{n-1,MAGENTA[2]}(t) \cdot w_3 &-& n \cdot B_{n-1,MAGENTA[2]}(t) \cdot w_2 &+ \\
@@ -139,7 +144,7 @@ Let's rewrite that in a form similar to our original formula, so we can see the 
 
 What are the differences? In terms of the actual Bézier curve, virtually nothing! We lowered the order (rather than <i>n</i>, it's now <i>n-1</i>), but it's still the same Bézier function. The only real difference is in how the weights change when we derive the curve's function. If we have four points A, B, C, and D, then the derivative will have three points, the second derivative two, and the third derivative one:
 
-\[ \begin{array}{l}
+\[ \begin{array}{llll}
   B(n,t),    &        & w = \{A,B,C,D\} \\
   B'(n,t),   & n = 3, & w' = \{A',B',C'\}    &= \{3 \cdot (B-A), {\ } 3 \cdot (C-B), {\ } 3 \cdot (D-C)\} \\
   B''(n,t),  & n = 2, & w'' = \{A'',B''\}    &= \{2 \cdot (B'-A'), {\ } 2 \cdot (C'-B')\} \\

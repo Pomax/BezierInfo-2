@@ -27,32 +27,32 @@ However as we've seen in the section on aligning, aligning lets us simplify thin
 Of course, before we do our aligned check, let's see what happens if we compute the curvature function without axis-aligning. We start with the first and second derivatives, given our basis functions:
 
 \[
-\begin{align*}
+\begin{aligned}
   & Bézier(t) = x_1(1-t)^3 + 3x_2(1-t)^2t + 3x_3(1-t)t^2 + x_4t^3 \\
   & Bézier^\prime(t) = a(1-t)^2 + 2b(1-t)^t + ct^2\  \left\{ a=3(x_2-x_1),b=3(x_3-x_2),c=3(x_4-x_3) \right\} \\
   & Bézier^{\prime\prime}(t) = u(1-t) + vt\ \left\{ u=2(b-a),v=2(c-b) \right\}\
-\end{align*}
+\end{aligned}
 \]
 
 And of course the same functions for *y*:
 
 \[
-\begin{align*}
+\begin{aligned}
   & Bézier(t) = y_1(1-t)^3 + 3y_2(1-t)^2t + 3y_3(1-t)t^2 + y_4t^3 \\
   & Bézier^\prime(t) = d(1-t)^2 + 2e(1-t)^t + ft^2\\
   & Bézier^{\prime\prime}(t) = w(1-t) + zt
-\end{align*}
+\end{aligned}
 \]
 
 Asking a computer to now compose the *C(t)* function for us (and to expand it to a readable form of simple terms) gives us this rather overly complicated set of arithmetic expressions:
 
 \[
-\begin{array}
-  -18 t^2 x_2 y_1+36 t^2 x_3 y_1-18 t^2 x_4 y_1+18 t^2 x_1 y_2-54 t^2 x_3 y_2 \\
-  +36 t^2 x_4 y_2-36 t^2 x_1 y_3+54 t^2 x_2 y_3-18 t^2 x_4 y_3+18 t^2 x_1 y_4 \\
-  -36 t^2 x_2 y_4+18 t^2 x_3 y_4+36 t x_2 y_1-54 t x_3 y_1+18 t x_4 y_1-36 t x_1 y_2 \\
-  +54 t x_3 y_2-18 t x_4 y_2+54 t x_1 y_3-54 t x_2 y_3-18 t x_1 y_4+18 t x_2 y_4 \\
-  -18 x_2 y_1+18 x_3 y_1+18 x_1 y_2-18 x_3 y_2-18 x_1 y_3+18 x_2 y_3
+\begin{array}{lclclclclcl}
+-18 t^2 x_2 y_1 &+& 36 t^2 x_3 y_1 &-& 18 t^2 x_4 y_1 &+& 18 t^2 x_1 y_2 &-& 54 t^2 x_3 y_2 &&\\
++36 t^2 x_4 y_2 &-& 36 t^2 x_1 y_3 &+& 54 t^2 x_2 y_3 &-& 18 t^2 x_4 y_3 &+& 18 t^2 x_1 y_4 &&\\
+-36 t^2 x_2 y_4 &+& 18 t^2 x_3 y_4 &+& 36 t x_2 y_1   &-& 54 t x_3 y_1   &+& 18 t x_4 y_1 &-& 36 t x_1 y_2 \\
++54 t x_3 y_2   &-& 18 t x_4 y_2   &+& 54 t x_1 y_3   &-& 54 t x_2 y_3   &-& 18 t x_1 y_4 &+& 18 t x_2 y_4 \\
+-18 x_2 y_1     &+& 18 x_3 y_1     &+& 18 x_1 y_2     &-& 18 x_3 y_2     &-& 18 x_1 y_3   &+& 18 x_2 y_3
 \end{array}
 \]
 

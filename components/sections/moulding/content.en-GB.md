@@ -19,19 +19,19 @@ To help understand what's going on, the cubic graphic shows the full de Castelja
 First, we construct the one-level-of-de-Casteljau-up points:
 
 \[
-    \left \{ \begin{align}
+    \left \{ \begin{aligned}
     v1 &= A' + \frac{e1 - A'}{t} \\
     v2 &= A' + \frac{e2 - A'}{1 - t}
-    \end{align} \right .
+    \end{aligned} \right .
 \]
 
 And then we can compute the new control points:
 
 \[
-    \left \{ \begin{align}
+    \left \{ \begin{aligned}
     C1' &= v1 + \frac{v1 - start}{t} \\
     C2' &= v2 + \frac{v2 - end}{1 - t}
-    \end{align} \right .
+    \end{aligned} \right .
 \]
 
 And that's cubic curve manipulation.

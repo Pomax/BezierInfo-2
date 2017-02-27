@@ -32,10 +32,12 @@ So that just leaves finding A.
 While that relation is fixed, the function *u(t)* differs depending on whether we're working
 with quadratic or cubic curves:
 
-\[\begin{align}
-  & u(t)_{quadratic} = \frac{(1-t)^2}{t^2 + (1-t)^2} \\
-  & u(t)_{cubic} = \frac{(1-t)^3}{t^3 + (1-t)^3}
-\end{align}\]
+\[
+\begin{aligned}
+& u(t)_{quadratic} &= \frac{(1-t)^2}{t^2 + (1-t)^2} \\
+& u(t)_{cubic} &= \frac{(1-t)^3}{t^3 + (1-t)^3}
+\end{aligned}
+\]
 
 So, if we know the start and end coordinates, and we know the *t* value, we know C:
 

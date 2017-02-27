@@ -58,7 +58,7 @@ The approach is going to start with a curve that doesn't have all-colinear point
 Step 1: we translate any curve by -p1.x and -p1.y, so that the curve starts at (0,0). We're going to make use of an interesting trick here, by pretending our 2D coordinates are 3D, with the <i>z</i> coordinate simply always being 1. This is an old trick in graphics to overcome the limitations of 2D transformations: without it, we can only turn (x,y) coordinates into new coordinates of the form (ax + by, cx + dy), which means we can't do translation, since that requires we end up with some kind of (x + a, y + b). If we add a bogus <i>z</i> coordinate that is always 1, then we can suddenly add arbitrary values. For example:
 
 \[
-\left [ \begin{array}
+\left [ \begin{array}{ccc}
     01 & 0 & a \\
     0 & 1 & b \\
     0 & 0 & 1
@@ -101,7 +101,7 @@ Sweet! <i>z</i> stays 1, so we can effectively ignore it entirely, but we added 
 
 \[
 T_1 =
-\left [ \begin{array}
+\left [ \begin{array}{ccc}
     01 & 0 & -{P_1}_x \\
     0 & 1 & -{P_1}_y \\
     0 & 0 & 1

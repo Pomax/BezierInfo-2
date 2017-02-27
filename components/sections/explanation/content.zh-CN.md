@@ -54,22 +54,22 @@
 贝塞尔曲线不是x的多项式，它是<i>t</i>的多项式，<i>t</i>的值被限制在0和1之间，并且含有<i>a</i>，<i>b</i>等参数。它采用了二次项的形式，听起来很神奇但实际上就是混合不同值的简单描述：
 
 \[
-\begin{align*}
+\begin{aligned}
   linear &= (1-t) + t \\
   square &= (1-t)^2 + 2 \cdot (1-t) \cdot t + t^2 \\
   cubic &= (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
-\end{align*}
+\end{aligned}
 \]
 
 我明白你在想什么：这看起来并不简单，但如果我们拿掉<i>t</i>并让系数乘以1，事情就会立马简单很多，看看这些二次项：
 
 \[
-\begin{align*}
-  linear &= \hskip{2.5em} 1 + 1 \\
-  square &= \hskip{1.7em} 1 + 2 + 1\\
-  cubic &= \hskip{0.85em} 1 + 3 + 3 + 1\\
+\begin{aligned}
+  linear &= \hspace{2.5em} 1 + 1 \\
+  square &= \hspace{1.7em} 1 + 2 + 1\\
+  cubic &= \hspace{0.85em} 1 + 3 + 3 + 1\\
   hypercubic &= 1 + 4 + 6 + 4 + 1
-\end{align*}
+\end{aligned}
 \]
 
 需要注意的是，2与1+1相同，3相当于2+1或1+2，6相当于3+3...如你所见，每次我们增加一个维度，只要简单地将头尾置为1，中间的操作都是“将上面的两个数字相加”。现在就能很容易地记住了。
@@ -77,11 +77,11 @@
 还有一个简单的办法可以弄清参数项怎么工作的：如果我们将<i>(1-t)</i>重命名为<i>a</i>，将<i>t</i>重命名为<i>b</i>，暂时把权重删掉，可以得到这个：
 
 \[
-\begin{align*}
+\begin{aligned}
   linear &= BLUE[a] + RED[b] \\
   square &= BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot RED[b] + RED[b] \cdot RED[b] \\
   cubic &= BLUE[a] \cdot BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot BLUE[a] \cdot RED[b] + BLUE[a] \cdot RED[b] \cdot RED[b] + RED[b] \cdot RED[b] \cdot RED[b]\\
-\end{align*}
+\end{aligned}
 \]
 
 基本上它就是“每个<i>a</i>和<i>b</i>结合项”的和，在每个加号后面逐步的将<i>a</i>换成<i>b</i>。因此这也很简单。现在你已经知道了二次多项式，为了叙述的完整性，我将给出一般方程：

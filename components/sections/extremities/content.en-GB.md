@@ -7,12 +7,12 @@ Now that we understand (well, superficially anyway) the component functions, we 
 Finding the solution for "where is this line 0" should be trivial:
 
 \[
-\begin{align}
+\begin{aligned}
   l(x) = ax + b &= 0,\\
   ax + b &= 0,\\
   ax &= -b \\
   x &= \frac{-b}{a}
-\end{align}
+\end{aligned}
 \]
 
 Done. And quadratic curves have no meaningful second derivative, so we're *really* done.
@@ -30,32 +30,32 @@ So, if we can express a Bézier component function as a plain polynomial, we're 
 First we turn our cubic Bézier function into a quadratic one, by following the rule mentioned at the end of the [derivatives section](#derivatives):
 
 \[
-\begin{align}
+\begin{array}{l}
   B(t)\ uses\ \{ p_1,p_2,p_3,p_4 \} \\
   B'(t)\ uses\ \{ v_1.v_2,v_3 \},\ where\ v_1 = 3(p_2-p_1),\ v_2 = 3(p_3-p_2),\ v_3 = 3(p_4-p_3)
-\end{align}
+\end{array}
 \]
 
 And then, using these *v* values, we can find out what our *a*, *b*, and *c* should be:
 
 \[
-\begin{align}
+\begin{aligned}
   B'(t) &= v_1(1-t)^2 + 2v_2(1-t)t + v_3t^2 \\
   ... &= v_1(t^2 - 2t + 1) + 2v_2(t-t^2) + v_3t^2 \\
   ... &= v_1t^2 - 2v_1t + v_1 + 2v_2t - 2v_2t^2 + v_3t^2 \\
   ... &= v_1t^2 - 2v_2t^2 + v_3t^2 - 2v_1t + v_1 + 2v_2t \\
   ... &= (v_1-2v_2+v_3)t^2 + 2(v_2-v_1)t + v_1
-\end{align}
+\end{aligned}
 \]
 
 This gives us thee coefficients *a*, *b*, and *c* that are expressed in terms of *v* values, where the *v* values are just convenient expressions of our original *p* values, so we can do some trivial substitution to get:
 
 \[
-\begin{align}
+\begin{aligned}
   a &= v_1-2v_2+v_3 = 3(-p_1 + 3p_2 - 3p_3 + p_4) \\
   b &= 2(v_2-v_1) = 6(p_1 - 2p_2 + p_3) \\
   c &= v_1 = 3(p_2-p_1)
-\end{align}
+\end{aligned}
 \]
 
 Easy peasy. We can now almost trivially find the roots by plugging those values into the quadratic formula. We also note that the second derivative of a cubic curve means computing the first derivative of a quadratic curve, and we just saw how to do that in the section above.

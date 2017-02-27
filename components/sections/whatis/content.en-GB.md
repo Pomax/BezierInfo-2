@@ -8,12 +8,12 @@ If we know the distance between those two points, and we want a new point that i
 
 \[
 Given \left (
-  \begin{align}
+  \begin{aligned}
     p_1 &= some\ point \\
     p_2 &= some\ other\ point \\
     distance &= (p_2 - p_1) \\
     ratio &= \frac{percentage}{100} \\
-  \end{align}
+  \end{aligned}
 \right ),\ our\ new\ point = p_1 + distance \cdot ratio
 \]
 
