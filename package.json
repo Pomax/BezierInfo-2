@@ -65,7 +65,6 @@
     "markdown": "^0.5.0",
     "markdown-it": "^8.2.2",
     "marked": "^0.3.6",
-    "mathjax-node": "^0.4.0",
     "npm-run-all": "^4.0.1",
     "pdfjs": "^1.0.0-alpha.5",
     "pirates": "^2.1.0",
