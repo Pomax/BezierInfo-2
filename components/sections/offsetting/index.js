@@ -118,7 +118,7 @@ var Offsetting = React.createClass({
           <i>N(t)</i> always has length 1, which we can achieve by dividing <i>B'(t)</i> by its magnitude:</p>
 
           <p>\[
-            N(t) \perp \left ( \frac{B'(t)}{\left || B'(t) \right || } \right )
+            N(t) \bot \left ( \frac{B'(t)}{\left || B'(t) \right || } \right )
           \]</p>
 
           <p>Determining the length requires computing an arc length, and this is where things get Tricky with

@@ -84,14 +84,14 @@ if (process.env.locale === 'ja-JP') {
 }
 
 filedata = filedata.concat([
-  '\\setmainfont[Ligatures=TeX]{TeX Gyre Pagella}',
-  '\\setmathfont{TeX Gyre Pagella Math}',
+  // '\\setmainfont[Ligatures=TeX]{TeX Gyre Pagella}',
+  // '\\setmathfont{TeX Gyre Pagella Math}',
 
   // '\\setmainfont{XITS}',
   // '\\setmathfont{XITS Math}',
 
-  // '\\setmainfont[Ligatures=TeX]{Cambria}',
-  // '\\setmathfont{Cambria Math}',
+  '\\setmainfont[Ligatures=TeX]{Cambria}',
+  '\\setmathfont{Cambria Math}',
 
   // '\\setmainfont[Ligatures=TeX]{LucidaBrightOT}',
   // '\\setmathfont{LucidaBrightMathOT}',
