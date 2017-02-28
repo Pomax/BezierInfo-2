@@ -71,7 +71,7 @@ if (process.env.locale === 'zh-CN') {
   filedata = filedata.concat([
     '\\usepackage{xeCJK}',
     '\\xeCJKsetup{CJKmath=true}',
-    '\\setCJKmainfont{SimSun}'
+    '\\setCJKmainfont{gbsn00lp.ttf}'
   ]);
 }
 
@@ -79,23 +79,13 @@ if (process.env.locale === 'ja-JP') {
   filedata = filedata.concat([
     '\\usepackage{xeCJK}',
     '\\xeCJKsetup{CJKmath=true}',
-    '\\setCJKmainfont{MS Mincho}'
+    '\\setCJKmainfont{ipaexm.ttf}'
   ]);
 }
 
 filedata = filedata.concat([
-  // '\\setmainfont[Ligatures=TeX]{TeX Gyre Pagella}',
-  // '\\setmathfont{TeX Gyre Pagella Math}',
-
-  // '\\setmainfont{XITS}',
-  // '\\setmathfont{XITS Math}',
-
-  '\\setmainfont[Ligatures=TeX]{Cambria}',
-  '\\setmathfont{Cambria Math}',
-
-  // '\\setmainfont[Ligatures=TeX]{LucidaBrightOT}',
-  // '\\setmathfont{LucidaBrightMathOT}',
-
+  '\\setmainfont[Ligatures=TeX]{TeX Gyre Pagella}',
+  '\\setmathfont{TeX Gyre Pagella Math}',
   '\\begin{document}',
   latexSourceCode,
   '\\end{document}'
@@ -108,26 +98,25 @@ var PDFfilename = TeXfilename.replace(".tex",".pdf");
 var PDFfilenameCropped = TeXfilename.replace(".tex","-crop.pdf");
 var SVGfilename = TeXfilename.replace(".tex",".svg");
 
-// make the SVGfilename one dir higher
+// set the SVGfilename one dir higher
 SVGfilename = path.resolve(path.join(path.dirname(TeXfilename), '..', hash + ".svg"));
 
 // run xelatex on this file
 try {
   var cmd = `npm run xelatex -- -output-directory "${path.dirname(TeXfilename)}" "${TeXfilename}"`;
-  console.log(cmd);
-  console.log(" - running xelatex on " + hash + ".tex");
+  console.log("- running xelatex on " + hash + ".tex");
   execSync(cmd); //, { stdio: 'inherit' });
 
   var cmd = `npm run pdfcrop -- "${ PDFfilename }"`;
-  console.log(" - cropping PDF to document content");
+  console.log("- cropping PDF to document content");
   execSync(cmd); //, { stdio: 'inherit' });
 
   var cmd = `pdf2svg "${ PDFfilenameCropped }" "${ SVGfilename }"`;
-  console.log(" - converting cropped PDF to SVG");
+  console.log("- converting cropped PDF to SVG");
   execSync(cmd); //, { stdio: 'inherit' });
 
   var cmd = `npm run svgo -- "${ SVGfilename }"`;
-  console.log(" - cleaning up SVG");
+  console.log("- cleaning up SVG");
   execSync(cmd); //, { stdio: 'inherit' });
 }
 
