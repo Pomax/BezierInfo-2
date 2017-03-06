@@ -18,6 +18,7 @@ Both operations run continuous linting. Also note that there are specific requir
 
 - [Node.js](https://nodejs.org)
 - XeLaTeX (available through [TeXLive](https://www.tug.org/texlive) on unix/linux/OSX and [MiKTeX](https://miktex.org) on Windows)
+- pdfcrop (available through [TeXLive](https://www.tug.org/texlive) on unix/linux/OSX and [MiKTeX](https://miktex.org) on Windows)
 - The [`pdf2svg`](http://www.cityinthesky.co.uk/opensource/pdf2svg) utility
 
 ### Fonts required for proper LaTeX typesetting
@@ -34,7 +35,8 @@ All fonts come with TeXLive and MiKTeX, and should be easy to install. Note that
 
 ## Additional information
 
-Blog entry on how Webpack's sync processing and MathJAx's async processing were
-made to work together:
+Interested in (helping with) localizing the Primer to your own language? That's awesome! Please read [the instructions on how to start localizing](https://github.com/Pomax/BezierInfo-2/wiki/localize) and please file issues if anything is unclear.
+
+Interestd in the actual architecture and tech stack? Read the blog post on how Webpack's sync processing and MathJAx's async processing were made to work together:
 
 http://pomax.github.io/1451617530567/react-with-latex-without-needing-client-side-mathjax
