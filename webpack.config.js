@@ -15,7 +15,7 @@ var target = "web";
 
 // Bundle output
 var output = {
-  path: __dirname,
+  path: path.join(__dirname,locale),
   filename: 'article.js'
 };
 
@@ -42,7 +42,7 @@ if (locale !== defaultLocale) {
       LocalizedContent: path.resolve(__dirname, 'locales/' + locale + '/content.js')
     }
   };
-  output.filename = 'article.' + locale + '.js';
+  output.filename = 'article.js';
   console.log("using " + resolve.alias.LocalizedContent + " for output " + output.filename);
 }
 

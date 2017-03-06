@@ -12,7 +12,6 @@ var BoundingBox = React.createClass({
   },
 
   bindKnots: function(owner, knots, ref) {
-    console.log(`binding knots for ${ref}`);
     this.refs[ref].bindKnots(owner, knots);
   },
 
