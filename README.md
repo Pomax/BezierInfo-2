@@ -33,10 +33,12 @@ All fonts come with TeXLive and MiKTeX, and should be easy to install. Note that
 - Main repository: https://github.com/Pomax/BezierInfo
 - Main site: https://Pomax.github.io/BezierInfo
 
-## Additional information
+## Localization
 
 Interested in (helping with) localizing the Primer to your own language? That's awesome! Please read [the instructions on how to start localizing](https://github.com/Pomax/BezierInfo-2/wiki/localize) and please file issues if anything is unclear.
 
-Interestd in the actual architecture and tech stack? Read the blog post on how Webpack's sync processing and MathJAx's async processing were made to work together:
+## Additional information
+
+Interested in the actual architecture and tech stack? Read the blog post on how Webpack's sync processing and MathJAx's async processing were made to work together:
 
 http://pomax.github.io/1451617530567/react-with-latex-without-needing-client-side-mathjax
