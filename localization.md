@@ -136,7 +136,7 @@ var result = chunks.map( chunk => {
 
 And so forth. The result is essentially still string data, but --crucially-- the kind of string data that the original build system was already able to deal with. Except for one thing: sections have interactive graphics, which are tied to individual React components. So I had to make sure there was a way to pass in a context so that things like `<Graphics setup={this.setup} draw={this.draw}/>` still worked.
 
-The solution here is kind of silly, but super effective: each mapped chunk, which is strictly speaking valid JSX except for the bits that the preprocessors already take care of, so instead of just returning that JSX, I made the `make-locales` script return functions instead:
+The solution here is kind of silly, but super effective: each mapped chunk, is strictly speaking already valid JSX except for the bits that the preprocessors already take care of. As such, instead of just returning that JSX I made the `make-locales` script return functions that could take a react component for binding things to, instead:
 
 ```
   "whatis": function(handler) {
