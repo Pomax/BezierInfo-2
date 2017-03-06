@@ -217,11 +217,11 @@ Here's the thing about localisation: you need to update *all* the content to wor
 
 Wouldn't it be nice if in a Japanese-localiazed Primer, this:
 
-![English LaTeX](./images/latex/8090904d6448ed0c8e6151aecf62f361d51ead96.svg)
+![English LaTeX](https://pomax.github.io/BezierInfo-2/images/latex/8090904d6448ed0c8e6151aecf62f361d51ead96.svg)
 
 looked like this instead?
 
-![Japanese LaTeX](./images/latex/98885bce8eeabb5a9bdddd12cd6cb4382115ad5c.svg)   
+![Japanese LaTeX](https://pomax.github.io/BezierInfo-2/images/latex/98885bce8eeabb5a9bdddd12cd6cb4382115ad5c.svg)   
 
 Of course the answer is "yes, that would be lovely actually" but unfortunately this ran into a wall: MathJax, for all the love I have for it, is English. It does not understand, and in fact breaks down incredibly, when you try to feed it anything other than English. So I had two options
 
