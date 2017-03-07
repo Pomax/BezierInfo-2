@@ -192,7 +192,6 @@ var BSplineGraphic = React.createClass({
   // Interaction stuffs
 
   keyDown() {
-    console.log(this.key, this.keyCode);
     if (this.key === 'ArrowUp') {
       this.setDegree(1);
     }

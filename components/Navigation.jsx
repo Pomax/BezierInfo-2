@@ -5,11 +5,18 @@ var Link = ReactRouter.Link;
 var sections = require("./sections");
 var sectionPages = Object.keys(sections);
 
+var SectionHeader = require("./SectionHeader.jsx");
+
 var Navigation = React.createClass({
   generateNavItem: function(name, entry) {
     var Type = sections[name];
     var title = Type.getDefaultProps().title;
-    var link = <a href={'#' + name}>{ title }</a>;
+    var locale = SectionHeader.locale;
+    if (typeof window !== undefined && window.location.toString().indexOf(locale) === -1) {
+      locale = '';
+    }
+    var fragmentid = `${locale ? './' + locale + '/': '.'}#${name}`;
+    var link = <a href={fragmentid}>{ title }</a>;
     if (this.props.fullNav) {
       link = <Link to={name}>{title}</Link>;
     }
@@ -20,6 +27,7 @@ var Navigation = React.createClass({
 
   generateNav: function() {
     if (this.props.compact) return null;
+
     return (
       <div ref="navigation">
         <navigation className={ this.props.compact ? "compact" : null }>
