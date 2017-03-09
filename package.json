@@ -4,7 +4,9 @@
   "description": "pomax.github.io/bezierinfo",
   "scripts": {
     "localize": "node make-locales",
+    "prebuild": "node buildmark",
     "build": "run-s localize less build:**",
+    "postbuild": "node buildmark",
     "build:en-GB": "webpack -p",
     "build:zh-CN": "cross-env LOCALE=zh-CN webpack -p",
     "build:ja-JP": "cross-env LOCALE=ja-JP webpack -p",
