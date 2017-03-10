@@ -10,13 +10,12 @@ console.log("Using locale: "+locale);
 // Bundle entry point
 var entry = ['./components/App.jsx'];
 
-// Bundle target
-var target = "web";
-
 // Bundle output
 var output = {
   path: path.join(__dirname,locale),
-  filename: 'article.js'
+  filename: 'article.js',
+  library: 'BezierArticle',
+  libraryTarget: 'umd'
 };
 
 // Necessary webpack loaders for converting our content:
@@ -49,7 +48,6 @@ if (locale !== defaultLocale) {
 // And the final config that webpack will read in.
 module.exports = {
   entry:  entry,
-  target: target,
   output: output,
   resolve: resolve,
   module: {

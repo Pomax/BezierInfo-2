@@ -12,7 +12,7 @@ var Navigation = React.createClass({
     var Type = sections[name];
     var title = Type.getDefaultProps().title;
     var locale = SectionHeader.locale;
-    if (typeof window !== undefined && window.location.toString().indexOf(locale) === -1) {
+    if (typeof window !== "undefined" && window.location.toString().indexOf(locale) === -1) {
       locale = '';
     }
     var fragmentid = `${locale ? './' + locale + '/': '.'}#${name}`;

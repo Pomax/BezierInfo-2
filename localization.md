@@ -1,4 +1,4 @@
-# Localization is a group effort
+# Localization is hard.
 
 I know, that seems like an obvious statement, but I want to dig a little deeper because just because you have a "web thing" that people might want to see translated or even fully localized, that doesn't mean that they can, or even if they can, that it's easy for them to do so.
 
@@ -6,9 +6,9 @@ As such, this is a story of a project that was blessed with two independent user
 
 Let me take you through the travel log.
 
-## Once upon a time...
+## Once upon a time there was a [Primer on Bézier curves](https://pomax.github.io/bezierinfo).
 
-...there was a [Primer on Bézier curves](https://pomax.github.io/bezierinfo). Or rather, there was a [Processing.js](http://processingjs.org) based exploration of the basics of Bézier curves because I was working on font generation and wanted to understand the intricacies of Bézier curves for the purposes of drawing curve outlines. There weren't any really good resources on the topic, and because the best way to learn something is to teach it, I figured I'd write my own explanation, put it online, and learn how they worked that way.
+Or rather, there was a [Processing.js](http://processingjs.org) based exploration of the basics of Bézier curves because I was working on font generation and wanted to understand the intricacies of Bézier curves for the purposes of drawing curve outlines. There weren't any really good resources on the topic, and because the best way to learn something is to teach it, I figured I'd write my own explanation, put it online, and learn how they worked that way.
 
 As I learned more and more I kept updating that one short page until it had became a rather long page, and once it started to show up fairly high in Google results for "bezier curves" (typos included because who has the time to write "é" when you're not on a French keyboard) I started taking "making sure it was sort of usable" more seriously.
 
@@ -200,7 +200,7 @@ And so we simply run through this through a quick `map` function where any data 
 
 Winner!
 
-### One last thing: JavaScript still needs to work
+### One last thing: JavaScript bindings still needs to work.
 
 While the above procedure works *really* well, it left one problem: sections have interactive graphics, which are tied to individual React components. While components were single JSX files that was not a problem, but by pulling the content out I needed a way to make sure that JSX code like `<Graphics setup={this.setup} draw={this.draw}/>` still had a correct understanding of which JavaScript object was supposed to be used when it made calls for `this.something()`.
 
@@ -251,9 +251,9 @@ Sorted: suddenly we have a code base that is super easy to localize. Just change
 
 ### spoilers: not if there's English in it
 
-Here's the thing about localisation: you need to update *all* the content to work for a specific locale. Translating all the English text to something like Chinese is great and all but if the graphics still have English in them, things get weird. And while at this point the contributors were being quite productive and translating sections at a time, the LaTeX blocks still had English in them. 
+Here's the thing about localisation: you need to update *all* the content to work for a specific locale. Translating all the English text to something like Chinese is great and all but if the graphics still have English in them, things get weird. And while at this point the contributors were being quite productive and translating sections at a time, some of the LaTeX blocks still had English in them. 
 
-Wouldn't it be nice if in a Japanese-localiazed Primer, this:
+Wouldn't it be nice if in a Japanese-localized Primer, this:
 
 ![English LaTeX](https://pomax.github.io/BézierInfo-2/images/latex/8090904d6448ed0c8e6151aecf62f361d51ead96.svg)
 
@@ -261,40 +261,38 @@ looked like this instead?
 
 ![Japanese LaTeX](https://pomax.github.io/BézierInfo-2/images/latex/98885bce8eeabb5a9bdddd12cd6cb4382115ad5c.svg)   
 
-Of course the answer is "yes, that would be lovely actually" but unfortunately this ran into a wall: MathJax, for all the love I have for it, is English. It does not understand, and in fact breaks down incredibly, when you try to feed it anything other than English. So I had two options
+Of course the answer is "yes, that would be lovely, actually" and so I had a look at whether CJK fonts could be used in LaTeX setting. I have a [background in Japanese](https://pomax.github.com/NRGrammar) and so I've written LaTeX with Japanese in it before, and my naive thought was to just put Japanese in the LaTeX, teach MathJax to use a Unicode font with Japanese support, and that would be that. Unfortunately, it turns out MathJax is not as flexible as "real" LaTeX engines, and it can't really deal with non-English text. So that basically meant I had to give up MathJax, and instead try to go for something else.
 
-- figure out how to make MathJax work with "any language"
-- drop MathJax
+And as it so happens, there is a perfect candidate for this job that I never used in the build system because it really is just "a desktop tool" but as MathJax was already getting invoked through an `exec` call, now seemed a good time to see if it would be a feasible solution to the problem of localized LaTeX: XeLaTeX, that is to say LaTeX code written for the [XeTeX](https://en.wikipedia.org/wiki/XeTeX) engine, which is basically a modern, utf-8 aware, system and OpenType font aware TeX engine. If TeX is the system that lets you do "beautiful typesetting for English", XeTeX is the completely from-the-ground-up rewrite of TeX that lets you do "beautiful typesetting in any language, with any font".
 
-To be clear: I tried option 1 first, but based on the response for questions around making MathJax deal with different fonts and languages I got from the MathJax devs, this very soon became a no-go. It is too hard, and too fragile, so that left option 2.
+### Back to real LaTeX parsing.
 
-And as it so happens, I love XeLaTeX, the XeTeX version of LaTeX. That's two words you probably don't know so: if TeX is the system that lets you do beautiful typesetting for English, XeTeX is the completely from-the-ground-up rewrite of TeX that lets you do beautiful typestting in any language, with any font.
+Switching the build stop over from calling MathJax to calling XeLaTeX was essentially trivial thanks to `npm` scripts and Node.js's `execSync`, so the only "hard" thing I had to do was write a script that managed the chain of calls necessary to generate an SVG file, as XeLaTeX generates PDF files. Thankfully, there are all kinds of handy tools that become available when you use TeX Live (on OSX or Unix/Linux) or MiKTeX (on Windows), so the chain of utilities that I settled on looked like:
 
-Needless to say I like XeLaTeX. And as I was already using MathJax as part of the build, in an offline setting, switching that over to just calling XeLaTeX instead was essentially trivial. As a result the only thing I had to do was write a small script to call XeLaTeX, and then call that in my `npm` scripts, replacing:
+- XeLaTeX to generate a PDF file on a huge page,
+- [pdfcrop]() to isolate just the content in the resultant PDF,
+- [pdf2svg]() to convert that cropped PDF into an SVG file, and
+- [svgo]() to optimize the SVG that pdf2svg generated. 
+
+and the way XeLaTeX got its latex was the same as before. Rather than calling:
 
 ```
 "latex": "node run lib/mathjax --latex ... --hash ..."
 ```
-with
+
+I wrote a `tex-to-svg` script invoked as:
+
 ```
 "latex": "node run lib/tex-to-svg --latex ... --hash ..."
 ```
-What does this `tex-2-svg` do? Basically the same as before: it gets a block of LaTeX (base64 encoded), unpacks it, and runs it through conversion, but the way it does it is more fun: rather than just passing the LaTeX code to mathjax in a node.js context, it literally builds a `.tex` file on disk (in a dir that never gets committed to version control):
 
-- `tex-2-svg.js` gets a `latex` string in Base64 encoding, and unpacks it
-- it then wraps this in a bit of preamble and a document closer so that it's a legal .tex document that XeLaTeX will accept as legal input.
-- it then calls what is effectively `execSync("xelatex thefileIjustmade.tex")`
-	- `xelatex` converts to the .tex to .pdf,
-- it then calls what is effectively `execSync("pdfcrop resultantPDF.pdf")`
-	- `pdfcrop` crops the .pdf to fit the content exactly without any padding, 
-- it then calls what is effectively `execSync("pdf2svg croppedPDF.pdf")`
-	- `pdf2svg` converts the .pdf to .svg,
-- finally, it calls what is effectively `execSync("svgo croppedPDF.svg")`
-	- `svgo` optimizes the .svg by removing comments, compacting def/use etc.
+And made it ingest LaTeX code as a base64-encoded string from the command line, along with the precomputed hash that I needed for the final SVG filename. The script takes the base64-encoded LaTeX, unpacks it into a pure LaTeX string, and then adds additional LaTeX instructions to make sure the result is a valid `.tex` file that XeLaTeX can work with. This file is written to disk (synchronously) after which XeLaTeX is invoked with that file as input parameter. We run through the chain of utilities, and the final result is a tiny, self-contained `.svg` file.
 
-And then we're done, the execSync calls stop, we return execution to the latex-loader, and it can consult the .svg file on disk to get the SVG width and height. Those matter because we need to know the exact height the SVG file will take up on the page, so that we can write an `<img src="..." width="..." height="..."/>` tag that will preallocate that space. If we didn't, the page would constantly be resizing as images get loaded in, and as we're dealing with 150+ images, that would be a horrendous experience. 
+Once we have that file, `text-to-svg` is done, `npm` script execution returns to the latex-loader that has been patiently waiting for the whole LaTeX-to-SVG process to finish, and it then consults the `.svg` file on disk to get the SVG image width and height. Those matter, because we need to know the exact dimensions that the SVG file will take up on the page, so that we can write an `<img src="..." width="..." height="..."/>` tag into our JSX to ensure that the page preallocates the correct amount of space for the image. If we didn't, the page would constantly be reflowing as images got loaded in, and as we're dealing with 150+ images, that would be a horrible experience. 
 
-Of course if we had to run this every single time we ran `npm run dev` or `npm start`, that would be impossibly slow, so there is a shortcut in that any image for which the content hash already exists as `.svg` file skips the whole conversion process. Instead the latex-loader immediately grabs the `.svg` file for the width/height information and moves on.
+### A final optimization:
+
+Of course if we had to run this every single time we ran `npm run dev` or `npm start`, this process would be impossibly slow. As such, there is a shortcut in the `latex-loader` code that for any block of LaTeX checks whether there already exists an `.svg` file with the correct hashcode as filename. If there is, the loader bypasses the tex-to-svg steps entirely, and instead immediately grabs the `.svg` file for extracting the width/height information, and then returns the necessary `<img.../>` code.
 
 ## So how do we switch languages?
 
@@ -321,6 +319,19 @@ I ended up documenting [the steps necessary to do localization](https://github.c
 
 ## So what's left?
 
-There is still one area of localization left that's untackled: localizing the actual interactive graphics. The problem with these is that text for these comes from the browser, which requires having access to a font to draw text with. For English, that's no big deal because fonts are only a few tens of kilobytes, and you can pick any number of webfonts to make sure everyone sees the same graphic, but for Chinese or Japanese this gets considerably harder. As langauges with thousands of "letters" (glossing over what they really are for a moment) the fonts for these languages run in the megabytes each, and it is impossible to serve these up in an acceptable way, unless you use something like the `woff2` format with exact unicode ranges specifically for the text that needs to be typeset. That requires mining the graphics instructions for string calls and checking which exact "letters" are being used, so everyone else can be pruned from a common open source font (say, Noto Sans CJK) and the webfont literally only covers the text used on the site and nothing else.
+There is still one area of localization left to be tackled, and it's a big one with lots of question marks: localizing the actual interactive graphics. The problem with these is that text in these graphics are literally that: text in the browser.
 
-That's quite a bit of work, and not a thing I've gotten to yet.   
+Unfortunately, text in the browser needs a reliable font for it to typeset even moderately predictably, and this poses two problems:
+
+1. we don't know the dimensions of localized strings, and
+2. we would need web fonts to ensure the right font gets used.
+
+The first of these is typically understood as a problem: where something might require four words in one language, it might require twenty in another, or maybe just one. If the text is to be used in a graphics setting, then those differing lengths pose all kinds of alignment problems.
+
+The second is less often remembered, but for CJK languages is a *huge* problem: English fonts aren't very big compared to the modern website payload. 30kb for a nice looking font isn't even remarked upon anymore these days. But what about a 5+MB font just to support a few Japanese sentences use in graphics? or a 10+MB font to get Chinese text to show properly? And those are entirely reasonable font sizes for CJK languages: the smallest Japanese font I own is 4MB, and the smallest Chinese font I own is 12MB. The nice-looking fonts used for the LaTeX code are 7.7MB for Japanese and 5.1MB for Chinese. We clearly can't use those on the web.
+
+Or maybe we can: we could analyse all the content to see exactly which letters are *actually* used, and then create subset fonts so that we have small fonts again, tailored for each localization. Which in turns means being able to analyse graphics for the text they use and then per locale recording exactly which glyphs should be available. It's a bit of work, but entirely doable given some time, leaving us just with the first problem.
+
+I don't have a solution here, yet, but maybe that's the point of this post...
+
+## localization is hard 

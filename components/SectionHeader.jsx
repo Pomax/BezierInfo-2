@@ -7,7 +7,7 @@ var SectionHeader = React.createClass({
 
   render: function() {
     var locale = SectionHeader.locale;
-    if (typeof window !== undefined && window.location.toString().indexOf(locale) === -1) {
+    if (typeof window !== "undefined" && window.location.toString().indexOf(locale) === -1) {
       locale = '';
     }
     var fragmentid = `${locale ? './' + locale + '/': '.'}#${this.props.name}`;
@@ -18,9 +18,11 @@ var SectionHeader = React.createClass({
     );
   },
   componentDidMount() {
-    var h = window.location.hash;
-    if (h) {
-      window.location = window.location.hash;
+    if (typeof window !== "undefined" && window.location) {
+      var h = window.location.hash;
+      if (h) {
+        window.location = window.location.hash;
+      }
     }
   }
 });

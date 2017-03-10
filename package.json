@@ -5,7 +5,8 @@
   "scripts": {
     "localize": "node make-locales",
     "prebuild": "node buildmark",
-    "build": "run-s localize less build:**",
+    "build": "run-s localize less build:** default",
+    "default": "node copy-default-locale",
     "postbuild": "node buildmark",
     "build:en-GB": "webpack -p",
     "build:zh-CN": "cross-env LOCALE=zh-CN webpack -p",
@@ -61,6 +62,7 @@
     "jsmin": "^1.0.1",
     "json-loader": "^0.5.4",
     "json-stringify-safe": "^5.0.1",
+    "jsx-node": "^0.2.2",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
     "less-watch-compiler": "^1.1.4",

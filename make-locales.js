@@ -252,6 +252,64 @@ function processLocation(loc, fragmentid, number) {
 
 
 /**
+ * Form the content.js file content as a single string for file-writing.
+ */
+function formContentBundle(locale, content) {
+  var bcode = JSON.stringify(content, false, 2);
+  bcode = bcode.replace(/"<section>/g, "function(handler) { return <section>")
+              .replace(/this\.(\w)/g, "handler.$1")
+              .replace(/<\/section>"(,?)/g, "</section>; }$1\n")
+              .replace(/\\"/g,'"')
+              .replace(/\\n/g,'\n')
+              .replace(/></g,'>\n<')
+              .replace(/\\\\/g, '\\');
+
+  var bundle = `var React = require('react');\nvar Graphic = require("../../components/Graphic.jsx");\nvar SectionHeader = require("../../components/SectionHeader.jsx");\n\nSectionHeader.locale="${locale}";\n\nmodule.exports = ${bcode};\n`;
+
+  return bundle;
+}
+
+/**
+ * Process the locale switcher component.
+ */
+function processLocaleSwitcher(locale, content) {
+  // We also need to localize the "LocaleSwitcher"
+  var localeCode = locale;
+  var loc = `./components/localized/LocaleSwitcher/content.${localeCode}.md`;
+  if (!fs.existsSync(loc)) {
+    localeCode = defaultLocale;
+    loc = `./components/localized/LocaleSwitcher/content.${localeCode}.md`;
+  }
+  var key = "locale-switcher";
+  var processed = processLocation(loc, key);
+  content[key] = {
+    locale: localeCode,
+    title: key,
+    getContent: "<section>" + processed.data + "</section>"
+  };
+}
+
+/**
+ * Write a content.js bundle to the filesystem
+ */
+function writeContentBundle(locale, content) {
+  var bundle = formContentBundle(locale, content);
+
+  // write the content.js file for bundling purposes
+  var dir = `./locales/${locale}`;
+  fs.ensureDirSync(dir);
+  fs.writeFileSync(`${dir}/content.js`, bundle);
+
+  // Write the actual locale directory and generate a locale-specific index.html
+  var html = fs.readFileSync('./index.template.html').toString();
+  var preface = content.preface.getContent.replace(/<SectionHeader name="preface" title="([^"]+)"\/>/, "<h2>$1</h2>");
+  html = html.replace("{{ PREFACE }}", preface);
+  html = html.replace("{{ locale }}", locale);
+  fs.ensureDirSync(locale);
+  fs.writeFileSync(`./${locale}/index.html`, html);
+}
+
+/**
  * Process a single locale, with `en-GB` fallback for missing files.
  */
 function processLocale(locale) {
@@ -261,8 +319,8 @@ function processLocale(locale) {
   var index = require("./components/sections");
   var sections = Object.keys(index);
   var content = { locale };
-  sections.forEach((key, number) => {
 
+  var processSection = (key, number) => {
     // Grab locale file, or defaultLocale file if the chosen locale has
     // has no translated content (yet)...
     var localeCode = locale;
@@ -280,49 +338,14 @@ function processLocale(locale) {
       title: processed.title,
       getContent: "<section>" + processed.data + "</section>"
     };
-  });
-
-  // We also need to localize the "LocaleSwitcher"
-  var localeCode = locale;
-  var loc = `./components/localized/LocaleSwitcher/content.${localeCode}.md`;
-  if (!fs.existsSync(loc)) {
-    localeCode = defaultLocale;
-    loc = `./components/localized/LocaleSwitcher/content.${localeCode}.md`;
-  }
-  var key = "locale-switcher";
-  var processed = processLocation(loc, key);
-  content[key] = {
-    locale: localeCode,
-    title: key,
-    getContent: "<section>" + processed.data + "</section>"
   };
 
-  var bcode = JSON.stringify(content, false, 2);
-  bcode = bcode.replace(/"<section>/g, "function(handler) { return <section>")
-              .replace(/this\.(\w)/g, "handler.$1")
-              .replace(/<\/section>"(,?)/g, "</section>; }$1\n")
-              .replace(/\\"/g,'"')
-              .replace(/\\n/g,'\n')
-              .replace(/></g,'>\n<')
-              .replace(/\\\\/g, '\\');
-
-  var bundle = `var React = require('react');\nvar Graphic = require("../../components/Graphic.jsx");\nvar SectionHeader = require("../../components/SectionHeader.jsx");\n\nSectionHeader.locale="${locale}";\n\nmodule.exports = ${bcode};\n`;
-
-  // write the content.js file for bundling purposes
-  var dir = `./locales/${locale}`;
-  fs.ensureDirSync(dir);
-  fs.writeFileSync(`${dir}/content.js`, bundle);
-
-  // Write the actual locale directory and generate a locale-specific index.html
-  var html = fs.readFileSync('./index.template.html').toString();
-  var preface = content.preface.getContent.replace(/<SectionHeader name="preface" title="([^"]+)"\/>/, "<h2>$1</h2>");
-  html = html.replace("{{ PREFACE }}", preface);
-  html = html.replace("{{ locale }}", locale);
-  fs.ensureDirSync(locale);
-  fs.writeFileSync(`./${locale}/index.html`, html);
+  sections.forEach(processSection);
+  processLocaleSwitcher(locale, content);
+  writeContentBundle(locale, content);
 }
 
-// find all locales used
+// find all locales used and generate their respective content dirs
 var glob = require('glob');
 glob("components/sections/**/content*md", (err, files) => {
   var locales = [];
@@ -333,13 +356,4 @@ glob("components/sections/**/content*md", (err, files) => {
     }
   });
   locales.forEach(processLocale);
-
-  // copy the en-GB content as default content, and make sure to remove the `<base>` tag from the index
-  fs.copySync("en-GB/index.html", "index.html");
-  fs.copySync("en-GB/article.js", "article.js");
-  var html = fs.readFileSync("index.html").toString();
-  html = html.replace('    <base href="..">\n', '');
-  html = html.replace('className=', 'class=');
-  html = "<!-- AUTOGENERATED CONTENT, PLEASE EDIT 'index.template.html' INSTEAD! -->\n" + html;
-  fs.writeFileSync("index.html", html);
 });
