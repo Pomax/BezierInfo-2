@@ -1,0 +1,376 @@
+html,
+body {
+  font-family: Verdana;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: url('../images/paper.png');
+}
+header,
+section,
+footer {
+  width: 960px;
+  margin: 0 auto;
+}
+header {
+  font-family: Times;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+header h1 {
+  font-size: 360%;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+header h2 {
+  font-size: 125%;
+  margin: 0;
+}
+article {
+  font-family: Verdana;
+  width: 960px;
+  height: auto;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.74);
+  border: solid rgba(255, 0, 0, 0.35);
+  border-width: 0;
+  border-left-width: 1px;
+  padding: 1em;
+  box-shadow: 25px 0px 25px 25px rgba(255, 255, 255, 0.74);
+}
+a,
+a:visited {
+  color: #0000c8;
+  text-decoration: none;
+}
+footer {
+  font-style: italic;
+  margin: 2em 0 1em 0;
+  background: inherit;
+}
+.ribbon {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 0;
+  overflow: visible;
+}
+.ribbon img {
+  position: relative;
+  z-index: 999;
+}
+.locale-switcher {
+  text-align: center;
+  margin-bottom: 2em;
+}
+.locale-switcher section {
+  margin: 0;
+}
+.locale-switcher p {
+  margin: 0;
+  display: inline-block;
+}
+.locale-switcher p + ul + p {
+  display: block;
+  margin-top: 0.5em;
+  font-size: 80%;
+  color: #505050;
+  text-align: center;
+}
+.locale-switcher ul {
+  display: inline-block;
+  list-style: none;
+  margin: 0 0.5em;
+  padding: 0;
+}
+.locale-switcher ul li {
+  display: inline-block;
+}
+.locale-switcher ul li + li {
+  margin-left: 0.5em;
+}
+.locale-switcher ul li + li:before {
+  content: "-";
+  margin-right: 0.5em;
+}
+navigation {
+  font-family: Georgia;
+  display: block;
+  width: 70%;
+  margin: 0 auto;
+  padding: 0;
+  border: 1px solid grey;
+}
+navigation ul {
+  background: #F2F2F9;
+  list-style: none;
+  margin: 0;
+  padding: 0.5em 1em;
+}
+navigation ul li:nth-child(n+2)[data-number]:before {
+  content: "§" attr(data-number) ". ";
+}
+navigation ul li:nth-child(n+2):not([data-number]) {
+  margin: 5px 0;
+}
+navigation.compact {
+  width: 100%;
+  border: none;
+  border-top: 1px solid grey;
+  padding-top: 2em;
+  margin-top: 2em;
+}
+navigation.compact ul {
+  background: inherit;
+}
+navigation.compact ul li {
+  display: inline-block;
+}
+navigation.compact ul li:not(:last-child) {
+  margin-right: 1em;
+}
+section {
+  margin-top: 4em;
+}
+section p {
+  text-align: justify;
+}
+section h2[data-num] {
+  border-bottom: 1px solid grey;
+}
+section h2[data-num]:before {
+  content: "§" attr(data-num) " — ";
+}
+section h2 a,
+section h2 a:active,
+section h2 a:hover,
+section h2 a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+section table {
+  margin: auto;
+}
+section table p {
+  text-align: center;
+}
+div.note {
+  font-size: 90%;
+  margin: 1em 2em;
+  padding: 1em;
+  border: 1px solid grey;
+  background: rgba(150, 150, 50, 0.05);
+}
+div.note h1,
+div.note h2,
+div.note h3,
+div.note h4,
+div.note h5,
+div.note h6,
+div.note p {
+  margin: 0;
+  padding: 0;
+}
+div.note p {
+  margin: 1em 0;
+}
+div.note div.MathJax_Display {
+  margin: 1em 0;
+}
+.howtocode {
+  border: 1px solid #8d94bd;
+  padding: 0 1em;
+  margin: 0 2em;
+  overflow-x: hidden;
+}
+.howtocode h3 {
+  margin: 0 -1em;
+  padding: 0;
+  background: #91bef7;
+  padding-left: 0.5em;
+  color: white;
+  text-shadow: 1px 1px 0 #000000;
+  cursor: pointer;
+}
+.howtocode pre {
+  border: 1px solid #8d94bd;
+  background: rgba(223, 226, 243, 0.32);
+  margin: 0.5em;
+  padding: 0.5em;
+}
+figure {
+  display: inline-block;
+  border: 1px solid grey;
+  background: #F0F0F0;
+  padding: 0.5em 0.5em 0 0.5em;
+  text-align: center;
+}
+figure.inline {
+  border: none;
+  margin: 0;
+}
+figure canvas {
+  display: inline-block;
+  background: white;
+  border: 1px solid lightgrey;
+}
+figure canvas:focus {
+  border: 1px solid grey;
+  outline: none;
+}
+figure figcaption {
+  text-align: center;
+  padding: 0.5em 0;
+  font-style: italic;
+  font-size: 90%;
+}
+figure figcaption button {
+  font-family: Verdana;
+  border: 1px solid grey;
+  border-radius: 3px;
+  background: #FDFDFD;
+}
+figure figcaption button.selected {
+  background: #c8c8ff;
+}
+figure figcaption button + button {
+  margin-left: 0.25em;
+}
+figure:not([class=inline]) + figure:not([class=inline]) {
+  margin-top: 2em;
+}
+div.figure {
+  display: inline-block;
+  border: 1px solid grey;
+  text-align: center;
+}
+github-issues {
+  position: relative;
+  display: block;
+  width: 100%;
+  border: 1px solid #EEE;
+  border-left: 0.3em solid #e5ecf3;
+  background: white;
+  padding: 0 0.3em;
+  width: 95%;
+  margin: auto;
+  min-height: 33px;
+  font: 13px Helvetica, arial, freesans, clean, sans-serif;
+}
+github-issues github-issue + github-issue {
+  margin-top: 1em;
+}
+github-issues github-issue h3 {
+  font-size: 100%;
+  background: #e5ecf3;
+  margin: 0;
+  position: relative;
+  left: -0.5%;
+  width: 101%;
+  font-weight: bold;
+  border-bottom: 1px solid #999;
+}
+github-issues github-issue a {
+  position: absolute;
+  top: 2px;
+  right: 10px;
+  padding: 0 4px;
+  color: #4183C4!important;
+  background: white;
+  line-height: 10px;
+  font-size: 10px;
+}
+img.LaTeX {
+  display: block;
+  margin-left: 2em;
+}
+img.LaTeX + img.LaTeX {
+  margin-top: 2em;
+}
+table {
+  margin: 1em 2em;
+  padding: 0 1em;
+  border: 1px solid grey;
+  background: rgba(150, 150, 50, 0.05);
+}
+table img {
+  border: 1px solid lightgrey;
+}
+footer {
+  font-size: 85%;
+  font-family: Verdana;
+  border-top: 1px solid grey;
+  padding: 2em 1.25em 0;
+  box-sizing: content-box;
+  margin-left: -1rem;
+}
+.relatives {
+  width: 100%;
+  border: 1px solid #CCC;
+  padding: 0.25rem 1rem;
+  margin-left: -1rem;
+  box-sizing: content-box;
+}
+.relatives.before {
+  border-width: 1px 0px;
+  margin-bottom: -2rem;
+}
+.relatives.after {
+  margin-top: 2rem;
+  border-width: 1px 0 0 0;
+  border-color: grey;
+  margin-bottom: -1.5rem;
+}
+.relatives .prev:before {
+  content: "← ";
+}
+.relatives .next:after {
+  content: " →";
+}
+.relatives tbody {
+  margin: 0;
+}
+.relatives tbody tr {
+  margin: 0;
+}
+.relatives tbody tr td {
+  width: 50%;
+}
+.relatives tbody tr td:nth-child(1) {
+  text-align: left;
+}
+.relatives tbody tr td.toc {
+  text-align: center;
+  white-space: nowrap;
+  width: 0%;
+}
+.relatives tbody tr td.toc:before {
+  content: "[";
+}
+.relatives tbody tr td.toc:after {
+  content: "]";
+}
+.relatives tbody tr td:nth-child(3) {
+  text-align: right;
+}
+.bspline-graphic {
+  border: 1px solid black;
+  background: white;
+}
+.two-column {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.two-column canvas {
+  flex: none;
+}
+.two-column section {
+  margin-top: 0;
+  padding-left: 2em;
+}
+code {
+  background: #DDE;
+  padding: 1px 3px;
+}
