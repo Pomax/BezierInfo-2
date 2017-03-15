@@ -1,13 +1,15 @@
 var React = require("react");
-var Graphic = require("../../Graphic.jsx");
-var SectionHeader = require("../../SectionHeader.jsx");
+
+var Locale = require("../../../lib/locale");
+var locale = new Locale();
+var page = "polybezier";
 
 var atan2 = Math.atan2, sqrt = Math.sqrt, sin = Math.sin, cos = Math.cos;
 
 var PolyBezier = React.createClass({
   getDefaultProps: function() {
     return {
-      title: "Forming poly-Bézier curves"
+      title: locale.getTitle(page)
     };
   },
 
@@ -250,105 +252,7 @@ var PolyBezier = React.createClass({
   },
 
   render: function() {
-    return (
-      <section>
-        <SectionHeader {...this.props} />
-
-        <p>Much like lines can be chained together to form polygons, Bézier curves can be chained together
-        to form poly-Béziers, and the only trick required is to make sure that:</p>
-
-        <ol>
-          <li>the end point of each section is the starting point of the following section, and</li>
-          <li>the derivatives across that dual point line up.</li>
-        </ol>
-
-        <p>Unless, of course, you want discontinuities; then you don't even need 2.</p>
-
-        <p>We'll cover three forms of poly-Bézier curves in this section. First, we'll look at the kind
-        that just follows point 1. where the end point of a segment is the same point as the start point
-        of the next segment. This leads to poly-Béziers that are pretty hard to work with, but they're
-        the easiest to implement:</p>
-
-        <Graphic preset="poly" title="Unlinked quadratic poly-Bézier" setup={this.setupQuadratic} draw={this.draw}/>
-        <Graphic preset="poly" title="Unlinked cubic poly-Bézier" setup={this.setupCubic} draw={this.draw}/>
-
-        <p>Dragging the control points around only affects the curve segments that the control point belongs
-        to, and moving an on-curve point leaves the control points where they are, which is not the most useful
-        for practical modelling purposes. So, let's add in the logic we need to make things a little better.
-        We'll start by linking up control points by ensuring that the "incoming" derivative at an on-curve
-        point is the same as it's "outgoing" derivative:</p>
-
-        <p>\[
-          B'(1)_n = B'(0)_{n+1}
-        \]</p>
-
-        <p>We can effect this quite easily, because we know that the vector from a curve's last control point
-        to its last on-curve point is equal to the derivative vector. If we want to ensure that the first control
-        point of the next curve matches that, all we have to do is mirror that last control point through the
-        last on-curve point. And mirroring any point A through any point B is really simple:</p>
-
-        <p>\[
-          Mirrored = \left [
-            \begin{matrix} B_x + (B_x - A_x) \\  B_y + (B_y - A_y) \end{matrix}
-          \right ] = \left [
-            \begin{matrix} 2B_x - A_x \\  2B_y - A_y \end{matrix}
-          \right ]
-        \]</p>
-
-        <p>So let's implement that and see what it gets us. The following two graphics show a quadratic
-        and a cubic poly-Bézier curve again, but this time moving the control points around moves others,
-        too. However, you might see something unexpected going on for quadratic curves...</p>
-
-        <Graphic preset="poly" title="Loosely connected quadratic poly-Bézier" setup={this.setupQuadratic} draw={this.draw}
-                 onMouseMove={this.linkDerivatives}/>
-        <Graphic preset="poly" title="Loosely connected cubic poly-Bézier" setup={this.setupCubic} draw={this.draw}
-                 onMouseMove={this.linkDerivatives}/>
-
-        <p>As you can see, quadratic curves are particularly ill-suited for poly-Bézier curves, as all
-        the control points are effectively linked. Move one of them, and you move all of them. Not only that,
-        but if we move the on-curve points, it's possible to get a situation where a control point's positions
-        is different depending on whether it's the reflection of its left or right neighbouring control
-        point: we can't even form a proper rule-conforming curve! This means that we cannot use quadratic
-        poly-Béziers for anything other than really, really simple shapes.
-        And even then, they're probably the wrong choice. Cubic curves are pretty decent, but the fact
-        that the derivatives are linked means we can't manipulate curves as well as we might if we
-        relaxed the constraints a little.</p>
-
-        <p>So: let's relax the requirement a little.</p>
-
-        <p>We can change the constraint so that we still preserve the <em>angle</em> of the derivatives across
-        sections (so transitions from one section to the next will still look natural), but give up the
-        requirement that they should also have the same <em>vector length</em>. Doing so will give us a much
-        more useful kind of poly-Bézier curve:</p>
-
-        <Graphic preset="poly" title="Loosely connected quadratic poly-Bézier" setup={this.setupQuadratic} draw={this.draw} onMouseMove={this.linkDirection}/>
-        <Graphic preset="poly" title="Loosely connected cubic poly-Bézier" setup={this.setupCubic} draw={this.draw} onMouseMove={this.linkDirection}/>
-
-        <p>Cubic curves are now better behaved when it comes to dragging control points around, but the
-        quadratic poly-Bézier still has the problem that moving one control points will move
-        the control points and may ending up defining "the next" control point in a way that
-        doesn't work. Quadratic curves really aren't very useful to work with...</p>
-
-        <p>Finally, we also want to make sure that moving the on-curve coordinates preserves the relative
-        positions of the associated control points. With that, we get to the kind of curve control that you
-        might be familiar with from applications like Photoshop, Inkscape, Blender, etc.</p>
-
-        <Graphic preset="poly" title="Loosely connected quadratic poly-Bézier" setup={this.setupQuadratic} draw={this.draw}
-                 onMouseDown={this.bufferPoints} onMouseMove={this.modelCurve}/>
-        <Graphic preset="poly" title="Loosely connected cubic poly-Bézier" setup={this.setupCubic} draw={this.draw}
-                 onMouseDown={this.bufferPoints} onMouseMove={this.modelCurve}/>
-
-        <p>Again, we see that cubic curves are now rather nice to work with, but quadratic curves have a
-        new, very serious problem: we can move an on-curve point in such a way that we can't compute what
-        needs to "happen next". Move the top point down, below the left and right points, for instance. There
-        is no way to preserve correct control points without a kink at the bottom point. Quadratic curves:
-        just not that good...</p>
-
-        <p>A final improvement is to offer fine-level control over which points behave which, so that you can
-        have "kinks" or individually controlled segments when you need them, with nicely well-behaved curves
-        for the rest of the path. Implementing that, is left as an excercise for the reader.</p>
-      </section>
-    );
+    return locale.getContent(page, this);
   }
 });
 

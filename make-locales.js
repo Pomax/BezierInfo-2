@@ -69,7 +69,8 @@ function chunkGraphicJSX(data, chunks, chunkMore) {
       next = chunkMore ? chunkMore[0] : false,
       otherChunkers = chunkMore ? chunkMore.slice(1) : false,
       gfxTag = '<Graphic',
-      gfxEnd = '/>';
+      gfxEnd = '/>',
+      gfxEnd2 = '</Graphic>';
 
   while (p !== -1) {
     // Let's check a LaTeX block
@@ -84,8 +85,17 @@ function chunkGraphicJSX(data, chunks, chunkMore) {
     // First parse the non-<Graphic/> data for whatever else might be in there.
     performChunking(data.substring(p, gfx), chunks, next, otherChunkers);
 
-    // Then capture the <Graphic/> block and mark it as "don't convert"
-    let eol = data.indexOf(gfxEnd, gfx) + gfxEnd.length;
+    let tail = data.substring(gfx),
+        noContent = !!tail.match(/^<Graphic[^>]+\/>/),
+        eol;
+
+    // Then capture the <Graphic>...</Graphic> or <Graphic .../> block and mark it as "don't convert".
+    if (noContent) {
+      eol = data.indexOf(gfxEnd, gfx) + gfxEnd.length;
+    } else {
+      eol = data.indexOf(gfxEnd2, gfx) + gfxEnd2.length;
+    }
+
     chunks.push({ convert: false, type: "gfx", s:gfx, e:eol, data: data.substring(gfx, eol) });
     p = eol;
   }

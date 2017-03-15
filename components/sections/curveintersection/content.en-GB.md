@@ -14,6 +14,8 @@ This algorithm will start with a single pair, "balloon" until it runs in paralle
 
 The following graphic applies this algorithm to a pair of cubic curves, one step at a time, so you can see the algorithm in action. Click the button to run a single step in the algorithm, after setting up your curves in some creative arrangement. The algorithm resets once it's found a solution, so you can try this with lots of different curves (can you find the configuration that yields the maximum number of intersections between two cubic curves? Nine intersections!)
 
-<Graphic preset="clipping" title="Curve/curve intersections" setup={this.setup} draw={this.draw} children={[<button onClick={this.stepUp}>advance one step</button>]}/>
+<Graphic preset="clipping" title="Curve/curve intersections" setup={this.setup} draw={this.draw}>
+	<button onClick={this.stepUp}>advance one step</button>
+</Graphic>
 
 Self-intersection is dealt with in the same way, except we turn a curve into two or more curves first based on the inflection points. We then form all possible curve pairs with the resultant segments, and run exactly the same algorithm. All non-overlapping curve pairs will be removed after the first iteration, and the remaining steps home in on the curve's self-intersection points.

@@ -50,7 +50,7 @@ var Components = React.createClass({
   },
 
   render: function() {
-    return <section>{ locale.getContent(page, this) }</section>;
+    return locale.getContent(page, this);
   }
 });
 
