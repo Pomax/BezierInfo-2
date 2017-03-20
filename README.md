@@ -42,3 +42,7 @@ Interested in (helping with) localizing the Primer to your own language? That's 
 Interested in the actual architecture and tech stack? Read the blog post on how Webpack's sync processing and MathJAx's async processing were made to work together:
 
 http://pomax.github.io/1451617530567/react-with-latex-without-needing-client-side-mathjax
+
+And read about the tech choices made to enable localization in:
+
+http://pomax.github.io/1489108158510/localization-is-hard
