@@ -56,6 +56,6 @@ function drawCurve(points[], t):
 
 </div>
 
-在以下的图表中，用鼠标移动计算 `de Casteljau` 算法的基础点， 左右移动鼠标，可以看到曲线是如何生成的。
+在以下的图表中，拖拽鼠标移动用来计算 `de Casteljau` 算法的基点， 左右移动鼠标，可以实时看到曲线是如何生成的。
 
 <Graphic preset="simple"title="Traversing a curve using de Casteljau's algorithm" setup={this.setup} draw={this.draw}/>
