@@ -53,7 +53,7 @@ And that's one reason why Bézier curves are tricky: there are actually a `lot` 
 
 </div>
 
-So, you cannot offset a Bézier curve perfectly with another Bézier curve, no matter how high-order you make that other Bézier curve. However, we can chop up a curve into "safe" sub-curves (where safe means that all the control points are always on a single side of the baseline, and the midpoint of the curve at `t=0.5` is roughly in the centre of the polygon defined by the curve coordinates) and then point-scale those sub-curves with respect to the curve's scaling origin (which is the intersection of the point normals at the start and end points).
+So, you cannot offset a Bézier curve perfectly with another Bézier curve, no matter how high-order you make that other Bézier curve. However, we can chop up a curve into "safe" sub-curves (where safe means that all the control points are always on a single side of the baseline, and the midpoint of the curve at `t=0.5` is roughly in the centre of the polygon defined by the curve coordinates) and then point-scale each sub-curve with respect to its scaling origin (which is the intersection of the point normals at the start and end points).
 
 A good way to do this reduction is to first find the curve's extreme points, as explained in the earlier section on curve extremities, and use these as initial splitting points. After this initial split, we can check each individual segment to see if it's "safe enough" based on where the center of the curve is. If the on-curve point for `t=0.5` is too far off from the center, we simply split the segment down the middle. Generally this is more than enough to end up with safe segments.
 

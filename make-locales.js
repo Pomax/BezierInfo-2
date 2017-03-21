@@ -24,10 +24,10 @@ Module.prototype.require = function() {
  * syntax with `)` in the links themselves.
  */
 function fixMarkDownLinks(data, chunks, chunkMore) {
-  var p = 0,
-      next = chunkMore ? chunkMore[0] : false,
-      otherChunkers = chunkMore ? chunkMore.slice(1) : false;
-  var fixes = [];
+  var next = chunkMore ? chunkMore[0] : false,
+      otherChunkers = chunkMore ? chunkMore.slice(1) : false,
+      fixes = [];
+
   data.replace(/\[[^\]]+\]\(/g, function(_match, pos, _fullstring) {
     // this is the start of a link. Find the offset at which the next `)`
     // is actually the link closer.
@@ -62,7 +62,48 @@ function fixMarkDownLinks(data, chunks, chunkMore) {
 }
 
 /**
- *
+ * ...
+ */
+function chunkBSplineGraphicsJSX(data, chunks, chunkMore) {
+  var p = 0,
+      next = chunkMore ? chunkMore[0] : false,
+      otherChunkers = chunkMore ? chunkMore.slice(1) : false,
+      bgfxTag = '<BSplineGraphic',
+      bgfxEnd = '/>',
+      bgfxEnd2 = '</BSplineGraphic>';
+
+  while (p !== -1) {
+    // Let's check a BSplineGraphic tag
+    let bgfx = data.indexOf(bgfxTag, p);
+    if (bgfx === -1) {
+      // No <BSplineGraphic/> block found: we're done here. Parse the remaining
+      // data for whatever else might be in there.
+      performChunking(data.substring(p), chunks, next, otherChunkers);
+      break;
+    }
+
+    // First parse the non-<BSplineGraphic/> data for whatever else might be in there.
+    performChunking(data.substring(p, bgfx), chunks, next, otherChunkers);
+
+    let tail = data.substring(bgfx),
+        noContent = !!tail.match(/^<BSplineGraphic[^>]+\/>/),
+        eol;
+
+    // Then capture the <BSplineGraphic>...</BSplineGraphic> or <BSplineGraphic .../> block and mark it as "don't convert".
+    if (noContent) {
+      eol = data.indexOf(bgfxEnd, bgfx) + bgfxEnd.length;
+    } else {
+      eol = data.indexOf(bgfxEnd2, bgfx) + bgfxEnd2.length;
+    }
+
+    chunks.push({ convert: false, type: "bgfx", s:bgfx, e:eol, data: data.substring(bgfx, eol) });
+    p = eol;
+  }
+}
+
+
+/**
+ * ...
  */
 function chunkGraphicJSX(data, chunks, chunkMore) {
   var p = 0,
@@ -73,7 +114,7 @@ function chunkGraphicJSX(data, chunks, chunkMore) {
       gfxEnd2 = '</Graphic>';
 
   while (p !== -1) {
-    // Let's check a LaTeX block
+    // Let's check a Graphic tag
     let gfx = data.indexOf(gfxTag, p);
     if (gfx === -1) {
       // No <Graphic/> block found: we're done here. Parse the remaining
@@ -102,7 +143,7 @@ function chunkGraphicJSX(data, chunks, chunkMore) {
 }
 
 /**
- *
+ * ...
  */
 function chunkDivEnds(data, chunks, chunkMore) {
   var next = chunkMore ? chunkMore[0] : false,
@@ -120,7 +161,37 @@ function chunkDivEnds(data, chunks, chunkMore) {
 
 
 /**
- *
+ * ...
+ */
+function chunkTable(data, chunks, chunkMore) {
+  var p = 0,
+      next = chunkMore ? chunkMore[0] : false,
+      otherChunkers = chunkMore ? chunkMore.slice(1) : false,
+      tableMatch = '\n<table',
+      tableClosingTag = '</table>\n';
+
+  while (p !== -1) {
+    // Let's check for a <table> tag
+    let table = data.indexOf(tableMatch, p);
+    if (table === -1) {
+      // No tables found: we're done here. Parse the remaining
+      // data for whatever else might be in there.
+      performChunking(data.substring(p), chunks, next, otherChunkers);
+      break;
+    }
+
+    // First parse the non-table data for whatever else might be in there.
+    performChunking(data.substring(p, table), chunks, next, otherChunkers);
+
+    // then mark the table code as no-convert
+    let eod = data.indexOf(tableClosingTag, table) + tableClosingTag.length;
+    chunks.push({ convert: false, type: "table", s:table, e:eod, data: data.substring(table, eod) });
+    p = eod;
+  }
+}
+
+/**
+ * ...
  */
 function chunkDivs(data, chunks, chunkMore) {
   var p = 0,
@@ -152,12 +223,11 @@ function chunkDivs(data, chunks, chunkMore) {
     if (className !== null) { className = className[1]; }
 
     let eod, type="div";
-    if (className === "figure") {
+    if (className === "figure" || className === "two-column") {
       eod = data.indexOf(divClosingTag, div) + divClosingTag.length;
-      type += ".figure";
+      type += "." + className;
     } else {
       eod = data.indexOf(divEnd, div) + divEnd.length;
-
     }
     chunks.push({ convert: false, type: type, s:div, e:eod, data: data.substring(div, eod) });
     p = eod;
@@ -216,7 +286,15 @@ function performChunking(data, chunks, chunker, moreChunkers) {
  */
 function chunk(data) {
   var chunks = [];
-  performChunking(data, chunks, chunkLatex, [chunkDivs, chunkDivEnds, chunkGraphicJSX, fixMarkDownLinks]);
+  var chunkers = [
+    chunkDivs,
+    chunkDivEnds,
+    chunkTable,
+    chunkGraphicJSX,
+    chunkBSplineGraphicsJSX,
+    fixMarkDownLinks
+  ];
+  performChunking(data, chunks, chunkLatex,chunkers);
   return chunks;
 }
 
@@ -274,7 +352,19 @@ function formContentBundle(locale, content) {
               .replace(/></g,'>\n<')
               .replace(/\\\\/g, '\\');
 
-  var bundle = `var React = require('react');\nvar Graphic = require("../../components/Graphic.jsx");\nvar SectionHeader = require("../../components/SectionHeader.jsx");\n\nSectionHeader.locale="${locale}";\n\nmodule.exports = ${bcode};\n`;
+  var bundle = [
+    `var React = require('react');`,
+    `var Graphic = require("../../components/Graphic.jsx");`,
+    `var SectionHeader = require("../../components/SectionHeader.jsx");`,
+    `var BSplineGraphic = require("../../components/BSplineGraphic.jsx");`,
+    `var KnotController = require("../../components/KnotController.jsx");`,
+    `var WeightController = require("../../components/WeightController.jsx");`,
+    ``,
+    `SectionHeader.locale="${locale}";`,
+    ``,
+    `module.exports = ${bcode};`,
+    ``
+  ].join('\n');
 
   return bundle;
 }
