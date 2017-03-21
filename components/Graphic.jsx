@@ -91,7 +91,7 @@ var Graphic = React.createClass({
     }
 
     if (this.props.draw) {
-      this.props.draw(this,this.curve);
+      this.props.draw(this, this.curve);
     }
 
     if (this.props.autoplay) {

@@ -8,7 +8,7 @@
     "build": "run-s localize less build:** default",
     "default": "node copy-default-locale",
     "postbuild": "node buildmark",
-    "build:en-GB": "webpack -p",
+    "build:en-GB": "webpack",
     "build:zh-CN": "cross-env LOCALE=zh-CN webpack -p",
     "build:ja-JP": "cross-env LOCALE=ja-JP webpack -p",
     "dev": "npm run localize && npm run less && webpack-dev-server --progress --colors --hot --inline",
