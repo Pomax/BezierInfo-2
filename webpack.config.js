@@ -3,7 +3,7 @@ var path = require('path');
 var fs = require('fs');
 
 const defaultLocale = "en-GB";
-var locale = process.env.locale || defaultLocale;
+var locale = process.env.LOCALE || defaultLocale;
 
 console.log("Using locale: "+locale);
 

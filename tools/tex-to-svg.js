@@ -67,7 +67,7 @@ var filedata = [
   '\\usepackage{unicode-math}'
 ]
 
-if (process.env.locale === 'zh-CN') {
+if (process.env.LOCALE === 'zh-CN') {
   filedata = filedata.concat([
     '\\usepackage{xeCJK}',
     '\\xeCJKsetup{CJKmath=true}',
@@ -75,7 +75,7 @@ if (process.env.locale === 'zh-CN') {
   ]);
 }
 
-if (process.env.locale === 'ja-JP') {
+if (process.env.LOCALE === 'ja-JP') {
   filedata = filedata.concat([
     '\\usepackage{xeCJK}',
     '\\xeCJKsetup{CJKmath=true}',
