@@ -5,9 +5,10 @@
   "scripts": {
     "localize": "node tools/make-locales",
     "prebuild": "node tools/buildmark -- set",
-    "build": "run-s localize less build:** default",
+    "build": "run-s localize less makeindex build:** default",
     "default": "node tools/copy-default-locale",
     "postbuild": "node tools/buildmark -- resolve",
+    "makeindex": "node tools/form-section-index-files.js",
     "build:en-GB": "webpack -p",
     "build:zh-CN": "cross-env LOCALE=zh-CN webpack -p",
     "build:ja-JP": "cross-env LOCALE=ja-JP webpack -p",

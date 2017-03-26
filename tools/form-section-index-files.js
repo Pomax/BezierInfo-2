@@ -38,5 +38,5 @@ Object.keys(index).forEach( section => {
   		`module.exports = generateBase("${section}");`
   ].filter(l => !!l).join('\n');
 
-  console.log('[',section,"]\n", indexCode,'\n');
+  fs.writeFileSync(path.join(BASEDIR,`components/sections/${section}/index.js`), indexCode);
 });
