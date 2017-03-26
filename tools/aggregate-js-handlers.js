@@ -21,7 +21,7 @@ Object.keys(index).forEach( section => {
     let content = fs.readFileSync(handlerFile).toString();
     content = content.replace("module.exports = ","return ");
     content = `(function() { ${content} }())`;
-    let def = `  ${section}: {
+    let def = `  "${section}": {
     handler: ${content}`;
     if (content.indexOf('keyHandlingOptions') > -1) { def += `,\n    withKeys: true`; }
     def += `\n  }`;
@@ -29,5 +29,5 @@ Object.keys(index).forEach( section => {
   }
 });
 
-var masterFile = `module.exports = {\n${ handlers.join(',\n') }\n};\n`;
+var masterFile = `window["Bezier Section Handlers"] = {\n${ handlers.join(',\n') }\n};\n`;
 fs.writeFileSync(path.join(BASEDIR, "lib/site/handlers.js"), masterFile);
