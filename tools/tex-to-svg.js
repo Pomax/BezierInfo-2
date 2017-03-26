@@ -45,19 +45,11 @@ dir = path.join(dir, "source");
 fs.ensureDirSync(dir);
 var TeXfilename = path.join(dir, hash + ".tex");
 
+// form the LaTeX block that will be injected into the .tex file
 var latexSourceCode = cleanUp(latex);
-var aligned = latexSourceCode.indexOf("\\begin{aligned}") !== -1;
+latexSourceCode = ['\\[', latexSourceCode, '\\]'].join('\n');
 
-//if (aligned) {
-  latexSourceCode = [
-    '\\[',
-    latexSourceCode,
-    '\\]'
-  ].join('\n');
-//}
-
-// Convert the passed LaTeX to SVG form
-// write the .tex source
+// Convert the passed LaTeX to SVG form and write the .tex source
 var filedata = [
   '\\documentclass[12pt]{article}',
   '\\usepackage[paperwidth=12in, paperheight=12in]{geometry}', // pdfcrop will remove the unused bits later
@@ -94,14 +86,16 @@ filedata = filedata.concat([
 filedata = filedata.join('\n');
 fs.writeFileSync(TeXfilename, filedata);
 
+// Chronicle the filenames that we'll be working through as we run
+// through the .tex to pdf to svg conversion process:
 var PDFfilename = TeXfilename.replace(".tex",".pdf");
 var PDFfilenameCropped = TeXfilename.replace(".tex","-crop.pdf");
 var SVGfilename = TeXfilename.replace(".tex",".svg");
 
-// set the SVGfilename one dir higher
+// and make sure the SVGfilename points to one dir higher than the .tex file
 SVGfilename = path.resolve(path.join(path.dirname(TeXfilename), '..', hash + ".svg"));
 
-// run xelatex on this file
+// Finally: run the conversion
 try {
   var cmd = `npm run xelatex -- -output-directory "${path.dirname(TeXfilename)}" "${TeXfilename}"`;
   console.log("- running xelatex on " + hash + ".tex");
