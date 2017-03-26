@@ -217,7 +217,7 @@ The algorithm for working with Rational B-Splines is virtually identical to the 
 
 For example, a 2D point `(x,y)` with weight `w` becomes a 3D point `(w * x, w * y, w)`.
 
-We then run the same algorithm as before, which will automaticall perform weight interpolation in addition to regular coordinate interpolation, because all we've done is pretended we have coordinates in a higher dimension. The algorithm doesn't really care about how many dimensions it needs to interpolate.
+We then run the same algorithm as before, which will automatically perform weight interpolation in addition to regular coordinate interpolation, because all we've done is pretended we have coordinates in a higher dimension. The algorithm doesn't really care about how many dimensions it needs to interpolate.
 
 In order to recover our "real" curve point, we take the final result of the point generation algorithm, and "unweigh" it: we take the final point's derived weight `w'` and divide all the regular coordinate dimensions by it, then throw away the weight information.
 
