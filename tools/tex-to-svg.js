@@ -59,6 +59,8 @@ var filedata = [
   '\\usepackage{unicode-math}'
 ]
 
+// For Chinese, we need the xeCJK package because there might be Chinese
+// in maths context, which base XeLaTeX can't quite deal with.
 if (process.env.LOCALE === 'zh-CN') {
   filedata = filedata.concat([
     '\\usepackage{xeCJK}',
@@ -67,6 +69,8 @@ if (process.env.LOCALE === 'zh-CN') {
   ]);
 }
 
+// The same goes for Japanese, although we obviously want a different
+// font than Chinese, as they are different languages entirely.
 if (process.env.LOCALE === 'ja-JP') {
   filedata = filedata.concat([
     '\\usepackage{xeCJK}',
@@ -75,6 +79,7 @@ if (process.env.LOCALE === 'ja-JP') {
   ]);
 }
 
+// Form the final .tex source code, including the latexSourceCode we formed already:
 filedata = filedata.concat([
   '\\setmainfont[Ligatures=TeX]{TeX Gyre Pagella}',
   '\\setmathfont{TeX Gyre Pagella Math}',
@@ -83,6 +88,7 @@ filedata = filedata.concat([
   '\\end{document}'
 ]);
 
+// Then we write the .tex file to disk
 filedata = filedata.join('\n');
 fs.writeFileSync(TeXfilename, filedata);
 
