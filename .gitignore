@@ -3,3 +3,6 @@ data
 locales
 images/latex/source
 component/section/**/index.js
+!component/section/index.js
+.buildmark
+npm-debug.log

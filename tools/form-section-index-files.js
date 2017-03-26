@@ -14,11 +14,15 @@ var jsxshim = require("./lib/jsx-shim");
 const BASEDIR = path.join(__dirname, "..");
 
 var index = require(path.join(BASEDIR, "components/sections"));
+console.log(index);
+
 var handlers = [];
 Object.keys(index).forEach( section => {
   var handlerFile = path.join(BASEDIR, `components/sections/${section}/handler.js`);
+
   var hasHandler = false;
   var withKeys = false;
+
   if (fs.existsSync(handlerFile)) {
   	hasHandler = true;
     let content = fs.readFileSync(handlerFile).toString();
@@ -38,5 +42,6 @@ Object.keys(index).forEach( section => {
   		`module.exports = generateBase("${section}");`
   ].filter(l => !!l).join('\n');
 
+  console.log(`writing ${section}`);
   fs.writeFileSync(path.join(BASEDIR,`components/sections/${section}/index.js`), indexCode);
 });
