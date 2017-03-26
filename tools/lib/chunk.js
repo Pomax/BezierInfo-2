@@ -43,6 +43,75 @@ function fixMarkDownLinks(data, chunks, chunkMore) {
 /**
  * ...
  */
+function chunkStyleTags(data, chunks, chunkMore) {
+  var p = 0,
+      next = chunkMore ? chunkMore[0] : false,
+      otherChunkers = chunkMore ? chunkMore.slice(1) : false,
+      styleTag = '<style>',
+      styleTagEnd = '</style>';
+
+  while (p !== -1) {
+    // Let's check a BSplineGraphic tag
+    let style = data.indexOf(styleTag, p);
+    if (style === -1) {
+      // No <BSplineGraphic/> block found: we're done here. Parse the remaining
+      // data for whatever else might be in there.
+      performChunking(data.substring(p), chunks, next, otherChunkers);
+      break;
+    }
+
+    // First parse the non-<BSplineGraphic/> data for whatever else might be in there.
+    performChunking(data.substring(p, style), chunks, next, otherChunkers);
+
+    let tail = data.substring(style), eol, styledata;
+
+    // Then capture the <BSplineGraphic>...</BSplineGraphic> or <BSplineGraphic .../> block and mark it as "don't convert".
+    eol = data.indexOf(styleTagEnd, style) + styleTagEnd.length;
+    styledata = data.substring(style, eol);
+    styledata = styledata.replace(/([{}])/g,"{'$1'}");
+    chunks.push({ convert: false, type: "style", s:style, e:eol, data: styledata });
+    p = eol;
+  }
+}
+
+
+/**
+ * ...
+ */
+function chunkScriptTags(data, chunks, chunkMore) {
+  var p = 0,
+      next = chunkMore ? chunkMore[0] : false,
+      otherChunkers = chunkMore ? chunkMore.slice(1) : false,
+      scriptTag = '<script',
+      scriptTagEnd = '</script>';
+
+  while (p !== -1) {
+    // Let's check a BSplineGraphic tag
+    let script = data.indexOf(scriptTag, p);
+    if (script === -1) {
+      // No <BSplineGraphic/> block found: we're done here. Parse the remaining
+      // data for whatever else might be in there.
+      performChunking(data.substring(p), chunks, next, otherChunkers);
+      break;
+    }
+
+    // First parse the non-<BSplineGraphic/> data for whatever else might be in there.
+    performChunking(data.substring(p, script), chunks, next, otherChunkers);
+
+    let tail = data.substring(script), eol, scriptdata;
+
+    // Then capture the <BSplineGraphic>...</BSplineGraphic> or <BSplineGraphic .../> block and mark it as "don't convert".
+    eol = data.indexOf(scriptTagEnd, script) + scriptTagEnd.length;
+    scriptdata = data.substring(script, eol);
+    scriptdata.replace(/\/\*[\w\s]+\*\//g,'');
+    chunks.push({ convert: false, type: "script", s:script, e:eol, data:scriptdata });
+    p = eol;
+  }
+}
+
+/**
+ * ...
+ */
 function chunkBSplineGraphicsJSX(data, chunks, chunkMore) {
   var p = 0,
       next = chunkMore ? chunkMore[0] : false,
@@ -271,8 +340,12 @@ module.exports = function chunk(data) {
     chunkTable,
     chunkGraphicJSX,
     chunkBSplineGraphicsJSX,
+    chunkScriptTags,
+    chunkStyleTags,
     fixMarkDownLinks
   ];
+
   performChunking(data, chunks, chunkLatex,chunkers);
+
   return chunks;
 };

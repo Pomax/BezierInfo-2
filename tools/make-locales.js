@@ -47,7 +47,8 @@ function processLocation(loc, fragmentid, number) {
   var processed = { data: '', title: `Unknown title (${fragmentid})` };
   try {
     data = fs.readFileSync(loc).toString();
-    data = chunk(data).map(block => {
+    data = chunk(data);
+    data = data.map(block => {
       // preserver is simple
       if (!block.convert) return block.data;
 
