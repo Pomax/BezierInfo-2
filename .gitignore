@@ -6,3 +6,5 @@ components/sections/**/index.js
 !components/sections/index.js
 .buildmark
 npm-debug.log
+# this gets to be here for as long as I've not figured out how to do the full surgery
+index.full.html
