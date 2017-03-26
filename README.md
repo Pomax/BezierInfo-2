@@ -28,6 +28,12 @@ Both operations run continuous linting. Also note that there are specific requir
 
 All fonts come with TeXLive and MiKTeX, and should be easy to install. Note that you will need the modern OpenType (otf/ttf) fonts, not the obsolete type1 fonts.
 
+### Running a build
+
+As mentioned up top, run a build using `npm run build`.
+
+If you have all the prerequisites installed, this should "just work", although I can't make any guarantees on how long it will take: on my rather beefy workstation it takes around 40 seconds to run a build for all locales (`en-GB`, `zh-CN`, and `ja-JP`).
+
 ## Main site location
 
 - Main repository: https://github.com/Pomax/BezierInfo
