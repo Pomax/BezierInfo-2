@@ -1,6 +1,6 @@
 var hasWindow = (typeof window !== "undefined");
-var chroma = hasWindow ? window.chroma : require("chroma-js");
-var Bezier = hasWindow ? window.Bezier : require("bezier-js");
+var chroma = /*hasWindow ? window.chroma : */require("chroma-js");
+var Bezier = /*hasWindow ? window.Bezier : */require("bezier-js");
 
 // event coordinate fix
 var fix = function(e) {
@@ -11,7 +11,7 @@ var fix = function(e) {
   e.offsetY = e.clientY - rect.top;
 };
 
-const API = {
+var API = {
   Paper: false,
 
   defaultWidth: 275,
@@ -607,4 +607,5 @@ const API = {
   }
 };
 
-if (hasWindow) { window["Bezier Graphics API"] = API; } else {  module.exports = API; }
+if (hasWindow) { window["Bezier Graphics API"] = API; }
+if (typeof module !== "undefined") { module.exports = API; }

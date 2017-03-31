@@ -52,9 +52,11 @@ var baseClass = {
   }
 };
 
+// For some reason we can copy from gfx into base but
+// not the other way around, while preserving context.
 var gfxObject = require("./gfx-api");
-Object.keys(baseClass).forEach(fname => {
-  gfxObject[fname] = baseClass[fname];
+Object.keys(gfxObject).forEach(fname => {
+  baseClass[fname] = gfxObject[fname];
 });
 
-module.exports = React.createClass(gfxObject);
+module.exports = React.createClass(baseClass);
