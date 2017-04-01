@@ -8,7 +8,7 @@
     "copy:chroma": "shx cp node_modules/chroma-js/chroma.min.js lib/vendor",
     "localize": "node tools/make-locales",
     "prebuild": "node tools/buildmark -- set",
-    "build": "run-s bootstrap less build:en-GB default",
+    "build": "run-s bootstrap less build:** default",
     "default": "node tools/copy-default-locale",
     "postbuild": "node tools/buildmark -- resolve",
     "makehandlers": "node tools/aggregate-js-handlers",
