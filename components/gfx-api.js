@@ -1,6 +1,6 @@
 var hasWindow = (typeof window !== "undefined");
-var chroma = /*hasWindow ? window.chroma : */require("chroma-js");
-var Bezier = /*hasWindow ? window.Bezier : */require("bezier-js");
+var chroma = hasWindow && window.chroma? window.chroma : require("chroma-js");
+var Bezier = hasWindow && window.Bezier? window.Bezier : require("bezier-js");
 
 // event coordinate fix
 var fix = function(e) {
@@ -47,8 +47,6 @@ var API = {
   play: function() { this.playing = true; this.animate(); },
   pause: function() { this.playing = false; },
   redraw: function() { if (this.props.draw) { this.props.draw(this, this.curve); }},
-
-
 
   mouseDown: function(evt) {
     fix(evt);
