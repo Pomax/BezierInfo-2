@@ -30,7 +30,9 @@ var webpackLoaders = [
 
 var resolve = {
   alias: {
-    LocalizedContent: path.resolve(__dirname, 'locales/en-GB/content.js')
+    LocalizedContent: path.resolve(__dirname, 'locales/en-GB/content.js'),
+    react: "preact-compat",
+    "react-dom": "preact-compat"
   }
 };
 

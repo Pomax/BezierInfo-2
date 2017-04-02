@@ -6,12 +6,14 @@ module.exports = function(Component) {
       propName = options.propName || "",
       values = options.values || {},
       controller = options.controller || noop,
+      defaultProps = Component.defaultProps,
       getDefaultProps = Component.getDefaultProps,
       ref = "wrappedComponent";
 
   return React.createClass({
     values: values,
 
+    defaultProps: defaultProps,
     getDefaultProps: getDefaultProps,
 
     onKeyDown: function(event, api) {
