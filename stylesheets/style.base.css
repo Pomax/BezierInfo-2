@@ -156,6 +156,9 @@ section table {
 section table p {
   text-align: center;
 }
+#comments:before {
+  content: "";
+}
 div.note {
   font-size: 90%;
   margin: 1em 2em;
