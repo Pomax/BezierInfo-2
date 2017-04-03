@@ -21,13 +21,13 @@ Unlike for the quadratic curve, we can't use <i>t=0.5</i> as our reference point
 So instead of walking you through the derivation for that value, let's simply take that <i>t</i> value and see what the error is for circular arcs with an angle ranging from 0 to 2π:
 
 <table><tbody><tr><td>
-  <img src="images/arc-c-2pi.gif" height="187px"/>
+  <img src="images/arc-c-2pi.gif" height="187"/>
   plotted for 0 ≤ φ ≤ 2π:
 </td><td>
-  <img src="images/arc-c-pi.gif" height="187px"/>
+  <img src="images/arc-c-pi.gif" height="187"/>
   plotted for 0 ≤ φ ≤ π:
 </td><td>
-  <img src="images/arc-c-pi2.gif" height="187px"/>
+  <img src="images/arc-c-pi2.gif" height="187"/>
   plotted for 0 ≤ φ ≤ ½π:
 </td></tr></tbody></table>
 

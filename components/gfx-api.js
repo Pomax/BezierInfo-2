@@ -2,15 +2,6 @@ var hasWindow = (typeof window !== "undefined");
 var chroma = hasWindow && window.chroma? window.chroma : require("chroma-js");
 var Bezier = hasWindow && window.Bezier? window.Bezier : require("bezier-js");
 
-// event coordinate fix
-var fix = function(e) {
-  e = e || window.event;
-  var target = e.target || e.srcElement,
-      rect = target.getBoundingClientRect();
-  e.offsetX = e.clientX - rect.left;
-  e.offsetY = e.clientY - rect.top;
-};
-
 var API = {
   Paper: false,
 
@@ -49,9 +40,8 @@ var API = {
   redraw: function() { if (this.props.draw) { this.props.draw(this, this.curve); }},
 
   mouseDown: function(evt) {
-    fix(evt);
-    this.mx = evt.offsetX;
-    this.my = evt.offsetY;
+    this.mx = evt.fixedOffsetX;
+    this.my = evt.fixedOffsetY;
 
     this.movingPoint = false;
     this.dragging = false;
@@ -77,8 +67,6 @@ var API = {
   },
 
   mouseMove: function(evt) {
-    fix(evt);
-
     if(!this.props.static) {
 
       if (this.down) {
@@ -87,8 +75,8 @@ var API = {
 
       var found = false;
       this.lpts.forEach(p => {
-        var mx = evt.offsetX;
-        var my = evt.offsetY;
+        var mx = evt.fixedOffsetX;
+        var my = evt.fixedOffsetY;
         if(Math.abs(mx-p.x)<10 && Math.abs(my-p.y)<10) {
           found = found || true;
         }
@@ -96,13 +84,13 @@ var API = {
       this.cvs.style.cursor = found ? "pointer" : "default";
 
       this.hover = {
-        x: evt.offsetX,
-        y: evt.offsetY
+        x: evt.fixedOffsetX,
+        y: evt.fixedOffsetY
       };
 
       if(this.movingPoint) {
-        this.ox = evt.offsetX - this.mx;
-        this.oy = evt.offsetY - this.my;
+        this.ox = evt.fixedOffsetX - this.mx;
+        this.oy = evt.fixedOffsetY - this.my;
         this.mp.x = Math.max(0, Math.min(this.defaultWidth, this.cx + this.ox));
         this.mp.y = Math.max(0, Math.min(this.defaultHeight, this.cy + this.oy));
         if (this.curve.forEach) {
@@ -147,9 +135,8 @@ var API = {
   },
 
   onClick: function(evt) {
-    fix(evt);
-    this.mx = evt.offsetX;
-    this.my = evt.offsetY;
+    this.mx = evt.fixedOffsetX;
+    this.my = evt.fixedOffsetY;
     if (!this.dragging && this.props.onClick) {
       this.props.onClick(evt, this);
     }

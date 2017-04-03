@@ -21,19 +21,19 @@ Once we have all the new poly-Bézier curves, we run the first step of the desir
 
 <table className="sketch"><tbody><tr>
   <td className="labeled-image">
-    <img src="images/op_base.gif" height="169px"/>
+    <img src="images/op_base.gif" height="169"/>
     Two overlapping shapes.
   </td>
   <td className="labeled-image">
-    <img src="images/op_union.gif" height="169px"/>
+    <img src="images/op_union.gif" height="169"/>
     The unified region.
   </td>
   <td className="labeled-image">
-    <img src="images/op_intersection.gif" height="169px"/>
+    <img src="images/op_intersection.gif" height="169"/>
     Their intersection.
   </td>
   <td className="labeled-image">
-    <img src="images/op_exclusion.gif" height="169px"/>
+    <img src="images/op_exclusion.gif" height="169"/>
     Their exclusion regions.
   </td>
 </tr></tbody></table>
