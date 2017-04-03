@@ -40,8 +40,8 @@ var API = {
   redraw: function() { if (this.props.draw) { this.props.draw(this, this.curve); }},
 
   mouseDown: function(evt) {
-    this.mx = evt.fixedOffsetX;
-    this.my = evt.fixedOffsetY;
+    this.mx = evt.offsetX;
+    this.my = evt.offsetY;
 
     this.movingPoint = false;
     this.dragging = false;
@@ -75,8 +75,8 @@ var API = {
 
       var found = false;
       this.lpts.forEach(p => {
-        var mx = evt.fixedOffsetX;
-        var my = evt.fixedOffsetY;
+        var mx = evt.offsetX;
+        var my = evt.offsetY;
         if(Math.abs(mx-p.x)<10 && Math.abs(my-p.y)<10) {
           found = found || true;
         }
@@ -84,13 +84,13 @@ var API = {
       this.cvs.style.cursor = found ? "pointer" : "default";
 
       this.hover = {
-        x: evt.fixedOffsetX,
-        y: evt.fixedOffsetY
+        x: evt.offsetX,
+        y: evt.offsetY
       };
 
       if(this.movingPoint) {
-        this.ox = evt.fixedOffsetX - this.mx;
-        this.oy = evt.fixedOffsetY - this.my;
+        this.ox = evt.offsetX - this.mx;
+        this.oy = evt.offsetY - this.my;
         this.mp.x = Math.max(0, Math.min(this.defaultWidth, this.cx + this.ox));
         this.mp.y = Math.max(0, Math.min(this.defaultHeight, this.cy + this.oy));
         if (this.curve.forEach) {
@@ -135,8 +135,8 @@ var API = {
   },
 
   onClick: function(evt) {
-    this.mx = evt.fixedOffsetX;
-    this.my = evt.fixedOffsetY;
+    this.mx = evt.offsetX;
+    this.my = evt.offsetY;
     if (!this.dragging && this.props.onClick) {
       this.props.onClick(evt, this);
     }
