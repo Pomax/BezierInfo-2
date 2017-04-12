@@ -5,9 +5,9 @@
 下面的图形显示了二次曲线和三次曲线的差值方程，“S”代表了点对贝塞尔方程总和的贡献。点击或拖动点来看看在特定的<i>t</i>值时，每个曲线定义的点的插值百分比。
 
 <div className="figure">
-  <Graphic inline={true} preset="simple" title="二次插值"  draw={this.drawQuadraticLerp}/>
-  <Graphic inline={true} preset="simple" title="三次插值"      draw={this.drawCubicLerp}/>
-  <Graphic inline={true} preset="simple" title="15次插值" draw={this.draw15thLerp}/>
+  <Graphic inline={true} title="二次插值"  draw={this.drawQuadraticLerp}/>
+  <Graphic inline={true} title="三次插值"      draw={this.drawCubicLerp}/>
+  <Graphic inline={true} title="15次插值" draw={this.draw15thLerp}/>
 </div>
 
 上面有一张是15<sup>th</sup>阶的插值方程。如你所见，在所有控制点中，起点和终点对曲线形状的贡献比其他点更大些。
@@ -34,7 +34,7 @@
 
 这就是我们在文章开头看到的曲线：
 
-<Graphic preset="simple" title="我们的三次贝塞尔曲线" setup={this.drawCubic} draw={this.drawCurve}/>
+<Graphic title="我们的三次贝塞尔曲线" setup={this.drawCubic} draw={this.drawCurve}/>
 
 我们还能对贝塞尔曲线做些什么？实际上还有很多。文章接下来涉及到我们可能运用到的一系列操作和算法，以及它们可以完成的任务。
 

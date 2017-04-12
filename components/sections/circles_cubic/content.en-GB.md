@@ -177,4 +177,4 @@ Which, in decimal values, rounded to six significant digits, is:
 
 Of course, this is for a circle with radius 1, so if you have a different radius circle, simply multiply the coordinate by the radius you need. And then finally, forming a full curve is now a simple a matter of mirroring these coordinates about the origin:
 
-<Graphic preset="simple" title="Cubic Bézier circle approximation" draw={this.drawCircle} static={true}/>
+<Graphic title="Cubic Bézier circle approximation" draw={this.drawCircle} static={true}/>

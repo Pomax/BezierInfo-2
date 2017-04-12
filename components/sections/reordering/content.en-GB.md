@@ -20,6 +20,6 @@ However, this rule also has as direct consequence that you **cannot** generally 
 
 We can apply this to a (semi) random curve, as is done in the following graphic. Select the sketch and press your up and down arrow keys to elevate or lower the curve order.
 
-<Graphic preset="simple" title={"A " + this.getOrder() + " order Bézier curve"} setup={this.setup} draw={this.draw} onKeyDown={this.props.onKeyDown} />
+<Graphic title={"A " + this.getOrder() + " order Bézier curve"} setup={this.setup} draw={this.draw} onKeyDown={this.props.onKeyDown} />
 
 There is a good, if mathematical, explanation on the matrices necessary for optimal reduction over on [Sirver's Castle](http://www.sirver.net/blog/2011/08/23/degree-reduction-of-bezier-curves), which given time will find its way in a more direct description into this article.

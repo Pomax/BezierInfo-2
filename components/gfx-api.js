@@ -2,6 +2,10 @@ var hasWindow = (typeof window !== "undefined");
 var chroma = hasWindow && window.chroma? window.chroma : require("chroma-js");
 var Bezier = hasWindow && window.Bezier? window.Bezier : require("bezier-js");
 
+var sin = Math.sin;
+var cos = Math.cos;
+var PI = Math.PI;
+
 var API = {
   Paper: false,
 
@@ -14,6 +18,7 @@ var API = {
   curve: false,
   mx:0,
   my:0,
+  hover: { x: 0, y: 0 },
   cx:0,
   cy:0,
   mp: false,
@@ -207,7 +212,7 @@ var API = {
 
   setCurve: function(c) {
     var pts = [];
-    c = (c instanceof Array) ? c : Array.prototype.slice.call(arguments);
+    c = (c instanceof Array) ? c : Array.from(arguments);
     c.forEach(nc => {
       pts = pts.concat(nc.points);
     });
@@ -224,11 +229,15 @@ var API = {
   },
 
   getDefaultQuadratic: function() {
-    return new this.Bezier(70,250,20,110,250,60);
+    return new this.Bezier(70,250,  20,110,  250,60);
   },
 
   getDefaultCubic: function() {
-    return new this.Bezier(120,160,35,200,220,260,220,40);
+    return new this.Bezier(120,160,  35,200,  220,260,  220,40);
+  },
+
+  getDefault3DCubic: function() {
+    return new this.Bezier(120,0,0,  120,120,30,  0,120,100,  0,0,200);
   },
 
   getPixelRatio: function () {
@@ -298,6 +307,34 @@ var API = {
 
   noFill: function() {
     this.ctx.fillStyle = "transparent";
+  },
+
+  // cabinet projection is good enough
+  project: function(p, offset, phi) {
+    offset = offset || {x:0, y:0};
+    phi = phi || -PI/6;
+
+    // what they rarely tell you: if you want
+    // z to "go up", x "come out of the screen"
+    // and y to be the "left/right", we need this:
+    var x=p.y, y=-p.z, z=-p.x;
+
+    return {
+      x: offset.x + x + z/2 * cos(phi),
+      y: offset.y + y + z/2 * sin(phi)
+    };
+  },
+
+  projectXY: function(p, offset, phi) {
+    return API.project({x:p.x, y:p.y, z:0}, offset, phi);
+  },
+
+  projectXZ: function(p, offset, phi) {
+    return API.project({x:p.x, y:0, z:p.z}, offset, phi);
+  },
+
+  projectYZ: function(p, offset, phi) {
+    return API.project({x:0, y:p.y, z:p.z}, offset, phi);
   },
 
   drawSkeleton: function(curve, offset, nocoords) {

@@ -98,4 +98,4 @@ We can program that pretty easily, provided we have that *f(t)* available, which
 
 If we use the Legendre-Gauss values for our *C* values (thickness for each strip) and *t* values (location of each strip), we can determine the approximate length of a Bézier curve by computing the Legendre-Gauss sum. The following graphic shows a cubic curve, with its computed lengths; Go ahead and change the curve, to see how its length changes. One thing worth trying is to see if you can make a straight line, and see if the length matches what you'd expect. What if you form a line with the control points on the outside, and the start/end points on the inside?
 
-<Graphic preset="simple" title="Arc length for a Bézier curve" setup={this.setupCurve} draw={this.drawCurve}/>
+<Graphic title="Arc length for a Bézier curve" setup={this.setupCurve} draw={this.drawCurve}/>

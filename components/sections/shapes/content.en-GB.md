@@ -44,7 +44,7 @@ These operations are expensive, and implementing your own code for this is gener
 
 The following graphic shows Paper.js doing its thing for two shapes: one static, and one that is linked to your mouse pointer. If you move the mouse around, you'll see how the shape intersections are resolved. The base shapes are outlined in blue, and the boolean result is coloured red.
 
-<Graphic preset="simple" title="Boolean shape operations with Paper.js" paperjs={true} setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}><br/>{
+<Graphic title="Boolean shape operations with Paper.js" paperjs={true} setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}><br/>{
   this.modes.map(mode => {
     var className = (this.state.mode === mode) ? "selected" : null;
     return <button className={className} key={mode} onClick={() => this.setMode(mode)}>{mode}</button>;

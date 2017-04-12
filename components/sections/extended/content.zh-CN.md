@@ -22,7 +22,7 @@
 
 下面两个图形给你展示了以“普通方式”来渲染的贝塞尔曲线，以及如果我们扩大`t`值时它们所“位于”的曲线。如你所见，曲线的剩余部分隐藏了很多“形状”，我们可以通过移动曲线的点来建模这部分。
 
-<Graphic preset="simple" title="二次无限区间贝塞尔曲线" setup={this.setupQuadratic} draw={this.draw} />
-<Graphic preset="simple" title="三次无限区间贝塞尔曲线" setup={this.setupCubic} draw={this.draw} />
+<Graphic title="二次无限区间贝塞尔曲线" setup={this.setupQuadratic} draw={this.draw} />
+<Graphic title="三次无限区间贝塞尔曲线" setup={this.setupCubic} draw={this.draw} />
 
 实际上，图形设计和计算机建模中还用了一些和贝塞尔曲线相反的曲线，这些曲线没有固定区间和自由的坐标，相反，它们固定座标但给你自由的区间。["Spiro"曲线](http://levien.com/phd/phd.html)就是一个很好的例子，它的构造是基于[羊角螺线,也就是欧拉螺线](https://zh.wikipedia.org/wiki/%E7%BE%8A%E8%A7%92%E8%9E%BA%E7%BA%BF)的一部分。这是在美学上很令人满意的曲线，你可以在一些图形包中看到它，比如[FontForge](https://fontforge.github.io)和[Inkscape](https://inkscape.org)，它也被用在一些字体设计中（比如Inconsolata字体）。

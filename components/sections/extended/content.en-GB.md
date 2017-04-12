@@ -22,7 +22,7 @@ In the case of Bézier curves, extending the interval simply makes our curve "ke
 
 The following two graphics show you Bézier curves rendered "the usual way", as well as the curves they "lie on" if we were to extend the `t` values much further. As you can see, there's a lot more "shape" hidden in the rest of the curve, and we can model those parts by moving the curve points around.
 
-<Graphic preset="simple" title="Quadratic infinite interval Bézier curve" setup={this.setupQuadratic} draw={this.draw} />
-<Graphic preset="simple" title="Cubic infinite interval Bézier curve" setup={this.setupCubic} draw={this.draw} />
+<Graphic title="Quadratic infinite interval Bézier curve" setup={this.setupQuadratic} draw={this.draw} />
+<Graphic title="Cubic infinite interval Bézier curve" setup={this.setupCubic} draw={this.draw} />
 
 In fact, there are curves used in graphics design and computer modelling that do the opposite of Bézier curves, where rather than fixing the interval, and giving you free coordinates, they fix the coordinates, but give you freedom over the interval. A great example of this is the ["Spiro" curve](http://levien.com/phd/phd.html), which is a curve based on part of a [Cornu Spiral, also known as Euler's Spiral](https://en.wikipedia.org/wiki/Euler_spiral). It's a very aesthetically pleasing curve and you'll find it in quite a few graphics packages like [FontForge](https://fontforge.github.io) and [Inkscape](https://inkscape.org), having even been used in font design (such as for the Inconsolata font).

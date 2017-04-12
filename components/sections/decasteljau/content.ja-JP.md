@@ -51,4 +51,4 @@ function drawCurve(points[], t):
 
 下の図にマウスを乗せると、この様子を実際に見ることができます。ド・カステリョのアルゴリズムによって曲線上の点を明示的に計算していますが、マウスを動かすと求める点が変わります。マウスカーソルを左から右へ（もちろん、右から左へでも）動かせば、このアルゴリズムによって曲線が生成される様子がわかります。
 
-<Graphic preset="simple" title="ド・カステリョのアルゴリズムで曲線をたどる" setup={this.setup} draw={this.draw}/>
+<Graphic title="ド・カステリョのアルゴリズムで曲線をたどる" setup={this.setup} draw={this.draw}/>

@@ -13,4 +13,4 @@ We keep repeating this process until the interval is small enough to claim the d
 
 The following graphic demonstrates the result of this procedure.Simply move the cursor around, and if it does not lie on top of the curve, you will see a line that projects the cursor onto the curve based on an iteratively found "ideal" `t` value.
 
-<Graphic preset="simple" title="Projecting a point onto a Bézier curve" setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}/>
+<Graphic title="Projecting a point onto a Bézier curve" setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}/>

@@ -169,5 +169,5 @@ As it turns out, Newton-Raphson is so blindingly fast, so we could get away with
 
 So now that we know how to do root finding, we can determine the first and second derivative roots for our Bézier curves, and show those roots overlaid on the previous graphics:
 
-<Graphic preset="simple" title="Quadratic Bézier curve extremities" setup={this.setupQuadratic} draw={this.draw}/>
-<Graphic preset="simple" title="Cubic Bézier curve extremities" setup={this.setupCubic} draw={this.draw}/>
+<Graphic title="Quadratic Bézier curve extremities" setup={this.setupQuadratic} draw={this.draw}/>
+<Graphic title="Cubic Bézier curve extremities" setup={this.setupCubic} draw={this.draw}/>

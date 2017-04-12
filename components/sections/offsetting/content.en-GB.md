@@ -59,7 +59,7 @@ A good way to do this reduction is to first find the curve's extreme points, as 
 
 The following graphics show off curve offsetting, and you can use your up and down arrow keys to control the distance at which the curve gets offset. The curve first gets reduced to safe segments, each of which is then offset at the desired distance. Especially for simple curves, particularly easily set up for quadratic curves, no reduction is necessary, but the more twisty the curve gets, the more the curve needs to be reduced in order to get segments that can safely be scaled.
 
-<Graphic preset="simple" title="Offsetting a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.props.onKeyDown} />
-<Graphic preset="simple" title="Offsetting a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onKeyDown={this.props.onKeyDown} />
+<Graphic title="Offsetting a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.props.onKeyDown} />
+<Graphic title="Offsetting a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onKeyDown={this.props.onKeyDown} />
 
 You may notice that this may still lead to small 'jumps' in the sub-curves when moving the curve around. This is caused by the fact that we're still performing a naive form of offsetting, moving the control points the same distance as the start and end points. If the curve is large enough, this may still lead to incorrect offsets.

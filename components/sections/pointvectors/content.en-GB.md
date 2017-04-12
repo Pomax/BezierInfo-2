@@ -73,6 +73,6 @@ treated as a sequence of three (elementary) shear operations. When we combine th
 The following two graphics show the tangent and normal along a quadratic and cubic curve, with the direction vector coloured blue, and the normal vector coloured red (the markers are spaced out evenly as *t*-intervals, not spaced equidistant).
 
 <div className="figure">
-  <Graphic preset="simple" title="Quadratic Bézier tangents and normals" inline={true} setup={this.setupQuadratic} draw={this.draw}/>
-  <Graphic preset="simple" title="Cubic Bézier tangents and normals" inline={true} setup={this.setupCubic} draw={this.draw}/>
+  <Graphic title="Quadratic Bézier tangents and normals" inline={true} setup={this.setupQuadratic} draw={this.draw}/>
+  <Graphic title="Cubic Bézier tangents and normals" inline={true} setup={this.setupCubic} draw={this.draw}/>
 </div>

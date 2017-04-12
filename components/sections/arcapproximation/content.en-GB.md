@@ -12,7 +12,7 @@ So: if we have have three points, we have three (different) chords, and conseque
 
 The following graphic shows this procedure with a different colour for each chord and its associated perpendicular through the center. You can move the points around as much as you like, those lines will always meet!
 
-<Graphic preset="simple" title="Finding a circle through three points" setup={this.setupCircle} draw={this.drawCircle} />
+<Graphic title="Finding a circle through three points" setup={this.setupCircle} draw={this.drawCircle} />
 
 So, with the procedure on how to find a circle through three points, finding the arc through those points is straight-forward: pick one of the three points as start point, pick another as an end point, and the arc has to necessarily go from the start point, over the remaining point, to the end point.
 
@@ -40,10 +40,10 @@ The result of this is shown in the next graphic: we start at a guaranteed failur
 
 The following graphic shows the result of this approach, with a default error threshold of 0.5, meaning that if an arc is off by a <em>combined</em> half pixel over both verification points, then we treat the arc as bad. This is an extremely simple error policy, but already works really well. Note that the graphic is still interactive, and you can use your up and down arrow keys keys to increase or decrease the error threshold, to see what the effect of a smaller or larger error threshold is.
 
-<Graphic preset="simple" title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawSingleArc} onKeyDown={this.props.onKeyDown} />
+<Graphic title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawSingleArc} onKeyDown={this.props.onKeyDown} />
 
 With that in place, all that's left now is to "restart" the procedure by treating the found arc's end point as the new to-be-determined arc's starting point, and using points further down the curve. We keep trying this until the found end point is for <em>t=1</em>, at which point we are done. Again, the following graphic allows for up and down arrow key input to increase or decrease the error threshold, so you can see how picking a different threshold changes the number of arcs that are necessary to reasonably approximate a curve:
 
-<Graphic preset="simple" title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawArcs} onKeyDown={this.props.onKeyDown} />
+<Graphic title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawArcs} onKeyDown={this.props.onKeyDown} />
 
 So... what is this good for? Obviously, If you're working with technologies that can't do curves, but can do lines and circles, then the answer is pretty straight-forward, but what else? There are some reasons why you might need this technique: using circular arcs means you can determine whether a coordinate lies "on" your curve really easily: simply compute the distance to each circular arc center, and if any of those are close to the arc radii, at an angle betwee the arc start and end: bingo, this point can be treated as lying "on the curve". Another benefit is that this approximation is "linear": you can almost trivially travel along the arcs at fixed speed. You can also trivially compute the arc length of the approximated curve (it's a bit like curve flattening). The only thing to bear in mind is that this is a lossy equivalence: things that you compute based on the approximation are guaranteed "off" by some small value, and depending on how much precision you need, arc approximation is either going to be super useful, or completely useless. It's up to you to decide which, based on your application!

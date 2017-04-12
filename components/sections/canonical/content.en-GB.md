@@ -6,7 +6,7 @@ As it so happens, the answer is yes and the solution we're going to look at was 
 
 The first observation that makes things work is that if we have a cubic curve with four points, we can apply a linear transformation to these points such that three of the points end up on (0,0), (0,1) and (1,1), with the last point then being "somewhere". After applying that transformation, the location of that last point can then tell us what kind of curve we're dealing with. Specifically, we see the following breakdown:
 
-<Graphic static={true} preset="simple" title="The canonical curve map" setup={this.setup} draw={this.drawBase} />
+<Graphic static={true} title="The canonical curve map" setup={this.setup} draw={this.drawBase} />
 
 This is a fairly funky image, so let's see how it breaks down. We see the three fixed points at (0,0), (0,1) and (1,1), and then the fourth point is somewhere. Depending on where it is, our curve will have certain features. Namely, if the fourth point is...
 
@@ -280,4 +280,4 @@ Now, I know, you're thinking "but Mathematica is super expensive!" and that's tr
 
 So, let's write up a sketch that'll show us the canonical form for any curve drawn in blue, overlaid on our canonical map, so that we can immediately tell which features our curve must have, based on where the fourth coordinate is located on the map:
 
-<Graphic preset="simple" title="A cubic curve mapped to canonical form" setup={this.setup} draw={this.draw} />
+<Graphic title="A cubic curve mapped to canonical form" setup={this.setup} draw={this.draw} />

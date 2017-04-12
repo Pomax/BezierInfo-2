@@ -5,9 +5,9 @@ Bézier curves are (like all "splines") interpolation functions, meaning they ta
 The following graphs show the interpolation functions for quadratic and cubic curves, with "S" being the strength of a point's contribution to the total sum of the Bézier function. Click or click-drag to see the interpolation percentages for each curve-defining point at a specific <i>t</i> value.
 
 <div className="figure">
-  <Graphic inline={true} preset="simple" title="Quadratic interpolations"  draw={this.drawQuadraticLerp}/>
-  <Graphic inline={true} preset="simple" title="Cubic interpolations"      draw={this.drawCubicLerp}/>
-  <Graphic inline={true} preset="simple" title="15th order interpolations" draw={this.draw15thLerp}/>
+  <Graphic inline={true} title="Quadratic interpolations"  draw={this.drawQuadraticLerp}/>
+  <Graphic inline={true} title="Cubic interpolations"      draw={this.drawCubicLerp}/>
+  <Graphic inline={true} title="15th order interpolations" draw={this.draw15thLerp}/>
 </div>
 
 Also shown is the interpolation function for a 15<sup>th</sup> order Bézier function. As you can see, the start and end point contribute considerably more to the curve's shape than any other point in the control point set.
@@ -34,7 +34,7 @@ That looks complicated, but as it so happens, the "weights" are actually just th
 
 Which gives us the curve we saw at the top of the article:
 
-<Graphic preset="simple" title="Our cubic Bézier curve" setup={this.drawCubic} draw={this.drawCurve}/>
+<Graphic title="Our cubic Bézier curve" setup={this.drawCubic} draw={this.drawCurve}/>
 
 What else can we do with Bézier curves? Quite a lot, actually. The rest of this article covers a multitude of possible operations and algorithms that we can apply, and the tasks they achieve.
 

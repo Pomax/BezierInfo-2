@@ -10,7 +10,7 @@ If we have the extremities, and the start/end points, a simple for loop that tes
 
 Applying this approach to our previous root finding, we get the following bounding boxes (with all curve extremity points shown on the curve):
 
-<Graphic preset="simple" title="Quadratic Bézier bounding box" setup={this.setupQuadratic} draw={this.draw} />
-<Graphic preset="simple" title="Cubic Bézier bounding box" setup={this.setupCubic} draw={this.draw} />
+<Graphic title="Quadratic Bézier bounding box" setup={this.setupQuadratic} draw={this.draw} />
+<Graphic title="Cubic Bézier bounding box" setup={this.setupCubic} draw={this.draw} />
 
 We can construct even nicer boxes by aligning them along our curve, rather than along the x- and y-axis, but in order to do so we first need to look at how aligning works.

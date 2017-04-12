@@ -27,6 +27,7 @@ module.exports = {
   // information that can be obtained through analysis
   derivatives: require("./derivatives"),
   pointvectors: require("./pointvectors"),
+  pointvectors3d: require("./pointvectors3d"),
   components: require("./components"),
   extremities: require("./extremities"),
   boundingbox: require("./boundingbox"),
