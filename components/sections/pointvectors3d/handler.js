@@ -1,17 +1,15 @@
 var vectorOffset;
 var normalsOffset;
 
-module.exports = {
-  setupVectors: function(api) {
-    var curve = api.getDefault3DCubic();
-    vectorOffset = {
-      x: 2 * api.getPanelWidth() / 5,
-      y: 4 * api.getPanelHeight() / 5
-    };
-    api.setCurve(curve);
-    api.setSize(1.25 * api.getPanelWidth(),api.getPanelHeight());
-  },
+var SHADOW_ALPHA = 0.2;
+var SHOW_PROJECTIONS = true;
 
+function normalize(v) {
+  var d = Math.sqrt(v.x*v.x + v.y*v.y + v.z*v.z);
+  return { x:v.x/d, y:v.y/d, z:v.z/d };
+}
+
+module.exports = {
   drawCube: function(api) {
     var prj = p => api.project(p, vectorOffset);
 
@@ -51,16 +49,18 @@ module.exports = {
     api.drawLine(cube[0], cube[4]);
   },
 
-  drawCurveProjection(api, curvepoints) {
+  drawCurve(api, curvepoints, project) {
     var prj = p => api.project(p, vectorOffset),
         curve2d = curvepoints.map(p => prj(p)),
         points;
 
-    // projections
-    api.setColor("#E0E0E0");
-    api.drawCurve({ points: curvepoints.map(p => api.projectXY(p, vectorOffset)) });
-    api.drawCurve({ points: curvepoints.map(p => api.projectYZ(p, vectorOffset)) });
-    api.drawCurve({ points: curvepoints.map(p => api.projectXZ(p, vectorOffset)) });
+    if (project) {
+      // projections
+      api.setColor(`rgba(0,0,0,${SHADOW_ALPHA})`);
+      api.drawCurve({ points: curvepoints.map(p => api.projectXY(p, vectorOffset)) });
+      api.drawCurve({ points: curvepoints.map(p => api.projectYZ(p, vectorOffset)) });
+      api.drawCurve({ points: curvepoints.map(p => api.projectXZ(p, vectorOffset)) });
+    }
 
     // control lines
     api.setColor("#333");
@@ -78,10 +78,71 @@ module.exports = {
     api.drawCurve({ points: curve2d });
   },
 
+  getVectors: function(d1curve, t) {
+    var dt, a, ddt, d, r, R, n;
+    // get the normalized tangent
+    dt = d1curve.get(t);
+
+    // and then let's work in the change in tangent
+    a = d1curve.derivative(t);
+    ddt = { x: dt.x + a.x, y: dt.y + a.y, z: dt.z + a.z };
+
+    // compute the crossproduct, and normalize it
+    r = {
+      x: ddt.y * dt.z - ddt.z * dt.y,
+      y: ddt.z * dt.x - ddt.x * dt.z,
+      z: ddt.x * dt.y - ddt.y * dt.x
+    };
+    d = Math.sqrt(r.x*r.x + r.y*r.y + r.z*r.z);
+    r = { x: r.x/d, y: r.y/d, z: r.z/d };
+
+    // compute the normal, which should not need renormalization
+    R = [
+      r.x*r.x,       r.x*r.y -r.z,  r.x*r.z + r.y,
+      r.x*r.y + r.z, r.y*r.y,       r.y*r.z - r.x,
+      r.x*r.z - r.y, r.y*r.z + r.x, r.z*r.z
+    ];
+    n = {
+      x: dt.x * R[0] + dt.y * R[1] + dt.z * R[2],
+      y: dt.x * R[3] + dt.y * R[4] + dt.z * R[5],
+      z: dt.x * R[6] + dt.y * R[7] + dt.z * R[8]
+    };
+
+    return { dt, a, ddt, r, R, n };
+  },
+
+  drawVector: function(api, from, to, len, r,g,b, project) {
+    var prj = p => api.project(p, vectorOffset);
+    to = normalize(to);
+    to = {
+      x: from.x + len * to.x,
+      y: from.y + len * to.y,
+      z: from.z + len * to.z
+    };
+    api.setColor(`rgba(${r},${g},${b},1)`);
+    // draw the actual vector
+    api.drawLine(prj(from), prj(to));
+
+    if (project) {
+      // and the side projections.
+      api.setColor(`rgba(${r},${g},${b},${SHADOW_ALPHA})`);
+      api.drawLine(api.projectXY(from, vectorOffset), api.projectXY(to, vectorOffset));
+      api.drawLine(api.projectXZ(from, vectorOffset), api.projectXZ(to, vectorOffset));
+      api.drawLine(api.projectYZ(from, vectorOffset), api.projectYZ(to, vectorOffset));
+    }
+  },
+
+  setup: function(api) {
+    vectorOffset = {
+      x: 2 * api.getPanelWidth() / 5,
+      y: 4 * api.getPanelHeight() / 5
+    };
+    api.setSize(1.25 * api.getPanelWidth(),api.getPanelHeight());
+  },
+
   drawVectors: function(api) {
     api.reset();
     var prj = p => api.project(p, vectorOffset);
-    var t = api.hover.x? api.hover.x / api.getPanelWidth() : 0.35;
 
     this.drawCube(api);
 
@@ -92,82 +153,56 @@ module.exports = {
       {x:0,y:0,z:200}
     ];
 
-    this.drawCurveProjection(api, curvepoints);
-
-    var curve = new api.Bezier(curvepoints);
-    var d1curve = new api.Bezier(curve.dpoints[0]);
-    var d2curve = new api.Bezier(curve.dpoints[1]);
+    this.drawCurve(api, curvepoints);
 
     // let's mark t
+    var curve = new api.Bezier(curvepoints);
+    var d1curve = new api.Bezier(curve.dpoints[0]);
+    var t = Math.max(api.hover.x? api.hover.x / api.getPanelWidth() : 0, 0);
     var mt = curve.get(t);
     api.drawCircle(prj(mt), 3);
 
-    // and let's show the tangent at that point
-    var dt = d1curve.get(t);
-    var pt1 = { x: mt.x + dt.x, y: mt.y + dt.y, z: mt.z + dt.z };
-
-    // and then let's work in the change in tangent
-    var roc = d2curve.get(t);
-    var f = 10;
-    var d = Math.sqrt(roc.x*roc.x + roc.y*roc.y + roc.z*roc.z);
-    roc = { x: f * roc.x/d, y: f * roc.y/d, z: f * roc.z/d };
-    var pt2 = { x: mt.x + dt.x + roc.x, y: mt.y + dt.y + roc.y, z: mt.z + dt.z + roc.z };
-
-    api.drawLine(prj(mt), prj(pt1));
-    api.drawLine(prj(mt), prj(pt2));
-
-    // normalize t (=dt) and t' (=ddt) and compute the crossproduct:
-    roc = d2curve.get(t);
-    var ddt = { x: dt.x + roc.x, y: dt.y + roc.y, z: dt.z + roc.z };
-    d = Math.sqrt(dt.x*dt.x + dt.y*dt.y + dt.z*dt.z);
-    dt = { x: dt.x/d, y: dt.y/d, z: dt.z/d };
-    d = Math.sqrt(ddt.x*ddt.x + ddt.y*ddt.y + ddt.z*ddt.z);
-    ddt = { x: ddt.x/d, y: ddt.y/d, z: ddt.z/d };
-    var r = {
-      x: ddt.y * dt.z - ddt.z * dt.y,
-      y: ddt.z * dt.x - ddt.x * dt.z,
-      z: ddt.x * dt.y - ddt.y * dt.x
-    };
-    f = 20;
-    var mc = {
-      x: mt.x + f * r.x,
-      y: mt.y + f * r.y,
-      z: mt.z + f * r.z
-    };
-    // let's see the cross product
-    api.setColor("darkgreen");
-    api.drawLine(prj(mt), prj(mc));
-
-    // and finally, compute the normal
-    var R = [
-      r.x*r.x,       r.x*r.y -r.z,  r.x*r.z + r.y,
-      r.x*r.y + r.z, r.y*r.y,       r.y*r.z - r.x,
-      r.x*r.z - r.y, r.y*r.z + r.x, r.z*r.z
-    ];
-    var n = {
-      x: dt.x * R[0] + dt.y * R[1] + dt.z * R[2],
-      y: dt.x * R[3] + dt.y * R[4] + dt.z * R[5],
-      z: dt.x * R[6] + dt.y * R[6] + dt.z * R[7]
-    };
-    var mr = {
-      x: mt.x + f * n.x,
-      y: mt.y + f * n.y,
-      z: mt.z + f * n.z
-    };
-    api.setColor("red");
-    api.drawLine(prj(mt), prj(mr));
+    // draw the tangent, rotational axis, and normal
+    var vectors = this.getVectors(d1curve, t);
+    this.drawVector(api, mt, vectors.dt, 40, 0,200,0);
+    this.drawVector(api, mt, vectors.r, 40,  0,0,200);
+    this.drawVector(api, mt, vectors.n, 40,  200,0,0);
   },
 
   setupNormals: function(api) {
-    var curve = api.getDefault3DCubic();
     normalsOffset = {
-      x: api.getPanelWidth() / 2,
-      y: api.getPanelHeight() / 2
+      x: 2 * api.getPanelWidth() / 5,
+      y: 4 * api.getPanelHeight() / 5
     };
-    api.setCurve(curve);
+    api.setSize(1.25 * api.getPanelWidth(),api.getPanelHeight());
   },
 
-  drawNormals: function(api, curve) {
+  drawNormals: function(api) {
     api.reset();
+    var prj = p => api.project(p, vectorOffset);
+
+    this.drawCube(api);
+
+    var curvepoints = [
+      {x:120,y:0,z:0},
+      {x:120,y:220,z:0},
+      {x:30,y:0,z:30},
+      {x:0,y:0,z:200}
+    ];
+
+    this.drawCurve(api, curvepoints, SHOW_PROJECTIONS);
+
+    // let's mark t
+    var curve = new api.Bezier(curvepoints);
+    var d1curve = new api.Bezier(curve.dpoints[0]);
+    var t = Math.max(api.hover.x? api.hover.x / api.getPanelWidth() : 0, 0);
+    var mt = curve.get(t);
+    api.drawCircle(prj(mt), 3);
+
+    // draw the tangent, rotational axis, and normal
+    var vectors = this.getVectors(d1curve, t);
+    this.drawVector(api, mt, vectors.dt, 40, 0,200,0, SHOW_PROJECTIONS);
+    this.drawVector(api, mt, vectors.r, 40,  0,0,200, SHOW_PROJECTIONS);
+    this.drawVector(api, mt, vectors.n, 40,  200,0,0, SHOW_PROJECTIONS);
   }
 };
