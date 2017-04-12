@@ -28,7 +28,7 @@ First up: we need to actually *find* that axis of rotation. As it turns out, thi
   \end{bmatrix} \right )
 \]
 
-(Note that the order of operations matters for cross products: we compute **t'**×**t**, because if we compute **t**×**t'** we'll be computing the samerotation axis but represented by a vector in the opposite direction, so our final normal will actually be rotated a quarter turn "the wrong way". While correcting that is super easy, literally just taking our final normal and multiplying by -1, why correct after the fact what we can get it right from the start?)
+(Note that the order of operations matters for cross products: we compute **t'**×**t**, because if we compute **t**×**t'** we'll be computing the same axis of rotation, but represented by a vector in the opposite direction, so our final normal will actually be rotated a quarter turn "the wrong way". While correcting that is super easy, literally just taking our final normal and multiplying by -1, why correct after the fact what we can get it right from the start?)
 
 Note that the cross product does not yield a normalized vector, so we have to do this manually. We already saw how to do this in the above section, though:
 
