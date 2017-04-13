@@ -49,8 +49,21 @@ function processLocation(loc, fragmentid, number) {
     data = fs.readFileSync(loc).toString();
     data = chunk(data);
     data = data.map(block => {
-      // preserver is simple
-      if (!block.convert) return block.data;
+      // preserve is simple
+      if (!block.convert) {
+        var chunkData = block.data;
+/*
+        if (block.type === "gfx" || block.type === "div.figure") {
+          // Extend graphic elements with a knowledge of which section they are in.
+          chunkData = chunkData.replace(/<Graphic/g,`<Graphic fragmentid="${fragmentid}"`);
+          // extend any setup definitions with the name of the function used
+          chunkData = chunkData.replace(/ setup=\{\s*this\.([\w\d]+)\s*\}/g,' setup={ this.$1 } sname="$1"');
+          // extend any draw definitions with the name of the function used
+          chunkData = chunkData.replace(/ draw=\{\s*this\.([\w\d]+)\s*\}/g,' draw={ this.$1 } dname="$1"');
+        }
+*/
+        return chunkData;
+      }
 
       // markdown conversion is a little more work
       let d = marked(block.data.trim());

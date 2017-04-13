@@ -2,8 +2,17 @@ var React = require("react");
 
 var baseClass = {
   render: function() {
+    var cprops = {
+      'data-section': this.props.fragmentid,
+      'data-setup': this.props.sname,
+      'data-draw': this.props.dname
+    };
+    console.log(cprops);
     return (
       <figure className={this.props.inline ? "inline": false}>
+        {/*
+        <ui-canvas {...cprops} />
+        */}
         <canvas ref="canvas"
                 tabIndex="0"
                 style={{
