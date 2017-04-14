@@ -82,7 +82,6 @@
     "pirates": "^2.1.0",
     "preact": "^8.1.0",
     "preact-compat": "^3.14.3",
-    "preact-custom-element": "^2.0.0",
     "raw-loader": "^0.5.1",
     "react": "^15.4.2",
     "react-component-visibility": "0.0.8",

@@ -10,9 +10,6 @@ var baseClass = {
     console.log(cprops);
     return (
       <figure className={this.props.inline ? "inline": false}>
-        {/*
-        <ui-canvas {...cprops} />
-        */}
         <canvas ref="canvas"
                 tabIndex="0"
                 style={{

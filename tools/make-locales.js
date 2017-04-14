@@ -52,16 +52,21 @@ function processLocation(loc, fragmentid, number) {
       // preserve is simple
       if (!block.convert) {
         var chunkData = block.data;
-/*
+
+        // ------------------------------------------------------------------------
+        //  Allow <Graphic> components to generate themselves, and web components.
+        // ------------------------------------------------------------------------
+
         if (block.type === "gfx" || block.type === "div.figure") {
-          // Extend graphic elements with a knowledge of which section they are in.
-          chunkData = chunkData.replace(/<Graphic/g,`<Graphic fragmentid="${fragmentid}"`);
-          // extend any setup definitions with the name of the function used
-          chunkData = chunkData.replace(/ setup=\{\s*this\.([\w\d]+)\s*\}/g,' setup={ this.$1 } sname="$1"');
-          // extend any draw definitions with the name of the function used
-          chunkData = chunkData.replace(/ draw=\{\s*this\.([\w\d]+)\s*\}/g,' draw={ this.$1 } dname="$1"');
+          chunkData = chunkData
+                      // Extend graphic elements with a knowledge of which section they are in.
+                      .replace(/<Graphic/g,`<Graphic fragmentid="${fragmentid}"`)
+                      // extend any setup definitions with the name of the function used
+                      .replace(/ setup=\{\s*this\.([\w\d]+)\s*\}/g,' setup={ this.$1 } sname="$1"')
+                      // extend any draw definitions with the name of the function used
+                      .replace(/ draw=\{\s*this\.([\w\d]+)\s*\}/g,' draw={ this.$1 } dname="$1"');
         }
-*/
+
         return chunkData;
       }
 
