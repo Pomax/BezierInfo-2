@@ -4,7 +4,7 @@ html, body {
 }
 
 body {
-  background: url('images/paper.png');
+  background: white;
 }
 
 header, section, footer {
@@ -13,70 +13,40 @@ header, section, footer {
 }
 
 header { font-size: 125%; }
+section h2[data-num] { page-break-before: always; margin-bottom: 2em; }
+footer { width: auto; }
 
-#ribbonimg { display: none; }
+.dev,
+.ribbon,
+.sharebuttons,
+.locale-switcher,
+section.comments,
+navigation,
+section.preface div.note
+{ display: none; }
 
 article {
   width: 100%;
-  background: rgba(255, 255, 255, 0.74);
-}
-section p {
-  text-align: justify;
+  box-sizing: border-box;
+  border: none;
 }
 
-section h2:before {
-  content: "§" attr(data-num) " — ";
+div.howtocode { background: white; border-color: #BBB; }
+div.howtocode pre { background: #FAFAFA; border-color: #CCC; }
+div.howtocode h3 { background: #BBB; }
+div.note { background: #F0F0F0; }
+code { background: transparent; border: 1px dotted black; }
+
+a { color: inherit !important; }
+
+div.figure, img {
+  page-break-before: auto;
+  page-break-after: auto;
+  page-break-inside: avoid;
 }
 
-section *+h2:before {
-  content: "";
-}
+footer { display: none; }
+footer.print { color: yellow; position: fixed; left: 0; right: 0; bottom:0; }
 
-section * h2:before {
-  content: "";
-}
-
-.sketch-code {
-  display: inline-block;
-  unicode-bidi: embed;
-  font-family: monospace;
-  white-space: pre;
-  border: 1px solid black;
-  min-height: 300px;
-}
-.sketch {
-  display: inline-block;
-  border: 1px solid #DDD;
-  padding: 5px;
-  font-style: italic;
-  font-size: 80%;
-  background: rgb(250,250,204);
-}
-.sketch canvas {
-  /*background: url(attr('data-print-image'));*/
-}
-.sketch-title span { color: rgb(0,0,200); cursor: pointer; }
-
-div.note {
-  font-size: 90%;
-  margin: 1em 2em;
-  padding: 1em;
-  border: 2px solid black;
-}
-div.note * { margin: 0; padding: 0; }
-div.note p { margin: 1em 0; }
-div.note div.MathJax_Display { margin: 1em 0; }
-
-td { display: block; border: 1px solid gray; padding: 1em; }
-td+td { margin-top: 1em;}
-td p { text-align:center; }
-
-a, a:visited { color: #000; text-decoration: none; }
-span.ribbon { display: none; }
-#navbar { display: none; }
-#scriptblock { display: none; }
-.viewsource { display: none; }
-
-button { background: white; border: 1px solid black;}
-
-#article-notes, #issues, #comments { display:none; }
+/* not unimportant: */
+.print { display: block; }

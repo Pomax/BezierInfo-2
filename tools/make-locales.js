@@ -105,7 +105,7 @@ function processLocation(loc, section, number) {
  */
 function formContentBundle(locale, content) {
   var bcode = JSON.stringify(content, false, 2);
-  bcode = bcode.replace(/"<section>/g, "function(handler) { return <section>")
+  bcode = bcode.replace(/"<section([^>]*)>/g, "function(handler) { return <section$1>")
               .replace(/this\.(\w)/g, "handler.$1")
               .replace(/<\/section>"(,?)/g, "</section>; }$1\n")
               .replace(/\\"/g,'"')
@@ -197,7 +197,7 @@ function processLocale(locale) {
     content[key] = {
       locale: localeCode,
       title: processed.title,
-      getContent: "<section>" + processed.data + "</section>"
+      getContent: `<section className="${key}">` + processed.data + "</section>"
     };
   };
 

@@ -13,7 +13,7 @@
     "url": "https://github.com/Pomax/bezierinfo/issues"
   },
   "scripts": {
-    "bootstrap":    "run-s makeindex makehandlers localize",
+    "bootstrap":    "run-s makeindex makehandlers localize less",
     "default":      "node tools/copy-default-locale",
     "latex":        "node tools/tex-to-svg",
     "localize":     "node tools/make-locales",
@@ -24,7 +24,7 @@
     "dev:ja-JP":    "npm run bootstrap && npm run less && cross-env LOCALE=ja-JP webpack-dev-server --progress --colors --hot --inline",
     "less":         "lessc stylesheets/style.less > stylesheets/style.base.css && csso stylesheets/style.base.css > stylesheets/style.css",
     "prebuild":     "node tools/buildmark -- set",
-    "build":        "run-s bootstrap less build:** default",
+    "build":        "run-s bootstrap build:** default",
     "postbuild":    "node tools/buildmark -- resolve",
     "build:en-GB":  "webpack -p",
     "build:zh-CN":  "cross-env LOCALE=zh-CN webpack -p",

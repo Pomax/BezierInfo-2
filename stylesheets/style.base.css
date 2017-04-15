@@ -383,3 +383,87 @@ code {
   border-top: 1px solid rgba(255, 0, 0, 0.5);
   paddingTop: 3em;
 }
+.print {
+  display: none;
+}
+@media print {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background: white;
+  }
+  header,
+  section,
+  footer {
+    width: 100%;
+    margin: 0;
+  }
+  header {
+    font-size: 125%;
+  }
+  section h2[data-num] {
+    page-break-before: always;
+    margin-bottom: 2em;
+  }
+  footer {
+    width: auto;
+  }
+  .dev,
+  .ribbon,
+  .sharebuttons,
+  .locale-switcher,
+  section.comments,
+  navigation,
+  section.preface div.note {
+    display: none;
+  }
+  article {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+  }
+  div.howtocode {
+    background: white;
+    border-color: #BBB;
+  }
+  div.howtocode pre {
+    background: #FAFAFA;
+    border-color: #CCC;
+  }
+  div.howtocode h3 {
+    background: #BBB;
+  }
+  div.note {
+    background: #F0F0F0;
+  }
+  code {
+    background: transparent;
+    border: 1px dotted black;
+  }
+  a {
+    color: inherit !important;
+  }
+  div.figure,
+  img {
+    page-break-before: auto;
+    page-break-after: auto;
+    page-break-inside: avoid;
+  }
+  footer {
+    display: none;
+  }
+  footer.print {
+    color: yellow;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  /* not unimportant: */
+  .print {
+    display: block;
+  }
+}

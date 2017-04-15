@@ -8,6 +8,14 @@ They're named after [Pierre Bézier](https://en.wikipedia.org/wiki/Pierre_B%C3%A
 
 So, what if you need to program them yourself? What are the pitfalls? How do you draw them? What are the bounding boxes, how do you determine intersections, how can you extrude a curve, in short: how do you do everything that you might want when you do with these curves? That's what this page is for. Prepare to be mathed!
 
+<div className="print">
+## PS: buy me a coffee?
+
+If you enjoyed this book enough to print it out, you might be wondering if there is some way to give something back. To answer that question: you can always buy me a coffee, however-much a coffee is where you live, or if you want to pay a fair price for this book, you can buy me a really expensive coffee =)
+
+This book has grown over the years from a short primer to an 85+ print-page-equivalent ebook on the subject of Bézier curves, and a lot of coffee went into the making of it. I don't regret a minute I spent on writing it, but I can always do with some more coffee to keep on writing! Please visit https://pomax.github.io/bezierinfo and click on the link in the online preface to donate some coffee money.
+</div>
+
 —Pomax (or in the tweetworld, [@TheRealPomax](https://twitter.com/TheRealPomax))
 
 <div className="note">
