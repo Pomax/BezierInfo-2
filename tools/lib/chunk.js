@@ -1,7 +1,21 @@
 /**
- * fix the stupid nonsense inability for markdown parsers to see link
- * syntax with `)` in the links themselves.
+ *
+ * This file defines all the chunking functions that can be used to take
+ * a source markdown file, and then chop it up into blocks that should
+ * either be converted as markdown, or should be left alone.
+ *
+ * Getting a final HTML file using this entirely not-optimized solution
+ * simply involves calling:
+ *
+ *   const convert = require(some markdown converter)
+ *   const chunk = require(this file)
+ *   const html = chunk(markdown).map(c => c.convert ? convert(c.data) : c.data).join('\n')
+ *
+ * And you're done.
+ *
  */
+// fix the stupid nonsense inability for markdown parsers to see link
+// syntax with `)` in the links themselves
 function fixMarkDownLinks(data, chunks, chunkMore) {
   var next = chunkMore ? chunkMore[0] : false,
       otherChunkers = chunkMore ? chunkMore.slice(1) : false,
