@@ -9,8 +9,8 @@ In order to run de Casteljau's algorithm in reverse, we need a few basic things:
 So let's use graphics instead of text to see where this "A" is, because text only gets us so far: in the following graphic, click anywhere on the curves to see the identity information that we'll be using to run de Casteljau in reverse (you can manipulate the curve even after picking a point. Note the "ratio" value when you do so: does it change?):
 
 <div className="figure">
-  <Graphic inline={true} preset="abc" title="Projections in a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onClick={this.onClick} />
-  <Graphic inline={true} preset="abc" title="Projections in a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onClick={this.onClick} />
+  <Graphic inline={true} title="Projections in a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onClick={this.onClick} />
+  <Graphic inline={true} title="Projections in a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onClick={this.onClick} />
 </div>
 
 Clicking anywhere on the curves shows us three things:
@@ -42,8 +42,8 @@ with quadratic or cubic curves:
 So, if we know the start and end coordinates, and we know the *t* value, we know C:
 
 <div className="figure">
-  <Graphic inline={true} preset="abc" title="Quadratic value of C for t" draw={this.drawQCT} onMouseMove={this.setCT}/>
-  <Graphic inline={true} preset="abc" title="Cubic value of C for t" draw={this.drawCCT} onMouseMove={this.setCT}/>
+  <Graphic inline={true} title="Quadratic value of C for t" draw={this.drawQCT} onMouseMove={this.setCT}/>
+  <Graphic inline={true} title="Cubic value of C for t" draw={this.drawCCT} onMouseMove={this.setCT}/>
 </div>
 
 Mouse-over the graphs to see the expression for C, given the *t* value at the mouse pointer.

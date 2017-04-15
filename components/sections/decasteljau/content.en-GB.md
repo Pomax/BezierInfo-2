@@ -51,4 +51,4 @@ So what does this do? This draws a point, if the passed list of points is only 1
 
 To see this in action, mouse-over the following sketch. Moving the mouse changes which curve point is explicitly evaluated using de Casteljau's algorithm, moving the cursor left-to-right (or, of course, right-to-left), shows you how a curve is generated using this approach.
 
-<Graphic preset="simple"title="Traversing a curve using de Casteljau's algorithm" setup={this.setup} draw={this.draw}/>
+<Graphictitle="Traversing a curve using de Casteljau's algorithm" setup={this.setup} draw={this.draw}/>

@@ -35,4 +35,4 @@ After running this function for some value `t`, the `left` and `right` arrays wi
 
 This is best illustrated with an animated graphic (click to play/pause):
 
-<Graphic preset="threepanel" title="Bézier curve splitting" setup={this.setupCubic} draw={this.drawAnimated} onClick={this.togglePlay} />
+<Graphic title="Bézier curve splitting" setup={this.setupCubic} draw={this.drawAnimated} onClick={this.togglePlay} />

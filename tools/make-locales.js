@@ -43,8 +43,8 @@ if (lpos !== -1) { locale = process.argv[lpos+1]; }
 /**
  * turn locale markdown into locale javascript data
  */
-function processLocation(loc, fragmentid, number) {
-  var processed = { data: '', title: `Unknown title (${fragmentid})` };
+function processLocation(loc, section, number) {
+  var processed = { data: '', title: `Unknown title (${section})` };
   try {
     data = fs.readFileSync(loc).toString();
     data = chunk(data);
@@ -53,18 +53,18 @@ function processLocation(loc, fragmentid, number) {
       if (!block.convert) {
         var chunkData = block.data;
 
-        // ------------------------------------------------------------------------
-        //  Allow <Graphic> components to generate themselves, and web components.
-        // ------------------------------------------------------------------------
+        // -----------------------------------------------------------
+        //  Inject the automation props into the <Graphic> components
+        // -----------------------------------------------------------
 
         if (block.type === "gfx" || block.type === "div.figure") {
           chunkData = chunkData
                       // Extend graphic elements with a knowledge of which section they are in.
-                      .replace(/<Graphic/g,`<Graphic fragmentid="${fragmentid}"`)
+                      .replace(/<Graphic/g,`<Graphic handler={this.props.handler} section="${section}"`)
                       // extend any setup definitions with the name of the function used
-                      .replace(/ setup=\{\s*this\.([\w\d]+)\s*\}/g,' setup={ this.$1 } sname="$1"')
+                      .replace(/ setup=\{\s*this\.([\w\d]+)\s*\}/g,' setup={this.$1} sname="$1"')
                       // extend any draw definitions with the name of the function used
-                      .replace(/ draw=\{\s*this\.([\w\d]+)\s*\}/g,' draw={ this.$1 } dname="$1"');
+                      .replace(/ draw=\{\s*this\.([\w\d]+)\s*\}/g,' draw={this.$1} dname="$1"');
         }
 
         return chunkData;
@@ -86,7 +86,7 @@ function processLocation(loc, fragmentid, number) {
       // And then title extraction/rewriting
       d = d.replace(/<h1[^>]+>([^<]+)<\/h1>/,function(_,t) {
         processed.title = t;
-        return `<SectionHeader name="${fragmentid}" title="` + t + `"${ number ? ' number="'+number+'"': ''}/>`;
+        return `<SectionHeader name="${section}" title="` + t + `"${ number ? ' number="'+number+'"': ''}/>`;
       });
 
       return d;

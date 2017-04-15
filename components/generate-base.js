@@ -2,13 +2,16 @@ var React = require("react");
 var Locale = require("../lib/locale");
 var locale = new Locale();
 
+
 module.exports = function generateBase(page, handler) {
 
   // the basic class just has a title and basic content.
-  var componentClass = {
+  var ComponentClass = {
     getDefaultProps: function() {
       return {
-        title: locale.getTitle(page)
+        page: page,
+        title: locale.getTitle(page),
+        handler: handler
       };
     },
 
@@ -20,11 +23,11 @@ module.exports = function generateBase(page, handler) {
   // if the content requires code bindings, ensure those exist:
   if (handler) {
     Object.keys(handler).forEach(key => {
-      componentClass[key] = handler[key];
+      ComponentClass[key] = handler[key];
     });
   }
 
   // then build the actual React class
-  return React.createClass(componentClass);
+  return React.createClass(ComponentClass);
 
 };

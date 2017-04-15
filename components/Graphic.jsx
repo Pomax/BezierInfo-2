@@ -3,27 +3,26 @@ var React = require("react");
 var baseClass = {
   render: function() {
     var cprops = {
-      'data-section': this.props.fragmentid,
-      'data-setup': this.props.sname,
-      'data-draw': this.props.dname
+      tabIndex: 0,
+      style: {
+        width: this.panelCount * this.defaultWidth + "px",
+        height: this.defaultHeight + "px"
+      }
     };
-    console.log(cprops);
+
+    var handlers = {
+      onMouseDown: this.mouseDown,
+      onMouseMove: this.mouseMove,
+      onMouseUp: this.mouseUp,
+      onClick: this.onClick,
+      onKeyUp: this.onKeyUp,
+      onKeyDown: this.onKeyDown,
+      onKeyPress: this.onKeyPress
+    };
+
     return (
       <figure className={this.props.inline ? "inline": false}>
-        <canvas ref="canvas"
-                tabIndex="0"
-                style={{
-                  width: this.panelCount * this.defaultWidth + "px",
-                  height: this.defaultHeight + "px"
-                }}
-                onMouseDown={this.mouseDown}
-                onMouseMove={this.mouseMove}
-                onMouseUp={this.mouseUp}
-                onClick={this.onClick}
-                onKeyUp={this.onKeyUp}
-                onKeyDown={this.onKeyDown}
-                onKeyPress={this.onKeyPress}
-        />
+        <canvas ref="canvas" {...cprops} {...handlers} />
         <figcaption>{this.props.title} {this.props.children}</figcaption>
       </figure>
     );

@@ -35,4 +35,4 @@ function drawCurve(points[], t):
 
 これはアニメーションで見るのがわかりやすいでしょう（クリックで再生・停止します）。
 
-<Graphic preset="threepanel" title="ベジエ曲線の分割" setup={this.setupCubic} draw={this.drawAnimated} onClick={this.togglePlay} />
+<Graphic title="ベジエ曲線の分割" setup={this.setupCubic} draw={this.drawAnimated} onClick={this.togglePlay} />

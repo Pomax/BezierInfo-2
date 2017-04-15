@@ -17,7 +17,7 @@
 
 ### 如何实现de Casteljau算法
 
-让我们使用刚才描述过的算法，并实现它：  
+让我们使用刚才描述过的算法，并实现它：
 
 ```
 function drawCurve(points[], t):
@@ -51,4 +51,4 @@ function drawCurve(points[], t):
 
 我们通过实际操作来观察这个过程。在以下的图表中，移动鼠标来改变用de Casteljau算法计算得到的曲线点，左右移动鼠标，可以实时看到曲线是如何生成的。
 
-<Graphic preset="simple"title="用de Casteljau算法来遍历曲线" setup={this.setup} draw={this.draw}/>
+<Graphictitle="用de Casteljau算法来遍历曲线" setup={this.setup} draw={this.draw}/>

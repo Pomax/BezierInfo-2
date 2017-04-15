@@ -39,9 +39,9 @@ So we turn to numerical approaches again. The method we'll look at here is the [
 In plain text: an integral function can always be treated as the sum of an (infinite) number of (infinitely thin) rectangular strips sitting "under" the function's plotted graph. To illustrate this idea, the following graph shows the integral for a sinoid function. The more strips we use (and of course the more we use, the thinner they get) the closer we get to the true area under the curve, and thus the better the approximation:
 
 <div className="figure">
-  <Graphic inline={true} static={true} preset="empty" title="A function's approximated integral" setup={this.setup} draw={this.drawCoarseIntegral}/>
-  <Graphic inline={true} static={true} preset="empty" title="A better approximation" setup={this.setup} draw={this.drawFineIntegral}/>
-  <Graphic inline={true} static={true} preset="empty" title="An even better approximation" setup={this.setup} draw={this.drawSuperFineIntegral}/>
+  <Graphic inline={true} static={true} title="A function's approximated integral" setup={this.setup} draw={this.drawCoarseIntegral}/>
+  <Graphic inline={true} static={true} title="A better approximation" setup={this.setup} draw={this.drawFineIntegral}/>
+  <Graphic inline={true} static={true} title="An even better approximation" setup={this.setup} draw={this.drawSuperFineIntegral}/>
 </div>
 
 Now, infinitely many terms to sum and infinitely thin rectangles are not something that computers can work with, so instead we're going to approximate the infinite summation by using a sum of a finite number of "just thin" rectangular strips. As long as we use a high enough number of thin enough rectangular strips, this will give us an approximation that is pretty close to what the real value is.

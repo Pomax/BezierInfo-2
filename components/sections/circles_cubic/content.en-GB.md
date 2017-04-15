@@ -8,7 +8,7 @@ The first thing we can do is "guess" what the curve should look like, based on t
 
 So have a graphical look at a "bad" guess versus the true fit, where we'll be using the bad guess and the description in the second paragraph to derive the maths for the true fit:
 
-<Graphic preset="arcfitting" title="Cubic Bézier arc approximation" setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}/>
+<Graphic title="Cubic Bézier arc approximation" setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}/>
 
 We see two curves here; in blue, our "guessed" curve and its control points, and in grey/black, the true curve fit, with proper control points that were shifted in, along line between our guessed control points, such that the derivatives at the start and end points are correct.
 

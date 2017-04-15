@@ -2,51 +2,48 @@
   "name": "bezierinfo",
   "version": "2.0.0",
   "description": "pomax.github.io/bezierinfo",
-  "scripts": {
-    "bootstrap": "run-s copy:** makeindex makehandlers localize",
-    "copy:bezier": "shx cp node_modules/bezier-js/bezier.js lib/vendor",
-    "copy:chroma": "shx cp node_modules/chroma-js/chroma.min.js lib/vendor",
-    "localize": "node tools/make-locales",
-    "prebuild": "node tools/buildmark -- set",
-    "default": "node tools/copy-default-locale",
-    "postbuild": "node tools/buildmark -- resolve",
-    "makehandlers": "node tools/aggregate-js-handlers",
-    "makeindex": "node tools/form-section-index-files",
-    "build": "run-s bootstrap less build:** default",
-    "build:en-GB": "webpack -p",
-    "build:zh-CN": "cross-env LOCALE=zh-CN webpack -p",
-    "build:ja-JP": "cross-env LOCALE=ja-JP webpack -p",
-    "dev": "npm run bootstrap && npm run less && webpack-dev-server --progress --colors --hot --inline",
-    "dev:zh-CN": "npm run bootstrap && npm run less && cross-env LOCALE=zh-CN webpack-dev-server --progress --colors --hot --inline",
-    "dev:ja-JP": "npm run bootstrap && npm run less && cross-env LOCALE=ja-JP webpack-dev-server --progress --colors --hot --inline",
-    "latex": "node tools/tex-to-svg",
-    "less": "lessc stylesheets/style.less > stylesheets/style.base.css && csso stylesheets/style.base.css > stylesheets/style.css",
-    "singles": "npm run dev -- --singles",
-    "start": "npm run dev",
-    "style": "webpack --jscs",
-    "svgo": "svgo",
-    "xelatex": "xelatex",
-    "pdfcrop": "pdfcrop",
-    "lazy": "run-s bootstrap build:en-GB default server",
-    "server": "http-server"
-  },
+  "author": "Pomax",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "homepage": "https://pomax.github.io/bezierinfo",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Pomax/bezierinfo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Pomax/bezierinfo/issues"
+  },
+  "scripts": {
+    "bootstrap":    "run-s makeindex makehandlers localize",
+    "default":      "node tools/copy-default-locale",
+    "latex":        "node tools/tex-to-svg",
+    "localize":     "node tools/make-locales",
+    "makehandlers": "node tools/aggregate-js-handlers",
+    "makeindex":    "node tools/form-section-index-files",
+    "dev":          "npm run bootstrap && npm run less && webpack-dev-server --progress --colors --hot --inline",
+    "dev:zh-CN":    "npm run bootstrap && npm run less && cross-env LOCALE=zh-CN webpack-dev-server --progress --colors --hot --inline",
+    "dev:ja-JP":    "npm run bootstrap && npm run less && cross-env LOCALE=ja-JP webpack-dev-server --progress --colors --hot --inline",
+    "less":         "lessc stylesheets/style.less > stylesheets/style.base.css && csso stylesheets/style.base.css > stylesheets/style.css",
+    "prebuild":     "node tools/buildmark -- set",
+    "build":        "run-s bootstrap less build:** default",
+    "postbuild":    "node tools/buildmark -- resolve",
+    "build:en-GB":  "webpack -p",
+    "build:zh-CN":  "cross-env LOCALE=zh-CN webpack -p",
+    "build:ja-JP":  "cross-env LOCALE=ja-JP webpack -p",
+    "svgo":         "svgo",
+    "xelatex":      "xelatex",
+    "pdfcrop":      "pdfcrop",
+    "server":       "http-server",
+    "lazy":         "run-s bootstrap build:en-GB default server",
+    "start":        "npm run dev"
   },
   "keywords": [
     "Bezier",
     "curves",
     "tutorial",
     "article",
-    "primer"
+    "primer",
+    "ebook"
   ],
-  "author": "Pomax",
-  "license": "SEE LICENSE IN LICENSE.md",
-  "bugs": {
-    "url": "https://github.com/Pomax/bezierinfo/issues"
-  },
-  "homepage": "https://github.com/Pomax/bezierinfo#readme",
   "devDependencies": {
     "babel-core": "^6.3.17",
     "babel-loader": "^6.2.0",
@@ -64,6 +61,7 @@
     "eslint-plugin-react": "^6.9.0",
     "file-loader": "^0.8.5",
     "fs-extra": "^0.26.7",
+    "glob": "^7.1.1",
     "history": "^1.17.0",
     "html-entities": "^1.2.0",
     "image-size": "^0.4.0",
@@ -95,8 +93,5 @@
     "uglify-loader": "^1.3.0",
     "webpack": "^2.0.0",
     "webpack-dev-server": "^2.0.0"
-  },
-  "dependencies": {
-    "glob": "^7.1.1"
   }
 }

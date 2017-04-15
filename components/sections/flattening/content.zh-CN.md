@@ -4,8 +4,8 @@
 
 我们可以先确定“想要X个分段”，然后在间隔的地方采样曲线，得到一定数量的分段。这种方法的优点是速度很快：比起遍历100甚至1000个曲线坐标，我们可以采样比较少的点，仍然得到看起来足够好的曲线。这么做的缺点是，我们失去了“真正的曲线”的精度，因此不能用此方法来做真实的相交检测或曲率对齐。
 
-<Graphic preset="twopanel" title="拉平一条二次曲线" setup={this.setupQuadratic} draw={this.drawFlattened} onKeyDown={this.onKeyDown}/>
-<Graphic preset="twopanel" title="拉平一条三次曲线" setup={this.setupCubic} draw={this.drawFlattened} onKeyDown={this.onKeyDown} />
+<Graphic title="拉平一条二次曲线" setup={this.setupQuadratic} draw={this.drawFlattened} onKeyDown={this.onKeyDown}/>
+<Graphic title="拉平一条三次曲线" setup={this.setupCubic} draw={this.drawFlattened} onKeyDown={this.onKeyDown} />
 
 试着点击图形，并用上下键来降低二次曲线和三次曲线的分段数量。你会发现对某些曲率来说，数量少的分段也能做的很好，但对于复杂的曲率（在三次曲线上试试），足够多的分段才能很好地满足曲率的变化。
 
@@ -13,7 +13,7 @@
 
 ### 如何实现曲线的拉平
 
-让我们来实现刚才简述过的算法：      
+让我们来实现刚才简述过的算法：
 
 ```
 function flattenCurve(curve, segmentCount):
