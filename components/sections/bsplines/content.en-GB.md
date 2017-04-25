@@ -170,7 +170,7 @@ The problem with uniform knot vectors is that, as we need `order` control points
 
 ### Reducing local curve complexity by collapsing intervals
 
-By collapsing knot intervals by making two or more consecutive knots have the same value, we can reduce the curve complexity in the sections that are affected by the knots involved. This can have drastic effects: for ever interval collapse, the curve order goes down, and curve continuity goes down, to the point where collapsing `order` knots creates a situation where all continuity is lost and the curve "kinks".
+By collapsing knot intervals by making two or more consecutive knots have the same value, we can reduce the curve complexity in the sections that are affected by the knots involved. This can have drastic effects: for every interval collapse, the curve order goes down, and curve continuity goes down, to the point where collapsing `order` knots creates a situation where all continuity is lost and the curve "kinks".
 
 <div className="two-column">
   <KnotController ref="center-cut-bspline" />
