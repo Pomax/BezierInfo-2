@@ -117,7 +117,7 @@ function formContentBundle(locale, content) {
     `var React = require('react');`,
     `var Graphic = require("../../components/Graphic.jsx");`,
     `var SectionHeader = require("../../components/SectionHeader.jsx");`,
-    `var BSplineGraphic = require("../../components/BSplineGraphic.jsx");`,
+    `var BSplineGraphic = require("../../components/BsplineGraphic.jsx");`,
     `var KnotController = require("../../components/KnotController.jsx");`,
     `var WeightController = require("../../components/WeightController.jsx");`,
     ``,
