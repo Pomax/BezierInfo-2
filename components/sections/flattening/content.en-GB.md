@@ -30,7 +30,7 @@ And done, that's the algorithm implemented. That just leaves drawing the resulti
 ```
 function drawFlattenedCurve(curve, segmentCount):
   coordinates = flattenCurve(curve, segmentCount)
-  coord = coordinates[0], _coords;
+  coords = coordinates[0], _coords;
   for(i=1; i < coordinates.length; i++):
     _coords = coordinates[i]
     line(coords, _coords)
