@@ -19,7 +19,7 @@ In order to make this interpolation of curves work, the maths is necessarily mor
 
 ## How to compute a B-Spline curve: some maths
 
-Given a B-Spline of degree `d` and thus order `k=d+1` (so a quadratic B-Spline is degree 2 and order 3, a cubic B-Spline is degree 3 and order 4, etc) and `n` control points `P<sub>0</sub>` through `P<sub>n-1</sub>`, we can compute a point on the curve for some value `t` in the interval [0,1] (where 0 is the start of the curve, and 1 the end, just like for Bézier curves), by evaluting the following function:
+Given a B-Spline of degree `d` and thus order `k=d+1` (so a quadratic B-Spline is degree 2 and order 3, a cubic B-Spline is degree 3 and order 4, etc) and `n` control points <code>P<sub>0</sub></code> through <code>P<sub>n-1</sub></code>, we can compute a point on the curve for some value `t` in the interval [0,1] (where 0 is the start of the curve, and 1 the end, just like for Bézier curves), by evaluting the following function:
 
 \[
   Point(t) = \sum^n_{i=0} P_i \cdot N_{i,k}(t)
