@@ -20,11 +20,9 @@ function drawCurve(points[], t):
     draw(points[0])
   else:
     newpoints=array(points.size-1)
+    left.add(points[0])
+    right.add(points[points.size-1])
     for(i=0; i<newpoints.length; i++):
-      if(i==0):
-        left.add(points[i])
-      if(i==newpoints.length-1):
-        right.add(points[i+1])
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
     drawCurve(newpoints, t)
 ```
