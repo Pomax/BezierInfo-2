@@ -30,11 +30,11 @@ function flattenCurve(curve, segmentCount):
 ```
 function drawFlattenedCurve(curve, segmentCount):
   coordinates = flattenCurve(curve, segmentCount)
-  coord = coordinates[0], _coords;
+  coord = coordinates[0], _coord;
   for(i=1; i < coordinates.length; i++):
-    _coords = coordinates[i]
-    line(coords, _coords)
-    coords = _coords
+    _coord = coordinates[i]
+    line(coord, _coord)
+    coord = _coord
 ```
 
 先頭の座標を参照点にしてスタートし、あとはそれぞれの点からその次の点へと、直線を引いていくだけです。
