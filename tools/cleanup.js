@@ -9,7 +9,7 @@ module.exports = function cleanUp(latex) {
 
   // also unindent the LaTeX.
   var indent = false;
-  var lines = latex.split('\n').filter(function(line) { return !!line.trim(); });
+  var lines = latex.split('\n').filter(line => !!line.trim());
   var clean = function(line, idx) {
     if(line.trim()) {
       if (!indent) {
