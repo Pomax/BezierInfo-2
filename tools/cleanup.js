@@ -11,16 +11,14 @@ module.exports = function cleanUp(latex) {
   var indent = false;
   var lines = latex.split('\n').filter(line => !!line.trim());
   var clean = function(line, idx) {
-    if(line.trim()) {
-      if (!indent) {
-        var matched = line.match(/^(\s+)/);
-        if (matched) {
-          indent = matched[0];
-        }
+    if (!indent) {
+      var matched = line.match(/^(\s+)/);
+      if (matched) {
+        indent = matched[0];
       }
-      if (indent) {
-        lines[idx] = line.replace(indent,'').trim();
-      }
+    }
+    if (indent) {
+      lines[idx] = line.replace(indent,'').trim();
     }
   }
   lines.forEach(clean);
