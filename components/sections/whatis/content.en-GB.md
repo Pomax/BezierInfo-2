@@ -2,7 +2,7 @@
 
 Playing with the points for curves may have given you a feel for how Bézier curves behave, but what *are* Bézier curves, really? There are two ways to explain what a Bézier curve is, and they turn out to be the entirely equivalent, but one of them uses complicated maths, and the other uses really simple maths. So... let's start with the simple explanation:
 
-Bezier curves are the result of [linear interpolations](https://en.wikipedia.org/wiki/Linear_interpolation). That sounds complicated but you've been doing linear interpolation since you were very young: any time you had to point at something between two other things, you've been applying linear interpolation. It's simply "picking a point between two points".
+Bézier curves are the result of [linear interpolations](https://en.wikipedia.org/wiki/Linear_interpolation). That sounds complicated but you've been doing linear interpolation since you were very young: any time you had to point at something between two other things, you've been applying linear interpolation. It's simply "picking a point between two points".
 
 If we know the distance between those two points, and we want a new point that is, say, 20% the distance away from the first point (and thus 80% the distance away from the second point) then we can compute that really easily:
 

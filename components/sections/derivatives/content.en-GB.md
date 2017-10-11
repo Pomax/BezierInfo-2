@@ -58,7 +58,7 @@ Now, the trick is to turn this expression into something that has binomial coeff
 \end{array}
 \]
 
-And that's the first part done: the two components inside the parentheses are actually regular, lower order Bezier expressions:
+And that's the first part done: the two components inside the parentheses are actually regular, lower order Bézier expressions:
 
 \[\begin{array}{l}
   ... = n \left (
@@ -70,7 +70,7 @@ And that's the first part done: the two components inside the parentheses are ac
 \end{array}
 \]
 
-Now to apply this to our weighted Bezier curves. We'll write out the plain curve formula that we saw earlier, and then work our way through to its derivative:
+Now to apply this to our weighted Bézier curves. We'll write out the plain curve formula that we saw earlier, and then work our way through to its derivative:
 
 \[\begin{array}{lcl}
   Bézier_{n,k}(t) &=& B_{n,0}(t) \cdot w_0 + B_{n,1}(t) \cdot w_1 + B_{n,2}(t) \cdot w_2 + B_{n,3}(t) \cdot w_3 + ... \\

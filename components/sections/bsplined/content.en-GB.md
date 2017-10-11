@@ -1,9 +1,9 @@
 # B-Spline derivatives
 
 
-One last section specific to B-Splines: in order to apply the same procedures to B-Splines as we've looked at for BEzier curves, we'll need to know the first and second derivative. But... what is the derivative of a B-Spline?
+One last section specific to B-Splines: in order to apply the same procedures to B-Splines as we've looked at for Bézier curves, we'll need to know the first and second derivative. But... what is the derivative of a B-Spline?
 
-Thankfully, much like as was the case for Bezier curves, the derivative of a B-Spline is itself a (lower order) B-Spline. The following two functions specify the general B-Spline formula for a B-Spline of degree <em>d</em> with <em>n</em> points, and knot vector of length <em>d+n+1</em>, and its derivative:
+Thankfully, much like as was the case for Bézier curves, the derivative of a B-Spline is itself a (lower order) B-Spline. The following two functions specify the general B-Spline formula for a B-Spline of degree <em>d</em> with <em>n</em> points, and knot vector of length <em>d+n+1</em>, and its derivative:
 
 \[
   C(t) = \sum_{i=0}^n P_i \cdot N_{i,k}(t)
@@ -20,7 +20,7 @@ where
 \]
 
 
-So, much as for Bezier derivatives, we see a derivative function that is simply a new interpolation function, with interpolated weights. With this information, we can do things like draw tangents and normals, as well as determine the curvature function, draw inflection points, and all those lovely things.
+So, much as for Bézier derivatives, we see a derivative function that is simply a new interpolation function, with interpolated weights. With this information, we can do things like draw tangents and normals, as well as determine the curvature function, draw inflection points, and all those lovely things.
 
 As a concrete example, let's look at cubic (=degree 3) B-Spline with five coordinates, and with uniform knot vector of length 3 + 5 + 1 = 9:
 

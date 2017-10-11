@@ -10,7 +10,7 @@ The first observation that makes things work is that if we have a cubic curve wi
 
 This is a fairly funky image, so let's see how it breaks down. We see the three fixed points at (0,0), (0,1) and (1,1), and then the fourth point is somewhere. Depending on where it is, our curve will have certain features. Namely, if the fourth point is...
 
-1. anywhere on and in the red zone, the curve will be self-intersecting, yielding either a cusp or a loop. Anywhere inside the the red zone, this will be a loop. We won't know <i>where</i> that loop is (in terms of <i>t</i> values), but we are guaranteed that there is one.
+1. anywhere on and in the red zone, the curve will be self-intersecting, yielding either a cusp or a loop. Anywhere inside the red zone, this will be a loop. We won't know <i>where</i> that loop is (in terms of <i>t</i> values), but we are guaranteed that there is one.
 2. on the left (red) edge, the curve will have a cusp. We again don't know <em>where</em>, just that it
 has one. This edge is described by the function:
 
@@ -51,7 +51,7 @@ For the full details, head over to the paper and read through sections 3 and 4. 
 
 </div>
 
-So now the question becomes: how do we manipulate our curve so that it fits this canonical form, with three fixed points, and one "free" point? Enter linear algerba. Don't worry, I'll be doing all the math for you, as well as show you what the effect is on our curves, but basically we're going to be using linear algebra, rather than calculus, because "it's way easier". Sometimes a calculus approach is very hard to work with, when the equivalent geometrical solution is super obvious.
+So now the question becomes: how do we manipulate our curve so that it fits this canonical form, with three fixed points, and one "free" point? Enter linear algebra. Don't worry, I'll be doing all the math for you, as well as show you what the effect is on our curves, but basically we're going to be using linear algebra, rather than calculus, because "it's way easier". Sometimes a calculus approach is very hard to work with, when the equivalent geometrical solution is super obvious.
 
 The approach is going to start with a curve that doesn't have all-colinear points (so we need to make sure the points don't all fall on a straight line), and then applying four graphics operations that you will probably have heard of: translation (moving all points by some fixed x- and y-distance), scaling (multiplying all points by some x and y scale factor), and shearing (an operation that turns rectangles into parallelograms).
 
@@ -160,7 +160,7 @@ Running all our coordinates through this transformation gives a new set of coord
 \right ]
 \]
 
-So we want some shearing value that, when multiplied by <i>y</i>, yields <i>-x</i>, so our x coordinate becomes zero. That value is simpy <i>-x/y</i>, because <i>-x/y * y = -x</i>. Done:
+So we want some shearing value that, when multiplied by <i>y</i>, yields <i>-x</i>, so our x coordinate becomes zero. That value is simply <i>-x/y</i>, because <i>-x/y * y = -x</i>. Done:
 
 \[
 T_2 =
@@ -274,7 +274,7 @@ That's kind of super-simple to write out in code, I think you'll agree. Coding m
 
 Doing maths can be a pain, so whenever possible, I like to make computers do the work for me. Especially for things like this, I simply use [Mathematica](http://www.wolfram.com/mathematica). Tracking all this math by hand is insane, and we invented computers, literally, to do this for us. I have no reason to use pen and paper when I can write out what I want to do in a program, and have the program do the math for me. And real math, too, with symbols, not with numbers. In fact, [here's](http://pomax.github.io/gh-weblog/downloads/canonical-curve.nb) the Mathematica notebook if you want to see how this works for yourself.
 
-Now, I know, you're thinking "but Mathematica is super expensive!" and that's true, it's [$295 for home use](http://www.wolfram.com/mathematica-home-edition), but it's **also** [free when you buy a $35 raspberry pi](http://www.wolfram.com/raspberry-pi). Obviously, I bought a raspberry pi, and I encourage you to do the same. With that, as long as you know what you want to *do*, Mathematica can just do it for you. And we don't have to be geniusses to work out what the maths looks like. That's what we have computers for.
+Now, I know, you're thinking "but Mathematica is super expensive!" and that's true, it's [$295 for home use](http://www.wolfram.com/mathematica-home-edition), but it's **also** [free when you buy a $35 raspberry pi](http://www.wolfram.com/raspberry-pi). Obviously, I bought a raspberry pi, and I encourage you to do the same. With that, as long as you know what you want to *do*, Mathematica can just do it for you. And we don't have to be geniuses to work out what the maths looks like. That's what we have computers for.
 
 </div>
 

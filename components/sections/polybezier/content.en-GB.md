@@ -51,4 +51,4 @@ Finally, we also want to make sure that moving the on-curve coordinates preserve
 
 Again, we see that cubic curves are now rather nice to work with, but quadratic curves have a new, very serious problem: we can move an on-curve point in such a way that we can't compute what needs to "happen next". Move the top point down, below the left and right points, for instance. There is no way to preserve correct control points without a kink at the bottom point. Quadratic curves: just not that good...
 
-A final improvement is to offer fine-level control over which points behave which, so that you can have "kinks" or individually controlled segments when you need them, with nicely well-behaved curves for the rest of the path. Implementing that, is left as an excercise for the reader.
+A final improvement is to offer fine-level control over which points behave which, so that you can have "kinks" or individually controlled segments when you need them, with nicely well-behaved curves for the rest of the path. Implementing that, is left as an exercise for the reader.
