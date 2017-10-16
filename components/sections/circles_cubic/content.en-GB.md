@@ -12,7 +12,7 @@ So have a graphical look at a "bad" guess versus the true fit, where we'll be us
 
 We see two curves here; in blue, our "guessed" curve and its control points, and in grey/black, the true curve fit, with proper control points that were shifted in, along line between our guessed control points, such that the derivatives at the start and end points are correct.
 
-We can already seethat cubic curves are a lot better than quadratic curves, and don't look all that wrong until we go well past a quarter circle; ⅜th starts to hint at problems, and half a circle has an obvious "gap" between the real circle and the cubic approximation. Anything past that just looks plain ridiculous... but quarter curves actually look pretty okay!
+We can already see that cubic curves are a lot better than quadratic curves, and don't look all that wrong until we go well past a quarter circle; ⅜th starts to hint at problems, and half a circle has an obvious "gap" between the real circle and the cubic approximation. Anything past that just looks plain ridiculous... but quarter curves actually look pretty okay!
 
 So, maths time again: how okay is "okay"? Let's apply some more maths to find out.
 
@@ -53,7 +53,7 @@ where "a" is some scaling factor, and:
 
 where "b" is also some scaling factor.
 
-Starting with this information, we slowly maths our way to success, but I won't lie: the maths for this is pretty trig-heavy, and it's easy to get lost if you remember (or know!) some of the core trigonoetric identities, so if you just want to see the final result just skip past the next section!
+Starting with this information, we slowly maths our way to success, but I won't lie: the maths for this is pretty trig-heavy, and it's easy to get lost if you remember (or know!) some of the core trigonometric identities, so if you just want to see the final result just skip past the next section!
 
 <div className="note">
 
@@ -61,7 +61,7 @@ Starting with this information, we slowly maths our way to success, but I won't 
 
 Unlike for the quadratic case, we need some more information in order to compute <i>a</i> and <i>b</i>, since they're no longer dependent variables. First, we observe that the curve is symmetrical, so whatever values we end up finding for C<sub>1</sub> will apply to C<sub>2</sub> as well (rotated along its tangent), so we'll focus on finding the location of C<sub>1</sub> only. So here's where we do something that you might not expect: we're going to ignore for a moment, because we're going to have a much easier time if we just solve this problem with geometry first, then move to calculus to solve a much simpler problem.
 
-If we look at the triangle that is formed between our starting point, or initial guess C<sub>1</sub> and our real C<sub>1</sub>, there's something funny going on: if we treat the line {start,guess} as our opposite side, the line {guess,real} as our adjacent side, with {start,real} our hypothenuse, then the angle for the corner hypothenuse/adjacent is half that of the arc we're covering. Try it: if you place the end point at a quarter circle (pi/2, or 90 degrees), the angle in our triangle is half a quarter (pi/4, or 45 degrees). With that knowledge, and a knowledge of what the length of any of our lines segments are (as a function), we can determine where our control points are, and thus have everything we need to find the error distance function. Of the three lines, the one we can easiest determine is {start,guess}, so let's find out what the guessed control point is. Again geometrically, because we have the benefit of an on-curve <i>t=0.5</i> value.
+If we look at the triangle that is formed between our starting point, or initial guess C<sub>1</sub> and our real C<sub>1</sub>, there's something funny going on: if we treat the line {start,guess} as our opposite side, the line {guess,real} as our adjacent side, with {start,real} our hypotenuse, then the angle for the corner hypotenuse/adjacent is half that of the arc we're covering. Try it: if you place the end point at a quarter circle (pi/2, or 90 degrees), the angle in our triangle is half a quarter (pi/4, or 45 degrees). With that knowledge, and a knowledge of what the length of any of our lines segments are (as a function), we can determine where our control points are, and thus have everything we need to find the error distance function. Of the three lines, the one we can easiest determine is {start,guess}, so let's find out what the guessed control point is. Again geometrically, because we have the benefit of an on-curve <i>t=0.5</i> value.
 
 The distance from our guessed point to the start point is exactly the same as the projection distance we looked at earlier. Using <i>t=0.5</i> as our point "B" in the "A,B,C" projection, then we know the length of the line segment {C,A}, since it's d<sub>1</sub> = {A,B} + d<sub>2</sub> = {B,C}:
 

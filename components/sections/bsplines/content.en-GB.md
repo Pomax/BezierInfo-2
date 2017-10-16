@@ -19,13 +19,13 @@ In order to make this interpolation of curves work, the maths is necessarily mor
 
 ## How to compute a B-Spline curve: some maths
 
-Given a B-Spline of degree `d` and thus order `k=d+1` (so a quadratic B-Spline is degree 2 and order 3, a cubic B-Spline is degree 3 and order 4, etc) and `n` control points `P<sub>0</sub>` through `P<sub>n-1</sub>`, we can compute a point on the curve for some value `t` in the interval [0,1] (where 0 is the start of the curve, and 1 the end, just like for Bézier curves), by evaluting the following function:
+Given a B-Spline of degree `d` and thus order `k=d+1` (so a quadratic B-Spline is degree 2 and order 3, a cubic B-Spline is degree 3 and order 4, etc) and `n` control points `P<sub>0</sub>` through `P<sub>n-1</sub>`, we can compute a point on the curve for some value `t` in the interval [0,1] (where 0 is the start of the curve, and 1 the end, just like for Bézier curves), by evaluating the following function:
 
 \[
   Point(t) = \sum^n_{i=0} P_i \cdot N_{i,k}(t)
 \]
 
-Which, honestly, doesn't tell us all that much. All we can see is that a point on a B-Spline curve is defined as "a mix of all the control points, weighted somehow", where the weighting is achieved through the *N(...)* function, subscipted with an obvious parameter `i`, which comes from our summation, and some magical parameter `k`. So we need to know two things: 1. what does N(t) do, and 2. what is that `k`? Let's cover both, in reverse order.
+Which, honestly, doesn't tell us all that much. All we can see is that a point on a B-Spline curve is defined as "a mix of all the control points, weighted somehow", where the weighting is achieved through the *N(...)* function, subscripted with an obvious parameter `i`, which comes from our summation, and some magical parameter `k`. So we need to know two things: 1. what does N(t) do, and 2. what is that `k`? Let's cover both, in reverse order.
 
 The parameter `k` represents the "knot interval" over which a section of curve is defined. As we learned earlier, a B-Spline curve is itself an interpoliation of curves, and we can treat each transition where a control point starts or tops influencing the total curvature as a "knot on the curve".
 Doing so for a degree `d` B-Spline with `n` control point gives us `d + n + 1` knots, defining `d + n` intervals along the curve, and it is these intervals that the above `k` subscript to the N() function applies to.
@@ -94,9 +94,9 @@ Thanks to Cox and de Boor, we can compute points on a B-Spline pretty easily: we
 
 That is, we compute d(3,3) as a mixture of d(2,3) and d(2,2): d(3,3) = a(3,3) x d(2,3) + (1-a(3,3)) x d(2,2)... and we simply keep expanding our triangle until we reach the terminating function parameters. Done deal!
 
-One thing we need to keep in mind is that we're working with a spline that is contrained by its control points, so even though the `d(..., k)` values are zero or one at the lowest level, they are really "zero or one, times their respective control point", so in the next section you'll see the algorithm for running through the computation in a way that starts with a copy of the control point vector and then works its way up to that single point: that's pretty essential!
+One thing we need to keep in mind is that we're working with a spline that is constrained by its control points, so even though the `d(..., k)` values are zero or one at the lowest level, they are really "zero or one, times their respective control point", so in the next section you'll see the algorithm for running through the computation in a way that starts with a copy of the control point vector and then works its way up to that single point: that's pretty essential!
 
-If we run this computation "down", starting at d(3,3), then without special code in place we would be computing quite a few terms multiple times at each step. On the other hand, we can also start with that last "column", we can generate the terminating d() values first, then compute the a() constants, perform our multiplcations, generate the previous step's d() values, compute their a() constants, do the multiplications, etc. until we end up all the way back at the top. If we run our computation this way, we don't need any explicit caching, we can just "recycle" the list of numbers we start with and simply update them as we move up the triangle. So, let's implement that!
+If we run this computation "down", starting at d(3,3), then without special code in place we would be computing quite a few terms multiple times at each step. On the other hand, we can also start with that last "column", we can generate the terminating d() values first, then compute the a() constants, perform our multiplications, generate the previous step's d() values, compute their a() constants, do the multiplications, etc. until we end up all the way back at the top. If we run our computation this way, we don't need any explicit caching, we can just "recycle" the list of numbers we start with and simply update them as we move up the triangle. So, let's implement that!
 
 ## Cool, cool... but I don't know what to do with that information
 
@@ -151,7 +151,7 @@ Of course if we want to manipulate these kind of curves we need to make sure to 
 The most important thing to understand when it comes to B-Splines is that they work *because* of the concept of a knot vector. As mentioned above, knots represent "where individual control points start/stop influencing the curve", but we never looked at the *values* that go in the knot vector. If you look back at the N() and a() functions, you see that interpolations are based on intervals in the knot vector, rather than the actual values in the knot vector, and we can exploit this to do some pretty interesting things with clever manipulation of the knot vector. Specifically there are four things we can do that are worth looking at:
 
 1. we can use a uniform knot vector, with equally spaced intervals,
-2. we can use a non-uniform knot vector, without enforcing equally spaced internvals,
+2. we can use a non-uniform knot vector, without enforcing equally spaced intervals,
 3. we can collapse sequential knots to the same value, locally lowering curve complexity using "null" intervals, and
 4. we can form a special case non-uniform vector, by combining (1) and (3) to for a vector with collapsed start and end knots, with a uniform vector in between.
 
@@ -190,7 +190,7 @@ For any curve of degree `D` with control points `N`, we can define a knot vector
 
 ### Non-uniform B-Splines
 
-This is essentialy the "free form" version of a B-Spline, and also the least interesting to look at, as without any specific reason to pick specific knot intervals, there is nothing particularly interesting going on. There is one constraint to the knot vector, and that is that any value `knots[k+1]` should be equal to, or greater than `knots[k]`.
+This is essentially the "free form" version of a B-Spline, and also the least interesting to look at, as without any specific reason to pick specific knot intervals, there is nothing particularly interesting going on. There is one constraint to the knot vector, and that is that any value `knots[k+1]` should be equal to, or greater than `knots[k]`.
 
 ## One last thing: Rational B-Splines
 

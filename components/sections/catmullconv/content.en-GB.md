@@ -2,7 +2,7 @@
 
 Taking an excursion to different splines, the other common design curve is the [Catmull-Rom spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline). Now, a Catmull-Rom spline is a form of cubic Hermite spline, and as it so happens the cubic Bézier curve is also a cubic Hermite spline, so maybe... maybe we can convert one into the other, and back, with some simple substitutions?
 
-Unlike Bézier curves, Catmull-Rom splines pass through each point used to define the curve, except the first and last, which makes sense if you read the "natural language" descriptionfor how a Catmull-Rom spline works: a Catmull-Rom spline is a curve that, at each point  P<sub>x</sub>, has a tangent along the line P<sub>x-1</sub> to P<sub>x+1</sub>. The curve runs from points P<sub>2</sub> to P<sub>n-1</sub>, and has a "tension" that determines how fast the curve passes through each point. The lower the tension, the faster the curve  goes through each point, and the bigger its local tangent is.
+Unlike Bézier curves, Catmull-Rom splines pass through each point used to define the curve, except the first and last, which makes sense if you read the "natural language" description for how a Catmull-Rom spline works: a Catmull-Rom spline is a curve that, at each point  P<sub>x</sub>, has a tangent along the line P<sub>x-1</sub> to P<sub>x+1</sub>. The curve runs from points P<sub>2</sub> to P<sub>n-1</sub>, and has a "tension" that determines how fast the curve passes through each point. The lower the tension, the faster the curve  goes through each point, and the bigger its local tangent is.
 
 I'll be showing the conversion to and from Catmull-Rom curves for the tension that the Processing language uses for its Catmull-Rom algorithm.
 
@@ -197,7 +197,7 @@ So let's find out which transformation matrix we need in order to convert from C
   \end{bmatrix}
 \]
 
-The difference is somewhere in the actual hermite matrix, since the <em>t</em> and coordinate values are identical, so let's solve that matrix equasion:
+The difference is somewhere in the actual Hermite matrix, since the <em>t</em> and coordinate values are identical, so let's solve that matrix equation:
 
 \[
   \frac{1}{2}

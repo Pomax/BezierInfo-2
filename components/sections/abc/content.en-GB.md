@@ -66,7 +66,7 @@ And that's it, all values found.
 
 <div className="note">
 
-Much like the *u(t)* function in the above note, the *ratio(t)* function depends on whether we're looking at quadratic or cubic curves. Their form is intrinsically related to the *u(t)* function in that they both come rolling out of the same function evalution, explained over on [MathOverflow](http://mathoverflow.net/questions/122257/finding-the-formula-for-Bézier-curve-ratios-hull-point-point-baseline) by Boris Zbarsky and myself. The ratio functions are the "s(t)" functions from the answers there, while the "u(t)" functions have the same name both here and on MathOverflow.
+Much like the *u(t)* function in the above note, the *ratio(t)* function depends on whether we're looking at quadratic or cubic curves. Their form is intrinsically related to the *u(t)* function in that they both come rolling out of the same function evaluation, explained over on [MathOverflow](http://mathoverflow.net/questions/122257/finding-the-formula-for-Bézier-curve-ratios-hull-point-point-baseline) by Boris Zbarsky and myself. The ratio functions are the "s(t)" functions from the answers there, while the "u(t)" functions have the same name both here and on MathOverflow.
 
 \[
   ratio(t)_{quadratic} = \left | \frac{t^2 + (1-t)^2 - 1}{t^2 + (1-t)^2} \right |

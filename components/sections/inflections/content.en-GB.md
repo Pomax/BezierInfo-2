@@ -18,7 +18,7 @@ What we're saying here is that given the curvature function *C(t)*, we want to k
 
 So the function *C(t)* is wholly defined by the first and second derivative functions for the parametric dimensions of our curve. And as already shown, derivatives of Bézier curves are just simpler Bézier curves, with very easy to compute new coefficients, so this should be pretty easy.
 
-However as we've seen in the section on aligning, aligning lets us simplify things *a lot*, by completely removing the contributions of the first coordinate from most mathematical evaluations, and removing the last *y* coordinate as well by virtue of the last point lying on the x-axis. So, while we can evaluate *C(t) = 0* for our curve, it'll be much easier to first axis-align the curve and *then* evalutating the curvature function.
+However as we've seen in the section on aligning, aligning lets us simplify things *a lot*, by completely removing the contributions of the first coordinate from most mathematical evaluations, and removing the last *y* coordinate as well by virtue of the last point lying on the x-axis. So, while we can evaluate *C(t) = 0* for our curve, it'll be much easier to first axis-align the curve and *then* evaluating the curvature function.
 
 <div className="note">
 
@@ -89,7 +89,7 @@ This is a plain quadratic curve, and we know how to solve *C(t) = 0*; we use the
   \ C(t) = 0 \ \Rightarrow\ t = \frac{-y \pm \sqrt{y^2 - 4 x z}}{2x}
 \]
 
-We can easily compute this value *if* the descriminator isn't a negative number (because we only want real roots, not complex roots), and *if* *x* is not zero, because divisions by zero are rather useless.
+We can easily compute this value *if* the discriminator isn't a negative number (because we only want real roots, not complex roots), and *if* *x* is not zero, because divisions by zero are rather useless.
 
 Taking that into account, we compute *t*, we disregard any *t* value that isn't in the Bézier interval [0,1], and we now know at which *t* value(s) our curve will inflect.
 

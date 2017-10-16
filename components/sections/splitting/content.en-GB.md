@@ -29,7 +29,7 @@ function drawCurve(points[], t):
     drawCurve(newpoints, t)
 ```
 
-After running this function for some value `t`, the `left` and `right` arrays will contain all the coordinates for two new curves - one to the "left" of our `t` value, the other on the "right", of the same order as the original curve, and overlayed exactly on the original curve.
+After running this function for some value `t`, the `left` and `right` arrays will contain all the coordinates for two new curves - one to the "left" of our `t` value, the other on the "right", of the same order as the original curve, and overlaid exactly on the original curve.
 
 </div>
 

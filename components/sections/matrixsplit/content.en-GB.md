@@ -290,7 +290,7 @@ Excellent! Now we can form our new quadratic curve:
 
 ***Brilliant***: if we want a subcurve from `t = 0` to `t = z`, we can keep the first coordinate the same (which makes sense), our control point becomes a z-ratio mixture of the original control point and the start point, and the new end point is a mixture that looks oddly similar to a [Bernstein polynomial](https://en.wikipedia.org/wiki/Bernstein_polynomial) of degree two, except it uses (z-1) rather than (1-z)... These new coordinates are actually really easy to compute directly!
 
-Of course, that's only one of the two curves. Getting the section from `t = z` to `t = 1` requires doing this again. We first observe what we just did is actually evaluate the general interval [0,`z`], which we wrote down simplified becuase of that zero, but we actually evaluated this:
+Of course, that's only one of the two curves. Getting the section from `t = z` to `t = 1` requires doing this again. We first observe what we just did is actually evaluate the general interval [0,`z`], which we wrote down simplified because of that zero, but we actually evaluated this:
 
 \[
   B(t) =
