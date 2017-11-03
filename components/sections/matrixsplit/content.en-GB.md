@@ -544,7 +544,7 @@ and
 
 \[
   \begin{bmatrix}
-    -(z-1)^3 & 3 \cdot (z-1)^2 \cdot z & -3 \cdot (z-1)^3 \cdot z^2 & z^3 \\
+    -(z-1)^3 & 3 \cdot (z-1)^2 \cdot z & -3 \cdot (z-1) \cdot z^2 & z^3 \\
     0 & (z-1)^2 & -2 \cdot (z-1) \cdot z & z^2 \\
     0 & 0 & -(z-1) & z \\
     0 & 0 & 0 & 1
