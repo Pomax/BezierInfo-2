@@ -7,7 +7,7 @@ Armed with knowledge of the "ABC" relation, we can now update a curve interactiv
 **Click-dragging the curve itself** shows what we're using to compute the new coordinates: while dragging you will see the original points B and its corresponding <i>t</i>-value, the original point C for that <i>t</i>-value, as well as the new point B' based on the mouse cursor. Since we know the <i>t</i>-value for this configuration, we can compute the ABC ratio for this configuration, and we know that our new point A' should like at a distance:
 
 \[
-  A' = B' - \frac{C - B'}{ratio} = B' + \frac{B - C}{ratio}
+  A' = B' - \frac{C - B'}{ratio} = B' + \frac{B' - C}{ratio}
 \]
 
 For quadratic curves, this means we're done, since the new point A' is equivalent to the new quadratic control point. For cubic curves, we need to do a little more work:
