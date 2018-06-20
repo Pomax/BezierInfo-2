@@ -49,6 +49,7 @@ module.exports = {
   abc: require("./abc"),
   moulding: require("./moulding"),
   pointcurves: require("./pointcurves"),
+  curvefitting: require("./curvefitting"),
 
   // A quick foray into Catmull-Rom splines
   catmullconv: require("./catmullconv"),

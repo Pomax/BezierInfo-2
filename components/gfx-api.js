@@ -211,6 +211,12 @@ var API = {
   },
 
   setCurve: function(c) {
+    if (!c) {
+      this.curve = false;
+      this.lpts = [];
+      return;
+    }
+
     var pts = [];
     c = (c instanceof Array) ? c : Array.from(arguments);
     c.forEach(nc => {
@@ -400,7 +406,10 @@ var API = {
     var pts = curve.points;
     this.setFill("black");
     pts.forEach(p => {
-      this.text(`(${p.x},${p.y})`, {x:p.x + offset.x + 5, y:p.y + offset.y + 10});
+      let txt = `(${p.x | 0},${p.y | 0})`;
+      let x = p.x + offset.x + 5;
+      let y = p.y + offset.y + 10;
+      this.text(txt, {x, y});
     });
   },
 

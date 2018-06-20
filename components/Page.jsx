@@ -7,6 +7,15 @@ var Navigation = require("./Navigation.jsx");
 var Footer = require("./Footer.jsx");
 
 var Page = React.createClass({
+  render: function() {
+    return <div>
+      <Ribbon/>
+      <Header/>
+      { this.renderPageContent() }
+      <Footer/>
+    </div>;
+  },
+
   renderPageContent: function(nav) {
     return (
       <div>
@@ -15,15 +24,6 @@ var Page = React.createClass({
         {this.props.children}
       </div>
     );
-  },
-
-  render: function() {
-    return <div>
-      <Ribbon/>
-      <Header/>
-      { this.renderPageContent() }
-      <Footer/>
-    </div>;
   }
 });
 
