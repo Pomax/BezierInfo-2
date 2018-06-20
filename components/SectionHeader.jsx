@@ -1,16 +1,20 @@
 var React = require("react");
+var hashResolver = require("../lib/hash-resolver.js");
 
 var SectionHeader = React.createClass({
   statics: {
-    locale: ''
+    locale: ""
   },
 
   render: function() {
     var locale = SectionHeader.locale;
-    if (typeof window !== "undefined" && window.location.toString().indexOf(locale) === -1) {
-      locale = '';
+    if (
+      typeof window !== "undefined" &&
+      window.location.toString().indexOf(locale) === -1
+    ) {
+      locale = "";
     }
-    var fragmentid = `${locale ? './' + locale + '/': '.'}#${this.props.name}`;
+    var fragmentid = `${locale ? "./" + locale + "/" : "."}#${this.props.name}`;
     return (
       <h2 id={this.props.name} data-num={this.props.number}>
         <a href={fragmentid}>{this.props.title}</a>
@@ -18,12 +22,7 @@ var SectionHeader = React.createClass({
     );
   },
   componentDidMount() {
-    if (typeof window !== "undefined" && window.location) {
-      var h = window.location.hash;
-      if (h) {
-        window.location = window.location.hash;
-      }
-    }
+    hashResolver();
   }
 });
 

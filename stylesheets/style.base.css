@@ -111,6 +111,7 @@ navigation ul {
 }
 navigation ul li:nth-child(n+2)[data-number]:before {
   content: "§" attr(data-number) ". ";
+  font-family: sans;
 }
 navigation ul li:nth-child(n+2):not([data-number]) {
   margin: 5px 0;

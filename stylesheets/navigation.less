@@ -15,7 +15,8 @@ navigation {
 
     li {
       &:nth-child(n+2)[data-number]:before {
-       content: "§" attr(data-number) ". "
+       content: "§" attr(data-number) ". ";
+       font-family: sans;
       }
       &:nth-child(n+2):not([data-number]) {
        margin: 5px 0;
