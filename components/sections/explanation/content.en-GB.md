@@ -72,7 +72,7 @@ I know what you're thinking: that doesn't look too simple, but if we remove <i>t
 \end{aligned}
 \]
 
-Notice that 2 is the same as 1+1, and 3 is 2+1 and 1+2, and 6 is 3+3... As you can see, each time we go up a dimension, we simply start and end with 1, and everything in between is just "the two numbers above it, added together". Now <i>that's</i> easy to remember.
+Notice that 2 is the same as 1+1, and 3 is 2+1 and 1+2, and 6 is 3+3... As you can see, each time we go up a dimension, we simply start and end with 1, and everything in between is just "the two numbers above it, added together", giving us a simple number sequence known as [Pascal's triangle](https://en.wikipedia.org/wiki/Pascal%27s_triangle). Now <i>that's</i> easy to remember.
 
 There's an equally simple way to figure out how the polynomial terms work: if we rename <i>(1-t)</i> to <i>a</i> and <i>t</i> to <i>b</i>, and remove the weights for a moment, we get this:
 
