@@ -129,11 +129,16 @@ Let's get started: we're going to assume we picked the right order curve: for `n
   P = \begin{bmatrix} p_1 \\ p_2 \\ ... \\ p_n \end{bmatrix}
 \]
 
-Next, we need to figure out appropriate `t` values for each point in the curve, because we need something that lets us tie "the actual coordinate" to "some point on the curve". There's a fair number of different ways to do this (and a large part of optimizing "the perfect fit" is about picking appropriate `t` values), but as we're doing polynomial regression, we might as well exploit the fact that our base coordinates just constitute a collection of line segments. At the first point, we're fixing t=0, and the last point, we want t=1, and anywhere in between we're simply going to say that `t` is equal to the distance along the polygon, scaled to the [0,1] domain.
+Next, we need to figure out appropriate `t` values for each point in the curve, because we need something that lets us tie "the actual coordinate" to "some point on the curve". There's a fair number of different ways to do this (and a large part of optimizing "the perfect fit" is about picking appropriate `t` values), but in this case let's look at two "obvious" choices:
 
-Note that this is not necessarily a great way to fix `t` values, and we can use the "shape" of **P** to help us pick better positioned `t` values, but for the purposes of this section, that's way more work than we want to deal with right now.
+1. equally spaced `t` values, and
+2. `t` values that align with distance along the polygon.
 
-So, rational distance it is. To do this, we first compute the general "distance along the polygon" matrix:
+The first one is really simple: if we have `n` points, then we'll just assign each point `i` a `t` value of `(i-1)/(n-1)`. So if we have four points, the first point will have `t=(1-1)/(4-1)=0/3`, the second point will have `t=(2-1)/(4-1)=1/3`, the third point will have `t=2/3`, and the last point will be `t=1`. We're just straight up spacing the `t` values to match the number of points we have.
+
+The second one is a little more intersting,: since we're doing polynomial regression, we might as well exploit the fact that our base coordinates just constitute a collection of line segments. At the first point, we're fixing t=0, and the last point, we want t=1, and anywhere in between we're simply going to say that `t` is equal to the distance along the polygon, scaled to the [0,1] domain.
+
+To get these values, we first compute the general "distance along the polygon" matrix:
 
 \[
   D = \begin{bmatrix}d_1 & d_2 & ... & d_n \end{bmatrix}, \textit{ where }
@@ -159,7 +164,7 @@ Where  `length()` is literally just that: the length of the line segment between
   \end{aligned}
 \]
 
-And now comes the actual "curve fitting" part: what we want is a function that lets us compute "ideal" control point values such that if we build a Bezier curve with them, that curve passes through all our original points. Or, failing that, have an overall error distance that is as close to zero as we can get it. So, let's write out what the error distance looks like.
+And now we can move on to the actual "curve fitting" part: what we want is a function that lets us compute "ideal" control point values such that if we build a Bezier curve with them, that curve passes through all our original points. Or, failing that, have an overall error distance that is as close to zero as we can get it. So, let's write out what the error distance looks like.
 
 As mentioned before, this function is really just "the distance between the actual coordinate, and the coordinate that the curve evaluates to for the associated `t` value", which we'll square to get rid of any pesky negative signs:
 
@@ -233,8 +238,12 @@ So before we try that out, how much code is involved in implementing this? Hones
 
 So let's try it out! The following graphic lets you place points, and will start computing exact-fit curves once you've placed at least three. You can click for more points, and the code will simply try to compute an exact fit using a Bezier curve of the appropriate order. Four points? Cubic Bezier. Five points? Quartic. And so on. Of course, this does break down at some point: depending on where you place your points, it might become mighty hard for the fitter to find an exact fit, and things might actually start looking horribly off once you hit 10<sup>th</sup> or higher order curves. But it might not!
 
+There are also two convenient buttons: the "toggle" button lets you toggle between equidistance `t` values, and distance ratio along the polygon, and the "reset" button just clears the graphic so you can draw a new set of points.
+
 <div className="figure">
   <Graphic title="Fitting a Bézier curve" setup={this.setup} draw={this.draw} onClick={this.onClick}>
+    <button onClick={this.toggle}>toggle</button>
     <button onClick={this.reset}>reset</button>
   </Graphic>
 </div>
+

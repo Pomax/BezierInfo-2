@@ -9,11 +9,20 @@ module.exports = {
   reset: function() {
     this.points = [];
     this.curveset = false;
-    let api = this.api;
-    if (api) {
+    this.mode = 0;
+    if (this.api) {
+      let api = this.api;
       api.setCurve(false);
       api.reset();
       api.redraw();
+    }
+  },
+
+  toggle: function() {
+    if (this.api) {
+      this.mode = (this.mode + 1) % fit.modes.length;
+      this.fitCurve(this.api);
+      this.api.redraw();
     }
   },
 
@@ -25,19 +34,7 @@ module.exports = {
 
     api.setColor('black');
     if (!this.curveset && this.points.length > 2) {
-      let bestFitData = fit(this.points),
-          x = bestFitData.C.x,
-          y = bestFitData.C.y,
-          bpoints = [];
-      x.forEach((r,i) => {
-        bpoints.push({
-          x: r[0],
-          y: y[i][0]
-        });
-      });
-      curve = new api.Bezier(bpoints);
-      api.setCurve(curve);
-      this.curveset = true;
+      this.fitCurve(api);
     }
 
     if (curve) {
@@ -45,6 +42,25 @@ module.exports = {
       api.drawSkeleton(curve);
     }
     api.drawPoints(this.points);
+
+    api.setFill(0);
+    api.text("using "+fit.modes[this.mode]+" t values", {x: 5, y: 10});
+  },
+
+  fitCurve(api) {
+    let bestFitData = fit(this.points, this.mode),
+        x = bestFitData.C.x,
+        y = bestFitData.C.y,
+        bpoints = [];
+    x.forEach((r,i) => {
+      bpoints.push({
+        x: r[0],
+        y: y[i][0]
+      });
+    });
+    var curve = new api.Bezier(bpoints);
+    api.setCurve(curve);
+    this.curveset = true;
   },
 
   onClick: function(evt, api) {
