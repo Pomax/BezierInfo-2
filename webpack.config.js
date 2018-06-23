@@ -20,12 +20,12 @@ var output = {
 
 // Necessary webpack loaders for converting our content:
 var webpackLoaders = [
-  'babel-loader',
-  'eslint-loader',
-  __dirname + '/lib/latex-loader',
-  __dirname + '/lib/pre-loader',
-  __dirname + '/lib/p-loader',
-  __dirname + '/lib/textarea-loader'
+  {loader: 'babel-loader'},
+  {loader: 'eslint-loader'},
+  {loader: __dirname + '/lib/latex-loader'},
+  {loader: __dirname + '/lib/pre-loader'},
+  {loader: __dirname + '/lib/p-loader'},
+  {loader: __dirname + '/lib/textarea-loader'}
 ];
 
 var resolve = {
@@ -53,10 +53,12 @@ module.exports = {
   output: output,
   resolve: resolve,
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.json$/,
-        loader: "json"
+        use: [
+          { loader: 'json-loader' }
+        ]
       },
       {
         test: /.jsx?$/,
@@ -65,7 +67,7 @@ module.exports = {
           /lib.site/,
           /locales/
         ],
-        loaders: webpackLoaders
+        use: webpackLoaders
       }
     ]
   }
