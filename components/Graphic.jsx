@@ -39,7 +39,7 @@ var baseClass = {
     this.ctx.scale(dpr, dpr);
 
     if (this.props.paperjs) {
-      var Paper = this.Paper = require("../lib/vendor/paperjs/paper-core");
+      var Paper = this.Paper = require("paper/dist/paper-core");
       Paper.setup(cvs);
     }
 

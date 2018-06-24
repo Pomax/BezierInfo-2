@@ -53,6 +53,9 @@ module.exports = {
   entry:  entry,
   output: output,
   resolve: resolve,
+  optimization: {
+     minimize: false
+  },
   module: {
     rules: [
       {
