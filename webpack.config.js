@@ -49,6 +49,7 @@ if (locale !== defaultLocale) {
 
 // And the final config that webpack will read in.
 module.exports = {
+  mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
   entry:  entry,
   output: output,
   resolve: resolve,

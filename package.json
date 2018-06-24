@@ -20,7 +20,7 @@
     "makehandlers": "node tools/aggregate-js-handlers",
     "makeindex": "node tools/form-section-index-files",
     "dev:bl": "run-s bootstrap less",
-    "dev:server": "webpack-serve webpack.config.js",
+    "dev:server": "webpack-serve --mode development webpack.config.js",
     "dev": "run-s dev:bl dev:server",
     "dev:en-GB": "cross-env LOCALE=en-GB && npm run dev",
     "dev:zh-CN": "cross-env LOCALE=zh-CN && npm run dev",

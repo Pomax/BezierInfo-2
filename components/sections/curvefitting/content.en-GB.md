@@ -238,12 +238,15 @@ So before we try that out, how much code is involved in implementing this? Hones
 
 So let's try it out! The following graphic lets you place points, and will start computing exact-fit curves once you've placed at least three. You can click for more points, and the code will simply try to compute an exact fit using a Bezier curve of the appropriate order. Four points? Cubic Bezier. Five points? Quartic. And so on. Of course, this does break down at some point: depending on where you place your points, it might become mighty hard for the fitter to find an exact fit, and things might actually start looking horribly off once you hit 10<sup>th</sup> or higher order curves. But it might not!
 
-There are also two convenient buttons: the "toggle" button lets you toggle between equidistance `t` values, and distance ratio along the polygon, and the "reset" button just clears the graphic so you can draw a new set of points.
-
 <div className="figure">
   <Graphic title="Fitting a Bézier curve" setup={this.setup} draw={this.draw} onClick={this.onClick}>
     <button onClick={this.toggle}>toggle</button>
     <button onClick={this.reset}>reset</button>
+    <SliderSet ref={ set => (this.sliders=set) } onChange={this.processTimeUpdate} />
   </Graphic>
 </div>
+
+You'll note there are also two convenient buttons: the "toggle" button lets you toggle between equidistance `t` values, and distance ratio along the polygon, and the "reset" button just clears the graphic so you can draw a new set of points. Arguably more interesting is that once you have points to abstract a curve, you also get <em>direct control</em> over the time values, because if the time values are our degree of freedom, you should be able to freely manipulate them and see what the effect on your curve is.
+
+
 

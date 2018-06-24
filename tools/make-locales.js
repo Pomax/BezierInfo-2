@@ -105,6 +105,8 @@ function processLocation(loc, section, number) {
  */
 function formContentBundle(locale, content) {
   var bcode = JSON.stringify(content, false, 2);
+
+  // general replacements to make content actually usable javascript:
   bcode = bcode.replace(/"<section([^>]*)>/g, "function(handler) { return <section$1>")
               .replace(/this\.(\w)/g, "handler.$1")
               .replace(/<\/section>"(,?)/g, "</section>; }$1\n")
@@ -113,19 +115,28 @@ function formContentBundle(locale, content) {
               .replace(/></g,'>\n<')
               .replace(/\\\\/g, '\\');
 
+  // all the components we want sections to be able to make use of:
+  var components = [
+    "Graphic",
+    "SectionHeader",
+    "BSplineGraphic",
+    "KnotController",
+    "WeightController",
+    "SliderSet"
+  ];
+
+  // and finally, our bundle "code":
   var bundle = [
-    `var React = require('react');`,
-    `var Graphic = require("../../components/Graphic.jsx");`,
-    `var SectionHeader = require("../../components/SectionHeader.jsx");`,
-    `var BSplineGraphic = require("../../components/BSplineGraphic.jsx");`,
-    `var KnotController = require("../../components/KnotController.jsx");`,
-    `var WeightController = require("../../components/WeightController.jsx");`,
+    `var React = require('react');`
+  ].concat(
+    components.map(v => `var ${v} = require("../../components/${v}.jsx");`)
+  ).concat([
     ``,
     `SectionHeader.locale="${locale}";`,
     ``,
     `module.exports = ${bcode};`,
     ``
-  ].join('\n');
+  ]).join('\n');
 
   return bundle;
 }

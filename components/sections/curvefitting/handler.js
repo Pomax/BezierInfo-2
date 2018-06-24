@@ -20,6 +20,7 @@ module.exports = {
 
   toggle: function() {
     if (this.api) {
+      this.customTimeValues = false;
       this.mode = (this.mode + 1) % fit.modes.length;
       this.fitCurve(this.api);
       this.api.redraw();
@@ -33,22 +34,33 @@ module.exports = {
     api.drawGrid(10,10);
 
     api.setColor('black');
+
     if (!this.curveset && this.points.length > 2) {
-      this.fitCurve(api);
+      curve = this.fitCurve(api);
     }
 
     if (curve) {
       api.drawCurve(curve);
       api.drawSkeleton(curve);
     }
+
     api.drawPoints(this.points);
 
-    api.setFill(0);
-    api.text("using "+fit.modes[this.mode]+" t values", {x: 5, y: 10});
+    if (!this.customTimeValues) {
+      api.setFill(0);
+      api.text("using "+fit.modes[this.mode]+" t values", {x: 5, y: 10});
+    }
   },
 
-  fitCurve(api) {
-    let bestFitData = fit(this.points, this.mode),
+  processTimeUpdate(sliderid, timeValues) {
+    var api = this.api;
+    this.customTimeValues = true;
+    this.fitCurve(api, timeValues);
+    api.redraw();
+  },
+
+  fitCurve(api, timeValues) {
+    let bestFitData = fit(this.points, timeValues || this.mode),
         x = bestFitData.C.x,
         y = bestFitData.C.y,
         bpoints = [];
@@ -61,6 +73,8 @@ module.exports = {
     var curve = new api.Bezier(bpoints);
     api.setCurve(curve);
     this.curveset = true;
+    this.sliders.setOptions(bestFitData.S);
+    return curve;
   },
 
   onClick: function(evt, api) {
