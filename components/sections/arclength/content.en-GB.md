@@ -20,6 +20,8 @@ So we turn to numerical approaches again. The method we'll look at here is the [
 
 \[
   \int_{-1}^{1}\sqrt{ \left (dx/dt \right )^2+\left (dy/dt \right )^2} dt
+  =
+  \int_{-1}^{1}f(t) dt
   \simeq
   \left [
     \underset{strip\ 1}{ \underbrace{ C_1 \cdot f\left(t_1\right) }}
