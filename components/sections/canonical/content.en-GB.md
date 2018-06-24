@@ -10,7 +10,7 @@ The first observation that makes things work is that if we have a cubic curve wi
 
 This is a fairly funky image, so let's see how it breaks down. We see the three fixed points at (0,0), (0,1) and (1,1), and then the fourth point is somewhere. Depending on where it is, our curve will have certain features. Namely, if the fourth point is...
 
-1. anywhere on and in the red zone, the curve will be self-intersecting, yielding either a cusp or a loop. Anywhere inside the red zone, this will be a loop. We won't know *where* that loop is (in terms of *t* values), but we are guaranteed that there is one.
+1. anywhere on and in the red zone, the curve will either be self-intersecting (yielding a loop), or it will have a sharp discontinuity (yielding a cusp). Anywhere inside the red zone, this will be a loop. We won't know *where* that loop is (in terms of *t* values), but we are guaranteed that there is one.
 2. on the left (red) edge, the curve will have a cusp. We again don't know <em>where</em>, just that it
 has one. This edge is described by the function:
 
