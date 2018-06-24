@@ -20,8 +20,8 @@ First, we construct the one-level-of-de-Casteljau-up points:
 
 \[
     \left \{ \begin{aligned}
-    v1 &= A' + \frac{e1 - A'}{t} \\
-    v2 &= A' + \frac{e2 - A'}{1 - t}
+    v1 &= e1 - \frac{e1 - A'}{t} \\
+    v2 &= e2 + \frac{e2 - A'}{1 - t}
     \end{aligned} \right .
 \]
 
