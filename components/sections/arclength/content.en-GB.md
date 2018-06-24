@@ -38,7 +38,7 @@ So we turn to numerical approaches again. The method we'll look at here is the [
   }
 \]
 
-In plain text: an integral function can always be treated as the sum of an (infinite) number of (infinitely thin) rectangular strips sitting "under" the function's plotted graph. To illustrate this idea, the following graph shows the integral for a sinoid function. The more strips we use (and of course the more we use, the thinner they get) the closer we get to the true area under the curve, and thus the better the approximation:
+In plain text: an integral function can always be treated as the sum of an (infinite) number of (infinitely thin) rectangular strips sitting "under" the function's plotted graph. To illustrate this idea, the following graph shows the integral for a sinusoid function. The more strips we use (and of course the more we use, the thinner they get) the closer we get to the true area under the curve, and thus the better the approximation:
 
 <div className="figure">
   <Graphic inline={true} static={true} title="A function's approximated integral" setup={this.setup} draw={this.drawCoarseIntegral}/>
@@ -50,7 +50,7 @@ Now, infinitely many terms to sum and infinitely thin rectangles are not somethi
 
 So, the trick is to come up with useful rectangular strips. A naive way is to simply create *n* strips, all with the same width, but there is a far better way using special values for *C* and *f(t)* depending on the value of *n*, which indicates how many strips we'll use, and it's called the Legendre-Gauss quadrature.
 
-This approach uses strips that are *not* spaced evenly, but instead spaces them in a special way that works remarkably well. If you look at the earlier sinoid graphic, you could imagine that we could probably get a result similar to the one with 99 strips if we used fewer strips, but spaced them so that the steeper the curve is, the thinner we make the strip, and conversely, the flatter the curve is (especially near the tops of the function), the wider we make the strip. That's akin to how the Legendre values work.
+This approach uses strips that are *not* spaced evenly, but instead spaces them in a special way based on describing the function as a polynomial (the more strips, the more accurate the polynomial), and then computing the exact integral for that polynomial. We're essentially performing arc length computation on a flattened curve, but flattening it based on the intervals dictated by the Legendre-Gauss solution.
 
 <div className="note">
 
