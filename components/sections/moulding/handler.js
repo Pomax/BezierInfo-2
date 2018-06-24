@@ -18,6 +18,7 @@ module.exports = {
 
   saveCurve: function(evt, api) {
     if (!api.t) return;
+    if (!api.newcurve) return;
     api.setCurve(api.newcurve);
     api.t = false;
     api.redraw();
@@ -42,6 +43,7 @@ module.exports = {
           B = api.B = curve.get(t);
       api.C = api.utils.lli4(A, B, curve.points[0], curve.points[2]);
       api.ratio = ratio;
+      this.dragQB(evt, api);
     }
   },
 
@@ -62,6 +64,7 @@ module.exports = {
       api.db = curve.derivative(t);
       api.C = api.utils.lli4(A, B, curve.points[0], curve.points[3]);
       api.ratio = ratio;
+      this.dragCB(evt, api);
     }
   },
 
@@ -134,6 +137,7 @@ module.exports = {
 
   drawMould: function(api, curve) {
     api.reset();
+
     api.drawSkeleton(curve);
     api.drawCurve(curve);
 
@@ -146,7 +150,7 @@ module.exports = {
     api.drawLine({x:0,y:0},{x:0,y:h}, offset);
     api.drawLine({x:w,y:0},{x:w,y:h}, offset);
 
-    if (api.t) {
+    if (api.t && api.update) {
       api.drawCircle(curve.get(api.t),3);
       api.npts = [curve.points[0]].concat(api.update).concat([curve.points.slice(-1)[0]]);
       api.newcurve = new api.Bezier(api.npts);
