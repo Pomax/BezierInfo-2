@@ -87,26 +87,49 @@ function accept(t) {
 }
 
 // A real-cuberoots-only function:
-function crt(v) {
-  if(v<0) return -Math.pow(-v,1/3);
-  return Math.pow(v,1/3);
+function cuberoot(v) {
+  if(v<0) return -pow(-v,1/3);
+  return pow(v,1/3);
 }
 
 // Now then: given cubic coordinates {pa, pb, pc, pd} find all roots.
 function getCubicRoots(pa, pb, pc, pd) {
-  var d = (-pa + 3*pb - 3*pc + pd),
-  a = (3*pa - 6*pb + 3*pc) / d,
-  b = (-3*pa + 3*pb) / d,
-  c = pa / d;
+  var   a = (3*pa - 6*pb + 3*pc),
+        b = (-3*pa + 3*pb),
+        c = pa,
+        d = (-pa + 3*pb - 3*pc + pd);
+
+  // do a check to see whether we even need cubic solving:
+  if (approximately(d,0)) {
+    // this is not a cubic curve.
+    if (approximately(a,0)) {
+      // in fact, this is not a quadratic curve either.
+      if (approximately(b,0)) {
+        // in fact in fact, there are no solutions.
+        return [];
+      }
+      // linear solution
+      return [-c / b].filter(accept);
+    }
+    // quadratic solution
+    var q = sqrt(b*b - 4*a*c), 2a = 2*a;
+    return [(q-b)/2a, (-b-q)/2a].filter(accept)
+  }
+
+  // at this point, we know we need a cubic solution.
+
+  a /= d;
+  b /= d;
+  c /= d;
 
   var p = (3*b - a*a)/3,
-  p3 = p/3,
-  q = (2*a*a*a - 9*a*b + 27*c)/27,
-  q2 = q/2,
-  discriminant = q2*q2 + p3*p3*p3;
+      p3 = p/3,
+      q = (2*a*a*a - 9*a*b + 27*c)/27,
+      q2 = q/2,
+      discriminant = q2*q2 + p3*p3*p3;
 
   // and some variables we're going to use later on:
-  var u1,v1,root1,root2,root3;
+  var u1, v1, root1, root2, root3;
 
   // three possible real roots:
   if (discriminant < 0) {
