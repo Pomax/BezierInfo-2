@@ -5,7 +5,7 @@ Much like lines can be chained together to form polygons, Bézier curves can be 
 1. the end point of each section is the starting point of the following section, and
 2. the derivatives across that dual point line up.
 
-Unless, of course, you want discontinuities; then you don't even need 2.
+Unless you want sharp corners, of course. Then you don't even need 2.
 
 We'll cover three forms of poly-Bézier curves in this section. First, we'll look at the kind that just follows point 1. where the end point of a segment is the same point as the start point of the next segment. This leads to poly-Béziers that are pretty hard to work with, but they're the easiest to implement:
 

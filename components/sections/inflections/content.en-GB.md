@@ -16,7 +16,7 @@ What we're saying here is that given the curvature function *C(t)*, we want to k
   C(t) = Bézier_x\prime(t) \cdot Bézier_y{\prime\prime}(t) - Bézier_y\prime(t) \cdot Bézier_x{\prime\prime}(t)
 \]
 
-So the function *C(t)* is wholly defined by the first and second derivative functions for the parametric dimensions of our curve. And as already shown, derivatives of Bézier curves are just simpler Bézier curves, with very easy to compute new coefficients, so this should be pretty easy.
+The function *C(t)* is the cross product between the first and second derivative functions for the parametric dimensions of our curve. And, as already shown, derivatives of Bézier curves are just simpler Bézier curves, with very easy to compute new coefficients, so this should be pretty easy.
 
 However as we've seen in the section on aligning, aligning lets us simplify things *a lot*, by completely removing the contributions of the first coordinate from most mathematical evaluations, and removing the last *y* coordinate as well by virtue of the last point lying on the x-axis. So, while we can evaluate *C(t) = 0* for our curve, it'll be much easier to first axis-align the curve and *then* evaluating the curvature function.
 

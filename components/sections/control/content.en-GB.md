@@ -7,7 +7,7 @@ The following graphs show the interpolation functions for quadratic and cubic cu
 <div className="figure">
   <Graphic inline={true} title="Quadratic interpolations"  draw={this.drawQuadraticLerp}/>
   <Graphic inline={true} title="Cubic interpolations"      draw={this.drawCubicLerp}/>
-  <Graphic inline={true} title="15th order interpolations" draw={this.draw15thLerp}/>
+  <Graphic inline={true} title="15th degree interpolations" draw={this.draw15thLerp}/>
 </div>
 
 Also shown is the interpolation function for a 15<sup>th</sup> order Bézier function. As you can see, the start and end point contribute considerably more to the curve's shape than any other point in the control point set.

@@ -68,7 +68,7 @@ I know what you're thinking: that doesn't look too simple, but if we remove <i>t
   linear &= \hspace{2.5em} 1 + 1 \\
   square &= \hspace{1.7em} 1 + 2 + 1\\
   cubic &= \hspace{0.85em} 1 + 3 + 3 + 1\\
-  hypercubic &= 1 + 4 + 6 + 4 + 1
+  quartic &= 1 + 4 + 6 + 4 + 1
 \end{aligned}
 \]
 
