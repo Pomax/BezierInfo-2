@@ -10,7 +10,7 @@ The first observation that makes things work is that if we have a cubic curve wi
 
 This is a fairly funky image, so let's see how it breaks down. We see the three fixed points at (0,0), (0,1) and (1,1), and then the fourth point is somewhere. Depending on where it is, our curve will have certain features. Namely, if the fourth point is...
 
-1. anywhere on and in the red zone, the curve will be self-intersecting, yielding either a cusp or a loop. Anywhere inside the red zone, this will be a loop. We won't know <i>where</i> that loop is (in terms of <i>t</i> values), but we are guaranteed that there is one.
+1. anywhere on and in the red zone, the curve will be self-intersecting, yielding either a cusp or a loop. Anywhere inside the red zone, this will be a loop. We won't know *where* that loop is (in terms of *t* values), but we are guaranteed that there is one.
 2. on the left (red) edge, the curve will have a cusp. We again don't know <em>where</em>, just that it
 has one. This edge is described by the function:
 
@@ -55,7 +55,7 @@ So now the question becomes: how do we manipulate our curve so that it fits this
 
 The approach is going to start with a curve that doesn't have all-colinear points (so we need to make sure the points don't all fall on a straight line), and then applying four graphics operations that you will probably have heard of: translation (moving all points by some fixed x- and y-distance), scaling (multiplying all points by some x and y scale factor), and shearing (an operation that turns rectangles into parallelograms).
 
-Step 1: we translate any curve by -p1.x and -p1.y, so that the curve starts at (0,0). We're going to make use of an interesting trick here, by pretending our 2D coordinates are 3D, with the <i>z</i> coordinate simply always being 1. This is an old trick in graphics to overcome the limitations of 2D transformations: without it, we can only turn (x,y) coordinates into new coordinates of the form (ax + by, cx + dy), which means we can't do translation, since that requires we end up with some kind of (x + a, y + b). If we add a bogus <i>z</i> coordinate that is always 1, then we can suddenly add arbitrary values. For example:
+Step 1: we translate any curve by -p1.x and -p1.y, so that the curve starts at (0,0). We're going to make use of an interesting trick here, by pretending our 2D coordinates are 3D, with the *z* coordinate simply always being 1. This is an old trick in graphics to overcome the limitations of 2D transformations: without it, we can only turn (x,y) coordinates into new coordinates of the form (ax + by, cx + dy), which means we can't do translation, since that requires we end up with some kind of (x + a, y + b). If we add a bogus *z* coordinate that is always 1, then we can suddenly add arbitrary values. For example:
 
 \[
 \left [ \begin{array}{ccc}
@@ -97,7 +97,7 @@ Step 1: we translate any curve by -p1.x and -p1.y, so that the curve starts at (
 \right ]
 \]
 
-Sweet! <i>z</i> stays 1, so we can effectively ignore it entirely, but we added some plain values to our x and y coordinates. So, if we want to subtract p1.x and p1.y, we use:
+Sweet! *z* stays 1, so we can effectively ignore it entirely, but we added some plain values to our x and y coordinates. So, if we want to subtract p1.x and p1.y, we use:
 
 \[
 T_1 =
@@ -132,7 +132,7 @@ T_1 =
 \right ]
 \]
 
-Running all our coordinates through this transformation gives a new set of coordinates, let's call those <b>U</b>, where the first coordinate lies on (0,0), and the rest is still somewhat free. Our next job is to make sure point 2 ends up lying on the <i>x=0</i> line, so what we want is a transformation matrix that, when we run it, subtracts <i>x</i> from whatever <i>x</i> we currently have. This is called [shearing](https://en.wikipedia.org/wiki/Shear_matrix), and the typical x-shear matrix and its transformation looks like this:
+Running all our coordinates through this transformation gives a new set of coordinates, let's call those **U**, where the first coordinate lies on (0,0), and the rest is still somewhat free. Our next job is to make sure point 2 ends up lying on the *x=0* line, so what we want is a transformation matrix that, when we run it, subtracts *x* from whatever *x* we currently have. This is called [shearing](https://en.wikipedia.org/wiki/Shear_matrix), and the typical x-shear matrix and its transformation looks like this:
 
 \[
 \left [
@@ -160,7 +160,7 @@ Running all our coordinates through this transformation gives a new set of coord
 \right ]
 \]
 
-So we want some shearing value that, when multiplied by <i>y</i>, yields <i>-x</i>, so our x coordinate becomes zero. That value is simply <i>-x/y</i>, because <i>-x/y * y = -x</i>. Done:
+So we want some shearing value that, when multiplied by *y*, yields *-x*, so our x coordinate becomes zero. That value is simply *-x/y*, because *-x/y * y = -x*. Done:
 
 \[
 T_2 =
@@ -173,7 +173,7 @@ T_2 =
 \right ]
 \]
 
-Now, running this on all our points generates a new set of coordinates, let's call those V, which now have point 1 on (0,0) and point 2 on (0, some-value), and we wanted it at (0,1), so we need to [do some scaling](https://en.wikipedia.org/wiki/Scaling_%28geometry%29) to make sure it ends up at (0,1). Additionally, we want point 3 to end up on (1,1), so we can also scale x to make sure its x-coordinate will be 1 after we run the transform. That means we'll be x-scaling by 1/point3<sub>x</sub>, and y-scaling by point2<sub>y</sub>. This is really easy:
+Now, running this on all our points generates a new set of coordinates, let's call those **V**, which now have point 1 on (0,0) and point 2 on (0, some-value), and we wanted it at (0,1), so we need to [do some scaling](https://en.wikipedia.org/wiki/Scaling_%28geometry%29) to make sure it ends up at (0,1). Additionally, we want point 3 to end up on (1,1), so we can also scale x to make sure its x-coordinate will be 1 after we run the transform. That means we'll be x-scaling by 1/point3<sub>x</sub>, and y-scaling by point2<sub>y</sub>. This is really easy:
 
 \[
 T_3 =
