@@ -7,6 +7,7 @@ class SliderSet extends React.Component {
   }
 
   render(props) {
+    props = props || {};
     var min = props.min || 0;
     var max = props.max || 1;
     var step = props.step || (max-min) / 100;
@@ -17,11 +18,11 @@ class SliderSet extends React.Component {
           <label>t<sub>{ i }</sub></label>
           <input
             type="range"
-            key={`row${i}`} 
-            min={min} 
-            max={max} 
-            defaultValue={v} 
-            step={step} 
+            key={`row${i}`}
+            min={min}
+            max={max}
+            defaultValue={v}
+            step={step}
             onChange={e => {
               this.options[i] = e.target.value;
               props.onChange(i, this.options);
