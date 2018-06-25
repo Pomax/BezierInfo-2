@@ -3,7 +3,7 @@ var React = require('react');
 var Footer = React.createClass({
 
   render: function() {
-    var copyright = "© 2011-2017";
+    var copyright = "© 2011-2018";
     return (
       <div>
         <footer className="copyright">

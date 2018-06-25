@@ -25,11 +25,11 @@
  **********************************************************************/
 
 var fs = require("fs-extra");
-var glob = require('glob');
 var path = require("path");
 var marked = require("marked");
 var chunk = require("./lib/chunk");
 var jsxshim = require("./lib/jsx-shim");
+var findLocales = require("./find-locales");
 
 // make sure we know what our base location is
 const BASEDIR = path.join(__dirname,"..");
@@ -73,7 +73,7 @@ function processLocation(loc, section, number) {
       // markdown conversion is a little more work
       let d = marked(block.data.trim());
 
-      // serious can we fucking not, please.
+      // seriously, can we fucking not, please?
       d = d.replace('<p></div></p>', '</div>')
           .replace(/&amp;/g, '&')
           .replace(/&#39;/g, "'")
@@ -217,14 +217,5 @@ function processLocale(locale) {
   writeContentBundle(locale, content);
 }
 
-// find all locales used and generate their respective content dirs
-glob(path.join(BASEDIR,"components/sections/**/content*md"), (err, files) => {
-  var locales = [];
-  files.forEach(file => {
-    let locale = file.match(/content\.([^.]+)\.md/)[1];
-    if (locales.indexOf(locale) === -1) {
-      locales.push(locale);
-    }
-  });
-  locales.forEach(processLocale);
-});
+// run all the things!
+findLocales(locales => locales.forEach(processLocale));
