@@ -225,10 +225,17 @@ figure canvas:focus {
   outline: none;
 }
 figure figcaption {
+  position: relative;
   text-align: center;
   padding: 0.5em 0;
   font-style: italic;
   font-size: 90%;
+}
+figure figcaption a.source {
+  position: absolute;
+  top: -4pt;
+  right: 0;
+  font-size: 8pt;
 }
 figure figcaption button {
   font-family: Verdana;

@@ -24,6 +24,10 @@ findLocales(locales => {
       fs.copySync(file, path.join(BASEDIR, "..", "bezierinfo", "images", "latex", path.basename(file)));
     });
 
+    // copy the compiled CSS
+    console.log(`Copying style.css`);
+    fs.copySync(path.join(BASEDIR, "stylesheets", "style.css"), path.join(BASEDIR, "..", "bezierinfo", "stylesheets", "style.css"));
+
     // copy the base article.js as well
     console.log(`Copying default article.js`);
     fs.copySync(path.join(BASEDIR, "article.js"), path.join(BASEDIR, "..", "bezierinfo", "article.js"));

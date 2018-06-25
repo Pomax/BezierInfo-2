@@ -66,8 +66,10 @@ Quartic—fourth degree—curves have a cubic function as derivative. Now, cubic
 generic form. So:
 
 \[
-  very\ hard:\ solve\ at^3 + bt^2 + ct + d = 0\\
-  easier:\ solve\ t^3 + pt + q = 0
+  \begin{aligned}
+    \textit{very hard: solve } & at^3 + bt^2 + ct + d = 0 \\
+    \textit{easier: solve } & t^3 + pt + q = 0
+  \end{aligned}
 \]
 
 This is easier because for the "easier formula" we can use [regular calculus](http://www.wolframalpha.com/input/?i=t^3+%2B+pt+%2B+q) to find the roots (as a cubic function, however, it can have up to three roots, but two of those can be complex. For the purpose of Bézier curve extremities, we can completely ignore those complex roots, since our *t* is a plain real number from 0 to 1).

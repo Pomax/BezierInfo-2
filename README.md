@@ -32,7 +32,7 @@ All fonts come with TeXLive and MiKTeX, and should be easy to install. Note that
 
 As mentioned up top, run a build using `npm run build`.
 
-If you have all the prerequisites installed, this should "just work", although I can't make any guarantees on how long it will take: on my rather beefy workstation it takes around 40 seconds to run a build for all locales (`en-GB`, `zh-CN`, and `ja-JP`).
+If you have all the prerequisites installed, this should "just work", although I can't make any guarantees on how long it will take: on my rather beefy workstation it takes around 85 seconds to run a build for all locales (`en-GB`, `zh-CN`, and `ja-JP`) when there are no new SVG images to generate.
 
 ## Main site location
 

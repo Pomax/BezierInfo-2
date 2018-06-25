@@ -247,6 +247,3 @@ So let's try it out! The following graphic lets you place points, and will start
 </div>
 
 You'll note there are also two convenient buttons: the "toggle" button lets you toggle between equidistance `t` values, and distance ratio along the polygon, and the "reset" button just clears the graphic so you can draw a new set of points. Arguably more interesting is that once you have points to abstract a curve, you also get <em>direct control</em> over the time values, because if the time values are our degree of freedom, you should be able to freely manipulate them and see what the effect on your curve is.
-
-
-
