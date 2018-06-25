@@ -26,7 +26,7 @@ var baseClass = {
       <figure className={this.props.inline ? "inline": false}>
         <canvas ref="canvas" {...cprops} {...handlers} />
         <figcaption>
-          <a className="source" href={sourceLink}>source</a>
+          <a className="source" href={sourceLink}>view source</a>
           {this.props.title}
           {this.props.children}
         </figcaption>

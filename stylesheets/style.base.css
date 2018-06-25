@@ -132,6 +132,25 @@ navigation.compact ul li {
 navigation.compact ul li:not(:last-child) {
   margin-right: 1em;
 }
+section.whats-new {
+  font-size: 90%;
+  background: rgba(150, 150, 50, 0.05);
+  border: 1px solid gray;
+  padding: 0.25em 1em;
+  box-sizing: border-box;
+  width: 70%;
+  margin: 1em auto -1em;
+}
+section.whats-new h2 {
+  margin: 0;
+  margin-top: 0.25em;
+}
+section.whats-new p.click-me {
+  font-size: 90%;
+  color: #0000c8;
+  font-style: italic;
+  cursor: pointer;
+}
 section {
   margin-top: 4em;
 }
