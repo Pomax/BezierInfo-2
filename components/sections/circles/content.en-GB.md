@@ -94,7 +94,7 @@ And the distance between these two is the standard Euclidean distance:
     d_x(φ) &= T_x - P_x = \frac{1}{4}(3 + cos(φ)) - cos(\frac{φ}{2}) = 2sin^4\left(\frac{φ}{4}\right) \ , \\
     d_y(φ) &= T_y - P_y = \frac{1}{4}\left(2tan\left(\frac{φ}{2}\right) + sin(φ)\right) - sin(\frac{φ}{2}) \ , \\
     &⇓\\
-    d(φ) &= \sqrt{d^2_x + d^2_y} = \ ... \  = 2sin^4(\frac{φ}{2})\sqrt{\frac{1}{cos^2(\frac{φ}{2})}}
+    d(φ) &= \sqrt{d^2_x + d^2_y} = \ ... \  = 2sin^4(\frac{φ}{4})\sqrt{\frac{1}{cos^2(\frac{φ}{2})}}
   \end{aligned}
 \]
 
