@@ -29,7 +29,7 @@ Of course, before we do our aligned check, let's see what happens if we compute 
 \[
 \begin{aligned}
   & Bézier(t) = x_1(1-t)^3 + 3x_2(1-t)^2t + 3x_3(1-t)t^2 + x_4t^3 \\
-  & Bézier^\prime(t) = a(1-t)^2 + 2b(1-t)^t + ct^2\  \left\{ a=3(x_2-x_1),b=3(x_3-x_2),c=3(x_4-x_3) \right\} \\
+  & Bézier^\prime(t) = a(1-t)^2 + 2b(1-t)t + ct^2\  \left\{ a=3(x_2-x_1),b=3(x_3-x_2),c=3(x_4-x_3) \right\} \\
   & Bézier^{\prime\prime}(t) = u(1-t) + vt\ \left\{ u=2(b-a),v=2(c-b) \right\}\
 \end{aligned}
 \]
@@ -39,7 +39,7 @@ And of course the same functions for *y*:
 \[
 \begin{aligned}
   & Bézier(t) = y_1(1-t)^3 + 3y_2(1-t)^2t + 3y_3(1-t)t^2 + y_4t^3 \\
-  & Bézier^\prime(t) = d(1-t)^2 + 2e(1-t)^t + ft^2\\
+  & Bézier^\prime(t) = d(1-t)^2 + 2e(1-t)t + ft^2\\
   & Bézier^{\prime\prime}(t) = w(1-t) + zt
 \end{aligned}
 \]
