@@ -1,78 +1,116 @@
-# Getting 3D normals
+# Working with 3D normals
 
 Before we move on to the next section we need to spend a little bit of time on the difference between 2D and 3D, because while for many things this difference is irrelevant and the procedures are identical (for instance, getting the 3D tangent is just doing what we do for 2D, but for x, y, and z, instead of just for x and y), when it comes to normals things are a little more complex, and thus more work. Mind you, it's not "super hard", but there are more steps involved and we should have a look at those.
 
-Getting normals in 3D is in principle the same as in 2D: we need to take the normalised tangent vector, and then rotate it by a quarter turn. However, this is where things get that little more complex: we can turn in quite a few directions, so we need to restrict the rotation to the plane that the tangent lies on. That might sound strange: tangents are themselves lines and lines simultaneously lie on an infinite number of planes, so what's up with that?
+Getting normals in 3D is in principle the same as in 2D: we take the normalised tangent vector, and then rotate it by a quarter turn. However, this is where things get that little more complex: we can turn in quite a few directions, since "the normal" in 3D is a plane, not a single vector, so we basically need to define what "the" normal is in the 3D case.
 
-Well, we know more about the tangent: we also know its rate of change. Think of the Bézier curve as the path of a car. The curve itself tells us the "place in space" at any given time, and the first derivative at any point tells us the "speed of the car at that point". However, we know more: we also know the tangent at "some next moment in time", the second derivative tells us the "acceleration of the car at that point", and if we add the acceleration to the velocity, we know where the car will be "if the curve stopped changing": as long as the curve we're dealing with is not degenerate (that is to say: it isn't actually a pure 2D curve that we simply rotated in 3D) then at any point in time we know two vectors in the same plane, with a third vector in that same plane, and a fourth vector perpendicular that we don't know yet:
+The "naïve" approach is to construct what is know as the [Frenet normal](https://en.wikipedia.org/wiki/Frenet%E2%80%93Serret_formulas), where we follow a simple recipe that works in many cases (but does super bizarre things in some others). The idea is that even though there are infinitely many vectors that are perpendicular to the tangent (i.e. make a 90 degree angle with it), the tangent itself sort of lies on its own plane already: since each point on the curve (no matter how closely spaced) has its own tangent vector, we can say that each point lies in the same plane as the local tangent, as well as the tangents "right next to it".
 
-- **t**, the (normalized) vector for the direction of travel at some point B(t),
-- **a**, the difference vector between "the tangent here" to what "the tangent at the next point" would be,
-- **t'** = **t** + **a**, that (normalized) "tangent at the next point",
-- **r**, a (normalized) vector aligned with the axis over which we can rotate **t** to overlap **t'**, and
-- **n**, the normal at B(t).
+Even if that difference in tangent vectors is minute, "any difference" is all we need to find out what that plane is. Or rather, what the vector perpendicular to that plane is. Which is what we need: if we can calculate that vector, and we have the tangent vector that we know lies in a plane, then we we can rotate the tangent vector over the perpendicular, and presto. We have computer the normal using the same logic we used for the 2D case: "just rotate it 90 degrees".
 
-The following graphic shows us some of those known and unknown vectors: when you mouse-over the graphic, you will see a point on the curve selected, showing **t** in green, **r** in blue, and **n** in red (note: all of them scaled to a uniform length). As you move across the graphic, you will see the point, and the corresponding vectors, move along the curve. Notice how the vectors rotate around the curve itself: by visualising them, we can see something that would otherwise be invisible to us: this curve twists!
+So let's do that! And in a twist surprise, we can do this in four lines:
 
-<Graphic title="Some known and unknown vectors" setup={this.setup} draw={this.drawVectors}/>
+- **a** = normalize(B'(t))
+- **b** = normalize(**a** + B''(t))
+- **r** = normalize(**b** × **a**)
+- **normal** = normalize(**r** × **a**)
 
-All these vectors have the same origin (except for **a** but we only use that to find **t'**): our on-curve point. And that means we can quite easily compute the axis over which we need to rotate any of these vectors to overlap another. Since we know **t** and **t'**, we can compute that axis with some linear algebra, and then we're almost done, because as in the 2D case getting the normal is a question of rotating the (normalized) tangent by a quarter turn over our axis of rotation.
+Let's unpack that a little:
 
-First up: we need to actually *find* that axis of rotation. As it turns out, this is quite easy: we just compute the [cross product](https://en.wikipedia.org/wiki/Cross_product#Mnemonic) of our two known vectors, and that will give us **r**:
+- We start by taking the [normalized vector](https://en.wikipedia.org/wiki/Unit_vector) for the derivative at some point on the curve. We normalize it so the maths is less work. Less work is good.
+- Then, we compute **b** which represents what a next point's tangent would be if the curve stopped changing at our point and just had the same derivative and second derivative from that point on.
+- This lets us find two vectors (the derivative, and the second derivate added to the derivative) that lie in the same plane, which means we can use them to compute a vector perpendicular to that plane, using an elementary vector operation called the [cross product](https://en.wikipedia.org/wiki/Cross_product) (note that while that operation uses the × operator, it's most definitely not a multiplication!). The result of that gives us a vector that we can use as "axis of rotation" for turning the tangent a quarter circle to get our normal just like in the 2D case.
+- Since the cross product lets us find a vector that is perpendicular to some plane defined by two other vectors, and since the normal vector should be perpendicular to the plane that the tangent and the axis of rotation lie in, we can use the cross product a second time, and immediately get our normal vector.
 
-\[
-  r = \textit{normalize} \left ( t' \times t \right ) = \textit{normalize} \left ( \begin{bmatrix}
-      t'_y \cdot t_z - t'_z \cdot t_y\\
-      t'_z \cdot t_x - t'_x \cdot t_z\\
-      t'_x \cdot t_y - t'_y \cdot t_x
-  \end{bmatrix} \right )
-\]
+And then we're done, we found "the" normal vector for a 3D curve. Let's see what that looks like for a sample curve, shall we? You can move your cursor across the graphic from left to right, to show the normal at a point with a t value that is based on your cursor position: all the way on the left is 0, all the way on the right = 1, midway is t=0.5, etc:
 
-(Note that the order of operations matters for cross products: we compute **t'**×**t**, because if we compute **t**×**t'** we'll be computing the same axis of rotation, but represented by a vector in the opposite direction, so our final normal will actually be rotated a quarter turn "the wrong way". While correcting that is super easy, literally just taking our final normal and multiplying by -1, why correct after the fact what we can get it right from the start?)
+<Graphic title="Some known and unknown vectors" setup={this.setup} draw={this.drawFrenetVectors}/>
 
-Note that the cross product does not yield a normalized vector, so we have to do this manually. We already saw how to do this in the above section, though:
+However, if you've played with that graphic a bit, you might have noticed something odd. The normal seems to "suddenly twist around" around between t=0.5 and t=0.75 - why is doing that?
 
-\[
-  \textit{normalize}(v) = \frac{v}{\left \| v \right \|}
-\]
+As it turns out, it's doing that because that's how the maths works, and that's the problem with Frenet normals: while they are "mathematically correct", they are "practically problematic", and so for any kind of graphics work what we really want is a way to compute normals that just... look good.
 
-Now we have everything we need: in order to turn our normalised tangent vectors into normal vectors, all we have to do is rotate them about the axes we just found by a quarter turn. If we turn them one way, we get normals, if we turn them the other, we get backfacing normals.
+Thankfully, Frenet normals are not our only option.
 
-[Rotating about an axis is perhaps laborious, but not difficult](https://en.wikipedia.org/wiki/Rotation_matrix#Rotation_matrix_from_axis_and_angle), and much like in the 2D case, quarter turns in 3D greatly simplify the maths. To rotate a point a quarter turn over our rotation axis **r**, the rotation matrix is:
+Another option is to take a slightly more algorithmic approach and compute a form of [Rotation Minimising Frame](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/Computation-of-rotation-minimizing-frames.pdf) (also known as "parallel transport frame" or "bishop frame") instead, where a "frame" is a set of tangent, rotational axis, and normal vector, centered on an on-curve point.
 
-\[
-  R = \begin{bmatrix}
-       r^2_x     & r_x \cdot r_y - r_z  & r_x \cdot r_z + r_y \\
-       r_x \cdot r_y + r_z &      r^2_y     & r_y \cdot r_z - r_x \\
-       r_x \cdot r_z - r_y &  r_y \cdot r_z + r_x &     r^2_z
-  \end{bmatrix}
-\]
+These type of frames are computed based on "the previous frame", so we cannot simply compute these "on demand" for single points as we could for Frenet frames; we have to compute them for the entire curve. But, the procedure is pretty simple, and can be performed at the same time you would normally build any lookup tables for your curve.
 
-So that's still easy: just tell the computer to evaluate those nine values, and all that's left is a matrix multiplication to get our 3D normal:
+The idea is to take a starting "tangent/rotation axis/normal" frame at t=0, and then compute what the next frame "should" look like by applying some rules that yield a good looking next frame. In the case of the RMF paper linked above, those rules are:
 
-\[
-  n = R \cdot t
-\]
+- Take a point on the curve for which we know the RM frame already,
+- take a next point on the curve for which we don't know the RM frame yet,
+- reflect the known frame onto the next point, by treating the plane through the curve at the point exactly between the next and previous points as a "mirror".
+- This gives the next point a tangent vector that essentially in the opposite direction of what it should be in, and a normal that's slightly off-kilter, so:
+- reflect the vectors of our "mirrored frame" a second time, but this time using the plane through the next point itself as "mirror".
+- Done: the tangent and normal have been fixed, and we have a good looking frame to work with.
 
-Which means computing:
+So, let's write some code for that!
 
-\[
-  n =
-  \begin{bmatrix}
-       n_x \\
-       n_y \\
-       n_z
-  \end{bmatrix}
-  =
-  \begin{bmatrix}
-  t_x \cdot R_{1,1} + t_y \cdot R_{1,2} + t_z \cdot R_{1,3} \\
-  t_x \cdot R_{2,1} + t_y \cdot R_{2,2} + t_z \cdot R_{2,3} \\
-  t_x \cdot R_{3,1} + t_y \cdot R_{3,2} + t_z \cdot R_{3,3}
-  \end{bmatrix}
-\]
+<div className="howtocode">
 
-And with that, we have the normal vector(s) we were looking for. Perfect! And if we need backfacing normals, we can either effect those "from the start" by evaluating the cross product as **t**×**t'** as mentioned above, or we can multiply the normal vector we get here by -1.
+### Implementing Rotation Minimising Frames
 
-So, let's look at the same graphic as above to see it all in action again, but this time with some projections turned on, so that you can see how different things are in 3D, compared to 2D: look at how the tangent and normal (and axis of rotation) change as you move along the curve in each projection: that doesn't look anything like what we'd see if we compute the normal purely in 2D!
+We first assume we have a function for calculating the Frenet frame at a point, which we already discussed above, inn a way that it yields a frame with properties:
 
-<Graphic title="Appreciating 3D curve normals" setup={this.setup} draw={this.drawNormals}/>
+```
+{
+  o: origin of all vectors, i.e. the on-curve point,
+  t: tangent vector,
+  r: rotational axis vector,
+  n: normal vector
+}
+```
+
+Then, we can write a function that generates a sequence of RM frames in the following manner:
+
+```
+generateRMFrames(steps) -> frames:
+  step = 1.0/steps
+
+  // Start off with the standard tangent/axis/normal frame
+  // associated with the curve at t=0:
+  frames.add(getFrenetFrame(0));
+
+  // start constructing RM frames:
+  for t0 = 0, t0 < 1.0, t0 += step:
+    // start with the previous, known frame
+    x0 = frames.last;
+
+    // get the next frame: we're going to keep its position and tangent,
+    // but we're going to recompute the axis and normal.
+    t1 = t0 + step;
+    x1 = { o: getPoint(t1), t: getDerivative(t) };
+
+    // First we reflect x0's tangent and axis of rotation onto x1,
+    // through/ the plane of reflection at the point between x0 x1
+    v1 = x1.o - x0.o
+    c1 = v1 · v1
+    riL = x0.r - v1 * 2/c1 * v1 · x0.r
+    tiL = x0.t - v1 * 2/c1 * v1 · x0.t
+
+    // note that v1 is a vector, but 2/c1 and (v1 · ...) are just
+    // plain numbers, so we're just scaling v1 by some constant.
+
+    // Then we reflection a second time, over a plane at x1 so that
+    // the frame tangent is aligned with the curve tangent again:
+    v2 = x1.t - tiL
+    c2 = v2 · v2
+
+    // and we're done here:
+    x1.r = riL - v2 * 2/c2 * v2 · riL
+    x1.n = x1.r × x1.t
+    frames.add(x1)
+```
+
+Ignoring comments, this is certainly more code than when we were just computing a single Frenet frame, but it's not a crazy amount more code to get much better looking normals.
+
+</div>
+
+Speaking of better looking, what does this actually look like? Let's revisit that earlier curve, but this time use rotation minimising frames rather than Frenet frames:
+
+<Graphic title="Æsthetically much better 3D curve normals" setup={this.setup} draw={this.drawRMFNormals}/>
+
+Now that looks much better!
+
+For those reading along with the code: we don't even strictly speaking needs a Frenet frame to start with: we could for instance treat the z-axis as our initial axis of rotation, so that our initial normal is **(0,0,1) × tangent**, and then take things from there, but having that initial "mathematically correct" frame so that the initial normal seems to line up based on the curve's orientation in 3D space is quite useful.

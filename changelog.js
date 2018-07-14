@@ -1,5 +1,9 @@
 module.exports = {
 
+  "July 2018": [
+    "Solved a long-standing problem around 3D normals, by implementing and explaining Rotation Minimising Frames."
+  ],
+
   "June 2018": [
     "Added a section on direct curve fitting.",
     "Added source links for all graphics.",
