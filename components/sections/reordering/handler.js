@@ -1,22 +1,5 @@
 var Reordering = {
   statics: {
-    // Improve this based on http://www.sirver.net/blog/2011/08/23/degree-reduction-of-bezier-curves/
-    lower: function(curve) {
-      var pts = curve.points, q=[], n = pts.length;
-      pts.forEach((p,k) => {
-        if (!k) { return (q[k] = p); }
-        var f1 = k/n, f2 = 1 - f1;
-        q[k] = {
-          x: f1 * p.x + f2 * pts[k-1].x,
-          y: f1 * p.y + f2 * pts[k-1].y
-        };
-      });
-      q.splice(n-1,1);
-      q[n-2] = pts[n-1];
-      curve.points = q;
-      return curve;
-    },
-
     keyHandlingOptions: {
       values: {
         "38": function(api) {
@@ -27,6 +10,23 @@ var Reordering = {
         }
       }
     }
+  },
+
+  // Improve this based on http://www.sirver.net/blog/2011/08/23/degree-reduction-of-bezier-curves/
+  lower: function(curve) {
+    var pts = curve.points, q=[], n = pts.length;
+    pts.forEach((p,k) => {
+      if (!k) { return (q[k] = p); }
+      var f1 = k/n, f2 = 1 - f1;
+      q[k] = {
+        x: f1 * p.x + f2 * pts[k-1].x,
+        y: f1 * p.y + f2 * pts[k-1].y
+      };
+    });
+    q.splice(n-1,1);
+    q[n-2] = pts[n-1];
+    curve.points = q;
+    return curve;
   },
 
   getInitialState: function() {
