@@ -58,6 +58,7 @@ module.exports = {
   // "things made of more than on curve"
   polybezier: require("./polybezier"),
   shapes: require("./shapes"),
+  //drawing: require("./drawing"),
 
   // curve offsetting
   projections: require("./projections"),
