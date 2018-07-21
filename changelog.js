@@ -2,7 +2,7 @@ module.exports = {
 
   "July 2018": [
     "Solved a long-standing problem around 3D normals, by implementing and explaining Rotation Minimising Frames.",
-    "Updated the section on curve order raising/lowering, show how to get the least-sum"
+    "Updated the section on curve order raising/lowering, showing how to get a least-squares optimized lower order curve."
   ],
 
   "June 2018": [
