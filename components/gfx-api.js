@@ -72,6 +72,7 @@ var API = {
   },
 
   mouseMove: function(evt) {
+
     if(!this.props.static) {
 
       if (this.down) {
@@ -108,6 +109,9 @@ var API = {
             }
           }
         } else if (this.curve && this.curve.update) { this.curve.update(); }
+      } else {
+        this.mx = evt.offsetX;
+        this.my = evt.offsetY;
       }
     }
 
