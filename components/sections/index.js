@@ -35,6 +35,7 @@ module.exports = {
   tightbounds: require("./tightbounds"),
   inflections: require("./inflections"),
   canonical: require("./canonical"),
+  yforx: require('./yforx'),
 
   // accurate arc length is hard, yo
   arclength: require("./arclength"),

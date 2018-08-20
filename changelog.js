@@ -1,5 +1,9 @@
 module.exports = {
 
+  "August 2018": [
+    "Added a section on finding a curve's y, if all you have is the x coordinate."
+  ],
+
   "July 2018": [
     "Rewrote the 3D normals section, implementing and explaining Rotation Minimising Frames.",
     "Updated the section on curve order raising/lowering, showing how to get a least-squares optimized lower order curve.",

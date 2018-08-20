@@ -58,7 +58,7 @@ function monitor(watcher, scripts) {
 monitor(
   chokidar.watch([
     'components/**/*.js',
-    'components/**/*.md',
+    'components/**/**.md',
     'components/**/*.jsx',
     'lib/**/*.js',
     'changelog.js'
