@@ -1,17 +1,31 @@
 module.exports = {
+  /**
+   * Setup function for a default quadratic curve.
+   */
   setupQuadratic: function(api) {
     var curve = api.getDefaultQuadratic();
     api.setCurve(curve);
   },
 
+  /**
+   * Setup function for a default cubic curve.
+   */
   setupCubic: function(api) {
     var curve = api.getDefaultCubic();
     api.setCurve(curve);
   },
 
+  /**
+   * A coordinate rotation function that rotates and
+   * translates the curve, such that the first coordinate
+   * of the curve is (0,0) and the last coordinate is (..., 0)
+   */
   align: function(points, line) {
     var tx = line.p1.x,
         ty = line.p1.y,
+        // The atan2 function is so important to computing
+        // that most CPUs have a dedicated implementation
+        // at the hardware level for it.
         a = -Math.atan2(line.p2.y-ty, line.p2.x-tx),
         cos = Math.cos,
         sin = Math.sin,
@@ -24,6 +38,10 @@ module.exports = {
     return points.map(d);
   },
 
+  /**
+   * Draw a curve and its aligned counterpart
+   * side by side across two panels.
+   */
   draw: function(api, curve) {
     api.setPanelCount(2);
     api.reset();

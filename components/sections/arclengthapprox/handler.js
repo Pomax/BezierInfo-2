@@ -1,4 +1,7 @@
 module.exports = {
+  // These are functions that can be called "From the page",
+  // rather than being internal to the sketch. This is useful
+  // for making on-page controls hook into the sketch code.
   statics: {
     keyHandlingOptions: {
       propName: "steps",
@@ -14,18 +17,29 @@ module.exports = {
     }
   },
 
+  /**
+   * Set up the default quadratic curve.
+   */
   setupQuadratic: function(api) {
     var curve = api.getDefaultQuadratic();
     api.setCurve(curve);
     api.steps = 10;
   },
 
+  /**
+   * Set up the default cubic curve.
+   */
   setupCubic: function(api) {
     var curve = api.getDefaultCubic();
     api.setCurve(curve);
     api.steps = 16;
   },
 
+  /**
+   * Draw a curve and its polygon-approximation,
+   * showing the "true" length of the curve vs. the
+   * length based on tallying up the polygon sections.
+   */
   draw: function(api, curve) {
     api.reset();
     api.drawSkeleton(curve);

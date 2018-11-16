@@ -2,6 +2,11 @@ var sin = Math.sin;
 var tau = Math.PI*2;
 
 module.exports = {
+  /**
+   * Set up a sinusoid generating function,
+   * which we'll use to draw the "progressively
+   * better looking" integral approximations.
+   */
   setup: function(api) {
     var w = api.getPanelWidth();
     var h = api.getPanelHeight();
@@ -22,6 +27,9 @@ module.exports = {
     }
   },
 
+  /**
+   * Draw the generator's sine function:
+   */
   drawSine: function(api, dheight) {
     var w = api.getPanelWidth();
     var h = api.getPanelHeight();
@@ -33,6 +41,12 @@ module.exports = {
     api.drawFunction(generator, {x:0, y:h/2});
   },
 
+  /**
+   * Draw the sliced between the sine curve and
+   * the x-axis, with a variable number of steps so
+   * we can show the approximation becoming better
+   * and better as we increase the step count.
+   */
   drawSlices: function(api, steps) {
     var w = api.getPanelWidth();
     var h = api.getPanelHeight();
@@ -44,11 +58,15 @@ module.exports = {
     api.setFill("rgba(150,150,255, 0.4)");
     for (var step=tau/steps, i=step/2, v, p1, p2; i<tau+step/2; i+=step) {
       v = this.generator(i);
+
+      // draw a rectangular strip between the curve and the x-axis:
       p1 = {x:v.x - f*step/2 + c, y: 0};
       p2 = {x:v.x + f*step/2 - c, y: v.y * this.generator.scale};
 
       if (!c) { api.setFill("rgba(150,150,255,"+(0.4 + 0.3*Math.random())+")"); }
       api.drawRect(p1, p2, {x:0, y:h/2});
+
+      // and keep track of the (much simpler to compute) approximated area under the curve so far:
       area += step * Math.abs(v.y * this.generator.scale);
     }
     api.setFill("black");
@@ -57,29 +75,45 @@ module.exports = {
     api.text("Approximating with "+steps+" strips (true area: "+trueArea+"): " + currArea, {x: 10, y: h-15});
   },
 
+  /**
+   * Draw the sine curve, with a 10 slice approximation:
+   */
   drawCoarseIntegral: function(api) {
     api.reset();
     this.drawSlices(api, 10);
     this.drawSine(api);
   },
 
+  /**
+   * Draw the sine curve, with a 24 slice approximation:
+   */
   drawFineIntegral: function(api) {
     api.reset();
     this.drawSlices(api, 24);
     this.drawSine(api);
   },
 
+  /**
+   * Draw the sine curve, with a 99 slice approximation:
+   */
   drawSuperFineIntegral: function(api) {
     api.reset();
     this.drawSlices(api, 99);
     this.drawSine(api);
   },
 
+  /**
+   * Set up a default cubic curve for which we'll be determining
+   * its length, using the iterative integral approach:
+   */
   setupCurve: function(api) {
     var curve = api.getDefaultCubic();
     api.setCurve(curve);
   },
 
+  /**
+   * Draw our curve, and show its computed length:
+   */
   drawCurve: function(api, curve) {
     api.reset();
     api.drawSkeleton(curve);

@@ -1,6 +1,9 @@
 var atan2 = Math.atan2, PI = Math.PI, TAU = 2*PI, cos = Math.cos, sin = Math.sin;
 
 module.exports = {
+  // These are functions that can be called "From the page",
+  // rather than being internal to the sketch. This is useful
+  // for making on-page controls hook into the sketch code.
   statics: {
     keyHandlingOptions: {
       propName: "error",
@@ -16,22 +19,39 @@ module.exports = {
     }
   },
 
+  /**
+   *  Setup up a skeleton curve that, when using its
+   *  points for a B-spline, can form a circle.
+   */
   setupCircle: function(api) {
     var curve = new api.Bezier(70,70, 140,40, 240,130);
     api.setCurve(curve);
   },
 
+  /**
+   * Set up the default quadratic curve.
+   */
   setupQuadratic: function(api) {
     var curve = api.getDefaultQuadratic();
     api.setCurve(curve);
   },
 
+  /**
+   * Set up the default cubic curve.
+   */
   setupCubic: function(api) {
     var curve = api.getDefaultCubic();
     api.setCurve(curve);
     api.error = 0.5;
   },
 
+  /**
+   * Given three points, find the (only!) circle
+   * that passes through all three points, based
+   * on the fact that the perpendiculars of the
+   * chords between the points all cross each
+   * other at the center of that circle.
+   */
   getCCenter: function(api, p1, p2, p3) {
     // deltas
     var dx1 = (p2.x - p1.x),
@@ -69,15 +89,9 @@ module.exports = {
     // determine arc direction (cw/ccw correction)
     var __;
     if (s<e) {
-      // if s<m<e, arc(s, e)
-      // if m<s<e, arc(e, s + TAU)
-      // if s<e<m, arc(e, s + TAU)
       if (s>m || m>e) { s += TAU; }
       if (s>e) { __=e; e=s; s=__; }
     } else {
-      // if e<m<s, arc(e, s)
-      // if m<e<s, arc(s, e + TAU)
-      // if e<s<m, arc(s, e + TAU)
       if (e<m && m<s) { __=e; e=s; s=__; } else { e += TAU; }
     }
 
@@ -88,6 +102,9 @@ module.exports = {
     return i;
   },
 
+  /**
+   * Draw the circle-computation sketch
+   */
   drawCircle: function(api, curve) {
     api.reset();
     var pts = curve.points;
@@ -127,6 +144,10 @@ module.exports = {
     api.text("Intersection point", C, {x:-25, y:10});
   },
 
+  /**
+   * Draw a single arc being fit to a Bezier curve,
+   * to show off the general application.
+   */
   drawSingleArc: function(api, curve) {
     api.reset();
     var arcs = curve.arcs(api.error);
@@ -143,6 +164,9 @@ module.exports = {
     api.text("Arc approximation with total error " + api.utils.round(api.error,1), {x:10, y:15});
   },
 
+  /**
+   * Draw an arc approximation for an entire Bezier curve.
+   */
   drawArcs: function(api, curve) {
     api.reset();
     var arcs = curve.arcs(api.error);
