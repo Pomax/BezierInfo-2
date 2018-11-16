@@ -162,7 +162,7 @@ function Bezier(3,t):
   return mt3 + 3*mt2*t + 3*mt*t2 + t3
 ```
 
-And now we know how to program the basis function. Exellent.
+And now we know how to program the basis function. Excellent.
 
 </div>
 

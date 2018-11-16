@@ -9,7 +9,7 @@
     }],
     "no-empty": [2],
     "no-console": [0],
-    "comma-dangle": [2],
+    "comma-dangle": [0],
     "no-unused-vars": [0],
     "linebreak-style": [2, "unix"],
     "semi": [2, "always"]

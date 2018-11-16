@@ -24,8 +24,8 @@ If we then rotate the curve so that its end point lies on the x-axis, the coordi
 
 \[
 \left \{ \begin{matrix}
-  x = BLUE[0] \cdot (1-t)^3 BLUE[+ 85] \cdot 3 \cdot (1-t)^2 \cdot t BLUE[+ 12] \cdot 3 \cdot (1-t) \cdot t^2 BLUE[- 156] \cdot t^3 \\
-  y = BLUE[0] \cdot (1-t)^3 BLUE[+ 40] \cdot 3 \cdot (1-t)^2 \cdot t BLUE[- 140] \cdot 3 \cdot (1-t) \cdot t^2 BLUE[+ 0] \cdot t^3
+  x = BLUE[0] \cdot (1-t)^3 BLUE[- 85] \cdot 3 \cdot (1-t)^2 \cdot t BLUE[- 12] \cdot 3 \cdot (1-t) \cdot t^2 BLUE[+ 156] \cdot t^3 \\
+  y = BLUE[0] \cdot (1-t)^3 BLUE[- 40] \cdot 3 \cdot (1-t)^2 \cdot t BLUE[+ 140] \cdot 3 \cdot (1-t) \cdot t^2 BLUE[+ 0] \cdot t^3
 \end{matrix} \right.
 \]
 
@@ -33,8 +33,8 @@ If we drop all the zero-terms, this gives us:
 
 \[
 \left \{ \begin{array}{l}
-  x = BLUE[85] \cdot 3 \cdot (1-t)^2 \cdot t BLUE[+ 13] \cdot 3 \cdot (1-t) \cdot t^2 BLUE[- 156] \cdot t^3 \\
-  y = BLUE[40] \cdot 3 \cdot (1-t)^2 \cdot t BLUE[- 141] \cdot 3 \cdot (1-t) \cdot t^2
+  x = BLUE[- 85] \cdot 3 \cdot (1-t)^2 \cdot t BLUE[- 12] \cdot 3 \cdot (1-t) \cdot t^2 BLUE[+ 156] \cdot t^3 \\
+  y = BLUE[- 40] \cdot 3 \cdot (1-t)^2 \cdot t BLUE[+ 140] \cdot 3 \cdot (1-t) \cdot t^2
 \end{array} \right.
 \]
 
