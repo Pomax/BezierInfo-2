@@ -58,7 +58,7 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-register": "^6.4.3",
-    "bezier-js": "^2.2.7",
+    "bezier-js": "^2.2.18",
     "block-loader": "^2.0.0",
     "chokidar": "^2.0.4",
     "chroma-js": "^1.1.1",
