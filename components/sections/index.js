@@ -34,6 +34,7 @@ module.exports = {
   aligning: require("./aligning"),
   tightbounds: require("./tightbounds"),
   inflections: require("./inflections"),
+  curvature: require("./curvature"),
   canonical: require("./canonical"),
   yforx: require('./yforx'),
 
