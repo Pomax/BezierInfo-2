@@ -40,6 +40,7 @@ module.exports = {
   // accurate arc length is hard, yo
   arclength: require("./arclength"),
   arclengthapprox: require("./arclengthapprox"),
+  curvature: require("./curvature"),
   tracing: require("./tracing"),
 
   // curve intersections

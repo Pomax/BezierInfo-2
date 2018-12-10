@@ -1,5 +1,9 @@
 module.exports = {
 
+  "December 2018": [
+    "Added a section on curvature and calculating kappa."
+  ],
+
   "August 2018": [
     "Added a section on finding a curve's y, if all you have is the x coordinate."
   ],
