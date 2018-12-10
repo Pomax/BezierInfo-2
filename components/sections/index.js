@@ -34,13 +34,13 @@ module.exports = {
   aligning: require("./aligning"),
   tightbounds: require("./tightbounds"),
   inflections: require("./inflections"),
-  curvature: require("./curvature"),
   canonical: require("./canonical"),
   yforx: require('./yforx'),
 
   // accurate arc length is hard, yo
   arclength: require("./arclength"),
   arclengthapprox: require("./arclengthapprox"),
+  curvature: require("./curvature"),
   tracing: require("./tracing"),
 
   // curve intersections
