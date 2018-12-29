@@ -63,6 +63,13 @@ footer {
   width: 13vw;
   height: 11vw;
 }
+.support {
+  font-family: Verdana;
+  font-size: 0.8em;
+}
+.support .support-link {
+  color: #e75b24;
+}
 .locale-switcher {
   text-align: center;
   margin-bottom: 2em;
