@@ -1,7 +1,8 @@
 module.exports = {
 
   "December 2018": [
-    "Added a section on curvature and calculating kappa."
+    "Added a section on curvature and calculating kappa.",
+    "Added a Patreon page! Head on over to https://patreon.com/bezierinfo to help support this site!"
   ],
 
   "August 2018": [
