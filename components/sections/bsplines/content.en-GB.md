@@ -27,7 +27,7 @@ Given a B-Spline of degree `d` and thus order `k=d+1` (so a quadratic B-Spline i
 
 Which, honestly, doesn't tell us all that much. All we can see is that a point on a B-Spline curve is defined as "a mix of all the control points, weighted somehow", where the weighting is achieved through the *N(...)* function, subscripted with an obvious parameter `i`, which comes from our summation, and some magical parameter `k`. So we need to know two things: 1. what does N(t) do, and 2. what is that `k`? Let's cover both, in reverse order.
 
-The parameter `k` represents the "knot interval" over which a section of curve is defined. As we learned earlier, a B-Spline curve is itself an interpoliation of curves, and we can treat each transition where a control point starts or tops influencing the total curvature as a "knot on the curve".
+The parameter `k` represents the "knot interval" over which a section of curve is defined. As we learned earlier, a B-Spline curve is itself an interpoliation of curves, and we can treat each transition where a control point starts or stops influencing the total curvature as a "knot on the curve".
 Doing so for a degree `d` B-Spline with `n` control point gives us `d + n + 1` knots, defining `d + n` intervals along the curve, and it is these intervals that the above `k` subscript to the N() function applies to.
 
 Then the N() function itself. What does it look like?
