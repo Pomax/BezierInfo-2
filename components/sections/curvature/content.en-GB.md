@@ -21,13 +21,13 @@ Let me just highlight that before we move on: we calculate the curvature of a cu
 But, that's what makes maths such an interesting thing: it can show you that all your assumptions are completely wrong, only to then go "but actually, you were on the right track all along, here: ..." with a solution that is so easy to work with as to almost seem mundane. So: enough of all this text, how do we calculate curvature? What is the function for κ? Concisely, the function is this:
 
 \[
-  \kappa = \frac{{x}'{y}'' - {x}''{y}'}{({x}'^2+{y}'^2)^{\frac{2}{3}}}
+  \kappa = \frac{{x}'{y}'' - {x}''{y}'}{({x}'^2+{y}'^2)^{\frac{3}{2}}}
 \]
 
 Which is really just a "short form" that glosses over the fact that we're dealing with functions:
 
 \[
-  \kappa(t) = \frac{{B_x}'(t){B_y}''(t) - {B_x}''(t){B_y}'(t)}{({B_x}'(t)^2+{B_y}'(t)^2)^{\frac{2}{3}}}
+  \kappa(t) = \frac{{B_x}'(t){B_y}''(t) - {B_x}''(t){B_y}'(t)}{({B_x}'(t)^2+{B_y}'(t)^2)^{\frac{3}{2}}}
 \]
 
 And while that's a litte more verbose, it's still just as simple to work with as the first function: the curvature at some point on any (and this cannot be overstated: _any_) curve is a ratio between the first and second derivative cross product, and something that looks oddly similar to the standard Euclidean distance function. And nothing in these functions is hard to calculate either: for Bézier curves, simply knowing our curve coordinates means [we know what the first and second derivatives are](#derivatives), and so evaluating this function for any **t** value is just a matter of basic arithematics.
@@ -47,7 +47,7 @@ function kappa(t, B):
   ddx = dd.getX(t)
   ddy = dd.getY(t)
   numerator = dx * ddy + dy * dx
-  denominator = pow(dx*dx + dy*dy, 2/3)
+  denominator = pow(dx*dx + dy*dy, 1.5)
   return numerator / denominator
 ```
 That was easy!
