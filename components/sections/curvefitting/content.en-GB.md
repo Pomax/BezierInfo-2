@@ -6,7 +6,7 @@ And really this is just a variation on the question "how do I get the curve thro
 
 Now, there are many ways to determine how "off" points are from the curve, which is where that "least squares" term comes in. The most common tool in the toolbox is to minimise the _squared distance_ between each point we have, and the corrsponding point on the curve we end up "inventing". A curve with a snug fit will have zero distance between those two, and a bad fit will have non-zero distances between every such pair. It's a workable metric. You might wonder why we'd need to square, rather than just ensure that distance is a positive value (so that the total error is easy to compute by just summing distances) and the answer really is "because it tends to be a little better". There's lots of literature on the web if you want to deep dive the specific merits of least squared error metrics versus least absolute error metrics, but those are <em>well</em> beyond the scope of this material.
 
-So let's look at what we end up with in terms of curve fitting if we start with the idea of performing least squares Bézier fitting. We're going to follow a procedure similar to the one described by Jim Herold over on his ["Least Squares Bézier Fit"](http://jimherold.com/2012/04/20/least-squares-bezier-fit/) article, and end with some nice interactive graphics for doing some curve fitting.
+So let's look at what we end up with in terms of curve fitting if we start with the idea of performing least squares Bézier fitting. We're going to follow a procedure similar to the one described by Jim Herold over on his ["Least Squares Bézier Fit"](https://web.archive.org/web/20180403213813/http://jimherold.com/2012/04/20/least-squares-bezier-fit/) article, and end with some nice interactive graphics for doing some curve fitting.
 
 Before we begin, we're going to use the curve in matrix form. In the [section on matrices](#matrix), I mentioned that some things are easier if we use the matrix representation of a Bézier curve rather than its calculus form, and this is one of those things.
 
@@ -67,7 +67,7 @@ We can do the same for the cubic curve of course. We know the base function for 
 
 \[
   \begin{aligned}
-    B_{cubic} & = & a(1-t)^3 + 3b(1-t)^2 t + c(1-t)t^2 + dt^3
+    B_{cubic} & = & a(1-t)^3 + 3b(1-t)^2 t + 3c(1-t)t^2 + dt^3
   \end{aligned}
 \]
 
@@ -157,6 +157,7 @@ Where  `length()` is literally just that: the length of the line segment between
     S = \begin{bmatrix}s_1 & s_2 & ... & s_n \end{bmatrix}, \textit{ where }
   \left \{
   \begin{matrix}
+    s_1 = 0 \\
     s_i = d_i / d_n \\
     s_n = 1
   \end{matrix}
@@ -196,11 +197,23 @@ This leaves one problem: **T** isn't actually the matrix we want: we don't want 
 
 \[
 𝕋 = \begin{bmatrix}
- 1     & s_1 & s^2_1 & ... & s^n_1 \\
-       &     &       &     &       \\
-       &     & ...   &     &       \\
-       &     &       &     &       \\
- 1     & s_n & s^2_n & ... & s^n_n \\
+ s^0_1 & s^1_1 & ... & s^{n-1}_1 & s^{n-1}_1 \\
+       &       &     &     &        \\
+\vdots &       & ... &     & \vdots \\
+       &       &     &     &        \\
+ s^0_n & s^1_n & ... & s^{n-1}_n &  s^{n-1}_n
+\end{bmatrix}
+\]
+
+Which, because of the first and last values in **S**, means:
+
+\[
+𝕋 = \begin{bmatrix}
+ 1      &       0 & ... &             0 &             0 \\
+ 1      &     s_2 &    &     s^{n-2}_2 &     s^{n-1}_2 \\
+ \vdots &         & ... &               &        \vdots \\
+ 1      & s_{n-1} &    & s^{n-2}_{n-1} & s^{n-1}_{n-1} \\
+ 1      &       1 & ... &             1 &             1
 \end{bmatrix}
 \]
 

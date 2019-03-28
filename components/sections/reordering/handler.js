@@ -29,7 +29,7 @@ var Reordering = {
 
     // build M, which will be (k) rows by (k-1) columns
     for(i=0; i<k; i++) {
-      M[i] = (new Array(k)).join('0').split('').map(v => parseInt(v));
+      M[i] = (new Array(k)).fill(0);
       if(i===0) { M[i][0] = 1; }
       else if(i===n) { M[i][i-1] = 1; }
       else {
