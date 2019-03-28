@@ -236,7 +236,7 @@ So, we have our error function: we now need to figure out the expression for whe
 
   So I did what I always do when I don't understand something: I asked someone to help me understand how things work. In this specific case, I [posted a question](https://math.stackexchange.com/questions/2825438) to [Math.stackexchange](https://math.stackexchange.com), and received a answer that goes into way more detail than I had hoped to receive.
 
-  Is that answer useful to you? Probably: no. At least, not unless you like understand maths on a recreational level. And I do mean maths in general, not just basic algebra. But, it does help in giving us a reference in case you ever wonder "hang on. Why was that true?". There are answers. They might just require some time to come to understand.
+  Is that answer useful to you? Probably: no. At least, not unless you like understanding maths on a recreational level. And I do mean maths in general, not just basic algebra. But, it does help in giving us a reference in case you ever wonder "hang on. Why was that true?". There are answers. They might just require some time to come to understand.
 </div>
 
 Now, given the above derivative, we can rearrange the terms (following the rules of matrix algebra) so that we end up with an expression for **C**:
