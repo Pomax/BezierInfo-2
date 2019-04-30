@@ -124,7 +124,7 @@ lut = [      [1],           // n=0
         [1,5,10,10,5,1],    // n=5
        [1,6,15,20,15,6,1]]  // n=6
 
-binomial(n,k):
+function binomial(n,k):
   while(n >= lut.length):
     s = lut.length
     nextRow = new array(size=s+1)
