@@ -17,10 +17,10 @@ Let's just use the algorithm we just specified, and implement that:
 
 ```
 function flattenCurve(curve, segmentCount):
-  step = 1/segmentCount;
-  coordinates = [curve.getXValue(0), curve.getYValue(0)];
+  step = 1/segmentCount
+  coordinates = [curve.getXValue(0), curve.getYValue(0)]
   for(i=1; i <= segmentCount; i++):
-    t = i*step;
+    t = i*step
     coordinates.push[curve.getXValue(t), curve.getYValue(t)]
   return coordinates;
 ```
@@ -29,8 +29,8 @@ And done, that's the algorithm implemented. That just leaves drawing the resulti
 
 ```
 function drawFlattenedCurve(curve, segmentCount):
-  coordinates = flattenCurve(curve, segmentCount);
-  coord = coordinates[0], _coord;
+  coordinates = flattenCurve(curve, segmentCount)
+  coord = coordinates[0], _coord
   for(i=1; i < coordinates.length; i++):
     _coord = coordinates[i]
     line(coord, _coord)
