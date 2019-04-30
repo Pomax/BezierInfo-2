@@ -52,3 +52,5 @@ http://pomax.github.io/1451617530567/react-with-latex-without-needing-client-sid
 And read about the tech choices made to enable localization in:
 
 http://pomax.github.io/1489108158510/localization-is-hard
+
+Finally, a fair number of people have helped by filing PRs for fixes for typos small and large over the years, all of whom are listed on the [contributors](https://github.com/Pomax/BezierInfo-2/graphs/contributors) page for this project.
