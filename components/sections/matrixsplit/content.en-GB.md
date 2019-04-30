@@ -37,7 +37,7 @@ and
   \end{bmatrix}
 \]
 
-Let's say we want to split the curve at some point `t = z`, forming two new (obviously smaller) Bézier curves. To find the coordinates for these two Bézier curves, we can use the matrix representation and some linear algebra. First, we separate out the actual ``point on the curve'' information into a new matrix multiplication:
+Let's say we want to split the curve at some point `t = z`, forming two new (obviously smaller) Bézier curves. To find the coordinates for these two Bézier curves, we can use the matrix representation and some linear algebra. First, we separate out the actual "point on the curve" information into a new matrix multiplication:
 
 \[
   B(t) =
