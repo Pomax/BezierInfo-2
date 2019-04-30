@@ -1,8 +1,8 @@
 # Simplified drawing
 
-We can also simplify the drawing process by "sampling" the curve at certain points, and then joining those points up with straight lines, a process known as "flattening", as we are reducing a curve to a simple sequence of straight, "flat" lines.
+We can also simplify the drawing process by "sampling" the curve at certain points, and then joining those points up with straight lines. This process is known as "flattening", because we are reducing a curve to a simple sequence of straight, "flat" lines.
 
-We can do this is by saying "we want X segments", and then sampling the curve at intervals that are spaced such that we end up with the number of segments we wanted. The advantage of this method is that it's fast: instead of evaluating 100 or even 1000 curve coordinates, we can sample a much lower number and still end up with a curve that sort-of-kind-of looks good enough. The disadvantage of course is that we lose the precision of working with "the real curve", so we usually can't use the flattened for for doing true intersection detection, or curvature alignment.
+We can do this is by saying "we want X segments", and then sampling the curve at intervals that are spaced such that we end up with the number of segments we wanted. The advantage of this method is that it's fast: instead of evaluating 100 or even 1000 curve coordinates, we can sample a much lower number and still end up with a curve that sort-of-kind-of looks good enough. The disadvantage, of course, is that we lose the precision of working with "the real curve", so we usually can't use the flattened form for doing things like true intersection detection, or curvature alignment.
 
 <Graphic title="Flattening a quadratic curve" setup={this.setupQuadratic} draw={this.drawFlattened} onKeyDown={this.onKeyDown}/>
 <Graphic title="Flattening a cubic curve" setup={this.setupCubic} draw={this.drawFlattened} onKeyDown={this.onKeyDown} />
@@ -18,7 +18,7 @@ Let's just use the algorithm we just specified, and implement that:
 ```
 function flattenCurve(curve, segmentCount):
   step = 1/segmentCount;
-  coordinates = [curve.getXValue(0), curve.getYValue(0)]
+  coordinates = [curve.getXValue(0), curve.getYValue(0)];
   for(i=1; i <= segmentCount; i++):
     t = i*step;
     coordinates.push[curve.getXValue(t), curve.getYValue(t)]
@@ -29,7 +29,7 @@ And done, that's the algorithm implemented. That just leaves drawing the resulti
 
 ```
 function drawFlattenedCurve(curve, segmentCount):
-  coordinates = flattenCurve(curve, segmentCount)
+  coordinates = flattenCurve(curve, segmentCount);
   coord = coordinates[0], _coord;
   for(i=1; i < coordinates.length; i++):
     _coord = coordinates[i]
@@ -37,6 +37,6 @@ function drawFlattenedCurve(curve, segmentCount):
     coord = _coord
 ```
 
-We start with the first coordinate as reference point, and then just draw lines between each point and its next point.
+We start with the first coordinate as our reference point, and then just draw lines between each point and its next point.
 
 </div>
