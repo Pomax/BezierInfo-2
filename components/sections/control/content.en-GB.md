@@ -47,7 +47,7 @@ Given that we already know how to implement basis function, adding in the contro
 ```
 function Bezier(n,t,w[]):
   sum = 0
-  for(k=0; k<n; k++):
+  for(k=0; k<=n; k++):
     sum += w[k] * binomial(n,k) * (1-t)^(n-k) * t^(k)
   return sum
 ```
