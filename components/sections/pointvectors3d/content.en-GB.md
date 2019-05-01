@@ -92,7 +92,7 @@ generateRMFrames(steps) -> frames:
     // note that v1 is a vector, but 2/c1 and (v1 · ...) are just
     // plain numbers, so we're just scaling v1 by some constant.
 
-    // Then we reflection a second time, over a plane at x1 so that
+    // Then we reflect a second time, over a plane at x1, so that
     // the frame tangent is aligned with the curve tangent again:
     v2 = x1.t - tiL
     c2 = v2 · v2
