@@ -102,7 +102,7 @@ M =
 \right ]
 \]
 
-That might look unwieldy, but it's really just a mostly-zeroes matrix, with a very simply fraction on the diagonal, and and even simpler fraction to the left of it. Multiplying a list of coordinates with this matrix means we can plug the resulting transformed coordinates into the one-order-higher function and get an identical looking curve.
+That might look unwieldy, but it's really just a mostly-zeroes matrix, with a very simply fraction on the diagonal, and an even simpler fraction to the left of it. Multiplying a list of coordinates with this matrix means we can plug the resulting transformed coordinates into the one-order-higher function and get an identical looking curve.
 
 Not too bad!
 
