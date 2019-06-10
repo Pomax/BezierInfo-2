@@ -53,4 +53,4 @@ And read about the tech choices made to enable localization in:
 
 http://pomax.github.io/1489108158510/localization-is-hard
 
-Finally, a fair number of people have helped by filing PRs for fixes for typos small and large over the years, all of whom are listed on the [contributors](https://github.com/Pomax/BezierInfo-2/graphs/contributors) page for this project.
+Finally, a fair number of people have helped by filing PRs for fixes for typos small and large over the years, all of whom are listed on the [contributors](https://github.com/Pomax/BezierInfo-2/graphs/contributors) page for this project. And a special thanks goes out to Simon Cozens who [went through the entire book](https://github.com/Pomax/BezierInfo-2/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Asimoncozens) to fix typos and phrasing.
