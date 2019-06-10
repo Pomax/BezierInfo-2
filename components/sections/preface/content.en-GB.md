@@ -15,7 +15,7 @@ But what if you need to program them yourself? What are the pitfalls? How do you
 
 If you enjoyed this book enough to print it out, you might be wondering if there is some way to give something back. To answer that question: you can always buy me a coffee, however-much a coffee is where you live, or if you want to pay a fair price for this book, you can buy me a really expensive coffee =)
 
-This book has grown over the years from a short primer to an 85+ print-page-equivalent ebook on the subject of Bézier curves, and a lot of coffee went into the making of it. I don't regret a minute I spent on writing it, but I can always do with some more coffee to keep on writing! Please visit https://pomax.github.io/bezierinfo and click on the link in the online preface to donate some coffee money.
+This book has grown over the years from a short primer to a 100+ print-page-equivalent ebook on the subject of Bézier curves, and a lot of coffee went into the making of it. I don't regret a minute I spent on writing it, but I can always do with some more coffee to keep on writing! Please visit https://pomax.github.io/bezierinfo and click on the link in the online preface to donate some coffee money.
 </div>
 
 —Pomax (or in the tweetworld, [@TheRealPomax](https://twitter.com/TheRealPomax))
@@ -40,6 +40,6 @@ If you have suggestions for new sections, hit up the [Github issue tracker](http
 
 ## Help support the book!
 
-If you enjoyed this book, or you simply found it useful for something you were trying to get done, and you were wondering how to let me know you appreciated this book, you have two options: you can either head on over to the [Patreon page](https://patreon.com/bezierinfo) for this book, or if you prefer to make a one-time donation, head on over to the [buy Pomax a coffee](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPRDLNGDANJSW) page. This work has grown from a small primer to a 150-plus print-page-equivalent reader on the subject of Bézier curves over the years, and a lot of coffee went into the making of it. I don't regret a minute I spent on writing it, but I can always do with some more coffee to keep on writing!
+If you enjoyed this book, or you simply found it useful for something you were trying to get done, and you were wondering how to let me know you appreciated this book, you have two options: you can either head on over to the [Patreon page](https://patreon.com/bezierinfo) for this book, or if you prefer to make a one-time donation, head on over to the [buy Pomax a coffee](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPRDLNGDANJSW) page. This work has grown from a small primer to a 100-plus print-page-equivalent reader on the subject of Bézier curves over the years, and a lot of coffee went into the making of it. I don't regret a minute I spent on writing it, but I can always do with some more coffee to keep on writing!
 
 </div>
