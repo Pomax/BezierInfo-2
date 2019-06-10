@@ -7,4 +7,4 @@ Let's start with the good stuff: when we're talking about Bézier curves, we're 
   <Graphic inline={true} title="Cubic Bézier curves" setup={ this.drawCubic } draw={ this.drawCurve }/>
 </div>
 
-These curves are used a lot in computer aided design and computer aided manufacturing (CAD/CAM) applications, as well as in graphic design programs like Adobe Illustrator and Photoshop, Inkscape, the GIMP, etc. and in graphic technologies like scalable vector graphics (SVG) and OpenType fonts (TTF/OTF). A lot of things use Bézier curves, so if you want to learn more about them... prepare to get your learn on!
+These curves are used a lot in computer aided design and computer aided manufacturing (CAD/CAM) applications, as well as in graphic design programs like Adobe Illustrator and Photoshop, Inkscape, GIMP, etc. and in graphic technologies like scalable vector graphics (SVG) and OpenType fonts (TTF/OTF). A lot of things use Bézier curves, so if you want to learn more about them... prepare to get your learn on!
