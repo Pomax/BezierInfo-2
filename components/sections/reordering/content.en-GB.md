@@ -2,7 +2,7 @@
 
 One interesting property of Bézier curves is that an *n<sup>th</sup>* order curve can always be perfectly represented by an *(n+1)<sup>th</sup>* order curve, by giving the higher-order curve specific control points.
 
-If we have a curve with three points, then we can create a four-point curve that exactly reproduces the original curve. First, we give it the same start and end points, and for its two control points we pick "1/3<sup>rd</sup> start + 2/3<sup>rd</sup> control" and "2/3<sup>rd</sup> control + 1/3<sup>rd</sup> end". Now we have exactly the same curve as before, except represented as a cubic curve rather than a quadratic curve.
+If we have a curve with three points, then we can create a curve with four points that exactly reproduces the original curve. First, we give it the same start and end points, and for its two control points we pick "1/3<sup>rd</sup> start + 2/3<sup>rd</sup> control" and "2/3<sup>rd</sup> control + 1/3<sup>rd</sup> end". Now we have exactly the same curve as before, except represented as a cubic curve rather than a quadratic curve.
 
 The general rule for raising an *n<sup>th</sup>* order curve to an *(n+1)<sup>th</sup>* order curve is as follows (observing that the start and end weights are the same as the start and end weights for the old curve):
 
