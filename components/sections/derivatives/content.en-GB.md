@@ -1,6 +1,8 @@
 # Derivatives
 
-There's a number of useful things that you can do with Bézier curves based on their derivative, and one of the more amusing observations about Bézier curves is that their derivatives are, in fact, also Bézier curves. In fact, the differentiation of a Bézier curve is relatively straight forward, although we do need a bit of math. First, let's look at the derivative rule for Bézier curves, which is:
+There's a number of useful things that you can do with Bézier curves based on their derivative, and one of the more amusing observations about Bézier curves is that their derivatives are, in fact, also Bézier curves. In fact, the differentiation of a Bézier curve is relatively straightforward, although we do need a bit of math.
+
+First, let's look at the derivative rule for Bézier curves, which is:
 
 \[
   Bézier'(n,t) = n \cdot \sum_{i=0}^{n-1} (b_{i+1}-b_i) \cdot Bézier(n-1,t)_i
@@ -12,7 +14,7 @@ which we can also write (observing that <i>b</i> in this formula is the same as 
   Bézier'(n,t) = \sum_{i=0}^{n-1} Bézier(n-1,t)_i \cdot n \cdot (w_{i+1}-w_i)
 \]
 
-Or, in plain text: the derivative of an n<sup>th</sup> degree Bézier curve is an (n-1)<sup>th</sup> degree Bézier curve, with one fewer term, and new weights w'<sub>0</sub>...w'<sub>n-1</sub> derived from the original weights as n(w<sub>i+1</sub> - w<sub>i</sub>), so for a 3rd degree curve, with four weights, the derivative has three new weights w'<sub>0</sub> = 3(w<sub>1</sub>-w<sub>0</sub>), w'<sub>1</sub> = 3(w<sub>2</sub>-w<sub>1</sub>) and w'<sub>2</sub> = 3(w<sub>3</sub>-w<sub>2</sub>).
+Or, in plain text: the derivative of an n<sup>th</sup> degree Bézier curve is an (n-1)<sup>th</sup> degree Bézier curve, with one fewer term, and new weights w'<sub>0</sub>...w'<sub>n-1</sub> derived from the original weights as n(w<sub>i+1</sub> - w<sub>i</sub>). So for a 3<sup>rd</sup> degree curve, with four weights, the derivative has three new weights: w'<sub>0</sub> = 3(w<sub>1</sub>-w<sub>0</sub>), w'<sub>1</sub> = 3(w<sub>2</sub>-w<sub>1</sub>) and w'<sub>2</sub> = 3(w<sub>3</sub>-w<sub>2</sub>).
 
 <div className="note">
 
@@ -58,7 +60,7 @@ Now, the trick is to turn this expression into something that has binomial coeff
 \end{array}
 \]
 
-And that's the first part done: the two components inside the parentheses are actually regular, lower order Bézier expressions:
+And that's the first part done: the two components inside the parentheses are actually regular, lower-order Bézier expressions:
 
 \[\begin{array}{l}
   ... = n \left (
