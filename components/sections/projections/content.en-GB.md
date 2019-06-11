@@ -11,6 +11,6 @@ If the Bézier curve is of low enough order, we might be able to [work out the m
 
 We keep repeating this process until the interval is small enough to claim the difference in precision found is irrelevant for the purpose we're trying to find `t` for. In this case, I'm arbitrarily fixing it at 0.0001.
 
-The following graphic demonstrates the result of this procedure.Simply move the cursor around, and if it does not lie on top of the curve, you will see a line that projects the cursor onto the curve based on an iteratively found "ideal" `t` value.
+The following graphic demonstrates the result of this procedure. Simply move the cursor around, and if it does not lie on top of the curve, you will see a line that projects the cursor onto the curve based on an iteratively found "ideal" `t` value.
 
 <Graphic title="Projecting a point onto a Bézier curve" setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}/>
