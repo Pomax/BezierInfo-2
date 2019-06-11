@@ -26,7 +26,7 @@ We start by taking the standard Bézier function:
     Bézier(n,t) = \sum_{i=0}^{n} b_i B^n_i(t)
 \]
 
-And then, we apply one of those silly (actually, super useful) calculus tricks: since our `t` value is always between zero and one (inclusive), we know that `(1-t)` plus `t` always sum to 1. As such, we can express any value as a sum of `t` and `1-t`:
+And then, we apply one of those silly (actually, super useful) calculus tricks: since our `t` value is always between zero and one (inclusive), we know that `(1-t)` plus `t` always sums to 1. As such, we can express any value as a sum of `t` and `1-t`:
 
 \[
   x = 1 x = \left ( (1-t) + t \right ) x = (1-t) x + t x = x (1-t) + x t
