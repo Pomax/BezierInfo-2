@@ -18,7 +18,7 @@ With this we can guarantee that we never sum above 100%. By restricting `a` to v
 
 But... what if we use this form, which is based on the assumption that we will only ever use values between 0 and 1, and instead use values outside of that interval? Do things go horribly wrong? Well... not really, but we get to "see more".
 
-In the case of Bézier curves, extending the interval simply makes our curve "keeps going". Bézier curves are simply segments of some polynomial curve, so if we pick a wider interval we simply get to see more of the curve. So what do they look like?
+In the case of Bézier curves, extending the interval simply makes our curve "keep going". Bézier curves are simply segments of some polynomial curve, so if we pick a wider interval we simply get to see more of the curve. So what do they look like?
 
 The following two graphics show you Bézier curves rendered "the usual way", as well as the curves they "lie on" if we were to extend the `t` values much further. As you can see, there's a lot more "shape" hidden in the rest of the curve, and we can model those parts by moving the curve points around.
 
