@@ -4,7 +4,7 @@ Given the previous section, one question you might have is "what if I don't want
 
 And really this is just a variation on the question "how do I get the curve through these X points?", so let's look at that. Specifically, let's look at the answer: "curve fitting". This is in fact a rather rich field in geometry, applying to anything from data modelling to path abstraction to "drawing", so there's a fair number of ways to do curve fitting, but we'll look at one of the most common approaches: something called a [least squares](https://en.wikipedia.org/wiki/Least_squares) [polynomial regression](https://en.wikipedia.org/wiki/Polynomial_regression). In this approach, we look at the number of points we have in our data set, roughly determine what would be an appropriate order for a curve that would fit these points, and then tackle the question "given that we want an `nth` order curve, what are the coordinates we can find such that our curve is "off" by the least amount?".
 
-Now, there are many ways to determine how "off" points are from the curve, which is where that "least squares" term comes in. The most common tool in the toolbox is to minimise the _squared distance_ between each point we have, and the corresponding point on the curve we end up "inventing". A curve with a snug fit will have zero distance between those two, and a bad fit will have non-zero distances between every such pair. It's a workable metric. You might wonder why we'd need to square, rather than just ensure that distance is a positive value (so that the total error is easy to compute by just summing distances) and the answer really is "because it tends to be a little better". There's lots of literature on the web if you want to deep dive the specific merits of least squared error metrics versus least absolute error metrics, but those are <em>well</em> beyond the scope of this material.
+Now, there are many ways to determine how "off" points are from the curve, which is where that "least squares" term comes in. The most common tool in the toolbox is to minimise the _squared distance_ between each point we have, and the corresponding point on the curve we end up "inventing". A curve with a snug fit will have zero distance between those two, and a bad fit will have non-zero distances between every such pair. It's a workable metric. You might wonder why we'd need to square, rather than just ensure that distance is a positive value (so that the total error is easy to compute by just summing distances) and the answer really is "because it tends to be a little better". There's lots of literature on the web if you want to deep-dive the specific merits of least squared error metrics versus least absolute error metrics, but those are <em>well</em> beyond the scope of this material.
 
 So let's look at what we end up with in terms of curve fitting if we start with the idea of performing least squares Bézier fitting. We're going to follow a procedure similar to the one described by Jim Herold over on his ["Least Squares Bézier Fit"](https://web.archive.org/web/20180403213813/http://jimherold.com/2012/04/20/least-squares-bezier-fit/) article, and end with some nice interactive graphics for doing some curve fitting.
 
@@ -35,7 +35,7 @@ And then we (trivially) rearrange the terms across multiple lines:
   \end{aligned}
 \]
 
-This rearrangement has "factors of t" at each row (the first row is t⁰, i.e. "1", the second row is t¹, i.e. "t", the third row is t²) and "coefficient" at each column (the first column is a terms involving "a", the second all terms involving "b", the third all terms involving "c").
+This rearrangement has "factors of t" at each row (the first row is t⁰, i.e. "1", the second row is t¹, i.e. "t", the third row is t²) and "coefficient" at each column (the first column is all terms involving "a", the second all terms involving "b", the third all terms involving "c").
 
 With that arrangement, we can easily decompose this as a matrix multiplication:
 
@@ -63,7 +63,7 @@ With that arrangement, we can easily decompose this as a matrix multiplication:
   \end{aligned}
 \]
 
-We can do the same for the cubic curve of course. We know the base function for cubics:
+We can do the same for the cubic curve, of course. We know the base function for cubics:
 
 \[
   \begin{aligned}
@@ -165,7 +165,7 @@ Where  `length()` is literally just that: the length of the line segment between
   \end{aligned}
 \]
 
-And now we can move on to the actual "curve fitting" part: what we want is a function that lets us compute "ideal" control point values such that if we build a Bezier curve with them, that curve passes through all our original points. Or, failing that, have an overall error distance that is as close to zero as we can get it. So, let's write out what the error distance looks like.
+And now we can move on to the actual "curve fitting" part: what we want is a function that lets us compute "ideal" control point values such that if we build a Bézier curve with them, that curve passes through all our original points. Or, failing that, have an overall error distance that is as close to zero as we can get it. So, let's write out what the error distance looks like.
 
 As mentioned before, this function is really just "the distance between the actual coordinate, and the coordinate that the curve evaluates to for the associated `t` value", which we'll square to get rid of any pesky negative signs:
 
@@ -193,7 +193,7 @@ In which we can replace the rather cumbersome "squaring" operation with a more c
 
 Here, the letter `T` is used instead of the number 2, to represent the [matrix transpose](https://en.wikipedia.org/wiki/Transpose); each row in the original matrix becomes a column in the transposed matrix instead (row one becomes column one, row two becomes column two, and so on).
 
-This leaves one problem: **T** isn't actually the matrix we want: we don't want symbolic `t` values, we want the actual numerical values that we conmputed for **S**, so we need to form a new matrix, which we'll call 𝕋, that makes use of those, and then use that 𝕋 instead of **T** in our error function:
+This leaves one problem: **T** isn't actually the matrix we want: we don't want symbolic `t` values, we want the actual numerical values that we computed for **S**, so we need to form a new matrix, which we'll call 𝕋, that makes use of those, and then use that 𝕋 instead of **T** in our error function:
 
 \[
 𝕋 = \begin{bmatrix}
@@ -223,7 +223,7 @@ Now we can properly write out the error function as matrix operations:
   E(C) = \left ( P - 𝕋MC \right )^T \left ( P - 𝕋MC \right )
 \]
 
-So, we have our error function: we now need to figure out the expression for where that function has minimal value, e.g. where the error between the true coordinates and the coordinates generated by the curve fitting is smallest. Like in standard calculus, this requires taking the derivitive, and determining where that derivative is zero:
+So, we have our error function: we now need to figure out the expression for where that function has minimal value, e.g. where the error between the true coordinates and the coordinates generated by the curve fitting is smallest. Like in standard calculus, this requires taking the derivative, and determining where that derivative is zero:
 
 \[
   \frac{\partial E}{\partial C} = 0 = -2𝕋^T \left ( P - 𝕋MC \right )
@@ -236,7 +236,7 @@ So, we have our error function: we now need to figure out the expression for whe
 
   So I did what I always do when I don't understand something: I asked someone to help me understand how things work. In this specific case, I [posted a question](https://math.stackexchange.com/questions/2825438) to [Math.stackexchange](https://math.stackexchange.com), and received a answer that goes into way more detail than I had hoped to receive.
 
-  Is that answer useful to you? Probably: no. At least, not unless you like understanding maths on a recreational level. And I do mean maths in general, not just basic algebra. But, it does help in giving us a reference in case you ever wonder "hang on. Why was that true?". There are answers. They might just require some time to come to understand.
+  Is that answer useful to you? Probably: no. At least, not unless you like understanding maths on a recreational level. And I do mean maths in general, not just basic algebra. But it does help in giving us a reference in case you ever wonder "Hang on. Why was that true?". There are answers. They might just require some time to come to understand.
 </div>
 
 Now, given the above derivative, we can rearrange the terms (following the rules of matrix algebra) so that we end up with an expression for **C**:
