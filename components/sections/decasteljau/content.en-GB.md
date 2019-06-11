@@ -1,6 +1,6 @@
 # de Casteljau's algorithm
 
-If we want to draw Bézier curves, we can run through all values of `t` from 0 to 1 and then compute the weighted basis function at each value, getting the `x/y` values we need to plot. But the more complex the curve gets, the more expensive this computation becomes. Instead, we can use *de Casteljau's algorithm* to draw curves. This is a geometric approach to curve drawing, and it's really easy to implement. So easy, in fact, you can do it by hand with a pencil and ruler.
+If we want to draw Bézier curves, we can run through all values of `t` from 0 to 1 and then compute the weighted basis function at each value, getting the `x/y` values we need to plot. Unfortunately, the more complex the curve gets, the more expensive this computation becomes. Instead, we can use *de Casteljau's algorithm* to draw curves. This is a geometric approach to curve drawing, and it's really easy to implement. So easy, in fact, you can do it by hand with a pencil and ruler.
 
 Rather than using our calculus function to find `x/y` values for `t`, let's do this instead:
 
