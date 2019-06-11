@@ -1,6 +1,6 @@
 # Boolean shape operations
 
-We can apply the topics covered so far in this primer to effect boolean shape operations: getting the union, intersection, or exclusion, between two or more shapes that involve Bézier curves. For simplicity (well.. sort of, more homogeneity), we'll be looking at Poly-Bézier shapes only, but a shape that consists of a mix of lines and Bézier curves is technically a simplification (although it does mean we need to write a definition for the class of shapes that mix lines and Bézier curves. Since poly-Bézier curves are a superset, we'll be using those in the following examples)
+We can apply the topics covered so far in this primer to effect boolean shape operations: getting the union, intersection, or exclusion, between two or more shapes that involve Bézier curves. For simplicity (well... sort of, more homogeneity), we'll be looking at poly-Bézier shapes only, but a shape that consists of a mix of lines and Bézier curves is technically a simplification. (Although it does mean we need to write a definition for the class of shapes that mix lines and Bézier curves. Since poly-Bézier curves are a superset, we'll be using those in the following examples.)
 
 The procedure for performing boolean operations consists, broadly, of four steps:
 
@@ -9,9 +9,9 @@ The procedure for performing boolean operations consists, broadly, of four steps
 3. discard any section that isn't part of the desired operation's resultant shape, and
 4. link up the remaining sections to form the new shape.
 
-Finding all intersections between two poly-Bézier curves, or any poly-line-section shape, is similar to the iterative algorithm discussed in the section on curve/curve intersection. For each segment in the poly-Bézier curve we check whether its bounding box overlaps with any of the segment bounding boxes in the other poly-Bézier curve. If so, we run normal intersection detection.
+Finding all intersections between two poly-Bézier curves, or any poly-line-section shape, is similar to the iterative algorithm discussed in the section on curve/curve intersection. For each segment in the poly-Bézier curve, we check whether its bounding box overlaps with any of the segment bounding boxes in the other poly-Bézier curve. If so, we run normal intersection detection.
 
-After we found all intersection points, we split up our poly-Bézier curves, making sure to record which of the newly formed poly-Bézier curves might potentially link up at the points we split the originals up at. This will let us quickly glue poly-Bézier curves back together after the next step.
+After finding all intersection points, we split up our poly-Bézier curves, and make sure to record which of the newly formed poly-Bézier curves might potentially link up at the points we split the originals up at. This will let us quickly glue poly-Bézier curves back together after the next step.
 
 Once we have all the new poly-Bézier curves, we run the first step of the desired boolean operation.
 
