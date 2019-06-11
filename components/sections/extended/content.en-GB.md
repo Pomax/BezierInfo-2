@@ -16,13 +16,13 @@ The obvious start and end values here need to be `a=1, b=0`, so that the mixed v
 
 With this we can guarantee that we never sum above 100%. By restricting `a` to values in the interval [0,1], we will always be somewhere between our two values (inclusively), and we will always sum to a 100% mix.
 
-But... what if we use this form, used in the assumption that we will only ever use values between 0 and 1, and instead use values outside of that interval? Do things go horribly wrong? Well... not really, but we get to "see more".
+But... what if we use this form, which is based on the assumption that we will only ever use values between 0 and 1, and instead use values outside of that interval? Do things go horribly wrong? Well... not really, but we get to "see more".
 
-In the case of Bézier curves, extending the interval simply makes our curve "keep going". Bézier curves are simply segments on some polynomial curve, so if we pick a wider interval we simply get to see more of the curve. So what do they look like?
+In the case of Bézier curves, extending the interval simply makes our curve "keep going". Bézier curves are simply segments of some polynomial curve, so if we pick a wider interval we simply get to see more of the curve. So what do they look like?
 
 The following two graphics show you Bézier curves rendered "the usual way", as well as the curves they "lie on" if we were to extend the `t` values much further. As you can see, there's a lot more "shape" hidden in the rest of the curve, and we can model those parts by moving the curve points around.
 
 <Graphic title="Quadratic infinite interval Bézier curve" setup={this.setupQuadratic} draw={this.draw} />
 <Graphic title="Cubic infinite interval Bézier curve" setup={this.setupCubic} draw={this.draw} />
 
-In fact, there are curves used in graphics design and computer modelling that do the opposite of Bézier curves, where rather than fixing the interval, and giving you free coordinates, they fix the coordinates, but give you freedom over the interval. A great example of this is the ["Spiro" curve](http://levien.com/phd/phd.html), which is a curve based on part of a [Cornu Spiral, also known as Euler's Spiral](https://en.wikipedia.org/wiki/Euler_spiral). It's a very aesthetically pleasing curve and you'll find it in quite a few graphics packages like [FontForge](https://fontforge.github.io) and [Inkscape](https://inkscape.org), having even been used in font design (such as for the Inconsolata font).
+In fact, there are curves used in graphics design and computer modelling that do the opposite of Bézier curves; rather than fixing the interval, and giving you freedom to choose the coordinates, they fix the coordinates, but give you freedom over the interval. A great example of this is the ["Spiro" curve](http://levien.com/phd/phd.html), which is a curve based on part of a [Cornu Spiral, also known as Euler's Spiral](https://en.wikipedia.org/wiki/Euler_spiral). It's a very aesthetically pleasing curve and you'll find it in quite a few graphics packages like [FontForge](https://fontforge.github.io) and [Inkscape](https://inkscape.org). It has even been used in font design, for example for the Inconsolata typeface.
