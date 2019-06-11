@@ -34,7 +34,7 @@ Thankfully, Frenet normals are not our only option.
 
 Another option is to take a slightly more algorithmic approach and compute a form of [Rotation Minimising Frame](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/Computation-of-rotation-minimizing-frames.pdf) (also known as "parallel transport frame" or "Bishop frame") instead, where a "frame" is a set made up of the tangent, the rotational axis, and the normal vector, centered on an on-curve point.
 
-These type of frames are computed based on "the previous frame", so we cannot simply compute these "on demand" for single points, as we could for Frenet frames; we have to compute them for the entire curve. But the procedure is pretty simple, and can be performed at the same time you would normally build any lookup tables for your curve.
+These type of frames are computed based on "the previous frame", so we cannot simply compute these "on demand" for single points, as we could for Frenet frames; we have to compute them for the entire curve. Thankfully, the procedure is pretty simple, and can be performed at the same time that you're building lookup tables for your curve.
 
 The idea is to take a starting "tangent/rotation axis/normal" frame at t=0, and then compute what the next frame "should" look like by applying some rules that yield a good looking next frame. In the case of the RMF paper linked above, those rules are:
 
