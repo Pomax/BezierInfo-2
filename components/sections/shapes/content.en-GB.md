@@ -11,7 +11,7 @@ The procedure for performing boolean operations consists, broadly, of four steps
 
 Finding all intersections between two poly-Bézier curves, or any poly-line-section shape, is similar to the iterative algorithm discussed in the section on curve/curve intersection. For each segment in the poly-Bézier curve, we check whether its bounding box overlaps with any of the segment bounding boxes in the other poly-Bézier curve. If so, we run normal intersection detection.
 
-After we have found all intersection points, we split up our poly-Bézier curves, making sure to record which of the newly formed poly-Bézier curves might potentially link up at the points we split the originals up at. This will let us quickly glue poly-Bézier curves back together after the next step.
+After finding all intersection points, we split up our poly-Bézier curves, and make sure to record which of the newly formed poly-Bézier curves might potentially link up at the points we split the originals up at. This will let us quickly glue poly-Bézier curves back together after the next step.
 
 Once we have all the new poly-Bézier curves, we run the first step of the desired boolean operation.
 
