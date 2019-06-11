@@ -1,6 +1,6 @@
 # Splitting curves
 
-With de Casteljau's algorithm we also find all the points we need to split up a Bézier curve into two, smaller curves, which taken together form the original curve. When we construct de Casteljau's skeleton for some value `t`, the procedure gives us all the points we need to split a curve at that `t` value: one curve is defined by all the inside skeleton points found prior to our on-curve point, with the other curve being defined by all the inside skeleton points after our on-curve point.
+Using de Casteljau's algorithm, we can also find all the points we need to split up a Bézier curve into two, smaller curves, which taken together form the original curve. When we construct de Casteljau's skeleton for some value `t`, the procedure gives us all the points we need to split a curve at that `t` value: one curve is defined by all the inside skeleton points found prior to our on-curve point, with the other curve being defined by all the inside skeleton points after our on-curve point.
 
 <Graphic title="Splitting a curve" setup={this.setupCubic} draw={this.drawSplit} />
 
@@ -29,7 +29,7 @@ function drawCurve(points[], t):
     drawCurve(newpoints, t)
 ```
 
-After running this function for some value `t`, the `left` and `right` arrays will contain all the coordinates for two new curves - one to the "left" of our `t` value, the other on the "right", of the same order as the original curve, and overlaid exactly on the original curve.
+After running this function for some value `t`, the `left` and `right` arrays will contain all the coordinates for two new curves - one to the "left" of our `t` value, the other on the "right". These new curves will have the same order as the original curve, and can be overlaid exactly on the original curve.
 
 </div>
 

@@ -1,6 +1,6 @@
 # Tangents and normals
 
-If you want to move objects along a curve, or "away from" a curve, the two vectors you're most interested in are the tangent vector and normal vector for curve points. These are actually really easy to find. For moving, and orienting, along a curve we use the tangent, which indicates the direction travel at specific points, and is literally just the first derivative of our curve:
+If you want to move objects along a curve, or "away from" a curve, the two vectors you're most interested in are the tangent vector and normal vector for curve points. These are actually really easy to find. For moving and orienting along a curve, we use the tangent, which indicates the direction of travel at specific points, and is literally just the first derivative of our curve:
 
 \[
 \left \{ \begin{matrix}
@@ -26,7 +26,7 @@ This gives us the directional vector we want. We can normalize it to give us uni
 \end{matrix} \right.
 \]
 
-The tangent is very useful for moving along a line, but what if we want to move away from the curve instead, perpendicular to the curve at some point <i>t</i>? In that case we want the "normal" vector. This vector runs at a right angle to the direction of the curve, and is typically of length 1.0, so all we have to do is rotate the normalized directional vector and we're done:
+The tangent is very useful for moving along a line, but what if we want to move away from the curve instead, perpendicular to the curve at some point <i>t</i>? In that case we want the *normal* vector. This vector runs at a right angle to the direction of the curve, and is typically of length 1.0, so all we have to do is rotate the normalized directional vector and we're done:
 
 \[
 \left \{ \begin{array}{l}
@@ -40,7 +40,7 @@ The tangent is very useful for moving along a line, but what if we want to move 
 Rotating coordinates is actually very easy, if you know the rule for it. You might find it explained as "applying a [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix), which is what we'll look at here, too. Essentially, the idea is to take the circles over which we can rotate, and simply "sliding the coordinates" over these circles by the desired
 angle. If we want a quarter circle turn, we take the coordinate, slide it along the cirle by a quarter turn, and done.
 
-To turn any point <i>(x,y)</i> into a rotated point <i>(x',y')</i> (over 0,0) by some angle φ, we apply this nicely easy computation:
+To turn any point <i>(x,y)</i> into a rotated point <i>(x',y')</i> (over 0,0) by some angle φ, we apply this nice and easy computation:
 
 \[\begin{array}{l}
   x' = x \cdot \cos(\phi) - y \cdot \sin(\phi) \\
@@ -63,9 +63,9 @@ Which is the "long" version of the following matrix transformation:
   \end{bmatrix}
 \]
 
-And that's all we need to rotate any coordinate. Note that for quarter, half and three quarter turns these functions become even easier, since *sin* and *cos* for these angles are, respectively: 0 and 1, -1 and 0, and 0 and -1.
+And that's all we need to rotate any coordinate. Note that for quarter, half, and three-quarter turns these functions become even easier, since *sin* and *cos* for these angles are, respectively: 0 and 1, -1 and 0, and 0 and -1.
 
-But ***why*** does this work? Why this matrix multiplication? [Wikipedia](http://en.wikipedia.org/wiki/Rotation_matrix#Decomposition_into_shears) (Technically, Thomas Herter and Klaus Lott) tells us that a rotation matrix can be
+But ***why*** does this work? Why this matrix multiplication? [Wikipedia](http://en.wikipedia.org/wiki/Rotation_matrix#Decomposition_into_shears) (technically, Thomas Herter and Klaus Lott) tells us that a rotation matrix can be
 treated as a sequence of three (elementary) shear operations. When we combine this into a single matrix operation (because all matrix multiplications can be collapsed), we get the matrix that you see above. [DataGenetics](http://datagenetics.com/blog/august32013/index.html) have an excellent article about this very thing: it's really quite cool, and I strongly recommend taking a quick break from this primer to read that article.
 
 </div>
