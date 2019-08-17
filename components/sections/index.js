@@ -14,6 +14,7 @@ module.exports = {
   whatis: require("./whatis"),
   explanation: require("./explanation"),
   control: require("./control"),
+  weightcontrol: require("./weightcontrol"),
   extended: require("./extended"),
 
   // basic operations

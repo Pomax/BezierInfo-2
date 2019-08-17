@@ -27,11 +27,22 @@ var baseClass = {
         <canvas ref="canvas" {...cprops} {...handlers} />
         <figcaption>
           <a className="source" href={sourceLink}>view source</a>
+          {this.state.sliders && this.renderSliders(this.state.sliders)}
           {this.props.title}
           {this.props.children}
         </figcaption>
       </figure>
     );
+  },
+
+  // Note: requires `sliders` and `onSlide` _and_ `context` to be set!
+  renderSliders: function(sliders) {
+    var api = this;
+    var onSlide = this.props.onSlide.bind(this.props.context);
+    return sliders.map(function(v, pos) {
+      var handle = function(evt) { onSlide(api, parseFloat(evt.target.value), pos); };
+      return <input type="range" min={v.min} max={v.max} value={v.value} step={v.step} onChange={handle} />;
+    });
   },
 
   componentDidMount: function() {
@@ -59,6 +70,12 @@ var baseClass = {
 
     if (this.props.autoplay) {
       this.play();
+    }
+
+    if (this.props.sliders) {
+      this.setState({
+        sliders: this.props.sliders
+      });
     }
   }
 };
