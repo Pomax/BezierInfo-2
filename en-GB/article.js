@@ -2311,6 +2311,43 @@ module.exports = SectionHeader;
       return dCpts[0];
     },
 
+    computeWithRatios: function (t, points, ratios, _3d) {
+      var mt = 1 - t, r = ratios, p = points, d;
+      console.log('computeWithRatios', points, ratios);
+
+      if (p.length === 2) {
+        d = mt * r[0] + t * r[1];
+        return {
+          x: mt * r[0] * p[0].x + t * r[1] * p[1].x,
+          y: mt * r[0] * p[0].y + t * r[1] * p[1].y,
+          z: !_3d ? false :
+             mt * r[0] * p[0].z + t * r[1] * p[1].z
+        };
+      }
+
+      if (p.length === 3) {
+        d = mt * mt * r[0] + 2 * mt * t * r[1] + t * t * r[2];
+        return {
+          x: mt * mt * r[0] * p[0].x + 2 * mt * t * r[1] * p[1].x + t * t * r[2] * p[2].x,
+          y: mt * mt * r[0] * p[0].y + 2 * mt * t * r[1] * p[1].y + t * t * r[2] * p[2].y,
+          z: !_3d ? false :
+             mt * mt * r[0] * p[0].z + 2 * mt * t * r[1] * p[1].z + t * t * r[2] * p[2].z
+        };
+      }
+
+      if (p.length === 4) {
+        d = mt * mt * mt * r[0] + 3 * mt * mt * t * r[1] + 3 * mt * t * t * r[2] + t * t * t * r[3];
+        return {
+          x: mt * mt * mt * r[0] * p[0].x + 3 * mt * mt * t * r[1] * p[1].x + 3 * mt * t * t * r[2] * p[2].x + t * t * t * r[3] * p[3].x,
+          y: mt * mt * mt * r[0] * p[0].y + 3 * mt * mt * t * r[1] * p[1].y + 3 * mt * t * t * r[2] * p[2].y + t * t * t * r[3] * p[3].y,
+          z: !_3d ? false :
+             mt * mt * mt * r[0] * p[0].z + 3 * mt * mt * t * r[1] * p[1].z + 3 * mt * t * t * r[2] * p[2].z + t * t * t * r[3] * p[3].z
+        };
+      }
+
+      // TODO: higher order rationalizing.
+    },
+
     derive: function (points, _3d) {
       var dpoints = [];
       for (var p = points, d = p.length, c = d - 1; d > 1; d--, c--) {
@@ -3205,6 +3242,13 @@ module.exports = SectionHeader;
       }
       return s.join(" ");
     },
+    setRatios: function(ratios) {
+      if (ratios.length !== this.points.length) {
+        throw new Error("incorrect number of ratio values");
+      }
+      this.ratios = ratios;
+      this._lut = []; //  invalidate any precomputed LUT
+    },
     update: function() {
       // invalidate any precomputed LUT
       this._lut = [];
@@ -3294,7 +3338,8 @@ module.exports = SectionHeader;
       return this.points[idx];
     },
     compute: function(t) {
-      return utils.compute(t, this.points, this._3d);
+      if (this.ratios) return utils.computeWithRatios(t, this.points, this.ratios, this._3d);
+      return utils.compute(t, this.points, this._3d, this.ratios);
     },
     raise: function() {
       var p = this.points,
@@ -8931,6 +8976,7 @@ module.exports = {
   },
 
   drawCurve: function drawCurve(api, curve) {
+    console.log('redrawing', curve);
     api.reset();
     api.drawSkeleton(curve);
     api.drawCurve(curve);
@@ -8938,8 +8984,8 @@ module.exports = {
 
   changeRatio: function changeRatio(api, value, pos) {
     r[pos] = parseFloat(value);
-    var curve = new api.Bezier(r[0] * 120, r[0] * 160, r[1] * 35, r[1] * 200, r[2] * 220, r[2] * 260, r[3] * 220, r[3] * 40);
-    this.drawCurve(api, curve);
+    api.curve.setRatios(r.slice());
+    this.drawCurve(api, api.curve);
   }
 };
 
@@ -13821,7 +13867,7 @@ var API = {
     offset = offset || { x: 0, y: 0 };
     var p = curve.points;
 
-    if (p.length <= 3 || 5 <= p.length) {
+    if (curve.getLUT) {
       var points = curve.getLUT(100);
       var p0 = points[0];
       points.forEach(function (p1, i) {
@@ -28891,7 +28937,7 @@ var baseClass = {
       var handle = function handle(evt) {
         onSlide(api, parseFloat(evt.target.value), pos);
       };
-      return React.createElement("input", { type: "range", min: v.min, max: v.max, value: v.value, step: v.step, onChange: handle });
+      return React.createElement("input", { type: "range", min: v.min, max: v.max, value: v.value, step: v.step, onChange: handle, style: { display: "block" } });
     });
   },
 

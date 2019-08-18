@@ -41,7 +41,7 @@ var baseClass = {
     var onSlide = this.props.onSlide.bind(this.props.context);
     return sliders.map(function(v, pos) {
       var handle = function(evt) { onSlide(api, parseFloat(evt.target.value), pos); };
-      return <input type="range" min={v.min} max={v.max} value={v.value} step={v.step} onChange={handle} />;
+      return <input type="range" min={v.min} max={v.max} value={v.value} step={v.step} onChange={handle} style={{ display:`block` }} />;
     });
   },
 
