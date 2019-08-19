@@ -42,6 +42,12 @@ var Reordering = {
     var Mt = transpose(M);
     var Mc = multiply(Mt, M);
     var Mi = invert(Mc);
+
+    if (!Mi) {
+      console.error('MtM has no inverse?');
+      return curve;
+    }
+
     var V = multiply(Mi, Mt);
 
     // And then we map our k-order list of coordinates
