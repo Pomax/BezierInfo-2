@@ -285,6 +285,8 @@ var BSplineGraphic = React.createClass({
     this.height = (h||w)|0;
     this.cvs.width = this.width;
     this.cvs.height = this.height;
+    this.cvs.style.width = this.width + "px";
+    this.cvs.style.height = this.height + "px";
     this.ctx = this.cvs.getContext("2d");
   },
 

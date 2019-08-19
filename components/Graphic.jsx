@@ -28,10 +28,34 @@ var baseClass = {
         <figcaption>
           <a className="source" href={sourceLink}>view source</a>
           {this.props.title}
+          {this.state.sliders && this.renderSliders(this.state.sliders)}
           {this.props.children}
         </figcaption>
       </figure>
     );
+  },
+
+  // Note: requires `sliders` and `onSlide` _and_ `context` to be set!
+  renderSliders: function(sliders) {
+    var api = this;
+    var onSlide = this.props.onSlide.bind(this.props.context);
+    return sliders.map(function(v, pos) {
+      var handle = function(evt) {
+        evt.preventDefault();
+        var value = parseFloat(evt.target.value);
+        v.value = value;
+        onSlide(api, value, pos);
+        api.setState({ sliders: sliders });
+      };
+      return (
+        <div className="slider">
+          { v.label && <label>{v.label}</label> }
+          <span className="min val">{v.min}</span>
+          <input type="range" min={v.min} max={v.max} value={v.value} step={v.step} onChange={handle} />
+          <span className="max val">{v.max}</span>
+        </div>
+      );
+    });
   },
 
   componentDidMount: function() {
@@ -59,6 +83,14 @@ var baseClass = {
 
     if (this.props.autoplay) {
       this.play();
+    }
+
+    if (this.props.sliders) {
+      var sliders = this.props.sliders;
+      this.setState({
+        sliders: sliders
+      });
+      this.props.setSliders(this, sliders.map(v => v.value));
     }
   }
 };

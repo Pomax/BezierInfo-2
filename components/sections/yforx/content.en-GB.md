@@ -30,16 +30,18 @@ You might be wondering "where did all the other 'minus x' for all the other valu
 
 ...Of course "just" is not the right qualifier here, there is nothing "just" about finding the roots of a cubic function, but thankfully we've already covered the tool to do this in the [root finding](#extremities) section: Gerolano Cardano's solution for cubic roots. Of course, we still need to be a bit careful, because cubic roots are complicated things: you can get up to three roots back, even though we only "want" one root. In our case, only one will be both a real number (as opposed to a complex number) _and_ lie in the `t` interval [0,1], so we need to filter for that:
 
-    double x = some value we know!
-    double[] roots = getTforX(x);
-    double t;
-    if (roots.length > 0) {
-      for (double _t: roots) {
-        if (_t<0 || _t>1) continue;
-        t = _t;
-        break;
-      }
-    }
+```
+double x = some value we know!
+double[] roots = getTforX(x);
+double t;
+if (roots.length > 0) {
+  for (double _t: roots) {
+    if (_t<0 || _t>1) continue;
+    t = _t;
+    break;
+  }
+}
+```
 
 And that's it, we're done: we now have the `t` value corresponding to our `x`, and we can just evaluate our curve for that `t` value to find a coordinate that has our original, known `x`, and our unknown `y` value. Mouse over the following graphic, which performs this root finding based on a knowledge of which "x" value we're interested in.
 

@@ -437,7 +437,7 @@ var API = {
     offset = offset || { x:0, y:0 };
     var p = curve.points;
 
-    if (p.length <= 3 || 5 <= p.length) {
+    if (curve.getLUT) {
       var points = curve.getLUT(100);
       var p0 = points[0];
       points.forEach((p1,i) => {

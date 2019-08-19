@@ -285,6 +285,24 @@ div.figure {
   border: 1px solid grey;
   text-align: center;
 }
+figure .slider label {
+  font-weight: bold;
+  margin-right: 0.4em;
+}
+figure .slider .val {
+  font-size: 80%;
+}
+figure .slider .min {
+  padding-left: 0.2em;
+}
+figure .slider .max {
+  padding-right: 0.2em;
+}
+figure .slider input[type=range] {
+  display: inline-block;
+  height: 1em;
+  vertical-align: -0.5em;
+}
 github-issues {
   position: relative;
   display: block;
@@ -401,6 +419,7 @@ footer {
 .two-column {
   display: flex;
   flex-direction: row-reverse;
+  align-items: end;
 }
 .two-column canvas {
   flex: none;
@@ -408,6 +427,7 @@ footer {
 .two-column section {
   margin-top: 0;
   padding-left: 2em;
+  align-self: center;
 }
 code {
   background: #DDE;
