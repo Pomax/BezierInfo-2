@@ -28,7 +28,7 @@ var baseClass = {
         <figcaption>
           <a className="source" href={sourceLink}>view source</a>
           {this.props.title}
-          {this.state.sliders && this.renderSliders(this.state.sliders)}
+          {this.state && this.state.sliders && this.renderSliders(this.state.sliders)}
           {this.props.children}
         </figcaption>
       </figure>
