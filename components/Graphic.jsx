@@ -28,7 +28,7 @@ var baseClass = {
         <figcaption>
           <a className="source" href={sourceLink}>view source</a>
           {this.props.title}
-          {this.state && this.state.sliders && this.renderSliders(this.state.sliders)}
+          {this.renderSliders()}
           {this.props.children}
         </figcaption>
       </figure>
@@ -36,7 +36,11 @@ var baseClass = {
   },
 
   // Note: requires `sliders` and `onSlide` _and_ `context` to be set!
-  renderSliders: function(sliders) {
+  renderSliders: function() {
+    if (!this.state) return;
+    if (!this.state.sliders) return;
+
+    var sliders = this.state.sliders;
     var api = this;
     var onSlide = this.props.onSlide.bind(this.props.context);
     return sliders.map(function(v, pos) {
