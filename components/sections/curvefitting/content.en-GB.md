@@ -197,11 +197,11 @@ This leaves one problem: **T** isn't actually the matrix we want: we don't want 
 
 \[
 𝕋 = \begin{bmatrix}
- s^0_1 & s^1_1 & ... & s^{n-1}_1 & s^{n-1}_1 \\
+ s^0_1 & s^1_1 & ... & s^{n-2}_1 & s^{n-1}_1 \\
        &       &     &     &        \\
 \vdots &       & ... &     & \vdots \\
        &       &     &     &        \\
- s^0_n & s^1_n & ... & s^{n-1}_n &  s^{n-1}_n
+ s^0_n & s^1_n & ... & s^{n-2}_n &  s^{n-1}_n
 \end{bmatrix}
 \]
 
