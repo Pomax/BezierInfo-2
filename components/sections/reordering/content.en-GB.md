@@ -57,13 +57,13 @@ So by using this seemingly silly trick, we can suddenly express part of our n<su
 \[
   \begin{aligned}
     t B^n_i(t) &= t \frac{n!}{(n-i)!i!} (1-t)^{n-i} t^i \\
-               &= \frac{i+1}{n+1} \frac{(n+1)!}{(n+1)!(i+1)!} (1-t)^{n-i} t^{i+1} \\
-               &= \frac{i+1}{k} \frac{k!}{k!(i+1)!} (1-t)^{n-i} t^(i+1), \textit{where } k = n + 1 \\
+               &= \frac{i+1}{n+1} \frac{(n+1)!}{((n+1)-(i+1))!(i+1)!} (1-t)^{(n+1)-(i+1)} t^{i+1} \\
+               &= \frac{i+1}{k} \frac{k!}{(k-(i+1))!(i+1)!} (1-t)^{k-(i+1)} t^{i+1}, \textit{where } k = n + 1 \\
                &= \frac{i+1}{k} B^k_{i+1}(t)
   \end{aligned}
 \]
 
-So, with both of those changed from an order `n` expression to an order `(n+1)` expression, we can put them back together again. Now, where the order `n` function had a summation from 0 to `n`, the order `n+1` function uses a summation from 0 to `n+1`, but this shouldn't be a problem as long as we can add some new terms that "contribute nothing". If you read the section on derivatives, you may remember that "higher terms than there is a binomial for" and "lower than zero terms" both "contribute nothing". So as long as we can add terms that have the same form as the terms we need, we can just include them in the summation, they'll sit there and do nothing, and the resulting function stays identical to the lower order curve.
+So, with both of those changed from an order `n` expression to an order `(n+1)` expression, we can put them back together again. Now, where the order `n` function had a summation from 0 to `n`, the order `n+1` function uses a summation from 0 to `n+1`, but this shouldn't be a problem as long as we can add some new terms that "contribute nothing". In the next section on derivatives, there is a discussion about why "higher terms than there is a binomial for" and "lower than zero terms" both "contribute nothing". So as long as we can add terms that have the same form as the terms we need, we can just include them in the summation, they'll sit there and do nothing, and the resulting function stays identical to the lower order curve.
 
 Let's do this:
 
