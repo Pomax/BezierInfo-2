@@ -5,7 +5,7 @@ We can further control Bézier curves by "rationalising" them: that is, adding a
 Adding these ratio values to the regular Bézier curve function is fairly easy. Where the regular function is the following:
 
 \[
-  Bézier(n,t) = \sum_{i=0}^{n} \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i} \cdot w_i \cdot ratio_i
+  Bézier(n,t) = \sum_{i=0}^{n} \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i} \cdot w_i
 \]
 
 The function for rational Bézier curves has two more terms:
