@@ -22,6 +22,8 @@ In this, the first new term represents the ratio for each coordinate, as a multi
 
 So what does this actually do?
 
+<Graphic title="Conic projection" setup={this.drawConic} draw={this.drawCone} />
+
 Let's look at the effect of "rationalising" our Bézier curves by interacting with the curve and ratios. The following graphic shows the curve from the previous section, enriched with ratio factors: the closer to zero we set one or more terms, the less relative influence the associated coordinates exert on the curve (and of course the higher we set them, the more influence they have).
 
 <Graphic title="Our rational cubic Bézier curve" setup={this.drawCubic} draw={this.drawCurve} sliders={[
