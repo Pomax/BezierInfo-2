@@ -1,5 +1,9 @@
 module.exports = {
 
+  "January 2020": [
+    "Added reset buttons to all graphics"
+  ],
+
   "August 2019": [
     "Added a section on (plain) rational Bezier curves",
     "Improved the Graphic component to allow for sliders"

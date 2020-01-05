@@ -253,10 +253,9 @@ So let's try it out! The following graphic lets you place points, and will start
 
 <div className="figure">
   <Graphic title="Fitting a Bézier curve" setup={this.setup} draw={this.draw} onClick={this.onClick}>
-    <button onClick={this.toggle}>toggle</button>
-    <button onClick={this.reset}>reset</button>
+    <button onClick={this.toggle} style="position:absolute; right: 0;">toggle</button>
     <SliderSet ref={ set => (this.sliders=set) } onChange={this.processTimeUpdate} />
   </Graphic>
 </div>
 
-You'll note there are also two convenient buttons: the "toggle" button lets you toggle between equidistance `t` values, and distance ratio along the polygon, and the "reset" button just clears the graphic so you can draw a new set of points. Arguably more interesting is that once you have points to abstract a curve, you also get <em>direct control</em> over the time values, because if the time values are our degree of freedom, you should be able to freely manipulate them and see what the effect on your curve is.
+You'll note there is a convenient "toggle" buttons that lets you toggle between equidistance `t` values, and distance ratio along the polygon. Arguably more interesting is that once you have points to abstract a curve, you also get <em>direct control</em> over the time values through sliders for each, because if the time values are our degree of freedom, you should be able to freely manipulate them and see what the effect on your curve is.

@@ -19,6 +19,11 @@ figure {
     &:focus {
       border: 1px solid grey;
       outline: none;
+
+      + figcaption .help button {
+        border: 1px solid grey;
+        border-top: none;
+      }
     }
   }
 
@@ -29,11 +34,30 @@ figure {
     font-style: italic;
     font-size: 90%;
 
-    a.source {
-      position: absolute;
-      top: -4pt;
-      right: 0;
+    .help {
+      position: relative;
+      top: calc(~"-1em - 2px");
+      left: calc(calc(calc(~"100% - var(--figurewidth)")~" / 2")~" - 1px");
+      width: var(--figurewidth);
+      margin-bottom: 0.5em;
       font-size: 8pt;
+
+      a  {
+        position:absolute;
+        right: 0;
+      }
+
+      button {
+        position: absolute;
+        left: 0;
+        border: 1px solid lightgray;
+        border-top: none;
+        border-radius: 0;
+        top: 1.5px;
+        left: 0px;
+        background: white;
+        padding: 0px 4px 2px 4px;
+      }
     }
 
     button {

@@ -3,7 +3,7 @@ var React = require("react");
 class SliderSet extends React.Component {
   constructor(props) {
     super(props);
-    this.options = props.options || [];
+    this.setOptions(props.options);
   }
 
   render(props) {
@@ -35,7 +35,7 @@ class SliderSet extends React.Component {
   }
 
   setOptions(options, labels) {
-    this.options = options;
+    this.options = options || [];
     this.forceUpdate();
   }
 }

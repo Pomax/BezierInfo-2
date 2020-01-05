@@ -2,10 +2,12 @@ var React = require("react");
 
 var baseClass = {
   render: function() {
+    var figureWidth = this.panelCount * this.defaultWidth;
+
     var cprops = {
       tabIndex: 0,
       style: {
-        width: this.panelCount * this.defaultWidth + "px",
+        width: figureWidth + "px",
         height: this.defaultHeight + "px"
       }
     };
@@ -23,10 +25,13 @@ var baseClass = {
     var sourceLink = `https://github.com/Pomax/BezierInfo-2/tree/master/components/sections/${this.props.section}/handler.js`;
 
     return (
-      <figure className={this.props.inline ? "inline": false}>
+      <figure className={this.props.inline ? "inline": false} style={`--figurewidth: ${figureWidth}px`}>
         <canvas ref="canvas" {...cprops} {...handlers} />
         <figcaption>
-          <a className="source" href={sourceLink}>view source</a>
+          <div className="help">
+            <a className="source" href={sourceLink}>view source</a>
+            <button onClick={ evt => this.resetFigure(true)}>reset</button>
+          </div>
           {this.props.title}
           {this.renderSliders()}
           {this.props.children}
@@ -39,18 +44,20 @@ var baseClass = {
   renderSliders: function() {
     if (!this.state) return;
     if (!this.state.sliders) return;
+    if (!this.props.context) return;
 
     var sliders = this.state.sliders;
-    var api = this;
     var onSlide = this.props.onSlide.bind(this.props.context);
-    return sliders.map(function(v, pos) {
-      var handle = function(evt) {
+
+    return sliders.map((v, pos) => {
+      var handle = (evt) => {
         evt.preventDefault();
         var value = parseFloat(evt.target.value);
         v.value = value;
-        onSlide(api, value, pos);
-        api.setState({ sliders: sliders });
+        onSlide(this, value, pos);
+        this.setState({ sliders: sliders });
       };
+
       return (
         <div className="slider">
           { v.label && <label>{v.label}</label> }
@@ -60,6 +67,31 @@ var baseClass = {
         </div>
       );
     });
+  },
+
+  resetFigure: function(forceUpdate) {
+    if (this.props.setup) {
+      this.props.setup(this);
+    }
+
+    if (this.props.draw) {
+      this.props.draw(this, this.curve);
+    }
+
+    if (this.props.autoplay) {
+      this.play();
+    }
+
+    if (this.props.sliders) {
+      this.setState({
+        sliders: this.props.sliders
+      });
+      this.props.setSliders(this, this.props.sliders.map(v => v.value));
+    }
+
+    if (forceUpdate) {
+      this.forceUpdate();
+    }
   },
 
   componentDidMount: function() {
@@ -77,25 +109,7 @@ var baseClass = {
       Paper.setup(cvs);
     }
 
-    if (this.props.setup) {
-      this.props.setup(this);
-    }
-
-    if (this.props.draw) {
-      this.props.draw(this, this.curve);
-    }
-
-    if (this.props.autoplay) {
-      this.play();
-    }
-
-    if (this.props.sliders) {
-      var sliders = this.props.sliders;
-      this.setState({
-        sliders: sliders
-      });
-      this.props.setSliders(this, sliders.map(v => v.value));
-    }
+    this.resetFigure();
   }
 };
 
