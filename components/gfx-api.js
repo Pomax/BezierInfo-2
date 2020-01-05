@@ -87,14 +87,15 @@ var API = {
           found = found || true;
         }
       });
-      this.cvs.style.cursor = found ? "pointer" : "default";
+
+      this.cvs.style.cursor = found ? !this.noDrag? "pointer" : "default": "default";
 
       this.hover = {
         x: evt.offsetX,
         y: evt.offsetY
       };
 
-      if(this.movingPoint) {
+      if(!this.noDrag && this.movingPoint) {
         this.ox = evt.offsetX - this.mx;
         this.oy = evt.offsetY - this.my;
         this.mp.x = Math.max(0, Math.min(this.defaultWidth, this.cx + this.ox));
@@ -119,7 +120,7 @@ var API = {
       this.props.onMouseMove(evt, this);
     }
 
-    if (this.dragging && this.props.onMouseDrag) {
+    if (!this.noDrag && this.dragging && this.props.onMouseDrag) {
       this.props.onMouseDrag(evt, this);
     }
 

@@ -5977,11 +5977,13 @@ var fit = __webpack_require__(42);
 module.exports = {
   setup: function setup(api) {
     this.api = api;
+    api.noDrag = true; // do not allow points to be dragged around
     this.reset();
   },
 
   reset: function reset() {
     this.points = [];
+    this.sliders.setOptions([]);
     this.curveset = false;
     this.mode = 0;
     if (this.api) {
@@ -9545,7 +9547,7 @@ var SliderSet = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (SliderSet.__proto__ || Object.getPrototypeOf(SliderSet)).call(this, props));
 
-    _this.options = props.options || [];
+    _this.setOptions(props.options);
     return _this;
   }
 
@@ -9600,7 +9602,7 @@ var SliderSet = function (_React$Component) {
   }, {
     key: "setOptions",
     value: function setOptions(options, labels) {
-      this.options = options;
+      this.options = options || [];
       this.forceUpdate();
     }
   }]);
@@ -13533,14 +13535,15 @@ var API = {
           found = found || true;
         }
       });
-      this.cvs.style.cursor = found ? "pointer" : "default";
+
+      this.cvs.style.cursor = found ? !this.noDrag ? "pointer" : "default" : "default";
 
       this.hover = {
         x: evt.offsetX,
         y: evt.offsetY
       };
 
-      if (this.movingPoint) {
+      if (!this.noDrag && this.movingPoint) {
         this.ox = evt.offsetX - this.mx;
         this.oy = evt.offsetY - this.my;
         this.mp.x = Math.max(0, Math.min(this.defaultWidth, this.cx + this.ox));
@@ -13567,7 +13570,7 @@ var API = {
       this.props.onMouseMove(evt, this);
     }
 
-    if (this.dragging && this.props.onMouseDrag) {
+    if (!this.noDrag && this.dragging && this.props.onMouseDrag) {
       this.props.onMouseDrag(evt, this);
     }
 
@@ -29038,6 +29041,8 @@ var baseClass = {
       }));
     }
 
+    console.log(this.props.children);
+
     if (forceUpdate) {
       this.forceUpdate();
     }
@@ -35708,13 +35713,8 @@ module.exports = {
             { handler: handler.props.handler, section: "curvefitting", title: "Fitting a B\xE9zier curve", setup: handler.setup, sname: "setup", draw: handler.draw, dname: "draw", onClick: handler.onClick },
             React.createElement(
               "button",
-              { onClick: handler.toggle },
+              { onClick: handler.toggle, style: "position:absolute; right: 0;" },
               "toggle"
-            ),
-            React.createElement(
-              "button",
-              { onClick: handler.reset },
-              "reset"
             ),
             React.createElement(SliderSet, { ref: function ref(set) {
                 return handler.sliders = set;
@@ -35724,19 +35724,19 @@ module.exports = {
         React.createElement(
           "p",
           null,
-          "You'll note there are also two convenient buttons: the \"toggle\" button lets you toggle between equidistance ",
+          "You'll note there is a convenient \"toggle\" buttons that lets you toggle between equidistance ",
           React.createElement(
             "code",
             null,
             "t"
           ),
-          " values, and distance ratio along the polygon, and the \"reset\" button just clears the graphic so you can draw a new set of points. Arguably more interesting is that once you have points to abstract a curve, you also get ",
+          " values, and distance ratio along the polygon. Arguably more interesting is that once you have points to abstract a curve, you also get ",
           React.createElement(
             "em",
             null,
             "direct control"
           ),
-          " over the time values, because if the time values are our degree of freedom, you should be able to freely manipulate them and see what the effect on your curve is."
+          " over the time values through sliders for each, because if the time values are our degree of freedom, you should be able to freely manipulate them and see what the effect on your curve is."
         )
       );
     }

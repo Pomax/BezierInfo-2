@@ -3,11 +3,13 @@ var fit = require('../../../lib/curve-fitter.js');
 module.exports = {
   setup: function(api) {
     this.api = api;
+    api.noDrag = true; // do not allow points to be dragged around
     this.reset();
   },
 
   reset: function() {
     this.points = [];
+    this.sliders.setOptions([]);
     this.curveset = false;
     this.mode = 0;
     if (this.api) {
