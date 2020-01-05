@@ -204,7 +204,6 @@ var API = {
     var cvs = this.refs.canvas;
     cvs.style.width = this.panelCount * w + "px";
     cvs.style.height = h + "px";
-
     cvs.parentNode.style.setProperty(`--figurewidth`, cvs.style.width);
 
     var dpr = this.getPixelRatio();
@@ -270,6 +269,7 @@ var API = {
     var cvs = this.refs.canvas;
     cvs.width = c * this.defaultWidth * this.getPixelRatio();
     cvs.style.width = c * this.defaultWidth + "px";
+    cvs.parentNode.style.setProperty(`--figurewidth`, cvs.style.width);
   },
 
   setOffset: function(f) {
