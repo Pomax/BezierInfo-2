@@ -204,6 +204,8 @@ var API = {
     cvs.style.width = this.panelCount * w + "px";
     cvs.style.height = h + "px";
 
+    cvs.parentNode.style.setProperty(`--figurewidth`, cvs.style.width);
+
     var dpr = this.getPixelRatio();
     cvs.width = this.panelCount * w * dpr;
     cvs.height = h * dpr;

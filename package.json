@@ -38,8 +38,7 @@
     "pdfcrop": "pdfcrop",
     "server": "echo HTTP server listening on http://localhost:8080/en-GB/ && http-server -s",
     "start": "npm run build",
-    "test": "run-p watch test-build",
-    "test-build": "npm-run-all bootstrap dev-with-server",
+    "test": "run-p watch dev",
     "watch": "node tools/watch-file-changes",
     "deploy": "node tools/deploy"
   },
