@@ -89,8 +89,6 @@ var baseClass = {
       this.props.setSliders(this, this.props.sliders.map(v => v.value));
     }
 
-    console.log(this.props.children);
-
     if (forceUpdate) {
       this.forceUpdate();
     }
