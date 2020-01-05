@@ -82,8 +82,8 @@ However, the "real" matrix is this:
   \begin{bmatrix}
    0 &  2 & 0 & 0 \\
    0 &  0 & 2 & 0 \\
-  -τ &  0 & τ & 0 \\
-   0 & -τ & 0 & τ
+  \frac{-1}{τ} &  0 & \frac{1}{τ} & 0 \\
+   0 & \frac{-1}{τ} & 0 & \frac{1}{τ}
   \end{bmatrix}
 \]
 
