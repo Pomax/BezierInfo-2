@@ -56,8 +56,6 @@ So, let's start with the first, where we want to satisfy the following equality:
   \end{bmatrix}
 \]
 
-That is to say, the "point + tangent" vector should be equal to "some mapping matrix <em>T</em> times a normal coordinate vector", such that the 
-
 This mapping says that in order to map a Catmull-Rom "point + tangent" vector to something based on an "all coordinates" vector, we need to determine the mapping matrix such that applying <em>T</em> yields P2 as start point, P3 as end point, and two tangents based on the lines between P1 and P3, and P2 nd P4, respectively.
 
 Computing <em>T</em> is really more "arranging the numbers":
