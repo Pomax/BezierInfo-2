@@ -30,8 +30,8 @@ We can effect this quite easily, because we know that the vector from a curve's 
 
 So let's implement that and see what it gets us. The following two graphics show a quadratic and a cubic poly-Bézier curve again, but this time moving the control points around moves others, too. However, you might see something unexpected going on for quadratic curves...
 
-<Graphic title="Loosely connected quadratic poly-Bézier" setup={this.setupQuadratic} draw={this.draw} onMouseMove={this.linkDerivatives}/>
-<Graphic title="Loosely connected cubic poly-Bézier" setup={this.setupCubic} draw={this.draw} onMouseMove={this.linkDerivatives}/>
+<Graphic title="Connected quadratic poly-Bézier" setup={this.setupQuadratic} draw={this.draw} onMouseMove={this.linkDerivatives}/>
+<Graphic title="Connected cubic poly-Bézier" setup={this.setupCubic} draw={this.draw} onMouseMove={this.linkDerivatives}/>
 
 As you can see, quadratic curves are particularly ill-suited for poly-Bézier curves, as all the control points are effectively linked. Move one of them, and you move all of them. Not only that, but if we move the on-curve points, it's possible to get a situation where a control point's positions is different depending on whether it's the reflection of its left or right neighbouring control point: we can't even form a proper rule-conforming curve! This means that we cannot use quadratic poly-Béziers for anything other than really, really simple shapes. And even then, they're probably the wrong choice. Cubic curves are pretty decent, but the fact that the derivatives are linked means we can't manipulate curves as well as we might if we relaxed the constraints a little.
 
@@ -39,15 +39,15 @@ So: let's relax the requirement a little.
 
 We can change the constraint so that we still preserve the *angle* of the derivatives across sections (so transitions from one section to the next will still look natural), but give up the requirement that they should also have the same *vector length*. Doing so will give us a much more useful kind of poly-Bézier curve:
 
-<Graphic title="Loosely connected quadratic poly-Bézier" setup={this.setupQuadratic} draw={this.draw} onMouseMove={this.linkDirection}/>
-<Graphic title="Loosely connected cubic poly-Bézier" setup={this.setupCubic} draw={this.draw} onMouseMove={this.linkDirection}/>
+<Graphic title="Angularly connected quadratic poly-Bézier" setup={this.setupQuadratic} draw={this.draw} onMouseMove={this.linkDirection}/>
+<Graphic title="Angularly connected cubic poly-Bézier" setup={this.setupCubic} draw={this.draw} onMouseMove={this.linkDirection}/>
 
 Cubic curves are now better behaved when it comes to dragging control points around, but the quadratic poly-Bézier still has the problem that moving one control points will move the control points and may ending up defining "the next" control point in a way that doesn't work. Quadratic curves really aren't very useful to work with...
 
 Finally, we also want to make sure that moving the on-curve coordinates preserves the relative positions of the associated control points. With that, we get to the kind of curve control that you might be familiar with from applications like Photoshop, Inkscape, Blender, etc.
 
-<Graphic title="Loosely connected quadratic poly-Bézier" setup={this.setupQuadratic} draw={this.draw} onMouseDown={this.bufferPoints} onMouseMove={this.modelCurve}/>
-<Graphic title="Loosely connected cubic poly-Bézier" setup={this.setupCubic} draw={this.draw} onMouseDown={this.bufferPoints} onMouseMove={this.modelCurve}/>
+<Graphic title="Standard connected quadratic poly-Bézier" setup={this.setupQuadratic} draw={this.draw} onMouseDown={this.bufferPoints} onMouseMove={this.modelCurve}/>
+<Graphic title="Standard connected cubic poly-Bézier" setup={this.setupCubic} draw={this.draw} onMouseDown={this.bufferPoints} onMouseMove={this.modelCurve}/>
 
 Again, we see that cubic curves are now rather nice to work with, but quadratic curves have a new, very serious problem: we can move an on-curve point in such a way that we can't compute what needs to "happen next". Move the top point down, below the left and right points, for instance. There is no way to preserve correct control points without a kink at the bottom point. Quadratic curves: just not that good...
 

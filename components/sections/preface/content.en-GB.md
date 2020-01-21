@@ -24,7 +24,7 @@ This book has grown over the years from a short primer to a 100+ print-page-equi
 
 ## Note: virtually all Bézier graphics are interactive.
 
-This page uses interactive examples, relying heavily on [Bezier.js](http://pomax.github.io/bezierjs), as well as "real" maths (in LaTeX form) which is typeset using the most excellent [MathJax](http://MathJax.org) library. The page is generated offline as a React application, using Webpack, which has made adding "view source" options considerably more challenging. I'm still trying to figure out how to add them back in, but it didn't feel like it should hold up deploying this update compared to the previous years' version.
+This page uses interactive examples, relying heavily on [Bezier.js](http://pomax.github.io/bezierjs), as well as maths formulae which are typeset into SVG using the [XeLaTeX](https://ctan.org/pkg/xetex) typesetting system and [pdf2svg](https://github.com/dawbarton/pdf2svg) by [David Barton](http://www.cityinthesky.co.uk/). The page is generated offline as a React application.
 
 ## This book is open source.
 
