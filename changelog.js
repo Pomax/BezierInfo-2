@@ -1,7 +1,8 @@
 module.exports = {
 
   "January 2020": [
-    "Added reset buttons to all graphics"
+    "Added reset buttons to all graphics",
+    "Fixed the Catmull-Rom section because it had some glaring maths errors"
   ],
 
   "August 2019": [

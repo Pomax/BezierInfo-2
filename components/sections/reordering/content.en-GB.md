@@ -20,13 +20,19 @@ However, this rule also has as direct consequence that you **cannot** generally 
 
 However, there is a surprisingly good way to ensure that a lower order curve looks "as close as reasonably possible" to the original curve: we can optimise the "least-squares distance" between the original curve and the lower order curve, in a single operation (also explained over on [Sirver's Castle](http://www.sirver.net/blog/2011/08/23/degree-reduction-of-bezier-curves)). However, to use it, we'll need to do some calculus work and then switch over to linear algebra. As mentioned in the section on matrix representations, some things can be done much more easily with matrices than with calculus functions, and this is one of those things. So... let's go!
 
-We start by taking the standard Bézier function:
+We start by taking the standard Bézier function, and condensing it a little:
 
 \[
-    Bézier(n,t) = \sum_{i=0}^{n} b_i B^n_i(t)
+  Bézier(n,t)
+  =
+  \sum_{i=0}^{n} w_i B^n_i(t)
+  \textit{, where }
+  B^n_i(t)
+  =
+  \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i}
 \]
 
-And then, we apply one of those silly (actually, super useful) calculus tricks: since our `t` value is always between zero and one (inclusive), we know that `(1-t)` plus `t` always sums to 1. As such, we can express any value as a sum of `t` and `1-t`:
+Then, we apply one of those silly (actually, super useful) calculus tricks: since our `t` value is always between zero and one (inclusive), we know that `(1-t)` plus `t` always sums to 1. As such, we can express any value as a sum of `t` and `1-t`:
 
 \[
   x = 1 x = \left ( (1-t) + t \right ) x = (1-t) x + t x = x (1-t) + x t
@@ -37,7 +43,7 @@ So, with that seemingly trivial observation, we rewrite that Bézier function by
 \[
   \begin{aligned}
     Bézier(n,t) &= (1-t) B(n,t) + t B(n,t) \\
-                &= \sum_{i=0}^{n} p_i (1 - t) B^n_i(t) + \sum_{i=0}^{n} p_i t B^n_i(t)
+                &= \sum_{i=0}^{n} w_i (1 - t) B^n_i(t) + \sum_{i=0}^{n} w_i t B^n_i(t)
   \end{aligned}
 \]
 
@@ -69,11 +75,11 @@ Let's do this:
 
 \[
   \begin{aligned}
-    Bézier(n,t) &= \sum_{i=0}^{n+1} p_i (1 - t) B^n_i(t) + \sum_{i=0}^{n+1} p_i t B^n_i(t) \\
-                &= \sum_{i=0}^{n+1} p_i \frac{k-i}{k} B^k_i(t) + \sum_{i=0}^{n+1} p_i \frac{i+1}{k} B^k_{i+1}(t), \textit{where } k = n + 1 \\
-                &= \sum_{i=0}^{n+1} p_i \frac{k-i}{k} B^k_i(t) + \sum_{i=0}^{n+1} p_{i-1} \frac{i}{k} B^k_i(t) \\
-                &= \sum_{i=0}^{n+1} \left ( p_i \frac{k-i}{k} + p_{i-1} \frac{i}{k} \right ) B^k_i(t) \\
-                &= \sum_{i=0}^{n+1} \left ( p_i (1-s) + p_{i-1} s \right ) B^k_i(t), \textit{where } s = \frac{i}{k}
+    Bézier(n,t) &= \sum_{i=0}^{n+1} w_i (1 - t) B^n_i(t) + \sum_{i=0}^{n+1} w_i t B^n_i(t) \\
+                &= \sum_{i=0}^{n+1} w_i \frac{k-i}{k} B^k_i(t) + \sum_{i=0}^{n+1} w_i \frac{i+1}{k} B^k_{i+1}(t), \textit{where } k = n + 1 \\
+                &= \sum_{i=0}^{n+1} w_i \frac{k-i}{k} B^k_i(t) + \sum_{i=0}^{n+1} p_{i-1} \frac{i}{k} B^k_i(t) \\
+                &= \sum_{i=0}^{n+1} \left ( w_i \frac{k-i}{k} + p_{i-1} \frac{i}{k} \right ) B^k_i(t) \\
+                &= \sum_{i=0}^{n+1} \left ( w_i (1-s) + p_{i-1} s \right ) B^k_i(t), \textit{where } s = \frac{i}{k}
   \end{aligned}
 \]
 

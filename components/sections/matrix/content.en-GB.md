@@ -1,6 +1,6 @@
 # Bézier curvatures as matrix operations
 
-We can also represent Bézier curves as matrix operations, by expressing the Bézier formula as a polynomial basis function and a coefficients matrix, and the actual coordinates as a matrix. Let's look at what this means for the cubic curve:
+We can also represent Bézier curves as matrix operations, by expressing the Bézier formula as a polynomial basis function and a coefficients matrix, and the actual coordinates as a matrix. Let's look at what this means for the cubic curve, using P<sub>...</sub> to refer to coordinate values "in one or more dimensions":
 
 \[
 B(t) = P_1 \cdot (1-t)^3 + P_2 \cdot 3 \cdot (1-t)^2 \cdot t + P_3 \cdot 3 \cdot (1-t) \cdot t^2 + P_4 \cdot t^3
