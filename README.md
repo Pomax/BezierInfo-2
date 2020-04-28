@@ -19,7 +19,7 @@ Both operations run continuous linting. Also note that there are specific requir
 - [Node.js](https://nodejs.org)
 - XeLaTeX (available through [TeXLive](https://www.tug.org/texlive) on unix/linux/OSX and [MiKTeX](https://miktex.org) on Windows)
 - pdfcrop (available through [TeXLive](https://www.tug.org/texlive) on unix/linux/OSX and [MiKTeX](https://miktex.org) on Windows)
-- The [`pdf2svg`](https://github.com/jalios/pdf2svg-windows/releases) utility
+- The [`pdf2svg`](http://www.cityinthesky.co.uk/opensource/pdf2svg/) utility
 
 ### Fonts required for proper LaTeX typesetting
 - en-GB LaTeX fonts: TeX Gyre Pagella and TeX Gyre Pagella Math fonts (installable through TeXLive and MiKTeX)
