@@ -22,11 +22,13 @@ Both operations run continuous linting. Also note that there are specific requir
 - The [`pdf2svg`](http://www.cityinthesky.co.uk/opensource/pdf2svg/) utility
 
 ### Fonts required for proper LaTeX typesetting
-- en-GB LaTeX fonts: TeX Gyre Pagella and TeX Gyre Pagella Math fonts (installable through TeXLive and MiKTeX)
-- ja-JP LaTeX font: IPAex Mincho (installable through TeXLive and MiKTeX)
-- zh-CN LaTeX font: Arhpic gbsn (installable through TeXLive and MiKTeX)
 
 All fonts come with TeXLive and MiKTeX, and should be easy to install. Note that you will need the modern OpenType (otf/ttf) fonts, not the obsolete type1 fonts.
+
+- en-GB fonts: TeX Gyre Pagella from the `tex-gyre` package
+- ja-JP font: IPAex Mincho from the `ipaex` package (_not_ `ipaex-type1`)
+- zh-CN font: Arhpic gbsn from the `arphic-ttf` package (_not_ `arphic`)
+- maths fonts: TeX Gyre Pagella Math fonts from the `tex-gyre-math` package
 
 ### Running a build
 
