@@ -70,5 +70,3 @@ jobs:
           git add -A
           git commit -m "Automated build"
           git push origin ci-test
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
