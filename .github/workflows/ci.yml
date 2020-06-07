@@ -1,0 +1,77 @@
+name: CI-CD
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'components/**'
+      - 'images/**'
+      - 'lib/**'
+      - 'stylesheets/**'
+      - 'tools/**'
+      - 'changelog.js'
+      - 'index.template.html'
+      - 'webpack.config.js'
+
+jobs:
+  build:
+    name: Installing TeX Live and ((Xe)La)TeX related packages
+    runs-on: ubuntu-latest
+    shell: bash
+    steps:
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+
+      - name: Installing TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install xzdec libpoppler-glib-dev texlive -y
+          sudo tlmgr --version
+
+      - name: Installing pdf2svg
+        run: |
+          set +e
+          rm -f *.tar.gz
+          set -e
+          wget https://github.com/dawbarton/pdf2svg/archive/v0.2.3.tar.gz
+          tar -zxf v0.2.3.tar.gz
+          cd pdf2svg-0.2.3
+          ./configure
+          make
+          sudo make install
+          cd ..
+          set +e
+          rm -rf pdf2svg-0.2.3
+          rm v0.2.3.tar.gz
+          pdf2svg
+          set -e
+
+      - name: Installing latest Node
+        run: |
+          wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+          sh ~/.nvm/nvm.sh install latest
+          sh ~/.nvm/nvm.sh use latest
+
+      - name: Installing dependencies
+        run: |
+          npm install
+          echo "finished installing dependencies"
+
+      - name: Running npm build
+        run: |
+          echo "running build..."
+          npm run build:ci
+
+      - name: Push changes
+        run: |
+          echo "forming commit..."
+          git config --local user.email "action@github.com"
+          git config --local user.name "Bezierinfo CI"
+          git checkout -b ci-test
+          git add -A
+          git commit -m "Automated build"
+          git push origin ci-test
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
