@@ -1,6 +1,7 @@
-// test4
-
 module.exports = {
+  "June 2020": [
+    "Added automatic CI/CD via Github actions"
+  ],
 
   "January 2020": [
     "Added reset buttons to all graphics",
