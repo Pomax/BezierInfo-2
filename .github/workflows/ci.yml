@@ -18,12 +18,9 @@ jobs:
   build:
     name: Installing TeX Live and ((Xe)La)TeX related packages
     runs-on: ubuntu-latest
-    shell: bash
     steps:
       - uses: actions/checkout@master
-        with:
-          fetch-depth: 0
-
+        
       - name: Installing TeX Live
         run: |
           sudo apt-get update
