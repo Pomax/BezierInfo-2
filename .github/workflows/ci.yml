@@ -16,7 +16,7 @@ on:
 
 jobs:
   build:
-    name: Installing TeX Live and ((Xe)La)TeX related packages
+    name: Building the Primer website
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
