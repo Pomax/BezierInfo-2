@@ -1,6 +1,6 @@
 module.exports = {
   "June 2020": [
-    "Added automated CI/CD via Github actions"
+    "Added automatic CI/CD via Github actions"
   ],
 
   "January 2020": [
