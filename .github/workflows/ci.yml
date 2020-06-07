@@ -64,6 +64,7 @@ jobs:
       - name: Push changes
         run: |
           echo "forming commit..."
+          git remote add origin git@github.com:Pomax/BezierInfo-2.git
           git config --local user.email "action@github.com"
           git config --local user.name "Bezierinfo CI"
           git checkout -b ci-test
