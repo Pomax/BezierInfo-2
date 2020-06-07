@@ -59,7 +59,7 @@ jobs:
       - name: Running npm build
         run: |
           echo "running build..."
-          npm run build:ci
+          npm run ci:build
 
       - name: Push changes
         run: |
