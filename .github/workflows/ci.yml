@@ -61,13 +61,14 @@ jobs:
           echo "running build..."
           npm run ci:build
 
-      - name: Push changes
+      - name: Commit changes
         run: |
           echo "forming commit..."
-          git remote add primer git@github.com:Pomax/BezierInfo-2.git
           git config --local user.email "action@github.com"
           git config --local user.name "Bezierinfo CI"
-          git checkout -b ci-test
-          git add -A
-          git commit -m "Automated build"
-          git push primer ci-test
+          git commit -m "Automated build" -a
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
