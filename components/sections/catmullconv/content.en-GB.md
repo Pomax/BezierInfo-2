@@ -36,7 +36,7 @@ But... if you want to know <em>why</em> that conversion works, let's do some mat
 
 ## Deriving the conversion formulae
 
-In order to convert betwen Catmull-Rom curves and Bézier curves, we need to know two things. Firstly, how to express the Catmull-Rom curve using a "set of four coordinates", rather than a mix of coordinates and tangents, and secondly, how to convert those Catmull-Rom coordinates to and from Bézier form.
+In order to convert between Catmull-Rom curves and Bézier curves, we need to know two things. Firstly, how to express the Catmull-Rom curve using a "set of four coordinates", rather than a mix of coordinates and tangents, and secondly, how to convert those Catmull-Rom coordinates to and from Bézier form.
 
 So, let's start with the first, where we want to satisfy the following equality:
 
@@ -230,7 +230,7 @@ So, if we want to express a Catmull-Rom curve using a Bézier curve, we'll need 
   \end{bmatrix}
 \]
 
-Into somthing that looks like this:
+Into something that looks like this:
 
 \[
   \begin{bmatrix}
