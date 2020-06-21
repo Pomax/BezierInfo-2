@@ -32,7 +32,7 @@ First we turn our cubic Bézier function into a quadratic one, by following the 
 \[
 \begin{array}{l}
   B(t)\ uses\ \{ p_1,p_2,p_3,p_4 \} \\
-  B'(t)\ uses\ \{ v_1.v_2,v_3 \},\ where\ v_1 = 3(p_2-p_1),\ v_2 = 3(p_3-p_2),\ v_3 = 3(p_4-p_3)
+  B'(t)\ uses\ \{ v_1,v_2,v_3 \},\ where\ v_1 = 3(p_2-p_1),\ v_2 = 3(p_3-p_2),\ v_3 = 3(p_4-p_3)
 \end{array}
 \]
 
