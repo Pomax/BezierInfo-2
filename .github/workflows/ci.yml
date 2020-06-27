@@ -59,6 +59,9 @@ jobs:
         run: |
           echo "running build..."
           npm run ci:build
+      
+      - name: Listing svg images
+        run: ls ./images/latex/
 
       - name: Commit changes
         run: |
