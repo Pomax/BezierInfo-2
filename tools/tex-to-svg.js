@@ -34,7 +34,7 @@ if (latex === -1) {
     process.exit(1);
   }
   base64 = process.argv[base64+1];
-  latex = new Buffer(base64, "base64").toString();
+  latex = Buffer.from(base64, "base64").toString();
 } else {
   // get the --latex value
   var args = Array.from(process.argv);
