@@ -25,9 +25,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install xzdec libpoppler-glib-dev texlive texlive-xetex -y
+
+      - name: Bootstrapping tlmgr
+        run: |
           sudo tlmgr --version
           set +e
-          tlmgr init-tree
+          tlmgr init-usertree
           set -e
           sudo tlmgr update --all
 
