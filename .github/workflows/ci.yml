@@ -20,17 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-        
+
       - name: Installing TeX Live
         run: |
-          mkdir -p /tmp/install-tl
-          cd /tmp/install-tl
-          MIRROR_URL="$(wget -q -S -O /dev/null http://mirror.ctan.org/ 2>&1 | sed -ne 's/.*Location: \(\w*\)/\1/p' | head -n 1)"
-          wget -nv "${MIRROR_URL}systems/texlive/tlnet/install-tl-unx.tar.gz"
-          tar --strip-components 1 -zxf /tmp/install-tl/install-tl-unx.tar.gz -C /tmp/install-tl/installer
-          /tmp/install-tl/installer/install-tl --profile=/root/texlive.profile
-          tlmgr update --self
-          tlmgr install collection-fontsrecommended collection-fontsextra collection-latexrecommended collection-xetex pdfcrop texliveonfly
+          sudo apt-get update
+          sudo apt-get install xzdec libpoppler-glib-dev texlive texlive-xetex texlive-extra-utils -y
 
       - name: Installing pdf2svg
         run: |
