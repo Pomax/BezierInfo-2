@@ -26,9 +26,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install xzdec libpoppler-glib-dev texlive texlive-xetex -y
           sudo tlmgr --version
+          set +e
+          tlmgr init-tree
+          set -e
+          sudo tlmgr update --all
 
       - name: Installing pdfcrop
-        run: sudo tlmgr install pdfcrop
+        run: |
+          tlmgr install pdfcrop
 
       - name: Installing pdf2svg
         run: |
