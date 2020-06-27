@@ -24,7 +24,7 @@ jobs:
       - name: Installing TeX Live
         run: |
           sudo apt-get update
-          sudo apt-get install xzdec libpoppler-glib-dev texlive -y
+          sudo apt-get install xzdec libpoppler-glib-dev texlive texlive-xetex -y
           sudo tlmgr --version
 
       - name: Installing pdf2svg
