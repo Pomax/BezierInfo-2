@@ -1,4 +1,4 @@
-# BezierInfo-2
+# BezierInfo-2 ![CI-CD](https://github.com/Pomax/BezierInfo-2/workflows/CI-CD/badge.svg?branch=master)
 
 Dev repository for https://Pomax.github.io/bezierinfo
 
