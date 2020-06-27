@@ -65,6 +65,7 @@ jobs:
           echo "forming commit..."
           git config --local user.email "action@github.com"
           git config --local user.name "Bezierinfo CI"
+          git status
           git commit -m "Automated build" -a
 
       - name: Push changes
