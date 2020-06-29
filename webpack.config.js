@@ -2,9 +2,9 @@ var webpack = require('webpack');
 var path = require('path');
 var fs = require('fs');
 
+// Which locale are we building for?
 const defaultLocale = "en-GB";
 var locale = process.env.LOCALE || defaultLocale;
-
 console.log("Using locale: "+locale);
 
 // Bundle entry point
