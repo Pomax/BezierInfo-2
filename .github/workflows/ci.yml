@@ -64,6 +64,8 @@ jobs:
         run: |
           echo "forming commit..."
           git status
+          git config --local user.email "action@github.com"
+          git config --local user.name "Bezierinfo CI"
           set +e
           git add -A
           git commit -m "Automated build"
