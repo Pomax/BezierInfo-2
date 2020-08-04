@@ -3,16 +3,16 @@
 让我们有个好的开始：当我们在谈论贝塞尔曲线的时候，所指的就是你在如下图像看到的东西。它们从某些起点开始，到终点结束，并且受到一个或多个的“中间”控制点的影响。本页面上的图形都是可交互的，你可以拖动这些点，看看这些形状在你的操作下会怎么变化。
 
 <div class="figure">
-  <graphics-element title="二次贝塞尔曲线" width="200" height="200" src="./chapters/introduction/quadratic.js">
+  <graphics-element title="二次贝塞尔曲线" width="275" height="275" src="./chapters/introduction/quadratic.js">
     <fallback-image>
-      <img src="./chapters/introduction/quadratic.png" width="200" height="200">
+      <img src="./chapters/introduction/quadratic.png" width="275" height="275">
       {{ disableMessage }}
     </fallback-image>
   </graphics-element>
 
-  <graphics-element title="三次贝塞尔曲线" width="200" height="200" src="./chapters/introduction/cubic.js">
+  <graphics-element title="三次贝塞尔曲线" width="275" height="275" src="./chapters/introduction/cubic.js">
     <fallback-image>
-      <img src="./chapters/introduction/cubic.png" width="200" height="200">
+      <img src="./chapters/introduction/cubic.png" width="275" height="275">
       {{ disableMessage }}
     </fallback-image>
   </graphics-element>

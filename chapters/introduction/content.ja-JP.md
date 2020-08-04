@@ -3,16 +3,16 @@
 まずは良い例から始めましょう。ベジエ曲線というのは、下の図に表示されているもののことです。ベジエ曲線はある始点からある終点へと延びており、その曲率は1個以上の「中間」制御点に左右されています。さて、このページの図はどれもインタラクティブになっていますので、ここで曲線をちょっと操作してみましょう。点をドラッグしたとき、曲線の形がそれに応じてどう変化するのか、確かめてみてください。
 
 <div class="figure">
-  <graphics-element title="2次のベジエ曲線" width="200" height="200" src="./chapters/introduction/quadratic.js">
+  <graphics-element title="2次のベジエ曲線" width="275" height="275" src="./chapters/introduction/quadratic.js">
     <fallback-image>
-      <img src="./chapters/introduction/quadratic.png" width="200" height="200">
+      <img src="./chapters/introduction/quadratic.png" width="275" height="275">
       {{ disableMessage }}
     </fallback-image>
   </graphics-element>
 
-  <graphics-element title="3次のベジエ曲線" width="200" height="200" src="./chapters/introduction/cubic.js">
+  <graphics-element title="3次のベジエ曲線" width="275" height="275" src="./chapters/introduction/cubic.js">
     <fallback-image>
-      <img src="./chapters/introduction/cubic.png" width="200" height="200">
+      <img src="./chapters/introduction/cubic.png" width="275" height="275">
       {{ disableMessage }}
     </fallback-image>
   </graphics-element>
