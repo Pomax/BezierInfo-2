@@ -1,10 +1,10 @@
 const fs = require("fs-extra");
 const path = require("path");
 const crypto = require("crypto");
-const cleanUp = require("./cleanup");
+const cleanUp = require("../cleanup");
 const execSync = require("child_process").execSync;
 
-const baseDir = path.join(__dirname, `..`, `images`, `latex`);
+const baseDir = path.join(__dirname, `..`, `..`, `images`, `latex`);
 fs.ensureDirSync(baseDir);
 
 const sourceDir = path.join(baseDir, `source`);

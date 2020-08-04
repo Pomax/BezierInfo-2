@@ -1,0 +1,18 @@
+{
+  "defaultLocale": "en-GB",
+  "localeName": {
+    "en-GB": "English",
+    "zh-CN": "中文",
+    "ja-JP": "日本語"
+  },
+  "langSwitchLabel": {
+    "en-GB": "Read this in your own language:",
+    "zh-CN": "Read this in your own language:",
+    "ja-JP": "Read this in your own language:"
+  },
+  "disabledMessage": {
+    "en-GB": "Scripts are disabled. Showing fallback image.",
+    "zh-CN": "脚本已禁用，并显示后备图像。",
+    "ja-JP": "JSがなくて、画像を表示しています。"
+  }
+}

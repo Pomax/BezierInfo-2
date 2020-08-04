@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>A Primer on Bézier Curves</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
+
+    <base href=".." />
+
+    <!-- opengraph information -->
+    <meta property="og:title" content="A Primer on Bézier Curves" />
+    <meta
+      property="og:image"
+      content="https://pomax.github.io/bezierinfo/images/og-image.png"
+    />
+    <meta property="og:type" content="text" />
+    <meta property="og:url" content="https://pomax.github.io/bezierinfo" />
+    <meta
+      property="og:description"
+      content="A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them."
+    />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:type" content="article" />
+    <meta property="og:published_time" content="2013-06-13 12:00:00" />
+    <meta property="og:author" content="Mike 'Pomax' Kamermans" />
+    <meta property="og:section" content="Bézier Curves" />
+    <meta property="og:tag" content="Bézier Curves" />
+
+    <!-- my own referral/page hit tracker -->
+    <script src="./lib/site/referrer.js" type="module" async></script>
+
+    <!-- the part that makes interactive graphics work: an HTML5 <graphics-element> custom element -->
+    <script
+      src="./lib/custom-element/graphics-element.js"
+      type="module"
+      async
+      defer
+    ></script>
+    <link rel="stylesheet" href="./lib/custom-element/graphics-element.css" />
+
+    <!-- page styling -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>A Primer on Bézier Curves</h1>
+      <h2>
+        A free, online book for when you really need to know how to do Bézier
+        things.
+      </h2>
+      <span>Read this in your own language:</span>
+      <ul>
+        <li><a href="../en-GB/index.html">English</a></li>
+        <li><a href="../ja-JP/index.html">日本語</a></li>
+        <li><a href="../zh-CN/index.html">中文</a></li>
+      </ul>
+    </header>
+
+    <main>
+      <section id="preface"></section>
+
+      <section id="toc">
+        <ol>
+          <li><a href="#introduction">A lightning introduction</a></li>
+          <li><a href="#whatis">So what makes a Bézier Curve?</a></li>
+        </ol>
+      </section>
+
+      <section id="changelog"></section>
+
+      <section id="chapters">
+        <section id="introduction">
+          <h1>A lightning introduction</h1>
+          <p>
+            Let's start with the good stuff: when we're talking about Bézier
+            curves, we're talking about the things that you can see in the
+            following graphics. They run from some start point to some end
+            point, with their curvature influenced by one or more "intermediate"
+            control points. Now, because all the graphics on this page are
+            interactive, go manipulate those curves a bit: click-drag the
+            points, and see how their shape changes based on what you do.
+          </p>
+          <div class="figure">
+            <graphics-element
+              title="Quadratic Bézier curves"
+              width="200"
+              height="200"
+              src="./chapters/introduction/quadratic.js"
+            >
+              <fallback-image>
+                <img
+                  src="./chapters/introduction/quadratic.png"
+                  width="200"
+                  height="200"
+                />
+                <span>Scripts are disabled. Showing fallback image.</span>
+              </fallback-image>
+            </graphics-element>
+
+            <graphics-element
+              title="Cubic Bézier curves"
+              width="200"
+              height="200"
+              src="./chapters/introduction/cubic.js"
+            >
+              <fallback-image>
+                <img
+                  src="./chapters/introduction/cubic.png"
+                  width="200"
+                  height="200"
+                />
+                <span>Scripts are disabled. Showing fallback image.</span>
+              </fallback-image>
+            </graphics-element>
+          </div>
+
+          <p>
+            These curves are used a lot in computer aided design and computer
+            aided manufacturing (CAD/CAM) applications, as well as in graphic
+            design programs like Adobe Illustrator and Photoshop, Inkscape,
+            GIMP, etc. and in graphic technologies like scalable vector graphics
+            (SVG) and OpenType fonts (TTF/OTF). A lot of things use Bézier
+            curves, so if you want to learn more about them... prepare to get
+            your learn on!
+          </p>
+        </section>
+        <section id="whatis">
+          <h1>So what makes a Bézier Curve?</h1>
+          <p>
+            Playing with the points for curves may have given you a feel for how
+            Bézier curves behave, but what <em>are</em> Bézier curves, really?
+            There are two ways to explain what a Bézier curve is, and they turn
+            out to be the entirely equivalent, but one of them uses complicated
+            maths, and the other uses really simple maths. So... let's start
+            with the simple explanation:
+          </p>
+          <p>
+            Bézier curves are the result of
+            <a href="https://en.wikipedia.org/wiki/Linear_interpolation"
+              >linear interpolations</a
+            >. That sounds complicated but you've been doing linear
+            interpolation since you were very young: any time you had to point
+            at something between two other things, you've been applying linear
+            interpolation. It's simply "picking a point between two points".
+          </p>
+          <p>
+            If we know the distance between those two points, and we want a new
+            point that is, say, 20% the distance away from the first point (and
+            thus 80% the distance away from the second point) then we can
+            compute that really easily:
+          </p>
+          <img
+            className="LaTeX SVG"
+            src="images/latex/0ee04e4056391f945c1c21c1174a03b5.svg"
+            width="507px"
+            height="103px"
+          />
+          <p>
+            So let's look at that in action: the following graphic is
+            interactive in that you can use your up and down arrow keys to
+            increase or decrease the interpolation ratio, to see what happens.
+            We start with three points, which gives us two lines. Linear
+            interpolation over those lines gives us two points, between which we
+            can again perform linear interpolation, yielding a single point. And
+            that point —and all points we can form in this way for all ratios
+            taken together— form our Bézier curve:
+          </p>
+          <graphics-element
+            title="Linear Interpolation leading to Bézier curves"
+            width="200"
+            height="200"
+            src="./chapters/whatis/interpolation.js"
+          >
+            <fallback-image>
+              <img src="./chapters/whatis/interpolation.png" />
+              <span>Scripts are disabled. Showing fallback image.</span>
+            </fallback-image>
+          </graphics-element>
+
+          <p>And that brings us to the complicated maths: calculus.</p>
+          <p>
+            While it doesn't look like that's what we've just done, we actually
+            just drew a quadratic curve, in steps, rather than in a single go.
+            One of the fascinating parts about Bézier curves is that they can
+            both be described in terms of polynomial functions, as well as in
+            terms of very simple interpolations of interpolations of [...].
+            That, in turn, means we can look at what these curves can do based
+            on both "real maths" (by examining the functions, their derivatives,
+            and all that stuff), as well as by looking at the "mechanical"
+            composition (which tells us, for instance, that a curve will never
+            extend beyond the points we used to construct it).
+          </p>
+          <p>
+            So let's start looking at Bézier curves a bit more in depth: their
+            mathematical expressions, the properties we can derive from them,
+            and the various things we can do to, and with, Bézier curves.
+          </p>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <!-- ...code goes here... -->
+    </footer>
+  </body>
+</html>
