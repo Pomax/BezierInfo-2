@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>A Primer on Bézier Curves</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
+
+    <!-- opengraph information -->
+    <meta property="og:title" content="A Primer on Bézier Curves" />
+    <meta
+      property="og:image"
+      content="https://pomax.github.io/bezierinfo/images/og-image.png"
+    />
+    <meta property="og:type" content="text" />
+    <meta property="og:url" content="https://pomax.github.io/bezierinfo" />
+    <meta
+      property="og:description"
+      content="A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them."
+    />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:type" content="article" />
+    <meta property="og:published_time" content="2013-06-13 12:00:00" />
+    <meta property="og:author" content="Mike 'Pomax' Kamermans" />
+    <meta property="og:section" content="Bézier Curves" />
+    <meta property="og:tag" content="Bézier Curves" />
+
+    <!-- my own referral/page hit tracker -->
+    <script src="./lib/site/referrer.js" type="module" async></script>
+
+    <!-- the part that makes interactive graphics work: an HTML5 <graphics-element> custom element -->
+    <script
+      src="./lib/custom-element/graphics-element.js"
+      type="module"
+      async
+      defer
+    ></script>
+    <link rel="stylesheet" href="./lib/custom-element/graphics-element.css" />
+
+    <!-- page styling -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>A Primer on Bézier Curves</h1>
+      <h2>
+        A free, online book for when you really need to know how to do Bézier
+        things.
+      </h2>
+    </header>
+
+    <main>
+      <section id="preface"></section>
+
+      <section id="toc">
+        <ol>
+          <li><a href="#introduction">简单介绍</a></li>
+        </ol>
+      </section>
+
+      <section id="changelog"></section>
+
+      <section id="chapters">
+        <section id="introduction">
+          <h1>简单介绍</h1>
+          <p>
+            让我们有个好的开始：当我们在谈论贝塞尔曲线的时候，所指的就是你在如下图像看到的东西。它们从某些起点开始，到终点结束，并且受到一个或多个的“中间”控制点的影响。本页面上的图形都是可交互的，你可以拖动这些点，看看这些形状在你的操作下会怎么变化。
+          </p>
+          <div class="figure">
+            <graphics-element
+              title="二次贝塞尔曲线"
+              width="200"
+              height="200"
+              src="./chapters/introduction/quadratic.js"
+            >
+              <fallback-image>
+                <img
+                  src="./chapters/introduction/quadratic.png"
+                  width="200"
+                  height="200"
+                />
+                <span>脚本已禁用，并显示后备图像。</span>
+              </fallback-image>
+            </graphics-element>
+
+            <graphics-element
+              title="三次贝塞尔曲线"
+              width="200"
+              height="200"
+              src="./chapters/introduction/cubic.js"
+            >
+              <fallback-image>
+                <img
+                  src="./chapters/introduction/cubic.png"
+                  width="200"
+                  height="200"
+                />
+                <span>脚本已禁用，并显示后备图像。</span>
+              </fallback-image>
+            </graphics-element>
+          </div>
+
+          <p>
+            这些曲线在计算机辅助设计和计算机辅助制造应用（CAD/CAM）中用的很多。在图形设计软件中也常用到，像Adobe
+            Illustrator, Photoshop, Inkscape,
+            Gimp等等。还可以应用在一些图形技术中，像矢量图形（SVG）和OpenType字体（ttf/otf）。许多东西都用到贝塞尔曲线，如果你想更了解它们...准备好继续往下学吧！
+          </p>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <!-- ...code goes here... -->
+    </footer>
+  </body>
+</html>

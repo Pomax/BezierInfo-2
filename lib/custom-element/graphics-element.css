@@ -1,0 +1,74 @@
+/*
+  Let's look at how we can give the <graphics-element> a decent look,
+  but also how we can make sure that the <fallback> content only shows
+  when the <graphics-element> isn't actually defined, because scripts
+  are disabled (or blocked!).
+*/
+
+graphics-element {
+  display: inline-block;
+  border: 1px solid grey;
+}
+
+/*
+  We can use the :defined pseudo-class to check whether a particular
+  element is considered a "real" element (either by being a built-in
+  standard HTML element, or a registered custom element) or whether it's
+  just "a tag name that isn't tied to anything".
+
+  If JS is disabled, as well as when the JS for registering our custom
+  element is still loading, our <graphics-element> will just be "a word"
+  and so we want to make sure to not show any content, except for the
+  <fallback-image>, if there is one.
+
+  So, first off: hide everything!
+*/
+
+graphics-element:not(:defined) > * {
+  display: none;
+}
+
+/*
+  And then we declare a more specific rule that does NOT hide the
+  <fallback-image> element and its content.
+*/
+
+graphics-element:not(:defined) fallback-image {
+  display: block;
+  font-size: 60%;
+  text-align: center;
+  padding-bottom: 0.2em;
+}
+
+/*
+  Normally, images are inline elements, but in our case we want it to be
+  treated as a full block, so that the caption text shows up underneath
+  it, rather than next to it:
+*/
+
+graphics-element:not(:defined) fallback-image > img {
+  display: block;
+}
+
+/*
+  Then, we say what should happen once our <graphics-element> element
+  is considered a proper, registered HTML tag:
+*/
+
+graphics-element:defined {
+  display: inline-block;
+  padding: 0.5em;
+  margin: 1em auto;
+  justify-self: center;
+  font-size: revert;
+  text-align: revert;
+}
+
+/*
+  And of course, once that's the case we actually want to make sure that
+  the <fallback-image> does NOT show anymore!
+*/
+
+graphics-element:defined fallback-image {
+  display: none;
+}

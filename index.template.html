@@ -1,129 +1,64 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>A Primer on Bézier Curves</title>
-    <link rel="shortcut icon" href="favicon.png" type="image/png">
+<html lang="{{ locale }}">
 
-    <script>
-      (function() {
-        // force https except during local testing (e.g. not on port 80)
-        let loc = window.location.toString();
-        if (loc.indexOf(":8080") === -1 && loc.indexOf("http:") === 0) {
-          window.location = loc.replace("http:","https:");
-        }
-        // if we're still here, load google analytics
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		ga('create', 'UA-69475841-3', 'auto');
-		ga('send', 'pageview');
-      }());
-    </script>
+  <title>A Primer on Bézier Curves</title>
+  <link rel="shortcut icon" href="favicon.png" type="image/png">
 
-    <!-- optional <base> element to make sure localised content still uses the base location -->
-    <base href="..">
+  <!-- opengraph information -->
+  <meta property="og:title" content="A Primer on Bézier Curves">
+  <meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png">
+  <meta property="og:type" content="text">
+  <meta property="og:url" content="https://pomax.github.io/bezierinfo">
+  <meta property="og:description"
+    content="A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:type" content="article">
+  <meta property="og:published_time" content="2013-06-13 12:00:00">
+  <meta property="og:author" content="Mike 'Pomax' Kamermans">
+  <meta property="og:section" content="Bézier Curves">
+  <meta property="og:tag" content="Bézier Curves">
 
-    <!-- mobile optimize -->
-    <meta name="viewport" content="width=800, initial-scale=1.0">
+  <!-- my own referral/page hit tracker -->
+  <script src="./lib/site/referrer.js" type="module" async></script>
 
-    <!-- opengraph information -->
-    <meta property="og:title" content="A Primer on Bézier Curves">
-    <meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png">
-    <meta property="og:type" content="text">
-    <meta property="og:url" content="https://pomax.github.io/bezierinfo">
-    <meta property="og:description" content="A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.">
-    <meta property="og:locale" content="en_GB">
-    <meta property="og:type" content="article">
-    <meta property="og:published_time" content="2013-06-13 12:00:00">
-    <meta property="og:author" content="Mike 'Pomax' Kamermans">
-    <meta property="og:section" content="Bézier Curves">
-    <meta property="og:tag" content="Bézier Curves">
+  <!-- the part that makes interactive graphics work: an HTML5 <graphics-element> custom element -->
+  <script src="./lib/custom-element/graphics-element.js" type="module" async defer></script>
+  <link rel="stylesheet" href="./lib/custom-element/graphics-element.css">
 
-    <style>
-      html, body, article { height: 100%; margin: 0; }
-      body { width: 800px; margin: auto; font-size: 4.25mm!important; }
-    </style>
+  <!-- page styling -->
+  <link rel="stylesheet" href="style.css">
+</head>
 
-    <link rel="stylesheet" href="stylesheets/style.css">
-  </head>
-  <body>
-    <!-- referral tracking, because I like knowing who's linking to my book -->
-    <script src="lib/site/referrer.js" async></script>
+<body>
+  <header>
+    <h1>A Primer on Bézier Curves</h1>
+    <h2>A free, online book for when you really need to know how to do Bézier things.</h2>
+  </header>
 
-    <div class="dev" style="display:none;">
-      <style>
-        div.dev {
-          background: rgb(43, 49, 95);
-          color: rgb(81, 181, 255);
-          position: fixed;
-          transform: rotate(-45deg);
-          width: 22em;
-          text-align: center;
-          top: 4em;
-          left: -6em;
-          font-variant: small-caps;
-          font-weight: bolder;
-          font-family: Helvetica;
-          box-shadow: 0px 5px 7px 2px rgba(0, 0, 0, 0.3);
-        }
-      </style>
-      DEV PREVIEW ONLY
-      <script>
-        (function() {
-          var loc = window.location.toString();
-          if(loc.indexOf('localhost')!==-1 || loc.indexOf('-2')!==-1) {
-            var e = document.querySelector('div.dev');
-            e.removeAttribute("style");
-          }
-        }());
-      </script>
-    </div>
+  <main>
+    <section id="preface">
+    </section>
 
-    <!-- Because people probably want to share this article -->
-    <div class="notforprint" style="position:fixed; top: 1.25em; left: 1.25em; background: white; padding: 4px;">
-      <!-- omg fuck you adblock, what the actual fuck -->
-      <img src="images/icons.gif" usemap="#rht">
-      <map name="rht">
-        <area class="social reddit" shape="rect" coords="0, 0, 19, 15" href="https://www.reddit.com/submit?url=https://pomax.github.io/bezierinfo&title=A Primer on Bézier Curves&text=A free, online book for when you really need to know how to do Bézier things." alt="submit to reddit" title="submit to reddit">
-        <area class="social hn" shape="rect" coords="24, 0, 42, 15" href="https://news.ycombinator.com/submitlink?u=https://pomax.github.io/bezierinfo&t=A Primer on Bézier Curves" alt="submit to hacker news" title="submit to hacker news">
-        <area class="social twitter" shape="rect" coords="48, 0, 64, 15" href="https://twitter.com/intent/tweet?hashtags=bezier,curves,maths&original_referer=https://pomax.github.io/bezierinfo&text=Reading%20%22A%20Primer%20on%20Bezier%20Curves%22%20by%20@TheRealPomax%20over%20on%20https://pomax.github.io/bezierinfo" alt="tweet your read" title="tweet your read">
-      </map>
-    </div>
+    <section id="toc">
+      <ol>{{ toc }}</ol>
+    </section>
 
-    <article>
-      <div id="article">
-        <!-- these rules will get overwritten by the style in the article.js React bundle -->
-        <style>
-          header h1, header h2 { text-align: center; }
-          header h1 { font-size: 300%; margin: 0.2em; }
-          p.jsnote { margin: 2em; text-align: justify; }
-          p.jsnote:first-child { width: 13em; margin: auto; }
-        </style>
+    <section id="changelog">
+      {{ changelog }}
+    </section>
 
-        <header>
-          <h1>A Primer on Bézier Curves</h1>
-          <h2>A free, online book for when you really need to know how to do Bézier things.</h2>
-        </header>
+    <section id="chapters">
+      {{ chapters }}
+    </section>
+  </main>
 
-        <!-- This content only shows for as long as JS/React hasn't loaded the page content -->
-        <section>
-          <p class="jsnote">Loading the article<span id="loader">...</span></p>
+  <footer>
+    <!-- ...code goes here... -->
+  </footer>
+</body>
 
-          <p class="enabling jsnote">If you have JavaScript disabled, you'll have to enable it, as this book heavily relies on JS rendering, both for the base content (it's been written as a React application) and all the interactive graphics, which rely on JS not just for the user interaction but also for the live-drawing (none of the graphics in this book are flat images, they're all live-rendered).</p>
-
-          <script>var n=document.querySelector(".enabling");n.parentNode.removeChild(n);(function update(el,str){str=(str.length===3)?'':str+'.';el.textContent=str;setTimeout(function(){update(el,str);},333);}(document.querySelector("#loader"),"..."));</script>
-        </section>
-
-        <!-- this content is retrieved from the preface section -->
-        {{ PREFACE }}
-      </div>
-    </article>
-
-    <!-- the actual article is a JS bundle -->
-    <script src="{{ locale }}/article.js" async></script>
-    <script src="lib/site/social-updater.js" async></script>
-  </body>
 </html>
