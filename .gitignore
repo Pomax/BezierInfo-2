@@ -1,4 +1,4 @@
-node_modules
+./node_modules
 ./en-GB
 ./zh-CN
 ./ja-JP
