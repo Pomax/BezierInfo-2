@@ -1,7 +1,7 @@
 const fs = require("fs-extra");
 const path = require("path");
-const config = require("../../config.json");
-const defaultLocale = config.defaultLocale
+const localeStrings = require("../../locale-strings.json");
+const defaultLocale = localeStrings.defaultLocale
 const convertMarkDown = require("./convert-markdown.js");
 const nunjucks = require("nunjucks");
 
@@ -30,25 +30,34 @@ module.exports = async function processLocale(
     }
   });
 
+  const chapters = {};
+  let missing = 0;
+
+  await Promise.all(
+    localeFiles.map(async (file) => {
+      const chapter = file.match(/chapters\/([^/]+)\/content./)[1];
+      try {
+        const markdown = fs.readFileSync(file).toString("utf8");
+        const replaced = nunjucks.renderString(markdown, {
+          disableMessage: `<span>${localeStrings.disabledMessage[locale]}</span>`,
+        });
+        const converted = await convertMarkDown(replaced);
+        chapters[chapter] = converted;
+      } catch (e) {
+        if (locale === defaultLocale) missing++;
+      }
+    })
+  );
+
+  if (locale === defaultLocale) {
+    console.log(`Warning: ${missing} chapters appear to be missing, based on the ToC listing.`);
+  }
+
   if (localized < sectionList.length) {
     console.log(`${locale} partially localized: [${localized}/${sectionList.length}]`)
   } else {
     console.log(`${locale} fully localized.`)
   }
-
-  const chapters = {};
-
-  await Promise.all(
-    localeFiles.map(async (file) => {
-      const chapter = file.match(/chapters\/([^/]+)\/content./)[1];
-      const markdown = fs.readFileSync(file).toString("utf8");
-      const replaced = nunjucks.renderString(markdown, {
-        disableMessage: `<span>${config.disabledMessage[locale]}</span>`,
-      });
-      const converted = await convertMarkDown(replaced);
-      chapters[chapter] = converted;
-    })
-  );
 
   return chapters;
 };

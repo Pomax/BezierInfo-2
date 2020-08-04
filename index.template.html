@@ -5,19 +5,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>A Primer on Bézier Curves</title>
+  <title>{{ title }}</title>
   <link rel="shortcut icon" href="favicon.png" type="image/png">
 
   {{ base }}
 
   <!-- opengraph information -->
-  <meta property="og:title" content="A Primer on Bézier Curves">
+  <meta property="og:title" content="{{ title }}">
   <meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png">
   <meta property="og:type" content="text">
   <meta property="og:url" content="https://pomax.github.io/bezierinfo">
-  <meta property="og:description"
-    content="A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.">
-  <meta property="og:locale" content="en_GB">
+  <meta property="og:description" content="A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.">
+  <meta property="og:locale" content="{{ locale }}}}">
   <meta property="og:type" content="article">
   <meta property="og:published_time" content="2013-06-13 12:00:00">
   <meta property="og:author" content="Mike 'Pomax' Kamermans">
@@ -37,17 +36,20 @@
 
 <body>
   <header>
-    <h1>A Primer on Bézier Curves</h1>
-    <h2>A free, online book for when you really need to know how to do Bézier things.</h2>
+    <h1>{{ title }}</h1>
+    <h2>{{ subtitle }}</h2>
     <span>{{ langSwitchLabel }}</span>
     <ul>{{ langSwitcher }}</ul>
+    <span>{{ langHelpLabel }}</span>
   </header>
 
   <main>
     <section id="preface">
+      {{ preface }}
     </section>
 
     <section id="toc">
+      <h1>{{ tocLabel }}</h1>
       <ol>{{ toc }}</ol>
     </section>
 

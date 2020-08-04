@@ -3,16 +3,16 @@
 Let's start with the good stuff: when we're talking about Bézier curves, we're talking about the things that you can see in the following graphics. They run from some start point to some end point, with their curvature influenced by one or more "intermediate" control points. Now, because all the graphics on this page are interactive, go manipulate those curves a bit: click-drag the points, and see how their shape changes based on what you do.
 
 <div class="figure">
-  <graphics-element title="Quadratic Bézier curves" width="200" height="200" src="./chapters/introduction/quadratic.js">
+  <graphics-element title="A quadratic Bézier curve" width="275" height="275" src="./chapters/introduction/quadratic.js">
     <fallback-image>
-      <img src="./chapters/introduction/quadratic.png" width="200" height="200">
+      <img src="./chapters/introduction/quadratic.png" width="275" height="275">
       {{ disableMessage }}
     </fallback-image>
   </graphics-element>
 
-  <graphics-element title="Cubic Bézier curves" width="200" height="200" src="./chapters/introduction/cubic.js">
+  <graphics-element title="A cubic Bézier curve" width="275" height="275" src="./chapters/introduction/cubic.js">
     <fallback-image>
-      <img src="./chapters/introduction/cubic.png" width="200" height="200">
+      <img src="./chapters/introduction/cubic.png" width="275" height="275">
       {{ disableMessage }}
     </fallback-image>
   </graphics-element>

@@ -1,5 +1,5 @@
-const config = require("../../config.json");
-const defaultLocale = config.defaultLocale
+const localeStrings = require("../../locale-strings.json");
+const defaultLocale = localeStrings.defaultLocale
 
 
 module.exports = function generateLangSwitcher(currentLocale, allLocales) {
@@ -19,7 +19,7 @@ module.exports = function generateLangSwitcher(currentLocale, allLocales) {
           link = `../${locale}/index.html`;
         }
       }
-      return `<li><a href="${link}">${config.localeName[locale]}</a></li>`;
+      return `<li><a href="${link}">${localeStrings.localeName[locale]}</a></li>`;
     })
     .join(`\n`);
 };
