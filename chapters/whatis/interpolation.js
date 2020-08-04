@@ -1,6 +1,6 @@
 setup() {
     this.step = 25;
-    this.curve = Bezier.create(this, 70,250,  20,110,  250,60);
+    this.curve = Bezier.defaultQuadratic(this);
     setMovable(this.curve.points);
 }
 
