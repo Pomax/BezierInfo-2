@@ -1,0 +1,10 @@
+{
+  "name": "custom-element",
+  "version": "0.0.1",
+  "description": "The code transform functions, exposed in a way that Node.js can use.",
+  "main": "lib/require-code.js",
+  "author": "Pomax",
+  "license": "See LICENSE.md",
+  "private": true,
+  "explanation": "This 'Package' is not meant for publication, it comes with the <graphics-element> code to make it possible to import the code conversion functionality into a traditioan require()-based Node project."
+}

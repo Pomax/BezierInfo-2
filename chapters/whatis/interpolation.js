@@ -10,27 +10,25 @@ draw() {
     this.drawBasics();
     this.drawPointCurve();
     this.drawInterpolations();
+    this.drawCurveCoordinates();
 }
 
 drawBasics() {
     setStroke(`black`);
     setFill(`black`);
     this.curve.drawSkeleton();
-    this.curve.drawPoints();
     text(`First linear interpolation, spaced ${this.step}% (${Math.floor(99/this.step)} steps)`, {x:5, y:15});
 
     translate(this.height, 0);
 
     line({x:0, y:0}, {x:0, y:this.height});
     this.curve.drawSkeleton();
-    this.curve.drawPoints();
     text(`Second interpolation, between each generated pair`, {x:5, y:15});
 
     translate(this.height, 0);
 
     line({x:0, y:0}, {x:0, y:this.height});
     this.curve.drawSkeleton();
-    this.curve.drawPoints();
     text(`Curve points generated this way`, {x:5, y:15});
 }
 
@@ -88,6 +86,15 @@ drawOnCurve(np4, i) {
     translate(this.height, 0);
     circle(np4, 2);
     text(`ratio = ${i/100}`, np4.add({x:10,y:15}));
+}
+
+drawCurveCoordinates() {
+    this.resetTransform();
+    this.curve.drawPoints();
+    translate(this.height, 0);
+    this.curve.drawPoints();
+    translate(this.height, 0);
+    this.curve.drawPoints();
 }
 
 onKeyDown() {

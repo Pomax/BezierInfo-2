@@ -5,6 +5,8 @@ const rewriteGraphicsElement = require("./rewrite-graphics-element");
 const localeStrings = require("../../locale-strings.json");
 const defaultLocale = localeStrings.defaultLocale;
 
+const { splitCodeSections, performCodeSurgery } = require("codesurgeon");
+
 module.exports = async function generatePlaceHolders(locale, markdown) {
     if (locale !== defaultLocale) return;
 
@@ -39,7 +41,7 @@ module.exports = async function generatePlaceHolders(locale, markdown) {
             //       actually run in Node, with node's `canvas` module backing
             //       rather than the HTMLCanvasElement object, and in a way
             //       that uses `require()` or `import`, but not both.
-            
+
             let nodeCode = rewriteGraphicsElement(code, width, height);
 
             var m = new module.constructor();
