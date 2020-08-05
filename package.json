@@ -24,6 +24,7 @@
     "ebook"
   ],
   "devDependencies": {
+    "canvas": "^2.6.1",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
     "marked": "^1.1.1",

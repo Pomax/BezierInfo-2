@@ -3,6 +3,7 @@ const path = require("path");
 const localeStrings = require("../../locale-strings.json");
 const defaultLocale = localeStrings.defaultLocale
 const convertMarkDown = require("./convert-markdown.js");
+const generatePlaceHolders = require("./generate-placeholders.js");
 const nunjucks = require("nunjucks");
 
 nunjucks.configure(".", { autoescape: false });
@@ -38,6 +39,7 @@ module.exports = async function processLocale(
       const chapter = file.match(/chapters\/([^/]+)\/content./)[1];
       try {
         const markdown = fs.readFileSync(file).toString("utf8");
+        await generatePlaceHolders(locale, markdown);
         const replaced = nunjucks.renderString(markdown, {
           disableMessage: `<span>${localeStrings.disabledMessage[locale]}</span>`,
         });

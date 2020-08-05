@@ -12,7 +12,7 @@ module.exports = async function convertMarkDown(markdown) {
     let latexSection = 0,
       pos = -1,
       data = markdown,
-      latex = [],
+      latex = {},
       startmark = `<script type="text/latex">`,
       endmark = `</script>`;
 
@@ -20,7 +20,7 @@ module.exports = async function convertMarkDown(markdown) {
       pos = data.indexOf(startmark);
       if (pos !== -1) {
         let endpos = data.indexOf(endmark, pos) + endmark.length;
-        let key = `latex${latexSection}`;
+        let key = `latex${latexSection++}`;
         latex[key] = data.substring(
           pos + startmark.length,
           endpos - endmark.length
@@ -47,6 +47,6 @@ module.exports = async function convertMarkDown(markdown) {
       .replace(/&quot;/g, '"')
       .replace(/<p>{{/g, `{{`)
       .replace(/}}<\/p>/g, `}}`);
-
+    
     return nunjucks.renderString(converted, latex);
   }
