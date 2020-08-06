@@ -15,13 +15,21 @@
   <meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png">
   <meta property="og:type" content="text">
   <meta property="og:url" content="https://pomax.github.io/bezierinfo">
-  <meta property="og:description" content="A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.">
+  <meta property="og:description" content="{{ description }}">
   <meta property="og:locale" content="{{ locale }}}}">
   <meta property="og:type" content="article">
   <meta property="og:published_time" content="2013-06-13 12:00:00">
   <meta property="og:author" content="Mike 'Pomax' Kamermans">
   <meta property="og:section" content="Bézier Curves">
   <meta property="og:tag" content="Bézier Curves">
+
+  <!-- twitter card information -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@TheRealPomax" />
+  <meta name="twitter:creator" content="@TheRealPomax">
+  <meta name="twitter:image" content="https://pomax.github.io/bezierinfo/images/og-image.png">
+  <meta name="twitter:url" content="https://pomax.github.io/bezierinfo">
+  <meta name="twitter:description" content="{{ description }}">
 
   <!-- my own referral/page hit tracker -->
   <script src="./lib/site/referrer.js" type="module" async></script>
@@ -61,10 +69,6 @@
       {{ chapters }}
     </section>
   </main>
-
-  <footer>
-    <!-- ...code goes here... -->
-  </footer>
 </body>
 
 </html>
