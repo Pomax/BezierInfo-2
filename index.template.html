@@ -14,10 +14,7 @@
 
     <!-- opengraph information -->
     <meta property="og:title" content="{{ title }}" />
-    <meta
-      property="og:image"
-      content="https://pomax.github.io/bezierinfo/images/og-image.png"
-    />
+    <meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
     <meta property="og:type" content="text" />
     <meta property="og:url" content="https://pomax.github.io/bezierinfo" />
     <meta property="og:description" content="{{ description }}" />
@@ -32,10 +29,7 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@TheRealPomax" />
     <meta name="twitter:creator" content="@TheRealPomax" />
-    <meta
-      name="twitter:image"
-      content="https://pomax.github.io/bezierinfo/images/og-image.png"
-    />
+    <meta name="twitter:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
     <meta name="twitter:url" content="https://pomax.github.io/bezierinfo" />
     <meta name="twitter:description" content="{{ description }}" />
 
@@ -43,12 +37,7 @@
     <script src="./lib/site/referrer.js" type="module" async></script>
 
     <!-- the part that makes interactive graphics work: an HTML5 <graphics-element> custom element -->
-    <script
-      src="./lib/custom-element/graphics-element.js"
-      type="module"
-      async
-      defer
-    ></script>
+    <script src="./lib/custom-element/graphics-element.js" type="module" async defer></script>
     <link rel="stylesheet" href="./lib/custom-element/graphics-element.css" />
 
     <!-- page styling -->
@@ -64,16 +53,13 @@
         {{ langSwitcher }}
       </ul>
       <span>{{ langHelpLabel }}</span>
+      <nav aria-labelledby="toc">
+        <h1 id="toc">{{ tocLabel }}</h1>
+        {{ toc }}
+      </nav>
     </header>
 
     <main>
-      <section id="toc">
-        <h1>{{ tocLabel }}</h1>
-        <ol>
-          {{ toc }}
-        </ol>
-      </section>
-
       <section id="preface">
         {{ preface }}
       </section>

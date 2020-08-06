@@ -83,17 +83,16 @@
           >Help translate this content!</a
         ></span
       >
+      <nav aria-labelledby="toc">
+        <h1 id="toc">目次</h1>
+        <li><a href="#introduction">バッとした導入</a></li>
+        <li>
+          <a href="#whatis">ではベジエ曲線はどうやってできるのでしょう？</a>
+        </li>
+      </nav>
     </header>
 
     <main>
-      <section id="toc">
-        <h1>目次</h1>
-        <ol>
-          <li><a href="#introduction">バッとした導入</a></li>
-          <li><a href="#whatis">So what makes a Bézier Curve?</a></li>
-        </ol>
-      </section>
-
       <section id="preface">
         <section id="preface">
           <h1>まえがき</h1>
@@ -352,14 +351,14 @@
             >
               <fallback-image>
                 <img
-                  src="./chapters/introduction/quadratic.png"
                   width="275"
                   height="275"
+                  src="./chapters/introduction/quadratic.png"
+                  loading="lazy"
                 />
-                <span>Scripts are disabled. Showing fallback image.</span>
-              </fallback-image>
-            </graphics-element>
-
+                Scripts are disabled. Showing fallback image.
+              </fallback-image></graphics-element
+            >
             <graphics-element
               title="3次のベジエ曲線"
               width="275"
@@ -368,13 +367,14 @@
             >
               <fallback-image>
                 <img
-                  src="./chapters/introduction/cubic.png"
                   width="275"
                   height="275"
+                  src="./chapters/introduction/cubic.png"
+                  loading="lazy"
                 />
-                <span>Scripts are disabled. Showing fallback image.</span>
-              </fallback-image>
-            </graphics-element>
+                Scripts are disabled. Showing fallback image.
+              </fallback-image></graphics-element
+            >
           </div>
 
           <p>
@@ -386,45 +386,28 @@
           </p>
         </section>
         <section id="whatis">
-          <h1>So what makes a Bézier Curve?</h1>
+          <h1>ではベジエ曲線はどうやってできるのでしょう？</h1>
           <p>
-            Playing with the points for curves may have given you a feel for how
-            Bézier curves behave, but what <em>are</em> Bézier curves, really?
-            There are two ways to explain what a Bézier curve is, and they turn
-            out to be the entirely equivalent, but one of them uses complicated
-            maths, and the other uses really simple maths. So... let's start
-            with the simple explanation:
+            ベジエ曲線がどのように動くのか、点を触ってみて感覚が摑めたかもしれません。では、実際のところベジエ曲線<em>とは</em>いったい何でしょうか？これを説明する方法は2通りありますが、どちらの説明でも行き着く先はまったく同じです。一方は複雑な数学を使うのに対し、もう一方はとても簡単です。というわけで……簡単な説明の方から始めましょう。
           </p>
           <p>
-            Bézier curves are the result of
-            <a href="https://en.wikipedia.org/wiki/Linear_interpolation"
-              >linear interpolations</a
-            >. That sounds complicated but you've been doing linear
-            interpolation since you were very young: any time you had to point
-            at something between two other things, you've been applying linear
-            interpolation. It's simply "picking a point between two points".
+            ベジエ曲線は、<a
+              href="https://ja.wikipedia.org/wiki/%E7%B7%9A%E5%BD%A2%E8%A3%9C%E9%96%93"
+              >線形補間</a
+            >の結果です。というと難しそうに聞こえますが、誰でも幼い頃から線形補間をやってきています。例えば、何か2つのものの間を指し示すときには、いつも線形補間を行っています。線形補間とは、単純に「2点の間から点を得る」ことなのです。
           </p>
           <p>
-            If we know the distance between those two points, and we want a new
-            point that is, say, 20% the distance away from the first point (and
-            thus 80% the distance away from the second point) then we can
-            compute that really easily:
+            例えば、2点間の距離がわかっているとして、一方の点から距離の20%だけ離れた（すなわち、もう一方の点から80%離れた）新しい点を求めたい場合、次のようにとても簡単に計算できます。
           </p>
           <img
             className="LaTeX SVG"
-            src="images/latex/0ee04e4056391f945c1c21c1174a03b5.svg"
-            width="507px"
-            height="103px"
+            src="images/latex/4df088f01d0fd4de84a50bbc2e25f8a7.svg"
+            width="216px"
+            height="92px"
+            loading="lazy"
           />
           <p>
-            So let's look at that in action: the following graphic is
-            interactive in that you can use your up and down arrow keys to
-            increase or decrease the interpolation ratio, to see what happens.
-            We start with three points, which gives us two lines. Linear
-            interpolation over those lines gives us two points, between which we
-            can again perform linear interpolation, yielding a single point. And
-            that point —and all points we can form in this way for all ratios
-            taken together— form our Bézier curve:
+            では、実際に見てみましょう。下の図はインタラクティブになっています。上下キーで補間の比率が増減しますので、どうなるか確かめてみましょう。最初に3点があり、それを結んで2本の直線が引かれています。この直線の上でそれぞれ線形補間を行うと、2つの点が得られます。この2点の間でさらに線形補間を行うと、1つの点を得ることができます。そして、あらゆる比率に対して同様に点を求め、それをすべて集めると、このようにベジエ曲線ができるのです。
           </p>
           <graphics-element
             title="Linear Interpolation leading to Bézier curves"
@@ -434,31 +417,21 @@
           >
             <fallback-image>
               <img
-                src="./chapters/whatis/interpolation.png"
                 width="825"
                 height="275"
+                src="./chapters/whatis/interpolation.png"
+                loading="lazy"
               />
-              <span>Scripts are disabled. Showing fallback image.</span>
-            </fallback-image>
-          </graphics-element>
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
 
-          <p>And that brings us to the complicated maths: calculus.</p>
+          <p>また、これが複雑な方の数学につながっていきます。微積分です。</p>
           <p>
-            While it doesn't look like that's what we've just done, we actually
-            just drew a quadratic curve, in steps, rather than in a single go.
-            One of the fascinating parts about Bézier curves is that they can
-            both be described in terms of polynomial functions, as well as in
-            terms of very simple interpolations of interpolations of [...].
-            That, in turn, means we can look at what these curves can do based
-            on both "real maths" (by examining the functions, their derivatives,
-            and all that stuff), as well as by looking at the "mechanical"
-            composition (which tells us, for instance, that a curve will never
-            extend beyond the points we used to construct it).
+            いま上で行ったものとは似つかないように思えますが、実はあれは2次曲線を描いていたのです。ただし一発で描きあげるのではなく、手順を追って描いていきました。ベジエ曲線は多項式関数で表現できますが、その一方で、とても単純な補間の補間の補間の……というふうにも説明できます。これがベジエ曲線のおもしろいところです。これはまた、ベジェ曲線は「本当の数学」で見る（関数を調べたり微分を調べたり、あらゆる方法で）ことも可能ですし、「機械的」な組み立て操作として見る（例えば、ベジエ曲線は組み立てに使う点の間からは決してはみ出ないということがわかります）ことも可能だということを意味しています。
           </p>
           <p>
-            So let's start looking at Bézier curves a bit more in depth: their
-            mathematical expressions, the properties we can derive from them,
-            and the various things we can do to, and with, Bézier curves.
+            それでは、もう少し詳しくベジエ曲線を見ていきましょう。数学的な表現やそこから導かれる性質、さらには、ベジエ曲線に対して／ベジエ曲線を使ってできるさまざまな内容についてです。
           </p>
         </section>
       </section>

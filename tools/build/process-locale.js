@@ -57,7 +57,7 @@ export default async function processLocale(locale, chapterFiles) {
       const replaced = nunjucks.renderString(markdown, {
         disableMessage: `<span>${localeStrings.disabledMessage[locale]}</span>`,
       });
-      const converted = await convertMarkDown(replaced);
+      const converted = await convertMarkDown(chapter, locale, replaced);
       chapters[chapter] = converted;
     })
   );

@@ -6,27 +6,20 @@ Bézier curves are the result of [linear interpolations](https://en.wikipedia.or
 
 If we know the distance between those two points, and we want a new point that is, say, 20% the distance away from the first point (and thus 80% the distance away from the second point) then we can compute that really easily:
 
-<script type="text/latex">
+\[
 Given \left (
-
-\begin{aligned}
-  p_1 &= some\ point \\
-  p_2 &= some\ other\ point \\
-  distance &= (p_2 - p_1) \\
-  ratio &= \frac{percentage}{100} \\
-\end{aligned}
-
-\right ) \text{, our new point} = p_1 + distance \cdot ratio
-</script>
+  \begin{aligned}
+    p_1 &= some\ point \\
+    p_2 &= some\ other\ point \\
+    distance &= (p_2 - p_1) \\
+    ratio &= \frac{percentage}{100} \\
+  \end{aligned}
+\right ),\ our\ new\ point = p_1 + distance \cdot ratio
+\]
 
 So let's look at that in action: the following graphic is interactive in that you can use your up and down arrow keys to increase or decrease the interpolation ratio, to see what happens. We start with three points, which gives us two lines. Linear interpolation over those lines gives us two points, between which we can again perform linear interpolation, yielding a single point. And that point —and all points we can form in this way for all ratios taken together— form our Bézier curve:
 
-<graphics-element title="Linear Interpolation leading to Bézier curves" width="825" height="275" src="./chapters/whatis/interpolation.js">
-  <fallback-image>
-    <img src="./chapters/whatis/interpolation.png" width="825" height="275">
-    {{ disableMessage }}
-  </fallback-image>
-</graphics-element>
+<graphics-element title="Linear Interpolation leading to Bézier curves" width="825" height="275" src="./chapters/whatis/interpolation.js"></graphics-element>
 
 And that brings us to the complicated maths: calculus.
 
