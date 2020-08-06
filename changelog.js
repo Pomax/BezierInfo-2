@@ -1,6 +1,6 @@
 const CHANGELOG = {
   "August 2020": [
-    "Completely redid everything about the site except for chapter text: the Primer is now finally a normal web page again."
+    "Completely redid all the code for the site, except for chapter text: the Primer is now finally a normal web page again."
   ],
 
   "June 2020": [
@@ -49,7 +49,8 @@ const CHANGELOG = {
   ],
 
   "January 2016": [
-    "Added a section to explain the Bezier interval."
+    "Added a section to explain the Bezier interval.",
+    "Rewrote the Primer as a React application."
   ],
 
   "December 2015": [
