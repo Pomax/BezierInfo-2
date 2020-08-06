@@ -17,8 +17,8 @@ export default {
   },
   "tocLabel": {
     "en-GB": "Table of Contents",
-    "ja-JP": "Table of Contents",
-    "zh-CN": "Table of Contents"
+    "ja-JP": "目次",
+    "zh-CN": "目录"
   },
   "localeName": {
     "en-GB": "English",
@@ -37,7 +37,7 @@ export default {
   },
   "disabledMessage": {
     "en-GB": "Scripts are disabled. Showing fallback image.",
-    "zh-CN": "脚本已禁用，并显示后备图像。",
-    "ja-JP": "JSがなくて、画像を表示しています。"
+    "zh-CN": "Scripts are disabled. Showing fallback image.",
+    "ja-JP": "Scripts are disabled. Showing fallback image."
   }
 }
