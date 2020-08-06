@@ -10,6 +10,9 @@
 
   {{ base }}
 
+  <!-- And a slew of SEO related meta elements, because being discoverable is important -->
+  <meta name="description" content="{{ description }}">
+
   <!-- opengraph information -->
   <meta property="og:title" content="{{ title }}">
   <meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png">
@@ -25,13 +28,13 @@
 
   <!-- twitter card information -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:site" content="@TheRealPomax" />
+  <meta name="twitter:site" content="@TheRealPomax">
   <meta name="twitter:creator" content="@TheRealPomax">
   <meta name="twitter:image" content="https://pomax.github.io/bezierinfo/images/og-image.png">
   <meta name="twitter:url" content="https://pomax.github.io/bezierinfo">
   <meta name="twitter:description" content="{{ description }}">
 
-  <!-- my own referral/page hit tracker -->
+  <!-- my own referral/page hit tracker, because Google knows enough -->
   <script src="./lib/site/referrer.js" type="module" async></script>
 
   <!-- the part that makes interactive graphics work: an HTML5 <graphics-element> custom element -->
