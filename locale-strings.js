@@ -2,8 +2,8 @@ export default {
   "defaultLocale": "en-GB",
   "title": {
     "en-GB": "A Primer on Bézier Curves",
-    "ja-JP": "A Primer on Bézier Curves",
-    "zh-CN": "A Primer on Bézier Curves"
+    "ja-JP": "ベジェ曲線入門",
+    "zh-CN": "贝塞尔曲线底漆"
   },
   "subtitle": {
     "en-GB": "A free, online book for when you really need to know how to do Bézier things.",
