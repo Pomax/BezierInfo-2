@@ -48,6 +48,7 @@ graphics-element:not(:defined) fallback-image {
 
 graphics-element:not(:defined) fallback-image > img {
   display: block;
+  margin: 0.9em;
 }
 
 /*

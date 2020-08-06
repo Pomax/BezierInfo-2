@@ -6,7 +6,7 @@
  * a REALLY good reason to =)
  *
  */
-module.exports = [
+export default [
   'preface',
 
   // the basic topic(s) introduction(s)

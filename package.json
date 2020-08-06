@@ -1,5 +1,6 @@
 {
   "name": "bezierinfo",
+  "type": "module",
   "version": "3.0.0",
   "description": "pomax.github.io/bezierinfo",
   "author": "Pomax",

@@ -1,8 +1,8 @@
-const localeStrings = require("../../locale-strings.json");
-const defaultLocale = localeStrings.defaultLocale
+import localeStrings from "../../locale-strings.js";
 
+const defaultLocale = localeStrings.defaultLocale;
 
-module.exports = function generateLangSwitcher(currentLocale, allLocales) {
+export default function generateLangSwitcher(currentLocale, allLocales) {
   return allLocales
     .map((locale) => {
       let link;
@@ -22,4 +22,4 @@ module.exports = function generateLangSwitcher(currentLocale, allLocales) {
       return `<li><a href="${link}">${localeStrings.localeName[locale]}</a></li>`;
     })
     .join(`\n`);
-};
+}

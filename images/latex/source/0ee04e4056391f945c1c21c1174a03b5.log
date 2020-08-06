@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 2.9.7400 64-bit) (preloaded format=xelatex 2020.6.27)  3 AUG 2020 18:00
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 2.9.7400 64-bit) (preloaded format=xelatex 2020.6.27)  5 AUG 2020 15:00
 entering extended mode
 **C:/Users/Mike/Documents/Git/released/bezierinfo-2/images/latex/source/0ee04e4
 056391f945c1c21c1174a03b5.tex
@@ -464,8 +464,7 @@ LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/cmex/m/n --> TU/TeXGyrePagellaMath(3)/b/n on input 
 line 9.
 
-(C:\Users\Mike\Documents\Git\released\bezierinfo-2\images\latex\source\0ee04e40
-56391f945c1c21c1174a03b5.aux)
+No file 0ee04e4056391f945c1c21c1174a03b5.aux.
 \openout1 = `0ee04e4056391f945c1c21c1174a03b5.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
@@ -484,7 +483,6 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
-
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
 * driver: pdftex
@@ -544,8 +542,8 @@ LaTeX Font Info:    Font shape `TU/TeXGyrePagellaMath(3)/m/n' will be
 (C:\Users\Mike\Documents\Git\released\bezierinfo-2\images\latex\source\0ee04e40
 56391f945c1c21c1174a03b5.aux) ) 
 Here is how much of TeX's memory you used:
- 8349 strings out of 414218
- 176265 string characters out of 2898483
+ 8347 strings out of 414218
+ 176123 string characters out of 2898483
  738285 words of memory out of 3000000
  25815 multiletter control sequences out of 15000+200000
  534373 words of font info for 55 fonts, out of 3000000 for 9000

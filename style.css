@@ -1,15 +1,16 @@
 :root[lang="en-GB"] {
     font-family: 'Museo', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+    font-size: 18px;
 }
 
 :root[lang="ja-JP"] {
     font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'Osaka', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', 'MS PGothic', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
-    font-size: 0.9rem;
+    font-size: 16px;
 }
 
 :root[lang="zh-CN"] {
     font-family: '华文细黑', 'STXihei', 'PingFang TC', '微软雅黑体', 'Microsoft YaHei New', '微软雅黑', 'Microsoft Yahei', '宋体', 'SimSun', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
-    font-size: 0.95rem;
+    font-size: 17.2px;
 }
 
 h1 {

@@ -1,18 +1,19 @@
-const fs = require("fs-extra");
-const path = require("path");
-const localeStrings = require("../../locale-strings.json");
-const defaultLocale = localeStrings.defaultLocale
-const prettier = require("prettier");
-const generateLangSwitcher = require("./generate-lang-switcher.js");
-const nunjucks = require("nunjucks");
+import fs from "fs-extra";
+import path from "path";
+import prettier from "prettier";
+import generateLangSwitcher from "./generate-lang-switcher.js";
+import nunjucks from "nunjucks";
+import localeStrings from "../../locale-strings.js";
+import sectionOrder from "../../chapters/toc.js";
+
+const defaultLocale = localeStrings.defaultLocale;
 
 nunjucks.configure(".", { autoescape: false });
-
 
 /**
  * ...docs go here...
  */
-module.exports = async function createIndexPages(locale, chapters, languages) {
+export default async function createIndexPages(locale, chapters, languages) {
   let base = ``;
 
   if (locale !== defaultLocale) {
@@ -23,8 +24,9 @@ module.exports = async function createIndexPages(locale, chapters, languages) {
 
   const toc = {};
 
-  const sectionOrder = require("../../chapters/toc.js");
-  const preface = `<section id="preface">${chapters[sectionOrder[0]]}</section>`;
+  const preface = `<section id="preface">${
+    chapters[sectionOrder[0]]
+  }</section>`;
 
   const sections = sectionOrder.slice(1).map((section) => {
     let content = chapters[section];
@@ -47,7 +49,7 @@ module.exports = async function createIndexPages(locale, chapters, languages) {
   };
 
   // And inject all the relevant locale strings
-  Object.keys(localeStrings).forEach(key => {
+  Object.keys(localeStrings).forEach((key) => {
     if (localeStrings[key][locale]) {
       context[key] = localeStrings[key][locale];
     }
@@ -63,4 +65,4 @@ module.exports = async function createIndexPages(locale, chapters, languages) {
     fs.ensureDir(locale);
     fs.writeFileSync(path.join(locale, `index.html`), data, `utf8`);
   }
-};
+}

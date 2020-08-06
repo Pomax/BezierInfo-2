@@ -1,4 +1,4 @@
-{
+export default {
   "defaultLocale": "en-GB",
   "title": {
     "en-GB": "A Primer on Bézier Curves",

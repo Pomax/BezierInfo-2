@@ -1,10 +1,13 @@
-const fs = require("fs-extra");
-const path = require("path");
-const crypto = require("crypto");
-const cleanUp = require("../cleanup");
-const execSync = require("child_process").execSync;
+import fs from "fs-extra";
+import path from "path";
+import { createHash } from "crypto";
+import { execSync } from "child_process";
+import cleanUp from "./cleanup.js";
 
-const baseDir = path.join(__dirname, `..`, `..`, `images`, `latex`);
+const moduleURL = new URL(import.meta.url);
+const __dirname = path.dirname(moduleURL.href.replace(`file:///`,``));
+const baseDir = path.join(__dirname, `..`, `..`, `..`, `images`, `latex`);
+
 fs.ensureDirSync(baseDir);
 
 const sourceDir = path.join(baseDir, `source`);
@@ -22,8 +25,8 @@ function runCmd(cmd, hash) {
   }
 }
 
-module.exports = async function latexToSVG(latex) {
-    const hash = crypto.createHash(`md5`).update(latex).digest(`hex`);
+export default async function latexToSVG(latex) {
+    const hash = createHash(`md5`).update(latex).digest(`hex`);
 
     const TeXfilename = path.join(sourceDir, hash + ".tex");
     const SVGfilename = path.resolve(path.join(path.dirname(TeXfilename), '..', hash + ".svg"));

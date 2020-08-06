@@ -1,4 +1,4 @@
-module.exports = function cleanUp(latex) {
+export default function cleanUp(latex) {
   // strip any \[ and \], which is a block-level LaTeX markup indicator for MathJax:
   latex = latex.replace(/^'/,'').replace(/'$/,'').replace('\\[','').replace('\\]','');
 
