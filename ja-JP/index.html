@@ -86,6 +86,14 @@
     </header>
 
     <main>
+      <section id="toc">
+        <h1>目次</h1>
+        <ol>
+          <li><a href="#introduction">バッとした導入</a></li>
+          <li><a href="#whatis">So what makes a Bézier Curve?</a></li>
+        </ol>
+      </section>
+
       <section id="preface">
         <section id="preface">
           <h1>まえがき</h1>
@@ -173,15 +181,160 @@
         </section>
       </section>
 
-      <section id="toc">
-        <h1>目次</h1>
-        <ol>
-          <li><a href="#introduction">バッとした導入</a></li>
-          <li><a href="#whatis">So what makes a Bézier Curve?</a></li>
-        </ol>
+      <section id="changelog">
+        <h1>What's new?</h1>
+        <p>
+          This primer is a living document, and so depending on when you last
+          look at it, there may be new content. Click the following link to
+          expand this section to have a look at what got added, when.
+        </p>
+        <section>
+          <h2>August 2020</h2>
+          <ul>
+            <li>
+              Completely redid everything about the site except for chapter
+              text: the Primer is now finally a normal web page again.
+            </li>
+          </ul>
+          <h2>June 2020</h2>
+          <ul>
+            <li>Added automatic CI/CD using Github Actions</li>
+          </ul>
+          <h2>January 2020</h2>
+          <ul>
+            <li>Added reset buttons to all graphics</li>
+            <li>Updated to preface to correctly describe the on-page maths</li>
+            <li>
+              Fixed the Catmull-Rom section because it had glaring maths errors
+            </li>
+          </ul>
+          <h2>August 2019</h2>
+          <ul>
+            <li>Added a section on (plain) rational Bezier curves</li>
+            <li>Improved the Graphic component to allow for sliders</li>
+          </ul>
+          <h2>December 2018</h2>
+          <ul>
+            <li>Added a section on curvature and calculating kappa.</li>
+            <li>
+              Added a Patreon page! Head on over to
+              https://patreon.com/bezierinfo to help support this site!
+            </li>
+          </ul>
+          <h2>August 2018</h2>
+          <ul>
+            <li>
+              Added a section on finding a curve's y, if all you have is the x
+              coordinate.
+            </li>
+          </ul>
+          <h2>July 2018</h2>
+          <ul>
+            <li>
+              Rewrote the 3D normals section, implementing and explaining
+              Rotation Minimising Frames.
+            </li>
+            <li>
+              Updated the section on curve order raising/lowering, showing how
+              to get a least-squares optimized lower order curve.
+            </li>
+            <li>
+              (Finally) updated 'npm test' so that it automatically rebuilds
+              when files are changed while the dev server is running.
+            </li>
+          </ul>
+          <h2>June 2018</h2>
+          <ul>
+            <li>Added a section on direct curve fitting.</li>
+            <li>Added source links for all graphics.</li>
+            <li>Added this "What's new?" section.</li>
+          </ul>
+          <h2>April 2017</h2>
+          <ul>
+            <li>Added a section on 3d normals.</li>
+            <li>
+              Added live-updating for the social link buttons, so they always
+              link to the specific section you're reading.
+            </li>
+          </ul>
+          <h2>February 2017</h2>
+          <ul>
+            <li>Finished rewriting the entire codebase for localization.</li>
+          </ul>
+          <h2>January 2016</h2>
+          <ul>
+            <li>Added a section to explain the Bezier interval.</li>
+          </ul>
+          <h2>December 2015</h2>
+          <ul>
+            <li>
+              Set up the split repository between BezierInfo-2 as development
+              repository, and bezierinfo as live page.
+            </li>
+            <li>
+              Removed the need for client-side LaTeX parsing entirely, so the
+              site doesn't take a full minute or more to load all the graphics.
+            </li>
+          </ul>
+          <h2>May 2015</h2>
+          <ul>
+            <li>
+              Switched over to pure JS rather than
+              Processing-through-Processing.js
+            </li>
+            <li>
+              Added Cardano's algorithm for finding the roots of a cubic
+              polynomial.
+            </li>
+          </ul>
+          <h2>April 2015</h2>
+          <ul>
+            <li>Added a section on arc length approximations.</li>
+          </ul>
+          <h2>February 2015</h2>
+          <ul>
+            <li>Added a section on the canonical cubic Bezier form.</li>
+          </ul>
+          <h2>November 2014</h2>
+          <ul>
+            <li>Switched to HTTPS.</li>
+          </ul>
+          <h2>July 2014</h2>
+          <ul>
+            <li>Added the section on arc approximation.</li>
+          </ul>
+          <h2>April 2014</h2>
+          <ul>
+            <li>Added the section on Catmull-Rom fitting.</li>
+          </ul>
+          <h2>November 2013</h2>
+          <ul>
+            <li>Added the section on Catmull-Rom / Bezier conversion.</li>
+            <li>Added the section on Bezier cuves as matrices</li>
+          </ul>
+          <h2>April 2013</h2>
+          <ul>
+            <li>Added a section on poly-Beziers.</li>
+            <li>Added a section on boolean shape operations.</li>
+          </ul>
+          <h2>March 2013</h2>
+          <ul>
+            <li>First drastic rewrite</li>
+            <li>Added sections on circle approximations.</li>
+            <li>Added a section on projecting a point onto a curve.</li>
+            <li>Added a section on tangents and normals.</li>
+            <li>Added Legendre-Gauss numerical data tables.</li>
+          </ul>
+          <h2>October 2011</h2>
+          <ul>
+            <li>
+              First commit for the https://pomax.github.io/bezierinfo site,
+              based on the pre-Primer webpage that covered the basics of Bezier
+              curves in HTML with Processing.js examples.
+            </li>
+          </ul>
+        </section>
       </section>
-
-      <section id="changelog"></section>
 
       <section id="chapters">
         <section id="introduction">

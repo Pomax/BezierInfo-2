@@ -1,77 +1,98 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ locale }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/png" />
 
-  <title>{{ title }}</title>
-  <link rel="shortcut icon" href="favicon.png" type="image/png">
+    {{ base }}
 
-  {{ base }}
+    <!-- And a slew of SEO related meta elements, because being discoverable is important -->
+    <meta name="description" content="{{ description }}" />
 
-  <!-- And a slew of SEO related meta elements, because being discoverable is important -->
-  <meta name="description" content="{{ description }}">
+    <!-- opengraph information -->
+    <meta property="og:title" content="{{ title }}" />
+    <meta
+      property="og:image"
+      content="https://pomax.github.io/bezierinfo/images/og-image.png"
+    />
+    <meta property="og:type" content="text" />
+    <meta property="og:url" content="https://pomax.github.io/bezierinfo" />
+    <meta property="og:description" content="{{ description }}" />
+    <meta property="og:locale" content="{{ locale }}}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:published_time" content="2013-06-13 12:00:00" />
+    <meta property="og:author" content="Mike 'Pomax' Kamermans" />
+    <meta property="og:section" content="Bézier Curves" />
+    <meta property="og:tag" content="Bézier Curves" />
 
-  <!-- opengraph information -->
-  <meta property="og:title" content="{{ title }}">
-  <meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png">
-  <meta property="og:type" content="text">
-  <meta property="og:url" content="https://pomax.github.io/bezierinfo">
-  <meta property="og:description" content="{{ description }}">
-  <meta property="og:locale" content="{{ locale }}}}">
-  <meta property="og:type" content="article">
-  <meta property="og:published_time" content="2013-06-13 12:00:00">
-  <meta property="og:author" content="Mike 'Pomax' Kamermans">
-  <meta property="og:section" content="Bézier Curves">
-  <meta property="og:tag" content="Bézier Curves">
+    <!-- twitter card information -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@TheRealPomax" />
+    <meta name="twitter:creator" content="@TheRealPomax" />
+    <meta
+      name="twitter:image"
+      content="https://pomax.github.io/bezierinfo/images/og-image.png"
+    />
+    <meta name="twitter:url" content="https://pomax.github.io/bezierinfo" />
+    <meta name="twitter:description" content="{{ description }}" />
 
-  <!-- twitter card information -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:site" content="@TheRealPomax">
-  <meta name="twitter:creator" content="@TheRealPomax">
-  <meta name="twitter:image" content="https://pomax.github.io/bezierinfo/images/og-image.png">
-  <meta name="twitter:url" content="https://pomax.github.io/bezierinfo">
-  <meta name="twitter:description" content="{{ description }}">
+    <!-- my own referral/page hit tracker, because Google knows enough -->
+    <script src="./lib/site/referrer.js" type="module" async></script>
 
-  <!-- my own referral/page hit tracker, because Google knows enough -->
-  <script src="./lib/site/referrer.js" type="module" async></script>
+    <!-- the part that makes interactive graphics work: an HTML5 <graphics-element> custom element -->
+    <script
+      src="./lib/custom-element/graphics-element.js"
+      type="module"
+      async
+      defer
+    ></script>
+    <link rel="stylesheet" href="./lib/custom-element/graphics-element.css" />
 
-  <!-- the part that makes interactive graphics work: an HTML5 <graphics-element> custom element -->
-  <script src="./lib/custom-element/graphics-element.js" type="module" async defer></script>
-  <link rel="stylesheet" href="./lib/custom-element/graphics-element.css">
+    <!-- page styling -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-  <!-- page styling -->
-  <link rel="stylesheet" href="style.css">
-</head>
+  <body>
+    <header>
+      <h1>{{ title }}</h1>
+      <h2>{{ subtitle }}</h2>
+      <span>{{ langSwitchLabel }}</span>
+      <ul>
+        {{ langSwitcher }}
+      </ul>
+      <span>{{ langHelpLabel }}</span>
+    </header>
 
-<body>
-  <header>
-    <h1>{{ title }}</h1>
-    <h2>{{ subtitle }}</h2>
-    <span>{{ langSwitchLabel }}</span>
-    <ul>{{ langSwitcher }}</ul>
-    <span>{{ langHelpLabel }}</span>
-  </header>
+    <main>
+      <section id="toc">
+        <h1>{{ tocLabel }}</h1>
+        <ol>
+          {{ toc }}
+        </ol>
+      </section>
 
-  <main>
-    <section id="preface">
-      {{ preface }}
-    </section>
+      <section id="preface">
+        {{ preface }}
+      </section>
 
-    <section id="toc">
-      <h1>{{ tocLabel }}</h1>
-      <ol>{{ toc }}</ol>
-    </section>
+      <section id="changelog">
+        <h1>What's new?</h1>
+        <p>
+          This primer is a living document, and so depending on when you last
+          look at it, there may be new content. Click the following link to
+          expand this section to have a look at what got added, when.
+        </p>
+        <section>
+          {{ changelog }}
+        </section>
+      </section>
 
-    <section id="changelog">
-      {{ changelog }}
-    </section>
-
-    <section id="chapters">
-      {{ chapters }}
-    </section>
-  </main>
-</body>
-
+      <section id="chapters">
+        {{ chapters }}
+      </section>
+    </main>
+  </body>
 </html>

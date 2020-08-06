@@ -28,10 +28,11 @@
     "ebook"
   ],
   "devDependencies": {
-    "codesurgeon": "file:./lib/custom-element",
     "canvas": "^2.6.1",
+    "codesurgeon": "file:./lib/custom-element",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
+    "http-server": "^0.12.3",
     "marked": "^1.1.1",
     "npm-run-all": "^4.1.5",
     "nunjucks": "^3.2.2",

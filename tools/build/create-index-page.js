@@ -5,6 +5,7 @@ import generateLangSwitcher from "./generate-lang-switcher.js";
 import nunjucks from "nunjucks";
 import localeStrings from "../../locale-strings.js";
 import sectionOrder from "../../chapters/toc.js";
+import changelog from "../../changelog.js";
 
 const defaultLocale = localeStrings.defaultLocale;
 
@@ -38,6 +39,12 @@ export default async function createIndexPages(locale, chapters, languages) {
     return ``;
   });
 
+  let changeLogHTML = [];
+  Object.keys(changelog).forEach(period => {
+    let changes = changelog[period].map(change => `<li>${change}</li>`).join(`\n`);
+    changeLogHTML.push(`<h2>${period}</h2><ul>${changes}</ul>`);
+  })
+
   // Set up the templating context
   const context = {
     base,
@@ -45,6 +52,7 @@ export default async function createIndexPages(locale, chapters, languages) {
     langSwitcher,
     preface,
     toc: Object.values(toc).join(`\n`),
+    changelog: changeLogHTML.join(`\n`),
     chapters: sections.join(`\n`),
   };
 
