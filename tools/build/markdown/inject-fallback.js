@@ -21,7 +21,7 @@ export default function injectGraphicsFallback(chapter, locale, markdown) {
           let img = src.replace(`./`, `./images/`).replace(`.js`, `.png`);
           return `width="${width}" height="${height}" src="${src}">
             <fallback-image>
-              <img width="${width}" height="${height}" src="${img}" loading="lazy">
+              <img width="${width}px" height="${height}px" src="${img}" loading="lazy">
               ${localeStrings.disabledMessage[locale]}
             </fallback-image>`;
         }
