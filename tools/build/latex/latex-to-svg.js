@@ -129,7 +129,7 @@ export default async function latexToSVG(latex, chapter, locale, block) {
   var w = Math.round(((parseFloat(vb[2]) - parseFloat(vb[0])) * 4) / 3);
   var h = Math.round(((parseFloat(vb[3]) - parseFloat(vb[1])) * 4) / 3);
 
-  return `<img className="LaTeX SVG" src="images/latex/${path.basename(
+  return `<img class="LaTeX SVG" src="images/latex/${path.basename(
     SVGfilename
   )}" width="${Math.round(w)}px" height="${Math.round(h)}px" loading="lazy">`;
 }

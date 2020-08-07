@@ -69,3 +69,11 @@ div.note:before {
     top: -0.5em;
     left: -1em;
 }
+
+img.LaTeX.SVG {
+    display: block;
+}
+
+img.LaTeX.SVG + img.LaTeX.SVG {
+    margin-top: 1em;
+}
