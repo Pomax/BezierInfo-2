@@ -14,10 +14,8 @@
     "url": "https://github.com/Pomax/bezierinfo/issues"
   },
   "scripts": {
+    "start": "run-s build",
     "build": "node ./tools/build.js",
-    "deps": "run-s dep:bezier",
-    "dep:bezier": "cp -r ./node_modules/bezier-js/lib ./lib/bezierjs",
-    "start": "run-s deps build",
     "test": "run-p server browser",
     "server": "http-server -p 8000 --cors",
     "browser": "open-cli http://localhost:8000"

@@ -21,13 +21,15 @@ drawBasics() {
 
     translate(this.height, 0);
 
-    line({x:0, y:0}, {x:0, y:this.height});
+    line(0, 0, 0, this.height);
+
     this.curve.drawSkeleton();
     text(`Second interpolation, between each generated pair`, {x:5, y:15});
 
     translate(this.height, 0);
 
-    line({x:0, y:0}, {x:0, y:this.height});
+    line(0, 0, 0, this.height);
+
     this.curve.drawSkeleton();
     text(`Curve points generated this way`, {x:5, y:15});
 }
@@ -36,7 +38,7 @@ drawPointCurve() {
     setStroke(`lightgrey`);
     for(let i=1, e=50, p; i<=e; i++) {
       p = this.curve.get(i/e);
-      circle(p, 1);
+      circle(p.x, p.y, 1);
     }
 }
 
@@ -57,12 +59,14 @@ setIterationColor(i) {
 }
 
 drawFirstInterpolation(p, i) {
+    p = p.map(v => new Vector(v));
+
     let np2 = p[1].subtract(p[1].subtract(p[0]).scale(1 - i/100));
-    circle(np2, 5);
+    circle(np2.x, np2.y, 5);
     text(`${i}%`, np2.add({x:10,y:0}));
 
     let np3 = p[2].subtract(p[2].subtract(p[1]).scale(1 - i/100));
-    circle(np3, 5);
+    circle(np3.x, np3.y, 5);
     text(`${i}%`, np3.add({x:-10,y:-15}));
 
     return [np2, np3];
@@ -71,12 +75,12 @@ drawFirstInterpolation(p, i) {
 drawSecondInterpolation(np2, np3, i) {
     translate(this.height, 0);
 
-    line(np2, np3);
-    circle(np2, 5);
-    circle(np3, 5);
+    line(np2.x, np2.y, np3.x, np3.y);
+    circle(np2.x, np2.y, 5);
+    circle(np3.x, np3.y, 5);
 
     let np4 = np3.subtract(np3.subtract(np2).scale(1 - i/100));
-    circle(np4, 2);
+    circle(np4.x, np4.y, 2);
     text(`${i}%`, np4.add({x:10,y:10}));
 
     return np4;
@@ -84,7 +88,7 @@ drawSecondInterpolation(np2, np3, i) {
 
 drawOnCurve(np4, i) {
     translate(this.height, 0);
-    circle(np4, 2);
+    circle(np4.x, np4.y, 2);
     text(`ratio = ${i/100}`, np4.add({x:10,y:15}));
 }
 

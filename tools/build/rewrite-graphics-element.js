@@ -10,7 +10,7 @@ export default function rewriteGraphicsElement(code, width, height) {
 
     return prettier.format(`
         import CanvasBuilder from 'canvas';
-        import { GraphicsAPI, Bezier, Point } from "../../lib/custom-element/api/graphics-api.js";
+        import { GraphicsAPI, Bezier, Vector } from "../../lib/custom-element/api/graphics-api.js";
 
         const noop = (()=>{});
 
