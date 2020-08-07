@@ -39,5 +39,15 @@ export default {
     "en-GB": "Scripts are disabled. Showing fallback image.",
     "zh-CN": "Scripts are disabled. Showing fallback image.",
     "ja-JP": "Scripts are disabled. Showing fallback image."
+  },
+  "changelogTitle": {
+    "en-GB": "What's new?",
+    "zh-CN": "What's new?",
+    "ja-JP": "What's new?"
+  },
+  "changelogDescription": {
+    "en-GB": "This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when.",
+    "zh-CN": "This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when.",
+    "ja-JP": "This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when."
   }
 }

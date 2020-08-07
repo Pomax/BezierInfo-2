@@ -14,7 +14,10 @@
     "url": "https://github.com/Pomax/bezierinfo/issues"
   },
   "scripts": {
-    "start": "node ./tools/build.js",
+    "build": "node ./tools/build.js",
+    "deps": "run-s dep:bezier",
+    "dep:bezier": "cp -r ./node_modules/bezier-js/lib ./lib/bezierjs",
+    "start": "run-s deps build",
     "test": "run-p server browser",
     "server": "http-server -p 8000 --cors",
     "browser": "open-cli http://localhost:8000"
@@ -28,6 +31,7 @@
     "ebook"
   ],
   "devDependencies": {
+    "bezier-js": "^2.6.1",
     "canvas": "^2.6.1",
     "codesurgeon": "file:./lib/custom-element",
     "fs-extra": "^9.0.1",

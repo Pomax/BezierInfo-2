@@ -53,12 +53,12 @@ export default async function processLocale(locale, chapterFiles) {
     localeFiles.map(async (file) => {
       const chapter = file.match(/chapters\/([^/]+)\/content./)[1];
       const markdown = fs.readFileSync(file).toString("utf8");
-      generatePlaceHolders(locale, markdown);
       const replaced = nunjucks.renderString(markdown, {
         disableMessage: `<span>${localeStrings.disabledMessage[locale]}</span>`,
       });
       const converted = await convertMarkDown(chapter, locale, replaced);
       chapters[chapter] = converted;
+      generatePlaceHolders(locale, converted); // ← this is super fancy functionality.
     })
   );
 

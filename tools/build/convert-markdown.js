@@ -1,6 +1,7 @@
 import marked from "marked";
 import latexToSVG from "./latex/latex-to-svg.js";
-import localeStrings from "../../locale-strings.js";
+import injectGraphicsFallback from "./markdown/inject-fallback.js";
+import extractLaTeX from "./markdown/extract-latex.js";
 import nunjucks from "nunjucks";
 nunjucks.configure(".", { autoescape: false });
 
@@ -8,7 +9,7 @@ nunjucks.configure(".", { autoescape: false });
  * ...docs go here...
  */
 export default async function convertMarkDown(chapter, locale, markdown) {
-  markdown = injectGraphicsFallback(locale, markdown);
+  markdown = injectGraphicsFallback(chapter, locale, markdown);
 
   const { data, latex } = extractLaTeX(markdown);
 
@@ -32,59 +33,4 @@ export default async function convertMarkDown(chapter, locale, markdown) {
     .replace(/}}<\/p>/g, `}}`);
 
   return nunjucks.renderString(converted, latex);
-}
-
-/**
- *
- */
-function injectGraphicsFallback(locale, markdown) {
-  let pos = -1,
-    data = markdown,
-    startmark = `<graphics-element`,
-    endmark = `</graphics-element>`;
-
-  do {
-    pos = data.indexOf(startmark, pos);
-    if (pos !== -1) {
-      let endpos = data.indexOf(endmark, pos) + endmark.length;
-      let slice = data.slice(pos, endpos);
-      let updated = slice.replace(/width="([^"]+)"\s+height="([^"]+)"\s+src="([^"]+)"\s*>/, (_, width, height, src) =>
-      `width="${width}" height="${height}" src="${src}">
-          <fallback-image>
-            <img width="${width}" height="${height}" src="${src.replace(`.js`, `.png`)}" loading="lazy">
-            ${ localeStrings.disabledMessage[locale] }
-          </fallback-image>`);
-      data = data.replace(slice, updated);
-      pos += updated.length;
-    }
-  } while (pos !== -1);
-
-  return data;
-}
-
-/**
- * ...
- */
-function extractLaTeX(markdown) {
-  let latexSection = 0,
-    pos = -1,
-    data = markdown,
-    latex = {},
-    startmark = `\\[`,
-    endmark = `\\]`;
-
-  do {
-    pos = data.indexOf(startmark);
-    if (pos !== -1) {
-      let endpos = data.indexOf(endmark, pos) + endmark.length;
-      let key = `latex${latexSection++}`;
-      latex[key] = data.substring(
-        pos + startmark.length,
-        endpos - endmark.length
-      );
-      data = `${data.slice(0, pos)}{{ ${key} }}${data.slice(endpos)}`;
-    }
-  } while (pos !== -1);
-
-  return { data, latex };
 }

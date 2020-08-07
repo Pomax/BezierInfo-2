@@ -32,3 +32,40 @@ h1 {
 graphics-element {
     background: #e8e8e8;
 }
+
+div.print {
+    opacity: 0.2;
+    padding-left: 2em;
+}
+
+div.print:before {
+    content: "PRINT-ONLY:";
+    position: relative;
+    left: -2em;
+}
+
+div.print:after {
+    content: "END-PRINT-ONLY";
+    position: relative;
+    left: -2em;
+}
+
+div.note {
+    position: relative;
+    border: 1px solid black;
+    background: rgb(255, 255, 246);
+    margin: 1em;
+    padding: 1em 1em 0 1em;
+}
+
+div.note:before {
+    display: inline-block;
+    content: "Note";
+    border: 1px solid black;
+    border-radius: 0.5em;
+    background: orange;
+    padding: 0.2em 0.5em;
+    position: absolute;
+    top: -0.5em;
+    left: -1em;
+}

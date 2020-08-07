@@ -35,6 +35,31 @@ export default async function latexToSVG(latex, chapter, locale, block) {
     const PDFfilename = TeXfilename.replace(`.tex`, `.pdf`);
     const PDFfilenameCropped = TeXfilename.replace(`.tex`, `-crop.pdf`);
 
+    let fonts = [
+      "\\setmainfont[Ligatures=TeX]{TeX Gyre Pagella}",
+      "\\setmathfont{TeX Gyre Pagella Math}",
+    ];
+
+    // For Chinese, we need the xeCJK package because there might be Chinese
+    // in maths context, which base XeLaTeX can't quite deal with.
+    if (locale === "zh-CN") {
+      fonts = [
+        "\\usepackage{xeCJK}",
+        "\\xeCJKsetup{CJKmath=true}",
+        "\\setCJKmainfont{gbsn00lp.ttf}",
+      ]
+    }
+
+    // The same goes for Japanese, although we obviously want a different
+    // font than Chinese, as they are different languages entirely.
+    if (locale === "ja-JP") {
+      fonts = [
+        "\\usepackage{xeCJK}",
+        "\\xeCJKsetup{CJKmath=true}",
+        "\\setCJKmainfont{ipaexm.ttf}",
+      ];
+    }
+
     fs.writeFileSync(
       TeXfilename,
       [
@@ -44,14 +69,13 @@ export default async function latexToSVG(latex, chapter, locale, block) {
         `\\usepackage{color}`,
         `\\usepackage{amsmath}`,
         `\\usepackage{unicode-math}`,
-        `\\setmainfont[Ligatures=TeX]{TeX Gyre Pagella}`,
-        `\\setmathfont{TeX Gyre Pagella Math}`,
+      ].concat(fonts).concat([
         `\\begin{document}`,
         `\\[`,
         cleanUp(latex),
         `\\]`,
         `\\end{document}`,
-      ].join(`\n`)
+      ]).join(`\n`)
     );
 
     // Finally: run the conversion

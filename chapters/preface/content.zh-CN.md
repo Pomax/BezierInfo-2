@@ -11,11 +11,15 @@
 
 —Pomax (推特账号, [@TheRealPomax](https://twitter.com/TheRealPomax))
 
-<div className="note">
+<div class="note">
 
 ## 注意：几乎所有的贝塞尔图形都是可交互的。
 
-这个页面使用了基于[Bezier.js](http://pomax.github.io/bezierjs) 的可交互例子，还有一些用[MathJax](http://MathJax.org) 排版的“真正的”数学（LaTeX形式）。这个页面是用Webpack离线生成的React应用，这便让加入“查看源码”选项更具挑战性了。我仍然试图将它们添加回来，但跟前几年的版本相比，不觉得它能够支撑部署这个更新。
+这个页面使用了基于[Bezier.js](http://pomax.github.io/bezierjs) 的可交互例子。
+
+<!-- The following is no longer true
+，还有一些用[MathJax](http://MathJax.org) 排版的“真正的”数学（LaTeX形式）。这个页面是用Webpack离线生成的React应用，这便让加入“查看源码”选项更具挑战性了。我仍然试图将它们添加回来，但跟前几年的版本相比，不觉得它能够支撑部署这个更新。
+-->
 
 ## 这本书是开源的。
 

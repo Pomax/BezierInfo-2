@@ -41,7 +41,7 @@
     <link rel="stylesheet" href="./lib/custom-element/graphics-element.css" />
 
     <!-- page styling -->
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="placeholder-style.css" />
   </head>
 
   <body>
@@ -55,30 +55,18 @@
       <span>{{ langHelpLabel }}</span>
       <nav aria-labelledby="toc">
         <h1 id="toc">{{ tocLabel }}</h1>
-        {{ toc }}
+        <ol>{{ toc }}</ol>
       </nav>
     </header>
 
     <main>
-      <section id="preface">
-        {{ preface }}
-      </section>
-
+      <section id="preface">{{ preface }}</section>
       <section id="changelog">
-        <h1>What's new?</h1>
-        <p>
-          This primer is a living document, and so depending on when you last
-          look at it, there may be new content. Click the following link to
-          expand this section to have a look at what got added, when.
-        </p>
-        <section>
-          {{ changelog }}
-        </section>
+        <h1>{{ changelogTitle }}</h1>
+        <p>{{ changelogDescription }}</p>
+        <section>{{ changelog }}</section>
       </section>
-
-      <section id="chapters">
-        {{ chapters }}
-      </section>
+      <section id="chapters">{{ chapters }}</section>
     </main>
   </body>
 </html>

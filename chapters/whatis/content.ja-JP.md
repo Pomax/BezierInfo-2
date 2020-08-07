@@ -19,7 +19,7 @@
 
 では、実際に見てみましょう。下の図はインタラクティブになっています。上下キーで補間の比率が増減しますので、どうなるか確かめてみましょう。最初に3点があり、それを結んで2本の直線が引かれています。この直線の上でそれぞれ線形補間を行うと、2つの点が得られます。この2点の間でさらに線形補間を行うと、1つの点を得ることができます。そして、あらゆる比率に対して同様に点を求め、それをすべて集めると、このようにベジエ曲線ができるのです。
 
-<graphics-element title="Linear Interpolation leading to Bézier curves" width="825" height="275" src="./chapters/whatis/interpolation.js"></graphics-element>
+<graphics-element title="Linear Interpolation leading to Bézier curves" width="825" height="275" src="./interpolation.js"></graphics-element>
 
 また、これが複雑な方の数学につながっていきます。微積分です。
 
