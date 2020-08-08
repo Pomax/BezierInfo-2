@@ -3,7 +3,7 @@ import path from "path";
 
 // make sure we know what our base location is
 const moduleURL = new URL(import.meta.url);
-const __dirname = path.dirname(moduleURL.href.replace(`file:///`,``));
+const __dirname = path.dirname(moduleURL.href.replace(`file:///`, ``));
 const BASEDIR = path.join(__dirname, "..", "..");
 
 /**
@@ -11,7 +11,6 @@ const BASEDIR = path.join(__dirname, "..", "..");
  */
 export default /* async */ function getAllChapterFiles() {
   return new Promise((resolve, reject) => {
-
     glob(path.join(BASEDIR, `chapters/**/content*md`), (err, files) => {
       if (err) reject(err);
 

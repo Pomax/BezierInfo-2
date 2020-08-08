@@ -3,28 +3,23 @@ import path from "path";
 import prettier from "prettier";
 import generateLangSwitcher from "./generate-lang-switcher.js";
 import nunjucks from "nunjucks";
-import localeStrings from "../../locale-strings.js";
 import sectionOrder from "../../chapters/toc.js";
 import changelog from "../../changelog.js";
-
-const defaultLocale = localeStrings.defaultLocale;
 
 nunjucks.configure(".", { autoescape: false });
 
 /**
  * ...docs go here...
  */
-export default async function createIndexPages(locale, chapters, languages) {
-  let base = ``;
-
-  if (locale !== defaultLocale) {
-    base = `<base href="..">`;
-  }
-
-  const langSwitcher = generateLangSwitcher(locale, languages, defaultLocale);
-
+export default async function createIndexPages(
+  locale,
+  localeStrings,
+  chapters
+) {
+  const defaultLocale = localeStrings.getDefaultLocale();
+  const base = locale !== defaultLocale ? `<base href="..">` : ``;
+  const langSwitcher = generateLangSwitcher(localeStrings);
   const toc = {};
-
   const preface = `<section id="preface">${
     chapters[sectionOrder[0]]
   }</section>`;
@@ -40,10 +35,12 @@ export default async function createIndexPages(locale, chapters, languages) {
   });
 
   let changeLogHTML = [];
-  Object.keys(changelog).forEach(period => {
-    let changes = changelog[period].map(change => `<li>${change}</li>`).join(`\n`);
+  Object.keys(changelog).forEach((period) => {
+    let changes = changelog[period]
+      .map((change) => `<li>${change}</li>`)
+      .join(`\n`);
     changeLogHTML.push(`<h2>${period}</h2><ul>${changes}</ul>`);
-  })
+  });
 
   // Set up the templating context
   const context = {
@@ -57,11 +54,7 @@ export default async function createIndexPages(locale, chapters, languages) {
   };
 
   // And inject all the relevant locale strings
-  Object.keys(localeStrings).forEach((key) => {
-    if (localeStrings[key][locale]) {
-      context[key] = localeStrings[key][locale];
-    }
-  });
+  localeStrings.extendContext(context);
 
   const index = nunjucks.render(`index.template.html`, context);
 

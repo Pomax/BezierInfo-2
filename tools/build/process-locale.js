@@ -4,12 +4,10 @@ import convertMarkDown from "./convert-markdown.js";
 import generatePlaceHolders from "./generate-placeholders.js";
 import nunjucks from "nunjucks";
 import toc from "../../chapters/toc.js";
-import localeStrings from "../../locale-strings.js";
 
 const moduleURL = new URL(import.meta.url);
 const __dirname = path.dirname(moduleURL.href.replace(`file:///`, ``));
 
-const defaultLocale = localeStrings.defaultLocale;
 const sectionList = toc.map((v) =>
   path.posix.join(
     __dirname.split(path.sep).join(path.posix.sep),
@@ -25,7 +23,14 @@ nunjucks.configure(".", { autoescape: false });
 /**
  * ...docs go here...
  */
-export default async function processLocale(locale, chapterFiles) {
+export default async function processLocale(
+  locale,
+  localeStrings,
+  chapterFiles
+) {
+  const defaultLocale = localeStrings.getDefaultLocale();
+  const translate = localeStrings.translate;
+
   const localeFiles = chapterFiles[locale];
   let localized = 0;
   let missing = 0;
@@ -53,10 +58,7 @@ export default async function processLocale(locale, chapterFiles) {
     localeFiles.map(async (file) => {
       const chapter = file.match(/chapters\/([^/]+)\/content./)[1];
       const markdown = fs.readFileSync(file).toString("utf8");
-      const replaced = nunjucks.renderString(markdown, {
-        disableMessage: `<span>${localeStrings.disabledMessage[locale]}</span>`,
-      });
-      const converted = await convertMarkDown(chapter, locale, replaced);
+      const converted = await convertMarkDown(chapter, localeStrings, markdown);
       chapters[chapter] = converted;
       generatePlaceHolders(locale, converted); // ← this is super fancy functionality.
     })

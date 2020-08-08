@@ -47,7 +47,7 @@ export default async function latexToSVG(latex, chapter, locale, block) {
         "\\usepackage{xeCJK}",
         "\\xeCJKsetup{CJKmath=true}",
         "\\setCJKmainfont{gbsn00lp.ttf}",
-      ]
+      ];
     }
 
     // The same goes for Japanese, although we obviously want a different
@@ -69,13 +69,16 @@ export default async function latexToSVG(latex, chapter, locale, block) {
         `\\usepackage{color}`,
         `\\usepackage{amsmath}`,
         `\\usepackage{unicode-math}`,
-      ].concat(fonts).concat([
-        `\\begin{document}`,
-        `\\[`,
-        cleanUp(latex),
-        `\\]`,
-        `\\end{document}`,
-      ]).join(`\n`)
+      ]
+        .concat(fonts)
+        .concat([
+          `\\begin{document}`,
+          `\\[`,
+          cleanUp(latex),
+          `\\]`,
+          `\\end{document}`,
+        ])
+        .join(`\n`)
     );
 
     // Finally: run the conversion

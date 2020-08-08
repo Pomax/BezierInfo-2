@@ -8,14 +8,18 @@ nunjucks.configure(".", { autoescape: false });
 /**
  * ...docs go here...
  */
-export default async function convertMarkDown(chapter, locale, markdown) {
-  markdown = injectGraphicsFallback(chapter, locale, markdown);
+export default async function convertMarkDown(
+  chapter,
+  localeStrings,
+  markdown
+) {
+  markdown = injectGraphicsFallback(chapter, localeStrings, markdown);
 
   const { data, latex } = extractLaTeX(markdown);
 
   await Promise.all(
     Object.keys(latex).map(async (key, pos) => {
-      const svg = await latexToSVG(latex[key], chapter, locale, pos + 1);
+      const svg = await latexToSVG(latex[key], chapter, localeStrings, pos + 1);
       return (latex[key] = svg);
     })
   );

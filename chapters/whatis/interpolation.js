@@ -102,18 +102,42 @@ drawCurveCoordinates() {
 }
 
 onKeyDown() {
+    this.mark = false;
     if (this.keyboard[`ArrowDown`]) {
-        this.step--;
-        if (this.step < 10) this.step = 10;
+        this.stepDown();
     }
     if (this.keyboard[`ArrowUp`]) {
-        this.step++;
-        if (this.step > 90) this.step = 90;
+        this.stepUp();
     }
     redraw();
 }
 
+stepDown(value = 1) {
+    this.step -= value;
+    if (this.step < 10) this.step = 10;
+}
+
+stepUp(value = 1) {
+    this.step += value;
+    if (this.step > 90) this.step = 90;
+}
+
+onMouseDown() {
+    this.mark = this.cursor.y;
+}
+
+onMouseUp() {
+    this.mark = false;
+}
+
 onMouseMove() {
     this.curve.update();
+
+    if (this.mark) {
+        let diff = this.mark - this.cursor.y,
+            mapped = map(diff, -this.height/2, this.height/2, 10, 90, true);
+        this.step = mapped | 0;
+    }
+
     redraw();
 }

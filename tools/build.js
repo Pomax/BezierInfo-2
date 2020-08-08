@@ -1,3 +1,4 @@
+import LocaleStrings from "./locale-strings.js";
 import getAllChapterFiles from "./build/get-all-chapter-files.js";
 import processLocale from "./build/process-locale.js";
 import createIndexPages from "./build/create-index-page.js";
@@ -9,9 +10,9 @@ import createIndexPages from "./build/create-index-page.js";
  */
 getAllChapterFiles().then((chapterFiles) => {
   const languageCodes = Object.keys(chapterFiles);
-
   languageCodes.forEach(async (locale) => {
-    const chapters = await processLocale(locale, chapterFiles);
-    createIndexPages(locale, chapters, languageCodes);
+    const localeStrings = new LocaleStrings(locale);
+    const chapters = await processLocale(locale, localeStrings, chapterFiles);
+    createIndexPages(locale, localeStrings, chapters);
   });
 });

@@ -1,9 +1,13 @@
-import localeStrings from "../../../locale-strings.js";
-
 /**
  * ...docs go here...
  */
-export default function injectGraphicsFallback(chapter, locale, markdown) {
+export default function injectGraphicsFallback(
+  chapter,
+  localeStrings,
+  markdown
+) {
+  const translate = localeStrings.translate;
+
   let pos = -1,
     data = markdown,
     startmark = `<graphics-element`,
@@ -22,7 +26,7 @@ export default function injectGraphicsFallback(chapter, locale, markdown) {
           return `width="${width}" height="${height}" src="${src}">
             <fallback-image>
               <img width="${width}px" height="${height}px" src="${img}" loading="lazy">
-              ${localeStrings.disabledMessage[locale]}
+              ${translate`disabledMessage`}
             </fallback-image>`;
         }
       );

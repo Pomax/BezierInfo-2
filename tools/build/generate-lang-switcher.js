@@ -1,9 +1,8 @@
-import localeStrings from "../../locale-strings.js";
+export default function generateLangSwitcher(localeStrings) {
+  const defaultLocale = localeStrings.getDefaultLocale();
 
-const defaultLocale = localeStrings.defaultLocale;
-
-export default function generateLangSwitcher(currentLocale, allLocales) {
-  return allLocales
+  return localeStrings
+    .getAllLocaleCodes()
     .map((locale) => {
       let link;
       if (locale === defaultLocale) {
@@ -11,7 +10,8 @@ export default function generateLangSwitcher(currentLocale, allLocales) {
       } else {
         link = `./${locale}/index.html`;
       }
-      return `<li><a href="${link}">${localeStrings.localeName[locale]}</a></li>`;
+      let localeName = localeStrings.getLocaleName(locale);
+      return `<li><a href="${link}">${localeName}</a></li>`;
     })
     .join(`\n`);
 }

@@ -1,12 +1,12 @@
 import fs from "fs-extra";
 import path from "path";
 import rewriteGraphicsElement from "./rewrite-graphics-element.js";
-import localeStrings from "../../locale-strings.js";
+import localeStrings from "../locale-strings.js";
 
 const defaultLocale = localeStrings.defaultLocale;
 
 const moduleURL = new URL(import.meta.url);
-const __dirname = path.dirname(moduleURL.href.replace(`file:///`,``));
+const __dirname = path.dirname(moduleURL.href.replace(`file:///`, ``));
 
 export default async function generatePlaceHolders(locale, markdown) {
   if (locale !== defaultLocale) return;
@@ -29,10 +29,12 @@ export default async function generatePlaceHolders(locale, markdown) {
   } while (pos !== -1);
 
   const keys = Object.keys(elements);
-  const sourcePaths = keys.map(key => elements[key].match(/src="([^"]+)"/)[1]);
+  const sourcePaths = keys.map(
+    (key) => elements[key].match(/src="([^"]+)"/)[1]
+  );
 
   await Promise.all(
-    sourcePaths.map(async(srcPath, i) => {
+    sourcePaths.map(async (srcPath, i) => {
       try {
         // Get the sketch code
         const sourcePath = path.join(__dirname, "..", "..", srcPath);
@@ -61,8 +63,9 @@ export default async function generatePlaceHolders(locale, markdown) {
         // console.log(`Writing placeholder to ${filename}`);
         fs.ensureDirSync(path.dirname(destPath));
         fs.writeFileSync(filename, imageData);
+      } catch (e) {
+        console.error(e);
       }
-      catch (e) { console.error(e); }
     })
   );
 }

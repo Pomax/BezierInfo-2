@@ -3,12 +3,12 @@ import performCodeSurgery from "../../lib/custom-element/lib/perform-code-surger
 import prettier from "prettier";
 
 export default function rewriteGraphicsElement(code, width, height) {
+  const split = splitCodeSections(code);
+  const globalCode = split.quasiGlobal;
+  const classCode = performCodeSurgery(split.classCode);
 
-    const split = splitCodeSections(code);
-    const globalCode = split.quasiGlobal;
-    const classCode = performCodeSurgery(split.classCode);
-
-    return prettier.format(`
+  return prettier.format(
+    `
         import CanvasBuilder from 'canvas';
         import { GraphicsAPI, Bezier, Vector } from "../../lib/custom-element/api/graphics-api.js";
 
@@ -33,5 +33,7 @@ export default function rewriteGraphicsElement(code, width, height) {
         const canvas = example.canvas;
 
         export { canvas };
-    `, { parser: `babel` });
-};
+    `,
+    { parser: `babel` }
+  );
+}
