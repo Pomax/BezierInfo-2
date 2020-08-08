@@ -90,7 +90,7 @@
           <li>
             <a href="#whatis">ではベジエ曲線はどうやってできるのでしょう？</a>
           </li>
-          <li><a href="#abc">The projection identity</a></li>
+          <li><a href="#explanation">ベジエ曲線の数学</a></li>
         </ol>
       </nav>
     </header>
@@ -435,239 +435,192 @@
             それでは、もう少し詳しくベジエ曲線を見ていきましょう。数学的な表現やそこから導かれる性質、さらには、ベジエ曲線に対して／ベジエ曲線を使ってできるさまざまな内容についてです。
           </p>
         </section>
-
-        <section id="abc">
-          <h1>The projection identity</h1>
+        <section id="explanation">
+          <h1>ベジエ曲線の数学</h1>
           <p>
-            De Casteljau's algorithm is the pivotal algorithm when it comes to
-            Bézier curves. You can use it not just to split curves, but also to
-            draw them efficiently (especially for high-order Bézier curves), as
-            well as to come up with curves based on three points and a tangent.
-            Particularly this last thing is really useful because it lets us
-            "mould" a curve, by picking it up at some point, and dragging that
-            point around to change the curve's shape.
-          </p>
-          <p>
-            How does that work? Succinctly: we run de Casteljau's algorithm in
-            reverse!
-          </p>
-          <p>
-            In order to run de Casteljau's algorithm in reverse, we need a few
-            basic things: a start and end point, a point on the curve that want
-            to be moving around, which has an associated <em>t</em> value, and a
-            point we've not explicitly talked about before, and as far as I know
-            has no explicit name, but lives one iteration higher in the de
-            Casteljau process then our on-curve point does. I like to call it
-            "A" for reasons that will become obvious.
-          </p>
-          <p>
-            So let's use graphics instead of text to see where this "A" is,
-            because text only gets us so far: in the following graphic, click
-            anywhere on the curves to see the identity information that we'll be
-            using to run de Casteljau in reverse (you can manipulate the curve
-            even after picking a point. Note the "ratio" value when you do so:
-            does it change?):
-          </p>
-          <graphics-element
-            title="Projections in a quadratic Bézier curve"
-            width="275"
-            height="275"
-            src="./chapters/abc/quadratic.js"
-          >
-            <fallback-image>
-              <img
-                width="275px"
-                height="275px"
-                src="./images/chapters/abc/quadratic.png"
-                loading="lazy"
-              />
-              Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
-          <graphics-element
-            title="Projections in a cubic Bézier curve"
-            width="275"
-            height="275"
-            src="./chapters/abc/cubic.js"
-          >
-            <fallback-image>
-              <img
-                width="275px"
-                height="275px"
-                src="./images/chapters/abc/cubic.png"
-                loading="lazy"
-              />
-              Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
-
-          <p>Clicking anywhere on the curves shows us three things:</p>
-          <ol>
-            <li>our on-curve point; let's call that <b>B</b>,</li>
-            <li>
-              a point at the tip of B's "hat", on de Casteljau step up; let's
-              call that <b>A</b>, and
-            </li>
-            <li>
-              a point that we get by projecting B onto the start--end baseline;
-              let's call that <b>C</b>.
-            </li>
-          </ol>
-          <p>
-            These three values A, B, and C hide an important identity formula
-            for quadratic and cubic Bézier curves: for any point on the curve
-            with some <em>t</em> value, the ratio distance of C along the
-            baseline is fixed: if some <em>t</em> value sets up a C that is 20%
-            away from the start and 80% away from the end, then it doesn't
-            matter where the start, end, or control points are; for that
-            <em>t</em> value, C will <em>always</em> lie at 20% from the start
-            and 80% from the end point. Go ahead, pick an on-curve point in
-            either graphic and then move all the other points around: if you
-            only move the control points, start and end won't move, and so
-            neither will C, and if you move either start or end point, C will
-            move but its relative position will not change. The following
-            function stays true:
+            ベジエ曲線は「パラメトリック」関数の一種です。数学的に言えば、パラメトリック関数というのはインチキです。というのも、「関数」はきっちり定義された用語であり、いくつかの入力を<strong>1つ</strong>の出力に対応させる写像を表すものだからです。いくつかの数値を入れると、1つの数値が出てきます。入れる数値が変わっても、出てくる数値はやはり1つだけです。パラメトリック関数はインチキです。基本的には「じゃあわかった、値を複数個出したいから、関数を複数個使うことにするよ」ということです。例として、ある値<i>x</i>に何らかの操作を行い、別の値へと写す関数があるとします。
           </p>
           <img
             class="LaTeX SVG"
-            src="images/latex/34fe255294faf45ab02128f7997b92ce.svg"
-            width="197px"
-            height="16px"
+            src="images/latex/1caef9931f954e32eae5067b732c1018.svg"
+            width="96px"
+            height="17px"
             loading="lazy"
           />
-          <p>So that just leaves finding A.</p>
-          <div class="note">
-            <p>
-              While that relation is fixed, the function <em>u(t)</em> differs
-              depending on whether we're working with quadratic or cubic curves:
-            </p>
-            <img
-              class="LaTeX SVG"
-              src="images/latex/62f2f984e43a22a6b4bda4d399dedfc6.svg"
-              width="197px"
-              height="87px"
-              loading="lazy"
-            />
-            <p>
-              So, if we know the start and end coordinates, and we know the
-              <em>t</em> value, we know C:
-            </p>
-            <graphics-element
-              title="Quadratic value of C for t"
-              width="275"
-              height="275"
-              src="./chapters/abc/qct.js"
-            >
-              <fallback-image>
-                <img
-                  width="275px"
-                  height="275px"
-                  src="./images/chapters/abc/qct.png"
-                  loading="lazy"
-                />
-                Scripts are disabled. Showing fallback image.
-              </fallback-image></graphics-element
-            >
-            <graphics-element
-              title="Cubic value of C for t"
-              width="275"
-              height="275"
-              src="./chapters/abc/cct.js"
-            >
-              <fallback-image>
-                <img
-                  width="275px"
-                  height="275px"
-                  src="./images/chapters/abc/cct.png"
-                  loading="lazy"
-                />
-                Scripts are disabled. Showing fallback image.
-              </fallback-image></graphics-element
-            >
+          <p>
+            <i>f(x)</i
+            >という記法は、これが関数（1つしかない場合は慣習的に<i>f</i>と呼びます）であり、その出力が1つの変数（この場合は<i>x</i>です）に応じて変化する、ということを示す標準的な方法です。<i>x</i>を変化させると、<i>f(x)</i>の出力が変化します。
+          </p>
+          <p>
+            ここまでは順調です。では、パラメトリック関数について、これがどうインチキなのかを見てみましょう。以下の2つの関数を考えます。
+          </p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/0f5cffd58e864fec6739a57664eb8cbd.svg"
+            width="93px"
+            height="36px"
+            loading="lazy"
+          />
+          <p>
+            注目すべき箇所は特に何もありません。ただの正弦関数と余弦関数です。ただし、入力が別々の名前になっていることに気づくでしょう。仮に<i>a</i>の値を変えたとしても、<i>f(b)</i>の出力の値は変わらないはずです。なぜなら、こちらの関数には<i>a</i>は使われていないからです。パラメトリック関数は、これを変えてしまうのでインチキなのです。パラメトリック関数においては、どの関数も変数を共有しています。例えば、
+          </p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/066a910ae6aba69c40a338320759cdd1.svg"
+            width="100px"
+            height="40px"
+            loading="lazy"
+          />
+          <p>
+            複数の関数がありますが、変数は1つだけです。<i>t</i>の値を変えた場合、<i>f<sub>a</sub>(t)</i>と<i>f<sub>b</sub>(t)</i>の両方の出力が変わります。これがどのように役に立つのか、疑問に思うかもしれません。しかし、実際には答えは至ってシンプルです。<i>f<sub>a</sub>(t)</i>と<i>f<sub>b</sub>(t)</i>のラベルを、パラメトリック曲線の表示によく使われているもので置き換えてやれば、ぐっとはっきりするかと思います。
+          </p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/4cf6fb369841e2c5d36e5567a8db4306.svg"
+            width="77px"
+            height="40px"
+            loading="lazy"
+          />
+          <p>
+            きました。<i>x</i>/<i>y</i>座標です。謎の値<i>t</i>を通して繫がっています。
+          </p>
+          <p>
+            というわけで、普通の関数では<i>y</i>座標を<i>x</i>座標によって定義しますが、パラメトリック曲線ではそうではなく、座標の値を「制御」変数と結びつけます。<i>t</i>の値を変化させるたびに<strong>2つ</strong>の値が変化するので、これをグラフ上の座標
+            (<i>x</i>,<i>y</i>)として使うことができます。例えば、先ほどの関数の組は円周上の点を生成します。負の無限大から正の無限大へと<i>t</i>を動かすと、得られる座標(<i>x</i>,<i>y</i>)は常に中心(0,0)・半径1の円の上に乗ります。<i>t</i>を0から5まで変化させてプロットした場合は、このようになります（上下キーでプロットの上限を変更できます）。
+          </p>
+          <Graphic
+            title="（部分）円 x=sin(t), y=cos(t)"
+            static="{true}"
+            setup="{this.setup}"
+            draw="{this.draw}"
+            onKeyDown="{this.props.onKeyDown}"
+          />
 
+          <p>
+            ベジエ曲線はパラメトリック関数の一種であり、どの次元に対しても同じ基底関数を使うという点で特徴づけられます。先ほどの例では、<i>x</i>の値と<i>y</i>の値とで異なる関数（正弦関数と余弦関数）を使っていましたが、ベジエ曲線では<i>x</i>と<i>y</i>の両方で「二項係数多項式」を使います。では、二項係数多項式とは何でしょう？
+          </p>
+          <p>高校で習った、こんな形の多項式を思い出すかもしれません。</p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/bb06cb82d372f822a7b35e661502bd72.svg"
+            width="213px"
+            height="20px"
+            loading="lazy"
+          />
+          <p>
+            最高次の項が<i>x³</i>であれば3次多項式、<i>x²</i>であれば2次多項式と呼び、<i>x</i>だけの場合は1次多項式――ただの直線です。（そして<i>x</i>の入った項が何もなければ、多項式ではありません！）
+          </p>
+          <p>
+            ベジエ曲線は<i>x</i>の多項式ではなく、<i>t</i>の多項式です。<i>t</i>の値は0から1までの間に制限され、その係数<i>a</i>、<i>b</i>などは「二項係数」の形をとります。というと複雑そうに聞こえますが、実際には値を組み合わせて、とてもシンプルに記述できます。
+          </p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/6e15c433dc2340271e007742009e3532.svg"
+            width="347px"
+            height="64px"
+            loading="lazy"
+          />
+          <p>
+            「そこまでシンプルには見えないよ」と思っていることでしょう。しかし仮に、<i>t</i>を取り去って係数に1を掛けることにしてしまえば、急激に簡単になります。これが二項係数部分の項です。
+          </p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/c605597fb629b964921c6a4bca7fa4c9.svg"
+            width="163px"
+            height="85px"
+            loading="lazy"
+          />
+          <p>
+            2は1+1に等しく、3は2+1や1+2に等しく、6は3+3に等しく、……ということに注目してください。見てわかるように、先頭と末尾は単に1になっていますが、中間はどれも次数が増えるたびに「上の2つの数を足し合わせた」ものになっています。<i>これなら</i>覚えやいですね。
+          </p>
+          <p>
+            多項式部分の項がどうなっているのか、同じぐらい簡単な方法で考えることができます。仮に、<i>(1-t)</i>を<i>a</i>に、<i>t</i>を<i>b</i>に書き換え、さらに重みを一旦削除してしまえば、このようになります。
+          </p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/5f6e6bf033c7aa3ae00a935714d14724.svg"
+            width="916px"
+            height="65px"
+            loading="lazy"
+          />
+          <p>
+            これは要するに、「<i>a</i>と<i>b</i>のすべての組み合わせ」の単なる和です。プラスが出てくるたびに、<i>a</i>を<i>b</i>へと1つずつ置き換えていけばよいのです。こちらも本当に単純です。さて、これで「二項係数多項式」がわかりました。完璧を期するため、この関数の一般の形を示しておきます。
+          </p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/f24fd5e27968d96957ba706b16d8e90b.svg"
+            width="321px"
+            height="59px"
+            loading="lazy"
+          />
+          <p>
+            そして、これがベジエ曲線の完全な表現です。この関数中のΣは、加算の繰り返し（Σの下にある変数を使って、...=&lt;値&gt;から始めてΣの下にある値まで）を表します。
+          </p>
+          <div className="howtocode">
+            <h3>基底関数の実装方法</h3>
             <p>
-              Mouse-over the graphs to see the expression for C, given the
-              <em>t</em> value at the mouse pointer.
+              上で説明した関数を使えば、数学的な組み立て方で、基底関数をナイーブに実装することもできます。
+            </p>
+            <pre><code>function Bezier(n,t):
+  sum = 0
+  for(k=0; k&lt;n; k++):
+    sum += n!/(k!*(n-k)!) * (1-t)^(n-k) * t^(k)
+  return sum</code></pre>
+            <p>
+              「こともできる」と書いたのは、この方法では実装しない方が良いからです。階乗は<em>とてつもなく</em>重い計算なのです。また、先ほどの説明からわかるように、実際は階乗を使わなくても、かなり簡単にパスカルの三角形を作ることができます。[1]から始めて[1,1]、[1,2,1]、[1,3,3,1]、……としていくだけです。下の段は上の段よりも1つ要素が増え、各段の先頭と末尾は1になります。中間の数はどれも、左右斜め上にある両要素の和になります。
+            </p>
+            <p>
+              このパスカルの三角形は、「リストのリスト」として瞬時に生成できます。そして、これをルックアップテーブルとして利用すれば、二項係数を計算する必要はまったくなくなります。
+            </p>
+            <pre><code>lut = [      [1],           // n=0
+            [1,1],          // n=1
+           [1,2,1],         // n=2
+          [1,3,3,1],        // n=3
+         [1,4,6,4,1],       // n=4
+        [1,5,10,10,5,1],    // n=5
+       [1,6,15,20,15,6,1]]  // n=6
+
+binomial(n,k):
+  while(n &gt;= lut.length):
+    s = lut.length
+    nextRow = new array(size=s+1)
+    nextRow[0] = 1
+    for(i=1, prev=s-1; i&lt;s; i++):
+      nextRow[i] = lut[prev][i-1] + lut[prev][i]
+    nextRow[s] = 1
+    lut.add(nextRow)
+  return lut[n][k]</code></pre>
+            <p>
+              これはどのように動くのでしょう？最初に、十分に大きなサイズのルックアップテーブルを宣言します。次に、求めたい値を得るための関数を定義します。この関数は、求めたい値のn/kのペアがテーブル中にまだ存在しない場合、先にテーブルを拡張するようになっています。さて、これで基底関数は次のようになりました。
+            </p>
+            <pre><code>function Bezier(n,t):
+  sum = 0
+  for(k=0; k&lt;=n; k++):
+    sum += binomial(n,k) * (1-t)^(n-k) * t^(k)
+  return sum</code></pre>
+            <p>
+              完璧です。もちろん、さらなる最適化を施すこともできます。コンピュータグラフィクス用途ではたいてい、任意の次数の曲線が必要になるわけではありません。2次と3次の曲線だけが必要であれば、以下のようにコードを劇的に単純化することができます（実際、この入門では任意の次数までは扱いませんので、これに似たようなコードが出てきます）。
+            </p>
+            <pre><code>function Bezier(2,t):
+  t2 = t * t
+  mt = 1-t
+  mt2 = mt * mt
+  return mt2 + 2*mt*t + t2
+
+function Bezier(3,t):
+  t2 = t * t
+  t3 = t2 * t
+  mt = 1-t
+  mt2 = mt * mt
+  mt3 = mt2 * mt
+  return mt3 + 3*mt2*t + 3*mt*t2 + t3</code></pre>
+            <p>
+              これで基底関数をプログラムする方法がわかりました。すばらしい。
             </p>
           </div>
 
           <p>
-            There's also another important bit of information that is inherent
-            to the ABC values: while the distances between A and B, and B and C,
-            are dynamic (based on where we put B), the <em>ratio</em> between
-            the two distances is stable. Given some <em>t</em> value, the
-            following always holds:
-          </p>
-          <img
-            class="LaTeX SVG"
-            src="images/latex/385d1fd4aecbd2066e6e284a84408be6.svg"
-            width="251px"
-            height="39px"
-            loading="lazy"
-          />
-          <p>
-            This leads to a pretty powerful bit of knowledge: merely by knowing
-            the <em>t</em> value of some on curve point, we know where C has to
-            be (as per the above note), and because we know B and C, and thus
-            have the distance between them, we know where A has to be:
-          </p>
-          <img
-            class="LaTeX SVG"
-            src="images/latex/12aaf0d7fd20b3c551a0ec76b18bd7d2.svg"
-            width="217px"
-            height="37px"
-            loading="lazy"
-          />
-          <p>And that's it, all values found.</p>
-          <div class="note">
-            <p>
-              Much like the <em>u(t)</em> function in the above note, the
-              <em>ratio(t)</em> function depends on whether we're looking at
-              quadratic or cubic curves. Their form is intrinsically related to
-              the <em>u(t)</em> function in that they both come rolling out of
-              the same function evaluation, explained over on
-              <a
-                href="http://mathoverflow.net/questions/122257/finding-the-formula-for-B%C3%A9zier-curve-ratios-hull-point-point-baseline"
-                >MathOverflow</a
-              >
-              by Boris Zbarsky and myself. The ratio functions are the "s(t)"
-              functions from the answers there, while the "u(t)" functions have
-              the same name both here and on MathOverflow.
-            </p>
-            <img
-              class="LaTeX SVG"
-              src="images/latex/059000c5c8a37dcc8d7fa04154a05df3.svg"
-              width="245px"
-              height="41px"
-              loading="lazy"
-            />
-            <img
-              class="LaTeX SVG"
-              src="images/latex/b4987e9b77b0df604238b88596c5f7c3.svg"
-              width="223px"
-              height="41px"
-              loading="lazy"
-            />
-            <p>
-              Unfortunately, this trick only works for quadratic and cubic
-              curves. Once we hit higher order curves, things become a lot less
-              predictable; the "fixed point <em>C</em>" is no longer fixed,
-              moving around as we move the control points, and projections of
-              <em>B</em> onto the line between start and end may actually lie on
-              that line before the start, or after the end, and there are no
-              simple ratios that we can exploit.
-            </p>
-          </div>
-
-          <p>
-            So: if we know B and its corresponding <em>t</em> value, then we
-            know all the ABC values, which —together with a start and end
-            coordinate— gives us the necessary information to reconstruct a
-            curve's "de Casteljau skeleton", which means that two points and a
-            value between 0 and 1, we can come up with a curve. And that opens
-            up possibilities: curve manipulation by dragging an on-curve point,
-            as well as curve fitting of "a bunch of coordinates". These are
-            useful things, and we'll look at both in the next sections.
+            というわけで、基底関数がどのようなものか理解できました。今度はベジエ曲線を特別にする魔法――制御点を導入する時間です。
           </p>
         </section>
       </section>

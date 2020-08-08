@@ -72,8 +72,24 @@ div.note:before {
 
 img.LaTeX.SVG {
     display: block;
+    margin-left: 2em;
 }
 
 img.LaTeX.SVG + img.LaTeX.SVG {
     margin-top: 1em;
+    margin-left: 1em;
+}
+
+pre {
+    display: inline-block;
+    margin-left: 1em;
+    background-color: lightyellow;
+    padding: 0.5em;
+    border: 1px dotted gray;
+}
+
+code {
+    position: relative;
+    font-family: monospace;
+    font-size: 0.9rem;
 }

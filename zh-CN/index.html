@@ -88,7 +88,7 @@
         <ol>
           <li><a href="#introduction">简单介绍</a></li>
           <li><a href="#whatis">什么构成了贝塞尔曲线？</a></li>
-          <li><a href="#abc">The projection identity</a></li>
+          <li><a href="#explanation">贝塞尔曲线的数学原理</a></li>
         </ol>
       </nav>
     </header>
@@ -422,239 +422,188 @@
             让我们从更深的层次来观察贝塞尔曲线。看看它们的数学表达式，从这些表达式衍生得到的属性，以及我们可以对贝塞尔曲线做的事。
           </p>
         </section>
-
-        <section id="abc">
-          <h1>The projection identity</h1>
+        <section id="explanation">
+          <h1>贝塞尔曲线的数学原理</h1>
           <p>
-            De Casteljau's algorithm is the pivotal algorithm when it comes to
-            Bézier curves. You can use it not just to split curves, but also to
-            draw them efficiently (especially for high-order Bézier curves), as
-            well as to come up with curves based on three points and a tangent.
-            Particularly this last thing is really useful because it lets us
-            "mould" a curve, by picking it up at some point, and dragging that
-            point around to change the curve's shape.
-          </p>
-          <p>
-            How does that work? Succinctly: we run de Casteljau's algorithm in
-            reverse!
-          </p>
-          <p>
-            In order to run de Casteljau's algorithm in reverse, we need a few
-            basic things: a start and end point, a point on the curve that want
-            to be moving around, which has an associated <em>t</em> value, and a
-            point we've not explicitly talked about before, and as far as I know
-            has no explicit name, but lives one iteration higher in the de
-            Casteljau process then our on-curve point does. I like to call it
-            "A" for reasons that will become obvious.
-          </p>
-          <p>
-            So let's use graphics instead of text to see where this "A" is,
-            because text only gets us so far: in the following graphic, click
-            anywhere on the curves to see the identity information that we'll be
-            using to run de Casteljau in reverse (you can manipulate the curve
-            even after picking a point. Note the "ratio" value when you do so:
-            does it change?):
-          </p>
-          <graphics-element
-            title="Projections in a quadratic Bézier curve"
-            width="275"
-            height="275"
-            src="./chapters/abc/quadratic.js"
-          >
-            <fallback-image>
-              <img
-                width="275px"
-                height="275px"
-                src="./images/chapters/abc/quadratic.png"
-                loading="lazy"
-              />
-              Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
-          <graphics-element
-            title="Projections in a cubic Bézier curve"
-            width="275"
-            height="275"
-            src="./chapters/abc/cubic.js"
-          >
-            <fallback-image>
-              <img
-                width="275px"
-                height="275px"
-                src="./images/chapters/abc/cubic.png"
-                loading="lazy"
-              />
-              Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
-
-          <p>Clicking anywhere on the curves shows us three things:</p>
-          <ol>
-            <li>our on-curve point; let's call that <b>B</b>,</li>
-            <li>
-              a point at the tip of B's "hat", on de Casteljau step up; let's
-              call that <b>A</b>, and
-            </li>
-            <li>
-              a point that we get by projecting B onto the start--end baseline;
-              let's call that <b>C</b>.
-            </li>
-          </ol>
-          <p>
-            These three values A, B, and C hide an important identity formula
-            for quadratic and cubic Bézier curves: for any point on the curve
-            with some <em>t</em> value, the ratio distance of C along the
-            baseline is fixed: if some <em>t</em> value sets up a C that is 20%
-            away from the start and 80% away from the end, then it doesn't
-            matter where the start, end, or control points are; for that
-            <em>t</em> value, C will <em>always</em> lie at 20% from the start
-            and 80% from the end point. Go ahead, pick an on-curve point in
-            either graphic and then move all the other points around: if you
-            only move the control points, start and end won't move, and so
-            neither will C, and if you move either start or end point, C will
-            move but its relative position will not change. The following
-            function stays true:
+            贝塞尔曲线是“参数”方程的一种形式。从数学上讲，参数方程作弊了：“方程”实际上是一个从输入到<strong>唯一</strong>输出的、良好定义的映射关系。几个输入进来，一个输出返回。改变输入变量，还是只有一个输出值。参数方程在这里作弊了。它们基本上干了这么件事，“好吧，我们想要更多的输出值，所以我们用了多个方程”。举个例子：假如我们有一个方程，通过一些计算，将假设为<i>x</i>的一些值映射到另外的值:
           </p>
           <img
             class="LaTeX SVG"
-            src="images/latex/34fe255294faf45ab02128f7997b92ce.svg"
-            width="197px"
-            height="16px"
+            src="images/latex/1caef9931f954e32eae5067b732c1018.svg"
+            width="96px"
+            height="17px"
             loading="lazy"
           />
-          <p>So that just leaves finding A.</p>
-          <div class="note">
-            <p>
-              While that relation is fixed, the function <em>u(t)</em> differs
-              depending on whether we're working with quadratic or cubic curves:
-            </p>
-            <img
-              class="LaTeX SVG"
-              src="images/latex/62f2f984e43a22a6b4bda4d399dedfc6.svg"
-              width="197px"
-              height="87px"
-              loading="lazy"
-            />
-            <p>
-              So, if we know the start and end coordinates, and we know the
-              <em>t</em> value, we know C:
-            </p>
-            <graphics-element
-              title="Quadratic value of C for t"
-              width="275"
-              height="275"
-              src="./chapters/abc/qct.js"
-            >
-              <fallback-image>
-                <img
-                  width="275px"
-                  height="275px"
-                  src="./images/chapters/abc/qct.png"
-                  loading="lazy"
-                />
-                Scripts are disabled. Showing fallback image.
-              </fallback-image></graphics-element
-            >
-            <graphics-element
-              title="Cubic value of C for t"
-              width="275"
-              height="275"
-              src="./chapters/abc/cct.js"
-            >
-              <fallback-image>
-                <img
-                  width="275px"
-                  height="275px"
-                  src="./images/chapters/abc/cct.png"
-                  loading="lazy"
-                />
-                Scripts are disabled. Showing fallback image.
-              </fallback-image></graphics-element
-            >
+          <p>
+            记号<i>f(x)</i>是表示函数的标准方式（为了方便起见，如果只有一个的话，我们称函数为<i>f</i>），函数的输出根据一个变量（本例中是<i>x</i>）变化。改变<i>x</i>，<i>f(x)</i>的输出值也会变。
+          </p>
+          <p>
+            到目前没什么问题。现在，让我们来看一下参数方程，以及它们是怎么作弊的。我们取以下两个方程：
+          </p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/0f5cffd58e864fec6739a57664eb8cbd.svg"
+            width="93px"
+            height="36px"
+            loading="lazy"
+          />
+          <p>
+            这俩方程没什么让人印象深刻的，只不过是正弦函数和余弦函数，但正如你所见，输入变量有两个不同的名字。如果我们改变了<i>a</i>的值，<i>f(b)</i>的输出不会有变化，因为这个方程没有用到<i>a</i>。参数方程通过改变这点来作弊。在参数方程中，所有不同的方程共用一个变量，如下所示：
+          </p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/066a910ae6aba69c40a338320759cdd1.svg"
+            width="100px"
+            height="40px"
+            loading="lazy"
+          />
+          <p>
+            多个方程，但只有一个变量。如果我们改变了<i>t</i>的值，<i>f<sub>a</sub>(t)</i>和<i>f<sub>b</sub>(t)</i>的输出都会发生变化。你可能会好奇这有什么用，答案其实很简单：对于参数曲线，如果我们用常用的标记来替代<i>f<sub>a</sub>(t)</i>和<i>f<sub>b</sub>(t)</i>，看起来就有些明朗了：
+          </p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/4cf6fb369841e2c5d36e5567a8db4306.svg"
+            width="77px"
+            height="40px"
+            loading="lazy"
+          />
+          <p>
+            好了，通过一些神秘的<i>t</i>值将<i>x</i>/<i>y</i>坐标系联系起来。
+          </p>
+          <p>
+            所以，参数曲线不像一般函数那样，通过<i>x</i>坐标来定义<i>y</i>坐标，而是用一个“控制”变量将它们连接起来。如果改变<i>t</i>的值，每次变化时我们都能得到<strong>两个</strong>值，这可以作为图形中的(<i>x</i>,<i>y</i>)坐标。比如上面的方程组，生成位于一个圆上的点：我们可以使<i>t</i>在正负极值间变化，得到的输出(<i>x</i>,<i>y</i>)都会位于一个以原点(0,0)为中心且半径为1的圆上。如果我们画出<i>t</i>从0到5时的值，将得到如下图像（你可以用上下键来改变画的点和值）：
+          </p>
+          <Graphic
+            title="(一部分的)圆: x=sin(t), y=cos(t)"
+            static="{true}"
+            setup="{this.setup}"
+            draw="{this.draw}"
+            onKeyDown="{this.props.onKeyDown}"
+          />
 
+          <p>
+            贝塞尔曲线是（一种）参数方程，并在它的多个维度上使用相同的基本方程。在上述的例子中<i>x</i>值和<i>y</i>值使用了不同的方程，与此不同的是，贝塞尔曲线的<i>x</i>和<i>y</i>都用了“二项多项式”。那什么是二项多项式呢？
+          </p>
+          <p>你可能记得高中所学的多项式，看起来像这样：</p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/bb06cb82d372f822a7b35e661502bd72.svg"
+            width="213px"
+            height="20px"
+            loading="lazy"
+          />
+          <p>
+            如果它的最高次项是<i>x³</i>就称为“三次”多项式，如果最高次项是<i>x²</i>，称为“二次”多项式，如果只含有<i>x</i>的项，它就是一条线（不过不含任何<i>x</i>的项它就不是一个多项式！）
+          </p>
+          <p>
+            贝塞尔曲线不是x的多项式，它是<i>t</i>的多项式，<i>t</i>的值被限制在0和1之间，并且含有<i>a</i>，<i>b</i>等参数。它采用了二次项的形式，听起来很神奇但实际上就是混合不同值的简单描述：
+          </p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/2adc12d0cff01d40d9e1702014a7dc19.svg"
+            width="367px"
+            height="64px"
+            loading="lazy"
+          />
+          <p>
+            我明白你在想什么：这看起来并不简单，但如果我们拿掉<i>t</i>并让系数乘以1，事情就会立马简单很多，看看这些二次项：
+          </p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/9c18f76e76cf684ecd217ad8facc2e93.svg"
+            width="184px"
+            height="87px"
+            loading="lazy"
+          />
+          <p>
+            需要注意的是，2与1+1相同，3相当于2+1或1+2，6相当于3+3...如你所见，每次我们增加一个维度，只要简单地将头尾置为1，中间的操作都是“将上面的两个数字相加”。现在就能很容易地记住了。
+          </p>
+          <p>
+            还有一个简单的办法可以弄清参数项怎么工作的：如果我们将<i>(1-t)</i>重命名为<i>a</i>，将<i>t</i>重命名为<i>b</i>，暂时把权重删掉，可以得到这个：
+          </p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/449850dead8abbdd11cd4aec1bac082e.svg"
+            width="903px"
+            height="63px"
+            loading="lazy"
+          />
+          <p>
+            基本上它就是“每个<i>a</i>和<i>b</i>结合项”的和，在每个加号后面逐步的将<i>a</i>换成<i>b</i>。因此这也很简单。现在你已经知道了二次多项式，为了叙述的完整性，我将给出一般方程：
+          </p>
+          <img
+            class="LaTeX SVG"
+            src="images/latex/9a6d17c362980775f1425d0d2ad9a36a.svg"
+            width="300px"
+            height="55px"
+            loading="lazy"
+          />
+          <p>
+            这就是贝塞尔曲线完整的描述。在这个函数中的Σ表示了这是一系列的加法（用Σ下面的变量，从...=&lt;值&gt;开始，直到Σ上面的数字结束）。
+          </p>
+          <div className="howtocode">
+            <h3>如何实现基本方程</h3>
             <p>
-              Mouse-over the graphs to see the expression for C, given the
-              <em>t</em> value at the mouse pointer.
+              我们可以用之前说过的方程，来简单地实现基本方程作为数学构造，如下：
             </p>
+            <pre><code>function Bezier(n,t):
+  sum = 0
+  for(k=0; k&lt;n; k++):
+    sum += n!/(k!*(n-k)!) * (1-t)^(n-k) * t^(k)
+  return sum</code></pre>
+            <p>
+              我说我们“可以用”是因为我们不会这么去做：因为阶乘函数开销<em>非常大</em>。并且，正如我们在上面所看到的，我们不用阶乘也能够很容易地构造出帕斯卡三角形：一开始是[1]，接着是[1,2,1],然后是[1,3,3,1]等等。下一行都比上一行多一个数，首尾都为1，中间的数字是上一行两边元素的和。
+            </p>
+            <p>
+              我们可以很快的生成这个列表，并在之后使用这个查找表而不用再计算二次多项式的系数：
+            </p>
+            <pre><code>lut = [      [1],           // n=0
+            [1,1],          // n=1
+           [1,2,1],         // n=2
+          [1,3,3,1],        // n=3
+         [1,4,6,4,1],       // n=4
+        [1,5,10,10,5,1],    // n=5
+       [1,6,15,20,15,6,1]]  // n=6
+
+binomial(n,k):
+  while(n &gt;= lut.length):
+    s = lut.length
+    nextRow = new array(size=s+1)
+    nextRow[0] = 1
+    for(i=1, prev=s-1; i&lt;s; i++):
+      nextRow[i] = lut[prev][i-1] + lut[prev][i]
+    nextRow[s] = 1
+    lut.add(nextRow)
+  return lut[n][k]</code></pre>
+            <p>
+              这里做了些什么？首先，我们声明了一个足够大的查找表。然后，我们声明了一个函数来获取我们想要的值，并且确保当一个请求的n/k对不在LUT查找表中时，先将表扩大。我们的基本函数如下所示：
+            </p>
+            <pre><code>function Bezier(n,t):
+  sum = 0
+  for(k=0; k&lt;=n; k++):
+    sum += binomial(n,k) * (1-t)^(n-k) * t^(k)
+  return sum</code></pre>
+            <p>
+              完美。当然我们可以进一步优化。为了大部分的计算机图形学目的，我们不需要任意的曲线。我们需要二次曲线和三次曲线（实际上这篇文章没有涉及任意次的曲线，因此你会在其他地方看到与这些类似的代码），这说明我们可以彻底简化代码:
+            </p>
+            <pre><code>function Bezier(2,t):
+  t2 = t * t
+  mt = 1-t
+  mt2 = mt * mt
+  return mt2 + 2*mt*t + t2
+
+function Bezier(3,t):
+  t2 = t * t
+  t3 = t2 * t
+  mt = 1-t
+  mt2 = mt * mt
+  mt3 = mt2 * mt
+  return mt3 + 3*mt2*t + 3*mt*t2 + t3</code></pre>
+            <p>现在我们知道如何代用码实现基本方程了。很好。</p>
           </div>
 
           <p>
-            There's also another important bit of information that is inherent
-            to the ABC values: while the distances between A and B, and B and C,
-            are dynamic (based on where we put B), the <em>ratio</em> between
-            the two distances is stable. Given some <em>t</em> value, the
-            following always holds:
-          </p>
-          <img
-            class="LaTeX SVG"
-            src="images/latex/385d1fd4aecbd2066e6e284a84408be6.svg"
-            width="251px"
-            height="39px"
-            loading="lazy"
-          />
-          <p>
-            This leads to a pretty powerful bit of knowledge: merely by knowing
-            the <em>t</em> value of some on curve point, we know where C has to
-            be (as per the above note), and because we know B and C, and thus
-            have the distance between them, we know where A has to be:
-          </p>
-          <img
-            class="LaTeX SVG"
-            src="images/latex/12aaf0d7fd20b3c551a0ec76b18bd7d2.svg"
-            width="217px"
-            height="37px"
-            loading="lazy"
-          />
-          <p>And that's it, all values found.</p>
-          <div class="note">
-            <p>
-              Much like the <em>u(t)</em> function in the above note, the
-              <em>ratio(t)</em> function depends on whether we're looking at
-              quadratic or cubic curves. Their form is intrinsically related to
-              the <em>u(t)</em> function in that they both come rolling out of
-              the same function evaluation, explained over on
-              <a
-                href="http://mathoverflow.net/questions/122257/finding-the-formula-for-B%C3%A9zier-curve-ratios-hull-point-point-baseline"
-                >MathOverflow</a
-              >
-              by Boris Zbarsky and myself. The ratio functions are the "s(t)"
-              functions from the answers there, while the "u(t)" functions have
-              the same name both here and on MathOverflow.
-            </p>
-            <img
-              class="LaTeX SVG"
-              src="images/latex/059000c5c8a37dcc8d7fa04154a05df3.svg"
-              width="245px"
-              height="41px"
-              loading="lazy"
-            />
-            <img
-              class="LaTeX SVG"
-              src="images/latex/b4987e9b77b0df604238b88596c5f7c3.svg"
-              width="223px"
-              height="41px"
-              loading="lazy"
-            />
-            <p>
-              Unfortunately, this trick only works for quadratic and cubic
-              curves. Once we hit higher order curves, things become a lot less
-              predictable; the "fixed point <em>C</em>" is no longer fixed,
-              moving around as we move the control points, and projections of
-              <em>B</em> onto the line between start and end may actually lie on
-              that line before the start, or after the end, and there are no
-              simple ratios that we can exploit.
-            </p>
-          </div>
-
-          <p>
-            So: if we know B and its corresponding <em>t</em> value, then we
-            know all the ABC values, which —together with a start and end
-            coordinate— gives us the necessary information to reconstruct a
-            curve's "de Casteljau skeleton", which means that two points and a
-            value between 0 and 1, we can come up with a curve. And that opens
-            up possibilities: curve manipulation by dragging an on-curve point,
-            as well as curve fitting of "a bunch of coordinates". These are
-            useful things, and we'll look at both in the next sections.
+            既然我们已经知道基本函数的样子，是时候添加一些魔法来使贝塞尔曲线变得特殊了：控制点。
           </p>
         </section>
       </section>

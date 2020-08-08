@@ -23,7 +23,8 @@ fs.ensureDirSync(sourceDir);
  * so that the document won't constantly reflow as it loads images
  * in.
  */
-export default async function latexToSVG(latex, chapter, locale, block) {
+export default async function latexToSVG(latex, chapter, localeStrings, block) {
+  const locale = localeStrings.getCurrentLocale();
   const hash = createHash(`md5`).update(latex).digest(`hex`);
 
   const TeXfilename = path.join(sourceDir, hash + `.tex`);

@@ -1,7 +1,0 @@
-setup() {
-  // ...
-}
-
-draw() {
-  clear(`white`);
-}
