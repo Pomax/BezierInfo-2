@@ -39,7 +39,7 @@
 
 所以，参数曲线不像一般函数那样，通过<i>x</i>坐标来定义<i>y</i>坐标，而是用一个“控制”变量将它们连接起来。如果改变<i>t</i>的值，每次变化时我们都能得到<strong>两个</strong>值，这可以作为图形中的(<i>x</i>,<i>y</i>)坐标。比如上面的方程组，生成位于一个圆上的点：我们可以使<i>t</i>在正负极值间变化，得到的输出(<i>x</i>,<i>y</i>)都会位于一个以原点(0,0)为中心且半径为1的圆上。如果我们画出<i>t</i>从0到5时的值，将得到如下图像（你可以用上下键来改变画的点和值）：
 
-<Graphic title="(一部分的)圆: x=sin(t), y=cos(t)" static={true} setup={this.setup} draw={this.draw} onKeyDown={this.props.onKeyDown}/>
+<graphics-element title="(一部分的)圆: x=sin(t), y=cos(t)" width="275" height="275" src="./circle.js"></graphics-element>
 
 贝塞尔曲线是（一种）参数方程，并在它的多个维度上使用相同的基本方程。在上述的例子中<i>x</i>值和<i>y</i>值使用了不同的方程，与此不同的是，贝塞尔曲线的<i>x</i>和<i>y</i>都用了“二项多项式”。那什么是二项多项式呢？
 
@@ -95,7 +95,7 @@
 
 这就是贝塞尔曲线完整的描述。在这个函数中的Σ表示了这是一系列的加法（用Σ下面的变量，从...=<值>开始，直到Σ上面的数字结束）。
 
-<div className="howtocode">
+<div class="howtocode">
 
 ### 如何实现基本方程
 

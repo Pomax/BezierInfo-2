@@ -488,13 +488,22 @@
             というわけで、普通の関数では<i>y</i>座標を<i>x</i>座標によって定義しますが、パラメトリック曲線ではそうではなく、座標の値を「制御」変数と結びつけます。<i>t</i>の値を変化させるたびに<strong>2つ</strong>の値が変化するので、これをグラフ上の座標
             (<i>x</i>,<i>y</i>)として使うことができます。例えば、先ほどの関数の組は円周上の点を生成します。負の無限大から正の無限大へと<i>t</i>を動かすと、得られる座標(<i>x</i>,<i>y</i>)は常に中心(0,0)・半径1の円の上に乗ります。<i>t</i>を0から5まで変化させてプロットした場合は、このようになります（上下キーでプロットの上限を変更できます）。
           </p>
-          <Graphic
+          <graphics-element
             title="（部分）円 x=sin(t), y=cos(t)"
-            static="{true}"
-            setup="{this.setup}"
-            draw="{this.draw}"
-            onKeyDown="{this.props.onKeyDown}"
-          />
+            width="275"
+            height="275"
+            src="./chapters/explanation/circle.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="./images/chapters/explanation/circle.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
 
           <p>
             ベジエ曲線はパラメトリック関数の一種であり、どの次元に対しても同じ基底関数を使うという点で特徴づけられます。先ほどの例では、<i>x</i>の値と<i>y</i>の値とで異なる関数（正弦関数と余弦関数）を使っていましたが、ベジエ曲線では<i>x</i>と<i>y</i>の両方で「二項係数多項式」を使います。では、二項係数多項式とは何でしょう？
@@ -556,7 +565,7 @@
           <p>
             そして、これがベジエ曲線の完全な表現です。この関数中のΣは、加算の繰り返し（Σの下にある変数を使って、...=&lt;値&gt;から始めてΣの下にある値まで）を表します。
           </p>
-          <div className="howtocode">
+          <div class="howtocode">
             <h3>基底関数の実装方法</h3>
             <p>
               上で説明した関数を使えば、数学的な組み立て方で、基底関数をナイーブに実装することもできます。

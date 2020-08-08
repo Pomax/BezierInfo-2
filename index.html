@@ -636,13 +636,22 @@
             <i>t</i> from 0 to 5, we get this (use your up and down arrow keys
             to change the plot end value):
           </p>
-          <Graphic
+          <graphics-element
             title="A (partial) circle: x=sin(t), y=cos(t)"
-            static="{true}"
-            setup="{this.setup}"
-            draw="{this.draw}"
-            onKeyDown="{this.props.onKeyDown}"
-          />
+            width="275"
+            height="275"
+            src="./chapters/explanation/circle.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="./images/chapters/explanation/circle.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
 
           <p>
             Bézier curves are just one out of the many classes of parametric
@@ -738,7 +747,7 @@
             variable listed below the Σ, starting at ...=&lt;value&gt; and
             ending at the value listed on top of the Σ).
           </p>
-          <div className="howtocode">
+          <div class="howtocode">
             <h3>How to implement the basis function</h3>
             <p>
               We could naively implement the basis function as a mathematical

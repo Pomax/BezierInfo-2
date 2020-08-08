@@ -50,6 +50,14 @@ div.print:after {
     left: -2em;
 }
 
+div.howtocode {
+    position: relative;
+    border: 1px solid black;
+    background: rgb(246, 255, 255);
+    margin: 1em;
+    padding: 1em 1em 0 1em;
+}
+
 div.note {
     position: relative;
     border: 1px solid black;
