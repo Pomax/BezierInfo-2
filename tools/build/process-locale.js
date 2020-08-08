@@ -60,11 +60,11 @@ export default async function processLocale(
       const markdown = fs.readFileSync(file).toString("utf8");
       const converted = await convertMarkDown(chapter, localeStrings, markdown);
       chapters[chapter] = converted;
-      generatePlaceHolders(locale, converted); // ← this is super fancy functionality.
+      generatePlaceHolders(localeStrings, converted); // ← this is super fancy functionality.
     })
   );
 
-  if (locale === defaultLocale) {
+  if (locale === defaultLocale && missing > 0) {
     console.log(
       `Warning: ${missing} chapters appear to be missing, based on the ToC listing.`
     );

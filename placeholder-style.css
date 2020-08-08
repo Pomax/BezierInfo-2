@@ -101,3 +101,11 @@ code {
     font-family: monospace;
     font-size: 0.9rem;
 }
+
+p code {
+    color: #ff6000;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 1.2em;
+    letter-spacing: -2px;
+}

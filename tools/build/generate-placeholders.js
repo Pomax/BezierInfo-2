@@ -1,15 +1,14 @@
 import fs from "fs-extra";
 import path from "path";
 import rewriteGraphicsElement from "./rewrite-graphics-element.js";
-import localeStrings from "../locale-strings.js";
-
-const defaultLocale = localeStrings.defaultLocale;
 
 const moduleURL = new URL(import.meta.url);
 const __dirname = path.dirname(moduleURL.href.replace(`file:///`, ``));
 
-export default async function generatePlaceHolders(locale, markdown) {
-  if (locale !== defaultLocale) return;
+export default async function generatePlaceHolders(localeStrings, markdown) {
+  const locale = localeStrings.getCurrentLocale();
+
+  if (locale !== localeStrings.getDefaultLocale()) return;
 
   let graphic = 0,
     pos = -1,

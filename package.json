@@ -14,7 +14,8 @@
     "url": "https://github.com/Pomax/bezierinfo/issues"
   },
   "scripts": {
-    "start": "run-s lint build",
+    "time": "node ./mark.js",
+    "start": "run-s time lint build time",
     "lint": "prettier ./tools --write",
     "build": "node ./tools/build.js",
     "test": "run-p server browser",
