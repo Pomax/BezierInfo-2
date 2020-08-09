@@ -33,8 +33,14 @@ export default async function convertMarkDown(
     .replace(/&amp;/g, "&")
     .replace(/&#39;/g, "'")
     .replace(/&quot;/g, '"')
+    // templating introduces some funk
     .replace(/<p>{{/g, `{{`)
-    .replace(/}}<\/p>/g, `}}`);
+    .replace(/}}<\/p>/g, `}}`)
+    // also <sup> and <sub> in code does fun things
+    .replace(/&lt;sub&gt;/g, `<sub>`)
+    .replace(/&lt;\/sub&gt;/g, `</sub>`)
+    .replace(/&lt;sup&gt;/g, `<sup>`)
+    .replace(/&lt;\/sup&gt;/g, `</sup>`);
 
   return nunjucks.renderString(converted, latex);
 }

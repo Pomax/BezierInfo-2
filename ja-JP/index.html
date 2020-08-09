@@ -4778,8 +4778,7 @@ lli = function(line1, line2):
             loading="lazy"
           />
           <div class="note">
-            ## Where did this derivative come from?
-
+            <h2>Where did this derivative come from?</h2>
             <p>
               That... is a good question. In fact, when trying to run through
               this approach, I ran into the same question! And you know what? I
@@ -5700,7 +5699,7 @@ lli = function(line1, line2):
             good enough' offset curves.
           </p>
           <div class="note">
-            <h3>"What do you mean, 'you can't'? Prove it."</h3>
+            <h3>"What do you mean, you can't? Prove it."</h3>
             <p>
               First off, when I say "you can't," what I really mean is "you
               can't offset a Bézier curve with another Bézier curve", not even
@@ -6129,10 +6128,11 @@ lli = function(line1, line2):
                   plotted for 0 ≤ φ ≤ ½π:
                 </td>
                 <td>
-                  { this.props.showhref ?
-                  "http://www.wolframalpha.com/input/?i=plot+sqrt%28%281%2F4+*+%28sin%28x%29+%2B+2tan%28x%2F2%29%29+-+sin%28x%2F2%29%29%5E2+%2B+%282sin%5E4%28x%2F4%29%29%5E2%29+for+0+%3C%3D+x+%3C%3D+pi%2F4"
-                  : null }
-                  <img src="images/arc-q-pi4.gif" height="174" />
+                  <a
+                    href="http://www.wolframalpha.com/input/?i=plot+sqrt%28%281%2F4+*+%28sin%28x%29+%2B+2tan%28x%2F2%29%29+-+sin%28x%2F2%29%29%5E2+%2B+%282sin%5E4%28x%2F4%29%29%5E2%29+for+0+%3C%3D+x+%3C%3D+pi%2F4"
+                  >
+                    <img src="images/arc-q-pi4.gif" height="174" />
+                  </a>
                   plotted for 0 ≤ φ ≤ ¼π:
                 </td>
               </tr>
@@ -6782,12 +6782,12 @@ lli = function(line1, line2):
             Given a B-Spline of degree <code>d</code> and thus order
             <code>k=d+1</code> (so a quadratic B-Spline is degree 2 and order 3,
             a cubic B-Spline is degree 3 and order 4, etc) and
-            <code>n</code> control points
-            <code>P&lt;sub&gt;0&lt;/sub&gt;</code> through
-            <code>P&lt;sub&gt;n-1&lt;/sub&gt;</code>, we can compute a point on
-            the curve for some value <code>t</code> in the interval [0,1] (where
-            0 is the start of the curve, and 1 the end, just like for Bézier
-            curves), by evaluating the following function:
+            <code>n</code> control points <code>P<sub>0</sub></code> through
+            <code>P<sub>n-1</sub></code
+            >, we can compute a point on the curve for some value
+            <code>t</code> in the interval [0,1] (where 0 is the start of the
+            curve, and 1 the end, just like for Bézier curves), by evaluating
+            the following function:
           </p>
           <img
             class="LaTeX SVG"

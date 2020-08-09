@@ -63,6 +63,18 @@ div.howtocode {
     padding: 1em 1em 0 1em;
 }
 
+div.howtocode h3 {
+    box-sizing: border-box;
+    position: relative;
+    width: calc(100% + 2em - 4px);
+    left: calc(-1em + 2px);
+    background: black;
+    color: white;
+    padding: 0.2em;
+    margin: 0 auto;
+    margin-top: -1em;
+}
+
 div.note {
     position: relative;
     border: 1px solid black;
@@ -84,7 +96,6 @@ div.note:before {
 }
 
 img.LaTeX.SVG {
-    display: block;
     margin-left: 2em;
 }
 

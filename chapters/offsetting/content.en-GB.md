@@ -8,7 +8,7 @@ Bottom line: **you can't**. So you cheat. We're not going to do true curve scali
 
 <div class="note">
 
-### "What do you mean, 'you can't'? Prove it."
+### "What do you mean, you can't? Prove it."
 
 First off, when I say "you can't," what I really mean is "you can't offset a Bézier curve with another Bézier curve", not even by using a really high order curve. You can find the function that describes the offset curve, but it won't be a polynomial, and as such it cannot be represented as a Bézier curve, which **has** to be a polynomial. Let's look at why this is:
 
