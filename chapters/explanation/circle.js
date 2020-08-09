@@ -39,10 +39,8 @@ draw() {
 
 onKeyDown() {
     const key = this.keyboard.currentKey;
-
-    if (key === `ArrowUp`) { this.step++; }
-    if (key === `ArrowDown`) { this.step--; }
-
+    if (key === `ArrowUp`) { this.step += 0.1; }
+    if (key === `ArrowDown`) { this.step -= 0.1; }
     if (this.step < 1) this.step = 1;
     redraw();
 }
@@ -58,8 +56,8 @@ onMouseUp() {
 onMouseMove() {
     if (this.mark) {
         let diff = this.mark - this.cursor.y,
-            mapped = map(diff, -this.height/2, this.height/2, 1, 10, true);
-        this.step = mapped | 0;
+            mapped = map(diff, -this.height/2, this.height/2, 0, 10, true);
+        this.step = mapped;
         redraw();
     }
 }

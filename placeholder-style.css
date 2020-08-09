@@ -29,6 +29,11 @@ h1 {
     margin-right: 1em;
 }
 
+#chapters section > h1 > a {
+    text-decoration: none;
+    color: inherit;
+}
+
 graphics-element {
     background: #e8e8e8;
 }

@@ -399,7 +399,7 @@
       </section>
       <section id="chapters">
         <section id="introduction">
-          <h1>バッとした導入</h1>
+          <h1><a href="#introduction">バッとした導入</a></h1>
           <p>
             まずは良い例から始めましょう。ベジエ曲線というのは、下の図に表示されているもののことです。ベジエ曲線はある始点からある終点へと延びており、その曲率は1個以上の「中間」制御点に左右されています。さて、このページの図はどれもインタラクティブになっていますので、ここで曲線をちょっと操作してみましょう。点をドラッグしたとき、曲線の形がそれに応じてどう変化するのか、確かめてみてください。
           </p>
@@ -447,7 +447,9 @@
           </p>
         </section>
         <section id="whatis">
-          <h1>ではベジエ曲線はどうやってできるのでしょう？</h1>
+          <h1>
+            <a href="#whatis">ではベジエ曲線はどうやってできるのでしょう？</a>
+          </h1>
           <p>
             ベジエ曲線がどのように動くのか、点を触ってみて感覚が摑めたかもしれません。では、実際のところベジエ曲線<em>とは</em>いったい何でしょうか？これを説明する方法は2通りありますが、どちらの説明でも行き着く先はまったく同じです。一方は複雑な数学を使うのに対し、もう一方はとても簡単です。というわけで……簡単な説明の方から始めましょう。
           </p>
@@ -496,7 +498,7 @@
           </p>
         </section>
         <section id="explanation">
-          <h1>ベジエ曲線の数学</h1>
+          <h1><a href="#explanation">ベジエ曲線の数学</a></h1>
           <p>
             ベジエ曲線は「パラメトリック」関数の一種です。数学的に言えば、パラメトリック関数というのはインチキです。というのも、「関数」はきっちり定義された用語であり、いくつかの入力を<strong>1つ</strong>の出力に対応させる写像を表すものだからです。いくつかの数値を入れると、1つの数値が出てきます。入れる数値が変わっても、出てくる数値はやはり1つだけです。パラメトリック関数はインチキです。基本的には「じゃあわかった、値を複数個出したいから、関数を複数個使うことにするよ」ということです。例として、ある値<i>x</i>に何らかの操作を行い、別の値へと写す関数があるとします。
           </p>
@@ -607,9 +609,9 @@
           </p>
           <img
             class="LaTeX SVG"
-            src="images/latex/5f6e6bf033c7aa3ae00a935714d14724.svg"
-            width="916px"
-            height="65px"
+            src="images/latex/741097d69c182e8742695af23980bd8f.svg"
+            width="288px"
+            height="61px"
             loading="lazy"
           />
           <p>
@@ -693,7 +695,7 @@ function Bezier(3,t):
           </p>
         </section>
         <section id="control">
-          <h1>ベジエ曲線の曲率の制御</h1>
+          <h1><a href="#control">ベジエ曲線の曲率の制御</a></h1>
           <p>
             ベジエ曲線は（すべての「スプライン」と同様に）補間関数です。これは点の集合を受け取って、それらの点のどこか「内側」の値を生成するということです。（このことから、制御点同士を結んで輪郭をつくったとき、その外側に位置する点は決して生成されないことがわかります。なお、この輪郭を曲線の「包」と呼びます。お役立ち情報でした！）実際に、補間関数によって生成された値に対する、各点の寄与の大きさを可視化することができますが、これを見れば、ベジエ曲線のどの場所でどの点が重要になるのかがわかります。
           </p>
@@ -736,8 +738,8 @@ function Bezier(3,t):
           </p>
           <img
             class="LaTeX SVG"
-            src="images/latex/e4759ccbc6fd2b21dd5ac7e36c9399fd.svg"
-            width="692px"
+            src="images/latex/c81557b87f5547db59bc47f1e96409dc.svg"
+            width="473px"
             height="40px"
             loading="lazy"
           />
@@ -779,7 +781,11 @@ function Bezier(3,t,w[]):
           </div>
         </section>
         <section id="weightcontrol">
-          <h1>Controlling Bézier curvatures, part 2: Rational Béziers</h1>
+          <h1>
+            <a href="#weightcontrol"
+              >Controlling Bézier curvatures, part 2: Rational Béziers</a
+            >
+          </h1>
           <p>
             We can further control Bézier curves by "rationalising" them: that
             is, adding a "ratio" value in addition to the weight value discussed
@@ -800,8 +806,8 @@ function Bezier(3,t,w[]):
           <p>The function for rational Bézier curves has two more terms:</p>
           <img
             class="LaTeX SVG"
-            src="images/latex/d0c52423259ba91a5426324338c83306.svg"
-            width="587px"
+            src="images/latex/39364a247a023d475d107aaf7b99d80c.svg"
+            width="489px"
             height="44px"
             loading="lazy"
           />
@@ -886,7 +892,7 @@ function RationalBezier(3,t,w[],r[]):
           </div>
         </section>
         <section id="extended">
-          <h1>ベジエ曲線の区間 [0,1]</h1>
+          <h1><a href="#extended">ベジエ曲線の区間 [0,1]</a></h1>
           <p>
             ここまでの説明で、ベジエ曲線の裏側にある数学がわかりました。しかし、気づいているかもしれませんが、ひとつ引っかかる点があります。ベジエ曲線はいつも<code>t=0</code>から<code>t=1</code>の間を動いていますが、どうしてこの特定の区間なのでしょう？
           </p>
@@ -951,7 +957,7 @@ function RationalBezier(3,t,w[],r[]):
           </p>
         </section>
         <section id="matrix">
-          <h1>行列演算としてのベジエ曲線の曲率</h1>
+          <h1><a href="#matrix">行列演算としてのベジエ曲線の曲率</a></h1>
           <p>
             ベジエ曲線は、行列演算の形でも表現することができます。ベジエ曲線の式を多項式基底と係数行列で表し、実際の座標も行列として表現するのです。これがどういうことを意味しているのか、3次ベジエ曲線について見てみましょう。
           </p>
@@ -1063,7 +1069,7 @@ function RationalBezier(3,t,w[],r[]):
           </p>
         </section>
         <section id="decasteljau">
-          <h1>ド・カステリョのアルゴリズム</h1>
+          <h1><a href="#decasteljau">ド・カステリョのアルゴリズム</a></h1>
           <p>
             ベジエ曲線を描く場合は、<code>t</code>の値を0から1まで動かしながら重みつき基底関数を計算し、プロットに必要な<code>x/y</code>の値を求めます。しかし、曲線が複雑になればなるほど、計算コストがかかるようになってしまいます。そこでその代わりに、「ド・カステリョのアルゴリズム」を使って曲線を描くこともできます。こちらは幾何学的に曲線を描く方法で、実装も非常に簡単です。実際、鉛筆と定規を使って手描きすることもできるほど、とても簡単な方法なのです。
           </p>
@@ -1136,7 +1142,7 @@ function RationalBezier(3,t,w[],r[]):
           />
         </section>
         <section id="flattening">
-          <h1>簡略化した描画</h1>
+          <h1><a href="#flattening">簡略化した描画</a></h1>
           <p>
             曲線を複数点で「サンプリング」し、さらにそれを直線で繫げてしまえば、描画の手順を簡略化することができます。単なる一連の直線、つまり「平坦」な線へと曲線を単純化するので、この処理は「平坦化」という名前で知られています。
           </p>
@@ -1185,7 +1191,7 @@ function RationalBezier(3,t,w[],r[]):
           </div>
         </section>
         <section id="splitting">
-          <h1>曲線の分割</h1>
+          <h1><a href="#splitting">曲線の分割</a></h1>
           <p>
             ベジエ曲線を分割して、繫ぎ合わせたときに元に戻るような小さい2曲線にしたい場合にも、ド・カステリョのアルゴリズムを使えば、これに必要な点をすべて求めることができます。ある値<code>t</code>に対してド・カステリョの骨格を組み立てると、その<code>t</code>で曲線を分割する際に必要になる点がすべて得られます。骨格内部の点のうち、曲線上の点から見て手前側にある点によって一方の曲線が定義され、向こう側にある点によってもう一方の曲線が定義されます。
           </p>
@@ -1232,7 +1238,7 @@ function drawCurve(points[], t):
           />
         </section>
         <section id="matrixsplit">
-          <h1>行列による曲線の分割</h1>
+          <h1><a href="#matrixsplit">行列による曲線の分割</a></h1>
           <p>
             曲線分割には、ベジエ曲線の行列表現を利用する方法もあります。<a
               href="#matrix"
@@ -1487,7 +1493,7 @@ function drawCurve(points[], t):
           </p>
         </section>
         <section id="reordering">
-          <h1>曲線の次数下げと次数上げ</h1>
+          <h1><a href="#reordering">曲線の次数下げと次数上げ</a></h1>
           <p>
             ベジエ曲線のおもしろい性質のひとつに、「<em>n</em>次の曲線は常に、<em>n+1</em>次の曲線で完璧に表すことができる」というものがあります。このとき、制御点は新しいものになります。
           </p>
@@ -1526,7 +1532,7 @@ function drawCurve(points[], t):
           </p>
         </section>
         <section id="derivatives">
-          <h1>Derivatives</h1>
+          <h1><a href="#derivatives">Derivatives</a></h1>
           <p>
             There's a number of useful things that you can do with Bézier curves
             based on their derivative, and one of the more amusing observations
@@ -1651,8 +1657,8 @@ function drawCurve(points[], t):
             </p>
             <img
               class="LaTeX SVG"
-              src="images/latex/183ac1365b1075166b7066b78a17ad74.svg"
-              width="447px"
+              src="images/latex/b7815b1502029ed9d805b6ba0801a53f.svg"
+              width="300px"
               height="109px"
               loading="lazy"
             />
@@ -1670,16 +1676,16 @@ function drawCurve(points[], t):
             </p>
             <img
               class="LaTeX SVG"
-              src="images/latex/950811d35cebee2a39d881e33cbfb1de.svg"
-              width="447px"
+              src="images/latex/c7b13e6507450b3da7dc4ce3c10c370f.svg"
+              width="295px"
               height="71px"
               loading="lazy"
             />
             <p>And that's just a summation of lower order curves:</p>
             <img
               class="LaTeX SVG"
-              src="images/latex/894ccddbfcec09dd3d035777e7d23245.svg"
-              width="807px"
+              src="images/latex/89ceb6024ead6f710e3e0f09d2864f43.svg"
+              width="716px"
               height="36px"
               loading="lazy"
             />
@@ -1740,7 +1746,7 @@ function drawCurve(points[], t):
           </p>
         </section>
         <section id="pointvectors">
-          <h1>Tangents and normals</h1>
+          <h1><a href="#pointvectors">Tangents and normals</a></h1>
           <p>
             If you want to move objects along a curve, or "away from" a curve,
             the two vectors you're most interested in are the tangent vector and
@@ -1876,7 +1882,7 @@ function drawCurve(points[], t):
           </div>
         </section>
         <section id="pointvectors3d">
-          <h1>Working with 3D normals</h1>
+          <h1><a href="#pointvectors3d">Working with 3D normals</a></h1>
           <p>
             Before we move on to the next section we need to spend a little bit
             of time on the difference between 2D and 3D. While for many things
@@ -2137,7 +2143,7 @@ function drawCurve(points[], t):
           </p>
         </section>
         <section id="components">
-          <h1>Component functions</h1>
+          <h1><a href="#components">Component functions</a></h1>
           <p>
             One of the first things people run into when they start using Bézier
             curves in their own programs is "I know how to draw the curve, but
@@ -2182,7 +2188,7 @@ function drawCurve(points[], t):
           />
         </section>
         <section id="extremities">
-          <h1>Finding extremities: root finding</h1>
+          <h1><a href="#extremities">Finding extremities: root finding</a></h1>
           <p>
             Now that we understand (well, superficially anyway) the component
             functions, we can find the extremities of our Bézier curve by
@@ -2516,7 +2522,7 @@ function getCubicRoots(pa, pb, pc, pd) {
           />
         </section>
         <section id="boundingbox">
-          <h1>Bounding boxes</h1>
+          <h1><a href="#boundingbox">Bounding boxes</a></h1>
           <p>
             If we have the extremities, and the start/end points, a simple for
             loop that tests for min/max values for x and y means we have the
@@ -2563,7 +2569,7 @@ function getCubicRoots(pa, pb, pc, pd) {
           </p>
         </section>
         <section id="aligning">
-          <h1>Aligning curves</h1>
+          <h1><a href="#aligning">Aligning curves</a></h1>
           <p>
             While there are an incredible number of curves we can define by
             varying the x- and y-coordinates for the control points, not all
@@ -2585,8 +2591,8 @@ function getCubicRoots(pa, pb, pc, pd) {
           </p>
           <img
             class="LaTeX SVG"
-            src="images/latex/eb879c2e965ff4d7c61b70c0c6e5bf87.svg"
-            width="671px"
+            src="images/latex/d480a9aa41917e5230d432cdbd6899b1.svg"
+            width="476px"
             height="40px"
             loading="lazy"
           />
@@ -2597,8 +2603,8 @@ function getCubicRoots(pa, pb, pc, pd) {
           </p>
           <img
             class="LaTeX SVG"
-            src="images/latex/d6438a6372e9f910b0a3059ebfacccc6.svg"
-            width="655px"
+            src="images/latex/50679d61424222d7b6b97eb3aa663582.svg"
+            width="460px"
             height="40px"
             loading="lazy"
           />
@@ -2609,16 +2615,16 @@ function getCubicRoots(pa, pb, pc, pd) {
           </p>
           <img
             class="LaTeX SVG"
-            src="images/latex/6afb072a451e06ddf4b1ff1eb8948e8a.svg"
-            width="647px"
+            src="images/latex/a9af1c06a00bb3c4af816a138fb0a66d.svg"
+            width="452px"
             height="40px"
             loading="lazy"
           />
           <p>If we drop all the zero-terms, this gives us:</p>
           <img
             class="LaTeX SVG"
-            src="images/latex/1d44794e3aac3ecb881b559eb8a71fab.svg"
-            width="528px"
+            src="images/latex/c78b203ff33e5c1606728b552505d61c.svg"
+            width="387px"
             height="40px"
             loading="lazy"
           />
@@ -2640,7 +2646,7 @@ function getCubicRoots(pa, pb, pc, pd) {
           />
         </section>
         <section id="tightbounds">
-          <h1>Tight boxes</h1>
+          <h1><a href="#tightbounds">Tight boxes</a></h1>
           <p>
             With our knowledge of bounding boxes, and curve alignment, We can
             now form the "tight" bounding box for curves. We first align our
@@ -2674,7 +2680,7 @@ function getCubicRoots(pa, pb, pc, pd) {
           </p>
         </section>
         <section id="inflections">
-          <h1>Curve inflections</h1>
+          <h1><a href="#inflections">Curve inflections</a></h1>
           <p>
             Now that we know how to align a curve, there's one more thing we can
             calculate: inflection points. Imagine we have a variable size circle
@@ -2833,7 +2839,7 @@ function getCubicRoots(pa, pb, pc, pd) {
           />
         </section>
         <section id="canonical">
-          <h1>Canonical form (for cubic curves)</h1>
+          <h1><a href="#canonical">Canonical form (for cubic curves)</a></h1>
           <p>
             While quadratic curves are relatively simple curves to analyze, the
             same cannot be said of the cubic curve. As a curvature is controlled
@@ -3210,7 +3216,7 @@ function getCubicRoots(pa, pb, pc, pd) {
           />
         </section>
         <section id="yforx">
-          <h1>Finding Y, given X</h1>
+          <h1><a href="#yforx">Finding Y, given X</a></h1>
           <p>
             One common task that pops up in things like CSS work, or parametric
             equalisers, or image leveling, or any other number of applications
@@ -3335,7 +3341,7 @@ if (roots.length &gt; 0) {
           />
         </section>
         <section id="arclength">
-          <h1>Arc length</h1>
+          <h1><a href="#arclength">Arc length</a></h1>
           <p>
             How long is a Bézier curve? As it turns out, that's not actually an
             easy question, because the answer requires maths that —much like
@@ -3551,7 +3557,7 @@ if (roots.length &gt; 0) {
           />
         </section>
         <section id="arclengthapprox">
-          <h1>Approximated arc length</h1>
+          <h1><a href="#arclengthapprox">Approximated arc length</a></h1>
           <p>
             Sometimes, we don't actually need the precision of a true arc
             length, and we can get away with simply computing the approximate
@@ -3589,7 +3595,7 @@ if (roots.length &gt; 0) {
           </p>
         </section>
         <section id="curvature">
-          <h1>Curvature of a curve</h1>
+          <h1><a href="#curvature">Curvature of a curve</a></h1>
           <p>
             Imagine we have two curves, and we want to line them in up in a way
             that "looks right". What would we use as metric to let a computer
@@ -3788,7 +3794,9 @@ if (roots.length &gt; 0) {
           />
         </section>
         <section id="tracing">
-          <h1>Tracing a curve at fixed distance intervals</h1>
+          <h1>
+            <a href="#tracing">Tracing a curve at fixed distance intervals</a>
+          </h1>
           <p>
             Say you want to draw a curve with a dashed line, rather than a solid
             line, or you want to move something along the curve at fixed
@@ -3873,7 +3881,7 @@ if (roots.length &gt; 0) {
           </p>
         </section>
         <section id="intersections">
-          <h1>Intersections</h1>
+          <h1><a href="#intersections">Intersections</a></h1>
           <p>
             Let's look at some more things we will want to do with Bézier
             curves. Almost immediately after figuring out how to get bounding
@@ -3983,7 +3991,7 @@ lli = function(line1, line2):
           </p>
         </section>
         <section id="curveintersection">
-          <h1>Curve/curve intersection</h1>
+          <h1><a href="#curveintersection">Curve/curve intersection</a></h1>
           <p>
             Using de Casteljau's algorithm to split the curve we can now
             implement curve/curve intersection finding using a "divide and
@@ -4068,7 +4076,7 @@ lli = function(line1, line2):
           </p>
         </section>
         <section id="abc">
-          <h1>The projection identity</h1>
+          <h1><a href="#abc">The projection identity</a></h1>
           <p>
             De Casteljau's algorithm is the pivotal algorithm when it comes to
             Bézier curves. You can use it not just to split curves, but also to
@@ -4268,7 +4276,7 @@ lli = function(line1, line2):
           </p>
         </section>
         <section id="moulding">
-          <h1>Manipulating a curve</h1>
+          <h1><a href="#moulding">Manipulating a curve</a></h1>
           <p>
             Armed with knowledge of the "ABC" relation, we can now update a
             curve interactively, by letting people click anywhere on the curve,
@@ -4354,7 +4362,7 @@ lli = function(line1, line2):
           <p>And that's cubic curve manipulation.</p>
         </section>
         <section id="pointcurves">
-          <h1>Creating a curve from three points</h1>
+          <h1><a href="#pointcurves">Creating a curve from three points</a></h1>
           <p>
             Given the preceding section on curve manipulation, we can also
             generate quadratic and cubic curves from any three points. However,
@@ -4415,7 +4423,7 @@ lli = function(line1, line2):
           </p>
         </section>
         <section id="curvefitting">
-          <h1>Curve fitting</h1>
+          <h1><a href="#curvefitting">Curve fitting</a></h1>
           <p>
             Given the previous section, one question you might have is "what if
             I don't want to guess <code>t</code> values?". After all, plenty of
@@ -4876,7 +4884,9 @@ lli = function(line1, line2):
           </p>
         </section>
         <section id="catmullconv">
-          <h1>Bézier curves and Catmull-Rom curves</h1>
+          <h1>
+            <a href="#catmullconv">Bézier curves and Catmull-Rom curves</a>
+          </h1>
           <p>
             Taking an excursion to different splines, the other common design
             curve is the
@@ -5231,7 +5241,11 @@ lli = function(line1, line2):
           />
         </section>
         <section id="catmullmoulding">
-          <h1>Creating a Catmull-Rom curve from three points</h1>
+          <h1>
+            <a href="#catmullmoulding"
+              >Creating a Catmull-Rom curve from three points</a
+            >
+          </h1>
           <p>
             Now, we saw how to fit a Bézier curve to three points, but if
             Catmull-Rom curves go through points, why can't we just use those to
@@ -5285,7 +5299,7 @@ lli = function(line1, line2):
           </p>
         </section>
         <section id="polybezier">
-          <h1>Forming poly-Bézier curves</h1>
+          <h1><a href="#polybezier">Forming poly-Bézier curves</a></h1>
           <p>
             Much like lines can be chained together to form polygons, Bézier
             curves can be chained together to form poly-Béziers, and the only
@@ -5455,7 +5469,7 @@ lli = function(line1, line2):
           </p>
         </section>
         <section id="shapes">
-          <h1>Boolean shape operations</h1>
+          <h1><a href="#shapes">Boolean shape operations</a></h1>
           <p>
             We can apply the topics covered so far in this primer to effect
             boolean shape operations: getting the union, intersection, or
@@ -5593,7 +5607,9 @@ lli = function(line1, line2):
           </Graphic>
         </section>
         <section id="projections">
-          <h1>Projecting a point onto a Bézier curve</h1>
+          <h1>
+            <a href="#projections">Projecting a point onto a Bézier curve</a>
+          </h1>
           <p>
             Say we have a Bézier curve and some point, not on the curve, of
             which we want to know which <code>t</code> value on the curve gives
@@ -5658,7 +5674,7 @@ lli = function(line1, line2):
           />
         </section>
         <section id="offsetting">
-          <h1>Curve offsetting</h1>
+          <h1><a href="#offsetting">Curve offsetting</a></h1>
           <p>
             Perhaps you're like me, and you've been writing various small
             programs that use Bézier curves in some way or another, and at some
@@ -5866,7 +5882,7 @@ lli = function(line1, line2):
           </p>
         </section>
         <section id="graduatedoffset">
-          <h1>Graduated curve offsetting</h1>
+          <h1><a href="#graduatedoffset">Graduated curve offsetting</a></h1>
           <p>
             What if we want to do graduated offsetting, starting at some
             distance <code>s</code> but ending at some other distance
@@ -5933,7 +5949,7 @@ lli = function(line1, line2):
           />
         </section>
         <section id="circles">
-          <h1>Circles and quadratic Bézier curves</h1>
+          <h1><a href="#circles">Circles and quadratic Bézier curves</a></h1>
           <p>
             Circles and Bézier curves are very different beasts, and circles are
             infinitely easier to work with than Bézier curves. Their formula is
@@ -6171,7 +6187,7 @@ lli = function(line1, line2):
           </p>
         </section>
         <section id="circles_cubic">
-          <h1>Circles and cubic Bézier curves</h1>
+          <h1><a href="#circles_cubic">Circles and cubic Bézier curves</a></h1>
           <p>
             In the previous section we tried to approximate a circular arc with
             a quadratic curve, and it mostly made us unhappy. Cubic curves are
@@ -6506,7 +6522,11 @@ lli = function(line1, line2):
           />
         </section>
         <section id="arcapproximation">
-          <h1>Approximating Bézier curves with circular arcs</h1>
+          <h1>
+            <a href="#arcapproximation"
+              >Approximating Bézier curves with circular arcs</a
+            >
+          </h1>
           <p>
             Let's look at doing the exact opposite of the previous section:
             rather than approximating circular arc using Bézier curves, let's
@@ -6690,7 +6710,7 @@ lli = function(line1, line2):
           </p>
         </section>
         <section id="bsplines">
-          <h1>B-Splines</h1>
+          <h1><a href="#bsplines">B-Splines</a></h1>
           <p>
             No discussion on Bézier curves is complete without also giving
             mention of that other beast in the curve design space: B-Splines.
@@ -7241,12 +7261,12 @@ for(let L = 1; L &lt;= order; L++) {
              *                    PLEASE DO NOT LOCALISE THIS FILE
              *
              * I can't respond to questions that aren't asked in English, so this is one of
-             * the few cases where there is a content.en-GB.md but you shouldn't change it.
+             * the few cases where there is a content.en-GB.md but you should not localize it.
              *
              * ----------------------------------------------------------------------------- */
           </script>
 
-          <h1>Comments and questions</h1>
+          <h1><a href="#comments">Comments and questions</a></h1>
           <p>
             First off, if you enjoyed this book, or you simply found it useful
             for something you were trying to get done, and you were wondering

@@ -29,7 +29,10 @@ export default async function createIndexPages(
     if (content) {
       let title = content.match(/<h1>([^<]+)<\/h1>/)[1];
       toc[section] = `<li><a href="#${section}">${title}</a></li>`;
-      return `<section id="${section}">${content}</section>`;
+      // hyperlinked section titles please
+      return `<section id="${section}">${content
+        .replace(`<h1>`, `<h1><a href="#${section}">`)
+        .replace(`</h1>`, `</a></h1>`)}</section>`;
     }
     return ``;
   });

@@ -24,6 +24,8 @@ fs.ensureDirSync(sourceDir);
  * in.
  */
 export default async function latexToSVG(latex, chapter, localeStrings, block) {
+  latex = colorPreProcess(latex);
+
   const locale = localeStrings.getCurrentLocale();
   const hash = createHash(`md5`).update(latex).digest(`hex`);
 
@@ -148,4 +150,16 @@ function runCmd(cmd, hash) {
     console.log(`hash:\n${hash}`);
     process.exit(1);
   }
+}
+
+// This function converst things like RED[a] into real LaTeX.
+function colorPreProcess(input) {
+  var regexp = new RegExp(`([A-Z]+)\\[([^\\]]+)\\]`, `g`);
+  var output = input.replace(regexp, function (_, color, content) {
+    if (content.indexOf(` `) !== -1) {
+      content = ` ${content}`;
+    }
+    return `{\\color{${color.toLowerCase()}}${content.replace(/ /g, "\\ ")}}`;
+  });
+  return output;
 }
