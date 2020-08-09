@@ -12,7 +12,7 @@ Before we begin, we're going to use the curve in matrix form. In the [section on
 
 As such, the first step in the process is expressing our Bézier curve as powers/coefficients/coordinate matrix **T x M x C**, by expanding the Bézier functions.
 
-<div className="note">
+<div class="note">
 
 ## Revisiting the matrix representation
 
@@ -229,7 +229,7 @@ So, we have our error function: we now need to figure out the expression for whe
   \frac{\partial E}{\partial C} = 0 = -2𝕋^T \left ( P - 𝕋MC \right )
 \]
 
-<div className="note">
+<div class="note">
   ## Where did this derivative come from?
 
   That... is a good question. In fact, when trying to run through this approach, I ran into the same question! And you know what? I straight up had no idea. I'm decent enough at calculus, I'm decent enough at linear algebra, and I just don't know.
@@ -251,7 +251,7 @@ So before we try that out, how much code is involved in implementing this? Hones
 
 So let's try it out! The following graphic lets you place points, and will start computing exact-fit curves once you've placed at least three. You can click for more points, and the code will simply try to compute an exact fit using a Bezier curve of the appropriate order. Four points? Cubic Bezier. Five points? Quartic. And so on. Of course, this does break down at some point: depending on where you place your points, it might become mighty hard for the fitter to find an exact fit, and things might actually start looking horribly off once you hit 10<sup>th</sup> or higher order curves. But it might not!
 
-<div className="figure">
+<div class="figure">
   <Graphic title="Fitting a Bézier curve" setup={this.setup} draw={this.draw} onClick={this.onClick}>
     <button onClick={this.toggle} style="position:absolute; right: 0;">toggle</button>
     <SliderSet ref={ set => (this.sliders=set) } onChange={this.processTimeUpdate} />

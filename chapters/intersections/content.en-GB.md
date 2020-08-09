@@ -12,7 +12,7 @@ The following graphic implements this intersection detection, showing a red poin
 
 <Graphic title="Line/line intersections" setup={this.setupLines} draw={this.drawLineIntersection} />
 
-<div className="howtocode">
+<div class="howtocode">
 
 ### Implementing line-line intersections
 

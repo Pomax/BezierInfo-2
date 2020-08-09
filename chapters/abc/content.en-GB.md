@@ -8,7 +8,7 @@ In order to run de Casteljau's algorithm in reverse, we need a few basic things:
 
 So let's use graphics instead of text to see where this "A" is, because text only gets us so far: in the following graphic, click anywhere on the curves to see the identity information that we'll be using to run de Casteljau in reverse (you can manipulate the curve even after picking a point. Note the "ratio" value when you do so: does it change?):
 
-<div className="figure">
+<div class="figure">
   <Graphic inline={true} title="Projections in a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onClick={this.onClick} />
   <Graphic inline={true} title="Projections in a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onClick={this.onClick} />
 </div>
@@ -27,7 +27,7 @@ These three values A, B, and C hide an important identity formula for quadratic 
 
 So that just leaves finding A.
 
-<div className="note">
+<div class="note">
 
 While that relation is fixed, the function *u(t)* differs depending on whether we're working
 with quadratic or cubic curves:
@@ -41,7 +41,7 @@ with quadratic or cubic curves:
 
 So, if we know the start and end coordinates, and we know the *t* value, we know C:
 
-<div className="figure">
+<div class="figure">
   <Graphic inline={true} title="Quadratic value of C for t" draw={this.drawQCT} onMouseMove={this.setCT}/>
   <Graphic inline={true} title="Cubic value of C for t" draw={this.drawCCT} onMouseMove={this.setCT}/>
 </div>
@@ -64,7 +64,7 @@ This leads to a pretty powerful bit of knowledge: merely by knowing the *t* valu
 
 And that's it, all values found.
 
-<div className="note">
+<div class="note">
 
 Much like the *u(t)* function in the above note, the *ratio(t)* function depends on whether we're looking at quadratic or cubic curves. Their form is intrinsically related to the *u(t)* function in that they both come rolling out of the same function evaluation, explained over on [MathOverflow](http://mathoverflow.net/questions/122257/finding-the-formula-for-Bézier-curve-ratios-hull-point-point-baseline) by Boris Zbarsky and myself. The ratio functions are the "s(t)" functions from the answers there, while the "u(t)" functions have the same name both here and on MathOverflow.
 

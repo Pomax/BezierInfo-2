@@ -683,7 +683,7 @@ function Bezier(3,t):
           <p>
             下面的图形显示了二次曲线和三次曲线的差值方程，“S”代表了点对贝塞尔方程总和的贡献。点击或拖动点来看看在特定的<i>t</i>值时，每个曲线定义的点的插值百分比。
           </p>
-          <div className="figure">
+          <div class="figure">
             <Graphic
               inline="{true}"
               title="二次插值"
@@ -734,7 +734,7 @@ function Bezier(3,t):
           <p>
             我们还能对贝塞尔曲线做些什么？实际上还有很多。文章接下来涉及到我们可能运用到的一系列操作和算法，以及它们可以完成的任务。
           </p>
-          <div className="howtocode">
+          <div class="howtocode">
             <h3>如何实现权重基本函数</h3>
             <p>
               鉴于我们已经知道怎样实现基本函数，在其加入控制点是非常简单的：
@@ -837,7 +837,7 @@ function Bezier(3,t,w[]):
             really changes. The values define each coordinate's influence
             <em>relative to all other points</em>.
           </p>
-          <div className="howtocode">
+          <div class="howtocode">
             <h3>How to implement rational curves</h3>
             <p>
               Extending the code of the previous section to include ratios is
@@ -1067,7 +1067,7 @@ function RationalBezier(3,t,w[],r[]):
               重复这些步骤，直到剩下一条线。这条线段上的<code>t</code>点就是原始曲线在<code>t</code>处的点。
             </li>
           </ul>
-          <div className="howtocode">
+          <div class="howtocode">
             <h3>如何实现de Casteljau算法</h3>
             <p>让我们使用刚才描述过的算法，并实现它：</p>
             <pre><code>function drawCurve(points[], t):
@@ -1130,7 +1130,7 @@ function RationalBezier(3,t,w[],r[]):
           <p>
             试着点击图形，并用上下键来降低二次曲线和三次曲线的分段数量。你会发现对某些曲率来说，数量少的分段也能做的很好，但对于复杂的曲率（在三次曲线上试试），足够多的分段才能很好地满足曲率的变化。
           </p>
-          <div className="howtocode">
+          <div class="howtocode">
             <h3>如何实现曲线的拉平</h3>
             <p>让我们来实现刚才简述过的算法：</p>
             <pre><code>function flattenCurve(curve, segmentCount):
@@ -1168,7 +1168,7 @@ function RationalBezier(3,t,w[],r[]):
             draw="{this.drawSplit}"
           />
 
-          <div className="howtocode">
+          <div class="howtocode">
             <h3>分割曲线的代码实习</h3>
             <p>
               通过在 de Casteljau
@@ -1265,7 +1265,7 @@ function drawCurve(points[], t):
             rules of linear algebra (and if you don't care about the
             derivations, just skip to the end of the box for the results!).
           </p>
-          <div className="note">
+          <div class="note">
             <h2>Deriving new hull coordinates</h2>
             <p>
               Deriving the two segments upon splitting a curve takes a few
@@ -1789,7 +1789,7 @@ function drawCurve(points[], t):
             w'<sub>1</sub> = 3(w<sub>2</sub>-w<sub>1</sub>) and w'<sub>2</sub> =
             3(w<sub>3</sub>-w<sub>2</sub>).
           </p>
-          <div className="note">
+          <div class="note">
             <h3>"Slow down, why is that true?"</h3>
             <p>
               Sometimes just being told "this is the derivative" is nice, but
@@ -2013,7 +2013,7 @@ function drawCurve(points[], t):
             height="60px"
             loading="lazy"
           />
-          <div className="note">
+          <div class="note">
             <p>
               Rotating coordinates is actually very easy, if you know the rule
               for it. You might find it explained as "applying a
@@ -2081,7 +2081,7 @@ function drawCurve(points[], t):
             and the normal vector coloured red (the markers are spaced out
             evenly as <em>t</em>-intervals, not spaced equidistant).
           </p>
-          <div className="figure">
+          <div class="figure">
             <Graphic
               title="Quadratic Bézier tangents and normals"
               inline="{true}"
@@ -2275,7 +2275,7 @@ function drawCurve(points[], t):
             </li>
           </ul>
           <p>So, let's write some code for that!</p>
-          <div className="howtocode">
+          <div class="howtocode">
             <h3>Implementing Rotation Minimising Frames</h3>
             <p>
               We first assume we have a function for calculating the Frenet
@@ -2541,7 +2541,7 @@ function drawCurve(points[], t):
             simply going to show the programming code for solving the cubic
             equation, with the complex roots getting totally ignored.
           </p>
-          <div className="howtocode">
+          <div class="howtocode">
             <h3>Implementing Cardano's algorithm for finding all real roots</h3>
             <p>
               The "real roots" part is fairly important, because while you
@@ -2958,7 +2958,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             first axis-align the curve and <em>then</em> evaluating the
             curvature function.
           </p>
-          <div className="note">
+          <div class="note">
             <h3>Let's derive the full formula anyway</h3>
             <p>
               Of course, before we do our aligned check, let's see what happens
@@ -3177,7 +3177,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             Of course, this map is fairly small, but the regions extend to
             infinity, with well defined boundaries.
           </p>
-          <div className="note">
+          <div class="note">
             <h3>Wait, where do those lines come from?</h3>
             <p>
               Without repeating the paper mentioned at the top of this section,
@@ -3383,7 +3383,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             agree. Coding math tends to be easier than the formulae initially
             make it look!
           </p>
-          <div className="note">
+          <div class="note">
             <h3>How do you track all that?</h3>
             <p>
               Doing maths can be a pain, so whenever possible, I like to make
@@ -3642,7 +3642,7 @@ if (roots.length &gt; 0) {
             thinner they get) the closer we get to the true area under the
             curve, and thus the better the approximation:
           </p>
-          <div className="figure">
+          <div class="figure">
             <Graphic
               inline="{true}"
               static="{true}"
@@ -3691,7 +3691,7 @@ if (roots.length &gt; 0) {
             flattened curve, but flattening it based on the intervals dictated
             by the Legendre-Gauss solution.
           </p>
-          <div className="note">
+          <div class="note">
             <p>
               Note that one requirement for the approach we'll use is that the
               integral must run from -1 to 1. That's no good, because we're
@@ -3945,7 +3945,7 @@ if (roots.length &gt; 0) {
             >, and so evaluating this function for any <strong>t</strong> value
             is just a matter of basic arithematics.
           </p>
-          <div className="howtocode">
+          <div class="howtocode">
             <h3>Implement the kappa function</h3>
             <p>In fact, let's just implement it right now:</p>
             <pre><code>function kappa(t, B):
@@ -4145,7 +4145,7 @@ if (roots.length &gt; 0) {
             draw="{this.drawLineIntersection}"
           />
 
-          <div className="howtocode">
+          <div class="howtocode">
             <h3>Implementing line-line intersections</h3>
             <p>
               Let's have a look at how to implement a line-line intersection
@@ -4322,7 +4322,7 @@ lli = function(line1, line2):
             even after picking a point. Note the "ratio" value when you do so:
             does it change?):
           </p>
-          <div className="figure">
+          <div class="figure">
             <Graphic
               inline="{true}"
               title="Projections in a quadratic Bézier curve"
@@ -4374,7 +4374,7 @@ lli = function(line1, line2):
             loading="lazy"
           />
           <p>So that just leaves finding A.</p>
-          <div className="note">
+          <div class="note">
             <p>
               While that relation is fixed, the function <em>u(t)</em> differs
               depending on whether we're working with quadratic or cubic curves:
@@ -4390,7 +4390,7 @@ lli = function(line1, line2):
               So, if we know the start and end coordinates, and we know the
               <em>t</em> value, we know C:
             </p>
-            <div className="figure">
+            <div class="figure">
               <Graphic
                 inline="{true}"
                 title="Quadratic value of C for t"
@@ -4439,7 +4439,7 @@ lli = function(line1, line2):
             loading="lazy"
           />
           <p>And that's it, all values found.</p>
-          <div className="note">
+          <div class="note">
             <p>
               Much like the <em>u(t)</em> function in the above note, the
               <em>ratio(t)</em> function depends on whether we're looking at
@@ -4707,7 +4707,7 @@ lli = function(line1, line2):
             curve as powers/coefficients/coordinate matrix
             <strong>T x M x C</strong>, by expanding the Bézier functions.
           </p>
-          <div className="note">
+          <div class="note">
             <h2>Revisiting the matrix representation</h2>
             <p>
               Rewriting Bézier functions to matrix form is fairly easy, if you
@@ -4992,7 +4992,7 @@ lli = function(line1, line2):
             height="36px"
             loading="lazy"
           />
-          <div className="note">
+          <div class="note">
             ## Where did this derivative come from?
 
             <p>
@@ -5069,7 +5069,7 @@ lli = function(line1, line2):
             off once you hit 10<sup>th</sup> or higher order curves. But it
             might not!
           </p>
-          <div className="figure">
+          <div class="figure">
             <Graphic
               title="Fitting a Bézier curve"
               setup="{this.setup}"
@@ -5166,7 +5166,7 @@ lli = function(line1, line2):
             But... if you want to know <em>why</em> that conversion works, let's
             do some maths!
           </p>
-          <div className="note">
+          <div class="note">
             <h2>Deriving the conversion formulae</h2>
             <p>
               In order to convert between Catmull-Rom curves and Bézier curves,
@@ -5197,7 +5197,7 @@ lli = function(line1, line2):
             <p>Computing <em>T</em> is really more "arranging the numbers":</p>
             <img
               class="LaTeX SVG"
-              src="images/latex/8d1a91ddd04d2cc02ec2d9372760d1b1.svg"
+              src="images/latex/4d524810417b4caffedd13af23135f5b.svg"
               width="591px"
               height="83px"
               loading="lazy"
@@ -5205,7 +5205,7 @@ lli = function(line1, line2):
             <p>Thus:</p>
             <img
               class="LaTeX SVG"
-              src="images/latex/ffa21dac1f629c75d68dc3f8f8b77b92.svg"
+              src="images/latex/f41487aff3e34fafd5d4ee5979f133f1.svg"
               width="143px"
               height="81px"
               loading="lazy"
@@ -5222,7 +5222,7 @@ lli = function(line1, line2):
             </p>
             <img
               class="LaTeX SVG"
-              src="images/latex/f6be211b2d3b4e96553fc2340222264a.svg"
+              src="images/latex/06ae1e3fdc660e59d618e0760e8e9ab5.svg"
               width="285px"
               height="84px"
               loading="lazy"
@@ -5749,22 +5749,22 @@ lli = function(line1, line2):
               would qualify for removal under UNION rules.
             </li>
           </ul>
-          <table className="sketch">
+          <table class="sketch">
             <tbody>
               <tr>
-                <td className="labeled-image">
+                <td class="labeled-image">
                   <img src="images/op_base.gif" height="169" />
                   Two overlapping shapes.
                 </td>
-                <td className="labeled-image">
+                <td class="labeled-image">
                   <img src="images/op_union.gif" height="169" />
                   The unified region.
                 </td>
-                <td className="labeled-image">
+                <td class="labeled-image">
                   <img src="images/op_intersection.gif" height="169" />
                   Their intersection.
                 </td>
-                <td className="labeled-image">
+                <td class="labeled-image">
                   <img src="images/op_exclusion.gif" height="169" />
                   Their exclusion regions.
                 </td>
@@ -5914,7 +5914,7 @@ lli = function(line1, line2):
             that's impossible. Instead we're going to try to generate 'looks
             good enough' offset curves.
           </p>
-          <div className="note">
+          <div class="note">
             <h3>"What do you mean, 'you can't'? Prove it."</h3>
             <p>
               First off, when I say "you can't," what I really mean is "you
@@ -6556,7 +6556,7 @@ lli = function(line1, line2):
             trigonometric identities, so if you just want to see the final
             result just skip past the next section!
           </p>
-          <div className="note">
+          <div class="note">
             <h2>Let's do this thing.</h2>
             <p>
               Unlike for the quadratic case, we need some more information in
@@ -7189,7 +7189,7 @@ lli = function(line1, line2):
             screw it this is programming, let's ignore that hard restriction and
             just mess with the knots however we like.
           </p>
-          <div className="two-column">
+          <div class="two-column">
             <KnotController ref="interpolation-graph" />
             <BSplineGraphic sketch={this.interpolationGraph} controller={(owner,
             knots) => this.bindKnots(owner, knots, "interpolation-graph")}/>
@@ -7324,7 +7324,7 @@ for(let L = 1; L &lt;= order; L++) {
             factor, which becomes normalised during interpolation and so does
             not contribute to the curvature.
           </p>
-          <div className="two-column">
+          <div class="two-column">
             <KnotController ref="uniform-spline" />
             <BSplineGraphic sketch={this.uniformBSpline} controller={(owner,
             knots) => this.bindKnots(owner, knots, "uniform-spline")}/>
@@ -7354,7 +7354,7 @@ for(let L = 1; L &lt;= order; L++) {
             <code>order</code> knots creates a situation where all continuity is
             lost and the curve "kinks".
           </p>
-          <div className="two-column">
+          <div class="two-column">
             <KnotController ref="center-cut-bspline" />
             <BSplineGraphic sketch={this.centerCutBSpline} controller={(owner,
             knots) => this.bindKnots(owner, knots, "center-cut-bspline")}/>
@@ -7377,7 +7377,7 @@ for(let L = 1; L &lt;= order; L++) {
             "identical" knot vector [0,0,0,0,2,4,6,8,8,8,8], etc. Again, it is
             the relative differences that determine the curve shape.
           </p>
-          <div className="two-column">
+          <div class="two-column">
             <KnotController ref="open-uniform-bspline" />
             <BSplineGraphic sketch={this.openUniformBSpline} controller={(owner,
             knots) => this.bindKnots(owner, knots, "open-uniform-bspline")}/>
@@ -7404,7 +7404,7 @@ for(let L = 1; L &lt;= order; L++) {
             spline curve will lie, a bit like turning up the gravity of a
             control point.
           </p>
-          <div className="two-column">
+          <div class="two-column">
             { // <KnotController ref="rational-uniform-bspline" />
             }
             <WeightController ref="rational-uniform-bspline-weights" />

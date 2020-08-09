@@ -20,7 +20,7 @@ The function *C(t)* is the cross product between the first and second derivative
 
 However as we've seen in the section on aligning, aligning lets us simplify things *a lot*, by completely removing the contributions of the first coordinate from most mathematical evaluations, and removing the last *y* coordinate as well by virtue of the last point lying on the x-axis. So, while we can evaluate *C(t) = 0* for our curve, it'll be much easier to first axis-align the curve and *then* evaluating the curvature function.
 
-<div className="note">
+<div class="note">
 
 ### Let's derive the full formula anyway
 

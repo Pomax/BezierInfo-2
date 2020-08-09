@@ -33,7 +33,7 @@ Let's look at the effect of "rationalising" our Bézier curves by interacting wi
 
  You can think of the ratio values as each coordinate's "gravity": the higher the gravity, the closer to that coordinate the curve will want to be. You'll also notice that if you simply increase or decrease all the ratios by the same amount, nothing changes... much like with gravity, if the relative strengths stay the same, nothing really changes. The values define each coordinate's influence _relative to all other points_.
 
-<div className="howtocode">
+<div class="howtocode">
 
 ### How to implement rational curves
 

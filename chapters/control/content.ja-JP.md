@@ -4,7 +4,7 @@
 
 下のグラフは、2次ベジエ曲線や3次ベジエ曲線の補間関数を表しています。ここでSは、ベジエ関数全体に対しての、その点の寄与の大きさを示します。ある<i>t</i>において、ベジエ曲線を定義する各点の補間率がどのようになっているのか、クリックやドラッグをして確かめてみてください。
 
-<div className="figure">
+<div class="figure">
   <Graphic inline={true} title="2次の補間" draw={this.drawQuadraticLerp}/>
   <Graphic inline={true} title="3次の補間" draw={this.drawCubicLerp}/>
   <Graphic inline={true} title="15次の補間" draw={this.draw15thLerp}/>
@@ -38,7 +38,7 @@
 
 ベジエ曲線で、他にはどんなことができるでしょうか？実は、非常にたくさんのことが可能です。この記事の残りの部分では、実現可能な各種操作や適用可能なアルゴリズム、そしてこれによって達成できるタスクについて扱います。
 
-<div className="howtocode">
+<div class="howtocode">
 
 ### 重みつき基底関数の実装方法
 

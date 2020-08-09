@@ -9,7 +9,7 @@ We can do this is by saying "we want X segments", and then sampling the curve at
 
 Try clicking on the sketch and using your up and down arrow keys to lower the number of segments for both the quadratic and cubic curve. You'll notice that for certain curvatures, a low number of segments works quite well, but for more complex curvatures (try this for the cubic curve), a higher number is required to capture the curvature changes properly.
 
-<div className="howtocode">
+<div class="howtocode">
 
 ### How to implement curve flattening
 

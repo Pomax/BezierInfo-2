@@ -4,7 +4,7 @@ Using de Casteljau's algorithm, we can also find all the points we need to split
 
 <Graphic title="Splitting a curve" setup={this.setupCubic} draw={this.drawSplit} />
 
-<div className="howtocode">
+<div class="howtocode">
 
 ### implementing curve splitting
 

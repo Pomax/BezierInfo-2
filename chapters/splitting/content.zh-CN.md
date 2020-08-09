@@ -4,7 +4,7 @@
 
 <Graphic title="分割一条曲线" setup={this.setupCubic} draw={this.drawSplit} />
 
-<div className="howtocode">
+<div class="howtocode">
 
 ### 分割曲线的代码实习
 

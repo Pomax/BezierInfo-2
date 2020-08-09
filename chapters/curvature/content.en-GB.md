@@ -32,7 +32,7 @@ Which is really just a "short form" that glosses over the fact that we're dealin
 
 And while that's a litte more verbose, it's still just as simple to work with as the first function: the curvature at some point on any (and this cannot be overstated: _any_) curve is a ratio between the first and second derivative cross product, and something that looks oddly similar to the standard Euclidean distance function. And nothing in these functions is hard to calculate either: for Bézier curves, simply knowing our curve coordinates means [we know what the first and second derivatives are](#derivatives), and so evaluating this function for any **t** value is just a matter of basic arithematics.
 
-<div className="howtocode">
+<div class="howtocode">
 
 ### Implement the kappa function
 

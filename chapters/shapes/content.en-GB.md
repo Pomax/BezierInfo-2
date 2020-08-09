@@ -19,20 +19,20 @@ Once we have all the new poly-Bézier curves, we run the first step of the desir
 - Intersection: discard all poly-Bézier curves that lie "outside" the intersection of the two shapes. E.g. if we want the intersection of two overlapping circles, the resulting shape is the tapered ellipse where they overlap.
 - Exclusion: none of the sections are discarded, but we will need to link the shapes back up in a special way. Flip any section that would qualify for removal under UNION rules.
 
-<table className="sketch"><tbody><tr>
-  <td className="labeled-image">
+<table class="sketch"><tbody><tr>
+  <td class="labeled-image">
     <img src="images/op_base.gif" height="169"/>
     Two overlapping shapes.
   </td>
-  <td className="labeled-image">
+  <td class="labeled-image">
     <img src="images/op_union.gif" height="169"/>
     The unified region.
   </td>
-  <td className="labeled-image">
+  <td class="labeled-image">
     <img src="images/op_intersection.gif" height="169"/>
     Their intersection.
   </td>
-  <td className="labeled-image">
+  <td class="labeled-image">
     <img src="images/op_exclusion.gif" height="169"/>
     Their exclusion regions.
   </td>

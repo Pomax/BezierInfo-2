@@ -32,7 +32,7 @@ This is not particularly useful if we want to draw Catmull-Rom curves in the sam
 
 But... if you want to know <em>why</em> that conversion works, let's do some maths!
 
-<div className="note">
+<div class="note">
 
 ## Deriving the conversion formulae
 
@@ -77,7 +77,7 @@ Computing <em>T</em> is really more "arranging the numbers":
   \frac{-1}{2} \cdot P1 &+ 0 \cdot P2 &+ \frac{1}{2} \cdot P3 &+ 0 \cdot P4 \\
    0 \cdot P1 & \frac{-1}{2} \cdot P2 &+ 0 \cdot P3 &+ \frac{1}{2} \cdot P4
   \end{bmatrix}
-  = 
+  =
   \begin{bmatrix}
    0 &  1 & 0 & 0 \\
    0 &  0 & 1 & 0 \\
@@ -94,7 +94,7 @@ Thus:
 
 \[
   T
-  = 
+  =
   \begin{bmatrix}
    0 &  1 & 0 & 0 \\
    0 &  0 & 1 & 0 \\
@@ -113,7 +113,7 @@ However, we're not <em>quite</em> done, because Catmull-Rom curves have a parame
   \begin{bmatrix}
   P_2 \\ P_3 \\ \frac{P_3 - P_1}{2τ} \\ \frac{P_4 - P_2}{2τ}
   \end{bmatrix}
-  ,\ 
+  ,\
   T
   =
   \begin{bmatrix}

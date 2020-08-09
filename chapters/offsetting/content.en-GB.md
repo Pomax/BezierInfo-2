@@ -6,7 +6,7 @@ Unlike lines, you can't simply extrude a Bézier curve by taking a copy and movi
 
 Bottom line: **you can't**. So you cheat. We're not going to do true curve scaling, or rather curve offsetting, because that's impossible. Instead we're going to try to generate 'looks good enough' offset curves.
 
-<div className="note">
+<div class="note">
 
 ### "What do you mean, 'you can't'? Prove it."
 

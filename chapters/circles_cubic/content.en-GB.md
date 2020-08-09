@@ -55,7 +55,7 @@ where "b" is also some scaling factor.
 
 Starting with this information, we slowly maths our way to success, but I won't lie: the maths for this is pretty trig-heavy, and it's easy to get lost if you remember (or know!) some of the core trigonometric identities, so if you just want to see the final result just skip past the next section!
 
-<div className="note">
+<div class="note">
 
 ## Let's do this thing.
 

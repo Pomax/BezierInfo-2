@@ -39,7 +39,7 @@ concave/convex form twice.
 
 Of course, this map is fairly small, but the regions extend to infinity, with well defined boundaries.
 
-<div className="note">
+<div class="note">
 
 ### Wait, where do those lines come from?
 
@@ -268,7 +268,7 @@ Suddenly things look a lot simpler: the mapped x is fairly straight forward to c
 
 That's kind of super-simple to write out in code, I think you'll agree. Coding math tends to be easier than the formulae initially make it look!
 
-<div className="note">
+<div class="note">
 
 ### How do you track all that?
 

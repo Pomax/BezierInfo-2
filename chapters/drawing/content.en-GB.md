@@ -7,7 +7,7 @@
   - fit compound bezier
   - catmull-rom
 
-<div className="figure">
+<div class="figure">
   <Graphic title="Fitting a Bézier curve" setup={this.setup} draw={this.draw} onClick={this.onClick}>
     <button onClick={this.toggle}>toggle</button>
     <button onClick={this.reset}>reset</button>

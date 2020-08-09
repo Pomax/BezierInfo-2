@@ -13,7 +13,7 @@ Rather than using our calculus function to find `x/y` values for `t`, let's do t
 - Place markers, form lines, place markers, etc.
 - Repeat this until you have only one line left. The point `t` on that line coincides with the original curve point at `t`.
 
-<div className="howtocode">
+<div class="howtocode">
 
 ### How to implement de Casteljau's algorithm
 

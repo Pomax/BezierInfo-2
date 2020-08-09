@@ -47,7 +47,7 @@ The idea is to take a starting "tangent/rotation axis/normal" frame at t=0, and 
 
 So, let's write some code for that!
 
-<div className="howtocode">
+<div class="howtocode">
 
 ### Implementing Rotation Minimising Frames
 

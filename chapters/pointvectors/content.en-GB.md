@@ -35,7 +35,7 @@ The tangent is very useful for moving along a line, but what if we want to move 
 \end{array} \right.
 \]
 
-<div className="note">
+<div class="note">
 
 Rotating coordinates is actually very easy, if you know the rule for it. You might find it explained as "applying a [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix), which is what we'll look at here, too. Essentially, the idea is to take the circles over which we can rotate, and simply "sliding the coordinates" over these circles by the desired
 angle. If we want a quarter circle turn, we take the coordinate, slide it along the cirle by a quarter turn, and done.
@@ -72,7 +72,7 @@ treated as a sequence of three (elementary) shear operations. When we combine th
 
 The following two graphics show the tangent and normal along a quadratic and cubic curve, with the direction vector coloured blue, and the normal vector coloured red (the markers are spaced out evenly as *t*-intervals, not spaced equidistant).
 
-<div className="figure">
+<div class="figure">
   <Graphic title="Quadratic Bézier tangents and normals" inline={true} setup={this.setupQuadratic} draw={this.draw}/>
   <Graphic title="Cubic Bézier tangents and normals" inline={true} setup={this.setupCubic} draw={this.draw}/>
 </div>

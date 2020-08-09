@@ -102,7 +102,7 @@ If we run this computation "down", starting at d(3,3), then without special code
 
 I know, this is pretty mathy, so let's have a look at what happens when we change parameters here. We can't change the maths for the interpolation functions, so that gives us only one way to control what happens here: the knot vector itself. As such, let's look at the graph that shows the interpolation functions for a cubic B-Spline with seven points with a uniform knot vector (so we see seven identical functions), representing how much each point (represented by one function each) influences the total curvature, given our knot values. And, because exploration is the key to discovery, let's make the knot vector a thing we can actually manipulate. Normally a proper knot vector has a constraint that any value is strictly equal to, or larger than the previous ones, but screw it this is programming, let's ignore that hard restriction and just mess with the knots however we like.
 
-<div className="two-column">
+<div class="two-column">
   <KnotController ref="interpolation-graph" />
   <BSplineGraphic sketch={this.interpolationGraph} controller={(owner, knots) => this.bindKnots(owner, knots, "interpolation-graph")}/>
 </div>
@@ -159,7 +159,7 @@ The most important thing to understand when it comes to B-Splines is that they w
 
 The most straightforward type of B-Spline is the uniform spline. In a uniform spline, the knots are distributed uniformly over the entire curve interval. For instance, if we have a knot vector of length twelve, then a uniform knot vector would be [0,1,2,3,...,9,10,11]. Or [4,5,6,...,13,14,15], which defines *the same intervals*, or even [0,2,3,...,18,20,22], which also defines *the same intervals*, just scaled by a constant factor, which becomes normalised during interpolation and so does not contribute to the curvature.
 
-<div className="two-column">
+<div class="two-column">
   <KnotController ref="uniform-spline" />
   <BSplineGraphic sketch={this.uniformBSpline} controller={(owner, knots) => this.bindKnots(owner, knots, "uniform-spline")}/>
 </div>
@@ -172,7 +172,7 @@ The problem with uniform knot vectors is that, as we need `order` control points
 
 By collapsing knot intervals by making two or more consecutive knots have the same value, we can reduce the curve complexity in the sections that are affected by the knots involved. This can have drastic effects: for every interval collapse, the curve order goes down, and curve continuity goes down, to the point where collapsing `order` knots creates a situation where all continuity is lost and the curve "kinks".
 
-<div className="two-column">
+<div class="two-column">
   <KnotController ref="center-cut-bspline" />
   <BSplineGraphic sketch={this.centerCutBSpline} controller={(owner, knots) => this.bindKnots(owner, knots, "center-cut-bspline")}/>
 </div>
@@ -183,7 +183,7 @@ By combining knot interval collapsing at the start and end of the curve, with un
 
 For any curve of degree `D` with control points `N`, we can define a knot vector of length `N+D+1` in which the values `0 ... D+1` are the same, the values `D+1 ... N+1` follow the "uniform" pattern, and the values `N+1 ... N+D+1` are the same again. For example, a cubic B-Spline with 7 control points can have a knot vector [0,0,0,0,1,2,3,4,4,4,4], or it might have the "identical" knot vector [0,0,0,0,2,4,6,8,8,8,8], etc. Again, it is the relative differences that determine the curve shape.
 
-<div className="two-column">
+<div class="two-column">
   <KnotController ref="open-uniform-bspline" />
   <BSplineGraphic sketch={this.openUniformBSpline} controller={(owner, knots) => this.bindKnots(owner, knots, "open-uniform-bspline")}/>
 </div>
@@ -196,7 +196,7 @@ This is essentially the "free form" version of a B-Spline, and also the least in
 
 While it is true that this section on B-Splines is running quite long already, there is one more thing we need to talk about, and that's "Rational" splines, where the rationality applies to the "ratio", or relative weights, of the control points themselves. By introducing a ratio vector with weights to apply to each control point, we greatly increase our influence over the final curve shape: the more weight a control point carries, the close to that point the spline curve will lie, a bit like turning up the gravity of a control point.
 
-<div className="two-column">
+<div class="two-column">
   {
     // <KnotController ref="rational-uniform-bspline" />
   }

@@ -40,7 +40,7 @@ So we turn to numerical approaches again. The method we'll look at here is the [
 
 In plain text: an integral function can always be treated as the sum of an (infinite) number of (infinitely thin) rectangular strips sitting "under" the function's plotted graph. To illustrate this idea, the following graph shows the integral for a sinusoid function. The more strips we use (and of course the more we use, the thinner they get) the closer we get to the true area under the curve, and thus the better the approximation:
 
-<div className="figure">
+<div class="figure">
   <Graphic inline={true} static={true} title="A function's approximated integral" setup={this.setup} draw={this.drawCoarseIntegral}/>
   <Graphic inline={true} static={true} title="A better approximation" setup={this.setup} draw={this.drawFineIntegral}/>
   <Graphic inline={true} static={true} title="An even better approximation" setup={this.setup} draw={this.drawSuperFineIntegral}/>
@@ -52,7 +52,7 @@ So, the trick is to come up with useful rectangular strips. A naive way is to si
 
 This approach uses strips that are *not* spaced evenly, but instead spaces them in a special way based on describing the function as a polynomial (the more strips, the more accurate the polynomial), and then computing the exact integral for that polynomial. We're essentially performing arc length computation on a flattened curve, but flattening it based on the intervals dictated by the Legendre-Gauss solution.
 
-<div className="note">
+<div class="note">
 
 Note that one requirement for the approach we'll use is that the integral must run from -1 to 1. That's no good, because we're dealing with Bézier curves, and the length of a section of curve applies to values which run from 0 to "some value smaller than or equal to 1" (let's call that value *z*). Thankfully, we can quite easily transform any integral interval to any other integral interval, by shifting and scaling the inputs. Doing so, we get the following:
 

@@ -13,7 +13,7 @@
 - 取记号，连线，取记号，等等。
 - 重复这些步骤，直到剩下一条线。这条线段上的`t`点就是原始曲线在`t`处的点。
 
-<div className="howtocode">
+<div class="howtocode">
 
 ### 如何实现de Casteljau算法
 

@@ -120,7 +120,7 @@ and
 
 If we could compact these matrices back to the form **[t values] · [Bézier matrix] · [column matrix]**, with the first two staying the same, then that column matrix on the right would be the coordinates of a new Bézier curve that describes the first segment, from `t = 0` to `t = z`. As it turns out, we can do this quite easily, by exploiting some simple rules of linear algebra (and if you don't care about the derivations, just skip to the end of the box for the results!).
 
-<div className="note">
+<div class="note">
 
 ## Deriving new hull coordinates
 

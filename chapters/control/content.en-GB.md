@@ -4,7 +4,7 @@ Bézier curves are, like all "splines", interpolation functions. This means that
 
 The following graphs show the interpolation functions for quadratic and cubic curves, with "S" being the strength of a point's contribution to the total sum of the Bézier function. Click or click-drag to see the interpolation percentages for each curve-defining point at a specific <i>t</i> value.
 
-<div className="figure">
+<div class="figure">
   <Graphic inline={true} title="Quadratic interpolations"  draw={this.drawQuadraticLerp}/>
   <Graphic inline={true} title="Cubic interpolations"      draw={this.drawCubicLerp}/>
   <Graphic inline={true} title="15th degree interpolations" draw={this.draw15thLerp}/>
@@ -38,7 +38,7 @@ Which gives us the curve we saw at the top of the article:
 
 What else can we do with Bézier curves? Quite a lot, actually. The rest of this article covers a multitude of possible operations and algorithms that we can apply, and the tasks they achieve.
 
-<div className="howtocode">
+<div class="howtocode">
 
 ### How to implement the weighted basis function
 

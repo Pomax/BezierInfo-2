@@ -4,7 +4,7 @@
 
 下面的图形显示了二次曲线和三次曲线的差值方程，“S”代表了点对贝塞尔方程总和的贡献。点击或拖动点来看看在特定的<i>t</i>值时，每个曲线定义的点的插值百分比。
 
-<div className="figure">
+<div class="figure">
   <Graphic inline={true} title="二次插值"  draw={this.drawQuadraticLerp}/>
   <Graphic inline={true} title="三次插值"      draw={this.drawCubicLerp}/>
   <Graphic inline={true} title="15次插值" draw={this.draw15thLerp}/>
@@ -38,7 +38,7 @@
 
 我们还能对贝塞尔曲线做些什么？实际上还有很多。文章接下来涉及到我们可能运用到的一系列操作和算法，以及它们可以完成的任务。
 
-<div className="howtocode">
+<div class="howtocode">
 
 ### 如何实现权重基本函数
 

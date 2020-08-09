@@ -76,7 +76,7 @@ This is easier because for the "easier formula" we can use [regular calculus](ht
 
 So, the trick is to figure out how to turn the first formula into the second formula, and to then work out the maths that gives us the roots. This is explained in detail over at [Ken J. Ward's page](https://trans4mind.com/personal_development/mathematics/polynomials/cubicAlgebra.htm) for solving the cubic equation, so instead of showing the maths, I'm simply going to show the programming code for solving the cubic equation, with the complex roots getting totally ignored.
 
-<div className="howtocode">
+<div class="howtocode">
 
 ### Implementing Cardano's algorithm for finding all real roots
 
