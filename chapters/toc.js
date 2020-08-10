@@ -1,10 +1,5 @@
 /**
- * This is an ordered list of all sections used in the Bezier primer.
- *
- * The ordering you see here reflects the ordering in which sections
- '* are present on the Primer page',
- * a REALLY good reason to =)
- *
+ * This is the section ordering used in the Primer.
  */
 export default [
   'preface',
@@ -61,7 +56,7 @@ export default [
   // "things made of more than on curve"
   'polybezier',
   'shapes',
-  // 'drawing',
+  // 'drawing', // still just waiting to be finished......
 
   // curve offsetting
   'projections',

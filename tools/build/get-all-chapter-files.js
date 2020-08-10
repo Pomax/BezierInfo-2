@@ -9,7 +9,8 @@ const BASEDIR = path.join(__dirname, "..", "..");
 /**
  * ...docs go here...
  */
-export default /* async */ function getAllChapterFiles() {
+
+/* async */ function getAllChapterFiles() {
   return new Promise((resolve, reject) => {
     glob(path.join(BASEDIR, `chapters/**/content*md`), (err, files) => {
       if (err) reject(err);
@@ -28,3 +29,5 @@ export default /* async */ function getAllChapterFiles() {
     });
   });
 }
+
+export { getAllChapterFiles };

@@ -912,21 +912,54 @@ function Bezier(3,t):
             curve-defining point at a specific <i>t</i> value.
           </p>
           <div class="figure">
-            <Graphic
-              inline="{true}"
+            <graphics-element
               title="Quadratic interpolations"
-              draw="{this.drawQuadraticLerp}"
-            />
-            <Graphic
-              inline="{true}"
+              width="275"
+              height="275"
+              src="./chapters/control/lerp-quadratic.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="./images/chapters/control/lerp-quadratic.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image></graphics-element
+            >
+            <graphics-element
               title="Cubic interpolations"
-              draw="{this.drawCubicLerp}"
-            />
-            <Graphic
-              inline="{true}"
+              width="275"
+              height="275"
+              src="./chapters/control/lerp-cubic.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="./images/chapters/control/lerp-cubic.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image></graphics-element
+            >
+            <graphics-element
               title="15th degree interpolations"
-              draw="{this.draw15thLerp}"
-            />
+              width="275"
+              height="275"
+              src="./chapters/control/lerp-fifteenth.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="./images/chapters/control/lerp-fifteenth.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image></graphics-element
+            >
           </div>
 
           <p>
@@ -967,11 +1000,22 @@ function Bezier(3,t):
             loading="lazy"
           />
           <p>Which gives us the curve we saw at the top of the article:</p>
-          <Graphic
+          <graphics-element
             title="Our cubic Bézier curve"
-            setup="{this.drawCubic}"
-            draw="{this.drawCurve}"
-          />
+            width="275"
+            height="275"
+            src="./chapters/control/../introduction/cubic.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="./images/chapters/control/../introduction/cubic.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
 
           <p>
             What else can we do with Bézier curves? Quite a lot, actually. The
