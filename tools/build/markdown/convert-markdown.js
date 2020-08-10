@@ -1,27 +1,30 @@
 import marked from "marked";
-import latexToSVG from "./latex/latex-to-svg.js";
-import injectGraphicsFallback from "./markdown/inject-fallback.js";
-import extractLaTeX from "./markdown/extract-latex.js";
+import latexToSVG from "../latex/latex-to-svg.js";
+import preprocessGraphicsElement from "./preprocess-graphics-element.js";
+import extractLaTeX from "./extract-latex.js";
 import nunjucks from "nunjucks";
 nunjucks.configure(".", { autoescape: false });
 
 /**
  * ...docs go here...
  */
-export default async function convertMarkDown(
-  chapter,
-  localeStrings,
-  markdown
-) {
-  markdown = injectGraphicsFallback(chapter, localeStrings, markdown);
+async function convertMarkDown(chapter, localeStrings, markdown) {
+  markdown = preprocessGraphicsElement(chapter, localeStrings, markdown);
 
+  // This yields the original markdown with all LaTeX blocked replaced with
+  // uniquely named templating variables, referencing keys in the `latex` array.
   const { data, latex } = extractLaTeX(markdown);
 
   await Promise.all(
-    Object.keys(latex).map(async (key, pos) => {
-      const svg = await latexToSVG(latex[key], chapter, localeStrings, pos + 1);
-      return (latex[key] = svg);
-    })
+    Object.keys(latex).map(
+      async (key, pos) =>
+        (latex[key] = await latexToSVG(
+          latex[key],
+          chapter,
+          localeStrings,
+          pos + 1
+        ))
+    )
   );
 
   let converted = marked(data, {
@@ -44,3 +47,5 @@ export default async function convertMarkDown(
 
   return nunjucks.renderString(converted, latex);
 }
+
+export { convertMarkDown };

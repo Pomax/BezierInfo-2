@@ -1,7 +1,7 @@
 import fs from "fs-extra";
 import path from "path";
-import convertMarkDown from "./convert-markdown.js";
-import generatePlaceHolders from "./generate-placeholders.js";
+import { convertMarkDown } from "./markdown/convert-markdown.js";
+import { generatePlaceHolders } from "./graphics/generate-placeholders.js";
 import nunjucks from "nunjucks";
 import toc from "../../chapters/toc.js";
 
@@ -23,13 +23,8 @@ nunjucks.configure(".", { autoescape: false });
 /**
  * ...docs go here...
  */
-export default async function processLocale(
-  locale,
-  localeStrings,
-  chapterFiles
-) {
+async function processLocale(locale, localeStrings, chapterFiles) {
   const defaultLocale = localeStrings.getDefaultLocale();
-  const translate = localeStrings.translate;
 
   const localeFiles = chapterFiles[locale];
   let localized = 0;
@@ -80,3 +75,5 @@ export default async function processLocale(
 
   return chapters;
 }
+
+export { processLocale };

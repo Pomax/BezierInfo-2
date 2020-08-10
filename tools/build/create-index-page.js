@@ -11,11 +11,7 @@ nunjucks.configure(".", { autoescape: false });
 /**
  * ...docs go here...
  */
-export default async function createIndexPages(
-  locale,
-  localeStrings,
-  chapters
-) {
+async function createIndexPages(locale, localeStrings, chapters) {
   const defaultLocale = localeStrings.getDefaultLocale();
   const base = locale !== defaultLocale ? `<base href="..">` : ``;
   const langSwitcher = generateLangSwitcher(localeStrings);
@@ -70,3 +66,5 @@ export default async function createIndexPages(
     fs.writeFileSync(path.join(locale, `index.html`), data, `utf8`);
   }
 }
+
+export { createIndexPages };

@@ -1,8 +1,11 @@
-import splitCodeSections from "../../lib/custom-element/lib/split-code-sections.js";
-import performCodeSurgery from "../../lib/custom-element/lib/perform-code-surgery.js";
+import splitCodeSections from "../../../lib/custom-element/lib/split-code-sections.js";
+import performCodeSurgery from "../../../lib/custom-element/lib/perform-code-surgery.js";
 import prettier from "prettier";
 
-export default function rewriteGraphicsElement(code, width, height) {
+/**
+ * ...docs go here...
+ */
+function generateGraphicsModule(code, width, height) {
   const split = splitCodeSections(code);
   const globalCode = split.quasiGlobal;
   const classCode = performCodeSurgery(split.classCode);
@@ -10,7 +13,7 @@ export default function rewriteGraphicsElement(code, width, height) {
   return prettier.format(
     `
         import CanvasBuilder from 'canvas';
-        import { GraphicsAPI, Bezier, Vector } from "../../lib/custom-element/api/graphics-api.js";
+        import { GraphicsAPI, Bezier, Vector } from "../../../lib/custom-element/api/graphics-api.js";
 
         const noop = (()=>{});
 
@@ -37,3 +40,5 @@ export default function rewriteGraphicsElement(code, width, height) {
     { parser: `babel` }
   );
 }
+
+export { generateGraphicsModule };

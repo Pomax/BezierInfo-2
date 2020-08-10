@@ -8,19 +8,21 @@
   "homepage": "https://pomax.github.io/bezierinfo",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Pomax/bezierinfo.git"
+    "url": "git+https://github.com/Pomax/BezierInfo-2.git"
   },
   "bugs": {
-    "url": "https://github.com/Pomax/bezierinfo/issues"
+    "url": "https://github.com/Pomax/BezierInfo-2/issues"
   },
   "scripts": {
-    "time": "node ./mark.js",
-    "start": "run-s time lint build time",
-    "lint": "prettier ./tools --write",
-    "build": "node ./tools/build.js",
+    "start": "rm -f .timing && run-s time lint:* build time",
     "test": "run-p server browser",
+    "---": "---",
+    "browser": "open-cli http://localhost:8000",
+    "build": "node ./tools/build.js",
+    "lint:tools": "prettier ./tools --write",
+    "lint:lib": "prettier ./lib --write",
     "server": "http-server -p 8000 --cors",
-    "browser": "open-cli http://localhost:8000"
+    "time": "node ./mark.js"
   },
   "keywords": [
     "Bezier",
@@ -33,7 +35,6 @@
   "devDependencies": {
     "bezier-js": "^2.6.1",
     "canvas": "^2.6.1",
-    "codesurgeon": "file:./lib/custom-element",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
     "http-server": "^0.12.3",
