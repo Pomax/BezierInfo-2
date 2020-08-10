@@ -119,7 +119,7 @@ async function generateFallbackImage(src, width, height) {
   const start = dataURI.indexOf(`base64,`) + 7;
   const imageData = Buffer.from(dataURI.substring(start), `base64`);
 
-  fs.ensureDirSync(path.dirname(destPath));
+  fs.ensureDirSync(path.dirname(filename));
   fs.writeFileSync(filename, imageData);
   console.log(`Generated fallback image for ${src}`);
 

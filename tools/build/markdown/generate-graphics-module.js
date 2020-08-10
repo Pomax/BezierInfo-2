@@ -23,12 +23,13 @@ function generateGraphicsModule(code, width, height) {
 
         const example = new Example(undefined, ${width}, ${height}, (w,h) => {
             const canvas = CanvasBuilder.createCanvas(w,h);
+            const ctx = canvas.getContext('2d');
+
+            // as this is node-canvas, we need to shim some functions:
             canvas.addEventListener = canvas.setAttribute = noop;
             canvas.classList = { add: noop };
             canvas.style = {};
-
-            const ctx = canvas.getContext('2d');
-            ctx.getTransform = () => ctx.currentTransform; // node-canvas lacks getTransform() support?
+            ctx.getTransform = () => ctx.currentTransform;
 
             return { canvas, ctx};
         });
