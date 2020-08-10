@@ -4,10 +4,8 @@ Dev repository for https://Pomax.github.io/bezierinfo
 
 ## Working on the code
 
-- To run this dev version: `npm start`, then view in the browser on [http://localhost:8080](http://localhost:8080)
-- To compile for production: `npm run build`.
-
-Both operations run continuous linting. Also note that there are specific requirements for development, see the section on dev requirements below.
+- To compile changes: `npm start`.
+- To run this dev version, run `npm test`, which will run a webserver and open [http://localhost:8080](http://localhost:8080) in your default browser.
 
 ## Dev location
 
@@ -32,14 +30,14 @@ All fonts come with TeXLive and MiKTeX, and should be easy to install. Note that
 
 ### Running a build
 
-As mentioned up top, run a build using `npm run build`.
+As mentioned up top, run a build using `npm start`.
 
 If you have all the prerequisites installed, this should "just work", although I can't make any guarantees on how long it will take: on my rather beefy workstation it takes around 85 seconds to run a build for all locales (`en-GB`, `zh-CN`, and `ja-JP`) when there are no new SVG images to generate.
 
 ## Main site location
 
-- Main repository: https://github.com/Pomax/BezierInfo
-- Main site: https://Pomax.github.io/BezierInfo
+- Main repository: https://github.com/Pomax/bezierInfo
+- Main site: https://pomax.github.io/bezierInfo
 
 ## Localization
 
