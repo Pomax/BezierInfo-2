@@ -1,7 +1,6 @@
 import fs from "fs-extra";
 import path from "path";
 import { convertMarkDown } from "./markdown/convert-markdown.js";
-import { generatePlaceHolders } from "./graphics/generate-placeholders.js";
 import nunjucks from "nunjucks";
 import toc from "../../chapters/toc.js";
 
@@ -53,9 +52,11 @@ async function processLocale(locale, localeStrings, chapterFiles) {
     localeFiles.map(async (file) => {
       const chapter = file.match(/chapters\/([^/]+)\/content./)[1];
       const markdown = fs.readFileSync(file).toString("utf8");
-      const converted = await convertMarkDown(chapter, localeStrings, markdown);
-      chapters[chapter] = converted;
-      generatePlaceHolders(localeStrings, converted); // ← this is super fancy functionality.
+      chapters[chapter] = await convertMarkDown(
+        chapter,
+        localeStrings,
+        markdown
+      );
     })
   );
 

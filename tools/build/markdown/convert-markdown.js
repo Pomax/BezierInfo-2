@@ -9,7 +9,7 @@ nunjucks.configure(".", { autoescape: false });
  * ...docs go here...
  */
 async function convertMarkDown(chapter, localeStrings, markdown) {
-  markdown = preprocessGraphicsElement(chapter, localeStrings, markdown);
+  markdown = await preprocessGraphicsElement(chapter, localeStrings, markdown);
 
   // This yields the original markdown with all LaTeX blocked replaced with
   // uniquely named templating variables, referencing keys in the `latex` array.
