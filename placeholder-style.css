@@ -19,6 +19,22 @@ h1 {
     padding: 0.2em 0.5em;
 }
 
+label[for="changelogtoggle"] {
+    display: inline-block;
+    cursor: pointer;
+    color: #2929b3;
+    margin-left: 2em;
+}
+
+#changelogtoggle {
+    display: none;
+}
+
+#changelogtoggle:not(:checked) ~ * {
+    display: none;
+}
+
+
 #chapters {
     counter-reset: section;
 }

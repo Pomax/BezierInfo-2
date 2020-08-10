@@ -69,7 +69,11 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
         `\\documentclass[12pt]{article}`,
         `\\usepackage[paperwidth=12in, paperheight=12in]{geometry}`,
         `\\pagestyle{empty}`,
-        `\\usepackage{color}`,
+        `\\usepackage[dvipsnames]{xcolor}`,
+        `\\definecolor{darkred}{rgb}{0.6,0,0}`,
+        `\\definecolor{darkgreen}{rgb}{0,0.6,0}`,
+        `\\definecolor{darkblue}{rgb}{0,0,0.6}`,
+        `\\definecolor{amber}{rgb}{0.9,0.6,0}`,
         `\\usepackage{amsmath}`,
         `\\usepackage{unicode-math}`,
       ]

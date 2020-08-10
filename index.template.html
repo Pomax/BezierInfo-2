@@ -64,6 +64,11 @@
       <section id="changelog">
         <h1>{{ changelogTitle }}</h1>
         <p>{{ changelogDescription }}</p>
+
+        <!-- non-JS content reveals are nice -->
+        <label for="changelogtoggle">{{ toggleLabel }}</label>
+        <input type="checkbox" id="changelogtoggle">
+
         <section>{{ changelog }}</section>
       </section>
       <section id="chapters">{{ chapters }}</section>

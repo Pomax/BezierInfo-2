@@ -37,6 +37,9 @@ const localeStringData = {
   changelogTitle: {
     "en-GB": "What's new?",
   },
+  toggleLabel: {
+    "en-GB": "Toggle changes",
+  },
   changelogDescription: {
     "en-GB":
       "This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when.",

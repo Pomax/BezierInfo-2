@@ -4,6 +4,7 @@ import { generateGraphicsModule } from "./generate-graphics-module.js";
 
 const moduleURL = new URL(import.meta.url);
 const __dirname = path.dirname(moduleURL.href.replace(`file:///`, ``));
+const __root = path.join(__dirname, `..`, `..`, `..`);
 
 /**
  * ...docs go here...
@@ -39,7 +40,7 @@ async function generatePlaceHolders(localeStrings, markdown) {
     sourcePaths.map(async (srcPath, i) => {
       try {
         // Get the sketch code
-        const sourcePath = path.join(__dirname, "..", "..", "..", srcPath);
+        const sourcePath = path.join(__root, srcPath);
         let code;
         try {
           code = fs.readFileSync(sourcePath).toString(`utf8`);
@@ -67,7 +68,7 @@ async function generatePlaceHolders(localeStrings, markdown) {
         const dataURI = canvas.toDataURL();
         const start = dataURI.indexOf(`base64,`) + 7;
         const imageData = Buffer.from(dataURI.substring(start), `base64`);
-        const destPath = path.join(__dirname, "..", "..", "images", srcPath);
+        const destPath = path.join(__root, `images`, srcPath);
         const filename = destPath.replace(`.js`, `.png`);
 
         // console.log(`Writing placeholder to ${filename}`);

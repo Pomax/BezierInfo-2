@@ -1,3 +1,5 @@
+import path from "path";
+
 /**
  * ...docs go here...
  */
@@ -44,10 +46,14 @@ function preprocessGraphicsElement(chapter, localeStrings, markdown) {
             src = src.replace(`./`, `./chapters/${chapter}/`);
           }
 
-          let img = src.replace(`./`, `./images/`).replace(`.js`, `.png`);
-
-          // TODO: generate fallback image right here, since this is where we need
+          // TODO: generate a fallback image here, since this is where we need
           //       to know what the code-hash is so we can properly link images.
+
+          let imageHash = generateFallbackImage(src);
+          let img = path.join(
+            path.dirname(src.replace(`./`, `./images/`)),
+            `${imageHash}.png`
+          );
 
           return `width="${width}" height="${height}" src="${src}">
             <fallback-image>
@@ -62,6 +68,10 @@ function preprocessGraphicsElement(chapter, localeStrings, markdown) {
   } while (pos !== -1);
 
   return data;
+}
+
+function generateFallbackImage(src) {
+  return path.basename(src).replace(`.js`, ``);
 }
 
 export default preprocessGraphicsElement;
