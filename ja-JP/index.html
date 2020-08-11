@@ -817,23 +817,39 @@ function Bezier(3,t,w[]):
             loading="lazy"
           />
           <p>
-            In this, the first new term represents the ratio for each
-            coordinate, as a multiplication factor. If our ratio values are [1,
-            0.5, 0.5, 1] then <code>ratio<sub>0</sub> = 1</code>,
-            <code>ratio<sub>1</sub> = 0.5</code>, and so on. The second term
-            then corrects for all those multiplications by dividing the total
-            value by the "basis" value of the Bézier curve, i.e. the value we
-            get by computing the curve without any weighting (but
-            <em>with</em> ratios):
+            In this, the first new term represents an additional weight for each
+            coordinate. For example, if our ratio values are [1, 0.5, 0.5, 1]
+            then <code>ratio<sub>0</sub> = 1</code>,
+            <code>ratio<sub>1</sub> = 0.5</code>, and so on, and is effectively
+            identical as if we were just using different weight. So far, nothing
+            too special.
           </p>
           <p>
-            So what does this actually do? Let's look at the effect of
-            "rationalising" our Bézier curves by interacting with the curve and
-            ratios. The following graphic shows the curve from the previous
-            section, enriched with ratio factors: the closer to zero we set one
-            or more terms, the less relative influence the associated coordinate
-            exerts on the curve (and of course the higher we set them, the more
-            influence they have).
+            However, the second new term is what makes the difference: every
+            point on the curve isn't just a "double weighted" point, it is a
+            <em>fraction</em> of the "doubly weighted" value we compute by
+            introducing that ratio. When computing points on the curve, we
+            compute the "normal" Bézier value and then <em>divide</em> that by
+            the Bézier value for the curve that only uses ratios, not weights.
+          </p>
+          <p>
+            This does something unexpected: it turns our polynomial into
+            something that <em>isn't</em> a polynomial anymore. It is now a kind
+            of curve that is a super class of the polynomials, and can do some
+            really cool things that Bézier curves can't do "on their own", such
+            as perfectly describing circles (which we'll see in a later section
+            is literally impossible using standard Bézier curves).
+          </p>
+          <p>
+            But the best way to show what this does is to do literally that:
+            let's look at the effect of "rationalising" our Bézier curves using
+            an interactive graphic for a rationalised curves. The following
+            graphic shows the Bézier curve from the previous section, "enriched"
+            with ratio factors for each coordinate. The closer to zero we set
+            one or more terms, the less relative influence the associated
+            coordinate exerts on the curve (and of course the higher we set
+            them, the more influence they have). Try to change the values and
+            see how it affects what gets drawn:
           </p>
           <graphics-element
             title="Our rational cubic Bézier curve"
@@ -952,16 +968,38 @@ function RationalBezier(3,t,w[],r[]):
           <p>
             下の2つの図は「いつもの方法」で描いたベジエ曲線ですが、これと一緒に、<code>t</code>の値をずっと先まで広げた場合の「延びた」ベジエ曲線も表示しています。見てわかるように、曲線の残りの部分には多くの「かたち」が隠れています。そして曲線の点を動かせば、その部分の形状も変わります。
           </p>
-          <Graphic
+          <graphics-element
             title="無限区間の2次ベジエ曲線"
-            setup="{this.setupQuadratic}"
-            draw="{this.draw}"
-          />
-          <Graphic
+            width="275"
+            height="275"
+            src="./chapters/extended/quadratic.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\extended\3953e70caad4d8af3d0d9fb3b99fcdb4.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
+          <graphics-element
             title="無限区間の3次ベジエ曲線"
-            setup="{this.setupCubic}"
-            draw="{this.draw}"
-          />
+            width="275"
+            height="275"
+            src="./chapters/extended/cubic.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\extended\90028fd96e5bdf547a0dd356bb56ea61.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
 
           <p>
             実際に、グラフィックデザインやコンピュータモデリングで使われている曲線の中には、座標が固定されていて、区間は自由に動かせるような曲線があります。これは、区間が固定されていて、座標を自由に動かすことのできるベジエ曲線とは反対になっています。すばらしい例が<a

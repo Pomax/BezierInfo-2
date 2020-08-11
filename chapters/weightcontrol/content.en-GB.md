@@ -14,9 +14,13 @@ The function for rational Bézier curves has two more terms:
   Rational\ Bézier(n,t) = \frac{ \sum_{i=0}^{n} \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i} \cdot w_i \cdot BLUE[ratio_i] }{ BLUE[ \sum_{i=0}^{n} \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i} \cdot ratio_i ] }
 \]
 
-In this, the first new term represents the ratio for each coordinate, as a multiplication factor. If our ratio values are [1, 0.5, 0.5, 1] then <code>ratio<sub>0</sub> = 1</code>, <code>ratio<sub>1</sub> = 0.5</code>, and so on. The second term then corrects for all those multiplications by dividing the total value by the "basis" value of the Bézier curve, i.e. the value we get by computing the curve without any weighting (but _with_ ratios):
+In this, the first new term represents an additional weight for each coordinate. For example, if our ratio values are [1, 0.5, 0.5, 1] then <code>ratio<sub>0</sub> = 1</code>, <code>ratio<sub>1</sub> = 0.5</code>, and so on, and is effectively identical as if we were just using different weight. So far, nothing too special.
 
-So what does this actually do? Let's look at the effect of "rationalising" our Bézier curves by interacting with the curve and ratios. The following graphic shows the curve from the previous section, enriched with ratio factors: the closer to zero we set one or more terms, the less relative influence the associated coordinate exerts on the curve (and of course the higher we set them, the more influence they have).
+However, the second new term is what makes the difference: every point on the curve isn't just a "double weighted" point, it is a _fraction_ of the "doubly weighted" value we compute by introducing that ratio. When computing points on the curve, we compute the "normal" Bézier value and then _divide_ that by the Bézier value for the curve that only uses ratios, not weights.
+
+This does something unexpected: it turns our polynomial into something that _isn't_ a polynomial anymore. It is now a kind of curve that is a super class of the polynomials, and can do some really cool things that Bézier curves can't do "on their own", such as perfectly describing circles (which we'll see in a later section is literally impossible using standard Bézier curves).
+
+But the best way to show what this does is to do literally that: let's look at the effect of "rationalising" our Bézier curves using an interactive graphic for a rationalised curves. The following graphic shows the Bézier curve from the previous section, "enriched" with ratio factors for each coordinate. The closer to zero we set one or more terms, the less relative influence the associated coordinate exerts on the curve (and of course the higher we set them, the more influence they have). Try to change the values and see how it affects what gets drawn:
 
 <graphics-element title="Our rational cubic Bézier curve" src="./rational.js">
   ratio 1 <input type="range" min="0" max="2" value="1" step="0.01"><span>1.0</span><br>

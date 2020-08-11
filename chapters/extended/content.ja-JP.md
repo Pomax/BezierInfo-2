@@ -22,7 +22,7 @@
 
 下の2つの図は「いつもの方法」で描いたベジエ曲線ですが、これと一緒に、`t`の値をずっと先まで広げた場合の「延びた」ベジエ曲線も表示しています。見てわかるように、曲線の残りの部分には多くの「かたち」が隠れています。そして曲線の点を動かせば、その部分の形状も変わります。
 
-<Graphic title="無限区間の2次ベジエ曲線" setup={this.setupQuadratic} draw={this.draw} />
-<Graphic title="無限区間の3次ベジエ曲線" setup={this.setupCubic} draw={this.draw} />
+<graphics-element title="無限区間の2次ベジエ曲線" src="./quadratic.js"></graphics-element>
+<graphics-element title="無限区間の3次ベジエ曲線" src="./cubic.js"></graphics-element>
 
 実際に、グラフィックデザインやコンピュータモデリングで使われている曲線の中には、座標が固定されていて、区間は自由に動かせるような曲線があります。これは、区間が固定されていて、座標を自由に動かすことのできるベジエ曲線とは反対になっています。すばらしい例が[「Spiro」曲線](http://levien.com/phd/phd.html)で、これは[オイラー螺旋とも呼ばれるクロソイド曲線](https://ja.wikipedia.org/wiki/クロソイド曲線)の一部分に基づいた曲線です。非常に美しく心地よい曲線で、[FontForge](https://fontforge.github.io)や[Inkscape](https://inkscape.org/ja/)など多くのグラフィックアプリに実装されており、フォントデザインにも利用されています（Inconsolataフォントなど）。
