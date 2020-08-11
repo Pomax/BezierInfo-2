@@ -11,27 +11,21 @@ Adding these ratio values to the regular Bézier curve function is fairly easy. 
 The function for rational Bézier curves has two more terms:
 
 \[
-  Rational\ Bézier(n,t) = \left ( \sum_{i=0}^{n} \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i} \cdot w_i \cdot BLUE[ratio_i] \right ) \cdot BLUE[\frac{ 1 }{ Basis_{(n,t)} }]
+  Rational\ Bézier(n,t) = \frac{ \sum_{i=0}^{n} \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i} \cdot w_i \cdot BLUE[ratio_i] }{ BLUE[ \sum_{i=0}^{n} \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i} \cdot ratio_i ] }
 \]
 
-In this, the first new term represents the ratio for each coordinate, as a multiplication factor. If our ratio values are [1, 0.5, 0.5, 1] then <code>ratio<sub>0</sub> = 1</code>, <code>ratio<sub>1</sub> = 0.5</code>, and so on. The second term then corrects for all those multiplications by dividing the total value by the "basis" value of the Bézier curve, i.e. the value we get by computing the curve without any weighting at (but _with_ ratios):
+In this, the first new term represents the ratio for each coordinate, as a multiplication factor. If our ratio values are [1, 0.5, 0.5, 1] then <code>ratio<sub>0</sub> = 1</code>, <code>ratio<sub>1</sub> = 0.5</code>, and so on. The second term then corrects for all those multiplications by dividing the total value by the "basis" value of the Bézier curve, i.e. the value we get by computing the curve without any weighting (but _with_ ratios):
 
-\[
-  Basis_{n,t} = \sum_{i=0}^{n} \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i} \cdot ratio_i
-\]
+So what does this actually do? Let's look at the effect of "rationalising" our Bézier curves by interacting with the curve and ratios. The following graphic shows the curve from the previous section, enriched with ratio factors: the closer to zero we set one or more terms, the less relative influence the associated coordinate exerts on the curve (and of course the higher we set them, the more influence they have).
 
-So what does this actually do?
+<graphics-element title="Our rational cubic Bézier curve" src="./rational.js">
+  ratio 1 <input type="range" min="0" max="2" value="1" step="0.01"><span>1.0</span><br>
+  ratio 2 <input type="range" min="0" max="2" value="1" step="0.01"><span>1.0</span><br>
+  ratio 3 <input type="range" min="0" max="2" value="1" step="0.01"><span>1.0</span><br>
+  ratio 4 <input type="range" min="0" max="2" value="1" step="0.01"><span>1.0</span>
+</graphics-element>
 
-Let's look at the effect of "rationalising" our Bézier curves by interacting with the curve and ratios. The following graphic shows the curve from the previous section, enriched with ratio factors: the closer to zero we set one or more terms, the less relative influence the associated coordinates exert on the curve (and of course the higher we set them, the more influence they have).
-
-<Graphic title="Our rational cubic Bézier curve" setup={this.drawCubic} draw={this.drawCurve} sliders={[
-  {min:0, max:2, value:1, step:0.01, label:`ratio 1`},
-  {min:0, max:2, value:1, step:0.01, label:`ratio 2`},
-  {min:0, max:2, value:1, step:0.01, label:`ratio 3`},
-  {min:0, max:2, value:1, step:0.01, label:`ratio 4`}
-]} setSliders={this.setRatio} onSlide={this.changeRatio} context={this}/>
-
- You can think of the ratio values as each coordinate's "gravity": the higher the gravity, the closer to that coordinate the curve will want to be. You'll also notice that if you simply increase or decrease all the ratios by the same amount, nothing changes... much like with gravity, if the relative strengths stay the same, nothing really changes. The values define each coordinate's influence _relative to all other points_.
+You can think of the ratio values as each coordinate's "gravity": the higher the gravity, the closer to that coordinate the curve will want to be. You'll also notice that if you simply increase or decrease all the ratios by the same amount, nothing changes... much like with gravity, if the relative strengths stay the same, nothing really changes. The values define each coordinate's influence _relative to all other points_.
 
 <div class="howtocode">
 

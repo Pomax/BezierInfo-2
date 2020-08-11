@@ -14,7 +14,7 @@
     "url": "https://github.com/Pomax/BezierInfo-2/issues"
   },
   "scripts": {
-    "start": "rm -f .timing && run-s time lint:* build time",
+    "start": "rm -f .timing && run-s time lint:* build time && rm -f .timing",
     "test": "run-p server browser",
     "---": "---",
     "browser": "open-cli http://localhost:8000",
@@ -35,9 +35,12 @@
   "devDependencies": {
     "bezier-js": "^2.6.1",
     "canvas": "^2.6.1",
+    "clean-html": "^1.5.0",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
+    "html": "^1.0.0",
     "http-server": "^0.12.3",
+    "indent": "0.0.2",
     "marked": "^1.1.1",
     "npm-run-all": "^4.1.5",
     "nunjucks": "^3.2.2",

@@ -912,9 +912,9 @@ function Bezier(3,t):
           <p>
             The following graphs show the interpolation functions for quadratic
             and cubic curves, with "S" being the strength of a point's
-            contribution to the total sum of the Bézier function. Click or
-            click-drag to see the interpolation percentages for each
-            curve-defining point at a specific <i>t</i> value.
+            contribution to the total sum of the Bézier function. Click-and-drag
+            to see the interpolation percentages for each curve-defining point
+            at a specific <i>t</i> value.
           </p>
           <div class="figure">
             <graphics-element
@@ -1081,9 +1081,9 @@ function Bezier(3,t,w[]):
           <p>The function for rational Bézier curves has two more terms:</p>
           <img
             class="LaTeX SVG"
-            src="images/latex/39364a247a023d475d107aaf7b99d80c.svg"
-            width="489px"
-            height="44px"
+            src="images/latex/3fd61ab3fe88f694e70f61e4f8ea056b.svg"
+            width="407px"
+            height="48px"
             loading="lazy"
           />
           <p>
@@ -1093,35 +1093,51 @@ function Bezier(3,t,w[]):
             <code>ratio<sub>1</sub> = 0.5</code>, and so on. The second term
             then corrects for all those multiplications by dividing the total
             value by the "basis" value of the Bézier curve, i.e. the value we
-            get by computing the curve without any weighting at (but
+            get by computing the curve without any weighting (but
             <em>with</em> ratios):
           </p>
-          <img
-            class="LaTeX SVG"
-            src="images/latex/03df4af5636ff82d3e964de0b9727f23.svg"
-            width="271px"
-            height="41px"
-            loading="lazy"
-          />
-          <p>So what does this actually do?</p>
           <p>
-            Let's look at the effect of "rationalising" our Bézier curves by
-            interacting with the curve and ratios. The following graphic shows
-            the curve from the previous section, enriched with ratio factors:
-            the closer to zero we set one or more terms, the less relative
-            influence the associated coordinates exert on the curve (and of
-            course the higher we set them, the more influence they have).
+            So what does this actually do? Let's look at the effect of
+            "rationalising" our Bézier curves by interacting with the curve and
+            ratios. The following graphic shows the curve from the previous
+            section, enriched with ratio factors: the closer to zero we set one
+            or more terms, the less relative influence the associated coordinate
+            exerts on the curve (and of course the higher we set them, the more
+            influence they have).
           </p>
-          <p>
-            &lt;Graphic title="Our rational cubic Bézier curve"
-            setup={this.drawCubic} draw={this.drawCurve} sliders={[ {min:0,
-            max:2, value:1, step:0.01, label:<code>ratio 1</code>}, {min:0,
-            max:2, value:1, step:0.01, label:<code>ratio 2</code>}, {min:0,
-            max:2, value:1, step:0.01, label:<code>ratio 3</code>}, {min:0,
-            max:2, value:1, step:0.01, label:<code>ratio 4</code>} ]}
-            setSliders={this.setRatio} onSlide={this.changeRatio}
-            context={this}/&gt;
-          </p>
+          <graphics-element
+            title="Our rational cubic Bézier curve"
+            width="275"
+            height="275"
+            src="./chapters/weightcontrol/rational.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\weightcontrol\1128afb7511e00ad4c5e8c0628204b56.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image>
+            ratio 1
+            <input type="range" min="0" max="2" value="1" step="0.01" /><span
+              >1.0</span
+            ><br />
+            ratio 2
+            <input type="range" min="0" max="2" value="1" step="0.01" /><span
+              >1.0</span
+            ><br />
+            ratio 3
+            <input type="range" min="0" max="2" value="1" step="0.01" /><span
+              >1.0</span
+            ><br />
+            ratio 4
+            <input type="range" min="0" max="2" value="1" step="0.01" /><span
+              >1.0</span
+            >
+          </graphics-element>
+
           <p>
             You can think of the ratio values as each coordinate's "gravity":
             the higher the gravity, the closer to that coordinate the curve will

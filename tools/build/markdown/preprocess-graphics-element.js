@@ -28,8 +28,9 @@ async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
 
       // if there are no width/height attributes, inject them
 
-      // FIXME:   This will not work if there is UI html that
-      // TODO:    uses width/height attributes, of course!
+      // FIXME: This will not work if there is UI html that uses the
+      // TODO:  width/height attributes, but the graphics-element
+      //        does not,  of course! [known bug]
 
       if (updated.indexOf(`width=`) === -1)
         updated = updated.replace(
@@ -78,8 +79,7 @@ async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
 }
 
 /**
- *
- * @param {*} src
+ * ...docs go here...
  */
 async function generateFallbackImage(src, width, height) {
   // Get the sketch code

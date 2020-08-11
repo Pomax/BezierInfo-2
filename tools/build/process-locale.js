@@ -23,6 +23,8 @@ nunjucks.configure(".", { autoescape: false });
  * ...docs go here...
  */
 async function processLocale(locale, localeStrings, chapterFiles) {
+  const start = Date.now();
+
   const defaultLocale = localeStrings.getDefaultLocale();
 
   const localeFiles = chapterFiles[locale];
@@ -73,6 +75,9 @@ async function processLocale(locale, localeStrings, chapterFiles) {
   } else {
     console.log(`${locale} fully localized.`);
   }
+
+  const end = Date.now();
+  console.log(`Processing ${locale} took ${(end - start) / 1000}s`);
 
   return chapters;
 }

@@ -1,5 +1,6 @@
 import fs from "fs-extra";
 import path from "path";
+
 import prettier from "prettier";
 import generateLangSwitcher from "./generate-lang-switcher.js";
 import nunjucks from "nunjucks";
@@ -57,7 +58,11 @@ async function createIndexPages(locale, localeStrings, chapters) {
 
   const index = nunjucks.render(`index.template.html`, context);
 
+  // TODO: FIXME: Prettier is slow as hell, find an alternative that isn't...
+  const start = Date.now();
   const data = prettier.format(index, { parser: `html` });
+  const end = Date.now();
+  console.log(`beautification for ${locale} took ${(end - start) / 1000}s`);
 
   if (locale === defaultLocale) {
     fs.writeFileSync(`index.html`, data, `utf8`);
