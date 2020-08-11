@@ -1,30 +1,33 @@
 setup() {
-    this.curve = Bezier.defaultCubic(this);
-    setMovable(this.curve.points);
+  this.curve = Bezier.defaultCubic(this);
+  setMovable(this.curve.points);
 
-    const inputs = findAll(`input[type=range]`);
-    if (inputs) {
-        const ratios = inputs.map(i => parseFloat(i.value));
-        this.curve.setRatios(ratios);
-        inputs.forEach((input,pos) => {
-            input.listen([`input`], evt => {
-                evt.target.nextSibling.textContent = ratios[pos] = parseFloat(evt.target.value);
-                this.curve.update();
-                this.redraw();
-            });
-        })
-    }
-  }
+  const inputs = findAll(`input[type=range]`);
+  if (inputs) {
+    const ratios = inputs.map(i => parseFloat(i.value));
+    this.curve.setRatios(ratios);
 
-  draw() {
-    clear();
-    const curve = this.curve;
-    curve.drawSkeleton();
-    curve.drawCurve();
-    curve.drawPoints();
+    inputs.forEach((input,pos) => {
+      const span = input.nextSibling;
+      input.listen(`input`, evt => {
+        const value = parseFloat(evt.target.value);
+        span.textContent = ratios[pos] = value;
+        this.curve.update();
+        this.redraw();
+      });
+    })
   }
+}
 
-  onMouseMove() {
-    this.curve.update();
-    redraw();
-  }
+draw() {
+  clear();
+  const curve = this.curve;
+  curve.drawSkeleton();
+  curve.drawCurve();
+  curve.drawPoints();
+}
+
+onMouseMove() {
+  this.curve.update();
+  redraw();
+}
