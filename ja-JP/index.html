@@ -1162,6 +1162,26 @@ function RationalBezier(3,t,w[],r[]):
               1本の直線になるまで繰り返します。その直線上の<code>t</code>の点は、元の曲線上で<code>t</code>となる点に一致しています。
             </li>
           </ul>
+          <p>
+            下の図にマウスを乗せると、この様子を実際に見ることができます。ド・カステリョのアルゴリズムによって曲線上の点を明示的に計算していますが、マウスを動かすと求める点が変わります。マウスカーソルを左から右へ（もちろん、右から左へでも）動かせば、このアルゴリズムによって曲線が生成される様子がわかります。
+          </p>
+          <graphics-element
+            title="ド・カステリョのアルゴリズムで曲線をたどる"
+            width="275"
+            height="275"
+            src="./chapters/decasteljau/decasteljau.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\decasteljau\425ee92efb13c790f63f8b3821327d3b.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
+
           <div class="howtocode">
             <h3>ド・カステリョのアルゴリズムの実装方法</h3>
             <p>いま説明したアルゴリズムを実装すると、以下のようになります。</p>
@@ -1190,15 +1210,6 @@ function RationalBezier(3,t,w[],r[]):
               さて、これは何をしているのでしょう？関数に渡す点のリストが長さ1であれば、点を1つ描きます。それ以外であれば、比率<i>t</i>の位置の点（すなわち、さきほどの説明に出てきた「印」）のリストを作り、そしてこの新しいリストを引数にして関数を呼び出します。
             </p>
           </div>
-
-          <p>
-            下の図にマウスを乗せると、この様子を実際に見ることができます。ド・カステリョのアルゴリズムによって曲線上の点を明示的に計算していますが、マウスを動かすと求める点が変わります。マウスカーソルを左から右へ（もちろん、右から左へでも）動かせば、このアルゴリズムによって曲線が生成される様子がわかります。
-          </p>
-          <Graphic
-            title="ド・カステリョのアルゴリズムで曲線をたどる"
-            setup="{this.setup}"
-            draw="{this.draw}"
-          />
         </section>
         <section id="flattening">
           <h1><a href="#flattening">簡略化した描画</a></h1>

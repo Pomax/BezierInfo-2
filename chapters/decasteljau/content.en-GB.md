@@ -13,6 +13,10 @@ Rather than using our calculus function to find `x/y` values for `t`, let's do t
 - Place markers, form lines, place markers, etc.
 - Repeat this until you have only one line left. The point `t` on that line coincides with the original curve point at `t`.
 
+To see this in action, mouse-over the following sketch. Moving the mouse changes which curve point is explicitly evaluated using de Casteljau's algorithm, moving the cursor left-to-right (or, of course, right-to-left), shows you how a curve is generated using this approach.
+
+<graphics-element title="Traversing a curve using de Casteljau's algorithm" src="./decasteljau.js"></graphics-element>
+
 <div class="howtocode">
 
 ### How to implement de Casteljau's algorithm
@@ -49,6 +53,3 @@ So what does this do? This draws a point, if the passed list of points is only 1
 
 </div>
 
-To see this in action, mouse-over the following sketch. Moving the mouse changes which curve point is explicitly evaluated using de Casteljau's algorithm, moving the cursor left-to-right (or, of course, right-to-left), shows you how a curve is generated using this approach.
-
-<Graphictitle="Traversing a curve using de Casteljau's algorithm" setup={this.setup} draw={this.draw}/>

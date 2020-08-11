@@ -1494,6 +1494,30 @@ function RationalBezier(3,t,w[],r[]):
               point at <code>t</code>.
             </li>
           </ul>
+          <p>
+            To see this in action, mouse-over the following sketch. Moving the
+            mouse changes which curve point is explicitly evaluated using de
+            Casteljau's algorithm, moving the cursor left-to-right (or, of
+            course, right-to-left), shows you how a curve is generated using
+            this approach.
+          </p>
+          <graphics-element
+            title="Traversing a curve using de Casteljau's algorithm"
+            width="275"
+            height="275"
+            src="./chapters/decasteljau/decasteljau.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\decasteljau\425ee92efb13c790f63f8b3821327d3b.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
+
           <div class="howtocode">
             <h3>How to implement de Casteljau's algorithm</h3>
             <p>
@@ -1532,18 +1556,6 @@ function RationalBezier(3,t,w[],r[]):
               for this new list.
             </p>
           </div>
-
-          <p>
-            To see this in action, mouse-over the following sketch. Moving the
-            mouse changes which curve point is explicitly evaluated using de
-            Casteljau's algorithm, moving the cursor left-to-right (or, of
-            course, right-to-left), shows you how a curve is generated using
-            this approach.
-          </p>
-          <p>
-            &lt;Graphictitle="Traversing a curve using de Casteljau's algorithm"
-            setup={this.setup} draw={this.draw}/&gt;
-          </p>
         </section>
         <section id="flattening">
           <h1><a href="#flattening">Simplified drawing</a></h1>

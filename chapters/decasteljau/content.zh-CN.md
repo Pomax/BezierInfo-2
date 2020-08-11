@@ -13,6 +13,10 @@
 - 取记号，连线，取记号，等等。
 - 重复这些步骤，直到剩下一条线。这条线段上的`t`点就是原始曲线在`t`处的点。
 
+我们通过实际操作来观察这个过程。在以下的图表中，移动鼠标来改变用de Casteljau算法计算得到的曲线点，左右移动鼠标，可以实时看到曲线是如何生成的。
+
+<graphics-element title="用de Casteljau算法来遍历曲线" src="./decasteljau.js"></graphics-element>
+
 <div class="howtocode">
 
 ### 如何实现de Casteljau算法
@@ -48,7 +52,3 @@ function drawCurve(points[], t):
 以上算法做了什么？如果参数points列表只有一个点， 就画出一个点。如果有多个点，就生成以<i>t</i>为比例的一系列点（例如，以上算法中的"标记点"），然后为新的点列表调用绘制函数。
 
 </div>
-
-我们通过实际操作来观察这个过程。在以下的图表中，移动鼠标来改变用de Casteljau算法计算得到的曲线点，左右移动鼠标，可以实时看到曲线是如何生成的。
-
-<Graphictitle="用de Casteljau算法来遍历曲线" setup={this.setup} draw={this.draw}/>

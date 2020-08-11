@@ -1126,6 +1126,27 @@ function RationalBezier(3,t,w[],r[]):
               重复这些步骤，直到剩下一条线。这条线段上的<code>t</code>点就是原始曲线在<code>t</code>处的点。
             </li>
           </ul>
+          <p>
+            我们通过实际操作来观察这个过程。在以下的图表中，移动鼠标来改变用de
+            Casteljau算法计算得到的曲线点，左右移动鼠标，可以实时看到曲线是如何生成的。
+          </p>
+          <graphics-element
+            title="用de Casteljau算法来遍历曲线"
+            width="275"
+            height="275"
+            src="./chapters/decasteljau/decasteljau.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\decasteljau\425ee92efb13c790f63f8b3821327d3b.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
+
           <div class="howtocode">
             <h3>如何实现de Casteljau算法</h3>
             <p>让我们使用刚才描述过的算法，并实现它：</p>
@@ -1155,15 +1176,6 @@ function RationalBezier(3,t,w[],r[]):
               就画出一个点。如果有多个点，就生成以<i>t</i>为比例的一系列点（例如，以上算法中的"标记点"），然后为新的点列表调用绘制函数。
             </p>
           </div>
-
-          <p>
-            我们通过实际操作来观察这个过程。在以下的图表中，移动鼠标来改变用de
-            Casteljau算法计算得到的曲线点，左右移动鼠标，可以实时看到曲线是如何生成的。
-          </p>
-          <p>
-            &lt;Graphictitle="用de Casteljau算法来遍历曲线" setup={this.setup}
-            draw={this.draw}/&gt;
-          </p>
         </section>
         <section id="flattening">
           <h1><a href="#flattening">简化绘图</a></h1>
