@@ -1576,18 +1576,38 @@ function RationalBezier(3,t,w[],r[]):
             usually can't use the flattened for for doing true intersection
             detection, or curvature alignment.
           </p>
-          <Graphic
+          <graphics-element
             title="Flattening a quadratic curve"
-            setup="{this.setupQuadratic}"
-            draw="{this.drawFlattened}"
-            onKeyDown="{this.onKeyDown}"
-          />
-          <Graphic
+            width="275"
+            height="275"
+            src="./chapters/flattening/quadratic.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\flattening\3eb70cd7ada74dfe1417ddb572730597.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
+          <graphics-element
             title="Flattening a cubic curve"
-            setup="{this.setupCubic}"
-            draw="{this.drawFlattened}"
-            onKeyDown="{this.onKeyDown}"
-          />
+            width="275"
+            height="275"
+            src="./chapters/flattening/cubic.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\flattening\04573510619447c4361c7768ac0175cf.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
 
           <p>
             Try clicking on the sketch and using your up and down arrow keys to
