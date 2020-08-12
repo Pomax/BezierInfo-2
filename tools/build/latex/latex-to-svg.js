@@ -141,7 +141,7 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
 
   return `<img class="LaTeX SVG" src="images/latex/${path.basename(
     SVGfilename
-  )}" width="${Math.round(w)}px" height="${Math.round(h)}px" loading="lazy">`;
+  )}" width="${Math.round(w)}px" height="${Math.round(h)}px">`;
 }
 
 // This function really needs better stdio capture,

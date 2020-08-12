@@ -23,10 +23,10 @@ This does something unexpected: it turns our polynomial into something that _isn
 But the best way to show what this does is to do literally that: let's look at the effect of "rationalising" our Bézier curves using an interactive graphic for a rationalised curves. The following graphic shows the Bézier curve from the previous section, "enriched" with ratio factors for each coordinate. The closer to zero we set one or more terms, the less relative influence the associated coordinate exerts on the curve (and of course the higher we set them, the more influence they have). Try to change the values and see how it affects what gets drawn:
 
 <graphics-element title="Our rational cubic Bézier curve" src="./rational.js">
-  ratio 1 <input type="range" min="0" max="2" value="1" step="0.01"><span>1.0</span><br>
-  ratio 2 <input type="range" min="0" max="2" value="1" step="0.01"><span>1.0</span><br>
-  ratio 3 <input type="range" min="0" max="2" value="1" step="0.01"><span>1.0</span><br>
-  ratio 4 <input type="range" min="0" max="2" value="1" step="0.01"><span>1.0</span>
+  ratio 1 <input type="range" min="0.01" max="2" value="1" step="0.01"><span>1.0</span><br>
+  ratio 2 <input type="range" min="0.01" max="2" value="1" step="0.01"><span>1.0</span><br>
+  ratio 3 <input type="range" min="0.01" max="2" value="1" step="0.01"><span>1.0</span><br>
+  ratio 4 <input type="range" min="0.01" max="2" value="1" step="0.01"><span>1.0</span>
 </graphics-element>
 
 You can think of the ratio values as each coordinate's "gravity": the higher the gravity, the closer to that coordinate the curve will want to be. You'll also notice that if you simply increase or decrease all the ratios by the same amount, nothing changes... much like with gravity, if the relative strengths stay the same, nothing really changes. The values define each coordinate's influence _relative to all other points_.
