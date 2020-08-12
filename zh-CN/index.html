@@ -472,7 +472,7 @@
                 <img
                   width="825px"
                   height="275px"
-                  src="images\chapters\whatis\b2e7a2bc650cbed9d750e8afc40a1aa3.png"
+                  src="images\chapters\whatis\f91cf03cba43b012c66a8f310097ced6.png"
                   loading="lazy"
                 />
                 Scripts are disabled. Showing fallback image.
@@ -1195,7 +1195,7 @@ function RationalBezier(3,t,w[],r[]):
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\flattening\3eb70cd7ada74dfe1417ddb572730597.png"
+                src="images\chapters\flattening\6fd4fa0aca97b89939624de9339acf11.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
@@ -1211,7 +1211,7 @@ function RationalBezier(3,t,w[],r[]):
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\flattening\04573510619447c4361c7768ac0175cf.png"
+                src="images\chapters\flattening\1a22ba71ef9a5aaf9c55e0b8c2f3f6e5.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
@@ -1253,11 +1253,22 @@ function RationalBezier(3,t,w[],r[]):
             <code>t</code> 点分割曲线的所有点:
             一条曲线包含该曲线上点之前的所有点，另一条曲线包含该曲线上点之后的所有点。
           </p>
-          <Graphic
+          <graphics-element
             title="分割一条曲线"
-            setup="{this.setupCubic}"
-            draw="{this.drawSplit}"
-          />
+            width="825"
+            height="275"
+            src="./chapters/splitting/splitting.js"
+          >
+            <fallback-image>
+              <img
+                width="825px"
+                height="275px"
+                src="images\chapters\splitting\9482f3b5bc36c11395525fefb67dd18b.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
 
           <div class="howtocode">
             <h3>分割曲线的代码实习</h3>
@@ -1289,14 +1300,6 @@ function drawCurve(points[], t):
               与原始曲线同序且完全重合。
             </p>
           </div>
-
-          <p>以下是带动画效果的最好的演示（点击以播放/暂停）：</p>
-          <Graphic
-            title="贝塞尔曲线的分割"
-            setup="{this.setupCubic}"
-            draw="{this.drawAnimated}"
-            onClick="{this.togglePlay}"
-          />
         </section>
         <section id="matrixsplit">
           <h1><a href="#matrixsplit">Splitting curves using matrices</a></h1>

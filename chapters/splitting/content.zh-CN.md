@@ -2,7 +2,7 @@
 
 使用 de Casteljau 算法我们也可以将一条贝塞尔曲线分割成两条更小的曲线，二者拼接起来即可形成原来的曲线。当采用某个 `t` 值构造 de Casteljau 算法时，该过程会给到我们在 `t` 点分割曲线的所有点: 一条曲线包含该曲线上点之前的所有点，另一条曲线包含该曲线上点之后的所有点。
 
-<Graphic title="分割一条曲线" setup={this.setupCubic} draw={this.drawSplit} />
+<graphics-element title="分割一条曲线" width="825" src="./splitting.js"></graphics-element>
 
 <div class="howtocode">
 
@@ -32,7 +32,3 @@ function drawCurve(points[], t):
 对某个给定 `t` 值，该函数执行后，数组 `left` 和 `right` 将包含两条曲线的所有点的坐标 -- 一条是`t`值左侧的曲线，一条是`t`值右侧的曲线， 与原始曲线同序且完全重合。
 
 </div>
-
-以下是带动画效果的最好的演示（点击以播放/暂停）：
-
-<Graphic title="贝塞尔曲线的分割" setup={this.setupCubic} draw={this.drawAnimated} onClick={this.togglePlay} />

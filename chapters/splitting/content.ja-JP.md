@@ -2,7 +2,7 @@
 
 ベジエ曲線を分割して、繫ぎ合わせたときに元に戻るような小さい2曲線にしたい場合にも、ド・カステリョのアルゴリズムを使えば、これに必要な点をすべて求めることができます。ある値`t`に対してド・カステリョの骨格を組み立てると、その`t`で曲線を分割する際に必要になる点がすべて得られます。骨格内部の点のうち、曲線上の点から見て手前側にある点によって一方の曲線が定義され、向こう側にある点によってもう一方の曲線が定義されます。
 
-<Graphic title="曲線の分割" setup={this.setupCubic} draw={this.drawSplit} />
+<graphics-element title="曲線の分割" width="825" src="./splitting.js"></graphics-element>
 
 <div class="howtocode">
 
@@ -32,7 +32,3 @@ function drawCurve(points[], t):
 ある値`t`に対してこの関数を実行すると、`left`と`right`に新しい2曲線の座標が入ります。一方は`t`の「左」側、もう一方は「右」側の曲線です。この2曲線は元の曲線と同じ次数になり、また元の曲線とぴったり重なります。
 
 </div>
-
-これはアニメーションで見るのがわかりやすいでしょう（クリックで再生・停止します）。
-
-<Graphic title="ベジエ曲線の分割" setup={this.setupCubic} draw={this.drawAnimated} onClick={this.togglePlay} />

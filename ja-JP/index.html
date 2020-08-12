@@ -487,7 +487,7 @@
               <img
                 width="825px"
                 height="275px"
-                src="images\chapters\whatis\b2e7a2bc650cbed9d750e8afc40a1aa3.png"
+                src="images\chapters\whatis\f91cf03cba43b012c66a8f310097ced6.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
@@ -1229,7 +1229,7 @@ function RationalBezier(3,t,w[],r[]):
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\flattening\3eb70cd7ada74dfe1417ddb572730597.png"
+                src="images\chapters\flattening\6fd4fa0aca97b89939624de9339acf11.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
@@ -1245,7 +1245,7 @@ function RationalBezier(3,t,w[],r[]):
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\flattening\04573510619447c4361c7768ac0175cf.png"
+                src="images\chapters\flattening\1a22ba71ef9a5aaf9c55e0b8c2f3f6e5.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
@@ -1285,11 +1285,22 @@ function RationalBezier(3,t,w[],r[]):
           <p>
             ベジエ曲線を分割して、繫ぎ合わせたときに元に戻るような小さい2曲線にしたい場合にも、ド・カステリョのアルゴリズムを使えば、これに必要な点をすべて求めることができます。ある値<code>t</code>に対してド・カステリョの骨格を組み立てると、その<code>t</code>で曲線を分割する際に必要になる点がすべて得られます。骨格内部の点のうち、曲線上の点から見て手前側にある点によって一方の曲線が定義され、向こう側にある点によってもう一方の曲線が定義されます。
           </p>
-          <Graphic
+          <graphics-element
             title="曲線の分割"
-            setup="{this.setupCubic}"
-            draw="{this.drawSplit}"
-          />
+            width="825"
+            height="275"
+            src="./chapters/splitting/splitting.js"
+          >
+            <fallback-image>
+              <img
+                width="825px"
+                height="275px"
+                src="images\chapters\splitting\9482f3b5bc36c11395525fefb67dd18b.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
 
           <div class="howtocode">
             <h3>曲線分割の実装方法</h3>
@@ -1316,16 +1327,6 @@ function drawCurve(points[], t):
               ある値<code>t</code>に対してこの関数を実行すると、<code>left</code>と<code>right</code>に新しい2曲線の座標が入ります。一方は<code>t</code>の「左」側、もう一方は「右」側の曲線です。この2曲線は元の曲線と同じ次数になり、また元の曲線とぴったり重なります。
             </p>
           </div>
-
-          <p>
-            これはアニメーションで見るのがわかりやすいでしょう（クリックで再生・停止します）。
-          </p>
-          <Graphic
-            title="ベジエ曲線の分割"
-            setup="{this.setupCubic}"
-            draw="{this.drawAnimated}"
-            onClick="{this.togglePlay}"
-          />
         </section>
         <section id="matrixsplit">
           <h1><a href="#matrixsplit">行列による曲線の分割</a></h1>

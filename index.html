@@ -585,7 +585,7 @@
               <img
                 width="825px"
                 height="275px"
-                src="images\chapters\whatis\b2e7a2bc650cbed9d750e8afc40a1aa3.png"
+                src="images\chapters\whatis\f91cf03cba43b012c66a8f310097ced6.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
@@ -1586,7 +1586,7 @@ function RationalBezier(3,t,w[],r[]):
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\flattening\3eb70cd7ada74dfe1417ddb572730597.png"
+                src="images\chapters\flattening\6fd4fa0aca97b89939624de9339acf11.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
@@ -1602,7 +1602,7 @@ function RationalBezier(3,t,w[],r[]):
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\flattening\04573510619447c4361c7768ac0175cf.png"
+                src="images\chapters\flattening\1a22ba71ef9a5aaf9c55e0b8c2f3f6e5.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
@@ -1660,11 +1660,22 @@ function RationalBezier(3,t,w[],r[]):
             curve being defined by all the inside skeleton points after our
             on-curve point.
           </p>
-          <Graphic
+          <graphics-element
             title="Splitting a curve"
-            setup="{this.setupCubic}"
-            draw="{this.drawSplit}"
-          />
+            width="825"
+            height="275"
+            src="./chapters/splitting/splitting.js"
+          >
+            <fallback-image>
+              <img
+                width="825px"
+                height="275px"
+                src="images\chapters\splitting\9482f3b5bc36c11395525fefb67dd18b.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
 
           <div class="howtocode">
             <h3>implementing curve splitting</h3>
@@ -1697,17 +1708,6 @@ function drawCurve(points[], t):
               overlaid exactly on the original curve.
             </p>
           </div>
-
-          <p>
-            This is best illustrated with an animated graphic (click to
-            play/pause):
-          </p>
-          <Graphic
-            title="Bézier curve splitting"
-            setup="{this.setupCubic}"
-            draw="{this.drawAnimated}"
-            onClick="{this.togglePlay}"
-          />
         </section>
         <section id="matrixsplit">
           <h1><a href="#matrixsplit">Splitting curves using matrices</a></h1>

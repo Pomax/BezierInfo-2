@@ -62,7 +62,8 @@ async function createIndexPages(locale, localeStrings, chapters) {
   const start = Date.now();
   const data = prettier.format(index, { parser: `html` });
   const end = Date.now();
-  console.log(`beautification for ${locale} took ${(end - start) / 1000}s`);
+
+  //console.log(`beautification for ${locale} took ${(end - start) / 1000}s`);
 
   if (locale === defaultLocale) {
     fs.writeFileSync(`index.html`, data, `utf8`);

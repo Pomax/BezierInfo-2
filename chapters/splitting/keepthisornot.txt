@@ -1,0 +1,28 @@
+
+
+/*
+
+// const { left, right } = this.getLeftAndRight(this.t, this.curve.points);
+// const c1 = new Bezier(this, left);
+// const c2 = new Bezier(this, right);
+
+getLeftAndRight(t, points, left=[], right=[]) {
+    if(points.length === 1) {
+      left.push(points[0]);
+      right.push(points[0]);
+      return { left, right };
+    }
+
+    let newpoints = points.slice(1);
+    for(let i=0; i<newpoints.length; i++) {
+      if(i === 0) left.push(points[i]);
+      if(i === newpoints.length-1) right.push(points[i+1]);
+      newpoints[i] = {
+          x: (1-t) * points[i].x + t * points[i+1].x,
+          y: (1-t) * points[i].y + t * points[i+1].y,
+      }
+    }
+
+    return this.getLeftAndRight(t, newpoints, left, right);
+}
+*/
