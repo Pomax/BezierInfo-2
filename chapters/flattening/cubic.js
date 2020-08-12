@@ -38,7 +38,7 @@ onKeyDown() {
 }
 
 onMouseMove() {
-  if (this.cursor.down) {
+  if (this.cursor.down && !this.currentPoint) {
     this.steps = round( map(this.cursor.y, 0,this.height, 24, 1) );
   }
   redraw();

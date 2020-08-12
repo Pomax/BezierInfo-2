@@ -133,7 +133,7 @@ onMouseUp() {
 onMouseMove() {
     this.curve.update();
 
-    if (this.mark) {
+    if (this.mark && !this.currentPoint) {
         let diff = this.mark - this.cursor.y,
             mapped = map(diff, -this.height/2, this.height/2, 10, 90, true);
         this.step = mapped | 0;
