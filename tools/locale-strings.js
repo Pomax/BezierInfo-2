@@ -54,7 +54,7 @@ class LocaleStrings {
     Object.keys(localeStringData).forEach((id) => {
       const map = localeStringData[id];
       if (typeof map !== "object") return;
-      const value = map[locale] ? map[locale] :  map[defaultLocale];
+      const value = map[locale] ? map[locale] : map[defaultLocale];
       if (!value) throw new Error(`unknown locale string id "${id}".`);
       strings[id] = value;
 

@@ -51,12 +51,16 @@
     <!-- my own referral/page hit tracker, because Google knows enough -->
     <script src="./lib/site/referrer.js" type="module" async></script>
 
-    <!-- the part that makes interactive graphics work: an HTML5 <graphics-element> custom element -->
+    <!--
+      The part that makes interactive graphics work: an HTML5 <graphics-element> custom element.
+      Note that we're not defering this: we just want it to kick in as soon as possible, and
+      given how much HTML there is, that means this can, and thus should, kick in before the
+      document is done even transferring.
+    -->
     <script
       src="./lib/custom-element/graphics-element.js"
       type="module"
       async
-      defer
     ></script>
     <link rel="stylesheet" href="./lib/custom-element/graphics-element.css" />
 
@@ -1774,11 +1778,22 @@ function drawCurve(points[], t):
             control points, and press your up and down arrow keys to raise or
             lower the curve order.
           </p>
-          <p>
-            &lt;Graphic title={"A " + this.getOrder() + " order Bézier curve"}
-            setup={this.setup} draw={this.draw} onKeyDown={this.props.onKeyDown}
-            onMouseMove={this.onMouseMove} /&gt;
-          </p>
+          <graphics-element
+            title="A variable-order Bézier curve"
+            width="275"
+            height="275"
+            src="./chapters/reordering/reorder.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\reordering\4541eeb2113d81cbc0c0a56122570d48.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
         </section>
         <section id="derivatives">
           <h1><a href="#derivatives">Derivatives</a></h1>

@@ -36,8 +36,13 @@
     <!-- my own referral/page hit tracker, because Google knows enough -->
     <script src="./lib/site/referrer.js" type="module" async></script>
 
-    <!-- the part that makes interactive graphics work: an HTML5 <graphics-element> custom element -->
-    <script src="./lib/custom-element/graphics-element.js" type="module" async defer></script>
+    <!--
+      The part that makes interactive graphics work: an HTML5 <graphics-element> custom element.
+      Note that we're not defering this: we just want it to kick in as soon as possible, and
+      given how much HTML there is, that means this can, and thus should, kick in before the
+      document is done even transferring.
+    -->
+    <script src="./lib/custom-element/graphics-element.js" type="module" async></script>
     <link rel="stylesheet" href="./lib/custom-element/graphics-element.css" />
 
     <!-- page styling -->
