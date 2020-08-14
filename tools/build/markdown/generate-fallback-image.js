@@ -10,7 +10,13 @@ const __root = path.join(__dirname, `..`, `..`, `..`);
 /**
  * ...docs go here...
  */
-async function generateFallbackImage(localeStrings, src, width, height) {
+async function generateFallbackImage(
+  chapter,
+  localeStrings,
+  src,
+  width,
+  height
+) {
   const locale = localeStrings.getCurrentLocale();
 
   // Get the sketch code
@@ -35,7 +41,7 @@ async function generateFallbackImage(localeStrings, src, width, height) {
   // If we get here, we need to actually run the magic: convert
   // this to a valid JS module code and write this to a temporary
   // file so we can import it.
-  const nodeCode = generateGraphicsModule(code, width, height);
+  const nodeCode = generateGraphicsModule(chapter, code, width, height);
   const fileName = `./nodecode.${Date.now()}.${Math.random()}.js`;
   const tempFile = path.join(__dirname, fileName);
   fs.writeFileSync(tempFile, nodeCode, `utf8`);
@@ -45,7 +51,7 @@ async function generateFallbackImage(localeStrings, src, width, height) {
   // turn into an actual image file.
   const { canvas } = await import(fileName);
 
-  //    fs.unlinkSync(tempFile);
+  fs.unlinkSync(tempFile);
 
   // The canvas runs setup() + draw() as part of the module load, so
   // all we have to do now is get the image data and writ it to file.

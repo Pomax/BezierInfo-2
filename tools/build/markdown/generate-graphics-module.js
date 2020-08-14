@@ -5,7 +5,13 @@ import prettier from "prettier";
 /**
  * ...docs go here...
  */
-function generateGraphicsModule(code, width, height) {
+function generateGraphicsModule(chapter, code, width, height) {
+  // step 1: fix the imports
+  code = code.replace(/(import .+? from) "([^"]+)"/g, (_, main, group) => {
+    return `${main} "../../../chapters/${chapter}/${group}"`;
+  });
+
+  // step 2: split up the code into "global" vs. "class" code
   const split = splitCodeSections(code);
   const globalCode = split.quasiGlobal;
   const classCode = performCodeSurgery(split.classCode);
@@ -15,9 +21,9 @@ function generateGraphicsModule(code, width, height) {
         import CanvasBuilder from 'canvas';
         import { GraphicsAPI, Bezier, Vector, Matrix } from "../../../lib/custom-element/api/graphics-api.js";
 
-        const noop = (()=>{});
-
         ${globalCode}
+
+        const noop = (()=>{});
 
         class Example extends GraphicsAPI { ${classCode} }
 

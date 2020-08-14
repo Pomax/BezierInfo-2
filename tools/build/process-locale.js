@@ -77,7 +77,7 @@ async function processLocale(locale, localeStrings, chapterFiles) {
   }
 
   const end = Date.now();
-  // console.log(`Processing ${locale} took ${(end - start) / 1000}s`);
+  console.log(`Processing ${locale} took ${(end - start) / 1000}s`);
 
   return chapters;
 }

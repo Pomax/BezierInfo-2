@@ -52,6 +52,7 @@ async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
       }
 
       let imageHash = await generateFallbackImage(
+        chapter,
         localeStrings,
         src,
         width,

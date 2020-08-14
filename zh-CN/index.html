@@ -2333,11 +2333,22 @@ function drawCurve(points[], t):
             position: all the way on the left is 0, all the way on the right =
             1, midway is t=0.5, etc:
           </p>
-          <Graphic
+          <graphics-element
             title="Some known and unknown vectors"
-            setup="{this.setup}"
-            draw="{this.drawFrenetVectors}"
-          />
+            width="275"
+            height="275"
+            src="./chapters/pointvectors3d/frenet.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\pointvectors3d\22cb6c545b8e25b55b0f415414ea53fa.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
 
           <p>
             However, if you've played with that graphic a bit, you might have
@@ -2472,11 +2483,22 @@ function drawCurve(points[], t):
             revisit that earlier curve, but this time use rotation minimising
             frames rather than Frenet frames:
           </p>
-          <Graphic
-            title="Æsthetically much better 3D curve normals"
-            setup="{this.setup}"
-            draw="{this.drawRMFNormals}"
-          />
+          <graphics-element
+            title="Some known and unknown vectors"
+            width="275"
+            height="275"
+            src="./chapters/pointvectors3d/rotation-minimizing.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\pointvectors3d\259fa2934b1a09bcb02d6928019f3159.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
 
           <p>Now that looks much better!</p>
           <p>

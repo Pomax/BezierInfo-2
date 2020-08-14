@@ -1,0 +1,7 @@
+setup() {
+
+}
+
+draw() {
+  clear();
+}
