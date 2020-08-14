@@ -51,7 +51,12 @@ async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
         src = src.replace(`./`, `./chapters/${chapter}/`);
       }
 
-      let imageHash = await generateFallbackImage(src, width, height); // ← this is super fancy functionality.
+      let imageHash = await generateFallbackImage(
+        localeStrings,
+        src,
+        width,
+        height
+      ); // ← this is super fancy functionality.
       let imgUrl = path.join(
         path.dirname(src.replace(`./`, `./images/`)),
         `${imageHash}.png`

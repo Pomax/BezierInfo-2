@@ -10,7 +10,9 @@ const __root = path.join(__dirname, `..`, `..`, `..`);
 /**
  * ...docs go here...
  */
-async function generateFallbackImage(src, width, height) {
+async function generateFallbackImage(localeStrings, src, width, height) {
+  const locale = localeStrings.getCurrentLocale();
+
   // Get the sketch code
   const sourcePath = path.join(__root, src);
   let code;
@@ -23,6 +25,9 @@ async function generateFallbackImage(src, width, height) {
 
   // Do we need to even generate a file here?
   const hash = createHash(`md5`).update(code).digest(`hex`);
+
+  if (locale !== localeStrings.getDefaultLocale()) return hash;
+
   const destPath = path.dirname(path.join(__root, `images`, src));
   const filename = path.join(destPath, `${hash}.png`);
   if (fs.existsSync(filename)) return hash;
@@ -50,7 +55,7 @@ async function generateFallbackImage(src, width, height) {
 
   fs.ensureDirSync(path.dirname(filename));
   fs.writeFileSync(filename, imageData);
-  console.log(`Generated fallback image for ${src}`);
+  console.log(`Generated fallback image for ${src} (${locale})`);
 
   return hash;
 }
