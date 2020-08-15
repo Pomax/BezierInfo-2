@@ -25,7 +25,9 @@ async function createIndexPages(locale, localeStrings, chapters) {
     let content = chapters[section];
     if (content) {
       let localePrefix = base ? `${locale}/` : ``;
-      let link = `${localePrefix}index.html#${section}`;
+      let link = localePrefix
+        ? `${localePrefix}index.html#${section}`
+        : `#${section}`;
       let title = content.match(/<h1>([^<]+)<\/h1>/)[1];
       toc[section] = `<li><a href="${link}">${title}</a></li>`;
       // hyperlinked section titles please

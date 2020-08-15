@@ -24,9 +24,9 @@ Let's unpack that a little:
 
 And then we're done, we found "the" normal vector for a 3D curve. Let's see what that looks like for a sample curve, shall we? You can move your cursor across the graphic from left to right, to show the normal at a point with a t value that is based on your cursor position: all the way on the left is 0, all the way on the right = 1, midway is t=0.5, etc:
 
-<graphics-element title="Some known and unknown vectors" src="./frenet.js"></graphics-element>
+<graphics-element title="Some known and unknown vectors" width="350" height="300" src="./frenet.js"></graphics-element>
 
-However, if you've played with that graphic a bit, you might have noticed something odd. The normal seems to "suddenly twist around" around between t=0.5 and t=0.75 - why is doing that?
+However, if you've played with that graphic a bit, you might have noticed something odd. The normal seems to "suddenly twist around" around between t=0.5 and t=0.9... Why is doing that?
 
 As it turns out, it's doing that because that's how the maths works, and that's the problem with Frenet normals: while they are "mathematically correct", they are "practically problematic", and so for any kind of graphics work what we really want is a way to compute normals that just... look good.
 
@@ -41,8 +41,8 @@ The idea is to take a starting "tangent/rotation axis/normal" frame at t=0, and 
 - Take a point on the curve for which we know the RM frame already,
 - take a next point on the curve for which we don't know the RM frame yet, and
 - reflect the known frame onto the next point, by treating the plane through the curve at the point exactly between the next and previous points as a "mirror".
-- This gives the next point a tangent vector that essentially in the opposite direction of what it should be in, and a normal that's slightly off-kilter, so:
-- reflect the vectors of our "mirrored frame" a second time, but this time using the plane through the next point itself as "mirror".
+- This gives the next point a tangent vector that's essentially pointing in the opposite direction of what it should be, and a normal that's slightly off-kilter, so:
+- reflect the vectors of our "mirrored frame" a second time, but this time using the plane through the "next point" itself as "mirror".
 - Done: the tangent and normal have been fixed, and we have a good looking frame to work with.
 
 So, let's write some code for that!
@@ -109,8 +109,8 @@ Ignoring comments, this is certainly more code than when we were just computing 
 
 Speaking of better looking, what does this actually look like? Let's revisit that earlier curve, but this time use rotation minimising frames rather than Frenet frames:
 
-<graphics-element title="Some known and unknown vectors" src="./rotation-minimizing.js"></graphics-element>
+<graphics-element title="Some known and unknown vectors" width="350" height="300"  src="./rotation-minimizing.js"></graphics-element>
 
-Now that looks much better!
+That looks much better!
 
-For those reading along with the code: we don't even strictly speaking need a Frenet frame to start with: we could, for instance, treat the z-axis as our initial axis of rotation, so that our initial normal is **(0,0,1) × tangent**, and then take things from there, but having that initial "mathematically correct" frame so that the initial normal seems to line up based on the curve's orientation in 3D space is quite useful.
+For those reading along with the code: we don't even strictly speaking need a Frenet frame to start with: we could, for instance, treat the z-axis as our initial axis of rotation, so that our initial normal is **(0,0,1) × tangent**, and then take things from there, but having that initial "mathematically correct" frame so that the initial normal seems to line up based on the curve's orientation in 3D space is just nice.

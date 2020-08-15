@@ -2325,15 +2325,15 @@ function drawCurve(points[], t):
           </p>
           <graphics-element
             title="Some known and unknown vectors"
-            width="275"
-            height="275"
+            width="350"
+            height="300"
             src="./chapters/pointvectors3d/frenet.js"
           >
             <fallback-image>
               <img
-                width="275px"
-                height="275px"
-                src="images\chapters\pointvectors3d\22cb6c545b8e25b55b0f415414ea53fa.png"
+                width="350px"
+                height="300px"
+                src="images\chapters\pointvectors3d\f5cf3e34415eccd1b03c4ef478862d44.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
@@ -2343,7 +2343,7 @@ function drawCurve(points[], t):
           <p>
             However, if you've played with that graphic a bit, you might have
             noticed something odd. The normal seems to "suddenly twist around"
-            around between t=0.5 and t=0.75 - why is doing that?
+            around between t=0.5 and t=0.9... Why is doing that?
           </p>
           <p>
             As it turns out, it's doing that because that's how the maths works,
@@ -2393,13 +2393,13 @@ function drawCurve(points[], t):
               previous points as a "mirror".
             </li>
             <li>
-              This gives the next point a tangent vector that essentially in the
-              opposite direction of what it should be in, and a normal that's
-              slightly off-kilter, so:
+              This gives the next point a tangent vector that's essentially
+              pointing in the opposite direction of what it should be, and a
+              normal that's slightly off-kilter, so:
             </li>
             <li>
               reflect the vectors of our "mirrored frame" a second time, but
-              this time using the plane through the next point itself as
+              this time using the plane through the "next point" itself as
               "mirror".
             </li>
             <li>
@@ -2475,22 +2475,22 @@ function drawCurve(points[], t):
           </p>
           <graphics-element
             title="Some known and unknown vectors"
-            width="275"
-            height="275"
+            width="350"
+            height="300"
             src="./chapters/pointvectors3d/rotation-minimizing.js"
           >
             <fallback-image>
               <img
-                width="275px"
-                height="275px"
-                src="images\chapters\pointvectors3d\259fa2934b1a09bcb02d6928019f3159.png"
+                width="350px"
+                height="300px"
+                src="images\chapters\pointvectors3d\b11dfd6fef9931ac8715209785f63e0c.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
             </fallback-image></graphics-element
           >
 
-          <p>Now that looks much better!</p>
+          <p>That looks much better!</p>
           <p>
             For those reading along with the code: we don't even strictly
             speaking need a Frenet frame to start with: we could, for instance,
@@ -2498,7 +2498,7 @@ function drawCurve(points[], t):
             initial normal is <strong>(0,0,1) × tangent</strong>, and then take
             things from there, but having that initial "mathematically correct"
             frame so that the initial normal seems to line up based on the
-            curve's orientation in 3D space is quite useful.
+            curve's orientation in 3D space is just nice.
           </p>
         </section>
         <section id="components">
