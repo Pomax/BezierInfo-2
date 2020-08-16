@@ -6,7 +6,7 @@ The solution: compute the derivative for each axis separately, and then fit them
 
 Let's look at how a parametric Bézier curve "splits up" into two normal functions, one for the x-axis and one for the y-axis. Note the leftmost figure is again an interactive curve, without labeled axes (you get coordinates in the graph instead).  The center and rightmost figures are the component functions for computing the x-axis value, given a value for <i>t</i> (between 0 and 1 inclusive), and the y-axis value, respectively.
 
-If you move points in a curve sideways, you should only see the middle graph change; likely, moving points vertically should only show a change in the right graph.
+If you move points in a curve sideways, you should only see the middle graph change; likewise, moving points vertically should only show a change in the right graph.
 
 <graphics-element title="Quadratic Bézier curve components" width="825" src="./quadratic.js"></graphics-element>
 <graphics-element title="Cubic Bézier curve components" width="825" src="./cubic.js"></graphics-element>
