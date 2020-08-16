@@ -921,7 +921,7 @@ function Bezier(3,t):
                 <img
                   width="275px"
                   height="275px"
-                  src="images\chapters\control\a4bb3d892822ce42ec05c56ec437d22f.png"
+                  src="images\chapters\control\13bba6ecec2fa000c575813d0cda815c.png"
                   loading="lazy"
                 />
                 Scripts are disabled. Showing fallback image.
@@ -937,7 +937,7 @@ function Bezier(3,t):
                 <img
                   width="275px"
                   height="275px"
-                  src="images\chapters\control\9ef58ed62e5e9f2fd67cc004b8560a3d.png"
+                  src="images\chapters\control\15e8c8492908851ddde1cb35297326bb.png"
                   loading="lazy"
                 />
                 Scripts are disabled. Showing fallback image.
@@ -953,7 +953,7 @@ function Bezier(3,t):
                 <img
                   width="275px"
                   height="275px"
-                  src="images\chapters\control\7fa216226582e3b0868e77b6fdfeee6d.png"
+                  src="images\chapters\control\23dae5b8acf92135ea4463d8d0342190.png"
                   loading="lazy"
                 />
                 Scripts are disabled. Showing fallback image.
@@ -2869,16 +2869,38 @@ function drawCurve(points[], t):
             middle graph change; likely, moving points vertically should only
             show a change in the right graph.
           </p>
-          <Graphic
+          <graphics-element
             title="Quadratic Bézier curve components"
-            setup="{this.setupQuadratic}"
-            draw="{this.draw}"
-          />
-          <Graphic
+            width="825"
+            height="275"
+            src="./chapters/components/quadratic.js"
+          >
+            <fallback-image>
+              <img
+                width="825px"
+                height="275px"
+                src="images\chapters\components\2171faef2eb31e3ccfcaf8fede036926.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
+          <graphics-element
             title="Cubic Bézier curve components"
-            setup="{this.setupCubic}"
-            draw="{this.draw}"
-          />
+            width="825"
+            height="275"
+            src="./chapters/components/cubic.js"
+          >
+            <fallback-image>
+              <img
+                width="825px"
+                height="275px"
+                src="images\chapters\components\7baa583649b9ac452b41e17ee3d7b4c9.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
         </section>
         <section id="extremities">
           <h1><a href="#extremities">Finding extremities: root finding</a></h1>

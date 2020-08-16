@@ -15,13 +15,14 @@
   },
   "scripts": {
     "start": "rm -f .timing && run-s time lint:* build time && rm -f .timing",
-    "test": "run-p server browser",
+    "test": "run-p watch server browser",
     "---": "---",
     "browser": "open-cli http://localhost:8000",
     "build": "node ./tools/build.js",
     "lint:tools": "prettier ./tools --write",
     "lint:lib": "prettier ./lib --write",
     "server": "http-server -p 8000 --cors",
+    "watch": "chokidar \"**/*.md\" -c \"npm start\"",
     "time": "node ./mark.js"
   },
   "keywords": [
@@ -34,6 +35,7 @@
   ],
   "devDependencies": {
     "canvas": "^2.6.1",
+    "chokidar-cli": "^2.1.0",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
     "http-server": "^0.12.3",

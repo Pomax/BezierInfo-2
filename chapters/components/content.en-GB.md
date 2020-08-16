@@ -8,5 +8,5 @@ Let's look at how a parametric Bézier curve "splits up" into two normal functio
 
 If you move points in a curve sideways, you should only see the middle graph change; likely, moving points vertically should only show a change in the right graph.
 
-<Graphic title="Quadratic Bézier curve components" setup={this.setupQuadratic} draw={this.draw}/>
-<Graphic title="Cubic Bézier curve components" setup={this.setupCubic} draw={this.draw}/>
+<graphics-element title="Quadratic Bézier curve components" width="825" src="./quadratic.js"></graphics-element>
+<graphics-element title="Cubic Bézier curve components" width="825" src="./cubic.js"></graphics-element>

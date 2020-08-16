@@ -19,7 +19,7 @@ draw() {
 
     scale(0.8, 0.9);
     translate(40,20);
-    drawAxes(`t`, 0, 10, `S`, `0%`, `100%`, 40, 20);
+    drawAxes(`t`, 0, 1, `S`, `0%`, `100%`);
 
     noFill();
 
