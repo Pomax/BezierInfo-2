@@ -2888,16 +2888,38 @@ function getCubicRoots(pa, pb, pc, pd) {
             first and second derivative roots for our Bézier curves, and show
             those roots overlaid on the previous graphics:
           </p>
-          <Graphic
+          <graphics-element
             title="Quadratic Bézier curve extremities"
-            setup="{this.setupQuadratic}"
-            draw="{this.draw}"
-          />
-          <Graphic
+            width="825"
+            height="275"
+            src="./chapters/extremities/quadratic.js"
+          >
+            <fallback-image>
+              <img
+                width="825px"
+                height="275px"
+                src="images\chapters\extremities\d92d9d414c71c1917da540840c104170.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
+          <graphics-element
             title="Cubic Bézier curve extremities"
-            setup="{this.setupCubic}"
-            draw="{this.draw}"
-          />
+            width="825"
+            height="275"
+            src="./chapters/extremities/cubic.js"
+          >
+            <fallback-image>
+              <img
+                width="825px"
+                height="275px"
+                src="images\chapters\extremities\48ae22b5da60547a71de1d4036f86cfc.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
         </section>
         <section id="boundingbox">
           <h1><a href="ja-JP/index.html#boundingbox">Bounding boxes</a></h1>

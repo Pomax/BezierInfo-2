@@ -22,7 +22,9 @@
     "lint:tools": "prettier ./tools --write",
     "lint:lib": "prettier ./lib --write",
     "server": "http-server -p 8000 --cors",
-    "watch": "chokidar \"**/*.md\" -c \"npm start\"",
+    "watch": "run-p watch:*",
+    "watch:markdown": "chokidar \"./chapters/**/*.md\" -c \"npm start\"",
+    "watch:sketches": "chokidar \"./chapters/**/*.js\" -c \"npm start\"",
     "time": "node ./mark.js"
   },
   "keywords": [
