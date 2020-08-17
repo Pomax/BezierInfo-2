@@ -807,7 +807,7 @@ function Bezier(3,t):
           <img
             class="LaTeX SVG"
             src="images/latex/c0d4dbc07b8ec7c0a18ea43c8a386935.svg"
-            width="473px"
+            width="476px"
             height="40px"
           />
           <p>この式からは、記事の冒頭に出てきた曲線が得られます。</p>
@@ -2924,8 +2924,8 @@ function getCubicRoots(pa, pb, pc, pd) {
         <section id="boundingbox">
           <h1><a href="ja-JP/index.html#boundingbox">Bounding boxes</a></h1>
           <p>
-            If we have the extremities, and the start/end points, a simple for
-            loop that tests for min/max values for x and y means we have the
+            If we have the extremities, and the start/end points, a simple
+            for-loop that tests for min/max values for x and y means we have the
             four values we need to box in our curve:
           </p>
           <p><em>Computing the bounding box for a Bézier curve</em>:</p>
@@ -2948,19 +2948,44 @@ function getCubicRoots(pa, pb, pc, pd) {
           </ol>
           <p>
             Applying this approach to our previous root finding, we get the
-            following bounding boxes (with all curve extremity points shown on
-            the curve):
+            following
+            <a href="https://en.wikipedia.org/wiki/Bounding_volume#Common_types"
+              >axis-aligned bounding boxes</a
+            >
+            (with all curve extremity points shown on the curve):
           </p>
-          <Graphic
+          <graphics-element
             title="Quadratic Bézier bounding box"
-            setup="{this.setupQuadratic}"
-            draw="{this.draw}"
-          />
-          <Graphic
+            width="275"
+            height="275"
+            src="./chapters/boundingbox/quadratic.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\boundingbox\7d6e04cb038bc7d8e5cfa28beee46ae5.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
+          <graphics-element
             title="Cubic Bézier bounding box"
-            setup="{this.setupCubic}"
-            draw="{this.draw}"
-          />
+            width="275"
+            height="275"
+            src="./chapters/boundingbox/cubic.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\boundingbox\ea9ccc0b2b9095fb8f57fa7a738e7c40.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
 
           <p>
             We can construct even nicer boxes by aligning them along our curve,
