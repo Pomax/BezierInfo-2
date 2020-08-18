@@ -40,5 +40,5 @@ If we drop all the zero-terms, this gives us:
 
 We can see that our original curve definition has been simplified considerably. The following graphics illustrate the result of aligning our example curves to the x-axis, with the cubic case using the coordinates that were just used in the example formulae:
 
-<Graphic title="Aligning a quadratic curve" setup={this.setupQuadratic} draw={this.draw} />
-<Graphic title="Aligning a cubic curve" setup={this.setupCubic} draw={this.draw} />
+<graphics-element title="Aligning a quadratic curve" src="./quadratic.js"></graphics-element>
+<graphics-element title="Aligning a cubic curve" src="./cubic.js"></graphics-element>

@@ -34,7 +34,7 @@ async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
 
       if (updated.indexOf(`height=`) === -1)
         updated = updated.replace(
-          /width="(\d+)\s*"/,
+          /width="(\d+)"\s*/,
           `width="$1" height="275" `
         );
 
@@ -42,6 +42,7 @@ async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
       const terms = updated.match(
         /width="([^"]+)"\s+height="([^"]+)"\s+src="([^"]+)"\s*>/
       );
+
       const [original, width, height] = terms;
 
       let src = terms[3];

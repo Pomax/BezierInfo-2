@@ -62,9 +62,7 @@ plotDimension(dim, dimension) {
 
     // Is there a solution for B'(t) = 0?
     let dpoints = dimension.dpoints[0];
-    let a = dpoints[1].y - dpoints[0].y;
-    let b = dpoints[0].y;
-    let t3 = -b / a;
+    let t3 = -dpoints[0].y / (dpoints[1].y - dpoints[0].y);
 
     // Is that solution a value in [0,1]?
     if (t3 > 0 && t3 < 1) {

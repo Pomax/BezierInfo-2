@@ -1,31 +1,42 @@
 # Finding extremities: root finding
 
-Now that we understand (well, superficially anyway) the component functions, we can find the extremities of our Bézier curve by finding maxima and minima on the component functions, by solving the equations B'(t) = 0 and B''(t) = 0. That said, in the case of quadratic curves there is no B''(t), so we only need to compute B'(t) = 0. So, how do we compute the first and second derivatives? Fairly easily, actually, until our derivatives are 4th order or higher... then things get really hard. But let's start simple:
+Now that we understand (well, superficially anyway) the component functions, we can find the extremities of our Bézier curve by finding maxima and minima on the component functions, by solving the equation B'(t) = 0. We've already seen that the derivative of a Bézier curve is a simpler Bézier curve, but how do we solve the equality? Fairly easily, actually, until our derivatives are 4th order or higher... then things get really hard. But let's start simple:
 
 ### Quadratic curves: linear derivatives.
 
-Finding the solution for "where is this line 0" should be trivial:
+The derivative of a quadratic Bézier curve is a linear Bézier curve, interpolating between just two terms, which means finding the solution for "where is this line 0" is effectively trivial by rewriting it to a function of `t` and solving. First we turn our cubic Bézier function into a quadratic one, by following the rule mentioned at the end of the [derivatives section](#derivatives):
 
 \[
 \begin{aligned}
-  l(x) = ax + b &= 0,\\
-  ax + b &= 0,\\
-  ax &= -b \\
-  x &= \frac{-b}{a}
+  B'(t) = a(1-t) + b(t) &= 0,\\
+  a - at + bt &= 0,\\
+  (b-a)t + a &= 0\\
 \end{aligned}
 \]
 
-Done. And quadratic curves have no meaningful second derivative, so we're *really* done.
+And then we turn this into our solution for `t` using basic arithmetics:
+
+\[
+\begin{aligned}
+  (b-a)t + a &= 0,\\
+  (b-a)t &= -a,\\
+  t &= \frac{-a}{b-a}\\
+\end{aligned}
+\]
+
+Done.
+
+Although with the [caveat](https://en.wikipedia.org/wiki/Caveat_emptor#Caveat_lector) that if `b-a` is zero, there is no solution and we probably shouldn't try to perform that division.
 
 ### Cubic curves: the quadratic formula.
 
-The derivative of a cubic curve is a quadratic curve, and finding the roots for a quadratic Bézier curve means we can apply the [Quadratic formula](https://en.wikipedia.org/wiki/Quadratic_formula). If you've seen it before, you'll remember it, and if you haven't, it looks like this:
+The derivative of a cubic Bézier curve is a quadratic Bézier curve, and finding the roots for a quadratic polynomial means we can apply the [Quadratic formula](https://en.wikipedia.org/wiki/Quadratic_formula). If you've seen it before, you'll remember it, and if you haven't, it looks like this:
 
 \[
   Given\ f(t) = at^2 + bt + c,\ f(t)=0\ when\ t = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 \]
 
-So, if we can express a Bézier component function as a plain polynomial, we're done: we just plug in the values into the quadratic formula, check if that square root is negative or not (if it is, there are no roots) and then just compute the two values that come out (because of that plus/minus sign we get two). Any value between 0 and 1 is a root that matters for Bézier curves, anything below or above that is irrelevant (because Bézier curves are only defined over the interval [0,1]). So, how do we convert?
+So, if we can rewrite the Bézier component function as a plain polynomial, we're done: we just plug in the values into the quadratic formula, check if that square root is negative or not (if it is, there are no roots) and then just compute the two values that come out (because of that plus/minus sign we get two). Any value between 0 and 1 is a root that matters for Bézier curves, anything below or above that is irrelevant (because Bézier curves are only defined over the interval [0,1]). So, how do we convert?
 
 First we turn our cubic Bézier function into a quadratic one, by following the rule mentioned at the end of the [derivatives section](#derivatives):
 
@@ -48,7 +59,7 @@ And then, using these *v* values, we can find out what our *a*, *b*, and *c* sho
 \end{aligned}
 \]
 
-This gives us thee coefficients *a*, *b*, and *c* that are expressed in terms of *v* values, where the *v* values are just convenient expressions of our original *p* values, so we can do some trivial substitution to get:
+This gives us three coefficients {a, b, c} that are expressed in terms of `v` values, where the `v` values are expressions of our original coordinate values, so we can do some substitution to get:
 
 \[
 \begin{aligned}
@@ -58,12 +69,14 @@ This gives us thee coefficients *a*, *b*, and *c* that are expressed in terms of
 \end{aligned}
 \]
 
-Easy-peasy. We can now almost trivially find the roots by plugging those values into the quadratic formula. We also note that the second derivative of a cubic curve means computing the first derivative of a quadratic curve, and we just saw how to do that in the section above.
+Easy-peasy. We can now almost trivially find the roots by plugging those values into the quadratic formula.
 
 ### Quartic curves: Cardano's algorithm.
 
-Quartic—fourth degree—curves have a cubic function as derivative. Now, cubic functions are a bit of a problem because they're really hard to solve. But, way back in the 16<sup>th</sup> century, [Gerolamo Cardano](https://en.wikipedia.org/wiki/Gerolamo_Cardano) figured out that even if the general cubic function is really hard to solve, it can be rewritten to a form for which finding the roots is "easy", and then the only hard part is figuring out how to go from that form to the
-generic form. So:
+We haven't really looked at them before now, but the next step up would be a Quartic curve, a fourth degree Bézier curve. As expected, these have a derivative that is a cubic function, and now things get much harder. Cubic functions don't have a "simple" rule to find their roots, like the quadratic formula, and instead require quite a bit of rewriting to a form that we can even start to try to solve.
+
+
+Back in the 16<sup>th</sup> century, before Bézier curves were a thing, and even before _calculus itself_ was a thing, [Gerolamo Cardano](https://en.wikipedia.org/wiki/Gerolamo_Cardano) figured out that even if the general cubic function is really hard to solve, it can be rewritten to a form for which finding the roots is "easier" (even if not "easy"):
 
 \[
   \begin{aligned}
@@ -72,9 +85,11 @@ generic form. So:
   \end{aligned}
 \]
 
-This is easier because for the "easier formula" we can use [regular calculus](http://www.wolframalpha.com/input/?i=t^3+%2B+pt+%2B+q) to find the roots. (As a cubic function, however, it can have up to three roots, but two of those can be complex. For the purpose of Bézier curve extremities, we can completely ignore those complex roots, since our *t* is a plain real number from 0 to 1.)
+We can see that the easier formula only has two constants, rather than four, and only two expressions involving `t`, rather than three: this makes things considerably easier to solve because it lets us use [regular calculus](http://www.wolframalpha.com/input/?i=t^3+%2B+pt+%2B+q) to find the values that satisfy the equasion.
 
-So, the trick is to figure out how to turn the first formula into the second formula, and to then work out the maths that gives us the roots. This is explained in detail over at [Ken J. Ward's page](https://trans4mind.com/personal_development/mathematics/polynomials/cubicAlgebra.htm) for solving the cubic equation, so instead of showing the maths, I'm simply going to show the programming code for solving the cubic equation, with the complex roots getting totally ignored.
+Now, there is one small hitch: as a cubic function, the solutions may be [complex numbers](https://en.wikipedia.org/wiki/Complex_number) rather than plain numbers... And Cardona realised this, centuries befor complex numbers were a well-understood and established part of number theory. His interpretation of them was "these numbers are impossible but that's okay because they disappear again in later steps", allowing him to not think about them too much, but we have it even easier: as we're trying to find the roots for display purposes, we don't even _care_ about complex numbers: we're going to simplify Cardano's approach just that tiny bit further by throwing away any solution that's not a plain number.
+
+So, how do we rewrite the hard formula into the easier formula? This is explained in detail over at [Ken J. Ward's page](https://trans4mind.com/personal_development/mathematics/polynomials/cubicAlgebra.htm) for solving the cubic equation, so instead of showing the maths, I'm simply going to show the programming code for solving the cubic equation, with the complex roots getting totally ignored, but if you're interested you should definitely head over to Ken's page and give the procedure a read-through.
 
 <div class="howtocode">
 
@@ -168,27 +183,27 @@ function getCubicRoots(pa, pb, pc, pd) {
 
 </div>
 
-And that's it. The maths is complicated, but the code is pretty much just "follow the maths, while caching as many values as we can to reduce recomputing things as much as possible" and now we have a way to find all roots for a cubic function and can just move on with using that to find extremities of our curves.
+And that's it. The maths is complicated, but the code is pretty much just "follow the maths, while caching as many values as we can to prevent recomputing things as much as possible" and now we have a way to find all roots for a cubic function and can just move on with using that to find extremities of our curves.
 
 ### Quintic and higher order curves: finding numerical solutions
 
-The problem with this is that as the order of the curve goes up, we can't actually solve those equations the normal way. We can't take the function, and then work out what the solutions are. Not to mention that even solving a third order derivative (for a fourth order curve) is already a royal pain in the backside. We need a better solution. We need numerical approaches.
+And this is where thing stop, because we _cannot_ find the roots for polynomials of degree 5 or higher using algebra (a fact known as [the Abel–Ruffini theorem](https://en.wikipedia.org/wiki/Abel%E2%80%93Ruffini_theorem)). Instead, for occasions like these, where algebra simply cannot yield an answer, we turn to [numerical analysis](https://en.wikipedia.org/wiki/Numerical_analysis).
 
-That's a fancy word for saying "rather than solve the function, treat the problem as a sequence of identical operations, the performing of which gets us closer and closer to the real answer". As it turns out, there is a really nice numerical root-finding algorithm, called the [Newton-Raphson](http://en.wikipedia.org/wiki/Newton-Raphson) root finding method (yes, after *[that](https://en.wikipedia.org/wiki/Isaac_Newton)* Newton), which we can make use of.
+That's a fancy term for saying "rather than trying to find exact answers by manipulating symbols, find approximate answers by describing the underlying process as a combination of steps, each of which _can_ be assigned a number via symbolic manipulation". For example, trying to mathematically compute how much water fits in a completely crazy three dimensional shape is very hard, even if it got you the perfect, precise answer. A much easier approach, which would be less perfect but still entirely useful, would be to just grab a buck and start filling the shape until it was full: just count the number of buckets of water you used. And if we want a more precise answer, we can use smaller buckets.
 
-The Newton-Raphson approach consists of picking a value *t* (any value will do), and getting the corresponding value of the function at that *t* value. For normal functions, we can treat that value as a height. If the height is zero, we're done, we have found a root. If it's not, we take the tangent of the curve at that point, and extend it until it passes the x-axis, which will be at some new point *t*. We then repeat the procedure with this new value, and we keep doing this until we find our root.
+So that's what we're going to do here, too: we're going to treat the problem as a sequence of steps, and the smaller we can make each step, the closer we'll get to that "perfect, precise" answer. And as it turns out, there is a really nice numerical root-finding algorithm, called the [Newton-Raphson](http://en.wikipedia.org/wiki/Newton-Raphson) root finding method (yes, after *[that](https://en.wikipedia.org/wiki/Isaac_Newton)* Newton), which we can make use of. The Newton-Raphson approach consists of taking our impossible-to-solve function `f(x)`, picking some intial value `x` (literally any value will do), and calculating `f(x)`. We can think of that value as the "height" of the function at `x`. If that height is zero, we're done, we have found a root. If it isn't, we calculate the tangent line at `f(x)` and calculate at which `x` value _its_ height is zero (which we've already seen is very easy). That will give us a new `x` and we repeat the process until we find a root.
 
-Mathematically, this means that for some *t*, at step *n=1*, we perform the following calculation until *f<sub>y</sub>*(*t*) is zero, so that the next *t* is the same as the one we already have:
+Mathematically, this means that for some `x`, at step `n=1`, we perform the following calculation until `f<sub>y</sub>(x)` is zero, so that the next `t` is the same as the one we already have:
 
 \[
-  t_{n+1} = t_n - \frac{f_y(t_n)}{f'_y(t_n)}
+  x_{n+1} = x_n - \frac{f_y(x_n)}{f'_y(x_n)}
 \]
 
-(The Wikipedia article has a decent animation for this process, so I'm not adding a sketch for that here unless there are requests for it)
+(The Wikipedia article has a decent animation for this process, so I will not add a graphic for that here)
 
-Now, this works well only if we can pick good starting points, and our curve is continuously differentiable and doesn't have oscillations. Glossing over the exact meaning of those terms, the curves we're dealing with conform to those constraints, so as long as we pick good starting points, this will work. So the question is: which starting points do we pick?
+Now, this works well only if we can pick good starting points, and our curve is [continuously differentiable](https://en.wikipedia.org/wiki/Continuous_function) and doesn't have [oscillations](https://en.wikipedia.org/wiki/Oscillation_(mathematics)). Glossing over the exact meaning of those terms, the curves we're dealing with conform to those constraints, so as long as we pick good starting points, this will work. So the question is: which starting points do we pick?
 
-As it turns out, Newton-Raphson is so blindingly fast, so we could get away with just not picking: we simply run the algorithm from *t=0* to *t=1* at small steps (say, 1/200<sup>th</sup>) and the result will be all the roots we want. Of course, this may pose problems for high order Bézier curves: 200 steps for a 200<sup>th</sup> order Bézier curve is going to go wrong, but that's okay: there is no reason, ever, to use Bézier curves of crazy high orders. You might use a fifth order curve to get the "nicest still remotely workable" approximation of a full circle with a single Bézier curve, that's pretty much as high as you'll ever need to go.
+As it turns out, Newton-Raphson is so blindingly fast that we could get away with just not picking: we simply run the algorithm from *t=0* to *t=1* at small steps (say, 1/200<sup>th</sup>) and the result will be all the roots we want. Of course, this may pose problems for high order Bézier curves: 200 steps for a 200<sup>th</sup> order Bézier curve is going to go wrong, but that's okay: there is no reason (at least, none that I know of) to _ever_ use Bézier curves of crazy high orders. You might use a fifth order curve to get the "nicest still remotely workable" approximation of a full circle with a single Bézier curve, but that's pretty much as high as you'll ever need to go.
 
 ### In conclusion:
 
