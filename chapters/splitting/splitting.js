@@ -75,8 +75,6 @@ onKeyDown() {
 onMouseMove() {
     if (this.cursor.down && !this.currentPoint) {
       this.t = map(this.cursor.y, 0,this.height, 0, 1);
-    } else {
-        this.curve.update();
     }
     redraw();
 }

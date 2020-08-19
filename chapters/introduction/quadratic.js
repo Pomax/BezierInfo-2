@@ -12,6 +12,5 @@ draw() {
 }
 
 onMouseMove() {
-  this.curve.update();
   redraw();
 }

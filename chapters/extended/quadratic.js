@@ -13,7 +13,7 @@ draw() {
     let step=0.05, min=-10, max=10;
     let pt = curve.get(min - step), pn;
 
-    setStroke(`lightgrey`);
+    setStroke(`skyblue`);
 
     for (let t=min; t<=step; t+=step) {
       pn = curve.get(t);

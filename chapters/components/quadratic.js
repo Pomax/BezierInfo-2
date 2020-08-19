@@ -1,7 +1,6 @@
 setup() {
     const curve = this.curve = Bezier.defaultQuadratic(this);
     curve.points[2].x = 210;
-    curve.update();
     setMovable(curve.points);
 }
 
