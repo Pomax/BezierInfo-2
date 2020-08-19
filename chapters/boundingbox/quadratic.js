@@ -27,7 +27,7 @@ draw() {
         if (p.x > maxx) maxx = p.x;
         if (p.y < miny) miny = p.y;
         if (p.y > maxy) maxy = p.y;
-        circle(p.x, p.y, 3);
+        if (t > 0 && t< 1) circle(p.x, p.y, 3);
     });
 
     setStroke(`#0F0`);

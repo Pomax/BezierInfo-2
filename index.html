@@ -111,7 +111,7 @@
           <li><a href="#extremities">Finding extremities: root finding</a></li>
           <li><a href="#boundingbox">Bounding boxes</a></li>
           <li><a href="#aligning">Aligning curves</a></li>
-          <li><a href="#tightbounds">Tight boxes</a></li>
+          <li><a href="#tightbounds">Tight bounding boxes</a></li>
           <li><a href="#inflections">Curve inflections</a></li>
           <li><a href="#canonical">Canonical form (for cubic curves)</a></li>
           <li><a href="#yforx">Finding Y, given X</a></li>
@@ -3356,7 +3356,7 @@ function getCubicRoots(pa, pb, pc, pd) {
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\boundingbox\7d6e04cb038bc7d8e5cfa28beee46ae5.png"
+                src="images\chapters\boundingbox\1f0e2a574995607c61adf48eded66458.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
@@ -3372,7 +3372,7 @@ function getCubicRoots(pa, pb, pc, pd) {
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\boundingbox\a5595ac771a586fee13b0bf1fd2f4e49.png"
+                src="images\chapters\boundingbox\168229f33086b9919756f4a062ff00bd.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
@@ -3457,7 +3457,7 @@ function getCubicRoots(pa, pb, pc, pd) {
               <img
                 width="550px"
                 height="275px"
-                src="images\chapters\aligning\be2c5ccf3d1136da7f04d39f63e4b94b.png"
+                src="images\chapters\aligning\54238957a61113fae905188b9eb1a582.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
@@ -3473,7 +3473,7 @@ function getCubicRoots(pa, pb, pc, pd) {
               <img
                 width="550px"
                 height="275px"
-                src="images\chapters\aligning\b93cd2d19303c6bcd78b130387cd678a.png"
+                src="images\chapters\aligning\4da87bfcb036722be99f4b1166d5daeb.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
@@ -3481,7 +3481,7 @@ function getCubicRoots(pa, pb, pc, pd) {
           >
         </section>
         <section id="tightbounds">
-          <h1><a href="#tightbounds">Tight boxes</a></h1>
+          <h1><a href="#tightbounds">Tight bounding boxes</a></h1>
           <p>
             With our knowledge of bounding boxes, and curve alignment, We can
             now form the "tight" bounding box for curves. We first align our
@@ -3489,18 +3489,41 @@ function getCubicRoots(pa, pb, pc, pd) {
             angle we used, "R". We then determine the aligned curve's normal
             bounding box. Once we have that, we can map that bounding box back
             to our original curve by rotating it by -R, and then translating it
-            by -T. We now have nice tight bounding boxes for our curves:
+            by -T.
           </p>
-          <Graphic
+          <p>We now have nice tight bounding boxes for our curves:</p>
+          <graphics-element
             title="Aligning a quadratic curve"
-            setup="{this.setupQuadratic}"
-            draw="{this.draw}"
-          />
-          <Graphic
+            width="275"
+            height="275"
+            src="./chapters/tightbounds/quadratic.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\tightbounds\95d28739a00d2c9c0c4bbc3c93ce3e05.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
+          <graphics-element
             title="Aligning a cubic curve"
-            setup="{this.setupCubic}"
-            draw="{this.draw}"
-          />
+            width="275"
+            height="275"
+            src="./chapters/tightbounds/cubic.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\tightbounds\40061dae02a2f78fdaaedd37289dc38a.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
 
           <p>
             These are, strictly speaking, not necessarily the tightest possible
@@ -3508,10 +3531,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             by determining which spanning lines we need to effect a minimal box
             area, but because of the parametric nature of Bézier curves this is
             actually a rather costly operation, and the gain in bounding
-            precision is often not worth it. If there is high demand for it,
-            I'll add a section on how to precisely compute the best fit bounding
-            box, but the maths is fairly grueling and just not really worth
-            spending time on.
+            precision is often not worth it.
           </p>
         </section>
         <section id="inflections">
