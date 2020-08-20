@@ -28,6 +28,6 @@ const paths = {
   temp,
 };
 
-Object.values(paths).forEach((loc) => fs.ensureDir(loc));
+Object.values(paths).forEach((loc) => fs.ensureDirSync(loc));
 
 export default paths;

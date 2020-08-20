@@ -75,7 +75,7 @@ async function createIndexPages(locale, localeStrings, chapters) {
     fs.writeFileSync(path.join(paths.public, `index.html`), data, `utf8`);
   } else {
     let localeDir = path.join(paths.public, locale);
-    fs.ensureDir(localeDir);
+    fs.ensureDirSync(localeDir);
     fs.writeFileSync(path.join(localeDir, `index.html`), data, `utf8`);
   }
 }

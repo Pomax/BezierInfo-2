@@ -7,6 +7,7 @@ import performCodeSurgery from "../../../docs/js/custom-element/lib/perform-code
 // Note that this location is relative to the temp dir, from which sketch modules get loaded.
 const thisModuleURL = new URL(import.meta.url);
 const thisModuleDir = path.dirname(thisModuleURL.href.replace(`file:///`, ``));
+
 const GRAPHICS_API_LOCATION = path
   .join(
     path.relative(thisModuleDir, paths.public),
@@ -18,13 +19,18 @@ const GRAPHICS_API_LOCATION = path
   .split(path.sep)
   .join(path.posix.sep);
 
+const RELATIVE_IMPORT_LOCATION = path
+  .relative(thisModuleDir, paths.chapters)
+  .split(path.sep)
+  .join(path.posix.sep);
+
 /**
  * ...docs go here...
  */
 function generateGraphicsModule(chapter, code, width, height) {
   // step 1: fix the imports
   code = code.replace(/(import .+? from) "([^"]+)"/g, (_, main, group) => {
-    return `${main} "../../../chapters/${chapter}/${group}"`;
+    return `${main} "${RELATIVE_IMPORT_LOCATION}/${chapter}/${group}"`;
   });
 
   // step 2: split up the code into "global" vs. "class" code

@@ -34,8 +34,8 @@ async function generateFallbackImage(chapter, localeStrings, src, w, h) {
 
   if (locale !== localeStrings.getDefaultLocale()) return hash;
 
-  const destPath = path.join(paths.images, src);
-  fs.ensureDir(destPath);
+  const destPath = path.dirname(path.join(paths.images, src));
+  fs.ensureDirSync(destPath);
 
   const filePath = path.join(destPath, `${hash}.png`);
   if (fs.existsSync(filePath)) return hash;

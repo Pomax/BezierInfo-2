@@ -23,7 +23,7 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
 
   const TeXfilename = path.join(paths.temp, `${hash}.tex`);
   const chapterDir = path.join(paths.images, `chapters`, chapter);
-  fs.ensureDir(chapterDir);
+  fs.ensureDirSync(chapterDir);
 
   const SVGfilename = path.join(chapterDir, `${hash}.svg`);
   const srcURL = `./images/chapters/${chapter}/${hash}.svg`;
