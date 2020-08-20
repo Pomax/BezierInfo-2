@@ -2,7 +2,7 @@ import fs from "fs-extra";
 import path from "path";
 import { convertMarkDown } from "./markdown/convert-markdown.js";
 import nunjucks from "nunjucks";
-import toc from "../../public/chapters/toc.js";
+import toc from "../../docs/chapters/toc.js";
 import paths from "../project-paths.js";
 
 // Some things only work with POSIX filepaths, so let's force those.

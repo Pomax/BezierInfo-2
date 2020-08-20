@@ -4,7 +4,7 @@ import paths from "../project-paths.js";
 import prettier from "prettier";
 import generateLangSwitcher from "./generate-lang-switcher.js";
 import nunjucks from "nunjucks";
-import sectionOrder from "../../public/chapters/toc.js";
+import sectionOrder from "../../docs/chapters/toc.js";
 import changelog from "../changelog.js";
 
 nunjucks.configure(paths.src, { autoescape: false });

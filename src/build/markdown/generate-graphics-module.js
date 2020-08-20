@@ -1,9 +1,22 @@
-import splitCodeSections from "../../../public/js/custom-element/lib/split-code-sections.js";
-import performCodeSurgery from "../../../public/js/custom-element/lib/perform-code-surgery.js";
+import path from "path";
+import paths from "../../project-paths.js";
 import prettier from "prettier";
+import splitCodeSections from "../../../docs/js/custom-element/lib/split-code-sections.js";
+import performCodeSurgery from "../../../docs/js/custom-element/lib/perform-code-surgery.js";
 
 // Note that this location is relative to the temp dir, from which sketch modules get loaded.
-const GRAPHICS_API_LOCATION = `../../../public/js/custom-element/api/graphics-api.js`;
+const thisModuleURL = new URL(import.meta.url);
+const thisModuleDir = path.dirname(thisModuleURL.href.replace(`file:///`, ``));
+const GRAPHICS_API_LOCATION = path
+  .join(
+    path.relative(thisModuleDir, paths.public),
+    `js`,
+    `custom-element`,
+    `api`,
+    `graphics-api.js`
+  )
+  .split(path.sep)
+  .join(path.posix.sep);
 
 /**
  * ...docs go here...
