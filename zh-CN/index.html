@@ -2644,8 +2644,8 @@ function drawCurve(points[], t):
           <img
             class="LaTeX SVG"
             src="images/latex/0ec5cc72a428d75defb480530b50d720.svg"
-            width="411px"
-            height="40px"
+            width="433px"
+            height="37px"
           />
           <p>
             So, if we can rewrite the Bézier component function as a plain
@@ -2665,8 +2665,8 @@ function drawCurve(points[], t):
           <img
             class="LaTeX SVG"
             src="images/latex/e06ec558d99b53e559d24524f4201951.svg"
-            width="537px"
-            height="36px"
+            width="553px"
+            height="37px"
           />
           <p>
             And then, using these <em>v</em> values, we can find out what our
@@ -2675,8 +2675,8 @@ function drawCurve(points[], t):
           <img
             class="LaTeX SVG"
             src="images/latex/ddc6f99a543afad25c55cf16b9deeed9.svg"
-            width="315px"
-            height="119px"
+            width="317px"
+            height="112px"
           />
           <p>
             This gives us three coefficients {a, b, c} that are expressed in
@@ -2688,11 +2688,16 @@ function drawCurve(points[], t):
             class="LaTeX SVG"
             src="images/latex/d9e66caeb45b6643112ce3d971b17e5b.svg"
             width="308px"
-            height="63px"
+            height="64px"
           />
           <p>
             Easy-peasy. We can now almost trivially find the roots by plugging
             those values into the quadratic formula.
+          </p>
+          <p>
+            And as a cubic curve, there is also a meaningful second derivative,
+            which we can compute by simple taking the derivative of the
+            derivative.
           </p>
           <h3>Quartic curves: Cardano's algorithm.</h3>
           <p>
@@ -2716,8 +2721,8 @@ function drawCurve(points[], t):
           <img
             class="LaTeX SVG"
             src="images/latex/997a8cc704c0ab0e364cb8b532df90b0.svg"
-            width="253px"
-            height="44px"
+            width="264px"
+            height="41px"
           />
           <p>
             We can see that the easier formula only has two constants, rather
@@ -2862,6 +2867,12 @@ function getCubicRoots(pa, pb, pc, pd) {
             way to find all roots for a cubic function and can just move on with
             using that to find extremities of our curves.
           </p>
+          <p>
+            And of course, as a quartic curve also has meaningful second and
+            third derivatives, we can quite easily compute those by using the
+            derivative of the derivative (of the derivative), just as for cubic
+            cuvers.
+          </p>
           <h3>Quintic and higher order curves: finding numerical solutions</h3>
           <p>
             And this is where thing stop, because we <em>cannot</em> find the
@@ -2960,7 +2971,8 @@ function getCubicRoots(pa, pb, pc, pd) {
           <p>
             So now that we know how to do root finding, we can determine the
             first and second derivative roots for our Bézier curves, and show
-            those roots overlaid on the previous graphics:
+            those roots overlaid on the previous graphics. For the quadratic
+            curve, that means just the first derivative, in red:
           </p>
           <graphics-element
             title="Quadratic Bézier curve extremities"
@@ -2978,6 +2990,11 @@ function getCubicRoots(pa, pb, pc, pd) {
               Scripts are disabled. Showing fallback image.
             </fallback-image></graphics-element
           >
+
+          <p>
+            And for cubic curves, that means first and second derivatives, in
+            red and purple respectively:
+          </p>
           <graphics-element
             title="Cubic Bézier curve extremities"
             width="825"
@@ -2988,7 +3005,7 @@ function getCubicRoots(pa, pb, pc, pd) {
               <img
                 width="825px"
                 height="275px"
-                src="images\chapters\extremities\68ed7f964bbfad946506cad184feb1b2.png"
+                src="images\chapters\extremities\1440c49b9192919163dc44d6b0cf156b.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
@@ -3246,7 +3263,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             class="LaTeX SVG"
             src="images/latex/bafdb6583323bda71d9a15c02d1fdec2.svg"
             width="59px"
-            height="16px"
+            height="17px"
           />
           <p>
             What we're saying here is that given the curvature function
@@ -3260,8 +3277,8 @@ function getCubicRoots(pa, pb, pc, pd) {
           <img
             class="LaTeX SVG"
             src="images/latex/2029bca9f4fa15739553636af99b70a8.svg"
-            width="385px"
-            height="21px"
+            width="399px"
+            height="19px"
           />
           <p>
             The function <em>C(t)</em> is the cross product between the first
@@ -3291,14 +3308,14 @@ function getCubicRoots(pa, pb, pc, pd) {
             <img
               class="LaTeX SVG"
               src="images/latex/4d78ebcf8626f777725d67d3672fa480.svg"
-              width="601px"
+              width="613px"
               height="71px"
             />
             <p>And of course the same functions for <em>y</em>:</p>
             <img
               class="LaTeX SVG"
               src="images/latex/97b34ad5920612574d1b2a1a9d22d571.svg"
-              width="399px"
+              width="397px"
               height="69px"
             />
             <p>
@@ -3309,8 +3326,8 @@ function getCubicRoots(pa, pb, pc, pd) {
             <img
               class="LaTeX SVG"
               src="images/latex/b2433959e1f451fa3bf238fc37e04527.svg"
-              width="552px"
-              height="97px"
+              width="557px"
+              height="96px"
             />
             <p>
               That is... unwieldy. So, we note that there are a lot of terms
@@ -3322,14 +3339,15 @@ function getCubicRoots(pa, pb, pc, pd) {
 
           <p>
             Aligning our curve so that three of the eight coefficients become
-            zero, we end up with the following simple term function for
-            <em>C(t)</em>:
+            zero, and observing that scale does not affect finding
+            <code>t</code> values, we end up with the following simple term
+            function for <em>C(t)</em>:
           </p>
           <img
             class="LaTeX SVG"
-            src="images/latex/4dbe6398d0075b5b9ef39458ef620616.svg"
-            width="560px"
-            height="21px"
+            src="images/latex/1679090a942a43d27f886f236fc8d62b.svg"
+            width="533px"
+            height="19px"
           />
           <p>
             That's a lot easier to work with: we see a fair number of terms that
@@ -3338,8 +3356,8 @@ function getCubicRoots(pa, pb, pc, pd) {
           </p>
           <img
             class="LaTeX SVG"
-            src="images/latex/d7a657089da19f032dd3b3e1d9ed1d89.svg"
-            width="509px"
+            src="images/latex/4b5c7d0bf0fcd769db007dd98d4a024d.svg"
+            width="480px"
             height="73px"
           />
           <p>
@@ -3348,9 +3366,9 @@ function getCubicRoots(pa, pb, pc, pd) {
           </p>
           <img
             class="LaTeX SVG"
-            src="images/latex/b94df866222bed63d123df6b839a4d14.svg"
-            width="435px"
-            height="55px"
+            src="images/latex/7c9762c0e04693eb743905cdc0487f8b.svg"
+            width="428px"
+            height="53px"
           />
           <p>
             We can easily compute this value <em>if</em> the discriminator isn't
@@ -3363,11 +3381,22 @@ function getCubicRoots(pa, pb, pc, pd) {
             <em>t</em> value that isn't in the Bézier interval [0,1], and we now
             know at which <em>t</em> value(s) our curve will inflect.
           </p>
-          <Graphic
+          <graphics-element
             title="Finding cubic Bézier curve inflections"
-            setup="{this.setupCubic}"
-            draw="{this.draw}"
-          />
+            width="275"
+            height="275"
+            src="./chapters/inflections/inflection.js"
+          >
+            <fallback-image>
+              <img
+                width="275px"
+                height="275px"
+                src="images\chapters\inflections\e81a6573cf3ea31045eb7e8dca3eecb3.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
         </section>
         <section id="canonical">
           <h1>

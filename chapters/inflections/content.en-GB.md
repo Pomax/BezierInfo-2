@@ -60,10 +60,10 @@ That is... unwieldy. So, we note that there are a lot of terms that involve mult
 
 </div>
 
-Aligning our curve so that three of the eight coefficients become zero, we end up with the following simple term function for *C(t)*:
+Aligning our curve so that three of the eight coefficients become zero, and observing that scale does not affect finding `t` values, we end up with the following simple term function for *C(t)*:
 
 \[
-  18 \left ( (3 x_3 y_2+2 x_4 y_2+3 x_2 y_3-x_4 y_3)t^2 + (3 x_3 y_2-x_4 y_2-3 x_2 y_3)t + (x_2 y_3-x_3 y_2) \right )
+  \left ( 3 x_3 y_2+2 x_4 y_2+3 x_2 y_3-x_4 y_3 \right ) t^2 + \left ( 3 x_3 y_2-x_4 y_2-3 x_2 y_3 \right ) t + \left ( x_2 y_3-x_3 y_2 \right )
 \]
 
 That's a lot easier to work with: we see a fair number of terms that we can compute and then cache, giving us the following simplification:
@@ -75,16 +75,16 @@ That's a lot easier to work with: we see a fair number of terms that we can comp
     c = x_2 \cdot y_3 \\
     d = x_4 \cdot y_3
   \end{matrix}\right\}
-  \ C(t) = 18 \cdot \left ( (-3a + 2b + 3c - d)t^2 + (3a - b - 3c)t + (c - a) \right )
+  \ C(t) = (-3a + 2b + 3c - d)t^2 + (3a - b - 3c)t + (c - a)
 \]
 
 This is a plain quadratic curve, and we know how to solve *C(t) = 0*; we use the quadratic formula:
 
 \[
   \left.\begin{matrix}
-    x =& 18(-3a + 2b + 3c - d) \\
-    y =& 18(3a - b - 3c) \\
-    z =& 18(c - a)
+    x =& -3a + 2b + 3c - d \\
+    y =& 3a - b - 3c \\
+    z =& c - a
   \end{matrix}\right\}
   \ C(t) = 0 \ \Rightarrow\ t = \frac{-y \pm \sqrt{y^2 - 4 x z}}{2x}
 \]
@@ -93,4 +93,4 @@ We can easily compute this value *if* the discriminator isn't a negative number 
 
 Taking that into account, we compute *t*, we disregard any *t* value that isn't in the Bézier interval [0,1], and we now know at which *t* value(s) our curve will inflect.
 
-<Graphic title="Finding cubic Bézier curve inflections" setup={this.setupCubic} draw={this.draw}/>
+<graphics-element title="Finding cubic Bézier curve inflections" src="./inflection.js"></graphics-element>

@@ -71,6 +71,8 @@ This gives us three coefficients {a, b, c} that are expressed in terms of `v` va
 
 Easy-peasy. We can now almost trivially find the roots by plugging those values into the quadratic formula.
 
+And as a cubic curve, there is also a meaningful second derivative, which we can compute by simple taking the derivative of the derivative.
+
 ### Quartic curves: Cardano's algorithm.
 
 We haven't really looked at them before now, but the next step up would be a Quartic curve, a fourth degree Bézier curve. As expected, these have a derivative that is a cubic function, and now things get much harder. Cubic functions don't have a "simple" rule to find their roots, like the quadratic formula, and instead require quite a bit of rewriting to a form that we can even start to try to solve.
@@ -185,6 +187,9 @@ function getCubicRoots(pa, pb, pc, pd) {
 
 And that's it. The maths is complicated, but the code is pretty much just "follow the maths, while caching as many values as we can to prevent recomputing things as much as possible" and now we have a way to find all roots for a cubic function and can just move on with using that to find extremities of our curves.
 
+And of course, as a quartic curve  also has meaningful second and third derivatives, we can quite easily compute those by using the derivative of the derivative (of the derivative), just as for cubic cuvers.
+
+
 ### Quintic and higher order curves: finding numerical solutions
 
 And this is where thing stop, because we _cannot_ find the roots for polynomials of degree 5 or higher using algebra (a fact known as [the Abel–Ruffini theorem](https://en.wikipedia.org/wiki/Abel%E2%80%93Ruffini_theorem)). Instead, for occasions like these, where algebra simply cannot yield an answer, we turn to [numerical analysis](https://en.wikipedia.org/wiki/Numerical_analysis).
@@ -207,7 +212,10 @@ As it turns out, Newton-Raphson is so blindingly fast that we could get away wit
 
 ### In conclusion:
 
-So now that we know how to do root finding, we can determine the first and second derivative roots for our Bézier curves, and show those roots overlaid on the previous graphics:
+So now that we know how to do root finding, we can determine the first and second derivative roots for our Bézier curves, and show those roots overlaid on the previous graphics. For the quadratic curve, that means just the first derivative, in red:
 
 <graphics-element title="Quadratic Bézier curve extremities" width="825" src="./quadratic.js"></graphics-element>
+
+And for cubic curves, that means first and second derivatives, in red and purple respectively:
+
 <graphics-element title="Cubic Bézier curve extremities" width="825" src="./cubic.js"></graphics-element>

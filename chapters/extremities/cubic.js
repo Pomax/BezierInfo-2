@@ -46,7 +46,7 @@ plotDimension(dim, dimension) {
     dimension.drawCurve();
 
     setFill(`red`);
-    setStroke(`red)`);
+    setStroke(`red`);
 
     // There are four possible extrema: t=0, t=1, and
     // up to two t values that solves B'(t)=0, provided
@@ -80,15 +80,31 @@ plotDimension(dim, dimension) {
         }
     });
 
-    // Done, show our extrema:
+    // Done, show our derivative-based extrema:
     circle(t1 * dim, y1, 3);
     text(`t = ${t1.toFixed(2)}`, map(t1, 0,1, 15,dim-15), y1 + 25);
     circle(t2 * dim, y2, 3);
     text(`t = ${t2.toFixed(2)}`, map(t2, 0,1, 15,dim-15), y2 + 25);
+
+    // And then show the second derivate inflection, if there is one
+    setFill(`purple`);
+    setStroke(`purple`);
+    this.getRoots(...dimension.dpoints[1].map(p => p.y)).forEach(t =>{
+        if (t > 0 && t < 1) {
+          let d = dimension.get(t);
+          circle(t * dim, d.y, 3);
+          text(`t = ${t.toFixed(2)}`, map(t, 0,1, 15,dim-15), d.y + 25);
+        }
+    });
+
     restoreStyle();
 }
 
 getRoots(v1, v2, v3) {
+    if (v3 === undefined) {
+      return [-v1 / (v2 - v1)];
+    }
+
     const a = v1 - 2*v2 + v3,
         b = 2 * (v2 - v1),
         c = v1,
