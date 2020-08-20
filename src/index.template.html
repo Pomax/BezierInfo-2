@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{{ title }}</title>
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+
+    {{ base }}
+
+    <!-- And a slew of SEO related meta elements, because being discoverable is important -->
+    <meta name="description" content="{{ description }}" />
+
+    <!-- opengraph information -->
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
+    <meta property="og:type" content="text" />
+    <meta property="og:url" content="https://pomax.github.io/bezierinfo" />
+    <meta property="og:description" content="{{ description }}" />
+    <meta property="og:locale" content="{{ locale }}}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:published_time" content="2013-06-13 12:00:00" />
+    <meta property="og:author" content="Mike 'Pomax' Kamermans" />
+    <meta property="og:section" content="Bézier Curves" />
+    <meta property="og:tag" content="Bézier Curves" />
+
+    <!-- twitter card information -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@TheRealPomax" />
+    <meta name="twitter:creator" content="@TheRealPomax" />
+    <meta name="twitter:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
+    <meta name="twitter:url" content="https://pomax.github.io/bezierinfo" />
+    <meta name="twitter:description" content="{{ description }}" />
+
+    <!-- my own referral/page hit tracker, because Google knows enough -->
+    <script src="./js/site/referrer.js" type="module" async></script>
+
+    <!--
+      The part that makes interactive graphics work: an HTML5 <graphics-element> custom element.
+      Note that we're not defering this: we just want it to kick in as soon as possible, and
+      given how much HTML there is, that means this can, and thus should, kick in before the
+      document is done even transferring.
+    -->
+    <script src="./js/custom-element/graphics-element.js" type="module" async></script>
+    <link rel="stylesheet" href="./js/custom-element/graphics-element.css" />
+
+    <!-- page styling -->
+    <link rel="stylesheet" href="placeholder-style.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>{{ title }}</h1>
+      <h2>{{ subtitle }}</h2>
+      <span>{{ langSwitchLabel }}</span>
+      <ul>
+        {{ langSwitcher }}
+      </ul>
+      <span>{{ langHelpLabel }}</span>
+      <nav aria-labelledby="toc">
+        <h1 id="toc">{{ tocLabel }}</h1>
+        <ol>{{ toc }}</ol>
+      </nav>
+    </header>
+
+    <main>
+      <section id="preface">{{ preface }}</section>
+      <section id="changelog">
+        <h1>{{ changelogTitle }}</h1>
+        <p>{{ changelogDescription }}</p>
+
+        <!-- non-JS content reveals are nice -->
+        <label for="changelogtoggle">{{ toggleLabel }}</label>
+        <input type="checkbox" id="changelogtoggle">
+
+        <section>{{ changelog }}</section>
+      </section>
+      <section id="chapters">{{ chapters }}</section>
+    </main>
+  </body>
+</html>

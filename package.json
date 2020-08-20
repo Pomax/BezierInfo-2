@@ -14,18 +14,19 @@
     "url": "https://github.com/Pomax/BezierInfo-2/issues"
   },
   "scripts": {
-    "start": "rm -f .timing && run-s time lint:* build time && rm -f .timing",
-    "test": "run-p watch server browser",
+    "start": "cls && run-s clean time lint:* build time && rm -f .timing",
+    "test": "run-s start && run-p watch server browser",
     "---": "---",
     "browser": "open-cli http://localhost:8000",
-    "build": "node ./tools/build.js",
-    "lint:tools": "prettier ./tools --write",
-    "lint:lib": "prettier ./lib --write",
-    "server": "http-server -p 8000 --cors",
+    "build": "node ./src/build.js",
+    "clean": "rm -f .timing && rm -rf ./src/build/temp",
+    "lint:tools": "prettier ./src/**/*.js --write",
+    "lint:lib": "prettier ./public/js/**/*.js --write",
+    "server": "cd public && http-server -p 8000 --cors",
     "watch": "run-p watch:*",
     "watch:markdown": "chokidar \"./chapters/**/*.md\" -c \"npm start\"",
     "watch:sketches": "chokidar \"./chapters/**/*.js\" -c \"npm start\"",
-    "time": "node ./mark.js"
+    "time": "node ./src/mark.js"
   },
   "keywords": [
     "Bezier",
