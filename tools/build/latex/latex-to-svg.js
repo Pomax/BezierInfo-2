@@ -6,7 +6,8 @@ import cleanUp from "./cleanup.js";
 
 const moduleURL = new URL(import.meta.url);
 const __dirname = path.dirname(moduleURL.href.replace(`file:///`, ``));
-const baseDir = path.join(__dirname, `..`, `..`, `..`, `images`, `latex`);
+const imgDir = path.join(__dirname, `..`, `..`, `..`, `images`);
+const baseDir = path.join(imgDir, `latex`);
 
 fs.ensureDirSync(baseDir);
 
@@ -30,9 +31,12 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
   const hash = createHash(`md5`).update(latex).digest(`hex`);
 
   const TeXfilename = path.join(sourceDir, hash + `.tex`);
-  const SVGfilename = path.resolve(
-    path.join(path.dirname(TeXfilename), `..`, hash + `.svg`)
-  );
+  const chapterDir = path.join(imgDir, `chapters`, chapter);
+
+  fs.ensureDir(chapterDir);
+
+  const SVGfilename = path.join(chapterDir, hash + `.svg`);
+  const srcURL = `images/chapters/${chapter}/${hash + `.svg`}`;
 
   if (!fs.existsSync(SVGfilename)) {
     const PDFfilename = TeXfilename.replace(`.tex`, `.pdf`);
@@ -139,9 +143,9 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
   var w = Math.round(((parseFloat(vb[2]) - parseFloat(vb[0])) * 4) / 3);
   var h = Math.round(((parseFloat(vb[3]) - parseFloat(vb[1])) * 4) / 3);
 
-  return `<img class="LaTeX SVG" src="images/latex/${path.basename(
-    SVGfilename
-  )}" width="${Math.round(w)}px" height="${Math.round(h)}px">`;
+  return `<img class="LaTeX SVG" src="${srcURL}" width="${Math.round(
+    w
+  )}px" height="${Math.round(h)}px">`;
 }
 
 // This function really needs better stdio capture,
