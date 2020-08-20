@@ -66,7 +66,10 @@ function generateGraphicsModule(chapter, code, width, height) {
 
         export { canvas };
     `,
-    { parser: `babel` }
+    {
+      // I'm not transpiling, I'm assuming Prettier just uses Babel as AST parser/rewriter.
+      parser: `babel`,
+    }
   );
 }
 
