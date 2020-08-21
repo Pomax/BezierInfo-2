@@ -1,4 +1,4 @@
-# Canonical form (for cubic curves)
+# The canonical form (for cubic curves)
 
 While quadratic curves are relatively simple curves to analyze, the same cannot be said of the cubic curve. As a curvature is controlled by more than one control point, it exhibits all kinds of features like loops, cusps, odd colinear features, and as many as two inflection points because the curvature can change direction up to three times. Now, knowing what kind of curve we're dealing with means that some algorithms can be run more efficiently than if we have to implement them as generic solvers, so is there a way to determine the curve type without lots of work?
 
@@ -54,13 +54,13 @@ For the full details, head over to the paper and read through sections 3 and 4. 
 
 So now the question becomes: how do we manipulate our curve so that it fits this canonical form, with three fixed points, and one "free" point? Enter linear algebra. Don't worry, I'll be doing all the math for you, as well as show you what the effect is on our curves, but basically we're going to be using linear algebra, rather than calculus, because "it's way easier". Sometimes a calculus approach is very hard to work with, when the equivalent geometrical solution is super obvious.
 
-The approach is going to start with a curve that doesn't have all-colinear points (so we need to make sure the points don't all fall on a straight line), and then applying four graphics operations that you will probably have heard of: translation (moving all points by some fixed x- and y-distance), scaling (multiplying all points by some x and y scale factor), and shearing (an operation that turns rectangles into parallelograms).
+The approach is going to start with a curve that doesn't have all-colinear points (so we need to make sure the points don't all fall on a straight line), and then applying three graphics operations that you will probably have heard of: translation (moving all points by some fixed x- and y-distance), scaling (multiplying all points by some x and y scale factor), and shearing (an operation that turns rectangles into parallelograms).
 
 Step 1: we translate any curve by -p1.x and -p1.y, so that the curve starts at (0,0). We're going to make use of an interesting trick here, by pretending our 2D coordinates are 3D, with the *z* coordinate simply always being 1. This is an old trick in graphics to overcome the limitations of 2D transformations: without it, we can only turn (x,y) coordinates into new coordinates of the form (ax + by, cx + dy), which means we can't do translation, since that requires we end up with some kind of (x + a, y + b). If we add a bogus *z* coordinate that is always 1, then we can suddenly add arbitrary values. For example:
 
 \[
 \left [ \begin{array}{ccc}
-    01 & 0 & a \\
+    1 & 0 & a \\
     0 & 1 & b \\
     0 & 0 & 1
   \end{array} \right ]
@@ -103,7 +103,7 @@ Sweet! *z* stays 1, so we can effectively ignore it entirely, but we added some 
 \[
 T_1 =
 \left [ \begin{array}{ccc}
-    01 & 0 & -{P_1}_x \\
+    1 & 0 & -{P_1}_x \\
     0 & 1 & -{P_1}_y \\
     0 & 0 & 1
   \end{array} \right ]
@@ -205,7 +205,11 @@ And this generates our final set of four coordinates. Of these, we already know 
 \[
 mapped_4 = \left (
   \begin{matrix}
-   x =  \left (
+  x \\
+  y
+  \end{matrix}
+\right ) = \left (
+  \begin{matrix}
     \frac
     {
       -x_1 + x_4 - \frac{(-x_1+x_2)(-y_1+y_4)}{-y_1+y_2}
@@ -213,9 +217,7 @@ mapped_4 = \left (
     {
       -x_1+x_3-\frac{(-x_1+x_2)(-y_1+y_3)}{-y_1+y_2}
     }
-    \right )
 \\
-   y = \left (
     \frac{(-y_1+y_4)}{-y_1+y_2}
     +
     \frac
@@ -226,26 +228,25 @@ mapped_4 = \left (
     {
       -x_1+x_3-\frac{(-x_1+x_2)(-y_1+y_3)}{-y_1+y_2}
     }
-    \right )
   \end{matrix}
 \right )
 \]
 
-That looks very complex, but notice that every coordinate value is being offset by the initial translation, and a lot of terms in there repeat: it's pretty easy to calculate this fast, since there's so much we can cache and reuse while we compute this mapped coordinate!
+Okay, well, that looks plain ridiculous, but: notice that every coordinate value is being offset by the initial translation, and also notice that _a lot_ of terms in that expression are repeated. Even though the maths looks crazy as a single expression, we can just pull this apart a little and end up with an easy-to-calculate bit of code!
 
 First, let's just do that translation step as a "preprocessing" operation so we don't have to subtract the values all the time. What does that leave?
 
 \[
 ... = \left (
   \begin{matrix}
-   x = \left (  x_4 - \frac{x_2 \cdot y_4}{y_2} \middle/ x_3-\frac{x_2 \cdot y_3}{y_2} \right )
+   x_4 - \frac{x_2 \cdot y_4}{y_2} / x_3-\frac{x_2 \cdot y_3}{y_2}
 \\
-   y =
+\\
     \frac{y_4}{y_2}
     +
     \left ( 1 - \frac{y_3}{y_2} \right )
     \cdot
-    \left (  x_4 - \frac{x_2 \cdot y_4}{y_2} \middle/ x_3-\frac{x_2 \cdot y_3}{y_2} \right )
+    \left (  x_4 - \frac{x_2 \cdot y_4}{y_2} / x_3-\frac{x_2 \cdot y_3}{y_2} \right )
   \end{matrix}
 \right )
 \]
@@ -255,16 +256,16 @@ Suddenly things look a lot simpler: the mapped x is fairly straight forward to c
 \[
 ... = \left (
   \begin{matrix}
-   x = (x_4 - x_2 \cdot f_{42}) / ( x_3- x_2 \cdot f_{32} )
+   \left ( x_4 - x_2 \cdot y_{42} \right ) / \left (  x_3- x_2 \cdot y_{32}  \right )
 \\
-   y =
-    f_{42}
+\\
+    y_{42}
     +
-    \left ( 1 - f_{32} \right )
+    \left ( 1 - y_{32} \right )
     \cdot
     x
   \end{matrix}
-\right ), f_{32} = \frac{y_3}{y_2}, f_{42} = \frac{y_4}{y_2}
+\right ),\textit{ where } y_{32} = \frac{y_3}{y_2},\textit{ and } \ y_{42} = \frac{y_4}{y_2}
 \]
 
 That's kind of super-simple to write out in code, I think you'll agree. Coding math tends to be easier than the formulae initially make it look!

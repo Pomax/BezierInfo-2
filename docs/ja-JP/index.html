@@ -157,7 +157,7 @@
           <li><a href="ja-JP/index.html#inflections">Curve inflections</a></li>
           <li>
             <a href="ja-JP/index.html#canonical"
-              >Canonical form (for cubic curves)</a
+              >The canonical form (for cubic curves)</a
             >
           </li>
           <li><a href="ja-JP/index.html#yforx">Finding Y, given X</a></li>
@@ -3500,7 +3500,7 @@ function getCubicRoots(pa, pb, pc, pd) {
         <section id="canonical">
           <h1>
             <a href="ja-JP/index.html#canonical"
-              >Canonical form (for cubic curves)</a
+              >The canonical form (for cubic curves)</a
             >
           </h1>
           <p>
@@ -3684,11 +3684,11 @@ function getCubicRoots(pa, pb, pc, pd) {
           <p>
             The approach is going to start with a curve that doesn't have
             all-colinear points (so we need to make sure the points don't all
-            fall on a straight line), and then applying four graphics operations
-            that you will probably have heard of: translation (moving all points
-            by some fixed x- and y-distance), scaling (multiplying all points by
-            some x and y scale factor), and shearing (an operation that turns
-            rectangles into parallelograms).
+            fall on a straight line), and then applying three graphics
+            operations that you will probably have heard of: translation (moving
+            all points by some fixed x- and y-distance), scaling (multiplying
+            all points by some x and y scale factor), and shearing (an operation
+            that turns rectangles into parallelograms).
           </p>
           <p>
             Step 1: we translate any curve by -p1.x and -p1.y, so that the curve
@@ -3704,8 +3704,8 @@ function getCubicRoots(pa, pb, pc, pd) {
           </p>
           <img
             class="LaTeX SVG"
-            src="./images/chapters/canonical/d089cc0687982a3302249bb82af3fc16.svg"
-            width="499px"
+            src="./images/chapters/canonical/2a411f175dcc987cdcc12e7df49ca272.svg"
+            width="464px"
             height="55px"
             loading="lazy"
           />
@@ -3716,8 +3716,8 @@ function getCubicRoots(pa, pb, pc, pd) {
           </p>
           <img
             class="LaTeX SVG"
-            src="./images/chapters/canonical/058fa85ac31eb666857a860fdedd79df.svg"
-            width="477px"
+            src="./images/chapters/canonical/ba5f418452c3657f3c4dd4b319e59070.svg"
+            width="447px"
             height="57px"
             loading="lazy"
           />
@@ -3802,16 +3802,18 @@ function getCubicRoots(pa, pb, pc, pd) {
           </p>
           <img
             class="LaTeX SVG"
-            src="./images/chapters/canonical/2f85d84f0e3dd14cc25e48583aed3822.svg"
-            width="460px"
-            height="80px"
+            src="./images/chapters/canonical/f039b4e7cf0203df9fac48dad820b2b7.svg"
+            width="455px"
+            height="91px"
             loading="lazy"
           />
           <p>
-            That looks very complex, but notice that every coordinate value is
-            being offset by the initial translation, and a lot of terms in there
-            repeat: it's pretty easy to calculate this fast, since there's so
-            much we can cache and reuse while we compute this mapped coordinate!
+            Okay, well, that looks plain ridiculous, but: notice that every
+            coordinate value is being offset by the initial translation, and
+            also notice that <em>a lot</em> of terms in that expression are
+            repeated. Even though the maths looks crazy as a single expression,
+            we can just pull this apart a little and end up with an
+            easy-to-calculate bit of code!
           </p>
           <p>
             First, let's just do that translation step as a "preprocessing"
@@ -3820,9 +3822,9 @@ function getCubicRoots(pa, pb, pc, pd) {
           </p>
           <img
             class="LaTeX SVG"
-            src="./images/chapters/canonical/83262761bb7fa9b832fe483ded436973.svg"
-            width="359px"
-            height="56px"
+            src="./images/chapters/canonical/16fad73cbbbd2202b08ebef05b1579c5.svg"
+            width="317px"
+            height="67px"
             loading="lazy"
           />
           <p>
@@ -3834,9 +3836,9 @@ function getCubicRoots(pa, pb, pc, pd) {
           </p>
           <img
             class="LaTeX SVG"
-            src="./images/chapters/canonical/f3261ad2802d980ebe6e35b272375700.svg"
-            width="427px"
-            height="40px"
+            src="./images/chapters/canonical/5af3d1772ee07e634d04259a02f7201f.svg"
+            width="483px"
+            height="56px"
             loading="lazy"
           />
           <p>
