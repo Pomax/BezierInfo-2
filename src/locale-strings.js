@@ -1,50 +1,54 @@
 const defaultLocale = "en-GB";
 
+// =============================
+//   Locale strings start here
+// =============================
+
 const localeStringData = {
   title: {
-    "en-GB": "A Primer on Bézier Curves",
-    "ja-JP": "ベジェ曲線入門",
-    "zh-CN": "贝塞尔曲线底漆",
+    "en-GB": `A Primer on Bézier Curves`,
+    "ja-JP": `ベジェ曲線入門`,
+    "zh-CN": `贝塞尔曲线底漆`,
   },
   subtitle: {
-    "en-GB":
-      "A free, online book for when you really need to know how to do Bézier things.",
+    "en-GB": `A free, online book for when you really need to know how to do Bézier things.`,
   },
   description: {
-    "en-GB":
-      "A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.",
+    "en-GB": `A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.`,
   },
   tocLabel: {
-    "en-GB": "Table of Contents",
-    "ja-JP": "目次",
-    "zh-CN": "目录",
+    "en-GB": `Table of Contents`,
+    "ja-JP": `目次`,
+    "zh-CN": `目录`,
   },
   localeName: {
-    "en-GB": "English",
-    "zh-CN": "中文",
-    "ja-JP": "日本語",
+    "en-GB": `English`,
+    "zh-CN": `中文`,
+    "ja-JP": `日本語`,
   },
   langSwitchLabel: {
-    "en-GB": "Read this in your own language:",
+    "en-GB": `Read this in your own language:`,
   },
   langHelpLabel: {
-    "en-GB":
-      'Don\'t see your language listed? <a href="https://github.com/Pomax/BezierInfo-2/wiki/localize">Help translate this content!</a>',
+    "en-GB": `Don't see your language listed? <a href="https://github.com/Pomax/BezierInfo-2/wiki/localize">Help translate this content!</a>`,
   },
   disabledMessage: {
-    "en-GB": "Scripts are disabled. Showing fallback image.",
+    "en-GB": `Scripts are disabled. Showing fallback image.`,
   },
   changelogTitle: {
-    "en-GB": "What's new?",
+    "en-GB": `What's new?`,
   },
   toggleLabel: {
-    "en-GB": "Toggle changes",
+    "en-GB": `Toggle changes`,
   },
   changelogDescription: {
-    "en-GB":
-      "This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when.",
+    "en-GB": `This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when.`,
   },
 };
+
+// =============================
+//   Locale strings end here
+// =============================
 
 class LocaleStrings {
   constructor(locale) {

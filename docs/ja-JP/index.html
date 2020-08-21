@@ -66,6 +66,14 @@
 
     <!-- page styling -->
     <link rel="stylesheet" href="placeholder-style.css" />
+
+    <!-- make images lazy load much earlier  -->
+    <script
+      src="./js/site/faster-lazy-loading.js"
+      type="module"
+      async
+      defer
+    ></script>
   </head>
 
   <body>
@@ -548,6 +556,7 @@
             src="./images/chapters/whatis/4df088f01d0fd4de84a50bbc2e25f8a7.svg"
             width="433px"
             height="108px"
+            loading="lazy"
           />
           <p>
             では、実際に見てみましょう。下の図はインタラクティブになっています。上下キーで補間の比率が増減しますので、どうなるか確かめてみましょう。最初に3点があり、それを結んで2本の直線が引かれています。この直線の上でそれぞれ線形補間を行うと、2つの点が得られます。この2点の間でさらに線形補間を行うと、1つの点を得ることができます。そして、あらゆる比率に対して同様に点を求め、それをすべて集めると、このようにベジエ曲線ができるのです。
@@ -587,6 +596,7 @@
             src="./images/chapters/explanation/1caef9931f954e32eae5067b732c1018.svg"
             width="93px"
             height="17px"
+            loading="lazy"
           />
           <p>
             <i>f(x)</i
@@ -600,6 +610,7 @@
             src="./images/chapters/explanation/0f5cffd58e864fec6739a57664eb8cbd.svg"
             width="92px"
             height="37px"
+            loading="lazy"
           />
           <p>
             注目すべき箇所は特に何もありません。ただの正弦関数と余弦関数です。ただし、入力が別々の名前になっていることに気づくでしょう。仮に<i>a</i>の値を変えたとしても、<i>f(b)</i>の出力の値は変わらないはずです。なぜなら、こちらの関数には<i>a</i>は使われていないからです。パラメトリック関数は、これを変えてしまうのでインチキなのです。パラメトリック関数においては、どの関数も変数を共有しています。例えば、
@@ -609,6 +620,7 @@
             src="./images/chapters/explanation/066a910ae6aba69c40a338320759cdd1.svg"
             width="104px"
             height="40px"
+            loading="lazy"
           />
           <p>
             複数の関数がありますが、変数は1つだけです。<i>t</i>の値を変えた場合、<i>f<sub>a</sub>(t)</i>と<i>f<sub>b</sub>(t)</i>の両方の出力が変わります。これがどのように役に立つのか、疑問に思うかもしれません。しかし、実際には答えは至ってシンプルです。<i>f<sub>a</sub>(t)</i>と<i>f<sub>b</sub>(t)</i>のラベルを、パラメトリック曲線の表示によく使われているもので置き換えてやれば、ぐっとはっきりするかと思います。
@@ -618,6 +630,7 @@
             src="./images/chapters/explanation/4cf6fb369841e2c5d36e5567a8db4306.svg"
             width="79px"
             height="40px"
+            loading="lazy"
           />
           <p>
             きました。<i>x</i>/<i>y</i>座標です。謎の値<i>t</i>を通して繫がっています。
@@ -652,6 +665,7 @@
             src="./images/chapters/explanation/bb06cb82d372f822a7b35e661502bd72.svg"
             width="219px"
             height="19px"
+            loading="lazy"
           />
           <p>
             最高次の項が<i>x³</i>であれば3次多項式、<i>x²</i>であれば2次多項式と呼び、<i>x</i>だけの場合は1次多項式――ただの直線です。（そして<i>x</i>の入った項が何もなければ、多項式ではありません！）
@@ -664,6 +678,7 @@
             src="./images/chapters/explanation/6e15c433dc2340271e007742009e3532.svg"
             width="347px"
             height="64px"
+            loading="lazy"
           />
           <p>
             「そこまでシンプルには見えないよ」と思っていることでしょう。しかし仮に、<i>t</i>を取り去って係数に1を掛けることにしてしまえば、急激に簡単になります。これが二項係数部分の項です。
@@ -673,6 +688,7 @@
             src="./images/chapters/explanation/c605597fb629b964921c6a4bca7fa4c9.svg"
             width="163px"
             height="85px"
+            loading="lazy"
           />
           <p>
             2は1+1に等しく、3は2+1や1+2に等しく、6は3+3に等しく、……ということに注目してください。見てわかるように、先頭と末尾は単に1になっていますが、中間はどれも次数が増えるたびに「上の2つの数を足し合わせた」ものになっています。<i>これなら</i>覚えやいですね。
@@ -685,6 +701,7 @@
             src="./images/chapters/explanation/741097d69c182e8742695af23980bd8f.svg"
             width="288px"
             height="61px"
+            loading="lazy"
           />
           <p>
             これは要するに、「<i>a</i>と<i>b</i>のすべての組み合わせ」の単なる和です。プラスが出てくるたびに、<i>a</i>を<i>b</i>へと1つずつ置き換えていけばよいのです。こちらも本当に単純です。さて、これで「二項係数多項式」がわかりました。完璧を期するため、この関数の一般の形を示しておきます。
@@ -694,6 +711,7 @@
             src="./images/chapters/explanation/f24fd5e27968d96957ba706b16d8e90b.svg"
             width="321px"
             height="59px"
+            loading="lazy"
           />
           <p>
             そして、これがベジエ曲線の完全な表現です。この関数中のΣは、加算の繰り返し（Σの下にある変数を使って、...=&lt;値&gt;から始めてΣの下にある値まで）を表します。
@@ -802,6 +820,7 @@ function Bezier(3,t):
             src="./images/chapters/control/2af72ea0c3517bc05f36a08cbbed6002.svg"
             width="360px"
             height="59px"
+            loading="lazy"
           />
           <p>
             複雑そうに見えますが、運がいいことに「重み」というのは実はただの座標値です。というのは<i>n</i>次の曲線の場合、w<sub>0</sub>が始点の座標、w<sub>n</sub>が終点の座標となり、その間はどれも制御点の座標になります。例えば、始点が(120,160)、制御点が(35,200)と(220,260)、終点が(220,40)となる3次ベジエ曲線は、次のようになります。
@@ -811,6 +830,7 @@ function Bezier(3,t):
             src="./images/chapters/control/c0d4dbc07b8ec7c0a18ea43c8a386935.svg"
             width="476px"
             height="40px"
+            loading="lazy"
           />
           <p>この式からは、記事の冒頭に出てきた曲線が得られます。</p>
           <Graphic
@@ -870,6 +890,7 @@ function Bezier(3,t,w[]):
             src="./images/chapters/weightcontrol/02457b19087540dfb144978419524a85.svg"
             width="285px"
             height="41px"
+            loading="lazy"
           />
           <p>The function for rational Bézier curves has two more terms:</p>
           <img
@@ -877,6 +898,7 @@ function Bezier(3,t,w[]):
             src="./images/chapters/weightcontrol/3fd61ab3fe88f694e70f61e4f8ea056b.svg"
             width="436px"
             height="47px"
+            loading="lazy"
           />
           <p>
             In this, the first new term represents an additional weight for each
@@ -1005,6 +1027,7 @@ function RationalBezier(3,t,w[],r[]):
             src="./images/chapters/extended/a75e84f0e7f92c2f3e8ef10b49744ba5.svg"
             width="252px"
             height="20px"
+            loading="lazy"
           />
           <p>
             明らかに、始点では<code>a=1, b=0</code
@@ -1017,6 +1040,7 @@ function RationalBezier(3,t,w[],r[]):
             src="./images/chapters/extended/f41f553d448de8559d68fccd9c2f27d4.svg"
             width="293px"
             height="20px"
+            loading="lazy"
           />
           <p>
             こうすれば、和が100%を超えることはないと保証できます。<code>a</code>の値を区間[0,1]に制限してしまえば、混ぜ合わさった値は常に2つの値の間のどこか（両端を含む）になり、また和は常に100%になります。
@@ -1091,6 +1115,7 @@ function RationalBezier(3,t,w[],r[]):
             src="./images/chapters/matrix/5aea6d4d5855135051715fb1cc0ec531.svg"
             width="468px"
             height="20px"
+            loading="lazy"
           />
           <p>実際の座標を一旦無視すると、次のようになります。</p>
           <img
@@ -1098,6 +1123,7 @@ function RationalBezier(3,t,w[],r[]):
             src="./images/chapters/matrix/e524525c62234ce616a1e51c9848c169.svg"
             width="353px"
             height="19px"
+            loading="lazy"
           />
           <p>これは、4つの項の和になっています。</p>
           <img
@@ -1105,6 +1131,7 @@ function RationalBezier(3,t,w[],r[]):
             src="./images/chapters/matrix/c1f815481ad5132bebc1b1f0a3edf20f.svg"
             width="140px"
             height="75px"
+            loading="lazy"
           />
           <p>それぞれの項を展開します。</p>
           <img
@@ -1112,6 +1139,7 @@ function RationalBezier(3,t,w[],r[]):
             src="./images/chapters/matrix/9bc905d79bb22580b8c1cd75a791db73.svg"
             width="397px"
             height="75px"
+            loading="lazy"
           />
           <p>
             その上で、係数の0や1もすべて明示的に書けば、このようになります。
@@ -1121,6 +1149,7 @@ function RationalBezier(3,t,w[],r[]):
             src="./images/chapters/matrix/e0d89b48cd11a726c00a2f689d48d57c.svg"
             width="217px"
             height="75px"
+            loading="lazy"
           />
           <p>
             <em>さらに</em>、これは4つの行列演算の和として見ることができます。
@@ -1130,6 +1159,7 @@ function RationalBezier(3,t,w[],r[]):
             src="./images/chapters/matrix/6da69918482a0b6b84d90a72dbeae9dd.svg"
             width="607px"
             height="72px"
+            loading="lazy"
           />
           <p>これを1つの行列演算にまとめると、以下のようになります。</p>
           <img
@@ -1137,6 +1167,7 @@ function RationalBezier(3,t,w[],r[]):
             src="./images/chapters/matrix/e94ae04eb5732c05d38fa1c97a2a25b0.svg"
             width="227px"
             height="72px"
+            loading="lazy"
           />
           <p>
             多項式基底をこのような形で表現する場合、通常はその基底を昇冪の順に並べます。したがって、<code>t</code>の行列を左右反転させ、大きな「混合」行列は上下に反転させる必要があります。
@@ -1146,6 +1177,7 @@ function RationalBezier(3,t,w[],r[]):
             src="./images/chapters/matrix/24bdad213879407a35b23c18394293aa.svg"
             width="227px"
             height="72px"
+            loading="lazy"
           />
           <p>
             そして最後に、もともとあった座標を3番目の行列として付け加えます。
@@ -1155,6 +1187,7 @@ function RationalBezier(3,t,w[],r[]):
             src="./images/chapters/matrix/009c671bc526b5d75c30411c3c3a7e91.svg"
             width="323px"
             height="73px"
+            loading="lazy"
           />
           <p>
             2次ベジエ曲線の場合も同様に変形することができ、最終的には以下のようになります。
@@ -1164,6 +1197,7 @@ function RationalBezier(3,t,w[],r[]):
             src="./images/chapters/matrix/77a11d65d7cffc4b84a85c4bec837792.svg"
             width="263px"
             height="55px"
+            loading="lazy"
           />
           <p>
             <code>t</code
@@ -1403,6 +1437,7 @@ function drawCurve(points[], t):
             src="./images/chapters/matrixsplit/77a11d65d7cffc4b84a85c4bec837792.svg"
             width="263px"
             height="55px"
+            loading="lazy"
           />
           <p>ならびに</p>
           <img
@@ -1410,6 +1445,7 @@ function drawCurve(points[], t):
             src="./images/chapters/matrixsplit/c58330e12d25c678b593ddbd4afa7c52.svg"
             width="323px"
             height="73px"
+            loading="lazy"
           />
           <p>
             曲線をある点<code>t = z</code
@@ -1420,6 +1456,7 @@ function drawCurve(points[], t):
             src="./images/chapters/matrixsplit/278b67e9b908f4abcf2e9d069a6b29a4.svg"
             width="648px"
             height="55px"
+            loading="lazy"
           />
           <p>ならびに</p>
           <img
@@ -1427,6 +1464,7 @@ function drawCurve(points[], t):
             src="./images/chapters/matrixsplit/dbdbbe9aed4dacb1c1c5ae29b4371870.svg"
             width="805px"
             height="75px"
+            loading="lazy"
           />
           <p>
             これらの行列をまとめて、仮に**[tの値たち] · [ベジエ行列] ·
@@ -1445,24 +1483,28 @@ function drawCurve(points[], t):
               src="./images/chapters/matrixsplit/c79b607a92c42789fde57c6a8c4259fd.svg"
               width="348px"
               height="55px"
+              loading="lazy"
             />
             <img
               class="LaTeX SVG"
               src="./images/chapters/matrixsplit/3ed7fa50bf68beef4c77d23e665063d2.svg"
               width="249px"
               height="55px"
+              loading="lazy"
             />
             <img
               class="LaTeX SVG"
               src="./images/chapters/matrixsplit/d0a2afc05a974e7e25ce0564505818be.svg"
               width="252px"
               height="55px"
+              loading="lazy"
             />
             <img
               class="LaTeX SVG"
               src="./images/chapters/matrixsplit/c1fcb64541c09e6d180c3d4a5511858e.svg"
               width="255px"
               height="55px"
+              loading="lazy"
             />
             <p>
               [<em>M · M<sup>-1</sup></em
@@ -1481,6 +1523,7 @@ function drawCurve(points[], t):
               src="./images/chapters/matrixsplit/7d629178a5fb985a35770002d1912535.svg"
               width="627px"
               height="56px"
+              loading="lazy"
             />
             <p>いいですね！これで、新しい2次ベジエ曲線が得られます。</p>
             <img
@@ -1488,18 +1531,21 @@ function drawCurve(points[], t):
               src="./images/chapters/matrixsplit/b5cf45e4b34fdd18f599b79549844d45.svg"
               width="417px"
               height="55px"
+              loading="lazy"
             />
             <img
               class="LaTeX SVG"
               src="./images/chapters/matrixsplit/859b7bc7b78e8e297ae5fddd9be40ab7.svg"
               width="479px"
               height="55px"
+              loading="lazy"
             />
             <img
               class="LaTeX SVG"
               src="./images/chapters/matrixsplit/abb3edce2229312f351d81092ba2145b.svg"
               width="492px"
               height="55px"
+              loading="lazy"
             />
             <p>
               <strong><em>すばらしい</em></strong
@@ -1519,12 +1565,14 @@ function drawCurve(points[], t):
               src="./images/chapters/matrixsplit/2f2bec1e77039a40c31220f5bf83641a.svg"
               width="381px"
               height="55px"
+              loading="lazy"
             />
             <img
               class="LaTeX SVG"
               src="./images/chapters/matrixsplit/daaae36f13bb97f2a7ac21eec6903755.svg"
               width="313px"
               height="55px"
+              loading="lazy"
             />
             <p>
               区間[<em>z</em>,1]を求めたい場合は、かわりに次のような計算になります。
@@ -1534,12 +1582,14 @@ function drawCurve(points[], t):
               src="./images/chapters/matrixsplit/0f84dbf6e3ea7db732ceb9d71caf9b22.svg"
               width="461px"
               height="55px"
+              loading="lazy"
             />
             <img
               class="LaTeX SVG"
               src="./images/chapters/matrixsplit/a34473afe7a4160b45ce0f2a770fad99.svg"
               width="412px"
               height="57px"
+              loading="lazy"
             />
             <p>
               先ほどと同じ手法を使い、[<em>なにか · M</em>]を[<em>M · なにか</em
@@ -1550,6 +1600,7 @@ function drawCurve(points[], t):
               src="./images/chapters/matrixsplit/567c29ee78b49c700f54b17780682543.svg"
               width="729px"
               height="57px"
+              loading="lazy"
             />
             <p>よって、後半部分の曲線は結局のところ以下のようになります。</p>
             <img
@@ -1557,18 +1608,21 @@ function drawCurve(points[], t):
               src="./images/chapters/matrixsplit/19049f556723a4f2d985a631a91ae290.svg"
               width="421px"
               height="55px"
+              loading="lazy"
             />
             <img
               class="LaTeX SVG"
               src="./images/chapters/matrixsplit/e9f64464287d3d5c6a4cbe64e21746c8.svg"
               width="473px"
               height="57px"
+              loading="lazy"
             />
             <img
               class="LaTeX SVG"
               src="./images/chapters/matrixsplit/f2695b6d6417c60343b4934dae8118f8.svg"
               width="492px"
               height="57px"
+              loading="lazy"
             />
             <p>
               <strong><em>おみごと</em></strong
@@ -1586,6 +1640,7 @@ function drawCurve(points[], t):
             src="./images/chapters/matrixsplit/e16eba6dfb9f0b8d1abc3e1cd3ba63a2.svg"
             width="576px"
             height="55px"
+            loading="lazy"
           />
           <p>および</p>
           <img
@@ -1593,6 +1648,7 @@ function drawCurve(points[], t):
             src="./images/chapters/matrixsplit/6aeb749eb26f5a9199c1b16d7d421dc0.svg"
             width="571px"
             height="57px"
+            loading="lazy"
           />
           <p>
             3次の曲線についても同様です。ただし、実際の導出はあなたにとっておきますので（自力で書き下してみてください）、新しい座標の組の結果を示すだけにします。
@@ -1602,6 +1658,7 @@ function drawCurve(points[], t):
             src="./images/chapters/matrixsplit/5e3fae45d325d0f0681731fb606b6fbc.svg"
             width="841px"
             height="75px"
+            loading="lazy"
           />
           <p>および</p>
           <img
@@ -1609,6 +1666,7 @@ function drawCurve(points[], t):
             src="./images/chapters/matrixsplit/0d2e895e767c4cecb0fccafee1273152.svg"
             width="837px"
             height="77px"
+            loading="lazy"
           />
           <p>
             さて、これらの行列を見るに、後半部分の曲線の行列は本当に計算する必要があったのでしょうか？いえ、ありませんでした。片方の行列が得られれば、実はもう一方の行列も暗に得られたことになります。まず、行列*<strong
@@ -1653,6 +1711,7 @@ function drawCurve(points[], t):
             src="./images/chapters/reordering/faf29599c9307f930ec28065c96fde2a.svg"
             width="805px"
             height="61px"
+            loading="lazy"
           />
           <p>
             However, this rule also has as direct consequence that you
@@ -1686,6 +1745,7 @@ function drawCurve(points[], t):
             src="./images/chapters/reordering/1244a85c1f9044b6f77cb709c682159c.svg"
             width="429px"
             height="41px"
+            loading="lazy"
           />
           <p>
             Then, we apply one of those silly (actually, super useful) calculus
@@ -1699,6 +1759,7 @@ function drawCurve(points[], t):
             src="./images/chapters/reordering/b2fda1dcce5bb13317aa42ebf5e7ea6c.svg"
             width="384px"
             height="17px"
+            loading="lazy"
           />
           <p>
             So, with that seemingly trivial observation, we rewrite that Bézier
@@ -1710,6 +1771,7 @@ function drawCurve(points[], t):
             src="./images/chapters/reordering/41e184228d85023abdadd6ce2acb54c7.svg"
             width="332px"
             height="68px"
+            loading="lazy"
           />
           <p>
             So far so good. Now, to see why we did this, let's write out the
@@ -1722,6 +1784,7 @@ function drawCurve(points[], t):
             src="./images/chapters/reordering/4debbed5922d2bd84fd322c616872d20.svg"
             width="400px"
             height="163px"
+            loading="lazy"
           />
           <p>
             So by using this seemingly silly trick, we can suddenly express part
@@ -1737,6 +1800,7 @@ function drawCurve(points[], t):
             src="./images/chapters/reordering/483c89c8726f7fd0dca0b7de339b04bd.svg"
             width="479px"
             height="161px"
+            loading="lazy"
           />
           <p>
             So, with both of those changed from an order
@@ -1759,6 +1823,7 @@ function drawCurve(points[], t):
             src="./images/chapters/reordering/dd8d8d98f66ce9f51b95cbf48225e97b.svg"
             width="481px"
             height="257px"
+            loading="lazy"
           />
           <p>
             And this is where we switch over from calculus to linear algebra,
@@ -1770,6 +1835,7 @@ function drawCurve(points[], t):
             src="./images/chapters/reordering/773fdc86b686647c823b4f499aca3a35.svg"
             width="77px"
             height="17px"
+            loading="lazy"
           />
           <p>
             where the matrix <strong>M</strong> is an <code>n+1</code> by
@@ -1780,6 +1846,7 @@ function drawCurve(points[], t):
             src="./images/chapters/reordering/7a9120997e4a4855ecda435553a7bbdf.svg"
             width="340px"
             height="172px"
+            loading="lazy"
           />
           <p>
             That might look unwieldy, but it's really just a mostly-zeroes
@@ -1808,6 +1875,7 @@ function drawCurve(points[], t):
             src="./images/chapters/reordering/d52f60b331c1b8d6733eb5217adfbc4d.svg"
             width="288px"
             height="109px"
+            loading="lazy"
           />
           <p>The steps taken here are:</p>
           <ol>
@@ -1883,6 +1951,7 @@ function drawCurve(points[], t):
             src="./images/chapters/derivatives/eb4442acc5bc17f4649eb04b2953ed9b.svg"
             width="333px"
             height="44px"
+            loading="lazy"
           />
           <p>
             which we can also write (observing that <i>b</i> in this formula is
@@ -1895,6 +1964,7 @@ function drawCurve(points[], t):
             src="./images/chapters/derivatives/2622790efa97f1915e7998787d8ce977.svg"
             width="343px"
             height="44px"
+            loading="lazy"
           />
           <p>
             Or, in plain text: the derivative of an n<sup>th</sup> degree Bézier
@@ -1921,6 +1991,7 @@ function drawCurve(points[], t):
               src="./images/chapters/derivatives/e755c2adfec5d266c50e064407ca369b.svg"
               width="209px"
               height="36px"
+              loading="lazy"
             />
             <p>
               Applying the
@@ -1934,6 +2005,7 @@ function drawCurve(points[], t):
               src="./images/chapters/derivatives/95a0cd4cc919a3fd5b192ffeb00c231e.svg"
               width="412px"
               height="28px"
+              loading="lazy"
             />
             <p>Which is hard to work with, so let's expand that properly:</p>
             <img
@@ -1941,6 +2013,7 @@ function drawCurve(points[], t):
               src="./images/chapters/derivatives/bd3c740be364071c86ccf42b99d5eba4.svg"
               width="344px"
               height="27px"
+              loading="lazy"
             />
             <p>
               Now, the trick is to turn this expression into something that has
@@ -1954,6 +2027,7 @@ function drawCurve(points[], t):
               src="./images/chapters/derivatives/6770214cceeb0e13e371bd908867751f.svg"
               width="545px"
               height="76px"
+              loading="lazy"
             />
             <p>
               And that's the first part done: the two components inside the
@@ -1964,6 +2038,7 @@ function drawCurve(points[], t):
               src="./images/chapters/derivatives/fb823558e99662b24d46ae55ac93ce38.svg"
               width="533px"
               height="48px"
+              loading="lazy"
             />
             <p>
               Now to apply this to our weighted Bézier curves. We'll write out
@@ -1975,6 +2050,7 @@ function drawCurve(points[], t):
               src="./images/chapters/derivatives/28991bba7c13698619f36b6261d91d68.svg"
               width="527px"
               height="112px"
+              loading="lazy"
             />
             <p>
               If we expand this (with some color to show how terms line up), and
@@ -1986,6 +2062,7 @@ function drawCurve(points[], t):
               src="./images/chapters/derivatives/b7815b1502029ed9d805b6ba0801a53f.svg"
               width="300px"
               height="109px"
+              loading="lazy"
             />
             <p>
               Two of these terms fall way: the first term falls away because
@@ -2004,6 +2081,7 @@ function drawCurve(points[], t):
               src="./images/chapters/derivatives/c7b13e6507450b3da7dc4ce3c10c370f.svg"
               width="295px"
               height="71px"
+              loading="lazy"
             />
             <p>And that's just a summation of lower order curves:</p>
             <img
@@ -2011,6 +2089,7 @@ function drawCurve(points[], t):
               src="./images/chapters/derivatives/89ceb6024ead6f710e3e0f09d2864f43.svg"
               width="716px"
               height="36px"
+              loading="lazy"
             />
             <p>We can rewrite this as a normal summation, and we're done:</p>
             <img
@@ -2018,6 +2097,7 @@ function drawCurve(points[], t):
               src="./images/chapters/derivatives/514090a0fd6c64b7d85a9dc5721a0fa6.svg"
               width="545px"
               height="51px"
+              loading="lazy"
             />
           </div>
 
@@ -2031,12 +2111,14 @@ function drawCurve(points[], t):
             src="./images/chapters/derivatives/14cb9fbbaae9e7d87ae6bef3ea7a782e.svg"
             width="352px"
             height="55px"
+            loading="lazy"
           />
           <img
             class="LaTeX SVG"
             src="./images/chapters/derivatives/c010c0df4bb911b84da6e9d379617e4b.svg"
             width="533px"
             height="59px"
+            loading="lazy"
           />
           <p>
             What are the differences? In terms of the actual Bézier curve,
@@ -2052,6 +2134,7 @@ function drawCurve(points[], t):
             src="./images/chapters/derivatives/03967e3ecdbff78684995ca9c22a6106.svg"
             width="523px"
             height="73px"
+            loading="lazy"
           />
           <p>
             We can keep performing this trick for as long as we have more than
@@ -2081,6 +2164,7 @@ function drawCurve(points[], t):
             src="./images/chapters/pointvectors/d236b7b2ad46c8ced1b43bb2a496379a.svg"
             width="151px"
             height="40px"
+            loading="lazy"
           />
           <p>
             This gives us the directional vector we want. We can normalize it to
@@ -2093,12 +2177,14 @@ function drawCurve(points[], t):
             src="./images/chapters/pointvectors/6101b2f8b69ebabba4a2c88456a32aa0.svg"
             width="268px"
             height="29px"
+            loading="lazy"
           />
           <img
             class="LaTeX SVG"
             src="./images/chapters/pointvectors/009715fce01e46e7c07f87a8192a8c62.svg"
             width="308px"
             height="53px"
+            loading="lazy"
           />
           <p>
             The tangent is very useful for moving along a line, but what if we
@@ -2114,6 +2200,7 @@ function drawCurve(points[], t):
             src="./images/chapters/pointvectors/2dd2f89d1c762991a86526490a3deef6.svg"
             width="341px"
             height="57px"
+            loading="lazy"
           />
           <div class="note">
             <p>
@@ -2137,6 +2224,7 @@ function drawCurve(points[], t):
               src="./images/chapters/pointvectors/deec095950fcd1f9c980be76a7093fe6.svg"
               width="179px"
               height="37px"
+              loading="lazy"
             />
             <p>
               Which is the "long" version of the following matrix
@@ -2147,6 +2235,7 @@ function drawCurve(points[], t):
               src="./images/chapters/pointvectors/2a55cb2d23c25408aa10cfd8db13278b.svg"
               width="205px"
               height="40px"
+              loading="lazy"
             />
             <p>
               And that's all we need to rotate any coordinate. Note that for
@@ -2601,6 +2690,7 @@ function drawCurve(points[], t):
             src="./images/chapters/extremities/6db78123d4b676ffdf85d53670c77468.svg"
             width="189px"
             height="64px"
+            loading="lazy"
           />
           <p>
             And then we turn this into our solution for <code>t</code> using
@@ -2611,6 +2701,7 @@ function drawCurve(points[], t):
             src="./images/chapters/extremities/1c0367fad2a0d6946db1f55a8520793a.svg"
             width="139px"
             height="77px"
+            loading="lazy"
           />
           <p>Done.</p>
           <p>
@@ -2636,6 +2727,7 @@ function drawCurve(points[], t):
             src="./images/chapters/extremities/0ec5cc72a428d75defb480530b50d720.svg"
             width="433px"
             height="37px"
+            loading="lazy"
           />
           <p>
             So, if we can rewrite the Bézier component function as a plain
@@ -2657,6 +2749,7 @@ function drawCurve(points[], t):
             src="./images/chapters/extremities/e06ec558d99b53e559d24524f4201951.svg"
             width="553px"
             height="37px"
+            loading="lazy"
           />
           <p>
             And then, using these <em>v</em> values, we can find out what our
@@ -2667,6 +2760,7 @@ function drawCurve(points[], t):
             src="./images/chapters/extremities/ddc6f99a543afad25c55cf16b9deeed9.svg"
             width="317px"
             height="112px"
+            loading="lazy"
           />
           <p>
             This gives us three coefficients {a, b, c} that are expressed in
@@ -2679,6 +2773,7 @@ function drawCurve(points[], t):
             src="./images/chapters/extremities/d9e66caeb45b6643112ce3d971b17e5b.svg"
             width="308px"
             height="64px"
+            loading="lazy"
           />
           <p>
             Easy-peasy. We can now almost trivially find the roots by plugging
@@ -2713,6 +2808,7 @@ function drawCurve(points[], t):
             src="./images/chapters/extremities/997a8cc704c0ab0e364cb8b532df90b0.svg"
             width="264px"
             height="41px"
+            loading="lazy"
           />
           <p>
             We can see that the easier formula only has two constants, rather
@@ -2925,6 +3021,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             src="./images/chapters/extremities/c621cc41f6f22ee1beedbcb510fa5b6b.svg"
             width="139px"
             height="43px"
+            loading="lazy"
           />
           <p>
             (The Wikipedia article has a decent animation for this process, so I
@@ -3100,6 +3197,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             src="./images/chapters/aligning/d480a9aa41917e5230d432cdbd6899b1.svg"
             width="487px"
             height="40px"
+            loading="lazy"
           />
           <p>
             Then translating it so that the first coordinate lies on (0,0),
@@ -3111,6 +3209,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             src="./images/chapters/aligning/50679d61424222d7b6b97eb3aa663582.svg"
             width="471px"
             height="40px"
+            loading="lazy"
           />
           <p>
             If we then rotate the curve so that its end point lies on the
@@ -3122,6 +3221,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             src="./images/chapters/aligning/a9af1c06a00bb3c4af816a138fb0a66d.svg"
             width="463px"
             height="40px"
+            loading="lazy"
           />
           <p>If we drop all the zero-terms, this gives us:</p>
           <img
@@ -3129,6 +3229,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             src="./images/chapters/aligning/c78b203ff33e5c1606728b552505d61c.svg"
             width="397px"
             height="40px"
+            loading="lazy"
           />
           <p>
             We can see that our original curve definition has been simplified
@@ -3254,6 +3355,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             src="./images/chapters/inflections/bafdb6583323bda71d9a15c02d1fdec2.svg"
             width="59px"
             height="17px"
+            loading="lazy"
           />
           <p>
             What we're saying here is that given the curvature function
@@ -3269,6 +3371,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             src="./images/chapters/inflections/2029bca9f4fa15739553636af99b70a8.svg"
             width="399px"
             height="19px"
+            loading="lazy"
           />
           <p>
             The function <em>C(t)</em> is the cross product between the first
@@ -3300,6 +3403,7 @@ function getCubicRoots(pa, pb, pc, pd) {
               src="./images/chapters/inflections/4d78ebcf8626f777725d67d3672fa480.svg"
               width="613px"
               height="71px"
+              loading="lazy"
             />
             <p>And of course the same functions for <em>y</em>:</p>
             <img
@@ -3307,6 +3411,7 @@ function getCubicRoots(pa, pb, pc, pd) {
               src="./images/chapters/inflections/97b34ad5920612574d1b2a1a9d22d571.svg"
               width="397px"
               height="69px"
+              loading="lazy"
             />
             <p>
               Asking a computer to now compose the <em>C(t)</em> function for us
@@ -3318,6 +3423,7 @@ function getCubicRoots(pa, pb, pc, pd) {
               src="./images/chapters/inflections/b2433959e1f451fa3bf238fc37e04527.svg"
               width="557px"
               height="96px"
+              loading="lazy"
             />
             <p>
               That is... unwieldy. So, we note that there are a lot of terms
@@ -3338,6 +3444,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             src="./images/chapters/inflections/1679090a942a43d27f886f236fc8d62b.svg"
             width="533px"
             height="19px"
+            loading="lazy"
           />
           <p>
             That's a lot easier to work with: we see a fair number of terms that
@@ -3349,6 +3456,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             src="./images/chapters/inflections/4b5c7d0bf0fcd769db007dd98d4a024d.svg"
             width="480px"
             height="73px"
+            loading="lazy"
           />
           <p>
             This is a plain quadratic curve, and we know how to solve
@@ -3359,6 +3467,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             src="./images/chapters/inflections/7c9762c0e04693eb743905cdc0487f8b.svg"
             width="428px"
             height="53px"
+            loading="lazy"
           />
           <p>
             We can easily compute this value <em>if</em> the discriminator isn't
@@ -3426,86 +3535,102 @@ function getCubicRoots(pa, pb, pc, pd) {
             then tell us what kind of curve we're dealing with. Specifically, we
             see the following breakdown:
           </p>
-          <Graphic
-            static="{true}"
+          <graphics-element
             title="The canonical curve map"
-            setup="{this.setup}"
-            draw="{this.drawBase}"
-          />
+            width="400"
+            height="400"
+            src="./chapters/canonical/canonical.js"
+          >
+            <fallback-image>
+              <img
+                width="400px"
+                height="400px"
+                src="images\chapters\canonical\c3e9b97768440f85858a10e52def2d5d.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
 
           <p>
-            This is a fairly funky image, so let's see how it breaks down. We
-            see the three fixed points at (0,0), (0,1) and (1,1), and then the
-            fourth point is somewhere. Depending on where it is, our curve will
-            have certain features. Namely, if the fourth point is...
+            This is a fairly funky image, so let's see what the various parts of
+            it mean...
+          </p>
+          <p>
+            We see the three fixed points at (0,0), (0,1) and (1,1). The various
+            regions and boundaries indicate what property the original curve
+            will have, if the fourth point is in/on that region or boundary.
+            Specifically, if the fourth point is...
           </p>
           <ol>
             <li>
               <p>
-                anywhere on and in the red zone, the curve will either be
-                self-intersecting (yielding a loop), or it will have a sharp
-                discontinuity (yielding a cusp). Anywhere inside the red zone,
-                this will be a loop. We won't know <em>where</em> that loop is
-                (in terms of <em>t</em> values), but we are guaranteed that
-                there is one.
+                ...anywhere inside the red zone, but not on its boundaries, the
+                curve will either be self-intersecting (yielding a loop). We
+                won't know <em>where</em> it self-intersects (in terms of
+                <em>t</em> values), but we are guaranteed that it does.
               </p>
             </li>
             <li>
               <p>
-                on the left (red) edge, the curve will have a cusp. We again
-                don't know <em>where</em>, just that it has one. This edge is
-                described by the function:
+                ...on the left (red) edge of the red zone, the curve will have a
+                cusp. We again don't know <em>where</em>, but we know there is
+                one. This edge is described by the function:
               </p>
               <img
                 class="LaTeX SVG"
                 src="./images/chapters/canonical/63ccae0ebe0ca70dc2afb507ab32e4bd.svg"
-                width="180px"
-                height="37px"
+                width="187px"
+                height="36px"
+                loading="lazy"
               />
             </li>
             <li>
               <p>
-                on the lower right (pink) edge, the curve will have a loop at
-                t=1, so we know the end coordinate of the curve also lies
-                <em>on</em> the curve. This edge is described by the function:
+                ...on the almost circular, lower right (pink) edge, the curve's
+                end point touches the curve, forming a loop. This edge is
+                described by the function:
               </p>
               <img
                 class="LaTeX SVG"
                 src="./images/chapters/canonical/add5f7fb210a306fe9ff933113f6fb91.svg"
-                width="231px"
-                height="39px"
+                width="241px"
+                height="37px"
+                loading="lazy"
               />
             </li>
             <li>
               <p>
-                on the top (blue) edge, the curve will have a loop at t=0, so we
-                know the start coordinate of the curve also lies <em>on</em> the
-                curve. This edge is described by the function:
+                ...on the top (blue) edge, the curve's start point touches the
+                curve, forming a loop. This edge is described by the function:
               </p>
               <img
                 class="LaTeX SVG"
                 src="./images/chapters/canonical/4230e959138d8400e04abf316360009a.svg"
-                width="153px"
+                width="159px"
                 height="37px"
+                loading="lazy"
               />
             </li>
             <li>
               <p>
-                inside the green zone, the curve will have a single inflection,
-                switching concave/convex once.
+                ...inside the lower (green) zone, past <code>y=1</code>, the
+                curve will have a single inflection (switching concave/convex
+                once).
               </p>
             </li>
             <li>
               <p>
-                between the red and green zones, the curve has two inflections,
-                meaning its curvature switches between concave/convex form
-                twice.
+                ...between the left and lower boundaries (below the cusp line
+                but above the single-inflection line), the curve will have two
+                inflections (switching from concave to convex and then back
+                again, or from convex to concave and then back again).
               </p>
             </li>
             <li>
               <p>
-                anywhere on the right of the red zone, the curve will have no
-                inflections. It'll just be a well-behaved arch.
+                ...anywhere on the right of self-intersection zone, the curve
+                will have no inflections. It'll just be a simple arch.
               </p>
             </li>
           </ol>
@@ -3580,8 +3705,9 @@ function getCubicRoots(pa, pb, pc, pd) {
           <img
             class="LaTeX SVG"
             src="./images/chapters/canonical/d089cc0687982a3302249bb82af3fc16.svg"
-            width="472px"
+            width="499px"
             height="55px"
+            loading="lazy"
           />
           <p>
             Sweet! <em>z</em> stays 1, so we can effectively ignore it entirely,
@@ -3591,8 +3717,9 @@ function getCubicRoots(pa, pb, pc, pd) {
           <img
             class="LaTeX SVG"
             src="./images/chapters/canonical/058fa85ac31eb666857a860fdedd79df.svg"
-            width="455px"
+            width="477px"
             height="57px"
+            loading="lazy"
           />
           <p>
             Running all our coordinates through this transformation gives a new
@@ -3609,8 +3736,9 @@ function getCubicRoots(pa, pb, pc, pd) {
           <img
             class="LaTeX SVG"
             src="./images/chapters/canonical/10025fdab2b3fd20f5d389cbe7e3e3ce.svg"
-            width="195px"
+            width="208px"
             height="53px"
+            loading="lazy"
           />
           <p>
             So we want some shearing value that, when multiplied by <em>y</em>,
@@ -3620,8 +3748,9 @@ function getCubicRoots(pa, pb, pc, pd) {
           <img
             class="LaTeX SVG"
             src="./images/chapters/canonical/20684d22b3ddc52fd6abde8ce56608a9.svg"
-            width="133px"
-            height="67px"
+            width="135px"
+            height="65px"
+            loading="lazy"
           />
           <p>
             Now, running this on all our points generates a new set of
@@ -3640,8 +3769,9 @@ function getCubicRoots(pa, pb, pc, pd) {
           <img
             class="LaTeX SVG"
             src="./images/chapters/canonical/8cbef24b8c3b26f9daf2f89d27d36e95.svg"
-            width="137px"
-            height="71px"
+            width="136px"
+            height="67px"
+            loading="lazy"
           />
           <p>
             Then, finally, this generates a new set of coordinates, let's call
@@ -3660,7 +3790,8 @@ function getCubicRoots(pa, pb, pc, pd) {
             class="LaTeX SVG"
             src="./images/chapters/canonical/0430e8c7f7d4ec80e6527f96f3d56e5c.svg"
             width="140px"
-            height="65px"
+            height="63px"
+            loading="lazy"
           />
           <p>
             And this generates our final set of four coordinates. Of these, we
@@ -3672,8 +3803,9 @@ function getCubicRoots(pa, pb, pc, pd) {
           <img
             class="LaTeX SVG"
             src="./images/chapters/canonical/2f85d84f0e3dd14cc25e48583aed3822.svg"
-            width="455px"
-            height="91px"
+            width="460px"
+            height="80px"
+            loading="lazy"
           />
           <p>
             That looks very complex, but notice that every coordinate value is
@@ -3689,8 +3821,9 @@ function getCubicRoots(pa, pb, pc, pd) {
           <img
             class="LaTeX SVG"
             src="./images/chapters/canonical/83262761bb7fa9b832fe483ded436973.svg"
-            width="353px"
-            height="59px"
+            width="359px"
+            height="56px"
+            loading="lazy"
           />
           <p>
             Suddenly things look a lot simpler: the mapped x is fairly straight
@@ -3702,8 +3835,9 @@ function getCubicRoots(pa, pb, pc, pd) {
           <img
             class="LaTeX SVG"
             src="./images/chapters/canonical/f3261ad2802d980ebe6e35b272375700.svg"
-            width="408px"
+            width="427px"
             height="40px"
+            loading="lazy"
           />
           <p>
             That's kind of super-simple to write out in code, I think you'll
@@ -3751,11 +3885,22 @@ function getCubicRoots(pa, pb, pc, pd) {
             can immediately tell which features our curve must have, based on
             where the fourth coordinate is located on the map:
           </p>
-          <Graphic
+          <graphics-element
             title="A cubic curve mapped to canonical form"
-            setup="{this.setup}"
-            draw="{this.draw}"
-          />
+            width="800"
+            height="400"
+            src="./chapters/canonical/interactive.js"
+          >
+            <fallback-image>
+              <img
+                width="800px"
+                height="400px"
+                src="images\chapters\canonical\9ccf43ffde69d452e72cb52ea0efd8ef.png"
+                loading="lazy"
+              />
+              Scripts are disabled. Showing fallback image.
+            </fallback-image></graphics-element
+          >
         </section>
         <section id="yforx">
           <h1><a href="ja-JP/index.html#yforx">Finding Y, given X</a></h1>
@@ -3807,6 +3952,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             src="./images/chapters/yforx/9df91c28af38c1ba2e2d38d2714c9446.svg"
             width="335px"
             height="19px"
+            loading="lazy"
           />
           <p>
             We can rewrite this to a plain polynomial form, by just fully
@@ -3818,6 +3964,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             src="./images/chapters/yforx/9ab2b830fe7fb73350c19bde04e9441b.svg"
             width="445px"
             height="19px"
+            loading="lazy"
           />
           <p>
             Nothing special here: that's a standard cubic polynomial in "power"
@@ -3832,6 +3979,7 @@ function getCubicRoots(pa, pb, pc, pd) {
             src="./images/chapters/yforx/de3bd3e271d72194c730d0ae44f031a8.svg"
             width="465px"
             height="19px"
+            loading="lazy"
           />
           <p>
             You might be wondering "where did all the other 'minus x' for all
@@ -3896,6 +4044,7 @@ if (roots.length &gt; 0) {
             src="./images/chapters/arclength/cb24cda7f7f4bbf3be7104c460e0ec9f.svg"
             width="140px"
             height="33px"
+            loading="lazy"
           />
           <p>or, more commonly written using Leibnitz notation as:</p>
           <img
@@ -3903,6 +4052,7 @@ if (roots.length &gt; 0) {
             src="./images/chapters/arclength/d3003177813309f88f58a1f515f5df9f.svg"
             width="245px"
             height="35px"
+            loading="lazy"
           />
           <p>
             This formula says that the length of a parametric curve is in fact
@@ -3953,6 +4103,7 @@ if (roots.length &gt; 0) {
             src="./images/chapters/arclength/e168758d35b8f6781617eda5a32b20bf.svg"
             width="636px"
             height="71px"
+            loading="lazy"
           />
           <p>
             In plain text: an integral function can always be treated as the sum
@@ -4028,6 +4179,7 @@ if (roots.length &gt; 0) {
               src="./images/chapters/arclength/5509919419288129322cfbd4c60d0a4f.svg"
               width="341px"
               height="72px"
+              loading="lazy"
             />
             <p>
               That may look a bit more complicated, but the fraction involving
@@ -4052,6 +4204,7 @@ if (roots.length &gt; 0) {
               src="./images/chapters/arclength/d0d93f1cc26b560309dade1f1aa012f2.svg"
               width="63px"
               height="93px"
+              loading="lazy"
             />
             <p>
               Which means that in order for us to approximate the integral, we
@@ -4063,6 +4216,7 @@ if (roots.length &gt; 0) {
               src="./images/chapters/arclength/e96dd431f6ef9433ccf25909dddd5bca.svg"
               width="476px"
               height="44px"
+              loading="lazy"
             />
             <p>
               We can program that pretty easily, provided we have that
@@ -4240,6 +4394,7 @@ if (roots.length &gt; 0) {
             src="./images/chapters/curvature/d9c893051586eb8d9de51c0ae1ef8fae.svg"
             width="113px"
             height="47px"
+            loading="lazy"
           />
           <p>
             Which is really just a "short form" that glosses over the fact that
@@ -4250,6 +4405,7 @@ if (roots.length &gt; 0) {
             src="./images/chapters/curvature/828333034b4fed8e248683760d6bc6f4.svg"
             width="239px"
             height="55px"
+            loading="lazy"
           />
           <p>
             And while that's a litte more verbose, it's still just as simple to
@@ -4290,6 +4446,7 @@ if (roots.length &gt; 0) {
               src="./images/chapters/curvature/6ed4fd2ead35c57984caddf9fe375a5f.svg"
               width="81px"
               height="37px"
+              loading="lazy"
             />
             <p>So that's a rather convenient fact to know, too.</p>
           </div>
@@ -4696,6 +4853,7 @@ lli = function(line1, line2):
             src="./images/chapters/abc/34fe255294faf45ab02128f7997b92ce.svg"
             width="197px"
             height="16px"
+            loading="lazy"
           />
           <p>So that just leaves finding A.</p>
           <div class="note">
@@ -4708,6 +4866,7 @@ lli = function(line1, line2):
               src="./images/chapters/abc/62f2f984e43a22a6b4bda4d399dedfc6.svg"
               width="197px"
               height="87px"
+              loading="lazy"
             />
             <p>
               So, if we know the start and end coordinates, and we know the
@@ -4746,6 +4905,7 @@ lli = function(line1, line2):
             src="./images/chapters/abc/385d1fd4aecbd2066e6e284a84408be6.svg"
             width="251px"
             height="39px"
+            loading="lazy"
           />
           <p>
             This leads to a pretty powerful bit of knowledge: merely by knowing
@@ -4758,6 +4918,7 @@ lli = function(line1, line2):
             src="./images/chapters/abc/12aaf0d7fd20b3c551a0ec76b18bd7d2.svg"
             width="217px"
             height="37px"
+            loading="lazy"
           />
           <p>And that's it, all values found.</p>
           <div class="note">
@@ -4780,12 +4941,14 @@ lli = function(line1, line2):
               src="./images/chapters/abc/059000c5c8a37dcc8d7fa04154a05df3.svg"
               width="245px"
               height="41px"
+              loading="lazy"
             />
             <img
               class="LaTeX SVG"
               src="./images/chapters/abc/b4987e9b77b0df604238b88596c5f7c3.svg"
               width="223px"
               height="41px"
+              loading="lazy"
             />
             <p>
               Unfortunately, this trick only works for quadratic and cubic
@@ -4847,6 +5010,7 @@ lli = function(line1, line2):
             src="./images/chapters/moulding/7bba0a4fd605e023cda922de125b3e32.svg"
             width="221px"
             height="36px"
+            loading="lazy"
           />
           <p>
             For quadratic curves, this means we're done, since the new point A'
@@ -4882,6 +5046,7 @@ lli = function(line1, line2):
             src="./images/chapters/moulding/524206c49f317d27d8e07a310b24a7a3.svg"
             width="132px"
             height="75px"
+            loading="lazy"
           />
           <p>And then we can compute the new control points:</p>
           <img
@@ -4889,6 +5054,7 @@ lli = function(line1, line2):
             src="./images/chapters/moulding/94f61d17f896aebddcf5a7c676aee7d1.svg"
             width="156px"
             height="75px"
+            loading="lazy"
           />
           <p>And that's cubic curve manipulation.</p>
         </section>
@@ -5041,6 +5207,7 @@ lli = function(line1, line2):
               src="./images/chapters/curvefitting/bd8e8e294eec10d2bf6ef857c7c0c2c2.svg"
               width="295px"
               height="43px"
+              loading="lazy"
             />
             <p>
               And then we (trivially) rearrange the terms across multiple lines:
@@ -5050,6 +5217,7 @@ lli = function(line1, line2):
               src="./images/chapters/curvefitting/2b8334727d3b004c6e87263fec6b32b7.svg"
               width="216px"
               height="64px"
+              loading="lazy"
             />
             <p>
               This rearrangement has "factors of t" at each row (the first row
@@ -5067,6 +5235,7 @@ lli = function(line1, line2):
               src="./images/chapters/curvefitting/94acb5850778dcb16c2ba3cfa676f537.svg"
               width="572px"
               height="53px"
+              loading="lazy"
             />
             <p>
               We can do the same for the cubic curve, of course. We know the
@@ -5077,6 +5246,7 @@ lli = function(line1, line2):
               src="./images/chapters/curvefitting/7eada6f12045423de24d9a2ab8e293b1.svg"
               width="355px"
               height="19px"
+              loading="lazy"
             />
             <p>So we write out the expansion and rearrange:</p>
             <img
@@ -5084,6 +5254,7 @@ lli = function(line1, line2):
               src="./images/chapters/curvefitting/875ca8eea72e727ccb881b4c0b6a3224.svg"
               width="248px"
               height="87px"
+              loading="lazy"
             />
             <p>Which we can then decompose:</p>
             <img
@@ -5091,6 +5262,7 @@ lli = function(line1, line2):
               src="./images/chapters/curvefitting/03ec73258d5c95eed39a2ea8665e0b07.svg"
               width="404px"
               height="72px"
+              loading="lazy"
             />
             <p>
               And, of course, we can do this for quartic curves too (skipping
@@ -5101,6 +5273,7 @@ lli = function(line1, line2):
               src="./images/chapters/curvefitting/9151c0fdf9689ee598a2d029ab2ffe34.svg"
               width="491px"
               height="92px"
+              loading="lazy"
             />
             <p>
               And so and on so on. Now, let's see how to use these
@@ -5121,6 +5294,7 @@ lli = function(line1, line2):
             src="./images/chapters/curvefitting/2bef3da3828d63d690460ce9947dbde2.svg"
             width="63px"
             height="73px"
+            loading="lazy"
           />
           <p>
             Next, we need to figure out appropriate <code>t</code> values for
@@ -5165,6 +5339,7 @@ lli = function(line1, line2):
             src="./images/chapters/curvefitting/78b8ba1aba2e4c9ad3f7890299c90152.svg"
             width="395px"
             height="40px"
+            loading="lazy"
           />
           <p>
             Where <code>length()</code> is literally just that: the length of
@@ -5179,6 +5354,7 @@ lli = function(line1, line2):
             src="./images/chapters/curvefitting/08f4beaebf83dca594ad125bdca7e436.svg"
             width="272px"
             height="55px"
+            loading="lazy"
           />
           <p>
             And now we can move on to the actual "curve fitting" part: what we
@@ -5199,6 +5375,7 @@ lli = function(line1, line2):
             src="./images/chapters/curvefitting/7e5d59272621baf942bc722208ce70c2.svg"
             width="177px"
             height="23px"
+            loading="lazy"
           />
           <p>
             Since this function only deals with individual coordinates, we'll
@@ -5211,6 +5388,7 @@ lli = function(line1, line2):
             src="./images/chapters/curvefitting/ab334858d3fa309cc1a5ba535a2ca168.svg"
             width="195px"
             height="41px"
+            loading="lazy"
           />
           <p>
             And here's the trick that justifies using matrices: while we can
@@ -5226,6 +5404,7 @@ lli = function(line1, line2):
             src="./images/chapters/curvefitting/2d42758fba3370f52191306752c2705c.svg"
             width="141px"
             height="21px"
+            loading="lazy"
           />
           <p>
             In which we can replace the rather cumbersome "squaring" operation
@@ -5236,6 +5415,7 @@ lli = function(line1, line2):
             src="./images/chapters/curvefitting/5f7fcb86ae1c19612b9fe02e23229e31.svg"
             width="225px"
             height="21px"
+            loading="lazy"
           />
           <p>
             Here, the letter <code>T</code> is used instead of the number 2, to
@@ -5259,6 +5439,7 @@ lli = function(line1, line2):
             src="./images/chapters/curvefitting/6202d7bd150c852b432d807c40fb1647.svg"
             width="201px"
             height="96px"
+            loading="lazy"
           />
           <p>
             Which, because of the first and last values in <strong>S</strong>,
@@ -5269,6 +5450,7 @@ lli = function(line1, line2):
             src="./images/chapters/curvefitting/4ffad56e281ee79d0688e93033429f0a.svg"
             width="212px"
             height="92px"
+            loading="lazy"
           />
           <p>
             Now we can properly write out the error function as matrix
@@ -5279,6 +5461,7 @@ lli = function(line1, line2):
             src="./images/chapters/curvefitting/8d09f2be2c6db79ee966f170ffc25815.svg"
             width="231px"
             height="21px"
+            loading="lazy"
           />
           <p>
             So, we have our error function: we now need to figure out the
@@ -5293,6 +5476,7 @@ lli = function(line1, line2):
             src="./images/chapters/curvefitting/283bc9e8fe59a78d3c74860f62a66ecb.svg"
             width="197px"
             height="36px"
+            loading="lazy"
           />
           <div class="note">
             <h2>Where did this derivative come from?</h2>
@@ -5334,6 +5518,7 @@ lli = function(line1, line2):
             src="./images/chapters/curvefitting/d84d1c71a3ce1918f53eaf8f9fe98ac4.svg"
             width="168px"
             height="27px"
+            loading="lazy"
           />
           <p>
             Here, the "to the power negative one" is the notation for the
@@ -5446,6 +5631,7 @@ lli = function(line1, line2):
             src="./images/chapters/catmullconv/9215d05705c8e8a7ebd718ae6f690371.svg"
             width="409px"
             height="75px"
+            loading="lazy"
           />
           <p>
             However, there's something funny going on here: the coordinate
@@ -5485,6 +5671,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/1811b59c5ab9233f08590396e5d03303.svg"
               width="187px"
               height="83px"
+              loading="lazy"
             />
             <p>
               This mapping says that in order to map a Catmull-Rom "point +
@@ -5500,6 +5687,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/4d524810417b4caffedd13af23135f5b.svg"
               width="591px"
               height="83px"
+              loading="lazy"
             />
             <p>Thus:</p>
             <img
@@ -5507,6 +5695,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/f41487aff3e34fafd5d4ee5979f133f1.svg"
               width="143px"
               height="81px"
+              loading="lazy"
             />
             <p>
               However, we're not <em>quite</em> done, because Catmull-Rom curves
@@ -5523,6 +5712,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/06ae1e3fdc660e59d618e0760e8e9ab5.svg"
               width="285px"
               height="84px"
+              loading="lazy"
             />
             <p>
               With the mapping matrix properly done, let's rewrite the "point +
@@ -5534,6 +5724,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/cc1e2ff43350c32f0ae9ba9a7652b8fb.svg"
               width="409px"
               height="75px"
+              loading="lazy"
             />
             <p>
               Replace point/tangent vector with the expression for
@@ -5544,6 +5735,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/f08e34395ce2812276fd70548f805041.svg"
               width="549px"
               height="81px"
+              loading="lazy"
             />
             <p>and merge the matrices:</p>
             <img
@@ -5551,6 +5743,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/f2b2a16a41d134ce0dfd544ab77ff25e.svg"
               width="455px"
               height="84px"
+              loading="lazy"
             />
             <p>
               This looks a lot like the Bézier matrix form, which as we saw in
@@ -5561,6 +5754,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/8f56909fcb62b8eef18b9b9559575c13.svg"
               width="353px"
               height="73px"
+              loading="lazy"
             />
             <p>
               So, if we want to express a Catmull-Rom curve using a Bézier
@@ -5571,6 +5765,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/b21386f86bef8894f108c5441dad10de.svg"
               width="227px"
               height="84px"
+              loading="lazy"
             />
             <p>Into something that looks like this:</p>
             <img
@@ -5578,6 +5773,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/78ac9df086ec19147414359369b563fc.svg"
               width="167px"
               height="73px"
+              loading="lazy"
             />
             <p>
               And the way we do that is with a fairly straight forward bit of
@@ -5588,6 +5784,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/a47b072a325812ac4f0ff52c22792588.svg"
               width="440px"
               height="84px"
+              loading="lazy"
             />
             <p>
               Then we remove the coordinate vector from both sides without
@@ -5598,6 +5795,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/841fb6a2a035c9bcf5a2d46f2a67709b.svg"
               width="353px"
               height="84px"
+              loading="lazy"
             />
             <p>
               Then we can "get rid of" the Bézier matrix on the right by
@@ -5608,6 +5806,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/cbdd46d5e2e1a6202ef46fb03711ebe4.svg"
               width="657px"
               height="88px"
+              loading="lazy"
             />
             <p>
               A matrix times its inverse is the matrix equivalent of 1, and
@@ -5619,6 +5818,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/3ea54fe939d076f8db605c5b480e7db0.svg"
               width="369px"
               height="88px"
+              loading="lazy"
             />
             <p>
               And now we're <em>basically</em> done. We just multiply those two
@@ -5629,6 +5829,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/169fd85a95e4d16fe289a75583017a11.svg"
               width="161px"
               height="77px"
+              loading="lazy"
             />
             <p>
               We now have the final piece of our function puzzle. Let's run
@@ -5642,6 +5843,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/cc1e2ff43350c32f0ae9ba9a7652b8fb.svg"
               width="409px"
               height="75px"
+              loading="lazy"
             />
             <ol start="2">
               <li>rewrite to pure coordinate form:</li>
@@ -5651,6 +5853,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/f814bb8d627f9c8f33b347c1cf13d4c7.svg"
               width="324px"
               height="84px"
+              loading="lazy"
             />
             <ol start="3">
               <li>rewrite for "normal" coordinate vector:</li>
@@ -5660,6 +5863,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/5f2750de827497375d9a915f96686885.svg"
               width="441px"
               height="81px"
+              loading="lazy"
             />
             <ol start="4">
               <li>merge the inner matrices:</li>
@@ -5669,6 +5873,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/79e333cd0c569657eea033b04fb5e61b.svg"
               width="348px"
               height="84px"
+              loading="lazy"
             />
             <ol start="5">
               <li>rewrite for Bézier matrix form:</li>
@@ -5678,6 +5883,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/1b8a782f7540503d38067317e4cd00b0.svg"
               width="431px"
               height="77px"
+              loading="lazy"
             />
             <ol start="6">
               <li>
@@ -5690,6 +5896,7 @@ lli = function(line1, line2):
               src="./images/chapters/catmullconv/e3d30ab368dcead1411532ce3814d3f3.svg"
               width="348px"
               height="81px"
+              loading="lazy"
             />
             <p>
               And we're done: we finally know how to convert these two curves!
@@ -5708,6 +5915,7 @@ lli = function(line1, line2):
             src="./images/chapters/catmullconv/ba31c32eba62f1e3b15066cd5ddda597.svg"
             width="249px"
             height="85px"
+            loading="lazy"
           />
           <p>
             Similarly, if we have a Bézier curve defined by four coordinates
@@ -5720,6 +5928,7 @@ lli = function(line1, line2):
             src="./images/chapters/catmullconv/eae7f01976e511ee38b08b6edc8765d2.svg"
             width="284px"
             height="77px"
+            loading="lazy"
           />
           <p>
             or, if your API requires specifying Catmull-Rom curves using "point
@@ -5730,6 +5939,7 @@ lli = function(line1, line2):
             src="./images/chapters/catmullconv/26363fc09f8cf2d41ea5b4256656bb6d.svg"
             width="284px"
             height="77px"
+            loading="lazy"
           />
         </section>
         <section id="catmullmoulding">
@@ -5842,6 +6052,7 @@ lli = function(line1, line2):
             src="./images/chapters/polybezier/408dd95905a5f001179c4da6051e49c5.svg"
             width="124px"
             height="17px"
+            loading="lazy"
           />
           <p>
             We can effect this quite easily, because we know that the vector
@@ -5856,6 +6067,7 @@ lli = function(line1, line2):
             src="./images/chapters/polybezier/8c1b570b3efdfbbc39ddedb4adcaaff6.svg"
             width="304px"
             height="40px"
+            loading="lazy"
           />
           <p>
             So let's implement that and see what it gets us. The following two
@@ -6218,6 +6430,7 @@ lli = function(line1, line2):
               src="./images/chapters/offsetting/1d4be24e5896dce3c16c8e71f9cc8881.svg"
               width="108px"
               height="16px"
+              loading="lazy"
             />
             <p>
               However, we're working in 2D, and <code>d</code> is a single
@@ -6234,6 +6447,7 @@ lli = function(line1, line2):
               src="./images/chapters/offsetting/5bfee4f2ae27304475673d0596e42f9a.svg"
               width="151px"
               height="16px"
+              loading="lazy"
             />
             <p>
               Now this still isn't very useful unless we know what the formula
@@ -6253,6 +6467,7 @@ lli = function(line1, line2):
               src="./images/chapters/offsetting/fa6c243de2aa78b7451e0086848dfdfc.svg"
               width="120px"
               height="40px"
+              loading="lazy"
             />
             <p>
               Determining the length requires computing an arc length, and this
@@ -6266,6 +6481,7 @@ lli = function(line1, line2):
               src="./images/chapters/offsetting/b262e50c085815421d94e120fc17f1c8.svg"
               width="169px"
               height="36px"
+              loading="lazy"
             />
             <p>
               So if we want the length of the tangent, we plug in
@@ -6277,6 +6493,7 @@ lli = function(line1, line2):
               src="./images/chapters/offsetting/1d586b939b44ff9bdb42562a12ac2779.svg"
               width="209px"
               height="36px"
+              loading="lazy"
             />
             <p>
               And that's where things go wrong. It doesn't even really matter
@@ -6514,6 +6731,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles/8374c4190d6213b0ac0621481afaa754.svg"
             width="175px"
             height="40px"
+            loading="lazy"
           />
           <p>
             What we want to find is the intersection of the tangents, so we want
@@ -6524,6 +6742,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles/a127f926eced2751a09c54bf7c361b4a.svg"
             width="284px"
             height="40px"
+            loading="lazy"
           />
           <p>
             i.e. we want a point that lies on the vertical line through S (at
@@ -6536,6 +6755,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles/b5d864e9ed0c44c56d454fbaa4218d5e.svg"
             width="219px"
             height="40px"
+            loading="lazy"
           />
           <p>First we solve for <em>b</em>:</p>
           <img
@@ -6543,6 +6763,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles/9e4d886c372f916f6511c41245ceee39.svg"
             width="560px"
             height="17px"
+            loading="lazy"
           />
           <p>which yields:</p>
           <img
@@ -6550,6 +6771,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles/c22f6d343ee0cce7bff6a617c946ca17.svg"
             width="101px"
             height="39px"
+            loading="lazy"
           />
           <p>which we can then substitute in the expression for <em>a</em>:</p>
           <img
@@ -6557,6 +6779,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles/ef3ab62bb896019c6157c85aae5d1ed3.svg"
             width="231px"
             height="195px"
+            loading="lazy"
           />
           <p>
             A quick check shows that plugging these values for <em>a</em> and
@@ -6573,6 +6796,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles/fe32474b4616ee9478e1308308f1b6bf.svg"
             width="188px"
             height="32px"
+            loading="lazy"
           />
           <p>
             We compute T, observing that if <em>t=0.5</em>, the polynomial
@@ -6583,6 +6807,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles/e1059e611aa1e51db41f9ce0b4ebb95a.svg"
             width="252px"
             height="35px"
+            loading="lazy"
           />
           <p>Which, worked out for the x and y components, gives:</p>
           <img
@@ -6590,6 +6815,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles/7754bc3c96ae3c90162fec3bd46bedff.svg"
             width="408px"
             height="77px"
+            loading="lazy"
           />
           <p>
             And the distance between these two is the standard Euclidean
@@ -6600,6 +6826,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles/adbd056f4b8fcd05b1d4f2fce27d7657.svg"
             width="399px"
             height="153px"
+            loading="lazy"
           />
           <p>
             So, what does this distance function look like when we plot it for a
@@ -6655,6 +6882,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles/df87674db0f31fc3944aaeb6b890e196.svg"
             width="247px"
             height="53px"
+            loading="lazy"
           />
           <p>
             And frankly, things are starting to look a bit ridiculous at this
@@ -6802,6 +7030,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles_cubic/a4f0dafbfe80c88723c3cc22277a9682.svg"
             width="175px"
             height="40px"
+            loading="lazy"
           />
           <p>
             But we now need to find two control points, rather than one. If we
@@ -6815,6 +7044,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles_cubic/dfb83eec053c30e0a41b0a52aba24cd4.svg"
             width="113px"
             height="40px"
+            loading="lazy"
           />
           <p>where "a" is some scaling factor, and:</p>
           <img
@@ -6822,6 +7052,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles_cubic/e75a848f5f8aead495e35175e2955e06.svg"
             width="163px"
             height="40px"
+            loading="lazy"
           />
           <p>where "b" is also some scaling factor.</p>
           <p>
@@ -6879,6 +7110,7 @@ lli = function(line1, line2):
               src="./images/chapters/circles_cubic/3189cac1ddac07c1487e1e51740ecc88.svg"
               width="397px"
               height="40px"
+              loading="lazy"
             />
             <p>
               So that just leaves us to find the distance from <i>t=0.5</i> to
@@ -6893,6 +7125,7 @@ lli = function(line1, line2):
               src="./images/chapters/circles_cubic/fe32474b4616ee9478e1308308f1b6bf.svg"
               width="188px"
               height="32px"
+              loading="lazy"
             />
             <p>
               And the distance from the origin to the line start/end is another
@@ -6906,6 +7139,7 @@ lli = function(line1, line2):
               src="./images/chapters/circles_cubic/0364731626a530c8a9b30f424ada53c5.svg"
               width="261px"
               height="67px"
+              loading="lazy"
             />
             <p>
               With the coordinate C, and knowledge of coordinate B, we can
@@ -6917,12 +7151,14 @@ lli = function(line1, line2):
               src="./images/chapters/circles_cubic/ee08d86b7497c7ab042ee899bf15d453.svg"
               width="397px"
               height="48px"
+              loading="lazy"
             />
             <img
               class="LaTeX SVG"
               src="./images/chapters/circles_cubic/195790bae7de813aec342ea82b5d8781.svg"
               width="211px"
               height="47px"
+              loading="lazy"
             />
             <p>
               Which means we can now determine the distance {start,guessed},
@@ -6934,6 +7170,7 @@ lli = function(line1, line2):
               src="./images/chapters/circles_cubic/178a838274748439778e2a29f5a27d0b.svg"
               width="252px"
               height="56px"
+              loading="lazy"
             />
             <p>
               And after this tedious detour to find the coordinate for
@@ -6945,6 +7182,7 @@ lli = function(line1, line2):
               src="./images/chapters/circles_cubic/49dbf244d50c787a4ab18694488d9b69.svg"
               width="524px"
               height="79px"
+              loading="lazy"
             />
             <p>
               And that's it, we have all four points now for an approximation of
@@ -6960,6 +7198,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles_cubic/e2258660a796dcd6189a6f5e14326dad.svg"
             width="205px"
             height="40px"
+            loading="lazy"
           />
           <p>and</p>
           <img
@@ -6967,6 +7206,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles_cubic/acbc5efb06bc34571ccc0322376e0b9b.svg"
             width="321px"
             height="40px"
+            loading="lazy"
           />
           <p>
             And, because the "quarter curve" special case comes up so incredibly
@@ -6978,6 +7218,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles_cubic/877f9c217c51c0087be751a7580ed459.svg"
             width="412px"
             height="33px"
+            loading="lazy"
           />
           <p>
             Which, in decimal values, rounded to six significant digits, is:
@@ -6987,6 +7228,7 @@ lli = function(line1, line2):
             src="./images/chapters/circles_cubic/05d36e051a38905dcb81e65db8261f24.svg"
             width="412px"
             height="16px"
+            loading="lazy"
           />
           <p>
             Of course, this is for a circle with radius 1, so if you have a
@@ -7273,6 +7515,7 @@ lli = function(line1, line2):
             src="./images/chapters/bsplines/0f3451c711c0fe5d0b018aa4aa77d855.svg"
             width="169px"
             height="41px"
+            loading="lazy"
           />
           <p>
             Which, honestly, doesn't tell us all that much. All we can see is
@@ -7302,6 +7545,7 @@ lli = function(line1, line2):
             src="./images/chapters/bsplines/cf45d1ea00d4866abc8a058b130299b4.svg"
             width="559px"
             height="43px"
+            loading="lazy"
           />
           <p>
             So this is where we see the interpolation: N(t) for an (i,k) pair
@@ -7318,6 +7562,7 @@ lli = function(line1, line2):
             src="./images/chapters/bsplines/adac18ea69cc58e01c8d5e15498e4aa6.svg"
             width="240px"
             height="40px"
+            loading="lazy"
           />
           <p>
             And this function finally has a straight up evaluation: if a
@@ -7352,6 +7597,7 @@ lli = function(line1, line2):
             src="./images/chapters/bsplines/763838ea6f9e6c6aa63ea5f9c6d9542f.svg"
             width="281px"
             height="21px"
+            loading="lazy"
           />
           <p>
             This is another recursive function, with <em>k</em> values
@@ -7363,6 +7609,7 @@ lli = function(line1, line2):
             src="./images/chapters/bsplines/892209dad8fd1f839470dd061e870913.svg"
             width="255px"
             height="39px"
+            loading="lazy"
           />
           <p>
             That looks complicated, but it's not. Computing alpha is just a
@@ -7379,6 +7626,7 @@ lli = function(line1, line2):
             src="./images/chapters/bsplines/4c8f9814c50c708757eeb5a68afabb7f.svg"
             width="368px"
             height="40px"
+            loading="lazy"
           />
           <p>
             So, we see two stopping conditions: either <code>i</code> becomes 0,
@@ -7397,6 +7645,7 @@ lli = function(line1, line2):
             src="./images/chapters/bsplines/7962d6fea86da6f53a7269fba30f0138.svg"
             width="417px"
             height="231px"
+            loading="lazy"
           />
           <p>
             That is, we compute d(3,3) as a mixture of d(2,3) and d(2,2): d(3,3)

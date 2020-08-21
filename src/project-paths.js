@@ -16,7 +16,7 @@ const publicDir = path.join(project, `docs`); // yeah... "docs". Because Github 
 const images = path.join(publicDir, `images`);
 const build = path.join(src, `build`);
 const chapters = path.join(publicDir, `chapters`);
-const temp = path.join(build, `temp`);
+const temp = path.join(project, `temp`);
 
 const paths = {
   project,

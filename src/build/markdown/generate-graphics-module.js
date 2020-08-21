@@ -4,13 +4,9 @@ import prettier from "prettier";
 import splitCodeSections from "../../../docs/js/custom-element/lib/split-code-sections.js";
 import performCodeSurgery from "../../../docs/js/custom-element/lib/perform-code-surgery.js";
 
-// Note that this location is relative to the temp dir, from which sketch modules get loaded.
-const thisModuleURL = new URL(import.meta.url);
-const thisModuleDir = path.dirname(thisModuleURL.href.replace(`file:///`, ``));
-
 const GRAPHICS_API_LOCATION = path
   .join(
-    path.relative(thisModuleDir, paths.public),
+    path.relative(paths.temp, paths.public),
     `js`,
     `custom-element`,
     `api`,
@@ -20,7 +16,7 @@ const GRAPHICS_API_LOCATION = path
   .join(path.posix.sep);
 
 const RELATIVE_IMPORT_LOCATION = path
-  .relative(thisModuleDir, paths.chapters)
+  .relative(paths.temp, paths.chapters)
   .split(path.sep)
   .join(path.posix.sep);
 
@@ -41,11 +37,12 @@ function generateGraphicsModule(chapter, code, width, height) {
   return prettier.format(
     `
         import CanvasBuilder from 'canvas';
-        import { GraphicsAPI, Bezier, Vector, Matrix } from "${GRAPHICS_API_LOCATION}";
+        import { GraphicsAPI, Bezier, Vector, Matrix, Shape } from "${GRAPHICS_API_LOCATION}";
 
         ${globalCode}
 
         const noop = (()=>{});
+        const Image = CanvasBuilder.Image;
 
         class Example extends GraphicsAPI { ${classCode} }
 

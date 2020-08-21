@@ -6,36 +6,37 @@ As it so happens, the answer is yes, and the solution we're going to look at was
 
 The first observation that makes things work is that if we have a cubic curve with four points, we can apply a linear transformation to these points such that three of the points end up on (0,0), (0,1) and (1,1), with the last point then being "somewhere". After applying that transformation, the location of that last point can then tell us what kind of curve we're dealing with. Specifically, we see the following breakdown:
 
-<Graphic static={true} title="The canonical curve map" setup={this.setup} draw={this.drawBase} />
+<graphics-element title="The canonical curve map" width="400" height="400" src="./canonical.js"></graphics-element>
 
-This is a fairly funky image, so let's see how it breaks down. We see the three fixed points at (0,0), (0,1) and (1,1), and then the fourth point is somewhere. Depending on where it is, our curve will have certain features. Namely, if the fourth point is...
+This is a fairly funky image, so let's see what the various parts of it mean...
 
-1. anywhere on and in the red zone, the curve will either be self-intersecting (yielding a loop), or it will have a sharp discontinuity (yielding a cusp). Anywhere inside the red zone, this will be a loop. We won't know *where* that loop is (in terms of *t* values), but we are guaranteed that there is one.
-2. on the left (red) edge, the curve will have a cusp. We again don't know <em>where</em>, just that it
-has one. This edge is described by the function:
+We see the three fixed points at (0,0), (0,1) and (1,1). The various regions and boundaries indicate what property the original curve will have, if the fourth point is in/on that region or boundary. Specifically, if the fourth point is...
+
+1. ...anywhere inside the red zone, but not on its boundaries, the curve will either be self-intersecting (yielding a loop). We won't know *where* it self-intersects (in terms of *t* values), but we are guaranteed that it does.
+
+2. ...on the left (red) edge of the red zone, the curve will have a cusp. We again don't know _where_, but we know there is one. This edge is described by the function:
 
   \[
     y = \frac{-x^2 + 2x + 3}{4}, \{ x \leq 1 \}
   \]
 
-3. on the lower right (pink) edge, the curve will have a loop at t=1, so we know the end coordinate of
-the curve also lies <em>on</em> the curve. This edge is described by the function:
+3. ...on the almost circular, lower right (pink) edge, the curve's end point touches the curve, forming a loop. This edge is described by the function:
 
   \[
     y = \frac{\sqrt{3(4x - x^2)} - x}{2}, \{ 0 \leq x \leq 1 \}
   \]
 
-4. on the top (blue) edge, the curve will have a loop at t=0, so we know the start coordinate of
-the curve also lies <em>on</em> the curve. This edge is described by the function:
+4. ...on the top (blue) edge, the curve's start point touches the curve, forming a loop. This edge is described by the function:
 
   \[
     y = \frac{-x^2 + 3x}{3}, \{ x \leq 0 \}
   \]
 
-5. inside the green zone, the curve will have a single inflection, switching concave/convex once.
-6. between the red and green zones, the curve has two inflections, meaning its curvature switches between
-concave/convex form twice.
-7. anywhere on the right of the red zone, the curve will have no inflections. It'll just be a well-behaved arch.
+5. ...inside the lower (green) zone, past `y=1`, the curve will have a single inflection (switching concave/convex once).
+
+6. ...between the left and lower boundaries (below the cusp line but above the single-inflection line), the curve will have two inflections (switching from concave to convex and then back again, or from convex to concave and then back again).
+
+7. ...anywhere on the right of self-intersection zone, the curve will have no inflections. It'll just be a simple arch.
 
 Of course, this map is fairly small, but the regions extend to infinity, with well defined boundaries.
 
@@ -280,4 +281,4 @@ Now, I know, you're thinking "but Mathematica is super expensive!" and that's tr
 
 So, let's write up a sketch that'll show us the canonical form for any curve drawn in blue, overlaid on our canonical map, so that we can immediately tell which features our curve must have, based on where the fourth coordinate is located on the map:
 
-<Graphic title="A cubic curve mapped to canonical form" setup={this.setup} draw={this.draw} />
+<graphics-element title="A cubic curve mapped to canonical form" width="800" height="400" src="./interactive.js"></graphics-element>

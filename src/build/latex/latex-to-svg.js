@@ -133,9 +133,12 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
   var w = Math.round(((parseFloat(vb[2]) - parseFloat(vb[0])) * 4) / 3);
   var h = Math.round(((parseFloat(vb[3]) - parseFloat(vb[1])) * 4) / 3);
 
-  return `<img class="LaTeX SVG" src="${srcURL}" width="${Math.round(
-    w
-  )}px" height="${Math.round(h)}px">`;
+  // Update the SVG's presentation size to use pixels
+  svg = svg.replace(`width="${vb[2]}pt"`, `width="${w}px"`);
+  svg = svg.replace(`height="${vb[3]}pt"`, `height="${h}px"`);
+  fs.writeFileSync(SVGfilename, svg, `utf8`);
+
+  return `<img class="LaTeX SVG" src="${srcURL}" width="${w}px" height="${h}px" loading="lazy">`;
 }
 
 // This function really needs better stdio capture,

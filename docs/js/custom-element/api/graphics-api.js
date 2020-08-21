@@ -26,6 +26,12 @@ class GraphicsAPI extends BaseAPI {
       `CENTER`,
       `LEFT`,
       `RIGHT`,
+      `HATCH1`,
+      `HATCH2`,
+      `HATCH3`,
+      `HATCH4`,
+      `HATCH5`,
+      `HATCH6`,
     ];
   }
 
@@ -63,6 +69,25 @@ class GraphicsAPI extends BaseAPI {
   }
   get RIGHT() {
     return `right`;
+  }
+  // hatching patterns
+  get HATCH1() {
+    return this.HATCHING[0];
+  }
+  get HATCH2() {
+    return this.HATCHING[1];
+  }
+  get HATCH3() {
+    return this.HATCHING[2];
+  }
+  get HATCH4() {
+    return this.HATCHING[3];
+  }
+  get HATCH5() {
+    return this.HATCHING[4];
+  }
+  get HATCH6() {
+    return this.HATCHING[5];
   }
 
   onMouseDown(evt) {
@@ -111,6 +136,20 @@ class GraphicsAPI extends BaseAPI {
 
   setMovable(points) {
     points.forEach((p) => this.movable.push(p));
+  }
+
+  /**
+   * Convert the canvas to an image
+   */
+  toDataURL() {
+    return this.canvas.toDataURL();
+  }
+
+  /**
+   * Draw an image onto the canvas
+   */
+  image(img, x = 0, y = 0, w, h) {
+    this.ctx.drawImage(img, x, y, w || img.width, h || img.height);
   }
 
   /**
@@ -252,10 +291,72 @@ class GraphicsAPI extends BaseAPI {
   }
 
   /**
+   * Set a text stroke/color
+   */
+  setTextStroke(color, weight) {
+    this.textStroke = color;
+    this.strokeWeight = weight;
+  }
+
+  /**
+   * Do not use text stroking.
+   */
+  noTextStroke() {
+    this.textStroke = false;
+    this.strokeWeight = false;
+  }
+
+  /**
    * Set the context lineWidth
    */
   setWidth(width) {
     this.ctx.lineWidth = `${width}px`;
+  }
+
+  /**
+   * Set the font size
+   */
+  setFontSize(px) {
+    this.font.size = px;
+    this.setFont();
+  }
+
+  /**
+   * Set the font weight (CSS name/number)
+   */
+  setFontWeight(val) {
+    this.font.weight = val;
+    this.setFont();
+  }
+
+  /**
+   * Set the font family by name
+   */
+  setFontFamily(name) {
+    this.font.family = name;
+    this.setFont();
+  }
+
+  setFont(font) {
+    font =
+      font || `${this.font.weight} ${this.font.size}px ${this.font.family}`;
+    this.ctx.font = font;
+  }
+
+  /**
+   * Set text shadow
+   */
+  setShadow(color, px) {
+    this.ctx.shadowColor = color;
+    this.ctx.shadowBlur = px;
+  }
+
+  /**
+   * Disable text shadow
+   */
+  noShadow() {
+    this.ctx.shadowColor = `transparent`;
+    this.ctx.shadowBlur = 0;
   }
 
   /**
@@ -319,12 +420,17 @@ class GraphicsAPI extends BaseAPI {
       x = x.x;
     }
     const ctx = this.ctx;
+    ctx.cacheStyle();
     if (alignment) {
-      ctx.cacheStyle();
       ctx.textAlign = alignment;
     }
+    if (this.textStroke) {
+      this.ctx.lineWidth = this.strokeWeight;
+      this.setStroke(this.textStroke);
+      this.ctx.strokeText(str, x, y);
+    }
     this.ctx.fillText(str, x, y);
-    if (alignment) ctx.restoreStyle();
+    ctx.restoreStyle();
   }
 
   /**
@@ -339,18 +445,14 @@ class GraphicsAPI extends BaseAPI {
    * Draw a function plot from [start] to [end] in [steps] steps.
    * Returns the plot shape so that it can be cached for redrawing.
    */
-  plot(fn, start = 0, end = 1, steps = 24) {
-    const ctx = this.ctx;
-    ctx.cacheStyle();
-    ctx.fillStyle = `transparent`;
+  plot(fn, start = 0, end = 1, steps = 24, xscale = 1, yscale = 1) {
     const interval = end - start;
     this.start();
     for (let i = 0, e = steps - 1, v; i < steps; i++) {
       v = fn(start + (interval * i) / e);
-      this.vertex(v.x, v.y);
+      this.vertex(v.x * xscale, v.y * yscale);
     }
     this.end();
-    ctx.restoreStyle();
     return this.currentShape;
   }
 
@@ -378,9 +480,17 @@ class GraphicsAPI extends BaseAPI {
   /**
    * Draw a previously created shape
    */
-  drawShape(shape) {
-    this.currentShape = shape;
+  drawShape(...shapes) {
+    shapes = shapes.map((s) => {
+      if (s instanceof Shape) return s;
+      return new Shape(this.POLYGON, undefined, s);
+    });
+    this.currentShape = shapes[0].copy();
+    for (let i = 1; i < shapes.length; i++) {
+      this.currentShape.merge(shapes[i]);
+    }
     this.end();
+    this.STARTREPORTING = false;
   }
 
   /**
@@ -516,6 +626,10 @@ class GraphicsAPI extends BaseAPI {
     return Math.max(...v);
   }
 
+  approx(v1, v2, epsilon = 0.001) {
+    return Math.abs(v1 - v2) < epsilon;
+  }
+
   sin(v) {
     return Math.sin(v);
   }
@@ -554,4 +668,4 @@ class GraphicsAPI extends BaseAPI {
   }
 }
 
-export { GraphicsAPI, Bezier, Vector, Matrix };
+export { GraphicsAPI, Bezier, Vector, Matrix, Shape };

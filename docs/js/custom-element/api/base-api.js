@@ -1,3 +1,5 @@
+import { hatch } from "./util/hatchery.js";
+
 /**
  * The base API class, responsible for such things as setting up canvas event
  * handling, method accumulation, custom element binding, etc. etc.
@@ -6,7 +8,12 @@
  */
 class BaseAPI {
   static get privateMethods() {
-    return [`constructor`, `addListeners`, `getCursorCoords`]
+    return [
+      `constructor`,
+      `createHatchPatterns`,
+      `addListeners`,
+      `getCursorCoords`,
+    ]
       .concat(this.superCallers)
       .concat(this.eventHandlers);
   }
@@ -44,6 +51,7 @@ class BaseAPI {
     } else {
       this.canvas = document.createElement(`canvas`);
     }
+    this.HATCHING = hatch(canvasBuildFunction);
     this.addListeners();
     this.setSize(width, height);
     this.setup();
@@ -201,6 +209,11 @@ class BaseAPI {
   setup() {
     // console.log(`setup`);
     this.movable = [];
+    this.font = {
+      size: 10,
+      weight: 400,
+      family: `arial`,
+    };
   }
 
   /**
@@ -233,6 +246,9 @@ function enhanceContext(ctx) {
       lineWidth: ctx.lineWidth,
       textAlign: ctx.textAlign,
       transform: [m.a, m.b, m.c, m.d, m.e, m.f],
+      font: ctx.font,
+      shadowColor: ctx.shadowColor,
+      shadowBlur: ctx.shadowColor,
     };
     styles.push(e);
   };

@@ -40,8 +40,8 @@ class GraphicsElement extends CustomElement {
     return `
       :host([hidden]) { display: none; }
       :host style { display: none; }
-      :host canvas { position: relative; z-index: 1; display: block; margin: auto; border-radius: 0; box-sizing: content-box!important; padding: 1px; }
-      :host canvas:focus { border: 1px solid red; padding: 0px; }
+      :host canvas { position: relative; z-index: 1; display: block; margin: auto; border-radius: 0; box-sizing: content-box!important; border: 1px solid lightgrey; }
+      :host canvas:focus { border: 1px solid red; }
       :host a.view-source { display: block; position:relative; top: -0.6em; margin-bottom: -0.2em; font-size: 60%; text-decoration: none; }
       :host label { display: block; font-style:italic; font-size: 0.9em; text-align: right; }
     `;
@@ -171,7 +171,7 @@ class GraphicsElement extends CustomElement {
     const height = this.getAttribute(`height`, 200);
 
     this.code = `
-      import { GraphicsAPI, Bezier, Vector, Matrix } from "${MODULE_PATH}/api/graphics-api.js";
+      import { GraphicsAPI, Bezier, Vector, Matrix, Shape } from "${MODULE_PATH}/api/graphics-api.js";
 
       ${globalCode}
 
