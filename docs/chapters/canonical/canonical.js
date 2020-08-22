@@ -70,8 +70,8 @@ drawRegions(shapes, w,h,unit) {
         setStroke(`black`);
         setFill(`black`);
         text(`← Single inflection →`, 0, unit*1.75, CENTER);
-        text(`↔ Plain curve ↕`, unit/2, -h/3);
-        text(`↕ Double inflection`, -w/2 + 10, 10 + unit * 0.5);
+        text(`Plain curve`, unit/2, -h/3);
+        text(`Double inflection`, -w/2 + 10, 10 + unit * 0.5);
     });
 }
 
