@@ -248,6 +248,18 @@ First, let's just do that translation step as a "preprocessing" operation so we 
     \cdot
     \left (  x_4 - \frac{x_2 \cdot y_4}{y_2} / x_3-\frac{x_2 \cdot y_3}{y_2} \right )
   \end{matrix}
+\right ) = \left (
+  \begin{matrix}
+   x_{43}
+\\
+\\
+    \frac{y_4}{y_2}
+    +
+    x_{43}
+    \left ( 1 - \frac{y_3}{y_2} \right )
+  \end{matrix}
+\right ),\textit{ where } x_{43} = \left (
+  x_4 - \frac{x_2 \cdot y_4}{y_2} \middle / x_3-\frac{x_2 \cdot y_3}{y_2}
 \right )
 \]
 
@@ -256,16 +268,17 @@ Suddenly things look a lot simpler: the mapped x is fairly straight forward to c
 \[
 ... = \left (
   \begin{matrix}
-   \left ( x_4 - x_2 \cdot y_{42} \right ) / \left (  x_3- x_2 \cdot y_{32}  \right )
+   x_{43}
 \\
 \\
     y_{42}
     +
+    x_{43}
     \left ( 1 - y_{32} \right )
-    \cdot
-    x
   \end{matrix}
-\right ),\textit{ where } y_{32} = \frac{y_3}{y_2},\textit{ and } \ y_{42} = \frac{y_4}{y_2}
+\right ), \textit{ where } x_{43} = \left (
+  \frac{x_4 - x_2 \cdot y_{42}}{x_3 - x_2 \cdot y_{32}}
+\right ), \textit{ } y_{42} = \frac{y_4}{y_2}, \textit{ and } y_{32} = \frac{y_3}{y_2}
 \]
 
 That's kind of super-simple to write out in code, I think you'll agree. Coding math tends to be easier than the formulae initially make it look!
