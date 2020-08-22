@@ -15,7 +15,9 @@
 
 我们通过实际操作来观察这个过程。在以下的图表中，移动鼠标来改变用de Casteljau算法计算得到的曲线点，左右移动鼠标，可以实时看到曲线是如何生成的。
 
-<graphics-element title="用de Casteljau算法来遍历曲线" src="./decasteljau.js"></graphics-element>
+<graphics-element title="用de Casteljau算法来遍历曲线" src="./decasteljau.js">
+  <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
+</graphics-element>
 
 <div class="howtocode">
 

@@ -15,7 +15,9 @@ Rather than using our calculus function to find `x/y` values for `t`, let's do t
 
 To see this in action, mouse-over the following sketch. Moving the mouse changes which curve point is explicitly evaluated using de Casteljau's algorithm, moving the cursor left-to-right (or, of course, right-to-left), shows you how a curve is generated using this approach.
 
-<graphics-element title="Traversing a curve using de Casteljau's algorithm" src="./decasteljau.js"></graphics-element>
+<graphics-element title="Traversing a curve using de Casteljau's algorithm" src="./decasteljau.js">
+  <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
+</graphics-element>
 
 <div class="howtocode">
 

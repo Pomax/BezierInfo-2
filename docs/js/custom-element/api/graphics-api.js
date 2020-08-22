@@ -138,6 +138,17 @@ class GraphicsAPI extends BaseAPI {
     points.forEach((p) => this.movable.push(p));
   }
 
+  setSlider(qs, handler, redraw = true) {
+    let slider = this.find(qs);
+    if (slider) {
+      slider.listen(`input`, (evt) => {
+        handler(parseFloat(evt.target.value));
+        if (redraw) this.redraw();
+      });
+    }
+    return slider;
+  }
+
   /**
    * Convert the canvas to an image
    */

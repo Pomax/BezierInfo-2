@@ -134,4 +134,7 @@ The steps taken here are:
 
 And we're done: we now have an expression that lets us approximate an `n+1`<sup>th</sup> order curve with a lower `n`<sup>th</sup> order curve. It won't be an exact fit, but it's definitely a best approximation. So, let's implement these rules for raising and lowering curve order to a (semi) random curve, using the following graphic. Select the sketch, which has movable control points, and press your up and down arrow keys to raise or lower the curve order.
 
-<graphics-element title="A variable-order Bézier curve" src="./reorder.js"></graphics-element>
+<graphics-element title="A variable-order Bézier curve" src="./reorder.js">
+  <button class="raise">raise</button>
+  <button class="lower">lower</button>
+</graphics-element>

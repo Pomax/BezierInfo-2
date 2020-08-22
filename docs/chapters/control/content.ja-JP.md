@@ -5,9 +5,17 @@
 下のグラフは、2次ベジエ曲線や3次ベジエ曲線の補間関数を表しています。ここでSは、ベジエ関数全体に対しての、その点の寄与の大きさを示します。ある<i>t</i>において、ベジエ曲線を定義する各点の補間率がどのようになっているのか、クリックドラッグをして確かめてみてください。
 
 <div class="figure">
-  <Graphic inline={true} title="2次の補間" draw={this.drawQuadraticLerp}/>
-  <Graphic inline={true} title="3次の補間" draw={this.drawCubicLerp}/>
-  <Graphic inline={true} title="15次の補間" draw={this.draw15thLerp}/>
+  <graphics-element title="2次の補間" src="./lerp-quadratic.js">
+    <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
+  </graphics-element>
+
+  <graphics-element title="3次の補間" src="./lerp-cubic.js">
+    <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
+  </graphics-element>
+
+  <graphics-element title="15次の補間" src="./lerp-fifteenth.js">
+    <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
+  </graphics-element>
 </div>
 
 あわせて、15次ベジエ関数における補間関数も示しています。始点と終点は他の制御点と比較して、曲線の形に対してかなり大きな影響を与えていることがわかります。

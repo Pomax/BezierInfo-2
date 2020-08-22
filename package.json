@@ -41,7 +41,7 @@
     "ebook"
   ],
   "devDependencies": {
-    "canvas": "^2.6.1",
+    "canvas": "git://github.com/Automattic/node-canvas#master",
     "chokidar-cli": "^2.1.0",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",

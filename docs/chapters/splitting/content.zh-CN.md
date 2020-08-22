@@ -2,7 +2,9 @@
 
 使用 de Casteljau 算法我们也可以将一条贝塞尔曲线分割成两条更小的曲线，二者拼接起来即可形成原来的曲线。当采用某个 `t` 值构造 de Casteljau 算法时，该过程会给到我们在 `t` 点分割曲线的所有点: 一条曲线包含该曲线上点之前的所有点，另一条曲线包含该曲线上点之后的所有点。
 
-<graphics-element title="分割一条曲线" width="825" src="./splitting.js"></graphics-element>
+<graphics-element title="分割一条曲线" width="825" src="./splitting.js">
+  <input type="range" min="0" max="1" step="0.01" value="0.5" class="slide-control">
+</graphics-element>
 
 <div class="howtocode">
 

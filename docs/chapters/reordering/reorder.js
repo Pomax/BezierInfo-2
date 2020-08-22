@@ -9,6 +9,15 @@ setup() {
       });
     }
     setMovable(points);
+    this.bindButtons();
+  }
+
+bindButtons() {
+    let rbutton = find(`.raise`);
+    if (rbutton) rbutton.listen(`click`, v => this.raise());
+
+    let lbutton = find(`.lower`);
+    if (lbutton) lbutton.listen(`click`, v => this.lower());
 }
 
 draw() {
@@ -63,6 +72,7 @@ raise() {
     this.points = np;
 
     resetMovable(this.points);
+    redraw();
 }
 
 lower() {
@@ -116,43 +126,9 @@ lower() {
     }));
 
     resetMovable(this.points);
-}
-
-onKeyDown() {
-    const key = this.keyboard.currentKey;
-    if (key === `ArrowUp`) {
-        this.raise();
-    }
-    if (key === `ArrowDown`) {
-        this.lower();
-    }
     redraw();
 }
 
 onMouseMove() {
-    if (this.cursor.down && !this.currentPoint) {
-        if (this.cursor.y < this.height/2) {
-            this.lowerTimer = clearInterval(this.lowerTimer);
-            if (!this.raiseTimer) {
-                this.raiseTimer = setInterval(() => {
-                    this.raise();
-                    redraw();
-                }, 1000);
-            }
-        }
-        if (this.cursor.y > this.height/2) {
-            this.raiseTimer = clearInterval(this.raiseTimer);
-            if (!this.lowerTimer) {
-                this.lowerTimer = setInterval(() => {
-                    this.lower();
-                    redraw();
-                }, 1000);
-            }
-        }
-    } else { redraw(); }
-}
-
-onMouseUp() {
-    this.raiseTimer = clearInterval(this.raiseTimer);
-    this.lowerTimer = clearInterval(this.lowerTimer);
+  redraw();
 }

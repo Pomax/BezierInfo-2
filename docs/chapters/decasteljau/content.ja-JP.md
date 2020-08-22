@@ -15,7 +15,9 @@
 
 下の図にマウスを乗せると、この様子を実際に見ることができます。ド・カステリョのアルゴリズムによって曲線上の点を明示的に計算していますが、マウスを動かすと求める点が変わります。マウスカーソルを左から右へ（もちろん、右から左へでも）動かせば、このアルゴリズムによって曲線が生成される様子がわかります。
 
-<graphics-element title="ド・カステリョのアルゴリズムで曲線をたどる" src="./decasteljau.js"></graphics-element>
+<graphics-element title="ド・カステリョのアルゴリズムで曲線をたどる" src="./decasteljau.js">
+  <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
+</graphics-element>
 
 <div class="howtocode">
 

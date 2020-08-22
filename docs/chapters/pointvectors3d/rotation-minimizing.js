@@ -26,6 +26,11 @@ setup() {
   this.cxz = new Bezier(this, points.map(p => projectXZ(p)));
   this.cyz = new Bezier(this, points.map(p => projectYZ(p)));
   this.t = 0;
+  setSlider(`.slide-control`, v => this.setPosition(v));
+}
+
+setPosition(v) {
+  this.t = v;
 }
 
 draw() {
@@ -189,25 +194,4 @@ drawVector(from, vec, length, color, label) {
     z: (length+15) * vec.z
   });
   text(label, from.x + txt.x, from.y + txt.y);
-}
-
-onMouseMove() {
-  this.t = constrain(
-    map(this.cursor.x,0,this.width,-0.1, 1.1)
-    ,0,1
-  );
-  redraw();
-}
-
-onKeyDown() {
-  let key = this.keyboard.currentKey;
-  if (key === `ArrowUp`) {
-    this.t += 0.01;
-    if (this.t > 1) this.t = 1;
-  }
-  if (key === `ArrowDown`) {
-    this.t -= 0.01;
-    if (this.t < 0) this.t = 0;
-  }
-  redraw();
 }

@@ -2,6 +2,11 @@ setup() {
     this.step = 25;
     this.curve = Bezier.defaultQuadratic(this);
     setMovable(this.curve.points);
+    setSlider(`.slide-control`, v => this.setStep(v))
+}
+
+setStep(v) {
+    this.step = 100 - v;
 }
 
 draw() {
@@ -101,41 +106,6 @@ drawCurveCoordinates() {
     this.curve.drawPoints();
 }
 
-onKeyDown() {
-    this.mark = false;
-    if (this.keyboard[`ArrowDown`]) {
-        this.stepDown();
-    }
-    if (this.keyboard[`ArrowUp`]) {
-        this.stepUp();
-    }
-    redraw();
-}
-
-stepDown(value = 1) {
-    this.step -= value;
-    if (this.step < 10) this.step = 10;
-}
-
-stepUp(value = 1) {
-    this.step += value;
-    if (this.step > 90) this.step = 90;
-}
-
-onMouseDown() {
-    this.mark = this.cursor.y;
-}
-
-onMouseUp() {
-    this.mark = false;
-}
-
 onMouseMove() {
-    if (this.mark && !this.currentPoint) {
-        let diff = this.mark - this.cursor.y,
-            mapped = map(diff, -this.height/2, this.height/2, 10, 90, true);
-        this.step = mapped | 0;
-    }
-
     redraw();
 }

@@ -1,28 +1,37 @@
-let curve;
-
 setup() {
-  curve = new Bezier(this, 90, 200, 25, 100, 220, 40, 210, 240);
-  setMovable(curve.points);
+  this.curve = new Bezier(this, 90, 200, 25, 100, 220, 40, 210, 240);
+  setMovable(this.curve.points);
+  this.position = 0;
+  setSlider(`.slide-control`, v => this.setPosition(v));
+}
+
+setPosition(v) {
+  this.position = v;
 }
 
 draw() {
   clear();
+  const curve = this.curve;
   curve.drawSkeleton();
   curve.drawCurve();
 
   setStroke("rgb(200,100,100)");
 
-  let dim = this.height;
-  let t = this.cursor.x / dim;
-  curve.drawStruts(t);
+  let t = this.position;
+  if (0 < t && t < 1) {
+    curve.drawStruts(t);
+  }
+
   curve.drawPoints();
 
-  let p = curve.get(t);
-  circle(p.x, p.y, 5);
+  if (0 < t && t < 1) {
+    let p = curve.get(t);
+    circle(p.x, p.y, 5);
 
-  let perc = (t*100)|0;
-  t = perc/100;
-  text(`Sequential interpolation for ${perc}% (t=${t})`, 10, 15);
+    let perc = (t*100)|0;
+    let rt = perc/100;
+    text(`Sequential interpolation for ${perc}% (t=${rt})`, 10, 15);
+  }
 }
 
 onMouseMove() {

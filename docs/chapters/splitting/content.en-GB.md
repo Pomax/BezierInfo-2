@@ -2,7 +2,9 @@
 
 Using de Casteljau's algorithm, we can also find all the points we need to split up a Bézier curve into two, smaller curves, which taken together form the original curve. When we construct de Casteljau's skeleton for some value `t`, the procedure gives us all the points we need to split a curve at that `t` value: one curve is defined by all the inside skeleton points found prior to our on-curve point, with the other curve being defined by all the inside skeleton points after our on-curve point.
 
-<graphics-element title="Splitting a curve" width="825" src="./splitting.js"></graphics-element>
+<graphics-element title="Splitting a curve" width="825" src="./splitting.js">
+  <input type="range" min="0" max="1" step="0.01" value="0.5" class="slide-control">
+</graphics-element>
 
 <div class="howtocode">
 

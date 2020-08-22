@@ -599,12 +599,20 @@
               <img
                 width="825px"
                 height="275px"
-                src="images\chapters\whatis\d39b17854b29fbb3c70bec7a12820aa1.png"
+                src="images\chapters\whatis\4d6b98490713508b5c560e29ffa535ed.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="10"
+              max="90"
+              step="1"
+              value="75"
+              class="slide-control"
+            />
+          </graphics-element>
 
           <p>And that brings us to the complicated maths: calculus.</p>
           <p>
@@ -712,8 +720,7 @@
             We can range <i>t</i> from negative to positive infinity, and the
             resulting (<i>x</i>,<i>y</i>) coordinates will always lie on a
             circle with radius 1 around the origin (0,0). If we plot it for
-            <i>t</i> from 0 to 5, we get this (use your up and down arrow keys
-            to change the plot end value):
+            <i>t</i> from 0 to 5, we get this:
           </p>
           <graphics-element
             title="A (partial) circle: x=sin(t), y=cos(t)"
@@ -725,12 +732,20 @@
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\explanation\fdea63696e525033c5ea74fa8f90009a.png"
+                src="images\chapters\explanation\1078bb1b1c8b7239aaa555e2d239e44d.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="10"
+              step="0.1"
+              value="5"
+              class="slide-control"
+            />
+          </graphics-element>
 
           <p>
             Bézier curves are just one out of the many classes of parametric
@@ -941,12 +956,21 @@ function Bezier(3,t):
                 <img
                   width="275px"
                   height="275px"
-                  src="images\chapters\control\13bba6ecec2fa000c575813d0cda815c.png"
+                  src="images\chapters\control\f319958c931e9f28e41b889c9689c87e.png"
                   loading="lazy"
                 />
                 Scripts are disabled. Showing fallback image.
-              </fallback-image></graphics-element
-            >
+              </fallback-image>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0"
+                class="slide-control"
+              />
+            </graphics-element>
+
             <graphics-element
               title="Cubic interpolations"
               width="275"
@@ -957,12 +981,21 @@ function Bezier(3,t):
                 <img
                   width="275px"
                   height="275px"
-                  src="images\chapters\control\15e8c8492908851ddde1cb35297326bb.png"
+                  src="images\chapters\control\bf717f39221d5210e79ab8b0bcb38948.png"
                   loading="lazy"
                 />
                 Scripts are disabled. Showing fallback image.
-              </fallback-image></graphics-element
-            >
+              </fallback-image>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0"
+                class="slide-control"
+              />
+            </graphics-element>
+
             <graphics-element
               title="15th degree interpolations"
               width="275"
@@ -973,12 +1006,20 @@ function Bezier(3,t):
                 <img
                   width="275px"
                   height="275px"
-                  src="images\chapters\control\23dae5b8acf92135ea4463d8d0342190.png"
+                  src="images\chapters\control\53d95f337568a2108c525c559aa66e2b.png"
                   loading="lazy"
                 />
                 Scripts are disabled. Showing fallback image.
-              </fallback-image></graphics-element
-            >
+              </fallback-image>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0"
+                class="slide-control"
+              />
+            </graphics-element>
           </div>
 
           <p>
@@ -1525,12 +1566,20 @@ function RationalBezier(3,t,w[],r[]):
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\decasteljau\425ee92efb13c790f63f8b3821327d3b.png"
+                src="images\chapters\decasteljau\817f7e557caed67e173039d9032b3ab3.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0"
+              class="slide-control"
+            />
+          </graphics-element>
 
           <div class="howtocode">
             <h3>How to implement de Casteljau's algorithm</h3>
@@ -1590,38 +1639,57 @@ function RationalBezier(3,t,w[],r[]):
             usually can't use the flattened for for doing true intersection
             detection, or curvature alignment.
           </p>
-          <graphics-element
-            title="Flattening a quadratic curve"
-            width="275"
-            height="275"
-            src="./chapters/flattening/quadratic.js"
-          >
-            <fallback-image>
-              <img
-                width="275px"
-                height="275px"
-                src="images\chapters\flattening\4d4a648e8cac72a7041555ff885cbc2b.png"
-                loading="lazy"
+          <div class="figure">
+            <graphics-element
+              title="Flattening a quadratic curve"
+              width="275"
+              height="275"
+              src="./chapters/flattening/quadratic.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="images\chapters\flattening\a8f7f97cb3b14c99e3cdf0c5283d7be4.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image>
+              <input
+                type="range"
+                min="1"
+                max="16"
+                step="1"
+                value="4"
+                class="slide-control"
               />
-              Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
-          <graphics-element
-            title="Flattening a cubic curve"
-            width="275"
-            height="275"
-            src="./chapters/flattening/cubic.js"
-          >
-            <fallback-image>
-              <img
-                width="275px"
-                height="275px"
-                src="images\chapters\flattening\1a22ba71ef9a5aaf9c55e0b8c2f3f6e5.png"
-                loading="lazy"
+            </graphics-element>
+
+            <graphics-element
+              title="Flattening a cubic curve"
+              width="275"
+              height="275"
+              src="./chapters/flattening/cubic.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="images\chapters\flattening\ffe43c40bea1277394df5ff82100a966.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image>
+              <input
+                type="range"
+                min="1"
+                max="24"
+                step="1"
+                value="8"
+                class="slide-control"
               />
-              Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </graphics-element>
+          </div>
 
           <p>
             Try clicking on the sketch and using your up and down arrow keys to
@@ -1684,12 +1752,20 @@ function RationalBezier(3,t,w[],r[]):
               <img
                 width="825px"
                 height="275px"
-                src="images\chapters\splitting\7ad9b19d2a951c5eaf057edba3a37a5b.png"
+                src="images\chapters\splitting\77d77c07832ad3adc3a3dec129a137bb.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.5"
+              class="slide-control"
+            />
+          </graphics-element>
 
           <div class="howtocode">
             <h3>implementing curve splitting</h3>
@@ -2266,12 +2342,14 @@ function drawCurve(points[], t):
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\reordering\4541eeb2113d81cbc0c0a56122570d48.png"
+                src="images\chapters\reordering\5ea06407f13c4b68a507c16d72fcb3e7.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <button class="raise">raise</button>
+            <button class="lower">lower</button>
+          </graphics-element>
         </section>
         <section id="derivatives">
           <h1><a href="#derivatives">Derivatives</a></h1>
@@ -2758,12 +2836,20 @@ function drawCurve(points[], t):
               <img
                 width="350px"
                 height="300px"
-                src="images\chapters\pointvectors3d\f5cf3e34415eccd1b03c4ef478862d44.png"
+                src="images\chapters\pointvectors3d\769ab953d7f3542ab4c3a383f151b1bc.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0"
+              class="slide-control"
+            />
+          </graphics-element>
 
           <p>
             However, if you've played with that graphic a bit, you might have
@@ -2908,14 +2994,22 @@ function drawCurve(points[], t):
               <img
                 width="350px"
                 height="300px"
-                src="images\chapters\pointvectors3d\b11dfd6fef9931ac8715209785f63e0c.png"
+                src="images\chapters\pointvectors3d\efd37ce3b7f4d8f084c287ec871c6b69.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0"
+              class="slide-control"
+            />
+          </graphics-element>
 
-          <p>That looks much better!</p>
+          <p>That looks so much better!</p>
           <p>
             For those reading along with the code: we don't even strictly
             speaking need a Frenet frame to start with: we could, for instance,

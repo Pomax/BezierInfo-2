@@ -2,6 +2,11 @@ setup() {
   this.steps = 8;
   this.curve = Bezier.defaultCubic(this);
   setMovable(this.curve.points);
+  setSlider(`.slide-control`, v => this.setStep(v));
+}
+
+setStep(v) {
+  this.steps = v;
 }
 
 draw() {
@@ -23,23 +28,6 @@ draw() {
   text(`Flattened to ${this.steps} segments`, 10, 15);
 }
 
-onKeyDown() {
-  let key = this.keyboard.currentKey;
-
-  if(key === `ArrowUp`) {
-    this.steps++;
-  }
-
-  if(key === `ArrowDown`) {
-    if(this.steps > 1) this.steps--;
-  }
-
-  redraw();
-}
-
 onMouseMove() {
-  if (this.cursor.down && !this.currentPoint) {
-    this.steps = round( map(this.cursor.y, 0,this.height, 24, 1) );
-  }
   redraw();
 }

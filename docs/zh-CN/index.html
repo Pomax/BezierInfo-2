@@ -550,12 +550,20 @@
                 <img
                   width="825px"
                   height="275px"
-                  src="images\chapters\whatis\d39b17854b29fbb3c70bec7a12820aa1.png"
+                  src="images\chapters\whatis\4d6b98490713508b5c560e29ffa535ed.png"
                   loading="lazy"
                 />
                 Scripts are disabled. Showing fallback image.
-              </fallback-image></graphics-element
-            >
+              </fallback-image>
+              <input
+                type="range"
+                min="10"
+                max="90"
+                step="1"
+                value="75"
+                class="slide-control"
+              />
+            </graphics-element>
           </p>
           <p>这为我们引出了复杂的数学：微积分。</p>
           <p>
@@ -616,7 +624,7 @@
             好了，通过一些神秘的<i>t</i>值将<i>x</i>/<i>y</i>坐标系联系起来。
           </p>
           <p>
-            所以，参数曲线不像一般函数那样，通过<i>x</i>坐标来定义<i>y</i>坐标，而是用一个“控制”变量将它们连接起来。如果改变<i>t</i>的值，每次变化时我们都能得到<strong>两个</strong>值，这可以作为图形中的(<i>x</i>,<i>y</i>)坐标。比如上面的方程组，生成位于一个圆上的点：我们可以使<i>t</i>在正负极值间变化，得到的输出(<i>x</i>,<i>y</i>)都会位于一个以原点(0,0)为中心且半径为1的圆上。如果我们画出<i>t</i>从0到5时的值，将得到如下图像（你可以用上下键来改变画的点和值）：
+            所以，参数曲线不像一般函数那样，通过<i>x</i>坐标来定义<i>y</i>坐标，而是用一个“控制”变量将它们连接起来。如果改变<i>t</i>的值，每次变化时我们都能得到<strong>两个</strong>值，这可以作为图形中的(<i>x</i>,<i>y</i>)坐标。比如上面的方程组，生成位于一个圆上的点：我们可以使<i>t</i>在正负极值间变化，得到的输出(<i>x</i>,<i>y</i>)都会位于一个以原点(0,0)为中心且半径为1的圆上。如果我们画出<i>t</i>从0到5时的值，将得到如下图像：
           </p>
           <graphics-element
             title="(一部分的)圆: x=sin(t), y=cos(t)"
@@ -628,12 +636,20 @@
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\explanation\fdea63696e525033c5ea74fa8f90009a.png"
+                src="images\chapters\explanation\1078bb1b1c8b7239aaa555e2d239e44d.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="10"
+              step="0.1"
+              value="5"
+              class="slide-control"
+            />
+          </graphics-element>
 
           <p>
             贝塞尔曲线是（一种）参数方程，并在它的多个维度上使用相同的基本方程。在上述的例子中<i>x</i>值和<i>y</i>值使用了不同的方程，与此不同的是，贝塞尔曲线的<i>x</i>和<i>y</i>都用了“二项多项式”。那什么是二项多项式呢？
@@ -769,21 +785,80 @@ function Bezier(3,t):
             下面的图形显示了二次曲线和三次曲线的差值方程，“S”代表了点对贝塞尔方程总和的贡献。点击拖动点来看看在特定的<i>t</i>值时，每个曲线定义的点的插值百分比。
           </p>
           <div class="figure">
-            <Graphic
-              inline="{true}"
+            <graphics-element
               title="二次插值"
-              draw="{this.drawQuadraticLerp}"
-            />
-            <Graphic
-              inline="{true}"
+              width="275"
+              height="275"
+              src="./chapters/control/lerp-quadratic.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="images\chapters\control\f319958c931e9f28e41b889c9689c87e.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0"
+                class="slide-control"
+              />
+            </graphics-element>
+
+            <graphics-element
               title="三次插值"
-              draw="{this.drawCubicLerp}"
-            />
-            <Graphic
-              inline="{true}"
+              width="275"
+              height="275"
+              src="./chapters/control/lerp-cubic.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="images\chapters\control\bf717f39221d5210e79ab8b0bcb38948.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0"
+                class="slide-control"
+              />
+            </graphics-element>
+
+            <graphics-element
               title="15次插值"
-              draw="{this.draw15thLerp}"
-            />
+              width="275"
+              height="275"
+              src="./chapters/control/lerp-fifteenth.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="images\chapters\control\53d95f337568a2108c525c559aa66e2b.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0"
+                class="slide-control"
+              />
+            </graphics-element>
           </div>
 
           <p>
@@ -1224,12 +1299,20 @@ function RationalBezier(3,t,w[],r[]):
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\decasteljau\425ee92efb13c790f63f8b3821327d3b.png"
+                src="images\chapters\decasteljau\817f7e557caed67e173039d9032b3ab3.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0"
+              class="slide-control"
+            />
+          </graphics-element>
 
           <div class="howtocode">
             <h3>如何实现de Casteljau算法</h3>
@@ -1269,38 +1352,57 @@ function RationalBezier(3,t,w[],r[]):
           <p>
             我们可以先确定“想要X个分段”，然后在间隔的地方采样曲线，得到一定数量的分段。这种方法的优点是速度很快：比起遍历100甚至1000个曲线坐标，我们可以采样比较少的点，仍然得到看起来足够好的曲线。这么做的缺点是，我们失去了“真正的曲线”的精度，因此不能用此方法来做真实的相交检测或曲率对齐。
           </p>
-          <graphics-element
-            title="拉平一条二次曲线"
-            width="275"
-            height="275"
-            src="./chapters/flattening/quadratic.js"
-          >
-            <fallback-image>
-              <img
-                width="275px"
-                height="275px"
-                src="images\chapters\flattening\4d4a648e8cac72a7041555ff885cbc2b.png"
-                loading="lazy"
+          <div class="figure">
+            <graphics-element
+              title="拉平一条二次曲线"
+              width="275"
+              height="275"
+              src="./chapters/flattening/quadratic.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="images\chapters\flattening\a8f7f97cb3b14c99e3cdf0c5283d7be4.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image>
+              <input
+                type="range"
+                min="1"
+                max="16"
+                step="1"
+                value="4"
+                class="slide-control"
               />
-              Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
-          <graphics-element
-            title="拉平一条三次曲线"
-            width="275"
-            height="275"
-            src="./chapters/flattening/cubic.js"
-          >
-            <fallback-image>
-              <img
-                width="275px"
-                height="275px"
-                src="images\chapters\flattening\1a22ba71ef9a5aaf9c55e0b8c2f3f6e5.png"
-                loading="lazy"
+            </graphics-element>
+
+            <graphics-element
+              title="拉平一条三次曲线"
+              width="275"
+              height="275"
+              src="./chapters/flattening/cubic.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="images\chapters\flattening\ffe43c40bea1277394df5ff82100a966.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image>
+              <input
+                type="range"
+                min="1"
+                max="24"
+                step="1"
+                value="8"
+                class="slide-control"
               />
-              Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </graphics-element>
+          </div>
 
           <p>
             试着点击图形，并用上下键来降低二次曲线和三次曲线的分段数量。你会发现对某些曲率来说，数量少的分段也能做的很好，但对于复杂的曲率（在三次曲线上试试），足够多的分段才能很好地满足曲率的变化。
@@ -1347,12 +1449,20 @@ function RationalBezier(3,t,w[],r[]):
               <img
                 width="825px"
                 height="275px"
-                src="images\chapters\splitting\7ad9b19d2a951c5eaf057edba3a37a5b.png"
+                src="images\chapters\splitting\77d77c07832ad3adc3a3dec129a137bb.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.5"
+              class="slide-control"
+            />
+          </graphics-element>
 
           <div class="howtocode">
             <h3>分割曲线的代码实习</h3>
@@ -1936,12 +2046,14 @@ function drawCurve(points[], t):
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\reordering\4541eeb2113d81cbc0c0a56122570d48.png"
+                src="images\chapters\reordering\5ea06407f13c4b68a507c16d72fcb3e7.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <button class="raise">raise</button>
+            <button class="lower">lower</button>
+          </graphics-element>
         </section>
         <section id="derivatives">
           <h1><a href="zh-CN/index.html#derivatives">Derivatives</a></h1>
@@ -2434,12 +2546,20 @@ function drawCurve(points[], t):
               <img
                 width="350px"
                 height="300px"
-                src="images\chapters\pointvectors3d\f5cf3e34415eccd1b03c4ef478862d44.png"
+                src="images\chapters\pointvectors3d\769ab953d7f3542ab4c3a383f151b1bc.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0"
+              class="slide-control"
+            />
+          </graphics-element>
 
           <p>
             However, if you've played with that graphic a bit, you might have
@@ -2584,14 +2704,22 @@ function drawCurve(points[], t):
               <img
                 width="350px"
                 height="300px"
-                src="images\chapters\pointvectors3d\b11dfd6fef9931ac8715209785f63e0c.png"
+                src="images\chapters\pointvectors3d\efd37ce3b7f4d8f084c287ec871c6b69.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0"
+              class="slide-control"
+            />
+          </graphics-element>
 
-          <p>That looks much better!</p>
+          <p>That looks so much better!</p>
           <p>
             For those reading along with the code: we don't even strictly
             speaking need a Frenet frame to start with: we could, for instance,

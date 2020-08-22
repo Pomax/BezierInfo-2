@@ -571,12 +571,20 @@
               <img
                 width="825px"
                 height="275px"
-                src="images\chapters\whatis\d39b17854b29fbb3c70bec7a12820aa1.png"
+                src="images\chapters\whatis\4d6b98490713508b5c560e29ffa535ed.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="10"
+              max="90"
+              step="1"
+              value="75"
+              class="slide-control"
+            />
+          </graphics-element>
 
           <p>また、これが複雑な方の数学につながっていきます。微積分です。</p>
           <p>
@@ -637,7 +645,7 @@
           </p>
           <p>
             というわけで、普通の関数では<i>y</i>座標を<i>x</i>座標によって定義しますが、パラメトリック曲線ではそうではなく、座標の値を「制御」変数と結びつけます。<i>t</i>の値を変化させるたびに<strong>2つ</strong>の値が変化するので、これをグラフ上の座標
-            (<i>x</i>,<i>y</i>)として使うことができます。例えば、先ほどの関数の組は円周上の点を生成します。負の無限大から正の無限大へと<i>t</i>を動かすと、得られる座標(<i>x</i>,<i>y</i>)は常に中心(0,0)・半径1の円の上に乗ります。<i>t</i>を0から5まで変化させてプロットした場合は、このようになります（上下キーでプロットの上限を変更できます）。
+            (<i>x</i>,<i>y</i>)として使うことができます。例えば、先ほどの関数の組は円周上の点を生成します。負の無限大から正の無限大へと<i>t</i>を動かすと、得られる座標(<i>x</i>,<i>y</i>)は常に中心(0,0)・半径1の円の上に乗ります。<i>t</i>を0から5まで変化させてプロットした場合は、このようになります。
           </p>
           <graphics-element
             title="（部分）円 x=sin(t), y=cos(t)"
@@ -649,12 +657,20 @@
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\explanation\fdea63696e525033c5ea74fa8f90009a.png"
+                src="images\chapters\explanation\1078bb1b1c8b7239aaa555e2d239e44d.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="10"
+              step="0.1"
+              value="5"
+              class="slide-control"
+            />
+          </graphics-element>
 
           <p>
             ベジエ曲線はパラメトリック関数の一種であり、どの次元に対しても同じ基底関数を使うという点で特徴づけられます。先ほどの例では、<i>x</i>の値と<i>y</i>の値とで異なる関数（正弦関数と余弦関数）を使っていましたが、ベジエ曲線では<i>x</i>と<i>y</i>の両方で「二項係数多項式」を使います。では、二項係数多項式とは何でしょう？
@@ -792,21 +808,80 @@ function Bezier(3,t):
             下のグラフは、2次ベジエ曲線や3次ベジエ曲線の補間関数を表しています。ここでSは、ベジエ関数全体に対しての、その点の寄与の大きさを示します。ある<i>t</i>において、ベジエ曲線を定義する各点の補間率がどのようになっているのか、クリックドラッグをして確かめてみてください。
           </p>
           <div class="figure">
-            <Graphic
-              inline="{true}"
+            <graphics-element
               title="2次の補間"
-              draw="{this.drawQuadraticLerp}"
-            />
-            <Graphic
-              inline="{true}"
+              width="275"
+              height="275"
+              src="./chapters/control/lerp-quadratic.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="images\chapters\control\f319958c931e9f28e41b889c9689c87e.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0"
+                class="slide-control"
+              />
+            </graphics-element>
+
+            <graphics-element
               title="3次の補間"
-              draw="{this.drawCubicLerp}"
-            />
-            <Graphic
-              inline="{true}"
+              width="275"
+              height="275"
+              src="./chapters/control/lerp-cubic.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="images\chapters\control\bf717f39221d5210e79ab8b0bcb38948.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0"
+                class="slide-control"
+              />
+            </graphics-element>
+
+            <graphics-element
               title="15次の補間"
-              draw="{this.draw15thLerp}"
-            />
+              width="275"
+              height="275"
+              src="./chapters/control/lerp-fifteenth.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="images\chapters\control\53d95f337568a2108c525c559aa66e2b.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0"
+                class="slide-control"
+              />
+            </graphics-element>
           </div>
 
           <p>
@@ -1269,12 +1344,20 @@ function RationalBezier(3,t,w[],r[]):
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\decasteljau\425ee92efb13c790f63f8b3821327d3b.png"
+                src="images\chapters\decasteljau\817f7e557caed67e173039d9032b3ab3.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0"
+              class="slide-control"
+            />
+          </graphics-element>
 
           <div class="howtocode">
             <h3>ド・カステリョのアルゴリズムの実装方法</h3>
@@ -1313,38 +1396,57 @@ function RationalBezier(3,t,w[],r[]):
           <p>
             例えば「X個の線分がほしい」場合には、分割数がそうなるようにサンプリング間隔を選び、曲線をサンプリングします。この方法の利点は速さです。曲線の座標を100個だの1000個だの計算するのではなく、ずっと少ない回数のサンプリングでも、十分きれいに見えるような曲線を作ることができるのです。欠点はもちろん、「本物の曲線」に比べて精度が損なわれてしまうことです。したがって、交点の検出や曲線の位置揃えを正しく行いたい場合には、平坦化した曲線は普通利用できません。
           </p>
-          <graphics-element
-            title="2次ベジエ曲線の平坦化"
-            width="275"
-            height="275"
-            src="./chapters/flattening/quadratic.js"
-          >
-            <fallback-image>
-              <img
-                width="275px"
-                height="275px"
-                src="images\chapters\flattening\4d4a648e8cac72a7041555ff885cbc2b.png"
-                loading="lazy"
+          <div class="figure">
+            <graphics-element
+              title="2次ベジエ曲線の平坦化"
+              width="275"
+              height="275"
+              src="./chapters/flattening/quadratic.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="images\chapters\flattening\a8f7f97cb3b14c99e3cdf0c5283d7be4.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image>
+              <input
+                type="range"
+                min="1"
+                max="16"
+                step="1"
+                value="4"
+                class="slide-control"
               />
-              Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
-          <graphics-element
-            title="3次ベジエ曲線の平坦化"
-            width="275"
-            height="275"
-            src="./chapters/flattening/cubic.js"
-          >
-            <fallback-image>
-              <img
-                width="275px"
-                height="275px"
-                src="images\chapters\flattening\1a22ba71ef9a5aaf9c55e0b8c2f3f6e5.png"
-                loading="lazy"
+            </graphics-element>
+
+            <graphics-element
+              title="3次ベジエ曲線の平坦化"
+              width="275"
+              height="275"
+              src="./chapters/flattening/cubic.js"
+            >
+              <fallback-image>
+                <img
+                  width="275px"
+                  height="275px"
+                  src="images\chapters\flattening\ffe43c40bea1277394df5ff82100a966.png"
+                  loading="lazy"
+                />
+                Scripts are disabled. Showing fallback image.
+              </fallback-image>
+              <input
+                type="range"
+                min="1"
+                max="24"
+                step="1"
+                value="8"
+                class="slide-control"
               />
-              Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </graphics-element>
+          </div>
 
           <p>
             2次ベジエ曲線も3次ベジエ曲線も、図をクリックして上下キーを押すと曲線の分割数が増減しますので、試してみてください。ある曲線では分割数が少なくてもうまくいきますが、曲線が複雑になればなるほど、曲率の変化を正確に捉えるためにはより多くの分割数が必要になることがわかります（3次ベジエ曲線で試してみてください）。
@@ -1389,12 +1491,20 @@ function RationalBezier(3,t,w[],r[]):
               <img
                 width="825px"
                 height="275px"
-                src="images\chapters\splitting\7ad9b19d2a951c5eaf057edba3a37a5b.png"
+                src="images\chapters\splitting\77d77c07832ad3adc3a3dec129a137bb.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.5"
+              class="slide-control"
+            />
+          </graphics-element>
 
           <div class="howtocode">
             <h3>曲線分割の実装方法</h3>
@@ -1926,12 +2036,14 @@ function drawCurve(points[], t):
               <img
                 width="275px"
                 height="275px"
-                src="images\chapters\reordering\4541eeb2113d81cbc0c0a56122570d48.png"
+                src="images\chapters\reordering\5ea06407f13c4b68a507c16d72fcb3e7.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <button class="raise">raise</button>
+            <button class="lower">lower</button>
+          </graphics-element>
         </section>
         <section id="derivatives">
           <h1><a href="ja-JP/index.html#derivatives">Derivatives</a></h1>
@@ -2424,12 +2536,20 @@ function drawCurve(points[], t):
               <img
                 width="350px"
                 height="300px"
-                src="images\chapters\pointvectors3d\f5cf3e34415eccd1b03c4ef478862d44.png"
+                src="images\chapters\pointvectors3d\769ab953d7f3542ab4c3a383f151b1bc.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0"
+              class="slide-control"
+            />
+          </graphics-element>
 
           <p>
             However, if you've played with that graphic a bit, you might have
@@ -2574,14 +2694,22 @@ function drawCurve(points[], t):
               <img
                 width="350px"
                 height="300px"
-                src="images\chapters\pointvectors3d\b11dfd6fef9931ac8715209785f63e0c.png"
+                src="images\chapters\pointvectors3d\efd37ce3b7f4d8f084c287ec871c6b69.png"
                 loading="lazy"
               />
               Scripts are disabled. Showing fallback image.
-            </fallback-image></graphics-element
-          >
+            </fallback-image>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0"
+              class="slide-control"
+            />
+          </graphics-element>
 
-          <p>That looks much better!</p>
+          <p>That looks so much better!</p>
           <p>
             For those reading along with the code: we don't even strictly
             speaking need a Frenet frame to start with: we could, for instance,

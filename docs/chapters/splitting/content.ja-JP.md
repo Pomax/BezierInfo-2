@@ -2,7 +2,9 @@
 
 ベジエ曲線を分割して、繫ぎ合わせたときに元に戻るような小さい2曲線にしたい場合にも、ド・カステリョのアルゴリズムを使えば、これに必要な点をすべて求めることができます。ある値`t`に対してド・カステリョの骨格を組み立てると、その`t`で曲線を分割する際に必要になる点がすべて得られます。骨格内部の点のうち、曲線上の点から見て手前側にある点によって一方の曲線が定義され、向こう側にある点によってもう一方の曲線が定義されます。
 
-<graphics-element title="曲線の分割" width="825" src="./splitting.js"></graphics-element>
+<graphics-element title="曲線の分割" width="825" src="./splitting.js">
+  <input type="range" min="0" max="1" step="0.01" value="0.5" class="slide-control">
+</graphics-element>
 
 <div class="howtocode">
 

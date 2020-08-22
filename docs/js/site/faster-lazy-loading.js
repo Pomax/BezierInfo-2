@@ -7,8 +7,8 @@
  */
 
 const images = Array.from(
-  document.querySelectorAll(`img[loading=lazy]`)
-).filter((img) => img.parentNode.nodeName !== `FALLBACK-IMAGE`);
+  document.querySelectorAll(`img.LaTeX.SVG[loading=lazy]`)
+);
 
 // First, make images inert. As this happens before the document
 // becomes active, this prevents images from loading anything.
@@ -41,12 +41,10 @@ function testImages() {
 
   lock = true;
 
-  let top = window.scrollY;
   let height = document.documentElement.clientHeight;
-  let bottom = top + height;
 
   for (let pos = images.length - 1; pos >= 0; pos--) {
-    test(images[pos], pos, top, bottom, height);
+    test(images[pos], pos, height);
   }
 
   if (images.length === 0) {
@@ -60,9 +58,12 @@ function testImages() {
 /**
  * Test individual images for whether or not they should load.
  */
-function test(img, pos, top, bottom, threshold) {
-  top = Math.abs(img.offsetTop - top) < threshold;
-  bottom = Math.abs(img.offsetTop + img.offsetHeight - bottom) < threshold;
+function test(img, pos, height) {
+  let top = img.getBoundingClientRect().top;
+  top = top < height;
+
+  let bottom = img.getBoundingClientRect().bottom;
+  bottom = bottom > -height;
 
   if (top || bottom) {
     img.src = img.dataset.src;

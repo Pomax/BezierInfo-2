@@ -1,5 +1,10 @@
 setup() {
     this.step = 5;
+    setSlider(`.slide-control`, v => this.setStep(v));
+}
+
+setStep(v) {
+    this.step = v;
 }
 
 draw() {
@@ -34,30 +39,5 @@ draw() {
         );
         circle(p.x, p.y, 2);
       }
-    }
-}
-
-onKeyDown() {
-    const key = this.keyboard.currentKey;
-    if (key === `ArrowUp`) { this.step += 0.1; }
-    if (key === `ArrowDown`) { this.step -= 0.1; }
-    if (this.step < 1) this.step = 1;
-    redraw();
-}
-
-onMouseDown() {
-    this.mark = this.cursor.y;
-}
-
-onMouseUp() {
-    this.mark = false;
-}
-
-onMouseMove() {
-    if (this.mark) {
-        let diff = this.mark - this.cursor.y,
-            mapped = map(diff, -this.height/2, this.height/2, 0, 10, true);
-        this.step = mapped;
-        redraw();
     }
 }

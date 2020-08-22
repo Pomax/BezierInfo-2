@@ -2,6 +2,12 @@ setup() {
     this.degree = 15;
     this.triangle = [[1], [1,1]];
     this.generate();
+    this.position = 0;
+    setSlider(`.slide-control`, v => this.setPosition(v))
+}
+
+setPosition(v) {
+    this.position = v;
 }
 
 binomial(n,k) {
@@ -52,30 +58,23 @@ draw() {
 }
 
 drawHighlight() {
-    if (this.cursor.down) {
+    let c = screenToWorld({
+        x: map(this.position, 0, 1, -10, this.width + 10),
+        y: this.height/2
+    });
 
-        let c = screenToWorld(this.cursor);
-        if (c.x < 0) return;
-        if (c.x > this.width) return;
+    if (c.x < 0) return;
+    if (c.x > this.width) return;
 
-        noStroke();
-        setFill(`rgba(255,0,0,0.3)`);
-        rect(c.x - 2, 0, 5, this.height);
+    noStroke();
+    setFill(`rgba(255,0,0,0.3)`);
+    rect(c.x - 2, 0, 5, this.height);
 
-        const p = this.f.map(f => f(c.x / this.width));
+    const p = this.f.map(f => f(c.x / this.width));
 
-        setFill(`black`);
-        p.forEach(p => {
-            circle(p.x, p.y, 3);
-            text(`${ round(100 * p.y/this.height) }%`, p.x + 10, p.y);
-        });
-    }
-}
-
-onMouseMove() {
-    redraw();
-}
-
-onMouseUp() {
-    redraw();
+    setFill(`black`);
+    p.forEach(p => {
+        circle(p.x, p.y, 3);
+        text(`${ round(100 * p.y/this.height) }%`, p.x + 10, p.y);
+    });
 }

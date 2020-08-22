@@ -141,3 +141,7 @@ p code {
     font-size: 1.2em;
     letter-spacing: -2px;
 }
+
+.slide-control {
+    width: 100%;
+}

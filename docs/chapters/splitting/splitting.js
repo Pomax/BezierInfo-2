@@ -2,6 +2,11 @@ setup() {
     this.t = 0.5;
     this.curve = Bezier.defaultCubic(this);
     setMovable(this.curve.points);
+    setSlider(`.slide-control`, v => this.setPosition(v));
+}
+
+setPosition(v) {
+  this.t = v;
 }
 
 draw() {
@@ -19,13 +24,13 @@ draw() {
     setStroke(`black`);
     line(0, 0, 0, this.height);
 
-    this.drawSegment(c1, p);
+    this.drawSegment(c1, p, `first`);
 
     translate(this.width/3, 0);
     setStroke(`black`);
     line(0, 0, 0, this.height);
 
-    this.drawSegment(c2, p);
+    this.drawSegment(c2, p, `second`);
 }
 
 drawBasics(p) {
@@ -42,7 +47,7 @@ drawBasics(p) {
     text(`The full curve, with struts`, 10, 15);
 }
 
-drawSegment(c, p) {
+drawSegment(c, p, halfLabel) {
     setStroke(`lightblue`);
     this.curve.drawCurve(`lightblue`);
     this.curve.drawSkeleton(`lightblue`);
@@ -53,28 +58,9 @@ drawSegment(c, p) {
     setStroke(`red`);
     circle(p.x, p.y, 3);
     setFill(`black`)
-    text(`The first half`, 10, 15);
-}
-
-onKeyDown() {
-    let key = this.keyboard.currentKey;
-
-    if(key === `ArrowUp`) {
-      this.t += 0.01;
-    }
-
-    if(key === `ArrowDown`) {
-      this.t -= 0.01
-    }
-
-    this.t = this.t < 0 ? 0 : this.t > 1 ? 1 : this.t;
-
-    redraw();
+    text(`The ${halfLabel} half`, 10, 15);
 }
 
 onMouseMove() {
-    if (this.cursor.down && !this.currentPoint) {
-      this.t = map(this.cursor.y, 0,this.height, 0, 1);
-    }
     redraw();
 }

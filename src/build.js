@@ -8,12 +8,18 @@ import { createIndexPages } from "./build/create-index-page.js";
  * - aggregate all content files organized by locale
  * -
  */
-getAllChapterFiles().then((chapterFiles) => {
+getAllChapterFiles().then(async (chapterFiles) => {
+  const start = Date.now();
   const languageCodes = Object.keys(chapterFiles);
 
-  languageCodes.forEach(async (locale) => {
-    const localeStrings = new LocaleStrings(locale);
-    const chapters = await processLocale(locale, localeStrings, chapterFiles);
-    createIndexPages(locale, localeStrings, chapters);
-  });
+  await Promise.all(
+    languageCodes.map(async (locale) => {
+      const localeStrings = new LocaleStrings(locale);
+      const chapters = await processLocale(locale, localeStrings, chapterFiles);
+      return createIndexPages(locale, localeStrings, chapters);
+    })
+  );
+
+  const runtime = Date.now() - start;
+  console.log(`Finished build (${(runtime / 1000).toFixed(2)}s)`);
 });
