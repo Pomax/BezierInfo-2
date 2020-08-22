@@ -83,30 +83,36 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
     );
 
     // Finally: run the conversion
-    console.log(
-      `- running xelatex for block [${chapter}:${locale}:${block}] (${hash}.tex)`
+    process.stdout.write(
+      `- running xelatex for block [${chapter}:${locale}:${block}] (${hash}.tex): `
     );
-    runCmd(
-      `xelatex -output-directory "${path.dirname(
-        TeXfilename
-      )}" "${TeXfilename}"`,
-      hash
-    );
-
-    process.stdout.write(`  - cropping PDF to document content: `);
     try {
-      runCmd(`pdfcrop "${PDFfilename}"`, hash);
+      runCmd(
+        `xelatex -output-directory "${path.dirname(
+          TeXfilename
+        )}" "${TeXfilename}"`,
+        hash
+      );
       console.log(`✓`);
 
-      process.stdout.write(`  - converting cropped PDF to SVG: `);
+      process.stdout.write(`  - cropping PDF to document content: `);
       try {
-        runCmd(`pdf2svg "${PDFfilenameCropped}" "${SVGfilename}"`, hash);
+        runCmd(`pdfcrop "${PDFfilename}"`, hash);
         console.log(`✓`);
 
-        process.stdout.write(`  - cleaning up SVG: `);
+        process.stdout.write(`  - converting cropped PDF to SVG: `);
         try {
-          runCmd(`npx svgo "${SVGfilename}"`, hash);
+          runCmd(`pdf2svg "${PDFfilenameCropped}" "${SVGfilename}"`, hash);
           console.log(`✓`);
+
+          process.stdout.write(`  - cleaning up SVG: `);
+          try {
+            runCmd(`npx svgo "${SVGfilename}"`, hash);
+            console.log(`✓`);
+          } catch (e) {
+            console.log(`✕`);
+            console.error(e);
+          }
         } catch (e) {
           console.log(`✕`);
           console.error(e);
