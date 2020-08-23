@@ -6,7 +6,7 @@ The primer is currently being rewritten from a React application to a pure HTML/
 
 React is nice, Webpack is convenient, but there's just very little need to serve the Primer as "a React app". Simply convert the various parts to HTML directly, and then assemble it as "a page" that _just works_, rather than as "an application" that won't even show content without JS enabled.
 
-## #Current progress:
+### Current progress:
 
 - [x] create an HTML custom element for the graphics (also see https://github.com/pomax/custom-graphics-element)
 - [x] use bezier.js in the custom element's `Bezier` class
