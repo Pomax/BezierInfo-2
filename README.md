@@ -55,7 +55,7 @@ React is nice, Webpack is convenient, but there's just very little need to serve
 - [x] tightbounds
 - [x] inflections
 - [x] canonical
-- [ ] yforx -- this really needs an explanation of when, and if so how, to collapse an f(t) -> {x,y} into into an f(x) -> y function...
+- [x] yforx
 - [ ] arclength
 - [ ] arclengthapprox
 - [ ] curvature
