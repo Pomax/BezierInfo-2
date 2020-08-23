@@ -35,8 +35,8 @@ React is nice, Webpack is convenient, but there's just very little need to serve
 - [x] preface
 - [x] introduction
 - [x] whatis
-- [x] explanation - https://github.com/Pomax/BezierInfo-2/pull/260
-- [x] control - https://github.com/Pomax/BezierInfo-2/pull/261
+- [x] explanation
+- [x] control
 - [x] weightcontrol
 - [x] extended
 - [x] matrix
