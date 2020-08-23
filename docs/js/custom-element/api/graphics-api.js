@@ -138,14 +138,35 @@ class GraphicsAPI extends BaseAPI {
     points.forEach((p) => this.movable.push(p));
   }
 
-  setSlider(qs, handler, redraw = true) {
-    let slider = this.find(qs);
-    if (slider) {
-      slider.listen(`input`, (evt) => {
-        handler(parseFloat(evt.target.value));
-        if (redraw) this.redraw();
-      });
+  /**
+   * Set up a slider to control a named, numerical property in the sketch.
+   *
+   * @param {String} local query selector for the type=range element.
+   * @param {String} propname the name of the property to control.
+   * @param {float} initial the initial value for this property.
+   * @param {boolean} redraw whether or not to redraw after update the value from the slider.
+   */
+  setSlider(qs, propname, initial, redraw = true) {
+    if (typeof this[propname] !== `undefined`) {
+      throw new Error(`this.${propname} already exists: cannot bind slider.`);
     }
+
+    let slider = this.find(qs);
+
+    if (!slider) {
+      console.warn(`Warning: no slider found for query selector "${qs}"`);
+      this[propname] = initial;
+      return undefined;
+    }
+
+    slider.value = initial;
+    this[propname] = parseFloat(slider.value);
+
+    slider.listen(`input`, (evt) => {
+      this[propname] = parseFloat(evt.target.value);
+      if (redraw) this.redraw();
+    });
+
     return slider;
   }
 

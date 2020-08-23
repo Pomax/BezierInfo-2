@@ -101,8 +101,8 @@ class Bezier extends Original {
       api.circle(p.x, p.y, 5);
       if (labels) {
         api.setFill(`black`);
-        let x = p.x|0;
-        let y = p.y|0;
+        let x = p.x | 0;
+        let y = p.y | 0;
         api.text(`(${x},${y})`, x + 10, y + 10);
       }
     });

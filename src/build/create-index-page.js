@@ -64,19 +64,14 @@ async function createIndexPages(locale, localeStrings, chapters) {
 
   const index = nunjucks.render(`index.template.html`, context);
 
-  // TODO: FIXME: Prettier is slow as hell, find an alternative that isn't...
-  const start = Date.now();
-  const data = prettier.format(index, { parser: `html` });
-  const end = Date.now();
-
-  //console.log(`beautification for ${locale} took ${(end - start) / 1000}s`);
+  // Prettification happens as an npm script action
 
   if (locale === defaultLocale) {
-    fs.writeFileSync(path.join(paths.public, `index.html`), data, `utf8`);
+    fs.writeFileSync(path.join(paths.public, `index.html`), index, `utf8`);
   } else {
     let localeDir = path.join(paths.public, locale);
     fs.ensureDirSync(localeDir);
-    fs.writeFileSync(path.join(localeDir, `index.html`), data, `utf8`);
+    fs.writeFileSync(path.join(localeDir, `index.html`), index, `utf8`);
   }
 }
 

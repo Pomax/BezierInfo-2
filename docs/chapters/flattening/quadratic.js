@@ -1,12 +1,7 @@
 setup() {
-  this.steps = 4;
   this.curve = Bezier.defaultQuadratic(this);
   setMovable(this.curve.points);
-  setSlider(`.slide-control`, v => this.setStep(v));
-}
-
-setStep(v) {
-  this.steps = v;
+  setSlider(`.slide-control`, `steps`, 4);
 }
 
 draw() {

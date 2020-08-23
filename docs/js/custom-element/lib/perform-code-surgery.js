@@ -1,6 +1,11 @@
 import { GraphicsAPI } from "../api/graphics-api.js";
 
 export default function performCodeSurgery(code) {
+  // 0. strip out block comments and whitespace
+
+  code = code.replace(/\\\*[\w\s\r\n]+?\*\\/, ``);
+  code = code.replace(/\r?\n(\r?\n)+/, `\n`);
+
   // 1. ensure that anything that needs to run by first calling its super function, does so.
 
   GraphicsAPI.superCallers.forEach((name) => {

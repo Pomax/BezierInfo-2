@@ -20,7 +20,7 @@ Given \left (
 让我们来通过实际操作看一下：下面的图形都是可交互的，因此你可以通过上下键来增加或减少插值距离，来观察图形的变化。我们从三个点构成的两条线段开始。通过对各条线段进行线性插值得到两个点，对点之间的线段再进行线性插值，产生一个新的点。最终这些点——所有的点都可以通过选取不同的距离插值产生——构成了贝塞尔曲线
 ：
 <graphics-element title="Linear Interpolation leading to Bézier curves" width="825" src="./interpolation.js">
-  <input type="range" min="10" max="90" step="1" value="75" class="slide-control">
+  <input type="range" min="10" max="90" step="1" value="25" class="slide-control">
 </graphics-element>
 
 这为我们引出了复杂的数学：微积分。

@@ -29,6 +29,12 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
   const srcURL = `./images/chapters/${chapter}/${hash}.svg`;
 
   if (!fs.existsSync(SVGfilename)) {
+    // There is no SVG graphic for the LaTeX code yet, so we need to generate
+    // one, but it's possible we already tried and failed for a different locale.
+    // As the temp dir gets wiped on each run, we can check for the the existence
+    // of our TeX file: if it exists, we already unsuccessfully ran this code.
+    if (fs.existsSync(TeXfilename)) return fail(hash);
+
     const PDFfilename = TeXfilename.replace(`.tex`, `.pdf`);
     const PDFfilenameCropped = TeXfilename.replace(`.tex`, `-crop.pdf`);
 
@@ -82,48 +88,52 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
         .join(`\n`)
     );
 
+    const commands = {
+      xetex: `xelatex -output-directory "${path.dirname(
+        TeXfilename
+      )}" "${TeXfilename}"`,
+      crop: `pdfcrop "${PDFfilename}"`,
+      svg: `pdf2svg "${PDFfilenameCropped}" "${SVGfilename}"`,
+      svgo: `npx svgo "${SVGfilename}"`,
+    };
+
     // Finally: run the conversion
-    process.stdout.write(
-      `- running xelatex for block [${chapter}:${locale}:${block}] (${hash}.tex): `
-    );
     try {
-      runCmd(
-        `xelatex -output-directory "${path.dirname(
-          TeXfilename
-        )}" "${TeXfilename}"`,
-        hash
+      process.stdout.write(
+        `- running xelatex for block [${chapter}:${locale}:${block}] (${hash}.tex): `
       );
-      console.log(`✓`);
+      runCmd(commands.xetex, hash);
 
       process.stdout.write(`  - cropping PDF to document content: `);
-      try {
-        runCmd(`pdfcrop "${PDFfilename}"`, hash);
-        console.log(`✓`);
+      runCmd(commands.crop, hash);
 
-        process.stdout.write(`  - converting cropped PDF to SVG: `);
-        try {
-          runCmd(`pdf2svg "${PDFfilenameCropped}" "${SVGfilename}"`, hash);
-          console.log(`✓`);
+      process.stdout.write(`  - converting cropped PDF to SVG: `);
+      runCmd(commands.svg, hash);
 
-          process.stdout.write(`  - cleaning up SVG: `);
-          try {
-            runCmd(`npx svgo "${SVGfilename}"`, hash);
-            console.log(`✓`);
-          } catch (e) {
-            console.log(`✕`);
-            console.error(e);
-          }
-        } catch (e) {
-          console.log(`✕`);
-          console.error(e);
-        }
-      } catch (e) {
-        console.log(`✕`);
-        console.error(e);
-      }
+      process.stdout.write(`  - cleaning up SVG: `);
+      runCmd(commands.svgo, hash);
     } catch (e) {
-      console.log(`✕`);
-      console.error(e);
+      if (e.cmd === commands.xetex) {
+        console.error(`  | Error in ${TeXfilename}\n  |`);
+
+        let loglines = e.output
+          .filter((v) => !!v)
+          .map((v) => v.toString("utf8").replace(/\r\n/g, `\n`))[0]
+          .split(`\n`)
+          .slice(-6); // this may depend on the xelatex version used...
+
+        loglines.splice(2, 1); // remove 'no pages of output'
+
+        // collapse and fix transcript file path
+        let transcript = loglines.splice(2, 3).join(``);
+        loglines.push(
+          transcript
+            .replace(`.log.`, `.log`)
+            .replace(`written on`, `written to`)
+        );
+        console.error(`  |   ${loglines.join(`\n  |   `)}\n`);
+      }
+      return fail(hash);
     }
   }
 
@@ -152,10 +162,11 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
 function runCmd(cmd, hash) {
   try {
     execSync(cmd); //, { stdio: 'inherit' });
+    console.log(`✓`);
   } catch (e) {
-    console.error(`could not run cmd: ${cmd}`);
-    console.log(`hash:\n${hash}`);
-    process.exit(1);
+    console.log(`✕`);
+    e.cmd = cmd;
+    throw e;
   }
 }
 
@@ -169,4 +180,9 @@ function colorPreProcess(input) {
     return `{\\color{${color.toLowerCase()}}${content.replace(/ /g, "\\ ")}}`;
   });
   return output;
+}
+
+// Failure state HTML code is simply a script that yells in the console
+function fail(hash) {
+  return `<script>console.log("LaTeX for ${hash} failed!");</script>`;
 }

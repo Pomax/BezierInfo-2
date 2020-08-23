@@ -1,20 +1,15 @@
 setup() {
-    this.t = 0.5;
     this.curve = Bezier.defaultCubic(this);
     setMovable(this.curve.points);
-    setSlider(`.slide-control`, v => this.setPosition(v));
-}
-
-setPosition(v) {
-  this.t = v;
+    setSlider(`.slide-control`, `position`, 0.5);
 }
 
 draw() {
     resetTransform();
     clear();
 
-    let p = this.curve.get(this.t);
-    const struts = this.struts = this.curve.getStrutPoints(this.t);
+    let p = this.curve.get(this.position);
+    const struts = this.struts = this.curve.getStrutPoints(this.position);
     const c1 = new Bezier(this, [struts[0], struts[4], struts[7], struts[9]]);
     const c2 = new Bezier(this, [struts[9], struts[8], struts[6], struts[3]]);
 

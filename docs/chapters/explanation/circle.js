@@ -1,10 +1,5 @@
 setup() {
-    this.step = 5;
-    setSlider(`.slide-control`, v => this.setStep(v));
-}
-
-setStep(v) {
-    this.step = v;
+    setSlider(`.slide-control`, `steps`, 5);
 }
 
 draw() {
@@ -24,7 +19,7 @@ draw() {
 
     var offset = {x:w2, y:h2};
 
-    for(let t=0, p, mod; t<=this.step; t+=0.1) {
+    for(let t=0, p, mod; t<=this.steps; t+=0.1) {
       p = {
         x: w2 + w4 * cos(t),
         y: h2 + h4 * sin(t)

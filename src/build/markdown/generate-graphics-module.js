@@ -44,7 +44,9 @@ function generateGraphicsModule(chapter, code, width, height) {
         const noop = (()=>{});
         const Image = CanvasBuilder.Image;
 
-        class Example extends GraphicsAPI { ${classCode} }
+        class Example extends GraphicsAPI {
+          ${classCode}
+        }
 
         const example = new Example(undefined, ${width}, ${height}, (w,h) => {
             const canvas = CanvasBuilder.createCanvas(w,h);

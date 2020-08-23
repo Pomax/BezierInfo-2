@@ -25,12 +25,7 @@ setup() {
   this.cxy = new Bezier(this, points.map(p => projectXY(p)));
   this.cxz = new Bezier(this, points.map(p => projectXZ(p)));
   this.cyz = new Bezier(this, points.map(p => projectYZ(p)));
-  this.t = 0;
-  setSlider(`.slide-control`, v => this.setPosition(v));
-}
-
-setPosition(v) {
-  this.t = v;
+  setSlider(`.slide-control`, `position`, 0);
 }
 
 draw() {
@@ -49,7 +44,7 @@ draw() {
   line(curve.points[2].x, curve.points[2].y, curve.points[3].x, curve.points[3].y);
   curve.points.forEach(p => circle(p.x, p.y, 2));
 
-  this.drawPoint(this.t);
+  this.drawPoint(this.position);
 
   this.drawCubeFront();
 }

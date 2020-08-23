@@ -1,12 +1,7 @@
 setup() {
   this.curve = new Bezier(this, 90, 200, 25, 100, 220, 40, 210, 240);
   setMovable(this.curve.points);
-  this.position = 0;
-  setSlider(`.slide-control`, v => this.setPosition(v));
-}
-
-setPosition(v) {
-  this.position = v;
+  setSlider(`.slide-control`, `position`, 0);
 }
 
 draw() {

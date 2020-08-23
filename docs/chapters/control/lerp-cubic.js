@@ -10,12 +10,7 @@ setup() {
     ];
 
     this.s = this.f.map(f => plot(f) );
-    this.position = 0;
-    setSlider(`.slide-control`, v => this.setPosition(v))
-}
-
-setPosition(v) {
-    this.position = v;
+    setSlider(`.slide-control`, `position`, 0);
 }
 
 draw() {

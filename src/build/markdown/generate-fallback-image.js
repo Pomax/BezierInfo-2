@@ -55,17 +55,23 @@ async function generateFallbackImage(chapter, localeStrings, src, w, h) {
     .relative(thisModuleDir, modulePath)
     .split(path.sep)
     .join(path.posix.sep);
-  const { canvas } = await import(module);
-  fs.unlinkSync(modulePath);
 
-  // The canvas runs setup() + draw() as part of the module load, so
-  // all we have to do now is get the image data and writ it to file.
-  const dataURI = canvas.toDataURL();
-  const start = dataURI.indexOf(`base64,`) + 7;
-  const imageData = Buffer.from(dataURI.substring(start), `base64`);
+  try {
+    const { canvas } = await import(module);
+    fs.unlinkSync(modulePath);
 
-  fs.writeFileSync(filePath, imageData);
-  console.log(`Generated fallback image for ${src} (${locale})`);
+    // The canvas runs setup() + draw() as part of the module load, so
+    // all we have to do now is get the image data and writ it to file.
+    const dataURI = canvas.toDataURL();
+    const start = dataURI.indexOf(`base64,`) + 7;
+    const imageData = Buffer.from(dataURI.substring(start), `base64`);
+
+    fs.writeFileSync(filePath, imageData);
+    console.log(`Generated fallback image for ${src} (${locale})`);
+  } catch (e) {
+    console.error(`error in ${src}`);
+    console.error(e);
+  }
 
   return hash;
 }

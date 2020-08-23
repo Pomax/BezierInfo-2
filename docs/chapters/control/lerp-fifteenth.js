@@ -2,12 +2,7 @@ setup() {
     this.degree = 15;
     this.triangle = [[1], [1,1]];
     this.generate();
-    this.position = 0;
-    setSlider(`.slide-control`, v => this.setPosition(v))
-}
-
-setPosition(v) {
-    this.position = v;
+    setSlider(`.slide-control`, `position`, 0)
 }
 
 binomial(n,k) {
