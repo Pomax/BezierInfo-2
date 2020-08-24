@@ -3,6 +3,10 @@
  * We're going to regexp our way to flawed victory here.
  */
 export default function splitCodeSections(code) {
+  // removs comments and superfluous white space.
+  code = code.replace(/\\\*[\w\s\r\n]+?\*\\/, ``);
+  code = code.replace(/\r?\n(\r?\n)+/, `\n`);
+
   const re = /\b[\w\W][^\s]*?\([^)]*\)[\r\n\s]*{/;
   const cuts = [];
   for (let result = code.match(re); result; result = code.match(re)) {

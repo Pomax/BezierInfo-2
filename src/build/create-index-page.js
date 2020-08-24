@@ -73,6 +73,8 @@ async function createIndexPages(locale, localeStrings, chapters) {
     fs.ensureDirSync(localeDir);
     fs.writeFileSync(path.join(localeDir, `index.html`), index, `utf8`);
   }
+
+  return true;
 }
 
 export { createIndexPages };

@@ -10,7 +10,10 @@ import path from "path";
 **/
 
 const moduleURL = new URL(import.meta.url);
-const src = path.dirname(moduleURL.href.replace(`file:///`, ``));
+const src = path.dirname(
+  moduleURL.href.replace(`file:///`, process.win32 ? `` : `/`)
+);
+
 const project = path.join(src, `..`);
 const publicDir = path.join(project, `docs`); // yeah... "docs". Because Github is fairly stupid here.
 const images = path.join(publicDir, `images`);

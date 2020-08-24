@@ -5,7 +5,9 @@ import { generateGraphicsModule } from "./generate-graphics-module.js";
 import paths from "../../project-paths.js";
 
 const thisModuleURL = new URL(import.meta.url);
-const thisModuleDir = path.dirname(thisModuleURL.href.replace(`file:///`, ``));
+const thisModuleDir = path.dirname(
+  thisModuleURL.href.replace(`file:///`, process.win32 ? `` : `/`)
+);
 
 /**
  * ...docs go here...

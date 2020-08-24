@@ -59,36 +59,3 @@ onMouseMove() {
     redraw();
   }
 }
-
-/*
-whatdoesthisdo() {
-  clear();
-  this.curve.drawSkeleton(curve);
-  this.curve.drawCurve(curve);
-  let w = this.height;
-  let h = this.height;
-  let bbox = this.curve.bbox();
-  let x = this.cursor.x;
-
-  if (bbox.x.min < x && x < bbox.x.max) {
-    setStroke("red");
-
-    // The root finder is based on normal x/y coordinates,
-    // so we can "trick" it by giving it "t" values as x
-    // values, and "x" values as y values. Since it won't
-    // even look at the x dimension, we can also just leave it.
-    let roots = api.utils.roots(curve.points.map(v => {
-      return { x: v.x, y: v.x-x};
-    }));
-    roots = roots.filter(t => t>=0 && t<=1.0);
-    let t = roots[0];
-
-    let p = this.curve.get(t);
-    line({ x: p.x, y: p.y }, { x: p.x, y: h });
-    line({ x: p.x, y: p.y }, { x: 0, y: p.y });
-    text(`y=${p.y|0}`, { x: p.x/2, y: p.y - 5 });
-    text(`x=${p.x|0}`, { x: x + 5, y: h - (h-p.y)/2 });
-    text(`t=${((t*100)|0)/100}`, { x: x + 15, y: p.y });
-  }
-}
-*/
