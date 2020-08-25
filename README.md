@@ -29,6 +29,7 @@ React is nice, Webpack is convenient, but there's just very little need to serve
 - [x] Add a `setSlider(qs, handler)` API function so that sketches can hook into locally scoped HTML UI elements (like `<input type="range">`
 - [ ] figure out how to force `graphics-element` elements to preallocate their bounding box, so that progressive page loading doesn't cause reflow.
 - [ ] consider swammping out the `perform-code-surgery.js` regex approach to a dedicated DFA lexer, with scope tracking.
+- [x] add data-attributes to sketches for same-sketch, different-parameters runs, in a way that works with the placeholder generation.
 
 ### Section conversion:
 
