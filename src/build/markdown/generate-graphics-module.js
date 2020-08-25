@@ -23,7 +23,7 @@ const RELATIVE_IMPORT_LOCATION = path
 /**
  * ...docs go here...
  */
-function generateGraphicsModule(chapter, code, width, height) {
+function generateGraphicsModule(chapter, code, width, height, dataset) {
   // step 1: fix the imports
   code = code.replace(/(import .+? from) "([^"]+)"/g, (_, main, group) => {
     return `${main} "${RELATIVE_IMPORT_LOCATION}/${chapter}/${group}"`;
@@ -59,7 +59,7 @@ function generateGraphicsModule(chapter, code, width, height) {
             ctx.getTransform = () => ctx.currentTransform;
 
             return { canvas, ctx};
-        });
+        }, ${JSON.stringify(dataset)});
 
         const canvas = example.canvas;
 

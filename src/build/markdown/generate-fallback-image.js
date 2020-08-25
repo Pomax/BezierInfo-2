@@ -3,11 +3,9 @@ import path from "path";
 import { createHash } from "crypto";
 import { generateGraphicsModule } from "./generate-graphics-module.js";
 import paths from "../../project-paths.js";
+import getModulePath from "../../get-module-path.js";
 
-const thisModuleURL = new URL(import.meta.url);
-const thisModuleDir = path.dirname(
-  thisModuleURL.href.replace(`file:///`, process.win32 ? `` : `/`)
-);
+const thisModuleDir = getModulePath(import.meta.url);
 
 /**
  * ...docs go here...
@@ -18,7 +16,14 @@ const thisModuleDir = path.dirname(
  * @param {Number} w The sketch width in pixels
  * @param {Number} h The sketch height in pixels
  */
-async function generateFallbackImage(chapter, localeStrings, src, w, h) {
+async function generateFallbackImage(
+  chapter,
+  localeStrings,
+  src,
+  w,
+  h,
+  dataset = {} // Abstracted from the <graphics-element .... data-name="value"> markup
+) {
   const locale = localeStrings.getCurrentLocale();
 
   // Get the sketch code
@@ -31,8 +36,12 @@ async function generateFallbackImage(chapter, localeStrings, src, w, h) {
     throw e;
   }
 
-  // Do we need to even generate a file here?
-  const hash = createHash(`md5`).update(code).digest(`hex`);
+  // Hash this code + dataset into a print that we can use to determine whether
+  // or not we should generate an image or whether we already did that previously.
+  const hash = createHash(`md5`)
+    .update(code)
+    .update(JSON.stringify(dataset))
+    .digest(`hex`);
 
   if (locale !== localeStrings.getDefaultLocale()) return hash;
 
@@ -45,7 +54,7 @@ async function generateFallbackImage(chapter, localeStrings, src, w, h) {
   // If we get here, we need to actually run the magic: convert
   // this to a valid JS module code and write this to a temporary
   // file so we can import it.
-  const nodeCode = generateGraphicsModule(chapter, code, w, h);
+  const nodeCode = generateGraphicsModule(chapter, code, w, h, dataset);
   const codeFile = `./nodecode.${Date.now()}.${Math.random()}.js`;
   const modulePath = path.join(paths.temp, codeFile);
   fs.writeFileSync(modulePath, nodeCode, `utf8`);

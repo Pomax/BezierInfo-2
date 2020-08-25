@@ -38,10 +38,17 @@ class BaseAPI {
   /**
    *
    */
-  constructor(uid, width = 200, height = 200, canvasBuildFunction) {
+  constructor(
+    uid,
+    width = 200,
+    height = 200,
+    canvasBuildFunction, // Only used during image generation, not used in the browser
+    customDataSet //      "                                               "
+  ) {
     if (uid) {
       this.element = window[uid];
       delete window[uid];
+      this.dataset = this.element.dataset;
     }
     if (canvasBuildFunction) {
       const { canvas, ctx } = canvasBuildFunction(width, height);
@@ -50,6 +57,13 @@ class BaseAPI {
       this.preSized = true;
     } else {
       this.canvas = document.createElement(`canvas`);
+    }
+    if (!this.dataset) {
+      if (customDataSet) {
+        this.dataset = customDataSet;
+      } else {
+        this.dataset = {};
+      }
     }
     this.HATCHING = hatch(canvasBuildFunction);
     this.addListeners();

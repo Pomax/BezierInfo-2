@@ -1,3 +1,24 @@
+// TODO: FIXME: finish writing out this functionality
+
+/**
+
+Scope 0:
+
+  check for variable declaration/assignment, as well as function
+  declarations _without_ the `function` keyword
+
+Scope 1+:
+
+  check any not-namespaced function calls to see whether they map
+  to any API functions. If they do, they should be prefixed with
+  `this.`
+
+  check any not-namespaced var references to see whether they map
+  to any predefined API vars. If they do, they should be prefixed
+  with `this.`
+
+**/
+
 function splitSymbols(v) {
   if (v.match(/\w/)) return v;
   return v.split(``);
@@ -20,12 +41,12 @@ class Lexer {
         this.parseVariable(token);
       }
 
-      // ...
+      // skip over strings so we don't treat them as active content
       else if ([`'`, `"`, "`"].includes(token)) {
         this.parseString(token);
       }
 
-      // ...
+      // figure out if
       else if (token === `(`) {
         let functor,
           i = 2;

@@ -1,5 +1,8 @@
 import fs from "fs-extra";
 import path from "path";
+import getModulePath from "./get-module-path.js";
+
+const src = getModulePath(import.meta.url);
 
 /**
 
@@ -8,11 +11,6 @@ import path from "path";
     it relies on will point to "whatever it needs to point to".
 
 **/
-
-const moduleURL = new URL(import.meta.url);
-const src = path.dirname(
-  moduleURL.href.replace(`file:///`, process.win32 ? `` : `/`)
-);
 
 const project = path.join(src, `..`);
 const publicDir = path.join(project, `docs`); // yeah... "docs". Because Github is fairly stupid here.
