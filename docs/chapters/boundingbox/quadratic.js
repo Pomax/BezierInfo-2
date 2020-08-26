@@ -33,7 +33,3 @@ draw() {
     setStroke(`#0F0`);
     rect(minx, miny, maxx - minx, maxy - miny);
 }
-
-onMouseMove() {
-    redraw();
-}

@@ -57,7 +57,3 @@ drawRTCurve(points) {
     text(`(0,0)`, 5,15);
     text(`(${points[3].x|0},0)`, points[3].x, -5, CENTER);
 }
-
-onMouseMove() {
-    redraw();
-}

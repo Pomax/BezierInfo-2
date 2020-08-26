@@ -55,7 +55,3 @@ drawSegment(c, p, halfLabel) {
     setFill(`black`)
     text(`The ${halfLabel} half`, 10, 15);
 }
-
-onMouseMove() {
-    redraw();
-}

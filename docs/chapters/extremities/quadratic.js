@@ -85,7 +85,3 @@ plotDimension(dim, dimension) {
     text(`t = ${t2.toFixed(2)}`, map(t2, 0,1, 15,dim-15), y2 + 25);
     restoreStyle();
 }
-
-onMouseMove() {
-    redraw();
-}

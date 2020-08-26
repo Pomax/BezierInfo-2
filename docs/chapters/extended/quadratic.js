@@ -30,7 +30,3 @@ draw() {
 
     curve.drawPoints();
 }
-
-onMouseMove() {
-    redraw();
-}

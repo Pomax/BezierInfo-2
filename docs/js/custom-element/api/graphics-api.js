@@ -126,7 +126,7 @@ class GraphicsAPI extends BaseAPI {
 
   onMouseUp(evt) {
     super.onMouseUp(evt);
-    this.currentPoint = undefined;
+    this.currentPoint = false;
   }
 
   resetMovable(points) {

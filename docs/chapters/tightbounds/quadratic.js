@@ -72,7 +72,3 @@ rotatePoints(points) {
         };
     });
 }
-
-onMouseMove() {
-    redraw();
-}

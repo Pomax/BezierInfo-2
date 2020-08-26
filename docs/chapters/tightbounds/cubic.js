@@ -73,7 +73,3 @@ rotatePoints(points) {
         };
     });
 }
-
-onMouseMove() {
-    redraw();
-}

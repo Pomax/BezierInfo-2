@@ -68,6 +68,7 @@ class BaseAPI {
     this.HATCHING = hatch(canvasBuildFunction);
     this.addListeners();
     this.setSize(width, height);
+    this.currentPoint = false;
     this.setup();
     this.draw();
   }
@@ -91,7 +92,17 @@ class BaseAPI {
     );
 
     [`touchmove`, `mousemove`].forEach((evtName) =>
-      canvas.addEventListener(evtName, (evt) => this.onMouseMove(evt))
+      canvas.addEventListener(evtName, (evt) => {
+        this.onMouseMove(evt);
+        // Force a redraw only if there are movable points,
+        // and there is a current point bound, but only if
+        // the subclass didn't already call redraw() as part
+        // of its own mouseMove handling.
+        if (this.movable.length && this.currentPoint && !this.redrawing) {
+          this.redraw();
+          this.redrawing = false;
+        }
+      })
     );
 
     [`touchend`, `mouseup`].forEach((evtName) =>
@@ -243,6 +254,7 @@ class BaseAPI {
    * disappear.
    */
   redraw() {
+    this.redrawing = true;
     this.draw();
   }
 }

@@ -224,7 +224,3 @@ forwardTransform(points, s=1) {
 
     return {x:np4x, y:np4y};
 }
-
-onMouseMove() {
-    redraw();
-}

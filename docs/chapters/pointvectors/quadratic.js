@@ -57,7 +57,3 @@ getNormal(t, d) {
     const q = sqrt(d.x * d.x + d.y * d.y);
     return { x: -d.y / q, y: d.x / q };
 }
-
-onMouseMove() {
-    redraw();
-}

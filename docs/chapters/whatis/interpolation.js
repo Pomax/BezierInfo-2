@@ -100,7 +100,3 @@ drawCurveCoordinates() {
     translate(this.height, 0);
     this.curve.drawPoints();
 }
-
-onMouseMove() {
-    redraw();
-}
