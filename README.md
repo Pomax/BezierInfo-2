@@ -57,7 +57,7 @@ React is nice, Webpack is convenient, but there's just very little need to serve
 - [x] inflections
 - [x] canonical
 - [x] yforx
-- [ ] arclength
+- [x] arclength
 - [ ] arclengthapprox
 - [ ] curvature
 - [ ] tracing
