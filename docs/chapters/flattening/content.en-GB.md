@@ -5,11 +5,11 @@ We can also simplify the drawing process by "sampling" the curve at certain poin
 We can do this is by saying "we want X segments", and then sampling the curve at intervals that are spaced such that we end up with the number of segments we wanted. The advantage of this method is that it's fast: instead of evaluating 100 or even 1000 curve coordinates, we can sample a much lower number and still end up with a curve that sort-of-kind-of looks good enough. The disadvantage of course is that we lose the precision of working with "the real curve", so we usually can't use the flattened for for doing true intersection detection, or curvature alignment.
 
 <div class="figure">
-  <graphics-element title="Flattening a quadratic curve" src="./quadratic.js">
+  <graphics-element title="Flattening a quadratic curve" src="./flatten.js" data-type="quadratic">
     <input type="range" min="1" max="16" step="1" value="4" class="slide-control">
   </graphics-element>
 
-  <graphics-element title="Flattening a cubic curve" src="./cubic.js">
+  <graphics-element title="Flattening a cubic curve" src="./flatten.js" data-type="cubic">
     <input type="range" min="1" max="24" step="1" value="8" class="slide-control">
   </graphics-element>
 </div>

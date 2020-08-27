@@ -34,8 +34,7 @@ function generateGraphicsModule(chapter, code, width, height, dataset) {
   const globalCode = split.quasiGlobal;
   const classCode = performCodeSurgery(split.classCode);
 
-  return prettier.format(
-    `
+  let moduleCode = `
         import CanvasBuilder from 'canvas';
         import { GraphicsAPI, Bezier, Vector, Matrix, Shape } from "${GRAPHICS_API_LOCATION}";
 
@@ -64,12 +63,11 @@ function generateGraphicsModule(chapter, code, width, height, dataset) {
         const canvas = example.canvas;
 
         export { canvas };
-    `,
-    {
-      // I'm not transpiling, I'm assuming Prettier just uses Babel as AST parser/rewriter.
-      parser: `babel`,
-    }
-  );
+    `;
+
+  // return prettier.format(moduleCode, { parser: `babel` });
+
+  return moduleCode;
 }
 
 export { generateGraphicsModule };

@@ -100,7 +100,6 @@ class BaseAPI {
         // of its own mouseMove handling.
         if (this.movable.length && this.currentPoint && !this.redrawing) {
           this.redraw();
-          this.redrawing = false;
         }
       })
     );
@@ -256,6 +255,7 @@ class BaseAPI {
   redraw() {
     this.redrawing = true;
     this.draw();
+    this.redrawing = false;
   }
 }
 

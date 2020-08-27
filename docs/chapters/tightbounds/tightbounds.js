@@ -1,11 +1,12 @@
+let curve;
+
 setup() {
-    this.curve = Bezier.defaultQuadratic(this);
-    setMovable(this.curve.points);
+    const type = this.type = getParameter(`type`, `quadratic`);
+    curve = (type === `quadratic`) ? Bezier.defaultQuadratic(this) : Bezier.defaultCubic(this);
+    setMovable(curve.points);
 }
 
 draw() {
-    const curve = this.curve;
-
     clear();
     curve.drawSkeleton();
     curve.drawCurve();
@@ -61,8 +62,9 @@ translatePoints(points) {
 
 rotatePoints(points) {
     // rotate so that last point is (...,0)
-    let dx = points[2].x;
-    let dy = points[2].y;
+    let last = this.type === `quadratic` ? 2 : 3;
+    let dx = points[last].x;
+    let dy = points[last].y;
     let a = atan2(dy, dx);
     return points.map(v => {
         return {

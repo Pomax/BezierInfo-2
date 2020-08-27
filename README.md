@@ -21,7 +21,7 @@ React is nice, Webpack is convenient, but there's just very little need to serve
   - [ ] ja-JP
   - [ ] zh-CN
 - [x] Figure out why pages scroll on focus in Firefox (https://github.com/Pomax/BezierInfo-2/issues/262)
-- [ ] Firefox for Android does not support static class fields (nightly does). Should I care, or will it not matter a month from now?
+- [x] ~Firefox for Android does not support static class fields (nightly does). Should I care, or will it not matter a month from now?~ Mozilla released a new Firefox for Android that's finally up to date wrt modern JS, so this is no longer an issue.
 - [x] now that github supports gh-pages from not just the root dir, move all the code into a `src` dir, and all the content into a `docs` dir. It's a stupid name, but GH doesn't support `public`. Hopefully "yet" but who knows how they work.
 - [x] implement custom lazy loading that kicks in when images are about 2 screens away from being in screen. The standard browser `loading="lazy"` distance is entirely useless.
 - [x] scope LaTeX images to each section (similar to the placeholder images) so that it's easier to redo just one section's latex code, rather than clearing and regenerating all ~250 latex blocks.
@@ -29,6 +29,7 @@ React is nice, Webpack is convenient, but there's just very little need to serve
 - [x] Add a `setSlider(qs, handler)` API function so that sketches can hook into locally scoped HTML UI elements (like `<input type="range">`
 - [ ] figure out how to force `graphics-element` elements to preallocate their bounding box, so that progressive page loading doesn't cause reflow.
 - [ ] consider swammping out the `perform-code-surgery.js` regex approach to a dedicated DFA lexer, with scope tracking.
+- [x] add data-attributes to sketches for same-sketch, different-parameters runs, in a way that works with the placeholder generation.
 
 ### Section conversion:
 

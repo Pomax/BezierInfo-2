@@ -4,7 +4,9 @@ With our knowledge of bounding boxes, and curve alignment, We can now form the "
 
 We now have nice tight bounding boxes for our curves:
 
-<graphics-element title="Aligning a quadratic curve" src="./quadratic.js"></graphics-element>
-<graphics-element title="Aligning a cubic curve" src="./cubic.js"></graphics-element>
+<div class="figure">
+<graphics-element title="Aligning a quadratic curve" src="./tightbounds.js" data-type="quadratic"></graphics-element>
+<graphics-element title="Aligning a cubic curve" src="./tightbounds.js" data-type="cubic"></graphics-element>
+</div>
 
 These are, strictly speaking, not necessarily the tightest possible bounding boxes. It is possible to compute the optimal bounding box by determining which spanning lines we need to effect a minimal box area, but because of the parametric nature of Bézier curves this is actually a rather costly operation, and the gain in bounding precision is often not worth it.

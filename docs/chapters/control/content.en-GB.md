@@ -5,15 +5,15 @@ Bézier curves are, like all "splines", interpolation functions. This means that
 The following graphs show the interpolation functions for quadratic and cubic curves, with "S" being the strength of a point's contribution to the total sum of the Bézier function. Click-and-drag to see the interpolation percentages for each curve-defining point at a specific <i>t</i> value.
 
 <div class="figure">
-  <graphics-element title="Quadratic interpolations" src="./lerp-quadratic.js">
+  <graphics-element title="Quadratic interpolations" src="./lerp.js" data-degree="3">
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
   </graphics-element>
 
-  <graphics-element title="Cubic interpolations" src="./lerp-cubic.js">
+  <graphics-element title="Cubic interpolations" src="./lerp.js" data-degree="4">
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
   </graphics-element>
 
-  <graphics-element title="15th degree interpolations" src="./lerp-fifteenth.js">
+  <graphics-element title="15th degree interpolations" src="./lerp.js" data-degree="15">
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
   </graphics-element>
 </div>

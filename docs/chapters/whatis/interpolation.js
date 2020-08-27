@@ -1,6 +1,8 @@
+let curve;
+
 setup() {
-    this.curve = Bezier.defaultQuadratic(this);
-    setMovable(this.curve.points);
+    curve = Bezier.defaultQuadratic(this);
+    setMovable(curve.points);
     setSlider(`.slide-control`, `step`, 25)
 }
 
@@ -16,28 +18,28 @@ draw() {
 drawBasics() {
     setStroke(`black`);
     setFill(`black`);
-    this.curve.drawSkeleton();
+    curve.drawSkeleton();
     text(`First linear interpolation, spaced ${this.step}% (${Math.floor(99/this.step)} steps)`, {x:5, y:15});
 
     translate(this.height, 0);
 
     line(0, 0, 0, this.height);
 
-    this.curve.drawSkeleton();
+    curve.drawSkeleton();
     text(`Second interpolation, between each generated pair`, {x:5, y:15});
 
     translate(this.height, 0);
 
     line(0, 0, 0, this.height);
 
-    this.curve.drawSkeleton();
+    curve.drawSkeleton();
     text(`Curve points generated this way`, {x:5, y:15});
 }
 
 drawPointCurve() {
     setStroke(`lightgrey`);
     for(let i=1, e=50, p; i<=e; i++) {
-      p = this.curve.get(i/e);
+      p = curve.get(i/e);
       circle(p.x, p.y, 1);
     }
 }
@@ -46,7 +48,7 @@ drawInterpolations() {
     for(let i=this.step; i<100; i+=this.step) {
         resetTransform();
         this.setIterationColor(i);
-        let [np2, np3] = this.drawFirstInterpolation(this.curve.points, i);
+        let [np2, np3] = this.drawFirstInterpolation(curve.points, i);
         let np4 = this.drawSecondInterpolation(np2, np3, i);
         this.drawOnCurve(np4, i);
     }
@@ -94,9 +96,9 @@ drawOnCurve(np4, i) {
 
 drawCurveCoordinates() {
     this.resetTransform();
-    this.curve.drawPoints();
+    curve.drawPoints();
     translate(this.height, 0);
-    this.curve.drawPoints();
+    curve.drawPoints();
     translate(this.height, 0);
-    this.curve.drawPoints();
+    curve.drawPoints();
 }

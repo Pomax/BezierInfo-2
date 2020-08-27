@@ -1,25 +1,32 @@
+let curve;
+
 setup() {
-    this.curve = Bezier.defaultQuadratic(this);
-    setMovable(this.curve.points);
+    let type = getParameter(`type`, `quadratic`);
+    if (type === `quadratic`) {
+        curve = Bezier.defaultQuadratic(this);
+    } else {
+        curve = Bezier.defaultCubic(this);
+        curve.points[2].x = 210;
+    }
+    setMovable(curve.points);
 }
 
 draw() {
     clear();
-    const curve = this.curve;
+
     curve.drawSkeleton();
     curve.drawCurve();
     curve.drawPoints();
 
-    noFill();
 
     let minx = Number.MAX_SAFE_INTEGER,
         miny = minx,
         maxx = Number.MIN_SAFE_INTEGER,
-        maxy = maxx;
+        maxy = maxx,
+        extrema = curve.extrema();
 
+    noFill();
     setStroke(`red`);
-
-    let extrema = curve.extrema();
 
     [0, ...extrema.x, ...extrema.y, 1].forEach(t => {
         let p = curve.get(t);

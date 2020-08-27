@@ -1,13 +1,14 @@
+let curve;
+
 setup() {
-  this.curve = new Bezier(this, 20, 250, 30, 20, 200, 250, 220, 20);
-  setMovable(this.curve.points);
+  curve = new Bezier(this, 20, 250, 30, 20, 200, 250, 220, 20);
+  setMovable(curve.points);
   setSlider(`.slide-control`, `position`, 0.5);
 }
 
 draw() {
   resetTransform();
   clear();
-  const curve = this.curve;
 
   curve.drawSkeleton();
   curve.drawCurve();
@@ -51,11 +52,5 @@ draw() {
   if (bbox.x.min < x && x < bbox.x.max) {
     setStroke("red");
     line(0, h-x, w, h-x);
-  }
-}
-
-onMouseMove() {
-  if (this.cursor.down) {
-    redraw();
   }
 }

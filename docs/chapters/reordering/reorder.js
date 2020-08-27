@@ -1,6 +1,7 @@
+let points = [];
+
 setup() {
-    const points = this.points = [],
-          w = this.width,
+    const w = this.width,
           h = this.height;
     for (let i=0; i<10; i++) {
       points.push({
@@ -28,12 +29,10 @@ draw() {
 drawCurve() {
     // we can't "just draw" this curve, since it'll be an arbitrary order,
     // And the canvas only does 2nd and 3rd - we use de Casteljau's algorithm:
-    const pts = this.points;
-
     start();
     noFill();
     for(let t=0; t<=1; t+=0.01) {
-      let q = JSON.parse(JSON.stringify(pts));
+      let q = JSON.parse(JSON.stringify(points));
       while(q.length > 1) {
         for (let i=0; i<q.length-1; i++) {
           q[i] = {
@@ -49,15 +48,15 @@ drawCurve() {
 
     start();
     setStroke(`lightgrey`);
-    pts.forEach(p => vertex(p.x, p.y));
+    points.forEach(p => vertex(p.x, p.y));
     end();
 
     setStroke(`black`);
-    pts.forEach(p => circle(p.x, p.y, 3));
+    points.forEach(p => circle(p.x, p.y, 3));
 }
 
 raise() {
-    const p = this.points,
+    const p = points,
         np = [p[0]],
         k = p.length;
     for (let i = 1, pi, pim; i < k; i++) {
@@ -69,9 +68,9 @@ raise() {
         };
     }
     np[k] = p[k - 1];
-    this.points = np;
+    points = np;
 
-    resetMovable(this.points);
+    resetMovable(points);
     redraw();
 }
 
@@ -83,8 +82,8 @@ lower() {
     //              first or last point... it starts to travel
     //              A LOT more than it looks like it should... O_o
 
-    const pts = this.points,
-        k = pts.length,
+    const p = points,
+        k = p.length,
         data = [],
         n = k-1;
 
@@ -108,8 +107,7 @@ lower() {
     const Mi = Mc.invert();
 
     if (!Mi) {
-      console.error('MtM has no inverse?');
-      return curve;
+      return console.error('MtM has no inverse?');
     }
 
     // And then we map our k-order list of coordinates
@@ -120,15 +118,11 @@ lower() {
     const y = new Matrix(pts.map(p => [p.y]));
     const ny = V.multiply(y);
 
-    this.points = nx.data.map((x,i) => ({
+    points = nx.data.map((x,i) => ({
         x: x[0],
         y: ny.data[i][0]
     }));
 
-    resetMovable(this.points);
+    resetMovable(points);
     redraw();
-}
-
-onMouseMove() {
-  redraw();
 }

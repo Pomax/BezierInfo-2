@@ -4,7 +4,16 @@ Sometimes, we don't actually need the precision of a true arc length, and we can
 
 If we combine the work done in the previous sections on curve flattening and arc length computation, we can implement these with minimal effort:
 
-<Graphic title="Approximate quadratic curve arc length" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.props.onKeyDown} />
-<Graphic title="Approximate cubic curve arc length" setup={this.setupCubic} draw={this.draw} onKeyDown={this.props.onKeyDown} />
+<div class="figure">
 
-Try clicking on the sketch and using your up and down arrow keys to lower the number of segments for both the quadratic and cubic curve. You may notice that the error in length is actually pretty significant, even if the percentage is fairly low: if the number of segments used yields an error of 0.1% or higher, the flattened curve already looks fairly obviously flattened. And of course, the longer the curve, the more significant the error will be.
+<graphics-element title="Approximate quadratic curve arc length" src="./approximate.js" data-type="quadratic">
+    <input type="range" min="1" max="24" step="1" value="4" class="slide-control">
+</graphics-element>
+
+<graphics-element title="Approximate cubic curve arc length" src="./approximate.js" data-type="cubic">
+    <input type="range" min="1" max="32" step="1" value="8" class="slide-control">
+</graphics-element>
+
+</div>
+
+You may notice that even though the error in length is actually pretty significant in absolute terms, even at a low number of segments we get a length that agrees with the true length when it comes to just the integer part of the arc length. Quite often, approximations can drastically speed things up!

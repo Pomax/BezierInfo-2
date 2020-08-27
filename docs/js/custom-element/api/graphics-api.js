@@ -157,7 +157,7 @@ class GraphicsAPI extends BaseAPI {
    * @param {String} local query selector for the type=range element.
    * @param {String} propname the name of the property to control.
    * @param {float} initial the initial value for this property.
-   * @param {boolean} redraw whether or not to redraw after update the value from the slider.
+   * @param {boolean} redraw whether or not to redraw after updating the value from the slider.
    */
   setSlider(qs, propname, initial, redraw = true) {
     if (typeof this[propname] !== `undefined`) {
@@ -177,7 +177,9 @@ class GraphicsAPI extends BaseAPI {
 
     slider.listen(`input`, (evt) => {
       this[propname] = parseFloat(evt.target.value);
-      if (redraw) this.redraw();
+      if (redraw && !this.redrawing) {
+        this.redraw();
+      }
     });
 
     return slider;
@@ -710,6 +712,12 @@ class GraphicsAPI extends BaseAPI {
 
   constrain(v, s, e) {
     return v < s ? s : v > e ? e : v;
+  }
+
+  dist(x1, y1, x2, y2) {
+    let dx = x1 - x2;
+    let dy = y1 - y2;
+    return this.sqrt(dx * dx + dy * dy);
   }
 }
 

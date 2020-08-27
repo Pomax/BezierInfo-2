@@ -22,7 +22,9 @@ In the case of Bézier curves, extending the interval simply makes our curve "ke
 
 The following two graphics show you Bézier curves rendered "the usual way", as well as the curves they "lie on" if we were to extend the `t` values much further. As you can see, there's a lot more "shape" hidden in the rest of the curve, and we can model those parts by moving the curve points around.
 
-<graphics-element title="Quadratic infinite interval Bézier curve" src="./quadratic.js"></graphics-element>
-<graphics-element title="Cubic infinite interval Bézier curve" src="./cubic.js"></graphics-element>
+<div class="figure">
+<graphics-element title="Quadratic infinite interval Bézier curve" src="./extended.js" data-type="quadratic"></graphics-element>
+<graphics-element title="Cubic infinite interval Bézier curve" src="./extended.js" data-type="cubic"></graphics-element>
+</div>
 
 In fact, there are curves used in graphics design and computer modelling that do the opposite of Bézier curves; rather than fixing the interval, and giving you freedom to choose the coordinates, they fix the coordinates, but give you freedom over the interval. A great example of this is the ["Spiro" curve](http://levien.com/phd/phd.html), which is a curve based on part of a [Cornu Spiral, also known as Euler's Spiral](https://en.wikipedia.org/wiki/Euler_spiral). It's a very aesthetically pleasing curve and you'll find it in quite a few graphics packages like [FontForge](https://fontforge.github.io) and [Inkscape](https://inkscape.org). It has even been used in font design, for example for the Inconsolata typeface.

@@ -1,7 +1,33 @@
 setup() {
-    this.degree = 15;
-    this.triangle = [[1], [1,1]];
-    this.generate();
+    const w = this.width,
+          h = this.height;
+
+    const degree = this.getParameter(`degree`, 3);
+
+    if (degree === 3) {
+        this.f = [
+            t => ({ x: t * w, y: h * (1-t) ** 2 }),
+            t => ({ x: t * w, y: h * 2 * (1-t) * t }),
+            t => ({ x: t * w, y: h * t ** 2 })
+        ];
+    } else if (degree === 4) {
+        this.f = [
+            t => ({ x: t * w, y: h * (1-t) ** 3 }),
+            t => ({ x: t * w, y: h * 3 * (1-t) ** 2 * t }),
+            t => ({ x: t * w, y: h * 3 * (1-t) * t ** 2 }),
+            t => ({ x: t * w, y: h * t ** 3})
+        ];
+    } else {
+        this.triangle = [[1], [1,1]];
+        this.f = [...new Array(degree + 1)].map((_,i) => {
+            return t => ({
+                x: t * w,
+                y: h * this.binomial(degree,i) * (1-t) ** (degree-i) * t ** (i)
+            });
+        });
+    }
+
+    this.s = this.f.map(f => plot(f, 0, 1, degree*4) );
     setSlider(`.slide-control`, `position`, 0)
 }
 
@@ -15,21 +41,6 @@ binomial(n,k) {
         }
     }
     return this.triangle[n][k];
-}
-
-generate() {
-    const w = this.width,
-          h = this.height,
-          d = this.degree;
-
-    this.f = [...new Array(d+1)].map((_,i) => {
-        return t => ({
-            x: t * w,
-            y: h * this.binomial(d,i) * (1-t) ** (d-i) * t ** (i)
-        });
-    });
-
-    this.s = this.f.map(f => plot(f, 0, 1, d*4) );
 }
 
 draw() {

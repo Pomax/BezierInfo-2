@@ -5,15 +5,15 @@
 下面的图形显示了二次曲线和三次曲线的差值方程，“S”代表了点对贝塞尔方程总和的贡献。点击拖动点来看看在特定的<i>t</i>值时，每个曲线定义的点的插值百分比。
 
 <div class="figure">
-  <graphics-element title="二次插值" src="./lerp-quadratic.js">
+  <graphics-element title="二次插值" src="./lerp.js" data-degree="3">
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
   </graphics-element>
 
-  <graphics-element title="三次插值" src="./lerp-cubic.js">
+  <graphics-element title="三次插值" src="./lerp.js" data-degree="4">
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
   </graphics-element>
 
-  <graphics-element title="15次插值" src="./lerp-fifteenth.js">
+  <graphics-element title="15次插值" src="./lerp.js" data-degree="15">
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
   </graphics-element>
 </div>

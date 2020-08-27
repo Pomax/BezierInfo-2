@@ -5,11 +5,11 @@
 例えば「X個の線分がほしい」場合には、分割数がそうなるようにサンプリング間隔を選び、曲線をサンプリングします。この方法の利点は速さです。曲線の座標を100個だの1000個だの計算するのではなく、ずっと少ない回数のサンプリングでも、十分きれいに見えるような曲線を作ることができるのです。欠点はもちろん、「本物の曲線」に比べて精度が損なわれてしまうことです。したがって、交点の検出や曲線の位置揃えを正しく行いたい場合には、平坦化した曲線は普通利用できません。
 
 <div class="figure">
-  <graphics-element title="2次ベジエ曲線の平坦化" src="./quadratic.js">
+  <graphics-element title="2次ベジエ曲線の平坦化" src="./flatten.js" data-type="quadratic">
     <input type="range" min="1" max="16" step="1" value="4" class="slide-control">
   </graphics-element>
 
-  <graphics-element title="3次ベジエ曲線の平坦化" src="./cubic.js">
+  <graphics-element title="3次ベジエ曲線の平坦化" src="./flatten.js" data-type="cubic">
     <input type="range" min="1" max="24" step="1" value="8" class="slide-control">
   </graphics-element>
 </div>

@@ -1,12 +1,13 @@
+let curve;
+
 setup() {
-    const curve = this.curve = new Bezier(this, 70,250, 120,15, 20,95, 225,80);
+    curve = new Bezier(this, 70,250, 120,15, 20,95, 225,80);
     setMovable(curve.points);
 }
 
 draw() {
     clear();
 
-    const curve = this.curve;
     curve.drawSkeleton();
     curve.drawCurve();
     curve.drawPoints();

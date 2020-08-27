@@ -1,6 +1,8 @@
+let curve;
+
 setup() {
-    this.curve = Bezier.defaultCubic(this);
-    setMovable(this.curve.points);
+    curve = Bezier.defaultCubic(this);
+    setMovable(curve.points);
     setSlider(`.slide-control`, `position`, 0.5);
 }
 
@@ -8,8 +10,8 @@ draw() {
     resetTransform();
     clear();
 
-    let p = this.curve.get(this.position);
-    const struts = this.struts = this.curve.getStrutPoints(this.position);
+    let p = curve.get(this.position);
+    const struts = this.struts = curve.getStrutPoints(this.position);
     const c1 = new Bezier(this, [struts[0], struts[4], struts[7], struts[9]]);
     const c2 = new Bezier(this, [struts[9], struts[8], struts[6], struts[3]]);
 
@@ -29,24 +31,24 @@ draw() {
 }
 
 drawBasics(p) {
-    this.curve.drawCurve(`lightgrey`);
-    this.curve.drawSkeleton(`lightgrey`);
-    this.curve.drawPoints(false);
+    curve.drawCurve(`lightgrey`);
+    curve.drawSkeleton(`lightgrey`);
+    curve.drawPoints(false);
     noFill();
     setStroke(`red`);
     circle(p.x, p.y, 3);
 
     setStroke(`lightblue`);
-    this.curve.drawStruts(this.struts);
+    curve.drawStruts(this.struts);
     setFill(`black`)
     text(`The full curve, with struts`, 10, 15);
 }
 
 drawSegment(c, p, halfLabel) {
     setStroke(`lightblue`);
-    this.curve.drawCurve(`lightblue`);
-    this.curve.drawSkeleton(`lightblue`);
-    this.curve.drawStruts(this.struts);
+    curve.drawCurve(`lightblue`);
+    curve.drawSkeleton(`lightblue`);
+    curve.drawStruts(this.struts);
     c.drawCurve();
     c.drawSkeleton(`black`);
     noFill();

@@ -10,7 +10,9 @@ If we have the extremities, and the start/end points, a simple for-loop that tes
 
 Applying this approach to our previous root finding, we get the following [axis-aligned bounding boxes](https://en.wikipedia.org/wiki/Bounding_volume#Common_types) (with all curve extremity points shown on the curve):
 
-<graphics-element title="Quadratic Bézier bounding box" src="./quadratic.js"></graphics-element>
-<graphics-element title="Cubic Bézier bounding box" src="./cubic.js"></graphics-element>
+<div class="figure">
+<graphics-element title="Quadratic Bézier bounding box" src="./bbox.js" data-type="quadratic"></graphics-element>
+<graphics-element title="Cubic Bézier bounding box" src="./bbox.js" data-type="cubic"></graphics-element>
+</div>
 
 We can construct even nicer boxes by aligning them along our curve, rather than along the x- and y-axis, but in order to do so we first need to look at how aligning works.

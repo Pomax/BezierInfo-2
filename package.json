@@ -14,8 +14,8 @@
     "url": "https://github.com/Pomax/BezierInfo-2/issues"
   },
   "scripts": {
-    "start": "run-s clean time lint:* build pretty time && rm -f .timing",
-    "test": "run-s start -- --pretty&& run-p watch server browser",
+    "start": "run-s clean time lint:* build pretty time clean",
+    "test": "run-s start && run-p watch server browser",
     "------": "--- note that due to github's naming policy, the public dir is called 'docs' rather than 'public' ---",
     "browser": "open-cli http://localhost:8000",
     "build": "node ./src/build.js",

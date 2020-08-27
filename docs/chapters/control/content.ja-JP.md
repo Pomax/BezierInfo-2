@@ -5,15 +5,15 @@
 下のグラフは、2次ベジエ曲線や3次ベジエ曲線の補間関数を表しています。ここでSは、ベジエ関数全体に対しての、その点の寄与の大きさを示します。ある<i>t</i>において、ベジエ曲線を定義する各点の補間率がどのようになっているのか、クリックドラッグをして確かめてみてください。
 
 <div class="figure">
-  <graphics-element title="2次の補間" src="./lerp-quadratic.js">
+  <graphics-element title="2次の補間" src="./lerp.js" data-degree="3">
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
   </graphics-element>
 
-  <graphics-element title="3次の補間" src="./lerp-cubic.js">
+  <graphics-element title="3次の補間" src="./lerp.js" data-degree="4">
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
   </graphics-element>
 
-  <graphics-element title="15次の補間" src="./lerp-fifteenth.js">
+  <graphics-element title="15次の補間" src="./lerp.js" data-degree="15">
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
   </graphics-element>
 </div>

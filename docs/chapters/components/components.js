@@ -1,14 +1,20 @@
+let curve;
+
 setup() {
-    const curve = this.curve = Bezier.defaultCubic(this);
-    curve.points[2].x = 210;
-    setMovable(curve.points);
+  let type = getParameter(`type`, `quadratic`);
+  if (type === `quadratic`) {
+      curve = Bezier.defaultQuadratic(this);
+  } else {
+      curve = Bezier.defaultCubic(this);
+      curve.points[2].x = 210;
+  }
+  setMovable(curve.points);
 }
 
 draw() {
   resetTransform();
   clear();
   const dim = this.height;
-  const curve = this.curve;
   curve.drawSkeleton();
   curve.drawCurve();
   curve.drawPoints();
@@ -21,8 +27,9 @@ draw() {
   translate(40,20);
   drawAxes(`t`, 0, 1, `X`, 0, dim, dim, dim);
 
+  let pcount = curve.points.length;
   new Bezier(this, curve.points.map((p,i) => ({
-    x: (i/3) * dim,
+    x: (i/(pcount-1)) * dim,
     y: p.x
   }))).drawCurve();
 
@@ -36,11 +43,7 @@ draw() {
   drawAxes(`t`, 0,1, `Y`, 0, dim, dim, dim);
 
   new Bezier(this, curve.points.map((p,i) => ({
-    x: (i/3) * dim,
+    x: (i/(pcount-1)) * dim,
     y: p.y
   }))).drawCurve();
-}
-
-onMouseMove() {
-  redraw();
 }

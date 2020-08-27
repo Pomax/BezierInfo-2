@@ -1,11 +1,12 @@
+let curve;
+
 setup() {
-    this.curve = Bezier.defaultCubic(this);
-    setMovable(this.curve.points);
+    const type = this.getParameter(`type`, `quadratic`);
+    curve = (type === `quadratic`) ? Bezier.defaultQuadratic(this) : Bezier.defaultCubic(this);
+    setMovable(curve.points);
 }
 
 draw() {
-    const curve = this.curve;
-
     clear();
     curve.drawCurve();
     curve.drawSkeleton();

@@ -64,11 +64,11 @@ async function createIndexPages(locale, localeStrings, chapters) {
 
   let index = nunjucks.render(`index.template.html`, context);
 
-  if (typeof process !== "undefined") {
-    if (process.argv.indexOf(`--pretty`) !== 0) {
-      index = prettier.format(index, { parser: `html` });
-    }
-  }
+  // if (typeof process !== "undefined") {
+  //   if (process.argv.indexOf(`--pretty`) !== 0) {
+  //     index = prettier.format(index, { parser: `html` });
+  //   }
+  // }
 
   // Prettification happens as an npm script action
 

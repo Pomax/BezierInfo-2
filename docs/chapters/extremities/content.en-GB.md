@@ -214,8 +214,8 @@ As it turns out, Newton-Raphson is so blindingly fast that we could get away wit
 
 So now that we know how to do root finding, we can determine the first and second derivative roots for our Bézier curves, and show those roots overlaid on the previous graphics. For the quadratic curve, that means just the first derivative, in red:
 
-<graphics-element title="Quadratic Bézier curve extremities" width="825" src="./quadratic.js"></graphics-element>
+<graphics-element title="Quadratic Bézier curve extremities" width="825" src="./extremities.js" data-type="quadratic"></graphics-element>
 
 And for cubic curves, that means first and second derivatives, in red and purple respectively:
 
-<graphics-element title="Cubic Bézier curve extremities" width="825" src="./cubic.js"></graphics-element>
+<graphics-element title="Cubic Bézier curve extremities" width="825" src="./extremities.js" data-type="cubic"></graphics-element>

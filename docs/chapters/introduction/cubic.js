@@ -1,16 +1,13 @@
+let curve;
+
 setup() {
-  this.curve = Bezier.defaultCubic(this);
-  setMovable(this.curve.points);
+  curve = Bezier.defaultCubic(this);
+  setMovable(curve.points);
 }
 
 draw() {
   clear();
-  const curve = this.curve;
   curve.drawSkeleton();
   curve.drawCurve();
   curve.drawPoints();
-}
-
-onMouseMove() {
-  redraw();
 }
