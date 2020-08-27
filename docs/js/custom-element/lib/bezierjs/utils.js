@@ -647,11 +647,7 @@ const utils = {
     return [];
   },
 
-  curvature: function (t, points, _3d, kOnly) {
-    const dpoints = utils.derive(points);
-    const d1 = dpoints[0];
-    const d2 = dpoints[1];
-
+  curvature: function (t, d1, d2, _3d, kOnly) {
     let num,
       dnm,
       adk,
@@ -705,8 +701,8 @@ const utils = {
     if (!kOnly) {
       // compute k'(t) based on the interval before, and after it,
       // to at least try to not introduce forward/backward pass bias.
-      const pk = utils.curvature(t - 0.001, points, _3d, true).k;
-      const nk = utils.curvature(t + 0.001, points, _3d, true).k;
+      const pk = utils.curvature(t - 0.001, d1, d2, _3d, true).k;
+      const nk = utils.curvature(t + 0.001, d1, d2, _3d, true).k;
       dk = (nk - k + (k - pk)) / 2;
       adk = (abs(nk - k) + abs(k - pk)) / 2;
     }

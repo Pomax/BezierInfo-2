@@ -331,29 +331,11 @@ class Bezier {
   }
 
   derivative(t) {
-    const mt = 1 - t;
-    let a,
-      b,
-      c = 0,
-      p = this.dpoints[0];
-    if (this.order === 2) {
-      p = [p[0], p[1], ZERO];
-      a = mt;
-      b = t;
-    }
-    if (this.order === 3) {
-      a = mt * mt;
-      b = mt * t * 2;
-      c = t * t;
-    }
-    const ret = {
-      x: a * p[0].x + b * p[1].x + c * p[2].x,
-      y: a * p[0].y + b * p[1].y + c * p[2].y,
-    };
-    if (this._3d) {
-      ret.z = a * p[0].z + b * p[1].z + c * p[2].z;
-    }
-    return ret;
+    return utils.compute(t, this.dpoints[0]);
+  }
+
+  dderivative(t) {
+    return utils.compute(t, this.dpoints[1]);
   }
 
   align() {
@@ -362,7 +344,7 @@ class Bezier {
   }
 
   curvature(t) {
-    return utils.curvature(t, this.points, this._3d);
+    return utils.curvature(t, this.dpoints[0], this.dpoints[1], this._3d);
   }
 
   inflections() {

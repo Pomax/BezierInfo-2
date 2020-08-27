@@ -349,7 +349,7 @@ function Bezier(3,t):
 
 <p>上面有一张是15<sup>th</sup>阶的插值方程。如你所见，在所有控制点中，起点和终点对曲线形状的贡献比其他点更大些。</p>
 <p>如果我们要改变曲线，就需要改变每个点的权重，有效地改变插值。可以很直接地做到这个：只要用一个值乘以每个点，来改变它的强度。这个值照惯例称为“权重”，我们可以将它加入我们原始的贝塞尔函数：</p>
-<img class="LaTeX SVG" src="./images/chapters/control/14cb9fbbaae9e7d87ae6bef3ea7a782e.svg" width="379px" height="56px" loading="lazy">
+<script>console.log("LaTeX for 14cb9fbbaae9e7d87ae6bef3ea7a782e failed!");</script>
 <p>看起来很复杂，但实际上“权重”只是我们想让曲线所拥有的坐标值：对于一条n<sup>th</sup>阶曲线，w<sup>0</sup>是起始坐标，w<sup>n</sup>是终点坐标，中间的所有点都是控制点坐标。假设说一条曲线的起点为（120，160），终点为（220，40），并受点（35，200）和点（220，260）的控制，贝塞尔曲线方程就为：</p>
 <img class="LaTeX SVG" src="./images/chapters/control/c0d4dbc07b8ec7c0a18ea43c8a386935.svg" width="476px" height="40px" loading="lazy">
 <p>这就是我们在文章开头看到的曲线：</p>
@@ -628,7 +628,7 @@ function drawCurve(points[], t):
 <section id="matrixsplit">
       <h1><a href="zh-CN/index.html#matrixsplit">Splitting curves using matrices</a></h1>
 <p>Another way to split curves is to exploit the matrix representation of a Bézier curve. In <a href="#matrix">the section on matrices</a>, we saw that we can represent curves as matrix multiplications. Specifically, we saw these two forms for the quadratic and cubic curves respectively: (we'll reverse the Bézier coefficients vector for legibility)</p>
-<img class="LaTeX SVG" src="./images/chapters/matrixsplit/77a11d65d7cffc4b84a85c4bec837792.svg" width="263px" height="55px" loading="lazy">
+<script>console.log("LaTeX for 77a11d65d7cffc4b84a85c4bec837792 failed!");</script>
 <p>and</p>
 <img class="LaTeX SVG" src="./images/chapters/matrixsplit/c58330e12d25c678b593ddbd4afa7c52.svg" width="323px" height="73px" loading="lazy">
 <p>Let's say we want to split the curve at some point <code>t = z</code>, forming two new (obviously smaller) Bézier curves. To find the coordinates for these two Bézier curves, we can use the matrix representation and some linear algebra. First, we separate out the actual "point on the curve" information into a new matrix multiplication:</p>
@@ -1382,45 +1382,54 @@ y = curve.get(t).y</code></pre>
       </section>
 <section id="curvature">
       <h1><a href="zh-CN/index.html#curvature">Curvature of a curve</a></h1>
-<p>Imagine we have two curves, and we want to line them in up in a way that "looks right". What would we use as metric to let a computer decide what "looks right" means? For instance, we can start by ensuring that the two curves share an end coordinate, so that there is no "gap" between leaving one curve and entering the next, but that won't guarantee that things look right: both curves can be going in wildly different directions, and the resulting joined geometry will have a corner in it, rather than a smooth transition from one curve to the next. What we want is to ensure that the <a href="https://en.wikipedia.org/wiki/Curvature"><em>curvature</em></a> at the transition from one curve to the next "looks good". So, we could have them share an end coordinate, and then ensure that the derivatives for both curves match at that coordinate, and at a casual glance, that seems the perfect solution: if we make the derivatives match, then both the "direction" in which we travel from one curve to the next is the same, and the "speed" at which we travel the curve will be the same.</p>
+<p>If we have two curves, and we want to line them in up in a way that "looks right", what would we use as metric to let a computer decide what "looks right" means?</p>
+<p>For instance, we can start by ensuring that the two curves share an end coordinate, so that there is no "gap" between the end of one and the start of the next curve, but that won't guarantee that things look right: both curves can be going in wildly different directions, and the resulting joined geometry will have a corner in it, rather than a smooth transition from one curve to the next.</p>
+<p>What we want is to ensure that the <a href="https://en.wikipedia.org/wiki/Curvature">curvature</a> at the transition from one curve to the next "looks good". So, we start with a shared coordinate, and then also require that  derivatives for both curves match at that coordinate. That way, we're assured that their tangents line up, which must mean the curve transition is perfectly smooth. We can even make the second, third, etc. derivatives match up for better and better transitions.</p>
 <p>Problem solved!</p>
-<p>But, if we think about this a little more, this cannot possible work, because of something that you may have noticed in the section on <a href="#reordering">reordering curves</a>: what a curve looks like, and the function that draws that curve, are not in some kind of universal, fixed, one-to-one relation. If we have some quadratic curve, then simply by raising the curve order we can get corresponding cubic, quartic, and higher and higher mathematical expressions that all draw the <em>exact same curve</em> but with wildly different derivatives. So: if we want to make a transition from one curve to the next look good, and we want to use the derivative, then we suddenly need to answer the question: "Which derivative?".</p>
-<p>How would you even decide? What makes the cubic derivatives better or less suited than, say, quintic derivatives? Wouldn't it be nicer if we could use something that was inherent to the curve, without being tied to the functions that yield that curve? And (of course) as it turns out, there is a way to define curvature in such a way that it only relies on what the curve actually looks like, and given where this section is in the larger body of this Primer, it should hopefully not be surprising that the thing we can use to define curvature is the thing we talked about in the previous section: arc length.</p>
-<p>Intuitively, this should make sense, even if we have no idea what the maths would look like: if we travel some fixed distance along some curve, then the point at that distance is simply the point at that distance. It doesn't matter what function we used to draw the curve: once we know what the curve looks like, the function(s) used to draw it become irrelevant: a point a third along the full distance of the curve is simply the point a third along the distance of the curve.</p>
-<p>You might think that in order to find the curvature of a curve, we now need to find and then solve the arc length function, and that would be a problem because we just saw that there is no way to actually do that: don't worry, we don't. We do need to know the <em>form</em> of the arc length function, which we saw above, but it's not the thing we're actually interested in, and we're going to be rewriting it in a way that makes most of the crazy complex things about it just... disappear.</p>
-<p>In fact, after <a href="http://mathworld.wolfram.com/Curvature.html">running through the steps necessary</a> to determine what we're left with if we use the arclength function's derivative (with another run-through of the maths <a href="https://math.stackexchange.com/a/275324/71940">here</a>), rather than the curve's original function's derivative, then the integral disappears entirely (because of the <a href="https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus">fundamental theorem of calculus</a>), and we're left with some surprisingly simple maths that relates curvature (denoted as κ, "kappa") to—and this is the truly surprising bit—a specific combination of derivatives of our original function.</p>
-<p>Let me just highlight that before we move on: we calculate the curvature of a curve using the arc length function derivative, because the original function's derivative is entirely unreliable, and in doing so we end up with a formula that expresses curvature in terms of the original function's derivatives.</p>
+<p>However, there's a problem with this approach: if we think about this a little more, we realise that "what a curve looks like" and its derivative values are pretty much entirely unrelated. After all, the section on <a href="#reordering">reordering curves</a> showed us that the same looking curve can have an infinite number of curve expressions of arbitraryly high Bezier degree, and each of those will have <em>widly</em> different derivative values.</p>
+<p>So what we really want is some kind of expression that's not based on any particular expression of <code>t</code>, but is based on something that is invariant to the <em>kind</em> of function(s) we use to draw our curve. And the prime candidate for this is our curve expression, reparameterised for distance: no matter what order of Bezier curve we use, if we were able to rewrite it as a function of distance-along-the-curve, all those different degree Bezier functions would end up being <em>the same</em> function for "coordinate at some distance D along the curve".</p>
+<p>We've seen this before... that's the arc length function.</p>
+<p>So you might think that in order to find the curvature of a curve, we now need to solve the arc length function itself, and that this would be quite a problem because we just saw that there is no way to actually do that. Thankfully, we don't. We only need to know the <em>form</em> of the arc length function, which we saw above and is fairly simple, rather than needing to <em>solve</em> the arc length function. If we start with the arc length expression and the <a href="http://mathworld.wolfram.com/Curvature.html">run through the steps necessary</a> to determine <em>its</em> derivative (with an alternative, shorter demonstration of how to do this found <a href="https://math.stackexchange.com/a/275324/71940">over on Stackexchange</a>), then the integral that was giving us so much problems in solving the arc length function disappears entirely (because of the <a href="https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus">fundamental theorem of calculus</a>), and what we're left with us some surprisingly simple maths that relates curvature (denoted as κ, "kappa") to—and this is the truly surprising bit—a specific combination of derivatives of our original function.</p>
+<p>Let me highlight what just happened, because it's pretty special:</p>
+<ol>
+<li>we wanted to make curves line up, and initially thought to match the curves' derivatives, but</li>
+<li>that turned out to be a really bad choice, so instead</li>
+<li>we picked a function that is basically impossible to work with, and then <em>worked with that</em>, which</li>
+<li>gives us a simple formula that is based on <em>the curves' derivatives</em>.</li>
+</ol>
 <p><em>That's crazy!</em></p>
-<p>But, that's what makes maths such an interesting thing: it can show you that all your assumptions are completely wrong, only to then go "but actually, you were on the right track all along, here: ..." with a solution that is so easy to work with as to almost seem mundane. So: enough of all this text, how do we calculate curvature? What is the function for κ? Concisely, the function is this:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvature/d9c893051586eb8d9de51c0ae1ef8fae.svg" width="113px" height="47px" loading="lazy">
-<p>Which is really just a "short form" that glosses over the fact that we're dealing with functions:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvature/828333034b4fed8e248683760d6bc6f4.svg" width="239px" height="55px" loading="lazy">
+<p>But that's also one of the things that  makes maths so powerful: even if your initial ideas are off the mark, you might be much closer than you thought you were, and the journey from "thinking we're completely wrong" to "actually being remarkably close to being right" is where we can find a lot of insight.</p>
+<p>So, what does the function look like? This:</p>
+<img class="LaTeX SVG" src="./images/chapters/curvature/d9c893051586eb8d9de51c0ae1ef8fae.svg" width="115px" height="41px" loading="lazy">
+<p>Which is really just a "short form" that glosses over the fact that we're dealing with functions of <code>t</code>, so let's expand that a tiny bit:</p>
+<img class="LaTeX SVG" src="./images/chapters/curvature/828333034b4fed8e248683760d6bc6f4.svg" width="248px" height="48px" loading="lazy">
 <p>And while that's a litte more verbose, it's still just as simple to work with as the first function: the curvature at some point on any (and this cannot be overstated: <em>any</em>) curve is a ratio between the first and second derivative cross product, and something that looks oddly similar to the standard Euclidean distance function. And nothing in these functions is hard to calculate either: for Bézier curves, simply knowing our curve coordinates means <a href="#derivatives">we know what the first and second derivatives are</a>, and so evaluating this function for any <strong>t</strong> value is just a matter of basic arithematics.</p>
-<div class="howtocode">
-
-<h3>Implement the kappa function</h3>
 <p>In fact, let's just implement it right now:</p>
 <pre><code>function kappa(t, B):
-  d = B.getDerivative()
-  dd = d.getDerivative()
-  dx = d.getX(t)
-  dy = d.getY(t)
-  ddx = dd.getX(t)
-  ddy = dd.getY(t)
-  numerator = dx * ddy - ddx * dy
-  denominator = pow(dx*dx + dy*dy, 1.5)
+  d = B.getDerivative(t)
+  dd = B.getSecondDerivative(t)
+  numerator = d.x * dd.y - dd.x * d.y
+  denominator = pow(d.x*d.x + d.y*d.y, 3/2)
+  if denominator is 0: return NaN;
   return numerator / denominator</code></pre>
-<p>That was easy!</p>
-<p>In fact, it stays easy because we can also compute the associated "radius of curvature", which gives us the implicit circle that "fits" the curve's curvature at any point, using what is possibly the simplest relation in this entire primer:</p>
+<p>That was easy! (Well okay, that "not a number" value will need to be taken into account by downstream code, but that's a reality of programming anwyay)</p>
+<p>With all of that covered, let's line up some curves! The following graphic gives you two curves that look identical, but use quadratic and cubic functions, respectively. As you can see, despite their derivatives being necessarily different, their curvature (thanks to being derived based on maths that "ignores" specific function derivative, and instead gives a formulat that smooths out any differences) is exactly the same. And because of that, we can put them together such that the point where they overlap has the same curvature for both curves, giving us the smoothest transition.</p>
+<graphics-element title="Matching curvatures for a quadratic and cubic Bézier curve" width="825" height="275" src="./chapters/curvature/curvature.js" >
+        <fallback-image>
+          <img width="825px" height="275px" src="images\chapters\curvature\a98d37a0653461ad4e6065d8277c8834.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image></graphics-element>
+
+<p>One thing you may have noticed in this sketch is that sometimes the curvature looks fine, but seems to be pointing in the wrong direction, making it hard to line up the curves properly. A way around that, of course, is to show the curvature on both sides of the curve, so let's just do that. But let's take it one step further: we can also compute the associated "radius of curvature", which gives us the implicit circle that "fits" the curve's curvature at any point, using what is possibly the simplest bit of maths found in this entire primer:</p>
 <img class="LaTeX SVG" src="./images/chapters/curvature/6ed4fd2ead35c57984caddf9fe375a5f.svg" width="81px" height="37px" loading="lazy">
-<p>So that's a rather convenient fact to know, too.</p>
-</div>
-
-<p>So with all of that covered, let's line up some curves! The following graphic gives you two curves that look identical, but use quadratic and cubic functions, respectively. As you can see, despite their derivatives being necessarily different, their curvature (thanks to being derived based on maths that "ignores" specific function derivative, and instead gives a formulat that smooths out any differences) is exactly the same. And because of that, we can put them together such that the point where they overlap has the same curvature for both curves, giving us the smoothest looking transition we could ask for.</p>
-<Graphic title="Matching curvatures for a quadratic and cubic Bézier curve" setup={this.setup} draw={this.draw} />
-
-<p>One thing you may have noticed in this sketch is that sometimes the curvature looks fine, but seems to be pointing in the wrong direction, making it hard to line up the curves properly. In your code you typically solve this by matching absolute values, but that's not super easy to program visually... however, we <em>can</em> just show the curvature on both sides of the curve, making lining things up a bit easier:</p>
-<Graphic title="(Easier) curvature matching for a quadratic and cubic Bézier curve" setup={this.setup} draw={this.drawOmni} />
+<p>So let's revisit the previous graphic with the curvature visualised on both sides of our curves, as well as showing the circle that "fits" our curve at some point that we can control by using a slider:</p>
+<graphics-element title="(Easier) curvature matching for a quadratic and cubic Bézier curve" width="825" height="275" src="./chapters/curvature/curvature.js" data-omni="true">
+        <fallback-image>
+          <img width="825px" height="275px" src="images\chapters\curvature\1b2e086966d7e8088e4b51a11d9ec063.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image>
+  <input type="range" min="0" max="2" step="0.0005" value="0" class="slide-control">
+</graphics-element>
 
       </section>
 <section id="tracing">
@@ -1927,7 +1936,7 @@ with quadratic or cubic curves:</p>
 <p>which we can then substitute in the expression for <em>a</em>:</p>
 <img class="LaTeX SVG" src="./images/chapters/circles/ef3ab62bb896019c6157c85aae5d1ed3.svg" width="231px" height="195px" loading="lazy">
 <p>A quick check shows that plugging these values for <em>a</em> and <em>b</em> into the expressions for C<sub>x</sub> and C<sub>y</sub> give the same x/y coordinates for both "<em>a</em> away from A" and "<em>b</em> away from B", so let's continue: now that we know the coordinate values for C, we know where our on-curve point T for <em>t=0.5</em> (or angle φ/2) is, because we can just evaluate the Bézier polynomial, and we know where the circle arc's actual point P is for angle φ/2:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles/fe32474b4616ee9478e1308308f1b6bf.svg" width="188px" height="32px" loading="lazy">
+<script>console.log("LaTeX for fe32474b4616ee9478e1308308f1b6bf failed!");</script>
 <p>We compute T, observing that if <em>t=0.5</em>, the polynomial values (1-t)², 2(1-t)t, and t² are 0.25, 0.5, and 0.25 respectively:</p>
 <img class="LaTeX SVG" src="./images/chapters/circles/e1059e611aa1e51db41f9ce0b4ebb95a.svg" width="252px" height="35px" loading="lazy">
 <p>Which, worked out for the x and y components, gives:</p>
