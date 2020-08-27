@@ -1,14 +1,17 @@
+let curve;
+
 setup() {
-    this.curve = Bezier.defaultCubic(this);
-    setMovable(this.curve.points);
+    const type = this.parameters.type ?? `quadratic`;
+    curve = (type === `quadratic`) ? Bezier.defaultQuadratic(this) : Bezier.defaultCubic(this);
+    setMovable(curve.points);
 }
 
 draw() {
     resetTransform();
     clear();
-    this.curve.drawSkeleton();
-    this.curve.drawCurve();
-    this.curve.drawPoints();
+    curve.drawSkeleton();
+    curve.drawCurve();
+    curve.drawPoints();
 
     translate(this.width/2, 0);
     line(0,0,0,this.height);
@@ -16,7 +19,7 @@ draw() {
     this.drawRTCurve(
         this.rotatePoints(
             this.translatePoints(
-                this.curve.points
+                curve.points
             )
         )
     );
@@ -35,8 +38,9 @@ translatePoints(points) {
 
 rotatePoints(points) {
     // rotate so that last point is (...,0)
-    let dx = points[3].x;
-    let dy = points[3].y;
+    let degree = curve.points.length - 1;
+    let dx = points[degree].x;
+    let dy = points[degree].y;
     let a = atan2(dy, dx);
     return points.map(v => {
         return {
@@ -47,6 +51,7 @@ rotatePoints(points) {
 }
 
 drawRTCurve(points) {
+    let degree = curve.points.length - 1;
     let ncurve = new Bezier(this, points);
     translate(60, this.height/2);
     setStroke(`grey`);
@@ -55,5 +60,5 @@ drawRTCurve(points) {
     ncurve.drawCurve();
     setFill(`black`);
     text(`(0,0)`, 5,15);
-    text(`(${points[3].x|0},0)`, points[3].x, -5, CENTER);
+    text(`(${points[degree].x|0},0)`, points[degree].x, -5, CENTER);
 }

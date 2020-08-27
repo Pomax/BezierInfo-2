@@ -1,5 +1,3 @@
-import { hatch } from "./util/hatchery.js";
-
 /**
  * The base API class, responsible for such things as setting up canvas event
  * handling, method accumulation, custom element binding, etc. etc.
@@ -65,7 +63,17 @@ class BaseAPI {
         this.dataset = {};
       }
     }
-    this.HATCHING = hatch(canvasBuildFunction);
+    this.parameters = Object.fromEntries(
+      Object.entries(this.dataset)
+        .map((pair) => {
+          let v = pair[1];
+          if (v === `null` || v === `undefined`) return [];
+          let d = parseFloat(v);
+          // evaluate "string is number" using == rather than ===
+          return [pair[0], v == d ? d : v];
+        })
+        .filter((v) => v.length)
+    );
     this.addListeners();
     this.setSize(width, height);
     this.currentPoint = false;

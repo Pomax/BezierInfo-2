@@ -1,7 +1,7 @@
 let curve;
 
 setup() {
-    const type = this.type = getParameter(`type`, `quadratic`);
+    const type = this.parameters.type ?? `quadratic`;
     curve = (type === `quadratic`) ? Bezier.defaultQuadratic(this) : Bezier.defaultCubic(this);
     setMovable(curve.points);
 }
@@ -62,7 +62,7 @@ translatePoints(points) {
 
 rotatePoints(points) {
     // rotate so that last point is (...,0)
-    let last = this.type === `quadratic` ? 2 : 3;
+    let last = points.length - 1;
     let dx = points[last].x;
     let dy = points[last].y;
     let a = atan2(dy, dx);

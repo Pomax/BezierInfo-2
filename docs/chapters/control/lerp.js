@@ -2,7 +2,7 @@ setup() {
     const w = this.width,
           h = this.height;
 
-    const degree = this.getParameter(`degree`, 3);
+    const degree = this.parameters.degree ?? 3;
 
     if (degree === 3) {
         this.f = [

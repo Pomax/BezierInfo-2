@@ -1,7 +1,7 @@
 let curve;
 
 setup() {
-  const type = getParameter(`type`, `quadratic`);
+  const type = this.parameters.type ?? `quadratic`;
   curve = (type === `quadratic`) ? Bezier.defaultQuadratic(this) : Bezier.defaultCubic(this);
   setMovable(curve.points);
   setSlider(`.slide-control`, `steps`, (type === `quadratic`) ? 4 : 8);

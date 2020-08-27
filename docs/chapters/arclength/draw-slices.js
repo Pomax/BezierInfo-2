@@ -1,5 +1,5 @@
 setup() {
-    this.steps = getParameter(`steps`, 10);
+    this.steps = this.parameters.steps ?? 10;
 }
 
 draw() {

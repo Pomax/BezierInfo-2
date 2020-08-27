@@ -1,7 +1,7 @@
 let curve;
 
 setup() {
-  let type = getParameter(`type`, `quadratic`);
+  let type = this.parameters.type ?? `quadratic`;
   if (type === `quadratic`) {
       curve = Bezier.defaultQuadratic(this);
   } else {

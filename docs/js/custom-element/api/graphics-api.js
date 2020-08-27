@@ -139,19 +139,6 @@ class GraphicsAPI extends BaseAPI {
   }
 
   /**
-   * Get a parameter specified via data-attribute
-   */
-  getParameter(name, fallback) {
-    let val = this.dataset[name];
-    if (val) {
-      let asFloat = parseFloat(val);
-      if (val == asFloat) return asFloat;
-      return val;
-    }
-    return fallback;
-  }
-
-  /**
    * Set up a slider to control a named, numerical property in the sketch.
    *
    * @param {String} local query selector for the type=range element.
