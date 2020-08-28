@@ -1,8 +1,8 @@
 # Finding Y, given X
 
-One common task that pops up in things like CSS work, or parametric equalisers, or image leveling, or any other number of applications where Bezier curves are used as control curves in a way that there is really only ever one "y" value associated with one "x" value,  you might want to cut out the middle man, as it were, and compute "y" directly based on "x". After all, the function looks simple enough, finding the "y" value should be simple too, right? Unfortunately, not really. However, it _is_ possible and as long as you have some code in place to help, it's not a lot of a work either.
+One common task that pops up in things like CSS work, or parametric equalisers, or image leveling, or any other number of applications where Bézier curves are used as control curves in a way that there is really only ever one "y" value associated with one "x" value,  you might want to cut out the middle man, as it were, and compute "y" directly based on "x". After all, the function looks simple enough, finding the "y" value should be simple too, right? Unfortunately, not really. However, it _is_ possible and as long as you have some code in place to help, it's not a lot of a work either.
 
-We'll be tackling this problem in two stages: the first, which is the hard part, is figuring out which "t" value belongs to any given "x" value. For instance, have a look at the following graphic. On the left we have a Bezier curve that looks for all intents and purposes like it fits our criteria: every "x" has one and only one associated "y" value. On the right we see the function for just the "x" values: that's a cubic curve, but not a really crazy cubic curve. If you move the graphic's slider, you will see a red line drawn that corresponds to the `x` coordinate: this is a vertical line in the left graphic, and a horizontal line on the right.
+We'll be tackling this problem in two stages: the first, which is the hard part, is figuring out which "t" value belongs to any given "x" value. For instance, have a look at the following graphic. On the left we have a Bézier curve that looks for all intents and purposes like it fits our criteria: every "x" has one and only one associated "y" value. On the right we see the function for just the "x" values: that's a cubic curve, but not a really crazy cubic curve. If you move the graphic's slider, you will see a red line drawn that corresponds to the `x` coordinate: this is a vertical line in the left graphic, and a horizontal line on the right.
 
 <graphics-element title="Finding t, given x=x(t). Left: our curve, right: the x=x(t) function" width="550" src="./basics.js">
   <input type="range" min="0" max="1" step="0.01" class="slide-control">
@@ -33,7 +33,7 @@ You might be wondering "where did all the other 'minus x' for all the other valu
 ```
 // prepare our values for root finding:
 x = a value we already know
-xcoord = our set of bezier curve's x coordinates
+xcoord = our set of Bézier curve's x coordinates
 foreach p in xcoord: p.x -= x
 
 // find our root, of which we know there is exactly one:

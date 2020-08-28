@@ -1,10 +1,10 @@
-# Drawing Bezier paths
+# Drawing Bézier paths
 
 - draw with a mouse, stylus, or finger
 - RDP to reduce the number of points along the path
 - abstract curve through points:
-  - high order bezier, split and reduced
-  - fit compound bezier
+  - high order Bézier, split and reduced
+  - fit compound Bézier
   - catmull-rom
 
 <div class="figure">

@@ -8,9 +8,9 @@ What we want is to ensure that the [curvature](https://en.wikipedia.org/wiki/Cur
 
 Problem solved!
 
-However, there's a problem with this approach: if we think about this a little more, we realise that "what a curve looks like" and its derivative values are pretty much entirely unrelated. After all, the section on [reordering curves](#reordering) showed us that the same looking curve can have an infinite number of curve expressions of arbitraryly high Bezier degree, and each of those will have _widly_ different derivative values.
+However, there's a problem with this approach: if we think about this a little more, we realise that "what a curve looks like" and its derivative values are pretty much entirely unrelated. After all, the section on [reordering curves](#reordering) showed us that the same looking curve can have an infinite number of curve expressions of arbitraryly high Bézier degree, and each of those will have _widly_ different derivative values.
 
-So what we really want is some kind of expression that's not based on any particular expression of `t`, but is based on something that is invariant to the _kind_ of function(s) we use to draw our curve. And the prime candidate for this is our curve expression, reparameterised for distance: no matter what order of Bezier curve we use, if we were able to rewrite it as a function of distance-along-the-curve, all those different degree Bezier functions would end up being _the same_ function for "coordinate at some distance D along the curve".
+So what we really want is some kind of expression that's not based on any particular expression of `t`, but is based on something that is invariant to the _kind_ of function(s) we use to draw our curve. And the prime candidate for this is our curve expression, reparameterised for distance: no matter what order of Bézier curve we use, if we were able to rewrite it as a function of distance-along-the-curve, all those different degree Bézier functions would end up being _the same_ function for "coordinate at some distance D along the curve".
 
 We've seen this before... that's the arc length function.
 

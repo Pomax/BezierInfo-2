@@ -3,8 +3,9 @@ let q, c;
 setup() {
   q = new Bezier(this, 60,55, 125,160, 365,165);
   c = new Bezier(this, 385,165, 645,165, 645,70, 750,165);
-
-  setSlider(`.slide-control`, `position`, 0);
+  if (this.parameters.omni) {
+    setSlider(`.slide-control`, `position`, 0);
+  }
   setMovable(q.points.concat(c.points));
 }
 

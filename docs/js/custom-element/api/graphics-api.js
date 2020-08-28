@@ -26,12 +26,6 @@ class GraphicsAPI extends BaseAPI {
       `CENTER`,
       `LEFT`,
       `RIGHT`,
-      `HATCH1`,
-      `HATCH2`,
-      `HATCH3`,
-      `HATCH4`,
-      `HATCH5`,
-      `HATCH6`,
     ];
   }
 
@@ -608,7 +602,7 @@ class GraphicsAPI extends BaseAPI {
   /**
    * convenient axis drawing function
    *
-   *    api.drawAxes(pad, "t",0,1, "S","0%","100%");
+   *    api.drawAxes("t",0,1, "S","0%","100%");
    *
    */
   drawAxes(hlabel, hs, he, vlabel, vs, ve, w, h) {
@@ -619,12 +613,12 @@ class GraphicsAPI extends BaseAPI {
     this.line(0, 0, 0, h);
 
     const hpos = 0 - 5;
-    this.text(`${hlabel} →`, this.width / 2, hpos, this.CENTER);
+    this.text(`${hlabel} →`, w / 2, hpos, this.CENTER);
     this.text(hs, 0, hpos, this.CENTER);
     this.text(he, w, hpos, this.CENTER);
 
     const vpos = -10;
-    this.text(`${vlabel}\n↓`, vpos, this.height / 2, this.RIGHT);
+    this.text(`${vlabel}\n↓`, vpos, h / 2, this.RIGHT);
     this.text(vs, vpos, 0 + 5, this.RIGHT);
     this.text(ve, vpos, h, this.RIGHT);
   }

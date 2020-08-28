@@ -353,7 +353,7 @@ function Bezier(3,t):
 
 <p>Also shown is the interpolation function for a 15<sup>th</sup> order Bézier function. As you can see, the start and end point contribute considerably more to the curve's shape than any other point in the control point set.</p>
 <p>If we want to change the curve, we need to change the weights of each point, effectively changing the interpolations. The way to do this is about as straightforward as possible: just multiply each point with a value that changes its strength. These values are conventionally called "weights", and we can add them to our original Bézier function:</p>
-<script>console.log("LaTeX for 14cb9fbbaae9e7d87ae6bef3ea7a782e failed!");</script>
+<img class="LaTeX SVG" src="./images/chapters/control/14cb9fbbaae9e7d87ae6bef3ea7a782e.svg" width="379px" height="56px" loading="lazy">
 <p>That looks complicated, but as it so happens, the "weights" are actually just the coordinate values we want our curve to have: for an <i>n<sup>th</sup></i> order curve, w<sub>0</sub> is our start coordinate, w<sub>n</sub> is our last coordinate, and everything in between is a controlling coordinate. Say we want a cubic curve that starts at (110,150), is controlled by (25,190) and (210,250) and ends at (210,30), we use this Bézier curve:</p>
 <img class="LaTeX SVG" src="./images/chapters/control/c0d4dbc07b8ec7c0a18ea43c8a386935.svg" width="476px" height="40px" loading="lazy">
 <p>Which gives us the curve we saw at the top of the article:</p>
@@ -637,7 +637,7 @@ function drawCurve(points[], t):
 <section id="matrixsplit">
       <h1><a href="#matrixsplit">Splitting curves using matrices</a></h1>
 <p>Another way to split curves is to exploit the matrix representation of a Bézier curve. In <a href="#matrix">the section on matrices</a>, we saw that we can represent curves as matrix multiplications. Specifically, we saw these two forms for the quadratic and cubic curves respectively: (we'll reverse the Bézier coefficients vector for legibility)</p>
-<script>console.log("LaTeX for 77a11d65d7cffc4b84a85c4bec837792 failed!");</script>
+<img class="LaTeX SVG" src="./images/chapters/matrixsplit/77a11d65d7cffc4b84a85c4bec837792.svg" width="263px" height="55px" loading="lazy">
 <p>and</p>
 <img class="LaTeX SVG" src="./images/chapters/matrixsplit/c58330e12d25c678b593ddbd4afa7c52.svg" width="323px" height="73px" loading="lazy">
 <p>Let's say we want to split the curve at some point <code>t = z</code>, forming two new (obviously smaller) Bézier curves. To find the coordinates for these two Bézier curves, we can use the matrix representation and some linear algebra. First, we separate out the actual "point on the curve" information into a new matrix multiplication:</p>
@@ -1271,8 +1271,8 @@ function getCubicRoots(pa, pb, pc, pd) {
       </section>
 <section id="yforx">
       <h1><a href="#yforx">Finding Y, given X</a></h1>
-<p>One common task that pops up in things like CSS work, or parametric equalisers, or image leveling, or any other number of applications where Bezier curves are used as control curves in a way that there is really only ever one "y" value associated with one "x" value,  you might want to cut out the middle man, as it were, and compute "y" directly based on "x". After all, the function looks simple enough, finding the "y" value should be simple too, right? Unfortunately, not really. However, it <em>is</em> possible and as long as you have some code in place to help, it's not a lot of a work either.</p>
-<p>We'll be tackling this problem in two stages: the first, which is the hard part, is figuring out which "t" value belongs to any given "x" value. For instance, have a look at the following graphic. On the left we have a Bezier curve that looks for all intents and purposes like it fits our criteria: every "x" has one and only one associated "y" value. On the right we see the function for just the "x" values: that's a cubic curve, but not a really crazy cubic curve. If you move the graphic's slider, you will see a red line drawn that corresponds to the <code>x</code> coordinate: this is a vertical line in the left graphic, and a horizontal line on the right.</p>
+<p>One common task that pops up in things like CSS work, or parametric equalisers, or image leveling, or any other number of applications where Bézier curves are used as control curves in a way that there is really only ever one "y" value associated with one "x" value,  you might want to cut out the middle man, as it were, and compute "y" directly based on "x". After all, the function looks simple enough, finding the "y" value should be simple too, right? Unfortunately, not really. However, it <em>is</em> possible and as long as you have some code in place to help, it's not a lot of a work either.</p>
+<p>We'll be tackling this problem in two stages: the first, which is the hard part, is figuring out which "t" value belongs to any given "x" value. For instance, have a look at the following graphic. On the left we have a Bézier curve that looks for all intents and purposes like it fits our criteria: every "x" has one and only one associated "y" value. On the right we see the function for just the "x" values: that's a cubic curve, but not a really crazy cubic curve. If you move the graphic's slider, you will see a red line drawn that corresponds to the <code>x</code> coordinate: this is a vertical line in the left graphic, and a horizontal line on the right.</p>
 <graphics-element title="Finding t, given x=x(t). Left: our curve, right: the x=x(t) function" width="550" height="275" src="./chapters/yforx/basics.js" >
         <fallback-image>
           <img width="550px" height="275px" src="images\chapters\yforx\a6f705eb306c43e5709970b2ccad9d20.png" loading="lazy">
@@ -1291,7 +1291,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 <p>You might be wondering "where did all the other 'minus x' for all the other values a, b, c, and d go?" and the answer there is that they all cancel out, so the only one we actually need to subtract is the one at the end. Handy! So now we just solve this equation using Cardano's algorithm, and we're left with some rather short code:</p>
 <pre><code>// prepare our values for root finding:
 x = a value we already know
-xcoord = our set of bezier curve's x coordinates
+xcoord = our set of Bézier curve's x coordinates
 foreach p in xcoord: p.x -= x
 
 // find our root, of which we know there is exactly one:
@@ -1395,8 +1395,8 @@ y = curve.get(t).y</code></pre>
 <p>For instance, we can start by ensuring that the two curves share an end coordinate, so that there is no "gap" between the end of one and the start of the next curve, but that won't guarantee that things look right: both curves can be going in wildly different directions, and the resulting joined geometry will have a corner in it, rather than a smooth transition from one curve to the next.</p>
 <p>What we want is to ensure that the <a href="https://en.wikipedia.org/wiki/Curvature">curvature</a> at the transition from one curve to the next "looks good". So, we start with a shared coordinate, and then also require that  derivatives for both curves match at that coordinate. That way, we're assured that their tangents line up, which must mean the curve transition is perfectly smooth. We can even make the second, third, etc. derivatives match up for better and better transitions.</p>
 <p>Problem solved!</p>
-<p>However, there's a problem with this approach: if we think about this a little more, we realise that "what a curve looks like" and its derivative values are pretty much entirely unrelated. After all, the section on <a href="#reordering">reordering curves</a> showed us that the same looking curve can have an infinite number of curve expressions of arbitraryly high Bezier degree, and each of those will have <em>widly</em> different derivative values.</p>
-<p>So what we really want is some kind of expression that's not based on any particular expression of <code>t</code>, but is based on something that is invariant to the <em>kind</em> of function(s) we use to draw our curve. And the prime candidate for this is our curve expression, reparameterised for distance: no matter what order of Bezier curve we use, if we were able to rewrite it as a function of distance-along-the-curve, all those different degree Bezier functions would end up being <em>the same</em> function for "coordinate at some distance D along the curve".</p>
+<p>However, there's a problem with this approach: if we think about this a little more, we realise that "what a curve looks like" and its derivative values are pretty much entirely unrelated. After all, the section on <a href="#reordering">reordering curves</a> showed us that the same looking curve can have an infinite number of curve expressions of arbitraryly high Bézier degree, and each of those will have <em>widly</em> different derivative values.</p>
+<p>So what we really want is some kind of expression that's not based on any particular expression of <code>t</code>, but is based on something that is invariant to the <em>kind</em> of function(s) we use to draw our curve. And the prime candidate for this is our curve expression, reparameterised for distance: no matter what order of Bézier curve we use, if we were able to rewrite it as a function of distance-along-the-curve, all those different degree Bézier functions would end up being <em>the same</em> function for "coordinate at some distance D along the curve".</p>
 <p>We've seen this before... that's the arc length function.</p>
 <p>So you might think that in order to find the curvature of a curve, we now need to solve the arc length function itself, and that this would be quite a problem because we just saw that there is no way to actually do that. Thankfully, we don't. We only need to know the <em>form</em> of the arc length function, which we saw above and is fairly simple, rather than needing to <em>solve</em> the arc length function. If we start with the arc length expression and the <a href="http://mathworld.wolfram.com/Curvature.html">run through the steps necessary</a> to determine <em>its</em> derivative (with an alternative, shorter demonstration of how to do this found <a href="https://math.stackexchange.com/a/275324/71940">over on Stackexchange</a>), then the integral that was giving us so much problems in solving the arc length function disappears entirely (because of the <a href="https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus">fundamental theorem of calculus</a>), and what we're left with us some surprisingly simple maths that relates curvature (denoted as κ, "kappa") to—and this is the truly surprising bit—a specific combination of derivatives of our original function.</p>
 <p>Let me highlight what just happened, because it's pretty special:</p>
@@ -1404,7 +1404,7 @@ y = curve.get(t).y</code></pre>
 <li>we wanted to make curves line up, and initially thought to match the curves' derivatives, but</li>
 <li>that turned out to be a really bad choice, so instead</li>
 <li>we picked a function that is basically impossible to work with, and then <em>worked with that</em>, which</li>
-<li>gives us a simple formula that is based on <em>the curves' derivatives</em>.</li>
+<li>gives us a simple formula that is <em>and expression using the curves' derivatives</em>.</li>
 </ol>
 <p><em>That's crazy!</em></p>
 <p>But that's also one of the things that  makes maths so powerful: even if your initial ideas are off the mark, you might be much closer than you thought you were, and the journey from "thinking we're completely wrong" to "actually being remarkably close to being right" is where we can find a lot of insight.</p>
@@ -1425,7 +1425,7 @@ y = curve.get(t).y</code></pre>
 <p>With all of that covered, let's line up some curves! The following graphic gives you two curves that look identical, but use quadratic and cubic functions, respectively. As you can see, despite their derivatives being necessarily different, their curvature (thanks to being derived based on maths that "ignores" specific function derivative, and instead gives a formulat that smooths out any differences) is exactly the same. And because of that, we can put them together such that the point where they overlap has the same curvature for both curves, giving us the smoothest transition.</p>
 <graphics-element title="Matching curvatures for a quadratic and cubic Bézier curve" width="825" height="275" src="./chapters/curvature/curvature.js" >
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\curvature\a98d37a0653461ad4e6065d8277c8834.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\curvature\5fcfb0572cae06717506c84768aa568c.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image></graphics-element>
 
@@ -1434,7 +1434,7 @@ y = curve.get(t).y</code></pre>
 <p>So let's revisit the previous graphic with the curvature visualised on both sides of our curves, as well as showing the circle that "fits" our curve at some point that we can control by using a slider:</p>
 <graphics-element title="(Easier) curvature matching for a quadratic and cubic Bézier curve" width="825" height="275" src="./chapters/curvature/curvature.js" data-omni="true">
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\curvature\1b2e086966d7e8088e4b51a11d9ec063.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\curvature\876d7b2750d7c29068ac6181c3634d25.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image>
   <input type="range" min="0" max="2" step="0.0005" value="0" class="slide-control">
@@ -1445,16 +1445,25 @@ y = curve.get(t).y</code></pre>
       <h1><a href="#tracing">Tracing a curve at fixed distance intervals</a></h1>
 <p>Say you want to draw a curve with a dashed line, rather than a solid line, or you want to move something along the curve at fixed distance intervals over time, like a train along a track, and you want to use Bézier curves.</p>
 <p>Now you have a problem.</p>
-<p>The reason you have a problem is that Bézier curves are parametric functions with non-linear behaviour, whereas moving a train along a track is about as close to a practical example of linear behaviour as you can get. The problem we're faced with is that we can't just pick <em>t</em> values at some fixed interval and expect the Bézier functions to generate points that are spaced a fixed distance apart. In fact, let's look at the relation between "distance long a curve" and "<em>t</em> value", by plotting them against one another.</p>
-<p>The following graphic shows a particularly illustrative curve, and it's length-to-t plot. For linear traversal, this line needs to be straight, running from (0,0) to (length,1). This is, it's safe to say, not what we'll see, we'll see something wobbly instead. To make matters even worse, the length-to-<em>t</em> function is also of a much higher order than our curve is: while the curve we're using for this exercise is a cubic curve, which can switch concave/convex form once at best, the plot shows that the distance function along the curve is able to switch forms three times (to see this, try creating an S curve with the start/end close together, but the control points far apart).</p>
-<Graphic title="The t-for-distance function" setup={this.setup} draw={this.plotOnly}/>
+<p>The reason you have a problem is that Bézier curves are parametric functions with non-linear behaviour, whereas moving a train along a track is about as close to a practical example of linear behaviour as you can get. The problem we're faced with is that we can't just pick <code>t</code> values at some fixed interval and expect the Bézier functions to generate points that are spaced a fixed distance apart. In fact, let's look at the relation between "distance long a curve" and "<code>t</code> value", by plotting them against one another.</p>
+<p>The following graphic shows a particularly illustrative curve, and it's distance-for-t plot. For linear traversal, this line needs to be straight, running from (0,0) to (length,1). That is, it's safe to say, not what we'll see: we'll see something very wobbly, instead. To make matters even worse, the distance-for-t function is also of a much higher order than our curve is: while the curve we're using for this exercise is a cubic curve, which can switch concave/convex form twice at best, the distance function is our old friend the arc length function, which can have more inflection points.</p>
+<graphics-element title="The t-for-distance function" width="550" height="275" src="./chapters/tracing/distance-function.js" >
+        <fallback-image>
+          <img width="550px" height="275px" src="images\chapters\tracing\4f2cd306ec6fa0340ac7f410744b3118.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image></graphics-element>
 
-<p>We see a function that might be invertible, but we won't be able to do so, symbolically. You may remember from the section on arc length that we cannot actually compute the true arc length function as an expression of <em>t</em>, which means we also can't compute the true inverted function that gives <em>t</em> as an expression of length. So how do we fix this?</p>
-<p>One way is to do what the graphic does: simply run through the curve, determine its <em>t</em>-for-length values as a set of discrete values at some high resolution (the graphic uses 100 discrete points), and then use those as a basis for finding an appropriate <em>t</em> value, given a distance along the curve. This works quite well, actually, and is fairly fast.</p>
-<p>We can use some colour to show the difference between distance-based and time based intervals: the following graph is similar to the previous one, except it segments the curve in terms of equal-distance intervals. This shows as regular colour intervals going down the graph, but the mapping to <em>t</em> values is not linear, so there will be (highly) irregular intervals along the horizontal axis. It also shows the curve in an alternating colouring based on the t-for-distance values we find our LUT:</p>
-<Graphic title="Fixed-interval coloring a curve" setup={this.setup} draw={this.drawColoured} onKeyDown={this.props.onKeyDown}/>
+<p>So, how do we "cut up" the arc length function at regular intervals, when we can't really work with it? We basically cheat: we run through the curve using <code>t</code> values, determine the distance-for-this-<code>t</code>-value at each point we generate during the run, and then we find "the closest <code>t</code> value that matches some required distance" using those values instead. If we have a low number of points sampled, we can then even refine which <code>t</code> value "should" work for our desired distance by interpolating between two points, but if we have a high enough number of samples, we don't even need to bother.</p>
+<p>So let's do exactly that: the following graph is similar to the previous one, showing how we would have to "chop up" our distance-for-t curve in order to get regularly spaced points on the curve. It also shows what using those <code>t</code> values on the real curve looks like, by coloring each section of curve between two distance markers differently:</p>
+<graphics-element title="Fixed-interval coloring a curve" width="825" height="275" src="./chapters/tracing/tracing.js" >
+        <fallback-image>
+          <img width="825px" height="275px" src="images\chapters\tracing\25e9697557129c651e9c7cc4e4878b16.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image>
+  <input type="range" min="2" max="24" step="1" value="8" class="slide-control">
+</graphics-element>
 
-<p>Use your up and down arrow keys to increase or decrease the number of equidistant segments used to colour the curve.</p>
+<p>Use the slider to increase or decrease the number of equidistant segments used to colour the curve.</p>
 <p>However, are there better ways? One such way is discussed in "<a href="http://www.geometrictools.com/Documentation/MovingAlongCurveSpecifiedSpeed.pdf">Moving Along a Curve with Specified Speed</a>" by David Eberly of Geometric Tools, LLC, but basically because we have no explicit length function (or rather, one we don't have to constantly compute for different intervals), you may simply be better off with a traditional lookup table (LUT).</p>
 
       </section>
@@ -1673,7 +1682,7 @@ with quadratic or cubic curves:</p>
 <img class="LaTeX SVG" src="./images/chapters/curvefitting/d84d1c71a3ce1918f53eaf8f9fe98ac4.svg" width="168px" height="27px" loading="lazy">
 <p>Here, the "to the power negative one" is the notation for the <a href="https://en.wikipedia.org/wiki/Invertible_matrix">matrix inverse</a>. But that's all we have to do: we're done. Starting with <strong>P</strong> and inventing some <code>t</code> values based on the polygon the coordinates in <strong>P</strong> define, we can compute the corresponding Bézier coordinates <strong>C</strong> that specify a curve that goes through our points. Or, if it can't go through them exactly, as near as possible.</p>
 <p>So before we try that out, how much code is involved in implementing this? Honestly, that answer depends on how much you're going to be writing yourself. If you already have a matrix maths library available, then really not that much code at all. On the other hand, if you are writing this from scratch, you're going to have to write some utility functions for doing your matrix work for you, so it's really anywhere from 50 lines of code to maybe 200 lines of code. Not a bad price to pay for being able to fit curves to prespecified coordinates.</p>
-<p>So let's try it out! The following graphic lets you place points, and will start computing exact-fit curves once you've placed at least three. You can click for more points, and the code will simply try to compute an exact fit using a Bezier curve of the appropriate order. Four points? Cubic Bezier. Five points? Quartic. And so on. Of course, this does break down at some point: depending on where you place your points, it might become mighty hard for the fitter to find an exact fit, and things might actually start looking horribly off once you hit 10<sup>th</sup> or higher order curves. But it might not!</p>
+<p>So let's try it out! The following graphic lets you place points, and will start computing exact-fit curves once you've placed at least three. You can click for more points, and the code will simply try to compute an exact fit using a Bézier curve of the appropriate order. Four points? Cubic Bézier. Five points? Quartic. And so on. Of course, this does break down at some point: depending on where you place your points, it might become mighty hard for the fitter to find an exact fit, and things might actually start looking horribly off once you hit 10<sup>th</sup> or higher order curves. But it might not!</p>
 <div class="figure">
   <Graphic title="Fitting a Bézier curve" setup={this.setup} draw={this.draw} onClick={this.onClick}>
     <button onClick={this.toggle} style="position:absolute; right: 0;">toggle</button>
@@ -1945,7 +1954,7 @@ with quadratic or cubic curves:</p>
 <p>which we can then substitute in the expression for <em>a</em>:</p>
 <img class="LaTeX SVG" src="./images/chapters/circles/ef3ab62bb896019c6157c85aae5d1ed3.svg" width="231px" height="195px" loading="lazy">
 <p>A quick check shows that plugging these values for <em>a</em> and <em>b</em> into the expressions for C<sub>x</sub> and C<sub>y</sub> give the same x/y coordinates for both "<em>a</em> away from A" and "<em>b</em> away from B", so let's continue: now that we know the coordinate values for C, we know where our on-curve point T for <em>t=0.5</em> (or angle φ/2) is, because we can just evaluate the Bézier polynomial, and we know where the circle arc's actual point P is for angle φ/2:</p>
-<script>console.log("LaTeX for fe32474b4616ee9478e1308308f1b6bf failed!");</script>
+<img class="LaTeX SVG" src="./images/chapters/circles/fe32474b4616ee9478e1308308f1b6bf.svg" width="188px" height="32px" loading="lazy">
 <p>We compute T, observing that if <em>t=0.5</em>, the polynomial values (1-t)², 2(1-t)t, and t² are 0.25, 0.5, and 0.25 respectively:</p>
 <img class="LaTeX SVG" src="./images/chapters/circles/e1059e611aa1e51db41f9ce0b4ebb95a.svg" width="252px" height="35px" loading="lazy">
 <p>Which, worked out for the x and y components, gives:</p>

@@ -6,14 +6,29 @@ import { Bezier as Original } from "../../lib/bezierjs/bezier.js";
  */
 class Bezier extends Original {
   static defaultQuadratic(apiInstance) {
+    if (!apiInstance) {
+      throw new Error(
+        `missing reference of API instance in Bezier.defaultQuadratic(instance)`
+      );
+    }
     return new Bezier(apiInstance, 70, 250, 20, 110, 220, 60);
   }
 
   static defaultCubic(apiInstance) {
+    if (!apiInstance) {
+      throw new Error(
+        `missing reference of API instance in Bezier.defaultCubic(instance)`
+      );
+    }
     return new Bezier(apiInstance, 110, 150, 25, 190, 210, 250, 210, 30);
   }
 
   constructor(apiInstance, ...coords) {
+    if (!apiInstance || !apiInstance.setMovable) {
+      throw new Error(
+        `missing reference of API instance in Bezier constructor`
+      );
+    }
     super(...coords);
     this.api = apiInstance;
     this.ctx = apiInstance.ctx;
@@ -74,7 +89,7 @@ class Bezier extends Original {
   drawCurve(color = `#333`) {
     const ctx = this.ctx;
     ctx.cacheStyle();
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1;
     ctx.strokeStyle = color;
     ctx.beginPath();
     const lut = this.getLUT().slice();
