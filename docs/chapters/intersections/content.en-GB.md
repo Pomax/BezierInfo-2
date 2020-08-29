@@ -10,7 +10,7 @@ If we have two line segments with two coordinates each, segments A-B and C-D, we
 
 The following graphic implements this intersection detection, showing a red point for an intersection on the lines our segments lie on (thus being a virtual intersection point), and a green point for an intersection that lies on both segments (being a real intersection point).
 
-<Graphic title="Line/line intersections" setup={this.setupLines} draw={this.drawLineIntersection} />
+<graphics-element title="Line/line intersections" src="./line-line.js"></graphics-element>
 
 <div class="howtocode">
 
@@ -44,7 +44,9 @@ lli = function(line1, line2):
 
 Curve/line intersection is more work, but we've already seen the techniques we need to use in order to perform it: first we translate/rotate both the line and curve together, in such a way that the line coincides with the x-axis. This will position the curve in a way that makes it cross the line at points where its y-function is zero. By doing this, the problem of finding intersections between a curve and a line has now become the problem of performing root finding on our translated/rotated curve, as we already covered in the section on finding extremities.
 
-<Graphic title="Quadratic curve/line intersections" setup={this.setupQuadratic} draw={this.draw}/>
-<Graphic title="Cubic curve/line intersections" setup={this.setupCubic} draw={this.draw}/>
+<div class="figure">
+<graphics-element title="Quadratic curve/line intersections" src="./curve-line.js" data-type="quadratic"></graphics-element>
+<graphics-element title="Cubic curve/line intersections" src="./curve-line.js" data-type="cubic"></graphics-element>
+</div>
 
 Curve/curve intersection, however, is more complicated. Since we have no straight line to align to, we can't simply align one of the curves and be left with a simple procedure. Instead, we'll need to apply two techniques we've met before: de Casteljau's algorithm, and curve splitting.

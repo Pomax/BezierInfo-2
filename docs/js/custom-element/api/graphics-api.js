@@ -128,8 +128,8 @@ class GraphicsAPI extends BaseAPI {
     if (points) this.setMovable(points);
   }
 
-  setMovable(points) {
-    points.forEach((p) => this.movable.push(p));
+  setMovable(...allpoints) {
+    allpoints.forEach((points) => points.forEach((p) => this.movable.push(p)));
   }
 
   /**
@@ -316,6 +316,22 @@ class GraphicsAPI extends BaseAPI {
    */
   noStroke() {
     this.setStroke(false);
+  }
+
+  /**
+   * stroke + fill
+   */
+  setColor(color) {
+    this.setFill(color);
+    this.setStroke(color);
+  }
+
+  /**
+   * no stroke/fill
+   */
+  noColor() {
+    this.noFill();
+    this.noStroke();
   }
 
   /**

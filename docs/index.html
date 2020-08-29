@@ -1474,7 +1474,11 @@ y = curve.get(t).y</code></pre>
 <h3>Line-line intersections</h3>
 <p>If we have two line segments with two coordinates each, segments A-B and C-D, we can find the intersection of the lines these segments are an intervals on by linear algebra, using the procedure outlined in this <a href="http://www.topcoder.com/tc?module=Static&d1=tutorials&d2=geometry2#line_line_intersection">top coder</a> article. Of course, we need to make sure that the intersection isn't just on the lines our line segments lie on, but actually on our line segments themselves. So after we find the intersection, we need to verify that it lies without the bounds of our original line segments.</p>
 <p>The following graphic implements this intersection detection, showing a red point for an intersection on the lines our segments lie on (thus being a virtual intersection point), and a green point for an intersection that lies on both segments (being a real intersection point).</p>
-<Graphic title="Line/line intersections" setup={this.setupLines} draw={this.drawLineIntersection} />
+<graphics-element title="Line/line intersections" width="275" height="275" src="./chapters/intersections/line-line.js" >
+        <fallback-image>
+          <img width="275px" height="275px" src="images\chapters\intersections\61876a2bd727df377619c5ad34ce86be.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image></graphics-element>
 
 <div class="howtocode">
 
@@ -1501,8 +1505,18 @@ lli = function(line1, line2):
 
 <h3>What about curve-line intersections?</h3>
 <p>Curve/line intersection is more work, but we've already seen the techniques we need to use in order to perform it: first we translate/rotate both the line and curve together, in such a way that the line coincides with the x-axis. This will position the curve in a way that makes it cross the line at points where its y-function is zero. By doing this, the problem of finding intersections between a curve and a line has now become the problem of performing root finding on our translated/rotated curve, as we already covered in the section on finding extremities.</p>
-<Graphic title="Quadratic curve/line intersections" setup={this.setupQuadratic} draw={this.draw}/>
-<Graphic title="Cubic curve/line intersections" setup={this.setupCubic} draw={this.draw}/>
+<div class="figure">
+<graphics-element title="Quadratic curve/line intersections" width="275" height="275" src="./chapters/intersections/curve-line.js" data-type="quadratic">
+        <fallback-image>
+          <img width="275px" height="275px" src="images\chapters\intersections\594c2df534a1736c03cd3a96ff4a9913.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image></graphics-element>
+<graphics-element title="Cubic curve/line intersections" width="275" height="275" src="./chapters/intersections/curve-line.js" data-type="cubic">
+        <fallback-image>
+          <img width="275px" height="275px" src="images\chapters\intersections\dc26a6063dadc31d242f1c1c8f38bb5e.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image></graphics-element>
+</div>
 
 <p>Curve/curve intersection, however, is more complicated. Since we have no straight line to align to, we can't simply align one of the curves and be left with a simple procedure. Instead, we'll need to apply two techniques we've met before: de Casteljau's algorithm, and curve splitting.</p>
 

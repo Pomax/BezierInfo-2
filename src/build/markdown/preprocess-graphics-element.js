@@ -57,6 +57,12 @@ async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
         /width="([^"]+)"\s+height="([^"]+)"\s+src="([^"]+)"\s*([^>]*)>/
       );
 
+      if (!terms) {
+        throw new Error(
+          `Bad markup for <graphics-element> while parsing:\n${updated}`
+        );
+      }
+
       const [original, width, height, _, remainder] = terms;
 
       let src = terms[3];
