@@ -155,13 +155,14 @@ class Bezier extends Original {
     return p;
   }
 
-  drawStruts(t) {
+  drawStruts(t, color = `black`) {
     const p = t.forEach ? t : this.getStrutPoints(t);
 
     const api = this.api;
     const ctx = api.ctx;
     ctx.cacheStyle();
     api.noFill();
+    api.setStroke(color);
 
     let s = this.points.length;
     let n = this.points.length;
@@ -176,6 +177,8 @@ class Bezier extends Original {
       s += n;
     }
     ctx.restoreStyle();
+
+    return p;
   }
 
   drawBoundingBox(color) {

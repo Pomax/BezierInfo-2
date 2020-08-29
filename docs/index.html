@@ -1556,49 +1556,49 @@ lli = function(line1, line2):
 <p>De Casteljau's algorithm is the pivotal algorithm when it comes to Bézier curves. You can use it not just to split curves, but also to draw them efficiently (especially for high-order Bézier curves), as well as to come up with curves based on three points and a tangent. Particularly this last thing is really useful because it lets us "mould" a curve, by picking it up at some point, and dragging that point around to change the curve's shape.</p>
 <p>How does that work? Succinctly: we run de Casteljau's algorithm in reverse!</p>
 <p>In order to run de Casteljau's algorithm in reverse, we need a few basic things: a start and end point, a point on the curve that want to be moving around, which has an associated <em>t</em> value, and a point we've not explicitly talked about before, and as far as I know has no explicit name, but lives one iteration higher in the de Casteljau process then our on-curve point does. I like to call it "A" for reasons that will become obvious.</p>
-<p>So let's use graphics instead of text to see where this "A" is, because text only gets us so far: in the following graphic, click anywhere on the curves to see the identity information that we'll be using to run de Casteljau in reverse (you can manipulate the curve even after picking a point. Note the "ratio" value when you do so: does it change?):</p>
+<p>So let's use graphics instead of text to see where this "A" is, because text only gets us so far: move the sliders for the following graphics to see what, given specific <code>t</code> value, our <code>A</code> coordinate is. As well as some other coordinates, which taken together let us derive a value that the graphics call "ratio": if you move the curve's points around, A, B, and C will move, what happens to that value?</p>
 <div class="figure">
-  <Graphic inline={true} title="Projections in a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onClick={this.onClick} />
-  <Graphic inline={true} title="Projections in a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onClick={this.onClick} />
+
+<graphics-element inline={true} title="Projections in a quadratic Bézier curve" width="275" height="275" src="./chapters/abc/abc.js" data-type="quadratic">
+        <fallback-image>
+          <img width="275px" height="275px" src="images\chapters\abc\6e40975c21e70b73954a4dce02b9ba75.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image>
+  <input type="range" min="0" max="1" step="0.01" value="0.5" class="slide-control">
+</graphics-element>
+<graphics-element inline={true} title="Projections in a cubic Bézier curve" width="275" height="275" src="./chapters/abc/abc.js" data-type="cubic">
+        <fallback-image>
+          <img width="275px" height="275px" src="images\chapters\abc\d744a4955a3ff4e2d85760887ea923d4.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image>
+  <input type="range" min="0" max="1" step="0.01" value="0.5" class="slide-control">
+</graphics-element>
+
 </div>
 
-<p>Clicking anywhere on the curves shows us three things:</p>
+<p>So these graphics show us several things:</p>
 <ol>
-<li>our on-curve point; let's call that <b>B</b>,</li>
-<li>a point at the tip of B's "hat", on de Casteljau step up; let's call that <b>A</b>, and</li>
-<li>a point that we get by projecting B onto the start--end baseline; let's call that <b>C</b>.</li>
+<li>a point at the tip of the curve construction's "hat": let's call that <code>A</code>, as well as</li>
+<li>our on-curve point give our chosen <code>t</code> value: let's call that <code>B</code>, and finally,</li>
+<li>a point that we get by projecting A, through B, onto the line between the curve's start and end points: let's call that <code>C</code>.</li>
 </ol>
-<p>These three values A, B, and C hide an important identity formula for quadratic and cubic Bézier curves: for any point on the curve with some <em>t</em> value, the ratio distance of C along the baseline is fixed: if some <em>t</em> value sets up a C that is 20% away from the start and 80% away from the end, then it doesn't matter where the start, end, or control points are; for that <em>t</em> value, C will <em>always</em> lie at 20% from the start and 80% from the end point. Go ahead, pick an on-curve point in either graphic and then move all the other points around: if you only move the control points, start and end won't move, and so neither will C, and if you move either start or end point, C will move but its relative position will not change. The following function stays true:</p>
-<img class="LaTeX SVG" src="./images/chapters/abc/34fe255294faf45ab02128f7997b92ce.svg" width="197px" height="16px" loading="lazy">
-<p>So that just leaves finding A.</p>
-<div class="note">
-
-<p>While that relation is fixed, the function <em>u(t)</em> differs depending on whether we're working
-with quadratic or cubic curves:</p>
-<img class="LaTeX SVG" src="./images/chapters/abc/62f2f984e43a22a6b4bda4d399dedfc6.svg" width="197px" height="87px" loading="lazy">
-<p>So, if we know the start and end coordinates, and we know the <em>t</em> value, we know C:</p>
-<div class="figure">
-  <Graphic inline={true} title="Quadratic value of C for t" draw={this.drawQCT} onMouseMove={this.setCT}/>
-  <Graphic inline={true} title="Cubic value of C for t" draw={this.drawCCT} onMouseMove={this.setCT}/>
-</div>
-
-<p>Mouse-over the graphs to see the expression for C, given the <em>t</em> value at the mouse pointer.</p>
-</div>
-
-<p>There's also another important bit of information that is inherent to the ABC values: while the distances between A and B, and B and C, are dynamic (based on where we put B), the <em>ratio</em> between the two distances is stable. Given some <em>t</em> value, the following always holds:</p>
-<img class="LaTeX SVG" src="./images/chapters/abc/385d1fd4aecbd2066e6e284a84408be6.svg" width="251px" height="39px" loading="lazy">
-<p>This leads to a pretty powerful bit of knowledge: merely by knowing the <em>t</em> value of some on curve point, we know where C has to be (as per the above note), and because we know B and C, and thus have the distance between them, we know where A has to be:</p>
-<img class="LaTeX SVG" src="./images/chapters/abc/12aaf0d7fd20b3c551a0ec76b18bd7d2.svg" width="217px" height="37px" loading="lazy">
-<p>And that's it, all values found.</p>
-<div class="note">
-
-<p>Much like the <em>u(t)</em> function in the above note, the <em>ratio(t)</em> function depends on whether we're looking at quadratic or cubic curves. Their form is intrinsically related to the <em>u(t)</em> function in that they both come rolling out of the same function evaluation, explained over on <a href="http://mathoverflow.net/questions/122257/finding-the-formula-for-B%C3%A9zier-curve-ratios-hull-point-point-baseline">MathOverflow</a> by Boris Zbarsky and myself. The ratio functions are the "s(t)" functions from the answers there, while the "u(t)" functions have the same name both here and on MathOverflow.</p>
-<img class="LaTeX SVG" src="./images/chapters/abc/059000c5c8a37dcc8d7fa04154a05df3.svg" width="245px" height="41px" loading="lazy">
-<img class="LaTeX SVG" src="./images/chapters/abc/b4987e9b77b0df604238b88596c5f7c3.svg" width="223px" height="41px" loading="lazy">
-<p>Unfortunately, this trick only works for quadratic and cubic curves. Once we hit higher order curves, things become a lot less predictable; the "fixed point <em>C</em>" is no longer fixed, moving around as we move the control points, and projections of <em>B</em> onto the line between start and end may actually lie on that line before the start, or after the end, and there are no simple ratios that we can exploit.</p>
-</div>
-
-<p>So: if we know B and its corresponding <em>t</em> value, then we know all the ABC values, which —together with a start and end coordinate— gives us the necessary information to reconstruct a curve's "de Casteljau skeleton", which means that two points and a value between 0 and 1, we can come up with a curve. And that opens up possibilities: curve manipulation by dragging an on-curve point, as well as curve fitting of "a bunch of coordinates". These are useful things, and we'll look at both in the next sections.</p>
+<p>These three values A, B, and C allow us to derive an important identity formula for quadratic and cubic Bézier curves: for any point on the curve with some <code>t</code> value, the ratio of distances from A to B and B to C is fixed: if some <code>t</code> value sets up a C that is 20% away from the start and 80% away from the end, then <em>it doesn't matter where the start, end, or control points are</em>; for that <code>t</code> value, <code>C</code> will <em>always</em> lie at 20% from the start and 80% from the end point. Go ahead, pick an on-curve point in either graphic and then move all the other points around: if you only move the control points, start and end won't move, and so neither will C, and if you move either start or end point, C will move but its relative position will not change.</p>
+<p>So, how can we compute <code>C</code>? We start with our observation that <code>C</code> always lies somewhere between the start and ends points, so logically <code>C</code> will have a function that interpolates between those two coordinates:</p>
+<img class="LaTeX SVG" src="./images/chapters/abc/cd2e47cdc2e23ec86cd1ca1cb4286645.svg" width="241px" height="17px" loading="lazy">
+<p>If we can figure out what the function <code>u(t)</code> looks like, we'll be done. Although we do need to remember that this <code>u(t)</code> will have a different for depending on whether we're working with quadratic or cubic curves. <a href="http://mathoverflow.net/questions/122257/finding-the-formula-for-B%C3%A9zier-curve-ratios-hull-point-point-baseline">Running through the maths</a> (with thanks to Boris Zbarsky) shows us the following two formulae:</p>
+<img class="LaTeX SVG" src="./images/chapters/abc/5484dc53e408a4259891a65212ef8636.svg" width="192px" height="40px" loading="lazy">
+<p>And</p>
+<img class="LaTeX SVG" src="./images/chapters/abc/63fbe4e666a7dad985ec4110e17c249f.svg" width="167px" height="40px" loading="lazy">
+<p>So, if we know the start and end coordinates, and we know the <em>t</em> value, we know C, without having to calculate the <code>A</code> or even <code>B</code> coordinates. In fact, we can do the same for the ratio function: as another function of <code>t</code>, we technically don't need to know what <code>A</code> or <code>B</code> or <code>C</code> are, we can express it was a pure function of <code>t</code>, too.</p>
+<p>We start by observing that, given <code>A</code>, <code>B</code>, and <code>C</code>, the following always holds:</p>
+<img class="LaTeX SVG" src="./images/chapters/abc/385d1fd4aecbd2066e6e284a84408be6.svg" width="272px" height="39px" loading="lazy">
+<p>Working out the maths for this, we see the following two formulae for quadratic and cubic curves:</p>
+<img class="LaTeX SVG" src="./images/chapters/abc/059000c5c8a37dcc8d7fa04154a05df3.svg" width="255px" height="41px" loading="lazy">
+<p>And</p>
+<img class="LaTeX SVG" src="./images/chapters/abc/b4987e9b77b0df604238b88596c5f7c3.svg" width="228px" height="41px" loading="lazy">
+<p>Which now leaves us with some powerful tools: given thee points (start, end, and "some point on the curve"), as well as a <code>t</code> value, we can <em>contruct</em> curves: we can compute <code>C</code> using the start and end points, and our <code>u(t)</code> function, and once we have <code>C</code>, we can use our on-curve point (<code>B</code>) and the <code>ratio(t)</code> function to find <code>A</code>:</p>
+<img class="LaTeX SVG" src="./images/chapters/abc/12aaf0d7fd20b3c551a0ec76b18bd7d2.svg" width="231px" height="39px" loading="lazy">
+<p>So: if we have a curve's start and end point, then for any <code>t</code> value, we implicitly know all the ABC values, which gives us the necessary information to reconstruct a curve's "de Casteljau skeleton". Which means that we can now do several things: we can "fit" curves using only three points, which means we can also "mould" curves by moving an on-curve point but leaving its start and end point, and then reconstructing the curve based on where we moved the on-curve point to. These are very useful things, and we'll look at both in the next sections.</p>
 
       </section>
 <section id="moulding">
