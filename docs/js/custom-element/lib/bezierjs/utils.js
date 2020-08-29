@@ -805,7 +805,7 @@ const utils = {
       ];
     }
 
-    const cc1 = c1.split(0.5),
+    let cc1 = c1.split(0.5),
       cc2 = c2.split(0.5),
       pairs = [
         { left: cc1.left, right: cc2.left },
@@ -818,7 +818,7 @@ const utils = {
       return utils.bboxoverlap(pair.left.bbox(), pair.right.bbox());
     });
 
-    const results = [];
+    let results = [];
 
     if (pairs.length === 0) return results;
 

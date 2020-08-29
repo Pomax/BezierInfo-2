@@ -1515,24 +1515,31 @@ lli = function(line1, line2):
 <section id="curveintersection">
       <h1><a href="zh-CN/index.html#curveintersection">Curve/curve intersection</a></h1>
 <p>Using de Casteljau's algorithm to split the curve we can now implement curve/curve intersection finding using a "divide and conquer" technique:</p>
-<ul>
+<ol>
 <li>Take two curves <em>C<sub>1</sub></em> and <em>C<sub>2</sub></em>, and treat them as a pair.</li>
 <li>If their bounding boxes overlap, split up each curve into two sub-curves</li>
 <li>With <em>C<sub>1.1</sub></em>, <em>C<sub>1.2</sub></em>, <em>C<sub>2.1</sub></em> and <em>C<sub>2.2</sub></em>, form four new pairs (<em>C<sub>1.1</sub></em>,<em>C<sub>2.1</sub></em>), (<em>C<sub>1.1</sub></em>, <em>C<sub>2.2</sub></em>), (<em>C<sub>1.2</sub></em>,<em>C<sub>2.1</sub></em>), and (<em>C<sub>1.2</sub></em>,<em>C<sub>2.2</sub></em>).</li>
-<li>For each pair, check whether their bounding boxes overlap.<ul>
+<li>For each pair, check whether their bounding boxes overlap.<ol>
 <li>If their bounding boxes do not overlap, discard the pair, as there is no intersection between this pair of curves.</li>
 <li>If there <em>is</em> overlap, rerun all steps for this pair.</li>
-</ul>
+</ol>
 </li>
 <li>Once the sub-curves we form are so small that they effectively occupy sub-pixel areas, we consider an intersection found, noting that we might have a cluster of multiple intersections at the sub-pixel level, out of which we pick one to act as "found" <code>t</code> value (we can either throw all but one away, we can average the cluster's <code>t</code> values, or you can do something even more creative).</li>
-</ul>
+</ol>
 <p>This algorithm will start with a single pair, "balloon" until it runs in parallel for a large number of potential sub-pairs, and then taper back down as it homes in on intersection coordinates, ending up with as many pairs as there are intersections.</p>
-<p>The following graphic applies this algorithm to a pair of cubic curves, one step at a time, so you can see the algorithm in action. Click the button to run a single step in the algorithm, after setting up your curves in some creative arrangement. The algorithm resets once it's found a solution, so you can try this with lots of different curves (can you find the configuration that yields the maximum number of intersections between two cubic curves? Nine intersections!)</p>
-<Graphic title="Curve/curve intersections" setup={this.setup} draw={this.draw}>
-  <button onClick={this.stepUp}>advance one step</button>
-</Graphic>
+<p>The following graphic applies this algorithm to a pair of cubic curves, one step at a time, so you can see the algorithm in action. Click the button to run a single step in the algorithm, after setting up your curves in some creative arrangement. You can also change the value that is used in step 5 to determine whether the curves are small enough. Manipulating the curves or changing the threshold will reset the algorithm, so you can try this with lots of different curves.</p>
+<p>(can you find the configuration that yields the maximum number of intersections between two cubic curves? Nine intersections!)</p>
+<graphics-element title="Curve/curve intersections" width="825" height="275" src="./chapters/curveintersection/curve-curve.js" >
+        <fallback-image>
+          <img width="825px" height="275px" src="images\chapters\curveintersection\a71619a14589851390cf88aa07042d3e.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image>
+  <input type="range" min="0.01" max="1" step="0.01" value="1" class="slide-control">
+  <button class="next">Advance one step</button>
+  <button class="reset">Reset</button>
+</graphics-element>
 
-<p>Self-intersection is dealt with in the same way, except we turn a curve into two or more curves first based on the inflection points. We then form all possible curve pairs with the resultant segments, and run exactly the same algorithm. All non-overlapping curve pairs will be removed after the first iteration, and the remaining steps home in on the curve's self-intersection points.</p>
+<p>Finding self-intersections is effectively the same procedure, except that we're starting with a single curve, so we need to turn that into two separate curves first. This is trivially achieved by splitting at an inflection point, or if there are none, just splitting at <code>t=0.5</code> first, and then running the exact same algorithm as above, with all non-overlapping curve pairs getting removed at each iteration, and each successive step homing in on the curve's self-intersection points.</p>
 
       </section>
 <section id="abc">

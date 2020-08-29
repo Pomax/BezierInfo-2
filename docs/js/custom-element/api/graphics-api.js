@@ -123,13 +123,27 @@ class GraphicsAPI extends BaseAPI {
     this.currentPoint = false;
   }
 
-  resetMovable(points) {
+  resetMovable(...allpoints) {
     this.movable.splice(0, this.movable.length);
-    if (points) this.setMovable(points);
+    if (allpoints) this.setMovable(...allpoints);
   }
 
   setMovable(...allpoints) {
     allpoints.forEach((points) => points.forEach((p) => this.movable.push(p)));
+  }
+
+  /**
+   * Multi-panel graphics: set panel count
+   */
+  setPanelCount(c) {
+    this.panelWidth = this.width / c;
+  }
+
+  /**
+   * Multi-panel graphics: set up (0,0) to the next panel's start
+   */
+  nextPanel(c) {
+    this.translate(this.panelWidth, 0);
   }
 
   /**
@@ -156,11 +170,13 @@ class GraphicsAPI extends BaseAPI {
     slider.value = initial;
     this[propname] = parseFloat(slider.value);
 
+    let handlerName = `on${propname[0].toUpperCase()}${propname
+      .substring(1)
+      .toLowerCase()}`;
     slider.listen(`input`, (evt) => {
       this[propname] = parseFloat(evt.target.value);
-      if (redraw && !this.redrawing) {
-        this.redraw();
-      }
+      if (this[handlerName]) this[handlerName](this[propname]);
+      if (redraw && !this.redrawing) this.redraw();
     });
 
     return slider;

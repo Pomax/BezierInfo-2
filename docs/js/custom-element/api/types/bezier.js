@@ -177,6 +177,20 @@ class Bezier extends Original {
     }
     ctx.restoreStyle();
   }
+
+  drawBoundingBox(color) {
+    let bbox = this.bbox(),
+      mx = bbox.x.min,
+      my = bbox.y.min,
+      MX = bbox.x.max,
+      MY = bbox.y.max,
+      api = this.api;
+    api.cacheStyle();
+    api.noFill();
+    api.setStroke(color ? color : `black`);
+    api.rect(mx, my, MX - mx, MY - my);
+    api.restoreStyle();
+  }
 }
 
 export { Bezier };
