@@ -24,8 +24,8 @@ In addition to the `A`, `B`, and `C` values, we also see the points `e1` and `e2
 
 \[
     \left \{ \begin{aligned}
-    v1 &= A' - \frac{A' - e1}{1 - t} \\
-    v2 &= A' - \frac{A' - e2}{t}
+    v_1 &= A' - \frac{A' - e_1}{1 - t} \\
+    v_2 &= A' - \frac{A' - e_2}{t}
     \end{aligned} \right .
 \]
 
@@ -33,8 +33,8 @@ After which computing the new control points is straight-forward:
 
 \[
     \left \{ \begin{aligned}
-    C1' &= start + \frac{v1 - start}{t} \\
-    C2' &= end + \frac{v2 - end}{1 - t}
+    C_1' &= start + \frac{v_1 - start}{t} \\
+    C_2' &= end + \frac{v_2 - end}{1 - t}
     \end{aligned} \right .
 \]
 
@@ -42,7 +42,42 @@ So let's put that into practice:
 
 <graphics-element title="Moulding a cubic Bézier curve" width="825" src="./moulding.js" data-type="cubic"></graphics-element>
 
-So that looks pretty good, but you may not like having `e1` and `e2` stay the same distances away from `B'` while moving the point around. An alternative is to scale the distances of `e1` and `e2` to `B'` to match the scaling that `A`--`C` undergoes as `A'`--`C`' - whether this looks better or not depends somewhat on your intention as programmer or user, of course, so the following graphic applies this scaling, but it's up to you to decide whether or not that looks better (or, more appropriately, under which circumstances you might want to apply this scaling vs. when you might not):
+So that looks pretty good, but you may not like having `e1` and `e2` stay the same distances away from `B'` while moving the point around, and want to rearrange those to lead to "cleaner looking" curve manipulation. Unfortunately, there are so many differen ways in which we can do this that figuring out "good looking" alternatives, given what the curve is being manipulated for, could be an entire book on its own... so we're only going to look at one way that you might effect alternative `e1` and `e2` points, based on the idea of rotating a vector.
 
-<graphics-element title="Moulding a cubic Bézier curve" width="825" src="./moulding.js" data-type="cubic" data-scaling="true"></graphics-element>
+If we treat point `B` as a "a vector originating at `C`" then we can treat the points `e1` and `e2` as offets (let's call these `d1` and `d2`) of that vector, where:
 
+\[
+  \left \{ \begin{aligned}
+    e_1 &= B + d_1 \\
+    e_2 &= B + d_2
+  \end{aligned} \right .
+\]
+
+Which means that:
+
+\[
+  \left \{ \begin{aligned}
+    d_1 &= e_1 - B\\
+    d_2 &= e_2 - B
+  \end{aligned} \right .
+\]
+
+Now, if we now `B` to some new coordinate `B'` we can treat that "moving of the coordinate" as a rotation and scaling of the vector for `B` instead. If the new point `B'` is the same distance away from `C` as `B` was, this is a pure rotation, but otherwise the length of the vector has decreased or increased by some factor.
+
+We can use both those values to change where `e1` and `e2` end up, and thus how our curve moulding "feels", by placing new `e1'` and `e2'` where:
+
+\[
+  \left \{ \begin{aligned}
+    angle &= atan2(B_y-C_y,B_x-C_x) - atan2(B_y\prime-C.y, B_x\prime-C.x) \\
+    e_1' &= B' + scale \cdot rotate(d_1, B', angle) \\
+    e_2' &= B' + scale \cdot rotate(d_2, B', angle)
+  \end{aligned} \right .
+\]
+
+Here, the `rotate()` function rotates a vector (in this case `d1` or `d2`) around some point (in this case, `B'`), by some angle (in this case, the angle by which we rotated our original `B` to become `B'`). So what does _that_ look like?
+
+<graphics-element title="Moulding a cubic Bézier curve" width="825" src="./moulding.js" data-type="cubic" data-alternative="true"></graphics-element>
+
+As you can see, this is both better, and worse, depending on what you're trying to do with the curve, and there are many different ways in which you can try to change `e1` and `e2` such that they behave "as users would expect them to" based on the context in which you're implementing curve moulding. You might want to add reflections when `B'` crosses the baseline, or even some kind of weight-swapping when `B'` crosses the midline (perpendicular to the baseline, at its mid point), and instead of scaling both points with respects to `C`, you might want to scale them to coordinates 1/2rd and 2/3rd along the baseline, etc. etc.
+
+There are too many options to go over here, so: the best behaviour is, of course, the behaviour _you_ think is best, and it might be a lot of work to find that and/or implement that!

@@ -1629,7 +1629,7 @@ for (coordinate, index) in LUT:
 <p>Armed with knowledge of the "ABC" relation, we can now update a curve interactively, by letting people click anywhere on the curve, find the <em>t</em>-value matching that coordinate, and then letting them drag that point around. With every drag update we'll have a new point "B", which we can combine with the fixed point "C" to find our new point A. Once we have those, we can reconstruct the de Casteljau skeleton and thus construct a new curve with the same start/end points as the original curve, passing through the user-selected point B, with correct new control points.</p>
 <graphics-element title="Moulding a quadratic Bézier curve" width="825" height="275" src="./chapters/moulding/moulding.js" data-type="quadratic">
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\moulding\53cf83a9d9f2173d3212ca87f380f071.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\moulding\adc7e0785dade356b62fadcd903e73d9.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image></graphics-element>
 
@@ -1647,23 +1647,33 @@ for (coordinate, index) in LUT:
 </graphics-element>
 
 <p>In addition to the <code>A</code>, <code>B</code>, and <code>C</code> values, we also see the points <code>e1</code> and <code>e2</code>, without which constructing our de Casteljau "strut lines" becomes very difficult indeed; as well as the points <code>v1</code> and <code>v2</code>, which we can construct when we know our ABC values enriched with <code>e1</code> and <code>e2</code>:</p>
-<img class="LaTeX SVG" src="./images/chapters/moulding/8e99a48e3227c97233c4933b5adcb080.svg" width="140px" height="75px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/moulding/bc245327e0b011712168bad1c48dfec4.svg" width="139px" height="75px" loading="lazy">
 <p>After which computing the new control points is straight-forward:</p>
-<img class="LaTeX SVG" src="./images/chapters/moulding/e787b4456ccf03c0481f1731c5c32add.svg" width="187px" height="72px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/moulding/3c696e0364d61b1391695342707d6ccc.svg" width="177px" height="72px" loading="lazy">
 <p>So let's put that into practice:</p>
 <graphics-element title="Moulding a cubic Bézier curve" width="825" height="275" src="./chapters/moulding/moulding.js" data-type="cubic">
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\moulding\a0df70324a97e780df772a837c5f1c31.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\moulding\b9928928e1f622e66b59e4a59cfac925.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image></graphics-element>
 
-<p>So that looks pretty good, but you may not like having <code>e1</code> and <code>e2</code> stay the same distances away from <code>B'</code> while moving the point around. An alternative is to scale the distances of <code>e1</code> and <code>e2</code> to <code>B'</code> to match the scaling that <code>A</code>--<code>C</code> undergoes as <code>A'</code>--<code>C</code>' - whether this looks better or not depends somewhat on your intention as programmer or user, of course, so the following graphic applies this scaling, but it's up to you to decide whether or not that looks better (or, more appropriately, under which circumstances you might want to apply this scaling vs. when you might not):</p>
-<graphics-element title="Moulding a cubic Bézier curve" width="825" height="275" src="./chapters/moulding/moulding.js" data-type="cubic" data-scaling="true">
+<p>So that looks pretty good, but you may not like having <code>e1</code> and <code>e2</code> stay the same distances away from <code>B'</code> while moving the point around, and want to rearrange those to lead to "cleaner looking" curve manipulation. Unfortunately, there are so many differen ways in which we can do this that figuring out "good looking" alternatives, given what the curve is being manipulated for, could be an entire book on its own... so we're only going to look at one way that you might effect alternative <code>e1</code> and <code>e2</code> points, based on the idea of rotating a vector.</p>
+<p>If we treat point <code>B</code> as a "a vector originating at <code>C</code>" then we can treat the points <code>e1</code> and <code>e2</code> as offets (let's call these <code>d1</code> and <code>d2</code>) of that vector, where:</p>
+<img class="LaTeX SVG" src="./images/chapters/moulding/65c9a6f8a210d41b18f20e4da1ba1403.svg" width="95px" height="49px" loading="lazy">
+<p>Which means that:</p>
+<img class="LaTeX SVG" src="./images/chapters/moulding/28e90ffa101453e4c030174d36d185a5.svg" width="96px" height="49px" loading="lazy">
+<p>Now, if we now <code>B</code> to some new coordinate <code>B'</code> we can treat that "moving of the coordinate" as a rotation and scaling of the vector for <code>B</code> instead. If the new point <code>B'</code> is the same distance away from <code>C</code> as <code>B</code> was, this is a pure rotation, but otherwise the length of the vector has decreased or increased by some factor.</p>
+<p>We can use both those values to change where <code>e1</code> and <code>e2</code> end up, and thus how our curve moulding "feels", by placing new <code>e1'</code> and <code>e2'</code> where:</p>
+<img class="LaTeX SVG" src="./images/chapters/moulding/54e423d1eb61157abd3acffc5271c3ac.svg" width="465px" height="67px" loading="lazy">
+<p>Here, the <code>rotate()</code> function rotates a vector (in this case <code>d1</code> or <code>d2</code>) around some point (in this case, <code>B'</code>), by some angle (in this case, the angle by which we rotated our original <code>B</code> to become <code>B'</code>). So what does <em>that</em> look like?</p>
+<graphics-element title="Moulding a cubic Bézier curve" width="825" height="275" src="./chapters/moulding/moulding.js" data-type="cubic" data-alternative="true">
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\moulding\9de1da4f061d324415321a5ef688f067.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\moulding\db817c3899e954da6c882e4699a49353.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image></graphics-element>
 
+<p>As you can see, this is both better, and worse, depending on what you're trying to do with the curve, and there are many different ways in which you can try to change <code>e1</code> and <code>e2</code> such that they behave "as users would expect them to" based on the context in which you're implementing curve moulding. You might want to add reflections when <code>B'</code> crosses the baseline, or even some kind of weight-swapping when <code>B'</code> crosses the midline (perpendicular to the baseline, at its mid point), and instead of scaling both points with respects to <code>C</code>, you might want to scale them to coordinates 1/2rd and 2/3rd along the baseline, etc. etc.</p>
+<p>There are too many options to go over here, so: the best behaviour is, of course, the behaviour <em>you</em> think is best, and it might be a lot of work to find that and/or implement that!</p>
 
       </section>
 <section id="pointcurves">

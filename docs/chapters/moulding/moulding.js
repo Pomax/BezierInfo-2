@@ -1,4 +1,4 @@
-let curve;
+let curve, utils = Bezier.getUtils();
 
 setup() {
     setPanelCount(3);
@@ -84,14 +84,14 @@ drawQuadraticMark() {
 }
 
 drawCubicMark() {
-    let {B, t, e1, e2} = this.mark;
-    let d1 = { x: e1.x - B.x, y: e1.y - B.y};
-    let d2 = { x: e2.x - B.x, y: e2.y - B.y};
+    let {B, t, e1, e2, d1, d2} = this.mark;
+    let oB = B;
+
     setFill(`black`);
     text(`t = ${t.toFixed(2)}`, B.x + 5, B.y + 10);
 
     let {A, C, S, E} = curve.getABC(this.mark.t, B);
-    let olen = dist(A.x, A.y, C.x, C.y);
+    let olen = dist(B.x, B.y, C.x, C.y);
     setColor(`lightblue`);
     line(S.x, S.y, E.x, E.y);
     line(A.x, A.y, C.x, C.y);
@@ -104,11 +104,27 @@ drawCubicMark() {
 
     if (this.currentPoint) {
         let {A,B,C,S,E} = curve.getABC(this.mark.t, this.position);
+        let st1 = { x: B.x + d1.x, y: B.y + d1.y };
+        let st2 = { x: B.x + d2.x, y: B.y + d2.y };
 
-        let nlen = dist(A.x, A.y, C.x, C.y);
-        let f = this.parameters.scaling ? nlen/olen : 1;
-        let e1 = { x: B.x + f * d1.x, y: B.y + f * d1.y };
-        let e2 = { x: B.x + f * d2.x, y: B.y + f * d2.y };
+        if (this.parameters.alternative) {
+            let nlen = dist(B.x, B.y, C.x, C.y);
+            let scale = nlen/olen;
+            let angle = atan2(B.y-C.y, B.x-C.x) - atan2(oB.y-C.y, oB.x-C.x);
+
+            st1 = {
+                x: B.x + scale * d1.x * cos(angle) - scale * d1.y * sin(angle),
+                y: B.y + scale * d1.x * sin(angle) + scale * d1.y * cos(angle)
+            };
+
+            st2 = {
+                x: B.x + scale * d2.x * cos(angle) - scale * d2.y * sin(angle),
+                y: B.y + scale * d2.x * sin(angle) + scale * d2.y * cos(angle)
+            };
+        }
+
+        e1 = st1;
+        e2 = st2;
 
         setColor(`purple`);
         line(A.x, A.y, C.x, C.y);
@@ -171,11 +187,13 @@ onMouseDown() {
             };
         } else {
             let struts = curve.getStrutPoints(t);
-            this.mark = {
+            let m = this.mark = {
                 t, B: this.position.projection,
                 e1: struts[7],
                 e2: struts[8]
             };
+            m.d1 = { x: m.e1.x - m.B.x, y: m.e1.y - m.B.y};
+            m.d2 = { x: m.e2.x - m.B.x, y: m.e2.y - m.B.y};
         }
     }
     redraw();
