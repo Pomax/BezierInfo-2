@@ -7,7 +7,6 @@ setup() {
 }
 
 draw() {
-    resetTransform();
     clear(`white`);
     this.drawBasics();
     this.drawPointCurve();
@@ -95,7 +94,7 @@ drawOnCurve(np4, i) {
 }
 
 drawCurveCoordinates() {
-    this.resetTransform();
+    resetTransform();
     curve.drawPoints();
     translate(this.height, 0);
     curve.drawPoints();

@@ -4,7 +4,6 @@ setup() {
 }
 
 draw() {
-    resetTransform();
     clear();
 
     if (this.canonicalMap) {

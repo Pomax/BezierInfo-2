@@ -7,7 +7,6 @@ setup() {
 }
 
 draw() {
-  resetTransform();
   clear();
 
   curve.drawSkeleton();

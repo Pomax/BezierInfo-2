@@ -34,8 +34,11 @@ class Bezier extends Original {
     this.ctx = apiInstance.ctx;
   }
 
-  getPointNear(point, d = 5) {
-    const { x, y } = point;
+  project(x, y) {
+    return super.project({ x, y });
+  }
+
+  getPointNear(x, y, d = 5) {
     const p = this.points;
     for (let i = 0, e = p.length; i < e; i++) {
       let dx = Math.abs(p[i].x - x);
@@ -44,46 +47,6 @@ class Bezier extends Original {
         return p[i];
       }
     }
-  }
-
-  getProjectionPoint(point) {
-    const { x, y } = point;
-    // project this point onto the curve and return _that_ point
-    const n = this.lut.length - 1,
-      p = this.points;
-
-    let d,
-      closest,
-      smallestDistance = Number.MAX_SAFE_INTEGER;
-
-    // coarse check
-    this.lut.forEach((p, i) => {
-      d = p.dist(x, y);
-      if (d < smallestDistance) {
-        smallestDistance = d;
-        p.t = i / n;
-        closest = p;
-      }
-    });
-
-    // fine check
-    for (let o = -0.1, t, np, st = closest.t; o <= 0.1; o += 0.005) {
-      t = st + o;
-      if (t < 0) continue;
-      if (t > 1) continue;
-      np = new Point(
-        compute(t, p[0].x, p[1].x, p[2].x, p[3].x),
-        compute(t, p[0].y, p[1].y, p[2].y, p[3].y)
-      );
-      d = np.dist(x, y);
-      if (d < smallestDistance) {
-        smallestDistance = d;
-        closest = np;
-        closest.t = t;
-      }
-    }
-
-    return closest;
   }
 
   drawCurve(color = `#333`) {

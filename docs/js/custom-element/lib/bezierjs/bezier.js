@@ -32,7 +32,7 @@ function getABC(n, S, B, E, t) {
       x: B.x + (B.x - C.x) / s,
       y: B.y + (B.y - C.y) / s,
     };
-  return { A: A, B: B, C: C };
+  return { A, B, C };
 }
 
 /**
@@ -238,6 +238,15 @@ class Bezier {
     return utils.length(this.derivative.bind(this));
   }
 
+  getABC(t, B) {
+    let S = this.points[0];
+    let E = this.points[this.order];
+    let ret = getABC(this.order, S, B || this.get(t), E, t);
+    ret.S = S;
+    ret.E = E;
+    return ret;
+  }
+
   getLUT(steps) {
     this.verify();
     steps = steps || 100;
@@ -248,8 +257,11 @@ class Bezier {
     // We want a range from 0 to 1 inclusive, so
     // we decrement and then use <= rather than <:
     steps--;
-    for (let t = 0; t <= steps; t++) {
-      this._lut.push(this.compute(t / steps));
+    for (let i = 0, p, t; i < steps; i++) {
+      t = i / (steps - 1);
+      p = this.compute(t);
+      p.t = t;
+      this._lut.push(p);
     }
     return this._lut;
   }

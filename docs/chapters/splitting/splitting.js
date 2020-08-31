@@ -7,7 +7,6 @@ setup() {
 }
 
 draw() {
-    resetTransform();
     clear();
 
     let p = curve.get(this.position);

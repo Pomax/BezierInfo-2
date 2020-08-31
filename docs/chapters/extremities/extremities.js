@@ -12,7 +12,6 @@ setup() {
 }
 
 draw() {
-    resetTransform();
     clear();
     const dim = this.height;
     const degree = curve.points.length - 1;

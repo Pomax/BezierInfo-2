@@ -44,7 +44,6 @@ binomial(n,k) {
 }
 
 draw() {
-    resetTransform();
     clear();
     setFill(`black`);
     setStroke(`black`);

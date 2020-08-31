@@ -436,12 +436,13 @@ class GraphicsAPI extends BaseAPI {
   /**
    * Reset the canvas bitmap to a uniform color.
    */
-  clear(color = `white`) {
+  clear(color = `white`, preserveTransforms = false) {
     this.ctx.cacheStyle();
     this.resetTransform();
     this.ctx.fillStyle = color;
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.restoreStyle();
+    if (!preserveTransforms) this.resetTransform();
   }
 
   /**

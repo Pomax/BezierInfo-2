@@ -45,6 +45,7 @@ export default [
 
   // curve manipulation
   'abc',
+  'projections',
   'moulding',
   'pointcurves',
   'curvefitting',
@@ -59,7 +60,6 @@ export default [
   // 'drawing', // still just waiting to be finished......
 
   // curve offsetting
-  'projections',
   'offsetting',
   'graduatedoffset',
 

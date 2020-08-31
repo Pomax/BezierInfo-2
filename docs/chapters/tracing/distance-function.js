@@ -6,7 +6,6 @@ setup(api) {
 }
 
 draw() {
-  resetTransform();
   clear();
 
   curve.drawSkeleton();

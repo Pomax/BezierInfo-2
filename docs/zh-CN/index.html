@@ -95,6 +95,7 @@
 <li><a href="zh-CN/index.html#intersections">Intersections</a></li>
 <li><a href="zh-CN/index.html#curveintersection">Curve/curve intersection</a></li>
 <li><a href="zh-CN/index.html#abc">The projection identity</a></li>
+<li><a href="zh-CN/index.html#projections">Projecting a point onto a Bézier curve</a></li>
 <li><a href="zh-CN/index.html#moulding">Manipulating a curve</a></li>
 <li><a href="zh-CN/index.html#pointcurves">Creating a curve from three points</a></li>
 <li><a href="zh-CN/index.html#curvefitting">Curve fitting</a></li>
@@ -102,7 +103,6 @@
 <li><a href="zh-CN/index.html#catmullmoulding">Creating a Catmull-Rom curve from three points</a></li>
 <li><a href="zh-CN/index.html#polybezier">Forming poly-Bézier curves</a></li>
 <li><a href="zh-CN/index.html#shapes">Boolean shape operations</a></li>
-<li><a href="zh-CN/index.html#projections">Projecting a point onto a Bézier curve</a></li>
 <li><a href="zh-CN/index.html#offsetting">Curve offsetting</a></li>
 <li><a href="zh-CN/index.html#graduatedoffset">Graduated curve offsetting</a></li>
 <li><a href="zh-CN/index.html#circles">Circles and quadratic Bézier curves</a></li>
@@ -217,7 +217,7 @@
 ：
 <graphics-element title="Linear Interpolation leading to Bézier curves" width="825" height="275" src="./chapters/whatis/interpolation.js" >
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\whatis\d3d0579ce3534dcee1fda11bdf609c22.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\whatis\9b3633889c38325c24c19ce18ab94ad6.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image>
   <input type="range" min="10" max="90" step="1" value="25" class="slide-control">
@@ -324,7 +324,7 @@ function Bezier(3,t):
 <div class="figure">
   <graphics-element title="二次插值" width="275" height="275" src="./chapters/control/lerp.js" data-degree="3">
         <fallback-image>
-          <img width="275px" height="275px" src="images\chapters\control\62d7ef11f60acde82868424364a477e8.png" loading="lazy">
+          <img width="275px" height="275px" src="images\chapters\control\ecc15848fbe7b2176b0c89973f07c694.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image>
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
@@ -332,7 +332,7 @@ function Bezier(3,t):
 
   <graphics-element title="三次插值" width="275" height="275" src="./chapters/control/lerp.js" data-degree="4">
         <fallback-image>
-          <img width="275px" height="275px" src="images\chapters\control\9331dd83c72b233190eaca1cfcc169db.png" loading="lazy">
+          <img width="275px" height="275px" src="images\chapters\control\49423783987ac4bc49fbe4c519dbc1d1.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image>
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
@@ -340,7 +340,7 @@ function Bezier(3,t):
 
   <graphics-element title="15次插值" width="275" height="275" src="./chapters/control/lerp.js" data-degree="15">
         <fallback-image>
-          <img width="275px" height="275px" src="images\chapters\control\44242f6a6be718bea46292369d509520.png" loading="lazy">
+          <img width="275px" height="275px" src="images\chapters\control\afd21a9ba16965c2e7ec2d0d14892250.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image>
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
@@ -595,7 +595,7 @@ function RationalBezier(3,t,w[],r[]):
 <p>使用 de Casteljau 算法我们也可以将一条贝塞尔曲线分割成两条更小的曲线，二者拼接起来即可形成原来的曲线。当采用某个 <code>t</code> 值构造 de Casteljau 算法时，该过程会给到我们在 <code>t</code> 点分割曲线的所有点: 一条曲线包含该曲线上点之前的所有点，另一条曲线包含该曲线上点之后的所有点。</p>
 <graphics-element title="分割一条曲线" width="825" height="275" src="./chapters/splitting/splitting.js" >
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\splitting\43f3024045439e3bcc95434fa39f9d03.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\splitting\bef2f09698c0d3d2b7c4c031be17ff69.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image>
   <input type="range" min="0" max="1" step="0.01" value="0.5" class="slide-control">
@@ -827,7 +827,7 @@ treated as a sequence of three (elementary) shear operations. When we combine th
 <p>And then we're done, we found "the" normal vector for a 3D curve. Let's see what that looks like for a sample curve, shall we? You can move your cursor across the graphic from left to right, to show the normal at a point with a t value that is based on your cursor position: all the way on the left is 0, all the way on the right = 1, midway is t=0.5, etc:</p>
 <graphics-element title="Some known and unknown vectors" width="350" height="300" src="./chapters/pointvectors3d/frenet.js" >
         <fallback-image>
-          <img width="350px" height="300px" src="images\chapters\pointvectors3d\ca775688322e0da5c5ecc5a15e2e57de.png" loading="lazy">
+          <img width="350px" height="300px" src="images\chapters\pointvectors3d\cbadec403b99dec015ab084ee10e1671.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image>
   <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
@@ -901,7 +901,7 @@ treated as a sequence of three (elementary) shear operations. When we combine th
 <p>Speaking of better looking, what does this actually look like? Let's revisit that earlier curve, but this time use rotation minimising frames rather than Frenet frames:</p>
 <graphics-element title="Some known and unknown vectors" width="350" height="300" src="./chapters/pointvectors3d/rotation-minimizing.js" >
         <fallback-image>
-          <img width="350px" height="300px" src="images\chapters\pointvectors3d\f989c02a1c37d8837e1e50e993415a73.png" loading="lazy">
+          <img width="350px" height="300px" src="images\chapters\pointvectors3d\9983328e50c2156c124bb1ea4ad5c05b.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image>
   <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
@@ -919,13 +919,13 @@ treated as a sequence of three (elementary) shear operations. When we combine th
 <p>If you move points in a curve sideways, you should only see the middle graph change; likewise, moving points vertically should only show a change in the right graph.</p>
 <graphics-element title="Quadratic Bézier curve components" width="825" height="275" src="./chapters/components/components.js" data-type="quadratic">
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\components\f7490a1c523d4dc8772b621b4a61fdd4.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\components\008604bc4c53bd7e0d97c99a67812ad1.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image></graphics-element>
 
 <graphics-element title="Cubic Bézier curve components" width="825" height="275" src="./chapters/components/components.js" data-type="cubic">
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\components\35d69b33228ae64221385047177b67a5.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\components\5214256129e6396e7ac1f1713fa9c88d.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image></graphics-element>
 
@@ -1061,14 +1061,14 @@ function getCubicRoots(pa, pb, pc, pd) {
 <p>So now that we know how to do root finding, we can determine the first and second derivative roots for our Bézier curves, and show those roots overlaid on the previous graphics. For the quadratic curve, that means just the first derivative, in red:</p>
 <graphics-element title="Quadratic Bézier curve extremities" width="825" height="275" src="./chapters/extremities/extremities.js" data-type="quadratic">
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\extremities\6d246f1c53e40bd5156ef50c4046db51.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\extremities\9850eec01924deae7fda4400ce44270d.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image></graphics-element>
 
 <p>And for cubic curves, that means first and second derivatives, in red and purple respectively:</p>
 <graphics-element title="Cubic Bézier curve extremities" width="825" height="275" src="./chapters/extremities/extremities.js" data-type="cubic">
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\extremities\05ff4df8b73ba25dffeb42f768e0e9c4.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\extremities\890406c7bc96904224f8f14940bf3e56.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image></graphics-element>
 
@@ -1114,12 +1114,12 @@ function getCubicRoots(pa, pb, pc, pd) {
 <div class="figure">
 <graphics-element title="Aligning a quadratic curve" width="550" height="275" src="./chapters/aligning/aligning.js" data-type="quadratic">
         <fallback-image>
-          <img width="550px" height="275px" src="images\chapters\aligning\2bac71234aed2bca2686fdbce7dd78d8.png" loading="lazy">
+          <img width="550px" height="275px" src="images\chapters\aligning\b3ccd45a72c815388aee6515fe37a486.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image></graphics-element>
 <graphics-element title="Aligning a cubic curve" width="550" height="275" src="./chapters/aligning/aligning.js" data-type="cubic">
         <fallback-image>
-          <img width="550px" height="275px" src="images\chapters\aligning\ed3e2ad3961fbf9e9e5bc951f1d79302.png" loading="lazy">
+          <img width="550px" height="275px" src="images\chapters\aligning\31655f24b7dd8b8871687b6610d9ac0e.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image></graphics-element>
 </div>
@@ -1189,7 +1189,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 <p>The first observation that makes things work is that if we have a cubic curve with four points, we can apply a linear transformation to these points such that three of the points end up on (0,0), (0,1) and (1,1), with the last point then being "somewhere". After applying that transformation, the location of that last point can then tell us what kind of curve we're dealing with. Specifically, we see the following breakdown:</p>
 <graphics-element title="The canonical curve map" width="400" height="400" src="./chapters/canonical/canonical.js" >
         <fallback-image>
-          <img width="400px" height="400px" src="images\chapters\canonical\0611789dcef56f4dc544ac806eada228.png" loading="lazy">
+          <img width="400px" height="400px" src="images\chapters\canonical\675217e6df3d75c86503dc2af623e14e.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image></graphics-element>
 
@@ -1255,7 +1255,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 <p>So, let's write up a sketch that'll show us the canonical form for any curve drawn in blue, overlaid on our canonical map, so that we can immediately tell which features our curve must have, based on where the fourth coordinate is located on the map:</p>
 <graphics-element title="A cubic curve mapped to canonical form" width="800" height="400" src="./chapters/canonical/interactive.js" >
         <fallback-image>
-          <img width="800px" height="400px" src="images\chapters\canonical\3efa5cf9f4bef7b5a656a118a17e5c7b.png" loading="lazy">
+          <img width="800px" height="400px" src="images\chapters\canonical\344346f09b6d5d7e3ddf91084ad50d46.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image></graphics-element>
 
@@ -1266,7 +1266,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 <p>We'll be tackling this problem in two stages: the first, which is the hard part, is figuring out which "t" value belongs to any given "x" value. For instance, have a look at the following graphic. On the left we have a Bézier curve that looks for all intents and purposes like it fits our criteria: every "x" has one and only one associated "y" value. On the right we see the function for just the "x" values: that's a cubic curve, but not a really crazy cubic curve. If you move the graphic's slider, you will see a red line drawn that corresponds to the <code>x</code> coordinate: this is a vertical line in the left graphic, and a horizontal line on the right.</p>
 <graphics-element title="Finding t, given x=x(t). Left: our curve, right: the x=x(t) function" width="550" height="275" src="./chapters/yforx/basics.js" >
         <fallback-image>
-          <img width="550px" height="275px" src="images\chapters\yforx\a6f705eb306c43e5709970b2ccad9d20.png" loading="lazy">
+          <img width="550px" height="275px" src="images\chapters\yforx\dd28d64458d22f4fe89c98568258efcb.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image>
   <input type="range" min="0" max="1" step="0.01" class="slide-control">
@@ -1293,7 +1293,7 @@ y = curve.get(t).y</code></pre>
 <p>So the procedure is fairly straight forward: pick an <code>x</code>, find the associted <code>t</code> value, evaluate our curve <em>for</em> that <code>t</code> value, which gives us the curve's {x,y} coordinate, which means we know <code>y</code> for this <code>x</code>. Move the slider for the following graphic to see this in action:</p>
 <graphics-element title="Finding By(t), by finding t for a given x" width="275" height="275" src="./chapters/yforx/yforx.js" >
         <fallback-image>
-          <img width="275px" height="275px" src="images\chapters\yforx\e1549cca3a5203c4e4d7fa22948cb3f8.png" loading="lazy">
+          <img width="275px" height="275px" src="images\chapters\yforx\efcfe9b48ca4e65eef3d4bf3e4c97bc3.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image>
   <input type="range" min="0" max="1" step="0.01" class="slide-control">
@@ -1440,7 +1440,7 @@ y = curve.get(t).y</code></pre>
 <p>The following graphic shows a particularly illustrative curve, and it's distance-for-t plot. For linear traversal, this line needs to be straight, running from (0,0) to (length,1). That is, it's safe to say, not what we'll see: we'll see something very wobbly, instead. To make matters even worse, the distance-for-t function is also of a much higher order than our curve is: while the curve we're using for this exercise is a cubic curve, which can switch concave/convex form twice at best, the distance function is our old friend the arc length function, which can have more inflection points.</p>
 <graphics-element title="The t-for-distance function" width="550" height="275" src="./chapters/tracing/distance-function.js" >
         <fallback-image>
-          <img width="550px" height="275px" src="images\chapters\tracing\4f2cd306ec6fa0340ac7f410744b3118.png" loading="lazy">
+          <img width="550px" height="275px" src="images\chapters\tracing\52f815cefe99dabc47ca83d0b97b61fc.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image></graphics-element>
 
@@ -1448,7 +1448,7 @@ y = curve.get(t).y</code></pre>
 <p>So let's do exactly that: the following graph is similar to the previous one, showing how we would have to "chop up" our distance-for-t curve in order to get regularly spaced points on the curve. It also shows what using those <code>t</code> values on the real curve looks like, by coloring each section of curve between two distance markers differently:</p>
 <graphics-element title="Fixed-interval coloring a curve" width="825" height="275" src="./chapters/tracing/tracing.js" >
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\tracing\25e9697557129c651e9c7cc4e4878b16.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\tracing\133bf9d02801a3149c9ddb8b313e6797.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image>
   <input type="range" min="2" max="24" step="1" value="8" class="slide-control">
@@ -1531,7 +1531,7 @@ lli = function(line1, line2):
 <p>(can you find the configuration that yields the maximum number of intersections between two cubic curves? Nine intersections!)</p>
 <graphics-element title="Curve/curve intersections" width="825" height="275" src="./chapters/curveintersection/curve-curve.js" >
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\curveintersection\a71619a14589851390cf88aa07042d3e.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\curveintersection\02d70e27ba678db49a883afcc6264c9a.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image>
   <input type="range" min="0.01" max="1" step="0.01" value="1" class="slide-control">
@@ -1592,21 +1592,51 @@ lli = function(line1, line2):
 <p>So: if we have a curve's start and end point, then for any <code>t</code> value, we implicitly know all the ABC values, which gives us the necessary information to reconstruct a curve's "de Casteljau skeleton". Which means that we can now do several things: we can "fit" curves using only three points, which means we can also "mould" curves by moving an on-curve point but leaving its start and end point, and then reconstructing the curve based on where we moved the on-curve point to. These are very useful things, and we'll look at both in the next sections.</p>
 
       </section>
+<section id="projections">
+      <h1><a href="zh-CN/index.html#projections">Projecting a point onto a Bézier curve</a></h1>
+<p>Before we can move on to actual curve moulding, it'll be good if know how to actually be able to find "some point on the curve" that we're trying to click on. After all, if all we have is our Bézier coordinates, that is not in itself enough to figure out which point on the curve our cursor will be closest to. So, how do we project points onto a curve?</p>
+<p>If the Bézier curve is of low enough order, we might be able to <a href="https://web.archive.org/web/20140713004709/http://jazzros.blogspot.com/2011/03/projecting-point-on-bezier-curve.html">work out the maths for how to do this</a>, and get a perfect <code>t</code> value back, but in general this is an incredibly hard problem and the easiest solution is, really, a numerical approach again. We'll be finding our ideal <code>t</code> value using a <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">binary search</a>. First, we do a coarse distance-check based on <code>t</code> values associated with the curve's "to draw" coordinates (using a lookup table, or LUT). This is pretty fast:</p>
+<pre><code>p = some point to project onto the curve
+d = some initially huge value
+i = 0
+for (coordinate, index) in LUT:
+  if distance(coordinate, p) &lt; d:
+    d = distance(coordinate, p)
+    i = index</code></pre>
+<p>After this runs, we know that <code>LUT[i]</code> is the coordinate on the curve <em>in our LUT</em> that is closest to the point we want to project, so that's a pretty good initial guess as to what the best projection onto our curve is. To refine it, we note that LUT[i] is a better guess than both LUT[i-1] and LUT[i+1], but there might be an even better projection <em>somewhere else</em> between those two  values, so that's what we're going to be testing for, using a variation of the binary search.</p>
+<ol>
+<li>we start with our point <code>p</code>, and the <code>t</code> values <code>t1=LUT[i-1].t</code> and <code>t2=LUT[i+1].t</code>, which span an interval <code>v = t2-t1</code>.</li>
+<li>we test this interval in five spots: the start, middle, and end (which we already have), and the two points in between the middle and start/end points</li>
+<li>we then check which of these five points is the closest to our original point <code>p</code>, and then repeat step 1 with the points before and after the closest point we just found.</li>
+</ol>
+<p>This makes the interval we check smaller and smaller at each iteration, and we can keep running the three steps until the interval becomes so small as to lead to distances that are, for all intents and purposes, the same for all points.</p>
+<p>So, let's see that in action: in this case, I'm going to arbitrarily say that if we're going to run the loop until the interval is smaller than 0.001, and show you what that means for projecting your mouse cursor or finger tip onto a rather complex Bezier curve (which, of course, you can reshape as you like). Also shown are the original three points that our coarse check finds.</p>
+<graphics-element title="Projecting a point onto a Bézier curve" width="320" height="320" src="./chapters/projections/project.js" >
+        <fallback-image>
+          <img width="320px" height="320px" src="images\chapters\projections\c40ab9e3f3d1f53872dff30a7bcdb003.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image></graphics-element>
+
+      </section>
 <section id="moulding">
       <h1><a href="zh-CN/index.html#moulding">Manipulating a curve</a></h1>
 <p>Armed with knowledge of the "ABC" relation, we can now update a curve interactively, by letting people click anywhere on the curve, find the <em>t</em>-value matching that coordinate, and then letting them drag that point around. With every drag update we'll have a new point "B", which we can combine with the fixed point "C" to find our new point A. Once we have those, we can reconstruct the de Casteljau skeleton and thus construct a new curve with the same start/end points as the original curve, passing through the user-selected point B, with correct new control points.</p>
-<Graphic title="Moulding a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.drawMould} onClick={this.placeMouldPoint} onMouseDown={this.markQB} onMouseDrag={this.dragQB} onMouseUp={this.saveCurve}/>
+<graphics-element title="Moulding a quadratic Bézier curve" width="825" height="275" src="./chapters/moulding/mould-quadratic.js" >
+        <fallback-image>
+          <img width="825px" height="275px" src="images\chapters\moulding\7f080cfc5764282db126164d6705d83d.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image></graphics-element>
 
 <p><strong>Click-dragging the curve itself</strong> shows what we're using to compute the new coordinates: while dragging you will see the original point B and its corresponding <i>t</i>-value, the original point C for that <i>t</i>-value, as well as the new point B' based on the mouse cursor. Since we know the <i>t</i>-value for this configuration, we can compute the ABC ratio for this configuration, and we know that our new point A' should like at a distance:</p>
-<img class="LaTeX SVG" src="./images/chapters/moulding/7bba0a4fd605e023cda922de125b3e32.svg" width="221px" height="36px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/moulding/7bba0a4fd605e023cda922de125b3e32.svg" width="239px" height="35px" loading="lazy">
 <p>For quadratic curves, this means we're done, since the new point A' is equivalent to the new quadratic control point. For cubic curves, we need to do a little more work:</p>
 <Graphic title="Moulding a cubic Bézier curve" setup={this.setupCubic} draw={this.drawMould} onClick={this.placeMouldPoint} onMouseDown={this.markCB} onMouseDrag={this.dragCB} onMouseUp={this.saveCurve}/>
 
 <p>To help understand what's going on, the cubic graphic shows the full de Casteljau construction "hull" when repositioning point B. We compute A' in exactly the same way as before, but we also record the final strut line that forms B in the original curve. Given A', B', and the endpoints e1 and e2 of the strut line relative to B', we can now compute where the new control points should be. Remember that B' lies on line e1--e2 at a distance <i>t</i>, because that's how Bézier curves work. In the same manner, we know the distance A--e1 is only line-interval [0,t] of the full segment, and A--e2 is only line-interval [t,1], so constructing the new control points is fairly easy.</p>
 <p>First, we construct the one-level-of-de-Casteljau-up points:</p>
-<img class="LaTeX SVG" src="./images/chapters/moulding/524206c49f317d27d8e07a310b24a7a3.svg" width="132px" height="75px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/moulding/524206c49f317d27d8e07a310b24a7a3.svg" width="139px" height="75px" loading="lazy">
 <p>And then we can compute the new control points:</p>
-<img class="LaTeX SVG" src="./images/chapters/moulding/94f61d17f896aebddcf5a7c676aee7d1.svg" width="156px" height="75px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/moulding/94f61d17f896aebddcf5a7c676aee7d1.svg" width="168px" height="72px" loading="lazy">
 <p>And that's cubic curve manipulation.</p>
 
       </section>
@@ -1875,21 +1905,6 @@ lli = function(line1, line2):
 <Graphic title="Boolean shape operations with Paper.js" paperjs={true} setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}>
   <button onclick="() => this.setMode(mode)">mode</button>
 </Graphic>
-
-      </section>
-<section id="projections">
-      <h1><a href="zh-CN/index.html#projections">Projecting a point onto a Bézier curve</a></h1>
-<p>Say we have a Bézier curve and some point, not on the curve, of which we want to know which <code>t</code> value on the curve gives us an on-curve point closest to our off-curve point. Or: say we want to find the projection of a random point onto a curve. How do we do that?</p>
-<p>If the Bézier curve is of low enough order, we might be able to <a href="https://web.archive.org/web/20140713004709/http://jazzros.blogspot.com/2011/03/projecting-point-on-bezier-curve.html">work out the maths for how to do this</a>, and get a perfect <code>t</code> value back, but in general this is an incredibly hard problem and the easiest solution is, really, a numerical approach again. We'll be finding our ideal <code>t</code> value using a <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">binary search</a>. First, we do a coarse distance-check based on <code>t</code> values associated with the curve's "to draw" coordinates (using a lookup table, or LUT). This is pretty fast. Then we run this algorithm:</p>
-<ol>
-<li>with the <code>t</code> value we found, start with some small interval around <code>t</code> (1/length_of_LUT on either side is a reasonable start),</li>
-<li>if the distance to <code>t ± interval/2</code> is larger than the distance to <code>t</code>, try again with the interval reduced to half its original length.</li>
-<li>if the distance to <code>t ± interval/2</code> is smaller than the distance to <code>t</code>, replace <code>t</code> with the smaller-distance value.</li>
-<li>after reducing the interval, or changing <code>t</code>, go back to step 1.</li>
-</ol>
-<p>We keep repeating this process until the interval is small enough to claim the difference in precision found is irrelevant for the purpose we're trying to find <code>t</code> for. In this case, I'm arbitrarily fixing it at 0.0001.</p>
-<p>The following graphic demonstrates the result of this procedure. Simply move the cursor around, and if it does not lie on top of the curve, you will see a line that projects the cursor onto the curve based on an iteratively found "ideal" <code>t</code> value.</p>
-<Graphic title="Projecting a point onto a Bézier curve" setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}/>
 
       </section>
 <section id="offsetting">

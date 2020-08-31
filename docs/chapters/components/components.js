@@ -12,7 +12,6 @@ setup() {
 }
 
 draw() {
-  resetTransform();
   clear();
   const dim = this.height;
   curve.drawSkeleton();

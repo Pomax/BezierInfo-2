@@ -29,7 +29,6 @@ setup() {
 }
 
 draw() {
-  resetTransform();
   clear();
   translate(this.width/2 - 60, this.height/2 + 75);
   const curve = this.curve;

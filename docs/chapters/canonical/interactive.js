@@ -15,7 +15,6 @@ setup() {
 }
 
 draw() {
-    resetTransform();
     clear();
 
     const w = this.width/2,

@@ -90,12 +90,14 @@ const utils = {
   compute: function (t, points, _3d) {
     // shortcuts
     if (t === 0) {
+      points[0].t = 0;
       return points[0];
     }
 
     const order = points.length - 1;
 
     if (t === 1) {
+      points[order].t = 1;
       return points[order];
     }
 
@@ -104,6 +106,7 @@ const utils = {
 
     // constant?
     if (order === 0) {
+      points[0].t = t;
       return points[0];
     }
 
@@ -112,6 +115,7 @@ const utils = {
       const ret = {
         x: mt * p[0].x + t * p[1].x,
         y: mt * p[0].y + t * p[1].y,
+        t: t,
       };
       if (_3d) {
         ret.z = mt * p[0].z + t * p[1].z;
@@ -141,6 +145,7 @@ const utils = {
       const ret = {
         x: a * p[0].x + b * p[1].x + c * p[2].x + d * p[3].x,
         y: a * p[0].y + b * p[1].y + c * p[2].y + d * p[3].y,
+        t: t,
       };
       if (_3d) {
         ret.z = a * p[0].z + b * p[1].z + c * p[2].z + d * p[3].z;
@@ -162,6 +167,7 @@ const utils = {
       }
       dCpts.splice(dCpts.length - 1, 1);
     }
+    dCpts[0].t = t;
     return dCpts[0];
   },
 
@@ -186,6 +192,7 @@ const utils = {
         x: (f1 * p[0].x + f2 * p[1].x) / d,
         y: (f1 * p[0].y + f2 * p[1].y) / d,
         z: !_3d ? false : (f1 * p[0].z + f2 * p[1].z) / d,
+        t: t,
       };
     }
 
@@ -200,6 +207,7 @@ const utils = {
         x: (f1 * p[0].x + f2 * p[1].x + f3 * p[2].x) / d,
         y: (f1 * p[0].y + f2 * p[1].y + f3 * p[2].y) / d,
         z: !_3d ? false : (f1 * p[0].z + f2 * p[1].z + f3 * p[2].z) / d,
+        t: t,
       };
     }
 
@@ -217,6 +225,7 @@ const utils = {
         z: !_3d
           ? false
           : (f1 * p[0].z + f2 * p[1].z + f3 * p[2].z + f4 * p[3].z) / d,
+        t: t,
       };
     }
   },

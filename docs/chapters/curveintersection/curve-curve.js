@@ -37,7 +37,6 @@ setupEventListening() {
 }
 
 draw() {
-  resetTransform();
   clear();
 
   // panel 1: base curves

@@ -2,7 +2,7 @@
 
 Armed with knowledge of the "ABC" relation, we can now update a curve interactively, by letting people click anywhere on the curve, find the <em>t</em>-value matching that coordinate, and then letting them drag that point around. With every drag update we'll have a new point "B", which we can combine with the fixed point "C" to find our new point A. Once we have those, we can reconstruct the de Casteljau skeleton and thus construct a new curve with the same start/end points as the original curve, passing through the user-selected point B, with correct new control points.
 
-<Graphic title="Moulding a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.drawMould} onClick={this.placeMouldPoint} onMouseDown={this.markQB} onMouseDrag={this.dragQB} onMouseUp={this.saveCurve}/>
+<graphics-element title="Moulding a quadratic Bézier curve" width="825" src="./mould-quadratic.js"></graphics-element>
 
 **Click-dragging the curve itself** shows what we're using to compute the new coordinates: while dragging you will see the original point B and its corresponding <i>t</i>-value, the original point C for that <i>t</i>-value, as well as the new point B' based on the mouse cursor. Since we know the <i>t</i>-value for this configuration, we can compute the ABC ratio for this configuration, and we know that our new point A' should like at a distance:
 
