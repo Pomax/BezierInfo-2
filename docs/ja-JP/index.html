@@ -1537,7 +1537,7 @@ lli = function(line1, line2):
 <p>(can you find the configuration that yields the maximum number of intersections between two cubic curves? Nine intersections!)</p>
 <graphics-element title="Curve/curve intersections" width="825" height="275" src="./chapters/curveintersection/curve-curve.js" >
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\curveintersection\02d70e27ba678db49a883afcc6264c9a.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\curveintersection\3689ed0c15eace45a1f6ae03909ad8ed.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image>
   <input type="range" min="0.01" max="1" step="0.01" value="1" class="slide-control">
@@ -1616,7 +1616,7 @@ for (coordinate, index) in LUT:
 <li>we then check which of these five points is the closest to our original point <code>p</code>, and then repeat step 1 with the points before and after the closest point we just found.</li>
 </ol>
 <p>This makes the interval we check smaller and smaller at each iteration, and we can keep running the three steps until the interval becomes so small as to lead to distances that are, for all intents and purposes, the same for all points.</p>
-<p>So, let's see that in action: in this case, I'm going to arbitrarily say that if we're going to run the loop until the interval is smaller than 0.001, and show you what that means for projecting your mouse cursor or finger tip onto a rather complex Bezier curve (which, of course, you can reshape as you like). Also shown are the original three points that our coarse check finds.</p>
+<p>So, let's see that in action: in this case, I'm going to arbitrarily say that if we're going to run the loop until the interval is smaller than 0.001, and show you what that means for projecting your mouse cursor or finger tip onto a rather complex Bézier curve (which, of course, you can reshape as you like). Also shown are the original three points that our coarse check finds.</p>
 <graphics-element title="Projecting a point onto a Bézier curve" width="320" height="320" src="./chapters/projections/project.js" >
         <fallback-image>
           <img width="320px" height="320px" src="images\chapters\projections\c40ab9e3f3d1f53872dff30a7bcdb003.png" loading="lazy">
@@ -1627,23 +1627,43 @@ for (coordinate, index) in LUT:
 <section id="moulding">
       <h1><a href="ja-JP/index.html#moulding">Manipulating a curve</a></h1>
 <p>Armed with knowledge of the "ABC" relation, we can now update a curve interactively, by letting people click anywhere on the curve, find the <em>t</em>-value matching that coordinate, and then letting them drag that point around. With every drag update we'll have a new point "B", which we can combine with the fixed point "C" to find our new point A. Once we have those, we can reconstruct the de Casteljau skeleton and thus construct a new curve with the same start/end points as the original curve, passing through the user-selected point B, with correct new control points.</p>
-<graphics-element title="Moulding a quadratic Bézier curve" width="825" height="275" src="./chapters/moulding/mould-quadratic.js" >
+<graphics-element title="Moulding a quadratic Bézier curve" width="825" height="275" src="./chapters/moulding/moulding.js" data-type="quadratic">
         <fallback-image>
-          <img width="825px" height="275px" src="images\chapters\moulding\7f080cfc5764282db126164d6705d83d.png" loading="lazy">
+          <img width="825px" height="275px" src="images\chapters\moulding\53cf83a9d9f2173d3212ca87f380f071.png" loading="lazy">
           Scripts are disabled. Showing fallback image.
         </fallback-image></graphics-element>
 
-<p><strong>Click-dragging the curve itself</strong> shows what we're using to compute the new coordinates: while dragging you will see the original point B and its corresponding <i>t</i>-value, the original point C for that <i>t</i>-value, as well as the new point B' based on the mouse cursor. Since we know the <i>t</i>-value for this configuration, we can compute the ABC ratio for this configuration, and we know that our new point A' should like at a distance:</p>
-<img class="LaTeX SVG" src="./images/chapters/moulding/7bba0a4fd605e023cda922de125b3e32.svg" width="239px" height="35px" loading="lazy">
-<p>For quadratic curves, this means we're done, since the new point A' is equivalent to the new quadratic control point. For cubic curves, we need to do a little more work:</p>
-<Graphic title="Moulding a cubic Bézier curve" setup={this.setupCubic} draw={this.drawMould} onClick={this.placeMouldPoint} onMouseDown={this.markCB} onMouseDrag={this.dragCB} onMouseUp={this.saveCurve}/>
+<p>Click-dragging a point on the curve shows what we're using to compute the new coordinates: while dragging you will see the original point <code>B</code> and its corresponding <i>t</i>-value, and the original points <code>A</code> and <code>C</code> for that <i>t</i>-value, in light coloring, as well as the new <code>A'</code>, <code>B'</code>, and <code>C'</code> (although of course the <code>C</code> coordinates are the same ones, because that's the defining feature of point <code>C</code>) based on where you're dragging point <code>B</code> to, in purple.</p>
+<p>Since we know the new point <code>B'</code>, and the "new" point <code>C'</code> as well as the <code>t</code> value, we know our new point A' has to be:</p>
+<img class="LaTeX SVG" src="./images/chapters/moulding/7159e1e6eeab38c5aba225fe7553dbe6.svg" width="247px" height="39px" loading="lazy">
+<p>For quadratic curves, this means we're done, since the new point <code>A'</code> is equivalent to the new quadratic control point.</p>
+<p>For cubic curves, we need to do a little more work, because while computing a new <code>A'</code> is exactly the same as before, we're not quite done once we've done so. For cubic curves, <code>B</code> has not just an associated <code>t</code> value, but also two associated "side" values. Let's revisit the graphic from the chapter on de Casteljau's algorithm, to see what we mean:</p>
+<graphics-element title="The information necessary to manipulate cubic curves" width="275" height="275" src="./chapters/moulding/decasteljau.js" >
+        <fallback-image>
+          <img width="275px" height="275px" src="images\chapters\moulding\fbc7d78dd768eec4314eb4b5320f2ce5.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image>
+  <input type="range" min="0" max="1" step="0.01" value="0.5" class="slide-control">
+</graphics-element>
 
-<p>To help understand what's going on, the cubic graphic shows the full de Casteljau construction "hull" when repositioning point B. We compute A' in exactly the same way as before, but we also record the final strut line that forms B in the original curve. Given A', B', and the endpoints e1 and e2 of the strut line relative to B', we can now compute where the new control points should be. Remember that B' lies on line e1--e2 at a distance <i>t</i>, because that's how Bézier curves work. In the same manner, we know the distance A--e1 is only line-interval [0,t] of the full segment, and A--e2 is only line-interval [t,1], so constructing the new control points is fairly easy.</p>
-<p>First, we construct the one-level-of-de-Casteljau-up points:</p>
-<img class="LaTeX SVG" src="./images/chapters/moulding/524206c49f317d27d8e07a310b24a7a3.svg" width="139px" height="75px" loading="lazy">
-<p>And then we can compute the new control points:</p>
-<img class="LaTeX SVG" src="./images/chapters/moulding/94f61d17f896aebddcf5a7c676aee7d1.svg" width="168px" height="72px" loading="lazy">
-<p>And that's cubic curve manipulation.</p>
+<p>In addition to the <code>A</code>, <code>B</code>, and <code>C</code> values, we also see the points <code>e1</code> and <code>e2</code>, without which constructing our de Casteljau "strut lines" becomes very difficult indeed; as well as the points <code>v1</code> and <code>v2</code>, which we can construct when we know our ABC values enriched with <code>e1</code> and <code>e2</code>:</p>
+<img class="LaTeX SVG" src="./images/chapters/moulding/8e99a48e3227c97233c4933b5adcb080.svg" width="140px" height="75px" loading="lazy">
+<p>After which computing the new control points is straight-forward:</p>
+<img class="LaTeX SVG" src="./images/chapters/moulding/e787b4456ccf03c0481f1731c5c32add.svg" width="187px" height="72px" loading="lazy">
+<p>So let's put that into practice:</p>
+<graphics-element title="Moulding a cubic Bézier curve" width="825" height="275" src="./chapters/moulding/moulding.js" data-type="cubic">
+        <fallback-image>
+          <img width="825px" height="275px" src="images\chapters\moulding\a0df70324a97e780df772a837c5f1c31.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image></graphics-element>
+
+<p>So that looks pretty good, but you may not like having <code>e1</code> and <code>e2</code> stay the same distances away from <code>B'</code> while moving the point around. An alternative is to scale the distances of <code>e1</code> and <code>e2</code> to <code>B'</code> to match the scaling that <code>A</code>--<code>C</code> undergoes as <code>A'</code>--<code>C</code>' - whether this looks better or not depends somewhat on your intention as programmer or user, of course, so the following graphic applies this scaling, but it's up to you to decide whether or not that looks better (or, more appropriately, under which circumstances you might want to apply this scaling vs. when you might not):</p>
+<graphics-element title="Moulding a cubic Bézier curve" width="825" height="275" src="./chapters/moulding/moulding.js" data-type="cubic" data-scaling="true">
+        <fallback-image>
+          <img width="825px" height="275px" src="images\chapters\moulding\9de1da4f061d324415321a5ef688f067.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image></graphics-element>
+
 
       </section>
 <section id="pointcurves">

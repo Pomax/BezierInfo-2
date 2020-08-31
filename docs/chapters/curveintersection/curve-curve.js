@@ -48,8 +48,7 @@ draw() {
 
   // panel 2: the current iteration step
   nextPanel();
-  setStroke(`black`);
-  line(0,0,0,this.height);
+
   this.drawIteration();
   setFill(`black`);
   let information = `Initial curves, threshold = ${this.epsilon}px`
@@ -64,8 +63,6 @@ draw() {
 
   // panel 3: intersections
   nextPanel();
-  setStroke(`black`);
-  line(0,0,0,this.height);
   this.drawIntersections();
 }
 

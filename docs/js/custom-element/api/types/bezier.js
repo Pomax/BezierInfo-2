@@ -118,7 +118,7 @@ class Bezier extends Original {
     return p;
   }
 
-  drawStruts(t, color = `black`) {
+  drawStruts(t, color = `black`, showpoints = true) {
     const p = t.forEach ? t : this.getStrutPoints(t);
 
     const api = this.api;
@@ -134,7 +134,7 @@ class Bezier extends Original {
       for (let i = 0; i < n; i++) {
         let pt = p[s + i];
         api.vertex(pt.x, pt.y);
-        api.circle(pt.x, pt.y, 5);
+        if (showpoints) api.circle(pt.x, pt.y, 5);
       }
       api.end();
       s += n;

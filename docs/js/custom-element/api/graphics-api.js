@@ -142,8 +142,10 @@ class GraphicsAPI extends BaseAPI {
   /**
    * Multi-panel graphics: set up (0,0) to the next panel's start
    */
-  nextPanel(c) {
+  nextPanel(color = `black`) {
     this.translate(this.panelWidth, 0);
+    this.setStroke(color);
+    this.line(0, 0, 0, this.height);
   }
 
   /**

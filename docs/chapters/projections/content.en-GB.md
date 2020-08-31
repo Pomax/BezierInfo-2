@@ -22,6 +22,6 @@ After this runs, we know that `LUT[i]` is the coordinate on the curve _in our LU
 
 This makes the interval we check smaller and smaller at each iteration, and we can keep running the three steps until the interval becomes so small as to lead to distances that are, for all intents and purposes, the same for all points.
 
-So, let's see that in action: in this case, I'm going to arbitrarily say that if we're going to run the loop until the interval is smaller than 0.001, and show you what that means for projecting your mouse cursor or finger tip onto a rather complex Bezier curve (which, of course, you can reshape as you like). Also shown are the original three points that our coarse check finds.
+So, let's see that in action: in this case, I'm going to arbitrarily say that if we're going to run the loop until the interval is smaller than 0.001, and show you what that means for projecting your mouse cursor or finger tip onto a rather complex Bézier curve (which, of course, you can reshape as you like). Also shown are the original three points that our coarse check finds.
 
 <graphics-element title="Projecting a point onto a Bézier curve" width="320" height="320" src="./project.js"></graphics-element>
