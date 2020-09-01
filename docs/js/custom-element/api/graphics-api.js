@@ -465,11 +465,18 @@ class GraphicsAPI extends BaseAPI {
   }
 
   /**
-   * Draw a circle around a Point
+   * Draw a circle
    */
   circle(x, y, r) {
+    this.arc(x, y, r, 0, this.TAU);
+  }
+
+  /**
+   * Draw a circular arc
+   */
+  arc(x, y, r, s, e) {
     this.ctx.beginPath();
-    this.ctx.arc(x, y, r, 0, this.TAU);
+    this.ctx.arc(x, y, r, s, e);
     this.ctx.fill();
     this.ctx.stroke();
   }

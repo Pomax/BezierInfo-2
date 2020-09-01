@@ -238,13 +238,18 @@ class Bezier {
     return utils.length(this.derivative.bind(this));
   }
 
-  getABC(t, B) {
-    let S = this.points[0];
-    let E = this.points[this.order];
-    let ret = getABC(this.order, S, B || this.get(t), E, t);
+  static getABC(order = 2, S, B, E, t = 0.5) {
+    let ret = getABC(order, S, B, E, t);
     ret.S = S;
     ret.E = E;
     return ret;
+  }
+
+  getABC(t, B) {
+    B = B || this.get(t);
+    let S = this.points[0];
+    let E = this.points[this.order];
+    return Bezier.getABC(this.order, S, B, E, t);
   }
 
   getLUT(steps) {

@@ -1,13 +1,58 @@
 # Creating a curve from three points
 
-Given the preceding section on curve manipulation, we can also generate quadratic and cubic curves from any three points. However, unlike circle-fitting, which requires just three points, Bézier curve fitting requires three points, as well as a *t* value, so we can figure out where point 'C' needs to be.
+Given the preceding section on curve manipulation, we can also generate quadratic and cubic curves from any three points, although
 
-The following graphic lets you place three points, and will use the preceding sections on the ABC ratio and curve construction to form a quadratic curve through them. You can move the points you've placed around by click-dragging, or try a new curve by drawing new points with pure clicks. (There's some freedom here, so for illustrative purposes we clamped *t* to simply be 0.5, lets us bypass some maths, since a *t* value of 0.5 always puts C in the middle of the start--end line segment)
+For quadratic curves, things are pretty easy: technically we need a `t` value in order to compute the ratio function used in computing the ABC coordinates, but we can just as easily approximate one by treating the distance between the start and `B` point, and `B` and end point as a ratio, using
 
-<Graphic title="Fitting a quadratic Bézier curve" setup={this.setup} draw={this.drawQuadratic} onClick={this.onClick} />
+\[
+  \left \{ \begin{aligned}
+    d_1 &= ||\textit{Start} - B||\\
+    d_2 &= ||\textit{End} - B||\\
+    t &= \frac{d_1}{d_1+d_2}
+  \end{aligned} \right .
+\]
 
-For cubic curves we also need some values to construct the "de Casteljau line through B" with, and that gives us quite a bit of choice. Since we've clamped *t* to 0.5, we'll set up a line through B parallel to the line start--end, with a length that is proportional to the length of the line B--C: the further away from the baseline B is, the wider its construction line will be, and so the more "bulby" the curve will look. This still gives us some freedom in terms of exactly how to scale the length of the construction line as we move B closer or further away from the baseline, so I simply picked some values that sort-of-kind-of look right in that if a circle through (start,B,end) forms a perfect hemisphere, the cubic curve constructed forms something close to a hemisphere, too, and if the points lie on a line, then the curve constructed has the control points very close to B, while still lying between B and the correct curve end point:
+With this code in place, creating a quadratic curve from three points is literally just computing the ABC values, and using `A` as our curve's control point:
 
-<Graphic title="Fitting a cubic Bézier curve" setup={this.setup} draw={this.drawCubic} onClick={this.onClick} />
+<graphics-element title="Fitting a quadratic Bézier curve" src="./quadratic.js"></graphics-element>
 
-In each graphic, the blue parts are the values that we "just have" simply by setting up our three points, combined with our decision on which *t* value to use (and construction line orientation and length for cubic curves). There are of course many ways to determine a combination of *t* and tangent values that lead to a more "æsthetic" curve, but this will be left as an exercise to the reader, since there are many, and æsthetics are often quite personal.
+For cubic curves we need to do a little more work, but really only just a little. We're first going to assume that a decent curve through the three points should approximate a circular arc, which first requires knowing how to fit a circle to three points. You may remember (if you ever learned it!) that a line between two points on a circle is called a [chord](https://en.wikipedia.org/wiki/Chord_%28geometry%29), and that one property of chords is that the line from the center of any chord, perpendicular to that chord, passes through the center of the circle.
+
+That means that if we have have three points on a circle, we have three (different) chords, and consequently, three (different) lines that go from those chords through the center of the circle: if we find two of those lines, then their intersection will be our circle's center, and the circle's radius will—by definition!—be the distance from the center to any of our three points:
+
+<graphics-element title="Finding a circle through three points" src="./circle.js"></graphics-element>
+
+With that covered, we now also know the tangent line to our point `B`, because the tangent to any point on the circle is a line through that point, perpendicular to the line from that point to the center. That just leaves marking appropriate points `e1` and `e2` on that tangent, so that we can construct a new cubic curve hull. We use the approach as we did for quadratic curves to automatically determine a reasonable `t` value, and then our `e1` and `e2` coordinates must obey the standard de Casteljau rule for linear interpolation:
+
+\[
+  \left \{ \begin{aligned}
+    e_1 &= B + t \cdot d\\
+    e_2 &= B - (1-t) \cdot d
+  \end{aligned} \right .
+\]
+
+Where `d` is the total length of the line segment from `e1` to `e2`. So how long do we make that? There are again all kinds of approaches we can take, and a simple-but-effective one is to set the length of that segment to "one third the length of the baseline". This forces `e1` and `e2` to always be the "linear curve" distance apart, which means if we place our three points on a line, it will actually _look_ like a line. Nice! The last thing we'll need to do is make sure to flip the sign of `d` depending on which side of the baseline our `B` is located, so we don't up creating a funky curve with a loop in it. To do this, we can use the [atan2](https://en.wikipedia.org/wiki/Atan2) function:
+
+\[
+    \phi = atan2(E_y-S_y, E_x-S_x) - atan2(B_y-S_y, B_x-S_x)
+\]
+
+This angle φ will be between 0 and π if `B` is "above" the baseline (rotating all three points so that the start is on the left and the end is the right), so we can use a relatively straight forward check to make sure we're using the correct sign for our value `d`:
+
+\[
+  d = \left \{ \begin{aligned}
+     d & \textit{ if } 0 \leq \phi \leq \pi \\
+    -d & \textit{ if } \phi < 0 \lor \phi > \pi
+  \end{aligned} \right .
+\]
+
+
+The result of this approach looks as follows:
+
+<graphics-element title="Finding the cubic e₁ and e₂ given three points " src="./circle.js" data-show-curve="true"></graphics-element>
+
+It is important to remember that even though we're using a circular arc to come up with decent `e1` and `e2` terms, we're _not_ trying to perfectly create a circular arc with a cubic curve (which is good, because we can't; [more on that later](#arcapproximation)), we're _only_ trying to come up with some reasonable `e1` and `e2` points so we can construct a new cubic curve... so now that we have those: let's see what kind of cubic curve that gives us:
+
+<graphics-element title="Fitting a quadratic Bézier curve" src="./cubic.js"></graphics-element>
+
+That looks perfectly servicable!

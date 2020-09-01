@@ -1681,14 +1681,45 @@ for (coordinate, index) in LUT:
       </section>
 <section id="pointcurves">
       <h1><a href="#pointcurves">Creating a curve from three points</a></h1>
-<p>Given the preceding section on curve manipulation, we can also generate quadratic and cubic curves from any three points. However, unlike circle-fitting, which requires just three points, Bézier curve fitting requires three points, as well as a <em>t</em> value, so we can figure out where point 'C' needs to be.</p>
-<p>The following graphic lets you place three points, and will use the preceding sections on the ABC ratio and curve construction to form a quadratic curve through them. You can move the points you've placed around by click-dragging, or try a new curve by drawing new points with pure clicks. (There's some freedom here, so for illustrative purposes we clamped <em>t</em> to simply be 0.5, lets us bypass some maths, since a <em>t</em> value of 0.5 always puts C in the middle of the start--end line segment)</p>
-<Graphic title="Fitting a quadratic Bézier curve" setup={this.setup} draw={this.drawQuadratic} onClick={this.onClick} />
+<p>Given the preceding section on curve manipulation, we can also generate quadratic and cubic curves from any three points, although</p>
+<p>For quadratic curves, things are pretty easy: technically we need a <code>t</code> value in order to compute the ratio function used in computing the ABC coordinates, but we can just as easily approximate one by treating the distance between the start and <code>B</code> point, and <code>B</code> and end point as a ratio, using</p>
+<img class="LaTeX SVG" src="./images/chapters/pointcurves/3c7516c16a5dea95df741f4263cecd1c.svg" width="132px" height="85px" loading="lazy">
+<p>With this code in place, creating a quadratic curve from three points is literally just computing the ABC values, and using <code>A</code> as our curve's control point:</p>
+<graphics-element title="Fitting a quadratic Bézier curve" width="275" height="275" src="./chapters/pointcurves/quadratic.js" >
+        <fallback-image>
+          <img width="275px" height="275px" src="images\chapters\pointcurves\067a3df30e32708fc0d13f8eb78c0b05.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image></graphics-element>
 
-<p>For cubic curves we also need some values to construct the "de Casteljau line through B" with, and that gives us quite a bit of choice. Since we've clamped <em>t</em> to 0.5, we'll set up a line through B parallel to the line start--end, with a length that is proportional to the length of the line B--C: the further away from the baseline B is, the wider its construction line will be, and so the more "bulby" the curve will look. This still gives us some freedom in terms of exactly how to scale the length of the construction line as we move B closer or further away from the baseline, so I simply picked some values that sort-of-kind-of look right in that if a circle through (start,B,end) forms a perfect hemisphere, the cubic curve constructed forms something close to a hemisphere, too, and if the points lie on a line, then the curve constructed has the control points very close to B, while still lying between B and the correct curve end point:</p>
-<Graphic title="Fitting a cubic Bézier curve" setup={this.setup} draw={this.drawCubic} onClick={this.onClick} />
+<p>For cubic curves we need to do a little more work, but really only just a little. We're first going to assume that a decent curve through the three points should approximate a circular arc, which first requires knowing how to fit a circle to three points. You may remember (if you ever learned it!) that a line between two points on a circle is called a <a href="https://en.wikipedia.org/wiki/Chord_%28geometry%29">chord</a>, and that one property of chords is that the line from the center of any chord, perpendicular to that chord, passes through the center of the circle.</p>
+<p>That means that if we have have three points on a circle, we have three (different) chords, and consequently, three (different) lines that go from those chords through the center of the circle: if we find two of those lines, then their intersection will be our circle's center, and the circle's radius will—by definition!—be the distance from the center to any of our three points:</p>
+<graphics-element title="Finding a circle through three points" width="275" height="275" src="./chapters/pointcurves/circle.js" >
+        <fallback-image>
+          <img width="275px" height="275px" src="images\chapters\pointcurves\93ee12566f93f241ad0970acd5505367.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image></graphics-element>
 
-<p>In each graphic, the blue parts are the values that we "just have" simply by setting up our three points, combined with our decision on which <em>t</em> value to use (and construction line orientation and length for cubic curves). There are of course many ways to determine a combination of <em>t</em> and tangent values that lead to a more "æsthetic" curve, but this will be left as an exercise to the reader, since there are many, and æsthetics are often quite personal.</p>
+<p>With that covered, we now also know the tangent line to our point <code>B</code>, because the tangent to any point on the circle is a line through that point, perpendicular to the line from that point to the center. That just leaves marking appropriate points <code>e1</code> and <code>e2</code> on that tangent, so that we can construct a new cubic curve hull. We use the approach as we did for quadratic curves to automatically determine a reasonable <code>t</code> value, and then our <code>e1</code> and <code>e2</code> coordinates must obey the standard de Casteljau rule for linear interpolation:</p>
+<img class="LaTeX SVG" src="./images/chapters/pointcurves/55d4f7ed095dfea8f9772208abc83b51.svg" width="147px" height="49px" loading="lazy">
+<p>Where <code>d</code> is the total length of the line segment from <code>e1</code> to <code>e2</code>. So how long do we make that? There are again all kinds of approaches we can take, and a simple-but-effective one is to set the length of that segment to "one third the length of the baseline". This forces <code>e1</code> and <code>e2</code> to always be the "linear curve" distance apart, which means if we place our three points on a line, it will actually <em>look</em> like a line. Nice! The last thing we'll need to do is make sure to flip the sign of <code>d</code> depending on which side of the baseline our <code>B</code> is located, so we don't up creating a funky curve with a loop in it. To do this, we can use the <a href="https://en.wikipedia.org/wiki/Atan2">atan2</a> function:</p>
+<img class="LaTeX SVG" src="./images/chapters/pointcurves/b4464f73fb2f79027d8e971fc66813f6.svg" width="393px" height="19px" loading="lazy">
+<p>This angle φ will be between 0 and π if <code>B</code> is "above" the baseline (rotating all three points so that the start is on the left and the end is the right), so we can use a relatively straight forward check to make sure we're using the correct sign for our value <code>d</code>:</p>
+<img class="LaTeX SVG" src="./images/chapters/pointcurves/6f0e2b6494d7dae2ea79a46a499d7ed4.svg" width="183px" height="49px" loading="lazy">
+<p>The result of this approach looks as follows:</p>
+<graphics-element title="Finding the cubic e₁ and e₂ given three points " width="275" height="275" src="./chapters/pointcurves/circle.js" data-show-curve="true">
+        <fallback-image>
+          <img width="275px" height="275px" src="images\chapters\pointcurves\8b0e8e79ba09916a9af27b33f8a1919f.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image></graphics-element>
+
+<p>It is important to remember that even though we're using a circular arc to come up with decent <code>e1</code> and <code>e2</code> terms, we're <em>not</em> trying to perfectly create a circular arc with a cubic curve (which is good, because we can't; <a href="#arcapproximation">more on that later</a>), we're <em>only</em> trying to come up with some reasonable <code>e1</code> and <code>e2</code> points so we can construct a new cubic curve... so now that we have those: let's see what kind of cubic curve that gives us:</p>
+<graphics-element title="Fitting a quadratic Bézier curve" width="275" height="275" src="./chapters/pointcurves/cubic.js" >
+        <fallback-image>
+          <img width="275px" height="275px" src="images\chapters\pointcurves\eab6ea46fa93030e03ec0ef7deb571dc.png" loading="lazy">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image></graphics-element>
+
+<p>That looks perfectly servicable!</p>
 
       </section>
 <section id="curvefitting">
