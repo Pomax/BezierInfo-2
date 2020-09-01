@@ -45,10 +45,10 @@ draw() {
         line(p1.x, p1.y, p2.x, p2.y);
     }
 
-    this.drawABCdata(t, A, B, C);
+    this.drawABCdata(t, A, B, C, hull);
 }
 
-drawABCdata(t, A, B, C) {
+drawABCdata(t, A, B, C, hull) {
     // show the lines between the A/B/C values
     setStroke(`#00FF00`);
     line(A.x, A.y, B.x, B.y);
@@ -59,9 +59,22 @@ drawABCdata(t, A, B, C) {
 
     // with their associated labels
     setFill(`black`);
+    text(`Using t = ${t.toFixed(2)}`, this.width/2, 10, CENTER);
+
+    setTextStroke(`white`, 4);
     text(`A`, 10 + A.x, A.y);
-    text(`B (t = ${t.toFixed(2)})`, 10 + B.x, B.y);
+    text(`B`, 10 + B.x, B.y);
     text(`C`, 10 + C.x, C.y);
+
+    if(curve.order === 2) {
+        text(`e1`, hull[3].x, hull[3].y+3, CENTER);
+        text(`e2`, hull[4].x, hull[4].y+3, CENTER);
+    } else {
+        text(`e1`, hull[7].x, hull[7].y+3, CENTER);
+        text(`e2`, hull[8].x, hull[8].y+3, CENTER);
+        text(`v1`, hull[4].x, hull[4].y+3, CENTER);
+        text(`v2`, hull[6].x, hull[6].y+3, CENTER);
+    }
 
     // and show the distance ratio, which we see does not change irrespective of whether A/B/C change.
     const d1 = dist(A.x, A.y, B.x, B.y);

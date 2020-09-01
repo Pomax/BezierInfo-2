@@ -1,6 +1,6 @@
 # The projection identity
 
-De Casteljau's algorithm is the pivotal algorithm when it comes to Bézier curves. You can use it not just to split curves, but also to draw them efficiently (especially for high-order Bézier curves), as well as to come up with curves based on three points and a tangent. Particularly this last thing is really useful because it lets us "mould" a curve, by picking it up at some point, and dragging that point around to change the curve's shape.
+De Casteljau's algorithm is the pivotal algorithm when it comes to Bézier curves. You can use it not just to split curves, but also to draw them efficiently (especially for high-order Bézier curves), as well as to come up with curves based on three points and a tangent. Particularly this last thing is really useful because it lets us "mold" a curve, by picking it up at some point, and dragging that point around to change the curve's shape.
 
 How does that work? Succinctly: we run de Casteljau's algorithm in reverse!
 
@@ -24,6 +24,8 @@ So these graphics show us several things:
 1. a point at the tip of the curve construction's "hat": let's call that `A`, as well as
 2. our on-curve point give our chosen `t` value: let's call that `B`, and finally,
 3. a point that we get by projecting A, through B, onto the line between the curve's start and end points: let's call that `C`.
+4. for both qudratic and cubic curves, two points `e1` and `e2`, which represent the single-to-last step in de Casteljau's algorithm: in the last step, we find `B` at `(1-t) * e1 + t * e2`.
+4. for cubic curves, also the points `v1` and `v2`, which together with `A` represent the first step in de Casteljau's algorithm: in the next step, we find `e1` and `e2`.
 
 These three values A, B, and C allow us to derive an important identity formula for quadratic and cubic Bézier curves: for any point on the curve with some `t` value, the ratio of distances from A to B and B to C is fixed: if some `t` value sets up a C that is 20% away from the start and 80% away from the end, then _it doesn't matter where the start, end, or control points are_; for that `t` value, `C` will *always* lie at 20% from the start and 80% from the end point. Go ahead, pick an on-curve point in either graphic and then move all the other points around: if you only move the control points, start and end won't move, and so neither will C, and if you move either start or end point, C will move but its relative position will not change.
 
@@ -71,4 +73,22 @@ Which now leaves us with some powerful tools: given thee points (start, end, and
   A = B - \frac{C - B}{ratio(t)} = B + \frac{B - C}{ratio(t)}
 \]
 
-So: if we have a curve's start and end point, then for any `t` value, we implicitly know all the ABC values, which gives us the necessary information to reconstruct a curve's "de Casteljau skeleton". Which means that we can now do several things: we can "fit" curves using only three points, which means we can also "mould" curves by moving an on-curve point but leaving its start and end point, and then reconstructing the curve based on where we moved the on-curve point to. These are very useful things, and we'll look at both in the next sections.
+With `A` found, finding `e1` and `e2` for quadratic curves is a matter of running the linear interpolation with `t` between start and `A` to yield `e1`, and between `A` and end to yield `e2`. For cubic curves, there is no single pair of points that can act as `e1` and `e2`: as long as the distance ratio between  `e1` to `B` and `B` to `e2` is the Bézier ratio `(1-t):t`, we can reverse engineer `v1` and `v2`:
+
+\[
+    \left \{ \begin{aligned}
+    v_1 &= A' - \frac{A' - e_1}{1 - t} \\
+    v_2 &= A' - \frac{A' - e_2}{t}
+    \end{aligned} \right .
+\]
+
+And then reverse engineer the curve's control control points:
+
+\[
+    \left \{ \begin{aligned}
+    C_1' &= start + \frac{v_1 - start}{t} \\
+    C_2' &= end + \frac{v_2 - end}{1 - t}
+    \end{aligned} \right .
+\]
+
+So: if we have a curve's start and end point, then for any `t` value we implicitly know all the ABC values, which  (combined with an educated guess on appropriate `e1` and `e2` coordinates for cubic curves) gives us the necessary information to reconstruct a curve's "de Casteljau skeleton". Which means that we can now do several things: we can "fit" curves using only three points, which means we can also "mold" curves by moving an on-curve point but leaving its start and end point, and then reconstructing the curve based on where we moved the on-curve point to. These are very useful things, and we'll look at both in the next few sections.

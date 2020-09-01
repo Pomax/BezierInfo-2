@@ -16,25 +16,6 @@ const pi = Math.PI;
 // a zero coordinate, which is surprisingly useful
 const ZERO = { x: 0, y: 0, z: 0 };
 
-// TODO: figure out where this function goes, it has no reason to exist on its lonesome.
-function getABC(n, S, B, E, t) {
-  if (typeof t === "undefined") {
-    t = 0.5;
-  }
-  const u = utils.projectionratio(t, n),
-    um = 1 - u,
-    C = {
-      x: u * S.x + um * E.x,
-      y: u * S.y + um * E.y,
-    },
-    s = utils.abcratio(t, n),
-    A = {
-      x: B.x + (B.x - C.x) / s,
-      y: B.y + (B.y - C.y) / s,
-    };
-  return { A, B, C };
-}
-
 /**
  * Bezier curve constructor.
  *
@@ -128,7 +109,7 @@ class Bezier {
       return new Bezier(p1, p2, p2);
     }
     // real fitting.
-    const abc = getABC(2, p1, p2, p3, t);
+    const abc = Bezier.getABC(2, p1, p2, p3, t);
     return new Bezier(p1, abc.A, p3);
   }
 
@@ -136,7 +117,7 @@ class Bezier {
     if (typeof t === "undefined") {
       t = 0.5;
     }
-    const abc = getABC(3, S, B, E, t);
+    const abc = Bezier.getABC(3, S, B, E, t);
     if (typeof d1 === "undefined") {
       d1 = utils.dist(B, abc.C);
     }
@@ -239,10 +220,18 @@ class Bezier {
   }
 
   static getABC(order = 2, S, B, E, t = 0.5) {
-    let ret = getABC(order, S, B, E, t);
-    ret.S = S;
-    ret.E = E;
-    return ret;
+    const u = utils.projectionratio(t, order),
+      um = 1 - u,
+      C = {
+        x: u * S.x + um * E.x,
+        y: u * S.y + um * E.y,
+      },
+      s = utils.abcratio(t, order),
+      A = {
+        x: B.x + (B.x - C.x) / s,
+        y: B.y + (B.y - C.y) / s,
+      };
+    return { A, B, C, S, E };
   }
 
   getABC(t, B) {

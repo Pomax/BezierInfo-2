@@ -16,6 +16,8 @@ CustomElement.register(class ProgramCode extends HTMLElement {});
  * Our custom element
  */
 class GraphicsElement extends CustomElement {
+  static DEBUG = false;
+
   constructor() {
     super({ header: false, footer: false });
 
@@ -220,12 +222,14 @@ class GraphicsElement extends CustomElement {
    * can't actually find anywhere in the document or shadow DOM...
    */
   printCodeDueToError() {
-    console.log(
-      this.code
-        .split(`\n`)
-        .map((l, pos) => `${pos + 1}: ${l}`)
-        .join(`\n`)
-    );
+    if (GraphicsElement.DEBUG) {
+      console.log(
+        this.code
+          .split(`\n`)
+          .map((l, pos) => `${pos + 1}: ${l}`)
+          .join(`\n`)
+      );
+    }
   }
 
   /**

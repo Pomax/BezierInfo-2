@@ -131,7 +131,7 @@ showCurve(p1, p2, p3, c) {
 
     // Check which length we need to use for our e1-e2 segment,
     // corrected for whether B is "above" or "below" the baseline:
-    const angle = atan2(E.y-S.y, E.x-S.x) - atan2(B.y-S.y, B.x-S.x),
+    const angle = ( atan2(E.y-S.y, E.x-S.x) - atan2(B.y-S.y, B.x-S.x) + TAU ) % TAU,
           bc = (angle < 0 || angle > PI ? -1 : 1) * dist(S.x, S.y, E.x, E.y)/3,
           de1 = t * bc,
           de2 = (1-t) * bc;

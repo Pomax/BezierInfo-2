@@ -45,14 +45,14 @@ export default [
 
   // curve manipulation
   'abc',
-  'projections',
-  'moulding',
   'pointcurves',
+  'projections',
+  'molding',
   'curvefitting',
 
   // A quick foray into Catmull-Rom splines
   'catmullconv',
-  'catmullmoulding',
+  'catmullmolding',
 
   // "things made of more than on curve"
   'polybezier',

@@ -1,6 +1,6 @@
 # Projecting a point onto a Bézier curve
 
-Before we can move on to actual curve moulding, it'll be good if know how to actually be able to find "some point on the curve" that we're trying to click on. After all, if all we have is our Bézier coordinates, that is not in itself enough to figure out which point on the curve our cursor will be closest to. So, how do we project points onto a curve?
+Before we can move on to actual curve molding, it'll be good if know how to actually be able to find "some point on the curve" that we're trying to click on. After all, if all we have is our Bézier coordinates, that is not in itself enough to figure out which point on the curve our cursor will be closest to. So, how do we project points onto a curve?
 
 If the Bézier curve is of low enough order, we might be able to [work out the maths for how to do this](https://web.archive.org/web/20140713004709/http://jazzros.blogspot.com/2011/03/projecting-point-on-bezier-curve.html), and get a perfect `t` value back, but in general this is an incredibly hard problem and the easiest solution is, really, a numerical approach again. We'll be finding our ideal `t` value using a [binary search](https://en.wikipedia.org/wiki/Binary_search_algorithm). First, we do a coarse distance-check based on `t` values associated with the curve's "to draw" coordinates (using a lookup table, or LUT). This is pretty fast:
 

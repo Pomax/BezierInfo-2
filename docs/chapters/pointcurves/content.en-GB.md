@@ -1,8 +1,8 @@
 # Creating a curve from three points
 
-Given the preceding section on curve manipulation, we can also generate quadratic and cubic curves from any three points, although
+Given the preceding section, you might be wondering if we can use that knowledge to just "create" curves by placing some points and having the computer do the rest, to which the answer is: that's exactly what we can now do!
 
-For quadratic curves, things are pretty easy: technically we need a `t` value in order to compute the ratio function used in computing the ABC coordinates, but we can just as easily approximate one by treating the distance between the start and `B` point, and `B` and end point as a ratio, using
+For quadratic curves, things are pretty easy. Technically, we'll need a `t` value in order to compute the ratio function used in computing the ABC coordinates, but we can just as easily approximate one by treating the distance between the start and `B` point, and `B` and end point as a ratio, using
 
 \[
   \left \{ \begin{aligned}
@@ -34,7 +34,7 @@ With that covered, we now also know the tangent line to our point `B`, because t
 Where `d` is the total length of the line segment from `e1` to `e2`. So how long do we make that? There are again all kinds of approaches we can take, and a simple-but-effective one is to set the length of that segment to "one third the length of the baseline". This forces `e1` and `e2` to always be the "linear curve" distance apart, which means if we place our three points on a line, it will actually _look_ like a line. Nice! The last thing we'll need to do is make sure to flip the sign of `d` depending on which side of the baseline our `B` is located, so we don't up creating a funky curve with a loop in it. To do this, we can use the [atan2](https://en.wikipedia.org/wiki/Atan2) function:
 
 \[
-    \phi = atan2(E_y-S_y, E_x-S_x) - atan2(B_y-S_y, B_x-S_x)
+  \phi = \left ( atan2(E_y-S_y, E_x-S_x) - atan2(B_y-S_y, B_x-S_x) + 2 \pi \right ) \textit{ mod } 2 \pi
 \]
 
 This angle φ will be between 0 and π if `B` is "above" the baseline (rotating all three points so that the start is on the left and the end is the right), so we can use a relatively straight forward check to make sure we're using the correct sign for our value `d`:
@@ -46,7 +46,6 @@ This angle φ will be between 0 and π if `B` is "above" the baseline (rotating 
   \end{aligned} \right .
 \]
 
-
 The result of this approach looks as follows:
 
 <graphics-element title="Finding the cubic e₁ and e₂ given three points " src="./circle.js" data-show-curve="true"></graphics-element>
@@ -56,3 +55,5 @@ It is important to remember that even though we're using a circular arc to come 
 <graphics-element title="Fitting a quadratic Bézier curve" src="./cubic.js"></graphics-element>
 
 That looks perfectly servicable!
+
+Of course, we can take this one step further: we can't just "create" curves, we also have (almost!) all the tools available to "mold" curves, where we can reshape a curve by dragging a point on the curve around while leaving the start and end fixed, effectively molding the shape as if it were clay or the like. We'll see the last tool we need to do that in the next section, and then we'll look at implementing curve molding in the section after that, so read on!
