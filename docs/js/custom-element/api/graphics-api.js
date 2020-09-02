@@ -1,8 +1,9 @@
 import { enrich } from "../lib/enrich.js";
 import { Bezier } from "./types/bezier.js";
 import { Vector } from "./types/vector.js";
+import { Matrix } from "./types/matrix.js";
 import { Shape } from "./util/shape.js";
-import { Matrix } from "./util/matrix.js";
+import binomial from "./util/binomial.js";
 import { BaseAPI } from "./base-api.js";
 
 const MOUSE_PRECISION_ZONE = 5;
@@ -169,12 +170,18 @@ class GraphicsAPI extends BaseAPI {
       return undefined;
     }
 
-    slider.value = initial;
     this[propname] = parseFloat(slider.value);
 
     let handlerName = `on${propname[0].toUpperCase()}${propname
       .substring(1)
       .toLowerCase()}`;
+
+    if (this[handlerName]) {
+      this[handlerName](initial);
+    } else {
+      slider.value = initial;
+    }
+
     slider.listen(`input`, (evt) => {
       this[propname] = parseFloat(evt.target.value);
       if (this[handlerName]) this[handlerName](this[propname]);
@@ -723,6 +730,10 @@ class GraphicsAPI extends BaseAPI {
 
   pow(v, p) {
     return Math.pow(v, p);
+  }
+
+  binomial(n, k) {
+    return binomial(n, k);
   }
 
   map(v, s, e, ns, ne, constrain = false) {

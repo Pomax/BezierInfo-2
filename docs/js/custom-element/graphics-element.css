@@ -35,10 +35,8 @@ graphics-element:not(:defined) > * {
 
 graphics-element:not(:defined) fallback-image {
   display: block;
-  font-size: 60%;
   text-align: center;
-  padding-bottom: 0.2em;
-  visibility:collapse;
+  padding: 0.5em;
 }
 
 /*
@@ -46,10 +44,25 @@ graphics-element:not(:defined) fallback-image {
   treated as a full block, so that the caption text shows up underneath
   it, rather than next to it:
 */
+graphics-element:not(:defined) fallback-image > .view-source {
+  display: block;
+  position: relative;
+  top: -0.6em;
+  margin-bottom: -0.2em;
+  font-size: 60%;
+  color: #00000030;
+}
+
+graphics-element:not(:defined) fallback-image > label {
+  display: block;
+  font-style: italic;
+  font-size: 0.9em;
+  text-align: right;
+}
 
 graphics-element:not(:defined) fallback-image > img {
   display: block;
-  visibility:visible;
+  border: 1px solid lightgrey;
 }
 
 /*

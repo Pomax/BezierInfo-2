@@ -1,0 +1,127 @@
+let points, knots;
+
+setup() {
+    points = [
+        {x:38,y:136},
+        {x:65,y:89},
+        {x:99,y:178},
+        {x:149,y:93},
+        {x:191,y:163},
+        {x:227,y:122},
+        {x:251,y:132}
+    ];
+    setMovable(points);
+    knots = [0, 1/3, 2/3, 1];
+    setSlider(`.slide-control.tension`, `tension`, 0.5);
+}
+
+onTension(v) {
+    if (v < 0.5) {
+        v = map(v,0.5,0,1,4);
+        v = 1/v;
+    } else {
+        v = map(v,0.5,1,1,4);
+    }
+    this.tension = v;
+}
+
+draw() {
+    clear();
+
+    const [first, last] = this.generateVirtualPoints();
+    const full = [first, ...points, last];
+
+    for (let i=0, e=full.length-3; i<e; i++) {
+        this.dragSegment(
+            full[i],
+            full[i+1],
+            full[i+2],
+            full[i+3]
+        );
+    }
+
+    points.forEach(p => {
+        setColor( randomColor() );
+        circle(p.x, p.y, 3);
+    });
+}
+
+generateVirtualPoints() {
+    // see http://www.sdmath.com/math/geometry/reflection_across_line.html#formulasmb
+    const n = points.length,
+          p1 = points[0],
+          p2 = points[1],
+          p3 = points[n-2],
+          p4 = points[n-1],
+          m = (p4.y-p1.y)/(p4.x-p1.x),
+          b = (p4.x*p1.y-p1.x*p4.y)/(p4.x-p1.x),
+          ratio = 0.5;
+
+    return [[p2,p1], [p3,p4]].map(pair => {
+        const p = pair[0],
+              M = pair[1],
+              reflected = {
+                x: M.x - (p.x - M.x),
+                y: M.y - (p.y - M.y),
+              },
+              projected = {
+                x: ((1 - m**2)*p.x + 2*m*p.y - 2*m*b) / (m**2 + 1),
+                y: ((m**2 - 1)*p.y + 2*m*p.x + 2*b) / (m**2 + 1)
+              };
+        return {
+            x: (1-ratio) * reflected.x + ratio * projected.x,
+            y: (1-ratio) * reflected.y + ratio * projected.y
+        };
+    });
+}
+
+dragSegment(p0, p1, p2, p3) {
+    const alpha = 0.5,
+          t0 = 0,
+          // See https://en.wikipedia.org/wiki/Centripetal_Catmull%E2%80%93Rom_spline#Definition
+          t1 = t0 + ((p1.x-p0.x)**2 + (p1.y-p0.y)**2)**alpha,
+          t2 = t1 + ((p2.x-p1.x)**2 + (p2.y-p1.y)**2)**alpha,
+          t3 = t2 + ((p3.x-p2.x)**2 + (p3.y-p2.y)**2)**alpha,
+          s = (t2 - t1) / this.tension,
+          // See https://stackoverflow.com/a/23980479/740553
+          tangent1 = {
+            x: s * ((p1.x-p0.x)/(t1-t0) - (p2.x-p0.x)/(t2-t0) + (p2.x-p1.x)/(t2-t1)),
+            y: s * ((p1.y-p0.y)/(t1-t0) - (p2.y-p0.y)/(t2-t0) + (p2.y-p1.y)/(t2-t1))
+          },
+          tangent2 = {
+            x: s * ((p2.x-p1.x)/(t2-t1) - (p3.x-p1.x)/(t3-t1) + (p3.x-p2.x)/(t3-t2)),
+            y: s * ((p2.y-p1.y)/(t2-t1) - (p3.y-p1.y)/(t3-t1) + (p3.y-p2.y)/(t3-t2))
+          };
+
+    noFill();
+    setStroke( randomColor() );
+
+    start();
+    this.markCoordinate(0, p1,p2,tangent1,tangent2);
+    for(let s=0.01, t=s; t<1; t+=0.01) this.markCoordinate(t, p1,p2,tangent1,tangent2);
+    this.markCoordinate(1, p1,p2,tangent1,tangent2);
+    end();
+}
+
+markCoordinate(t, p0, p1, m0, m1) {
+    let c = 2*t**3 - 3*t**2,
+        c0 = c + 1,
+        c1 = t**3 - 2*t**2 + t,
+        c2 = -c,
+        c3 = t**3 - t**2,
+        point = {
+            x: c0 * p0.x + c1 * m0.x + c2 * p1.x + c3 * m1.x,
+            y: c0 * p0.y + c1 * m0.y + c2 * p1.y + c3 * m1.y
+        };
+    vertex(point.x, point.y);
+}
+
+onMouseDown() {
+    if (!this.currentPoint) {
+        let {x, y} = this.cursor;
+        points.push({ x, y });
+        resetMovable(points);
+        console.log(JSON.stringify(points))
+        redraw();
+    }
+}

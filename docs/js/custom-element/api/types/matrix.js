@@ -1,7 +1,6 @@
 // Copied from http://blog.acipo.com/matrix-inversion-in-javascript/
 
-// Returns the inverse of matrix `M`.
-export default function matrix_invert(M) {
+function invert(M) {
   // I use Guassian Elimination to calculate the inverse:
   // (1) 'augment' the matrix (left) by the identity (on the right)
   // (2) Turn the matrix on the left into the identity by elemetry row ops
@@ -13,19 +12,19 @@ export default function matrix_invert(M) {
 
   //if the matrix isn't square: exit (error)
   if (M.length !== M[0].length) {
-    console.log('not square');
+    console.log("not square");
     return;
   }
 
   //create the identity matrix (I), and a copy (C) of the original
   var i = 0,
-      ii = 0,
-      j = 0,
-      dim = M.length,
-      e = 0,
-      t = 0;
+    ii = 0,
+    j = 0,
+    dim = M.length,
+    e = 0,
+    t = 0;
   var I = [],
-      C = [];
+    C = [];
   for (i = 0; i < dim; i += 1) {
     // Create the row
     I[I.length] = [];
@@ -107,4 +106,61 @@ export default function matrix_invert(M) {
   //we've done all operations, C should be the identity
   //matrix I should be the inverse:
   return I;
-};
+}
+
+function multiply(m1, m2) {
+  var M = [];
+  var m2t = transpose(m2);
+  m1.forEach((row, r) => {
+    M[r] = [];
+    m2t.forEach((col, c) => {
+      M[r][c] = row.map((v, i) => col[i] * v).reduce((a, v) => a + v, 0);
+    });
+  });
+  return M;
+}
+
+function transpose(M) {
+  return M[0].map((col, i) => M.map((row) => row[i]));
+}
+
+class Matrix {
+  constructor(n, m, data) {
+    data = n instanceof Array ? n : data;
+    this.data =
+      data ?? [...new Array(n)].map((v) => [...new Array(m)].map((v) => 0));
+    this.rows = this.data.length;
+    this.cols = this.data[0].length;
+  }
+  setData(data) {
+    this.data = data;
+  }
+  get(i, j) {
+    return this.data[i][j];
+  }
+  set(i, j, value) {
+    this.data[i][j] = value;
+  }
+  row(i) {
+    return this.data[i];
+  }
+  col(i) {
+    var d = this.data,
+      col = [];
+    for (let r = 0, l = d.length; r < l; r++) {
+      col.push(d[r][i]);
+    }
+    return col;
+  }
+  multiply(other) {
+    return new Matrix(multiply(this.data, other.data));
+  }
+  invert() {
+    return new Matrix(invert(this.data));
+  }
+  transpose() {
+    return new Matrix(transpose(this.data));
+  }
+}
+
+export { Matrix };

@@ -1,5 +1,3 @@
-import fit from "./curve-fitter.js";
-
 let points = [], curve, sliders;
 
 setup() {
@@ -24,28 +22,89 @@ draw() {
   setColor('black');
   setFontSize(16);
   setTextStroke(`white`, 4);
-  if (points.length > 2) {
-    curve = this.fitCurve(points);
+  const n = points.length;
+  if (n > 2 && sliders && sliders.values) {
+    curve = this.fitCurveToPoints(n);
     curve.drawSkeleton(`blue`);
     curve.drawCurve();
-
     text(this.label, this.width/2, 20, CENTER);
   }
 
   points.forEach(p => circle(p.x, p.y, 3));
 }
 
-fitCurve(points) {
-  let n = points.length;
-  let tvalues = sliders ? sliders.values : [...new Array(n)].map((_,i) =>i/(n-1));
-  let bestFitData = fit(points, tvalues),
-      x = bestFitData.C.x,
-      y = bestFitData.C.y,
-      bpoints = x.map((r,i) => (
-        {x: r[0], y: y[i][0]}
-      ));
+fitCurveToPoints(n) {
+  // alright, let's do this thing:
+  const tm = this.formTMatrix(sliders.values, n),
+        T = tm.T,
+        Tt = tm.Tt,
+        M = this.generateBasisMatrix(n),
+        M1 = M.invert(),
+        TtT1 = Tt.multiply(T).invert(),
+        step1 = TtT1.multiply(Tt),
+        step2 = M1.multiply(step1),
+        // almost there...
+        X = new Matrix(points.map((v) => [v.x])),
+        Cx = step2.multiply(X),
+        x = Cx.data,
+        // almost...
+        Y = new Matrix(points.map((v) => [v.y])),
+        Cy = step2.multiply(Y),
+        y = Cy.data,
+        // last step!
+        bpoints = x.map((r,i) => ({x: r[0], y: y[i][0]}));
+
   return new Bezier(this, bpoints);
 }
+
+formTMatrix(row, n) {
+  // it's actually easier to create the transposed
+  // version, and then (un)transpose that to get T!
+  let data = [];
+  for (var i = 0; i < n; i++) {
+    data.push(row.map((v) => v ** i));
+  }
+  const Tt = new Matrix(n, n, data);
+  const T = Tt.transpose();
+  return { T, Tt };
+}
+
+generateBasisMatrix(n) {
+  const M = new Matrix(n, n);
+
+  // populate the main diagonal
+  var k = n - 1;
+  for (let i = 0; i < n; i++) {
+    M.set(i, i, binomial(k, i));
+  }
+
+  // compute the remaining values
+  for (var c = 0, r; c < n; c++) {
+    for (r = c + 1; r < n; r++) {
+      var sign = (r + c) % 2 === 0 ? 1 : -1;
+      var value = binomial(r, c) * M.get(r, r);
+      M.set(r, c, sign * value);
+    }
+  }
+
+  return M;
+}
+
+onMouseDown() {
+  if (!this.currentPoint) {
+    const {x, y} = this.cursor;
+    points.push({ x, y });
+    resetMovable(points);
+    this.updateSliders();
+    redraw();
+  }
+}
+
+
+// -------------------------------------
+// The rest of this code is slider logic
+// -------------------------------------
+
 
 updateSliders() {
   if (sliders && points.length > 2) {
@@ -100,14 +159,4 @@ setSliderValues(mode) {
     s.setAttribute(`value`, sliders.values[i]);
     s.value = sliders.values[i];
   });
-}
-
-onMouseDown() {
-  if (!this.currentPoint) {
-    const {x, y} = this.cursor;
-    points.push({ x, y });
-    resetMovable(points);
-    this.updateSliders();
-    redraw();
-  }
 }

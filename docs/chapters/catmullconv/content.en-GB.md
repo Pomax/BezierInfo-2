@@ -1,12 +1,20 @@
 # Bézier curves and Catmull-Rom curves
 
-Taking an excursion to different splines, the other common design curve is the [Catmull-Rom spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline). Now, a Catmull-Rom spline is a form of [cubic Hermite spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline), and as it so happens the cubic Bézier curve is _also_ a cubic Hermite spline, so maybe... maybe we can convert one into the other, and back, with some simple substitutions?
+Taking an excursion to different splines, the other common design curve is the [Catmull-Rom spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline), which unlike Bézier curves pass _through_ the points you define. In fact, let's start with just playing with one: the following graphic has a predefined curve that you manipulate the points for, or you can click/tap somewhere to extend the curve.
 
-Unlike Bézier curves, Catmull-Rom splines pass through each point used to define the curve, except the first and last, which makes sense if you read the "natural language" description for how a Catmull-Rom spline works: a Catmull-Rom spline is a curve that, at each point  P<sub>x</sub>, has a tangent along the line P<sub>x-1</sub> to P<sub>x+1</sub>. The curve runs from points P<sub>2</sub> to P<sub>n-1</sub>, and has a "tension" that determines how fast the curve passes through each point. The lower the tension, the faster the curve  goes through each point, and the bigger its local tangent is.
+<graphics-element title="A Catmull-Rom curve" src="./catmull-rom.js">
+  <input type="range" min="0.1" max="1" step="0.01" value="0.5" class="slide-control tension">
+</graphics-element>
 
-I'll be showing the conversion to and from Catmull-Rom curves for the tension that the Processing language uses for its Catmull-Rom algorithm.
+You may have noticed the slider that seems to control the "tension" of the curve: that's a feature of Catmull-Rom curves; because Catmull-Rom curves pass through points, the curve tightness is controlled by a tension factor, rather than by moving control points around.
 
-We start with showing the Catmull-Rom matrix form, which looks similar to the Bézier matrix form, with slightly different values in the matrix:
+What you may _also_ have noticed is that the Catmull-Rom curve seems to just go on forever: add as many points as you like, same curve, rigth? Well, sort of. Catmull-Rom curves are splines, a type of curve with arbitrary number of points, technically consisting of "segments between sets of points", but with maths that makes all the segments line up neatly. As such, at its core a Catmull-Rom consists of two points, and draws a curve between them based on the tangents at those points.
+
+Now, a Catmull-Rom spline is a form of [cubic Hermite spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline), and as it so happens, the cubic Bézier curve is _also_ a cubic Hermite spline, so in an interesting bit of programming maths: we can losslessly convert between the two, and the maths (well, the final maths) is surprisingly simple!
+
+The main difference between Catmull-Rom curves and Bezier curves is "what the points mean". A cubic Bézier curve is defined by a start point, a control point that implies the tangent at the start, a control point that implies the tangent at the end, and an end point. A Catmull-Rom curve is defined by a start point, a tangent that for that starting point, an end point, and a tangent for that end point. Those are _very_ similar, so let's see exactly _how_ similar they are.
+
+We start with the matrix form of thee Catmull-Rom curve, which looks similar to the Bézier matrix form, with slightly different values in the matrix, and a slightly different coordinate vector:
 
 \[
   CatmullRom(t) =
@@ -26,11 +34,7 @@ We start with showing the Catmull-Rom matrix form, which looks similar to the B�
   \end{bmatrix}
 \]
 
-However, there's something funny going on here: the coordinate column matrix looks weird. The reason is that Catmull-Rom curves are actually curve segments that are described by two coordinate points, and two tangents; the curve starts at coordinate V1, and ends at coordinate V2, with the curve "departing" V1 with a tangent vector V'1 and "arriving" at V2 with tangent vector V'2.
-
-This is not particularly useful if we want to draw Catmull-Rom curves in the same way we draw Bézier curves, i.e. by providing four points. However, we can fairly easily go from the former to the latter, but it's going to require some linear algebra, so if you just want to know how to convert between the two coordinate systems: skip the following bit.
-
-But... if you want to know <em>why</em> that conversion works, let's do some maths!
+So the question is: how can we convert that expression with Catmull-Rom matrix and vector into an expression that uses Bézier matrix and vector? The short answer is of course "by using linear algebra", but the real answer is a bit longer, and involves some maths that you may not even care for: just skip over the next bit to see the incredibly simple conversions between the formats, but if you want to know _why_... let's go!
 
 <div class="note">
 
@@ -539,14 +543,14 @@ Similarly, if we have a Bézier curve defined by four coordinates P<sub>1</sub> 
   \end{bmatrix}_{Bézier}
   \Rightarrow
   \begin{bmatrix}
-  P_4 + 6(P_1 - P_2) \\
   P_1 \\
   P_4 \\
-  P_1 + 6(P_4 - P_3)
+  P_4 + 3(P_1 - P_2) \\
+  P_1 + 3(P_4 - P_3)
   \end{bmatrix}_{CatmullRom}
 \]
 
-or, if your API requires specifying Catmull-Rom curves using "point + tangent" form:
+Or, if your API allows you to specify Catmull-Rom curves using plain coordinates:
 
 \[
   \begin{bmatrix}
@@ -557,9 +561,9 @@ or, if your API requires specifying Catmull-Rom curves using "point + tangent" f
   \end{bmatrix}_{Bézier}
   \Rightarrow
   \begin{bmatrix}
+  P_4 + 6(P_1 - P_2) \\
   P_1 \\
   P_4 \\
-  P_4 + 3(P_1 - P_2) \\
-  P_1 + 3(P_4 - P_3)
+  P_1 + 6(P_4 - P_3)
   \end{bmatrix}_{CatmullRom}
 \]

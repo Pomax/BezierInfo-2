@@ -6,6 +6,20 @@ import performCodeSurgery from "./lib/perform-code-surgery.js";
 const MODULE_URL = import.meta.url;
 const MODULE_PATH = MODULE_URL.slice(0, MODULE_URL.lastIndexOf(`/`));
 
+// Really wish this was baked into the DOM API...
+function isInViewport(e) {
+  if (typeof window === `undefined`) return true;
+  if (typeof document === `undefined`) return true;
+
+  var b = e.getBoundingClientRect();
+  return (
+    b.top >= 0 &&
+    b.left >= 0 &&
+    b.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    b.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
 /**
  * A simple "for programming code" element, for holding entire
  * programs, rather than code snippets.
@@ -18,21 +32,35 @@ CustomElement.register(class ProgramCode extends HTMLElement {});
 class GraphicsElement extends CustomElement {
   static DEBUG = false;
 
+  /**
+   * Create an instance of this element
+   */
   constructor() {
     super({ header: false, footer: false });
 
-    // Strip out fallback images: if we can get here,
-    // we should not be loading fallback images because
-    // we know we're showing live content instead.
-    let fallback = this.querySelector(`fallback-image`);
-    if (fallback) this.removeChild(fallback);
-
-    this.loadSource();
-
-    if (this.title) {
-      this.label = document.createElement(`label`);
-      this.label.textContent = this.title;
+    // Do we load immediately?
+    if (isInViewport(this)) {
+      this.loadSource();
     }
+
+    // Or do we load later, once we've been scrolled into view?
+    else {
+      let fallback = this.querySelector(`img`);
+      new IntersectionObserver(
+        (entries, observer) =>
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.loadSource();
+              observer.disconnect();
+            }
+          }),
+        { threshold: 0.1, rootMargin: `${window.innerHeight}px` }
+      ).observe(fallback);
+    }
+
+    this.label = document.createElement(`label`);
+    if (!this.title) this.title = ``;
+    this.label.textContent = this.title;
   }
 
   /**
@@ -53,7 +81,7 @@ class GraphicsElement extends CustomElement {
    * part of the CustomElement API
    */
   handleChildChanges(added, removed) {
-    // console.log(`child change:`, added, removed);
+    // debugLog(`child change:`, added, removed);
   }
 
   /**
@@ -80,6 +108,8 @@ class GraphicsElement extends CustomElement {
    * Load the graphics code, either from a src URL, a <program-code> element, or .textContent
    */
   async loadSource() {
+    debugLog(`loading ${this.getAttribute(`src`)}`);
+
     let src = false;
     let codeElement = this.querySelector(`program-code`);
 
@@ -189,6 +219,7 @@ class GraphicsElement extends CustomElement {
     script.src = `data:application/javascript;charset=utf-8,${encodeURIComponent(
       this.code
     )}`;
+
     if (rerender) this.render();
   }
 
@@ -198,6 +229,9 @@ class GraphicsElement extends CustomElement {
   setGraphic(apiInstance) {
     this.apiInstance = apiInstance;
     this.setCanvas(apiInstance.canvas);
+    // at this point we can remove our placeholder image for this element, too.
+    let fallback = this.querySelector(`fallback-image`);
+    if (fallback) this.removeChild(fallback);
   }
 
   /**
@@ -222,14 +256,12 @@ class GraphicsElement extends CustomElement {
    * can't actually find anywhere in the document or shadow DOM...
    */
   printCodeDueToError() {
-    if (GraphicsElement.DEBUG) {
-      console.log(
-        this.code
-          .split(`\n`)
-          .map((l, pos) => `${pos + 1}: ${l}`)
-          .join(`\n`)
-      );
-    }
+    debugLog(
+      this.code
+        .split(`\n`)
+        .map((l, pos) => `${pos + 1}: ${l}`)
+        .join(`\n`)
+    );
   }
 
   /**
@@ -282,6 +314,13 @@ if (typeof window !== undefined) {
       window.scrollBy(0, 1);
     }
   }, 200);
+}
+
+// debugging should be behind a flag
+function debugLog(...data) {
+  if (GraphicsElement.DEBUG) {
+    console.log(...data);
+  }
 }
 
 export { GraphicsElement };

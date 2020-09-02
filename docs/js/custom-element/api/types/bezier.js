@@ -1,5 +1,6 @@
 import { Vector } from "./vector.js";
 import { Bezier as Original } from "../../lib/bezierjs/bezier.js";
+import { fitCurveToPoints } from "../util/fit-curve-to-points.js";
 
 /**
  * A canvas-aware Bezier curve class
@@ -21,6 +22,30 @@ class Bezier extends Original {
       );
     }
     return new Bezier(apiInstance, 110, 150, 25, 190, 210, 250, 210, 30);
+  }
+
+  static fitCurveToPoints(apiInstance, points, tvalues) {
+    if (!tvalues) {
+      const D = [0];
+      for (let i = 1; i < n; i++) {
+        D[i] =
+          D[i - 1] +
+          dist(points[i - 1].x, points[i - 1].y, points[i].x, points[i].y);
+      }
+      const S = [],
+        len = D[n - 1];
+      D.forEach((v, i) => {
+        S[i] = v / len;
+      });
+      tvalues = S;
+    }
+
+    const bestFitData = fitCurveToPoints(points, tvalues),
+      x = bestFitData.x,
+      y = bestFitData.y,
+      bpoints = x.map((r, i) => ({ x: r[0], y: y[i][0] }));
+
+    return new Bezier(apiInstance, bpoints);
   }
 
   constructor(apiInstance, ...coords) {

@@ -40,10 +40,12 @@ async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
       // TODO:  width/height attributes, but the graphics-element
       //        does not,  of course! [known bug]
 
+      let title = ``;
+
       if (updated.indexOf(`width=`) === -1)
         updated = updated.replace(
           /title="([^"]+)"\s*/,
-          `title="$1" width="275" `
+          (_, t) => `title="${(title = t)}" width="275" `
         );
 
       if (updated.indexOf(`height=`) === -1)
@@ -95,8 +97,9 @@ async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
 
       const replacement = `width="${width}" height="${height}" src="${src}" ${remainder}>
         <fallback-image>
+          <span class="view-source">${translate`disabledMessage`}</span>
           <img width="${width}px" height="${height}px" src="${imgUrl}">
-          ${translate`disabledMessage`}
+          <label>${title}</label>
         </fallback-image>`;
 
       updated = updated.replace(original, replacement);
