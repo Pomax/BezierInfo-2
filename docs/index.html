@@ -353,7 +353,7 @@ function Bezier(3,t):
 
 <p>Also shown is the interpolation function for a 15<sup>th</sup> order Bézier function. As you can see, the start and end point contribute considerably more to the curve's shape than any other point in the control point set.</p>
 <p>If we want to change the curve, we need to change the weights of each point, effectively changing the interpolations. The way to do this is about as straightforward as possible: just multiply each point with a value that changes its strength. These values are conventionally called "weights", and we can add them to our original Bézier function:</p>
-<script>console.log("LaTeX for 14cb9fbbaae9e7d87ae6bef3ea7a782e failed!");</script>
+<img class="LaTeX SVG" src="./images/chapters/control/14cb9fbbaae9e7d87ae6bef3ea7a782e.svg" width="379px" height="56px" loading="lazy">
 <p>That looks complicated, but as it so happens, the "weights" are actually just the coordinate values we want our curve to have: for an <i>n<sup>th</sup></i> order curve, w<sub>0</sub> is our start coordinate, w<sub>n</sub> is our last coordinate, and everything in between is a controlling coordinate. Say we want a cubic curve that starts at (110,150), is controlled by (25,190) and (210,250) and ends at (210,30), we use this Bézier curve:</p>
 <img class="LaTeX SVG" src="./images/chapters/control/c0d4dbc07b8ec7c0a18ea43c8a386935.svg" width="476px" height="40px" loading="lazy">
 <p>Which gives us the curve we saw at the top of the article:</p>
@@ -637,7 +637,7 @@ function drawCurve(points[], t):
 <section id="matrixsplit">
       <h1><a href="#matrixsplit">Splitting curves using matrices</a></h1>
 <p>Another way to split curves is to exploit the matrix representation of a Bézier curve. In <a href="#matrix">the section on matrices</a>, we saw that we can represent curves as matrix multiplications. Specifically, we saw these two forms for the quadratic and cubic curves respectively: (we'll reverse the Bézier coefficients vector for legibility)</p>
-<script>console.log("LaTeX for 77a11d65d7cffc4b84a85c4bec837792 failed!");</script>
+<img class="LaTeX SVG" src="./images/chapters/matrixsplit/77a11d65d7cffc4b84a85c4bec837792.svg" width="263px" height="55px" loading="lazy">
 <p>and</p>
 <img class="LaTeX SVG" src="./images/chapters/matrixsplit/c58330e12d25c678b593ddbd4afa7c52.svg" width="323px" height="73px" loading="lazy">
 <p>Let's say we want to split the curve at some point <code>t = z</code>, forming two new (obviously smaller) Bézier curves. To find the coordinates for these two Bézier curves, we can use the matrix representation and some linear algebra. First, we separate out the actual "point on the curve" information into a new matrix multiplication:</p>
@@ -1725,25 +1725,25 @@ for (coordinate, index) in LUT:
 
 <h2>Revisiting the matrix representation</h2>
 <p>Rewriting Bézier functions to matrix form is fairly easy, if you first expand the function, and then arrange them into a multiple line form, where each line corresponds to a power of t, and each column is for a specific coefficient. First, we expand the function:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/bd8e8e294eec10d2bf6ef857c7c0c2c2.svg" width="295px" height="43px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/bd8e8e294eec10d2bf6ef857c7c0c2c2.svg" width="307px" height="41px" loading="lazy">
 <p>And then we (trivially) rearrange the terms across multiple lines:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/2b8334727d3b004c6e87263fec6b32b7.svg" width="216px" height="64px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/2b8334727d3b004c6e87263fec6b32b7.svg" width="225px" height="61px" loading="lazy">
 <p>This rearrangement has "factors of t" at each row (the first row is t⁰, i.e. "1", the second row is t¹, i.e. "t", the third row is t²) and "coefficient" at each column (the first column is all terms involving "a", the second all terms involving "b", the third all terms involving "c").</p>
 <p>With that arrangement, we can easily decompose this as a matrix multiplication:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/94acb5850778dcb16c2ba3cfa676f537.svg" width="572px" height="53px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/94acb5850778dcb16c2ba3cfa676f537.svg" width="592px" height="53px" loading="lazy">
 <p>We can do the same for the cubic curve, of course. We know the base function for cubics:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/7eada6f12045423de24d9a2ab8e293b1.svg" width="355px" height="19px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/7eada6f12045423de24d9a2ab8e293b1.svg" width="360px" height="19px" loading="lazy">
 <p>So we write out the expansion and rearrange:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/875ca8eea72e727ccb881b4c0b6a3224.svg" width="248px" height="87px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/875ca8eea72e727ccb881b4c0b6a3224.svg" width="255px" height="84px" loading="lazy">
 <p>Which we can then decompose:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/03ec73258d5c95eed39a2ea8665e0b07.svg" width="404px" height="72px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/03ec73258d5c95eed39a2ea8665e0b07.svg" width="417px" height="72px" loading="lazy">
 <p>And, of course, we can do this for quartic curves too (skipping the expansion step):</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/9151c0fdf9689ee598a2d029ab2ffe34.svg" width="491px" height="92px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/9151c0fdf9689ee598a2d029ab2ffe34.svg" width="505px" height="92px" loading="lazy">
 <p>And so and on so on. Now, let's see how to use these <strong>T</strong>, <strong>M</strong>, and <strong>C</strong>, to do some curve fitting.</p>
 </div>
 
 <p>Let's get started: we're going to assume we picked the right order curve: for <code>n</code> points we're fitting an <code>n-1</code><sup>th</sup> order curve, so we "start" with a vector <strong>P</strong> that represents the coordinates we already know, and for which we want to do curve fitting:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/2bef3da3828d63d690460ce9947dbde2.svg" width="63px" height="73px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/2bef3da3828d63d690460ce9947dbde2.svg" width="67px" height="73px" loading="lazy">
 <p>Next, we need to figure out appropriate <code>t</code> values for each point in the curve, because we need something that lets us tie "the actual coordinate" to "some point on the curve". There's a fair number of different ways to do this (and a large part of optimizing "the perfect fit" is about picking appropriate <code>t</code> values), but in this case let's look at two "obvious" choices:</p>
 <ol>
 <li>equally spaced <code>t</code> values, and</li>
@@ -1752,27 +1752,27 @@ for (coordinate, index) in LUT:
 <p>The first one is really simple: if we have <code>n</code> points, then we'll just assign each point <code>i</code> a <code>t</code> value of <code>(i-1)/(n-1)</code>. So if we have four points, the first point will have <code>t=(1-1)/(4-1)=0/3</code>, the second point will have <code>t=(2-1)/(4-1)=1/3</code>, the third point will have <code>t=2/3</code>, and the last point will be <code>t=1</code>. We're just straight up spacing the <code>t</code> values to match the number of points we have.</p>
 <p>The second one is a little more interesting: since we're doing polynomial regression, we might as well exploit the fact that our base coordinates just constitute a collection of line segments. At the first point, we're fixing t=0, and the last point, we want t=1, and anywhere in between we're simply going to say that <code>t</code> is equal to the distance along the polygon, scaled to the [0,1] domain.</p>
 <p>To get these values, we first compute the general "distance along the polygon" matrix:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/78b8ba1aba2e4c9ad3f7890299c90152.svg" width="395px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/78b8ba1aba2e4c9ad3f7890299c90152.svg" width="403px" height="40px" loading="lazy">
 <p>Where  <code>length()</code> is literally just that: the length of the line segment between the point we're looking at, and the previous point. This isn't quite enough, of course: we still need to make sure that all the values between <code>i=1</code> and <code>i=n</code> fall in the [0,1] interval, so we need to scale all values down by whatever the total length of the polygon is:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/08f4beaebf83dca594ad125bdca7e436.svg" width="272px" height="55px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/08f4beaebf83dca594ad125bdca7e436.svg" width="289px" height="55px" loading="lazy">
 <p>And now we can move on to the actual "curve fitting" part: what we want is a function that lets us compute "ideal" control point values such that if we build a Bézier curve with them, that curve passes through all our original points. Or, failing that, have an overall error distance that is as close to zero as we can get it. So, let's write out what the error distance looks like.</p>
 <p>As mentioned before, this function is really just "the distance between the actual coordinate, and the coordinate that the curve evaluates to for the associated <code>t</code> value", which we'll square to get rid of any pesky negative signs:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/7e5d59272621baf942bc722208ce70c2.svg" width="177px" height="23px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/7e5d59272621baf942bc722208ce70c2.svg" width="184px" height="23px" loading="lazy">
 <p>Since this function only deals with individual coordinates, we'll need to sum over all coordinates in order to get the full error function. So, we literally just do that; the total error function is simply the sum of all these individual errors:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/ab334858d3fa309cc1a5ba535a2ca168.svg" width="195px" height="41px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/ab334858d3fa309cc1a5ba535a2ca168.svg" width="204px" height="41px" loading="lazy">
 <p>And here's the trick that justifies using matrices: while we can work with individual values using calculus, with matrices we can compute as many values as we make our matrices big, all at the "same time", We can replace the individual terms p<sub>i</sub> with the full <strong>P</strong> coordinate matrix, and we can replace Bézier(s<sub>i</sub>) with the matrix representation <strong>T x M x C</strong> we talked about before, which gives us:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/2d42758fba3370f52191306752c2705c.svg" width="141px" height="21px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/2d42758fba3370f52191306752c2705c.svg" width="151px" height="23px" loading="lazy">
 <p>In which we can replace the rather cumbersome "squaring" operation with a more conventional matrix equivalent:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/5f7fcb86ae1c19612b9fe02e23229e31.svg" width="225px" height="21px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/5f7fcb86ae1c19612b9fe02e23229e31.svg" width="241px" height="23px" loading="lazy">
 <p>Here, the letter <code>T</code> is used instead of the number 2, to represent the <a href="https://en.wikipedia.org/wiki/Transpose">matrix transpose</a>; each row in the original matrix becomes a column in the transposed matrix instead (row one becomes column one, row two becomes column two, and so on).</p>
 <p>This leaves one problem: <strong>T</strong> isn't actually the matrix we want: we don't want symbolic <code>t</code> values, we want the actual numerical values that we computed for <strong>S</strong>, so we need to form a new matrix, which we'll call 𝕋, that makes use of those, and then use that 𝕋 instead of <strong>T</strong> in our error function:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/6202d7bd150c852b432d807c40fb1647.svg" width="201px" height="96px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/6202d7bd150c852b432d807c40fb1647.svg" width="208px" height="96px" loading="lazy">
 <p>Which, because of the first and last values in <strong>S</strong>, means:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/4ffad56e281ee79d0688e93033429f0a.svg" width="212px" height="92px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/4ffad56e281ee79d0688e93033429f0a.svg" width="216px" height="92px" loading="lazy">
 <p>Now we can properly write out the error function as matrix operations:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/8d09f2be2c6db79ee966f170ffc25815.svg" width="231px" height="21px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/8d09f2be2c6db79ee966f170ffc25815.svg" width="239px" height="23px" loading="lazy">
 <p>So, we have our error function: we now need to figure out the expression for where that function has minimal value, e.g. where the error between the true coordinates and the coordinates generated by the curve fitting is smallest. Like in standard calculus, this requires taking the derivative, and determining where that derivative is zero:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/283bc9e8fe59a78d3c74860f62a66ecb.svg" width="197px" height="36px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/283bc9e8fe59a78d3c74860f62a66ecb.svg" width="200px" height="35px" loading="lazy">
 <div class="note">
 
 <h2>Where did this derivative come from?</h2>
@@ -1782,18 +1782,20 @@ for (coordinate, index) in LUT:
 </div>
 
 <p>Now, given the above derivative, we can rearrange the terms (following the rules of matrix algebra) so that we end up with an expression for <strong>C</strong>:</p>
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/d84d1c71a3ce1918f53eaf8f9fe98ac4.svg" width="168px" height="27px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/d84d1c71a3ce1918f53eaf8f9fe98ac4.svg" width="163px" height="24px" loading="lazy">
 <p>Here, the "to the power negative one" is the notation for the <a href="https://en.wikipedia.org/wiki/Invertible_matrix">matrix inverse</a>. But that's all we have to do: we're done. Starting with <strong>P</strong> and inventing some <code>t</code> values based on the polygon the coordinates in <strong>P</strong> define, we can compute the corresponding Bézier coordinates <strong>C</strong> that specify a curve that goes through our points. Or, if it can't go through them exactly, as near as possible.</p>
 <p>So before we try that out, how much code is involved in implementing this? Honestly, that answer depends on how much you're going to be writing yourself. If you already have a matrix maths library available, then really not that much code at all. On the other hand, if you are writing this from scratch, you're going to have to write some utility functions for doing your matrix work for you, so it's really anywhere from 50 lines of code to maybe 200 lines of code. Not a bad price to pay for being able to fit curves to prespecified coordinates.</p>
-<p>So let's try it out! The following graphic lets you place points, and will start computing exact-fit curves once you've placed at least three. You can click for more points, and the code will simply try to compute an exact fit using a Bézier curve of the appropriate order. Four points? Cubic Bézier. Five points? Quartic. And so on. Of course, this does break down at some point: depending on where you place your points, it might become mighty hard for the fitter to find an exact fit, and things might actually start looking horribly off once you hit 10<sup>th</sup> or higher order curves. But it might not!</p>
-<div class="figure">
-  <Graphic title="Fitting a Bézier curve" setup={this.setup} draw={this.draw} onClick={this.onClick}>
-    <button onClick={this.toggle} style="position:absolute; right: 0;">toggle</button>
-    <SliderSet ref={ set => (this.sliders=set) } onChange={this.processTimeUpdate} />
-  </Graphic>
-</div>
+<p>So let's try it out! The following graphic lets you place points, and will start computing exact-fit curves once you've placed at least three. You can click for more points, and the code will simply try to compute an exact fit using a Bézier curve of the appropriate order. Four points? Cubic Bézier. Five points? Quartic. And so on. Of course, this does break down at some point: depending on where you place your points, it might become mighty hard for the fitter to find an exact fit, and things might actually start looking horribly off once there's enough points for compound <a href="https://en.wikipedia.org/wiki/Round-off_error#Floating-point_number_system">floating point rounding errors</a> to start making a difference (which is around 10~11 points).</p>
+<graphics-element title="Fitting a Bézier curve" width="550" height="275" src="./chapters/curvefitting/curve-fitting.js" >
+        <fallback-image>
+          <img width="550px" height="275px" src="images\chapters\curvefitting\c2c92587a184efa6c4fee45e4a3e32ed.png">
+          Scripts are disabled. Showing fallback image.
+        </fallback-image>
+  <button class="toggle">toggle</button>
+  <div class="sliders"><!-- this will contain range inputs, created by the graphic --></div>
+</graphics-element>
 
-<p>You'll note there is a convenient "toggle" buttons that lets you toggle between equidistance <code>t</code> values, and distance ratio along the polygon. Arguably more interesting is that once you have points to abstract a curve, you also get <em>direct control</em> over the time values through sliders for each, because if the time values are our degree of freedom, you should be able to freely manipulate them and see what the effect on your curve is.</p>
+<p>You'll note there is a convenient "toggle" buttons that lets you toggle between equidistant <code>t</code> values, and distance ratio along the polygon formed by the points. Arguably more interesting is that once you have points to abstract a curve, you also get <em>direct control</em> over the time values through sliders for each, because if the time values are our degree of freedom, you should be able to freely manipulate them and see what the effect on your curve is.</p>
 
       </section>
 <section id="catmullconv">
@@ -2042,7 +2044,7 @@ for (coordinate, index) in LUT:
 <p>which we can then substitute in the expression for <em>a</em>:</p>
 <img class="LaTeX SVG" src="./images/chapters/circles/ef3ab62bb896019c6157c85aae5d1ed3.svg" width="231px" height="195px" loading="lazy">
 <p>A quick check shows that plugging these values for <em>a</em> and <em>b</em> into the expressions for C<sub>x</sub> and C<sub>y</sub> give the same x/y coordinates for both "<em>a</em> away from A" and "<em>b</em> away from B", so let's continue: now that we know the coordinate values for C, we know where our on-curve point T for <em>t=0.5</em> (or angle φ/2) is, because we can just evaluate the Bézier polynomial, and we know where the circle arc's actual point P is for angle φ/2:</p>
-<script>console.log("LaTeX for fe32474b4616ee9478e1308308f1b6bf failed!");</script>
+<img class="LaTeX SVG" src="./images/chapters/circles/fe32474b4616ee9478e1308308f1b6bf.svg" width="188px" height="32px" loading="lazy">
 <p>We compute T, observing that if <em>t=0.5</em>, the polynomial values (1-t)², 2(1-t)t, and t² are 0.25, 0.5, and 0.25 respectively:</p>
 <img class="LaTeX SVG" src="./images/chapters/circles/e1059e611aa1e51db41f9ce0b4ebb95a.svg" width="252px" height="35px" loading="lazy">
 <p>Which, worked out for the x and y components, gives:</p>

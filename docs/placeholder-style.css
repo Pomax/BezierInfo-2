@@ -143,5 +143,6 @@ p code {
 }
 
 .slide-control {
+    display: block;
     width: 100%;
 }

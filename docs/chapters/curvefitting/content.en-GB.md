@@ -251,13 +251,11 @@ Here, the "to the power negative one" is the notation for the [matrix inverse](h
 
 So before we try that out, how much code is involved in implementing this? Honestly, that answer depends on how much you're going to be writing yourself. If you already have a matrix maths library available, then really not that much code at all. On the other hand, if you are writing this from scratch, you're going to have to write some utility functions for doing your matrix work for you, so it's really anywhere from 50 lines of code to maybe 200 lines of code. Not a bad price to pay for being able to fit curves to prespecified coordinates.
 
-So let's try it out! The following graphic lets you place points, and will start computing exact-fit curves once you've placed at least three. You can click for more points, and the code will simply try to compute an exact fit using a Bézier curve of the appropriate order. Four points? Cubic Bézier. Five points? Quartic. And so on. Of course, this does break down at some point: depending on where you place your points, it might become mighty hard for the fitter to find an exact fit, and things might actually start looking horribly off once you hit 10<sup>th</sup> or higher order curves. But it might not!
+So let's try it out! The following graphic lets you place points, and will start computing exact-fit curves once you've placed at least three. You can click for more points, and the code will simply try to compute an exact fit using a Bézier curve of the appropriate order. Four points? Cubic Bézier. Five points? Quartic. And so on. Of course, this does break down at some point: depending on where you place your points, it might become mighty hard for the fitter to find an exact fit, and things might actually start looking horribly off once there's enough points for compound [floating point rounding errors](https://en.wikipedia.org/wiki/Round-off_error#Floating-point_number_system) to start making a difference (which is around 10~11 points).
 
-<div class="figure">
-  <Graphic title="Fitting a Bézier curve" setup={this.setup} draw={this.draw} onClick={this.onClick}>
-    <button onClick={this.toggle} style="position:absolute; right: 0;">toggle</button>
-    <SliderSet ref={ set => (this.sliders=set) } onChange={this.processTimeUpdate} />
-  </Graphic>
-</div>
+<graphics-element title="Fitting a Bézier curve" width="550" src="./curve-fitting.js" >
+  <button class="toggle">toggle</button>
+  <div class="sliders"><!-- this will contain range inputs, created by the graphic --></div>
+</graphics-element>
 
-You'll note there is a convenient "toggle" buttons that lets you toggle between equidistance `t` values, and distance ratio along the polygon. Arguably more interesting is that once you have points to abstract a curve, you also get <em>direct control</em> over the time values through sliders for each, because if the time values are our degree of freedom, you should be able to freely manipulate them and see what the effect on your curve is.
+You'll note there is a convenient "toggle" buttons that lets you toggle between equidistant `t` values, and distance ratio along the polygon formed by the points. Arguably more interesting is that once you have points to abstract a curve, you also get <em>direct control</em> over the time values through sliders for each, because if the time values are our degree of freedom, you should be able to freely manipulate them and see what the effect on your curve is.

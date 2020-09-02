@@ -633,11 +633,12 @@ class GraphicsAPI extends BaseAPI {
    * convenient grid drawing function
    */
   drawGrid(division = 20) {
-    for (let x = (division / 2) | 0; x < this.width; x += division) {
-      this.line({ x, y: 0 }, { x, y: this.height });
+    let w = this.panelWidth ?? this.width;
+    for (let x = (division / 2) | 0; x < w; x += division) {
+      this.line(x, 0, x, this.height);
     }
     for (let y = (division / 2) | 0; y < this.height; y += division) {
-      this.line({ x: 0, y }, { x: this.width, y });
+      this.line(0, y, w, y);
     }
   }
 
