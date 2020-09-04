@@ -4,7 +4,7 @@ setup() {
   setPanelCount(3);
   this.pairReset();
   this.setupEventListening();
-  setSlider(`.slide-control`, `epsilon`, 1.0);
+  setSlider(`.slide-control`, `epsilon`, 1.0, v => this.reset());
 }
 
 pairReset() {
@@ -123,8 +123,4 @@ onMouseMove() {
     this.reset();
     redraw();
   }
-}
-
-onEpsilon(value) {
-  this.reset();
 }

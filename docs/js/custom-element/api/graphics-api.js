@@ -157,7 +157,7 @@ class GraphicsAPI extends BaseAPI {
    * @param {float} initial the initial value for this property.
    * @param {boolean} redraw whether or not to redraw after updating the value from the slider.
    */
-  setSlider(qs, propname, initial, redraw = true) {
+  setSlider(qs, propname, initial, transform) {
     if (typeof this[propname] !== `undefined`) {
       throw new Error(`this.${propname} already exists: cannot bind slider.`);
     }
@@ -170,23 +170,16 @@ class GraphicsAPI extends BaseAPI {
       return undefined;
     }
 
-    this[propname] = parseFloat(slider.value);
+    const updateProperty = (evt) => {
+      let value = parseFloat(slider.value);
+      slider.setAttribute(`value`, value);
+      this[propname] = transform ? transform(value) : value;
+      if (!this.redrawing) this.redraw();
+    };
 
-    let handlerName = `on${propname[0].toUpperCase()}${propname
-      .substring(1)
-      .toLowerCase()}`;
-
-    if (this[handlerName]) {
-      this[handlerName](initial);
-    } else {
-      slider.value = initial;
-    }
-
-    slider.listen(`input`, (evt) => {
-      this[propname] = parseFloat(evt.target.value);
-      if (this[handlerName]) this[handlerName](this[propname]);
-      if (redraw && !this.redrawing) this.redraw();
-    });
+    slider.value = initial;
+    updateProperty({ target: { value: initial } });
+    slider.listen(`input`, updateProperty);
 
     return slider;
   }
@@ -308,8 +301,8 @@ class GraphicsAPI extends BaseAPI {
   /**
    * Get a random color
    */
-  randomColor(a = 1.0) {
-    CURRENT_HUE = (CURRENT_HUE + 73) % 360;
+  randomColor(a = 1.0, cycle = true) {
+    if (cycle) CURRENT_HUE = (CURRENT_HUE + 73) % 360;
     return `hsla(${CURRENT_HUE},50%,50%,${a})`;
   }
 
@@ -373,6 +366,20 @@ class GraphicsAPI extends BaseAPI {
   noTextStroke() {
     this.textStroke = false;
     this.strokeWeight = false;
+  }
+
+  /**
+   * Set the line-dash pattern
+   */
+  setLineDash(...values) {
+    this.ctx.setLineDash(values);
+  }
+
+  /**
+   * disable line-dash
+   */
+  noLineDash() {
+    this.ctx.setLineDash([]);
   }
 
   /**

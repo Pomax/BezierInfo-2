@@ -1,20 +1,67 @@
 # Bézier curves and Catmull-Rom curves
 
-Taking an excursion to different splines, the other common design curve is the [Catmull-Rom spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline), which unlike Bézier curves pass _through_ the points you define. In fact, let's start with just playing with one: the following graphic has a predefined curve that you manipulate the points for, or you can click/tap somewhere to extend the curve.
+Taking an excursion to different splines, the other common design curve is the [Catmull-Rom spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline), which unlike Bézier curves pass _through_ each control point, so they offer a kind of "nuilt-in" curve fitting.
+
+In fact, let's start with just playing with one: the following graphic has a predefined curve that you manipulate the points for, and lets you add points by clicking/tapping the background, as well as let you control "how fast" the curve passes through its point using the tension slider. The tenser the curve, the more the curve tends towards straight lines from one point to the next.
 
 <graphics-element title="A Catmull-Rom curve" src="./catmull-rom.js">
   <input type="range" min="0.1" max="1" step="0.01" value="0.5" class="slide-control tension">
 </graphics-element>
 
-You may have noticed the slider that seems to control the "tension" of the curve: that's a feature of Catmull-Rom curves; because Catmull-Rom curves pass through points, the curve tightness is controlled by a tension factor, rather than by moving control points around.
+Now, it may look like Catmull-Rom curves are very different from Bézier curves, because these curves can get very long indeed, but what looks like a single Catmull-Rom curve is actually a [spline](https://en.wikipedia.org/wiki/Spline_(mathematics)): a single curve built up of lots of identically-computed pieces, similar to if you just took a whole bunch of Bézier curves, placed them end to end, and lined up their control points so that things look like a single curve. For a Catmull-Rom curve, each "piece" between two points is defined by the point's coordinates, and the tangent for those points, the latter of which [can trivially be derived](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull%E2%80%93Rom_spline) from knowing the previous and next point:
 
-What you may _also_ have noticed is that the Catmull-Rom curve seems to just go on forever: add as many points as you like, same curve, rigth? Well, sort of. Catmull-Rom curves are splines, a type of curve with arbitrary number of points, technically consisting of "segments between sets of points", but with maths that makes all the segments line up neatly. As such, at its core a Catmull-Rom consists of two points, and draws a curve between them based on the tangents at those points.
+\[
+  \begin{bmatrix}
+    P_1 \\
+    P_2 \\
+    P_3 \\
+    P_4
+  \end{bmatrix}_{points}
+  =
+  \left [
+    \begin{array}{rl}
+      V_1 &= P_2 \\
+      V_2 &= P_3 \\
+      V'_1 &= \frac{P_3 - P_1}{2} \\
+      V'_2 &= \frac{P_4 - P_2}{2}
+    \end{array}
+  \right ]_{point-tangent}
+\]
 
-Now, a Catmull-Rom spline is a form of [cubic Hermite spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline), and as it so happens, the cubic Bézier curve is _also_ a cubic Hermite spline, so in an interesting bit of programming maths: we can losslessly convert between the two, and the maths (well, the final maths) is surprisingly simple!
+One downside of this is that—as you may have noticed from the graphic—the first and last point of the overall curve don't actually join up with the rest of the curve: they don't have a previous/next point respectively, and so there is no way to calculate what their tangent should be. Which also makes it rather tricky to fit a Camull-Rom curve to three points like we were able to do for Bézier curves. More on that in [the next section](#catmullfitting).
 
-The main difference between Catmull-Rom curves and Bezier curves is "what the points mean". A cubic Bézier curve is defined by a start point, a control point that implies the tangent at the start, a control point that implies the tangent at the end, and an end point. A Catmull-Rom curve is defined by a start point, a tangent that for that starting point, an end point, and a tangent for that end point. Those are _very_ similar, so let's see exactly _how_ similar they are.
+In fact, before we move on, let's look at how to actually draw the basic form of these curves (I say basic, because there are a number of variations that make things [considerable](https://en.wikipedia.org/wiki/Centripetal_Catmull%E2%80%93Rom_spline#Definition) more [complex](https://en.wikipedia.org/wiki/Kochanek%E2%80%93Bartels_spline)):
 
-We start with the matrix form of thee Catmull-Rom curve, which looks similar to the Bézier matrix form, with slightly different values in the matrix, and a slightly different coordinate vector:
+```
+tension = some value greater than 0, defaulting to 1
+points = a list of at least 4 coordinates
+
+for p = 1 to points.length-3 (inclusive):
+       p0 = points[p-1]
+  v1 = p1 = points[p]
+  v2 = p2 = points[p+1]
+       p3 = points[p+2]
+
+  s = 2 * tension
+  dv1 = (p2-p0) / s
+  dv2 = (p3-p1) / s
+
+  for t = 0 to 1 (inclusive):
+    c0 = 2*t^3 - 3*t^2 + 1,
+    c1 = t^3 - 2*t^2 + t,
+    c2 = -2*t^3 + 3*t^2,
+    c3 = t^3 - t^2
+    point(c0 * v1 + c1 * dv1 + c2 * v2 + c3 * dv2)
+```
+
+Now, since a Catmull-Rom curve is a form of [cubic Hermite spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline), and as cubic Bézier curves are _also_ a form of cubic Hermite spline, we run into an interesting bit of maths programming: we can losslessly convert between the two, and the maths for doing so is surprisingly simple!
+
+The main difference between Catmull-Rom curves and Bézier curves is "what the points mean":
+
+- A cubic Bézier curve is defined by a start point, a control point that implies the tangent at the start, a control point that implies the tangent at the end, and an end point, plus a characterising matrix that we can multiply by that point vector to get on-curve coordinates.
+- A Catmull-Rom curve is defined by a start point, a tangent that for that starting point, an end point, and a tangent for that end point, plus a characteristic matrix that we can multiple by the point vector to get on-curve coordinates.
+
+Those are _very_ similar, so let's see exactly _how_ similar they are. We've already see the matrix form for Bézier curves, so how different is the matrix form for Catmull-Rom curves?:
 
 \[
   CatmullRom(t) =
@@ -34,7 +81,7 @@ We start with the matrix form of thee Catmull-Rom curve, which looks similar to 
   \end{bmatrix}
 \]
 
-So the question is: how can we convert that expression with Catmull-Rom matrix and vector into an expression that uses Bézier matrix and vector? The short answer is of course "by using linear algebra", but the real answer is a bit longer, and involves some maths that you may not even care for: just skip over the next bit to see the incredibly simple conversions between the formats, but if you want to know _why_... let's go!
+That's pretty dang similar. So the question is: how can we convert that expression with Catmull-Rom matrix and vector into an expression of the Bézier matrix and vector? The short answer is of course "by using linear algebra", but the longer answer is the rest of this section, and involves some maths that you may not even care for: if you just want to know the (incredibly simple) conversions between the two curve forms, feel free to skip to the end of the following explanation, but if you want to _how_ we can get one from the other... let's get mathing!
 
 <div class="note">
 
@@ -42,7 +89,7 @@ So the question is: how can we convert that expression with Catmull-Rom matrix a
 
 In order to convert between Catmull-Rom curves and Bézier curves, we need to know two things. Firstly, how to express the Catmull-Rom curve using a "set of four coordinates", rather than a mix of coordinates and tangents, and secondly, how to convert those Catmull-Rom coordinates to and from Bézier form.
 
-So, let's start with the first, where we want to satisfy the following equality:
+We start with the first part, to figure out how we can go from Catmull-Rom **V** coordinates to Bézier **P** coordinates, by applying "some matrix **T**". We don't know what that **T** is yet, but we'll get to that:
 
 \[
   \begin{bmatrix}
@@ -60,7 +107,7 @@ So, let's start with the first, where we want to satisfy the following equality:
   \end{bmatrix}
 \]
 
-This mapping says that in order to map a Catmull-Rom "point + tangent" vector to something based on an "all coordinates" vector, we need to determine the mapping matrix such that applying <em>T</em> yields P2 as start point, P3 as end point, and two tangents based on the lines between P1 and P3, and P2 nd P4, respectively.
+So, this mapping says that in order to map a Catmull-Rom "point + tangent" vector to something based on an "all coordinates" vector, we need to determine the mapping matrix such that applying <em>T</em> yields P2 as start point, P3 as end point, and two tangents based on the lines between P1 and P3, and P2 nd P4, respectively.
 
 Computing <em>T</em> is really more "arranging the numbers":
 
@@ -107,7 +154,7 @@ Thus:
   \end{bmatrix}
 \]
 
-However, we're not <em>quite</em> done, because Catmull-Rom curves have a parameter called "tension", written as τ ("tau"), which is a scaling factor for the tangent vectors: the bigger the tension, the smaller the tangents, and the smaller the tension, the bigger the tangents. As such, the tension factor goes in the denominator for the tangents, and before we continue, let's add that tension factor into both our coordinate vector representation, and mapping matrix <em>T</em>:
+However, we're not <em>quite</em> done, because Catmull-Rom curves have that "tension" parameter, written as τ (a lowercase"tau"), which is a scaling factor for the tangent vectors: the bigger the tension, the smaller the tangents, and the smaller the tension, the bigger the tangents. As such, the tension factor goes in the denominator for the tangents, and before we continue, let's add that tension factor into both our coordinate vector representation, and mapping matrix <em>T</em>:
 
 \[
   \begin{bmatrix}

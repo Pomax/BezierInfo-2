@@ -100,7 +100,7 @@
 <li><a href="ja-JP/index.html#molding">Molding a curve</a></li>
 <li><a href="ja-JP/index.html#curvefitting">Curve fitting</a></li>
 <li><a href="ja-JP/index.html#catmullconv">Bézier curves and Catmull-Rom curves</a></li>
-<li><a href="ja-JP/index.html#catmullmolding">Creating a Catmull-Rom curve from three points</a></li>
+<li><a href="ja-JP/index.html#catmullfitting">Creating a Catmull-Rom curve from three points</a></li>
 <li><a href="ja-JP/index.html#polybezier">Forming poly-Bézier curves</a></li>
 <li><a href="ja-JP/index.html#shapes">Boolean shape operations</a></li>
 <li><a href="ja-JP/index.html#offsetting">Curve offsetting</a></li>
@@ -335,7 +335,7 @@ function Bezier(3,t):
   <graphics-element title="2次の補間" width="275" height="275" src="./chapters/control/lerp.js" data-degree="3">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\control\ecc15848fbe7b2176b0c89973f07c694.png">
+          <img width="275px" height="275px" src="images\chapters\control\c7cebd1c54c120c3a9513062e562f3a6.png">
           <label>2次の補間</label>
         </fallback-image>
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
@@ -344,7 +344,7 @@ function Bezier(3,t):
   <graphics-element title="3次の補間" width="275" height="275" src="./chapters/control/lerp.js" data-degree="4">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\control\49423783987ac4bc49fbe4c519dbc1d1.png">
+          <img width="275px" height="275px" src="images\chapters\control\2c5b710606f31ed8830397ad2a77d16e.png">
           <label>3次の補間</label>
         </fallback-image>
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
@@ -353,7 +353,7 @@ function Bezier(3,t):
   <graphics-element title="15次の補間" width="275" height="275" src="./chapters/control/lerp.js" data-degree="15">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\control\afd21a9ba16965c2e7ec2d0d14892250.png">
+          <img width="275px" height="275px" src="images\chapters\control\882ae425daeb3f449e5a4d649b8425e7.png">
           <label>15次の補間</label>
         </fallback-image>
     <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
@@ -1585,7 +1585,7 @@ lli = function(line1, line2):
 <graphics-element title="Curve/curve intersections" width="825" height="275" src="./chapters/curveintersection/curve-curve.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="825px" height="275px" src="images\chapters\curveintersection\3689ed0c15eace45a1f6ae03909ad8ed.png">
+          <img width="825px" height="275px" src="images\chapters\curveintersection\eae3bb142567d9e2b8c1e4d42e8ef505.png">
           <label></label>
         </fallback-image>
   <input type="range" min="0.01" max="1" step="0.01" value="1" class="slide-control">
@@ -1740,7 +1740,7 @@ for (coordinate, index) in LUT:
 <graphics-element title="Molding a quadratic Bézier curve" width="825" height="275" src="./chapters/molding/molding.js" data-type="quadratic">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="825px" height="275px" src="images\chapters\molding\6b91671c2962530b863ae0da5789a9cc.png">
+          <img width="825px" height="275px" src="images\chapters\molding\9a214cd85a1f0857b1b57db5e9c37b9c.png">
           <label></label>
         </fallback-image></graphics-element>
 
@@ -1749,7 +1749,7 @@ for (coordinate, index) in LUT:
 <graphics-element title="Molding a cubic Bézier curve" width="825" height="275" src="./chapters/molding/molding.js" data-type="cubic">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="825px" height="275px" src="images\chapters\molding\522f1edd37163772b81acb86d3a4f423.png">
+          <img width="825px" height="275px" src="images\chapters\molding\502de5e21415ee75ab5d2cffbc921a77.png">
           <label></label>
         </fallback-image></graphics-element>
 
@@ -1758,7 +1758,7 @@ for (coordinate, index) in LUT:
 <graphics-element title="Molding a cubic Bézier curve" width="825" height="275" src="./chapters/molding/molding.js" data-type="cubic" data-interpolated="true">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="825px" height="275px" src="images\chapters\molding\ea1656c068a60631135ad499e8a29453.png">
+          <img width="825px" height="275px" src="images\chapters\molding\610251fd14e24cd1378590de87ce2a74.png">
           <label></label>
         </fallback-image>
   <input type="range" min="10" max="200" step="1" value="100" class="slide-control">
@@ -1856,35 +1856,61 @@ for (coordinate, index) in LUT:
       </section>
 <section id="catmullconv">
       <h1><a href="ja-JP/index.html#catmullconv">Bézier curves and Catmull-Rom curves</a></h1>
-<p>Taking an excursion to different splines, the other common design curve is the <a href="https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline">Catmull-Rom spline</a>, which unlike Bézier curves pass <em>through</em> the points you define. In fact, let's start with just playing with one: the following graphic has a predefined curve that you manipulate the points for, or you can click/tap somewhere to extend the curve.</p>
+<p>Taking an excursion to different splines, the other common design curve is the <a href="https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline">Catmull-Rom spline</a>, which unlike Bézier curves pass <em>through</em> each control point, so they offer a kind of "nuilt-in" curve fitting.</p>
+<p>In fact, let's start with just playing with one: the following graphic has a predefined curve that you manipulate the points for, and lets you add points by clicking/tapping the background, as well as let you control "how fast" the curve passes through its point using the tension slider. The tenser the curve, the more the curve tends towards straight lines from one point to the next.</p>
 <graphics-element title="A Catmull-Rom curve" width="275" height="275" src="./chapters/catmullconv/catmull-rom.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\catmullconv\b0cb0cccdbea86dcdd610a871e86183f.png">
+          <img width="275px" height="275px" src="images\chapters\catmullconv\a6289e403f079730b7546ab94176d42f.png">
           <label>A Catmull-Rom curve</label>
         </fallback-image>
   <input type="range" min="0.1" max="1" step="0.01" value="0.5" class="slide-control tension">
 </graphics-element>
 
-<p>You may have noticed the slider that seems to control the "tension" of the curve: that's a feature of Catmull-Rom curves; because Catmull-Rom curves pass through points, the curve tightness is controlled by a tension factor, rather than by moving control points around.</p>
-<p>What you may <em>also</em> have noticed is that the Catmull-Rom curve seems to just go on forever: add as many points as you like, same curve, rigth? Well, sort of. Catmull-Rom curves are splines, a type of curve with arbitrary number of points, technically consisting of "segments between sets of points", but with maths that makes all the segments line up neatly. As such, at its core a Catmull-Rom consists of two points, and draws a curve between them based on the tangents at those points.</p>
-<p>Now, a Catmull-Rom spline is a form of <a href="https://en.wikipedia.org/wiki/Cubic_Hermite_spline">cubic Hermite spline</a>, and as it so happens, the cubic Bézier curve is <em>also</em> a cubic Hermite spline, so in an interesting bit of programming maths: we can losslessly convert between the two, and the maths (well, the final maths) is surprisingly simple!</p>
-<p>The main difference between Catmull-Rom curves and Bezier curves is "what the points mean". A cubic Bézier curve is defined by a start point, a control point that implies the tangent at the start, a control point that implies the tangent at the end, and an end point. A Catmull-Rom curve is defined by a start point, a tangent that for that starting point, an end point, and a tangent for that end point. Those are <em>very</em> similar, so let's see exactly <em>how</em> similar they are.</p>
-<p>We start with the matrix form of thee Catmull-Rom curve, which looks similar to the Bézier matrix form, with slightly different values in the matrix, and a slightly different coordinate vector:</p>
+<p>Now, it may look like Catmull-Rom curves are very different from Bézier curves, because these curves can get very long indeed, but what looks like a single Catmull-Rom curve is actually a <a href="https://en.wikipedia.org/wiki/Spline_(mathematics)">spline</a>: a single curve built up of lots of identically-computed pieces, similar to if you just took a whole bunch of Bézier curves, placed them end to end, and lined up their control points so that things look like a single curve. For a Catmull-Rom curve, each "piece" between two points is defined by the point's coordinates, and the tangent for those points, the latter of which <a href="https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull%E2%80%93Rom_spline">can trivially be derived</a> from knowing the previous and next point:</p>
+<img class="LaTeX SVG" src="./images/chapters/catmullconv/2844a4f4d222374a25b5f673c94679d9.svg" width="297px" height="84px" loading="lazy">
+<p>One downside of this is that—as you may have noticed from the graphic—the first and last point of the overall curve don't actually join up with the rest of the curve: they don't have a previous/next point respectively, and so there is no way to calculate what their tangent should be. Which also makes it rather tricky to fit a Camull-Rom curve to three points like we were able to do for Bézier curves. More on that in <a href="#catmullfitting">the next section</a>.</p>
+<p>In fact, before we move on, let's look at how to actually draw the basic form of these curves (I say basic, because there are a number of variations that make things <a href="https://en.wikipedia.org/wiki/Centripetal_Catmull%E2%80%93Rom_spline#Definition">considerable</a> more <a href="https://en.wikipedia.org/wiki/Kochanek%E2%80%93Bartels_spline">complex</a>):</p>
+<pre><code>tension = some value greater than 0, defaulting to 1
+points = a list of at least 4 coordinates
+
+for p = 1 to points.length-3 (inclusive):
+       p0 = points[p-1]
+  v1 = p1 = points[p]
+  v2 = p2 = points[p+1]
+       p3 = points[p+2]
+
+  s = 2 * tension
+  dv1 = (p2-p0) / s
+  dv2 = (p3-p1) / s
+
+  for t = 0 to 1 (inclusive):
+    c0 = 2*t^3 - 3*t^2 + 1,
+    c1 = t^3 - 2*t^2 + t,
+    c2 = -2*t^3 + 3*t^2,
+    c3 = t^3 - t^2
+    point(c0 * v1 + c1 * dv1 + c2 * v2 + c3 * dv2)</code></pre>
+<p>Now, since a Catmull-Rom curve is a form of <a href="https://en.wikipedia.org/wiki/Cubic_Hermite_spline">cubic Hermite spline</a>, and as cubic Bézier curves are <em>also</em> a form of cubic Hermite spline, we run into an interesting bit of maths programming: we can losslessly convert between the two, and the maths for doing so is surprisingly simple!</p>
+<p>The main difference between Catmull-Rom curves and Bézier curves is "what the points mean":</p>
+<ul>
+<li>A cubic Bézier curve is defined by a start point, a control point that implies the tangent at the start, a control point that implies the tangent at the end, and an end point, plus a characterising matrix that we can multiply by that point vector to get on-curve coordinates.</li>
+<li>A Catmull-Rom curve is defined by a start point, a tangent that for that starting point, an end point, and a tangent for that end point, plus a characteristic matrix that we can multiple by the point vector to get on-curve coordinates.</li>
+</ul>
+<p>Those are <em>very</em> similar, so let's see exactly <em>how</em> similar they are. We've already see the matrix form for Bézier curves, so how different is the matrix form for Catmull-Rom curves?:</p>
 <img class="LaTeX SVG" src="./images/chapters/catmullconv/9215d05705c8e8a7ebd718ae6f690371.svg" width="423px" height="75px" loading="lazy">
-<p>So the question is: how can we convert that expression with Catmull-Rom matrix and vector into an expression that uses Bézier matrix and vector? The short answer is of course "by using linear algebra", but the real answer is a bit longer, and involves some maths that you may not even care for: just skip over the next bit to see the incredibly simple conversions between the formats, but if you want to know <em>why</em>... let's go!</p>
+<p>That's pretty dang similar. So the question is: how can we convert that expression with Catmull-Rom matrix and vector into an expression of the Bézier matrix and vector? The short answer is of course "by using linear algebra", but the longer answer is the rest of this section, and involves some maths that you may not even care for: if you just want to know the (incredibly simple) conversions between the two curve forms, feel free to skip to the end of the following explanation, but if you want to <em>how</em> we can get one from the other... let's get mathing!</p>
 <div class="note">
 
 <h2>Deriving the conversion formulae</h2>
 <p>In order to convert between Catmull-Rom curves and Bézier curves, we need to know two things. Firstly, how to express the Catmull-Rom curve using a "set of four coordinates", rather than a mix of coordinates and tangents, and secondly, how to convert those Catmull-Rom coordinates to and from Bézier form.</p>
-<p>So, let's start with the first, where we want to satisfy the following equality:</p>
+<p>We start with the first part, to figure out how we can go from Catmull-Rom <strong>V</strong> coordinates to Bézier <strong>P</strong> coordinates, by applying "some matrix <strong>T</strong>". We don't know what that <strong>T</strong> is yet, but we'll get to that:</p>
 <img class="LaTeX SVG" src="./images/chapters/catmullconv/1811b59c5ab9233f08590396e5d03303.svg" width="196px" height="79px" loading="lazy">
-<p>This mapping says that in order to map a Catmull-Rom "point + tangent" vector to something based on an "all coordinates" vector, we need to determine the mapping matrix such that applying <em>T</em> yields P2 as start point, P3 as end point, and two tangents based on the lines between P1 and P3, and P2 nd P4, respectively.</p>
+<p>So, this mapping says that in order to map a Catmull-Rom "point + tangent" vector to something based on an "all coordinates" vector, we need to determine the mapping matrix such that applying <em>T</em> yields P2 as start point, P3 as end point, and two tangents based on the lines between P1 and P3, and P2 nd P4, respectively.</p>
 <p>Computing <em>T</em> is really more "arranging the numbers":</p>
 <img class="LaTeX SVG" src="./images/chapters/catmullconv/4d524810417b4caffedd13af23135f5b.svg" width="621px" height="79px" loading="lazy">
 <p>Thus:</p>
 <img class="LaTeX SVG" src="./images/chapters/catmullconv/f41487aff3e34fafd5d4ee5979f133f1.svg" width="145px" height="76px" loading="lazy">
-<p>However, we're not <em>quite</em> done, because Catmull-Rom curves have a parameter called "tension", written as τ ("tau"), which is a scaling factor for the tangent vectors: the bigger the tension, the smaller the tangents, and the smaller the tension, the bigger the tangents. As such, the tension factor goes in the denominator for the tangents, and before we continue, let's add that tension factor into both our coordinate vector representation, and mapping matrix <em>T</em>:</p>
+<p>However, we're not <em>quite</em> done, because Catmull-Rom curves have that "tension" parameter, written as τ (a lowercase"tau"), which is a scaling factor for the tangent vectors: the bigger the tension, the smaller the tangents, and the smaller the tension, the bigger the tangents. As such, the tension factor goes in the denominator for the tangents, and before we continue, let's add that tension factor into both our coordinate vector representation, and mapping matrix <em>T</em>:</p>
 <img class="LaTeX SVG" src="./images/chapters/catmullconv/06ae1e3fdc660e59d618e0760e8e9ab5.svg" width="291px" height="79px" loading="lazy">
 <p>With the mapping matrix properly done, let's rewrite the "point + tangent" Catmull-Rom matrix form to a matrix form in terms of four coordinates, and see what we end up with:</p>
 <img class="LaTeX SVG" src="./images/chapters/catmullconv/cc1e2ff43350c32f0ae9ba9a7652b8fb.svg" width="423px" height="75px" loading="lazy">
@@ -1944,15 +1970,11 @@ for (coordinate, index) in LUT:
 <img class="LaTeX SVG" src="./images/chapters/catmullconv/eae7f01976e511ee38b08b6edc8765d2.svg" width="300px" height="80px" loading="lazy">
 
       </section>
-<section id="catmullmolding">
-      <h1><a href="ja-JP/index.html#catmullmolding">Creating a Catmull-Rom curve from three points</a></h1>
-<p>Now, we saw how to fit a Bézier curve to three points, but if Catmull-Rom curves go through points, why can't we just use those to do curve fitting, instead?</p>
-<p>As a matter of fact, we can, but there's a difference between the kind of curve fitting we did in the previous section, and the kind of curve fitting that we can do with Catmull-Rom curves. In the previous section we came up with a single curve that goes through three points. There was a decent amount of maths and computation involved, and the end result was three or four coordinates that described a single curve, depending on whether we were fitting a quadratic or cubic curve.</p>
-<p>Using Catmull-Rom curves, we need virtually no computation, but even though we end up with one Catmull-Rom curve of <i>n</i> points, in order to draw the equivalent curve using cubic Bézier curves we need a massive <i>3n-2</i> points (and that's without double-counting points that are shared by consecutive cubic curves).</p>
-<p>In the following graphic, on the left we see three points that we want to draw a Catmull-Rom curve through (which we can move around freely, by the way), with in the second panel some of the "interesting" Catmull-Rom information: in black there's the baseline start--end, which will act as tangent orientation for the curve at point p2. We also see a virtual point p0 and p4, which are initially just point p2 reflected over the baseline. However, by using the up and down cursor key we can offset these points parallel to the baseline. Why would we want to do this? Because the line p0--p2 acts as departure tangent at p1, and the line p2--p4 acts as arrival tangent at p3. Play around with the graphic a bit to get an idea of what all of that meant:</p>
-<Graphic title="Catmull-Rom curve fitting" setup={this.setup} draw={this.draw} onKeyDown={this.props.onKeyDown}/>
-
-<p>As should be obvious by now, Catmull-Rom curves are great for "fitting a curvature to some points", but if we want to convert that curve to Bézier form we're going to end up with a lot of separate (but visually joined) Bézier curves. Depending on what we want to do, that'll be either unnecessary work, or exactly what we want: which it is depends entirely on you.</p>
+<section id="catmullfitting">
+      <h1><a href="ja-JP/index.html#catmullfitting">Creating a Catmull-Rom curve from three points</a></h1>
+<p>Much shorter than the previous section: we saw that Catmull-Rom curves need at least 4 points to draw anything sensible, so how do we create a Catmull-Rom curve from three points?</p>
+<p>Short and sweet: we don't.</p>
+<p>We run through the maths that lets us <a href="pointcurves">create a cubic Bézier curve</a>, and then convert its coordinates to Catmull-Rom form using the conversion formulae we saw above.</p>
 
       </section>
 <section id="polybezier">

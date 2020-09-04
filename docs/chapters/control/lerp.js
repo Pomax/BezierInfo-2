@@ -22,25 +22,13 @@ setup() {
         this.f = [...new Array(degree + 1)].map((_,i) => {
             return t => ({
                 x: t * w,
-                y: h * this.binomial(degree,i) * (1-t) ** (degree-i) * t ** (i)
+                y: h * binomial(degree,i) * (1-t) ** (degree-i) * t ** (i)
             });
         });
     }
 
-    this.s = this.f.map(f => plot(f, 0, 1, degree*4) );
+    this.s = this.f.map(f => plot(f, 0, 1, degree*5) );
     setSlider(`.slide-control`, `position`, 0)
-}
-
-binomial(n,k) {
-    if (!this.triangle[n]) {
-        while(!this.triangle[n]) {
-            let last = this.triangle.slice(-1)[0];
-            let next = last.map((v,i) => v + last[i+1]);
-            next.pop();
-            this.triangle.push([1, ...next, 1]);
-        }
-    }
-    return this.triangle[n][k];
 }
 
 draw() {
@@ -54,8 +42,13 @@ draw() {
 
     noFill();
 
-    this.s.forEach(s => {
-        setStroke( randomColor() );
+    this.s.forEach((s,i) => {
+        setStroke( randomColor(0.2));
+        line(
+            i/(this.s.length-1) * this.width, 0,
+            i/(this.s.length-1) * this.width, this.height
+        )
+        setStroke( randomColor(1.0, false ));
         drawShape(s);
     })
 

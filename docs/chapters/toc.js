@@ -52,7 +52,7 @@ export default [
 
   // A quick foray into Catmull-Rom splines
   'catmullconv',
-  'catmullmolding',
+  'catmullfitting',
 
   // "things made of more than on curve"
   'polybezier',

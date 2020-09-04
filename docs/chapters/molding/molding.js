@@ -191,7 +191,7 @@ drawResult() {
     if (this.molded) last = this.molded;
 
     last.drawSkeleton(`lightblue`);
-    last.drawCurve(this.parameters.interpolated ? `lightblue` : `black`);
+    last.drawCurve(this.cursor.down ? `lightblue` : `black`);
     last.points.forEach(p => circle(p.x, p.y, 2));
 
     if (this.mark) {
@@ -253,10 +253,10 @@ onMouseMove() {
 onMouseUp() {
     this.mark = false;
     if (this.molded) {
-        curve = this.interpolated ?? this.molded;
+        curve = this.interpolated || this.molded;
+        resetMovable(curve.points, [this.position]);
         this.interpolated = false;
         this.molded = false;
-        resetMovable(curve.points, [this.position]);
     }
     redraw();
 }
