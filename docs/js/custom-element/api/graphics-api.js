@@ -97,6 +97,8 @@ class GraphicsAPI extends BaseAPI {
       d = new Vector(p).dist(this.cursor);
       if (d <= cdist) {
         this.currentPoint = p;
+        this.currentPoint.mark = { x: p.x, y: p.y };
+        this.currentPoint.last = { x: p.x, y: p.y };
         break;
       }
     }
@@ -105,8 +107,20 @@ class GraphicsAPI extends BaseAPI {
   onMouseMove(evt) {
     super.onMouseMove(evt);
     if (this.currentPoint) {
+      this.currentPoint.last = {
+        x: this.currentPoint.x,
+        y: this.currentPoint.y,
+      };
       this.currentPoint.x = this.cursor.x;
       this.currentPoint.y = this.cursor.y;
+      this.currentPoint.diff = {
+        x: this.cursor.x - this.currentPoint.last.x,
+        y: this.cursor.y - this.currentPoint.last.y,
+        total: {
+          x: this.cursor.x - this.currentPoint.mark.x,
+          y: this.cursor.y - this.currentPoint.mark.y,
+        },
+      };
     } else {
       for (let i = 0, e = this.movable.length, p; i < e; i++) {
         p = this.movable[i];
@@ -121,6 +135,9 @@ class GraphicsAPI extends BaseAPI {
 
   onMouseUp(evt) {
     super.onMouseUp(evt);
+    delete this.currentPoint.mark;
+    delete this.currentPoint.last;
+    delete this.currentPoint.diff;
     this.currentPoint = false;
   }
 

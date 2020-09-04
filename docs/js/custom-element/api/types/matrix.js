@@ -1,11 +1,11 @@
-// Copied from http://blog.acipo.com/matrix-inversion-in-javascript/
-
 function invert(M) {
-  // I use Guassian Elimination to calculate the inverse:
+  // Copied from http://blog.acipo.com/matrix-inversion-in-javascript/
+  // With permission, http://blog.acipo.com/matrix-inversion-in-javascript/#comment-5057289889
+
   // (1) 'augment' the matrix (left) by the identity (on the right)
   // (2) Turn the matrix on the left into the identity by elemetry row ops
   // (3) The matrix on the right is the inverse (was the identity matrix)
-  // There are 3 elemtary row ops: (I combine b and c in my code)
+  // There are 3 elemtary row ops:
   // (a) Swap 2 rows
   // (b) Multiply a row by a scalar
   // (c) Add 2 rows

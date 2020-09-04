@@ -92,7 +92,15 @@ class Bezier extends Original {
   }
 
   drawPoints(labels = true) {
-    const colors = [`red`, `green`, `blue`, `yellow`];
+    const colors = [
+      `red`,
+      `green`,
+      `blue`,
+      `yellow`,
+      `orange`,
+      `cyan`,
+      `magenta`,
+    ];
     const api = this.api;
     const ctx = this.ctx;
 
