@@ -191,18 +191,22 @@ class GraphicsElement extends CustomElement {
     const globalCode = split.quasiGlobal;
     const classCode = performCodeSurgery(split.classCode);
 
-    this.setupCodeInjection(uid, globalCode, classCode, rerender);
+    this.setupCodeInjection(src, uid, globalCode, classCode, rerender);
   }
 
   /**
    * Form the final, perfectly valid JS module code, and create the <script>
    * element for it, to be inserted into the shadow DOM during render().
    */
-  setupCodeInjection(uid, globalCode, classCode, rerender) {
+  setupCodeInjection(src, uid, globalCode, classCode, rerender) {
     const width = this.getAttribute(`width`, 200);
     const height = this.getAttribute(`height`, 200);
 
     this.code = `
+      /**
+       * Program source: ${src}
+       * Data attributes: ${JSON.stringify(this.dataset)}
+       */
       import { GraphicsAPI, Bezier, Vector, Matrix, Shape } from "${MODULE_PATH}/api/graphics-api.js";
 
       ${globalCode}
@@ -299,22 +303,6 @@ class GraphicsElement extends CustomElement {
 }
 
 CustomElement.register(GraphicsElement);
-
-// This is ridiculous, but the easiest way to fix the mess that is
-// Firefox's handling of scroll position when custom elements contain
-// focussabable, slotted elements is to just force-scroll the document,
-// so that it knows where it actually is. Similarly, if this is a hash
-// navigation, force that hash. Chrome does not have this problem.
-if (typeof window !== undefined) {
-  window.addEventListener(`DOMContentReady`, (evt) => window.scrollBy(0, 1));
-  setTimeout(() => {
-    if (window.location.hash) {
-      window.location.hash = window.location.hash;
-    } else {
-      window.scrollBy(0, 1);
-    }
-  }, 200);
-}
 
 // debugging should be behind a flag
 function debugLog(...data) {

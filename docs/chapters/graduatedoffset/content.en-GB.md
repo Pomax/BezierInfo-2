@@ -12,5 +12,10 @@ Like normal offsetting we cut up our curve in sub-curves, and then check at whic
 
 At each of the relevant points (start, end, and the projections of the control points onto the curve) we know the curve's normal, so offsetting is simply a matter of taking our original point, and moving it along the normal vector by the offset distance for each point. Doing so will give us the following result (these have with a starting width of 0, and an end width of 40 pixels, but can be controlled with your up and down arrow keys):
 
-<Graphic title="Offsetting a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.props.onKeyDown}/>
-<Graphic title="Offsetting a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onKeyDown={this.props.onKeyDown}/>
+<graphics-element title="Offsetting a quadratic Bézier curve" src="./offsetting.js" data-type="quadratic">
+  <input type="range" min="5" max="50" step="1" value="20" class="slide-control">
+</graphics-element>
+
+<graphics-element title="Offsetting a cubic Bézier curve" src="./offsetting.js" data-type="cubic">
+  <input type="range" min="5" max="50" step="1" value="20" class="slide-control">
+</graphics-element>

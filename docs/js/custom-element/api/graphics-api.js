@@ -88,6 +88,12 @@ class GraphicsAPI extends BaseAPI {
   onMouseDown(evt) {
     super.onMouseDown(evt);
 
+    // mark this position as "when the cursor came down"
+    this.cursor.mark = { x: this.cursor.x, y: this.cursor.y };
+
+    // as well as for "what it was the previous cursor event"
+    this.cursor.last = { x: this.cursor.x, y: this.cursor.y };
+
     const cdist = evt.targetTouches
       ? TOUCH_PRECISION_ZONE
       : MOUSE_PRECISION_ZONE;
@@ -97,8 +103,6 @@ class GraphicsAPI extends BaseAPI {
       d = new Vector(p).dist(this.cursor);
       if (d <= cdist) {
         this.currentPoint = p;
-        this.currentPoint.mark = { x: p.x, y: p.y };
-        this.currentPoint.last = { x: p.x, y: p.y };
         break;
       }
     }
@@ -106,27 +110,32 @@ class GraphicsAPI extends BaseAPI {
 
   onMouseMove(evt) {
     super.onMouseMove(evt);
-    if (this.currentPoint) {
-      this.currentPoint.last = {
-        x: this.currentPoint.x,
-        y: this.currentPoint.y,
-      };
-      this.currentPoint.x = this.cursor.x;
-      this.currentPoint.y = this.cursor.y;
-      this.currentPoint.diff = {
-        x: this.cursor.x - this.currentPoint.last.x,
-        y: this.cursor.y - this.currentPoint.last.y,
+
+    if (this.cursor.down) {
+      // If we're click-dragging, or touch-moving, update the
+      // "since last event" as well as "compared to initial event"
+      // cursor positional differences:
+      this.cursor.diff = {
+        x: this.cursor.x - this.cursor.last.x,
+        y: this.cursor.y - this.cursor.last.y,
         total: {
-          x: this.cursor.x - this.currentPoint.mark.x,
-          y: this.cursor.y - this.currentPoint.mark.y,
+          x: this.cursor.x - this.cursor.mark.x,
+          y: this.cursor.y - this.cursor.mark.y,
         },
       };
+      this.cursor.last = { x: this.cursor.x, y: this.cursor.y };
+    }
+
+    // Are we dragging a movable point around?
+    if (this.currentPoint) {
+      this.currentPoint.x = this.cursor.x;
+      this.currentPoint.y = this.cursor.y;
     } else {
       for (let i = 0, e = this.movable.length, p; i < e; i++) {
         p = this.movable[i];
         if (new Vector(p).dist(this.cursor) <= 5) {
           this.setCursor(this.HAND);
-          return; // NOTE: this is a return, not a break.
+          return; // NOTE: this is a return, not a break!
         }
       }
       this.setCursor(this.POINTER);
@@ -135,9 +144,9 @@ class GraphicsAPI extends BaseAPI {
 
   onMouseUp(evt) {
     super.onMouseUp(evt);
-    delete this.currentPoint.mark;
-    delete this.currentPoint.last;
-    delete this.currentPoint.diff;
+    delete this.cursor.mark;
+    delete this.cursor.last;
+    delete this.cursor.diff;
     this.currentPoint = false;
   }
 

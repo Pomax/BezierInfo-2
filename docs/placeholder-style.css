@@ -146,3 +146,8 @@ p code {
     display: block;
     width: 100%;
 }
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+}

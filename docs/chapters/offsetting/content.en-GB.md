@@ -57,9 +57,14 @@ So, you cannot offset a Bézier curve perfectly with another Bézier curve, no m
 
 A good way to do this reduction is to first find the curve's extreme points, as explained in the earlier section on curve extremities, and use these as initial splitting points. After this initial split, we can check each individual segment to see if it's "safe enough" based on where the center of the curve is. If the on-curve point for `t=0.5` is too far off from the center, we simply split the segment down the middle. Generally this is more than enough to end up with safe segments.
 
-The following graphics show off curve offsetting, and you can use your up and down arrow keys to control the distance at which the curve gets offset. The curve first gets reduced to safe segments, each of which is then offset at the desired distance. Especially for simple curves, particularly easily set up for quadratic curves, no reduction is necessary, but the more twisty the curve gets, the more the curve needs to be reduced in order to get segments that can safely be scaled.
+The following graphics show off curve offsetting, and you can use the slider to control the distance at which the curve gets offset. The curve first gets reduced to safe segments, each of which is then offset at the desired distance. Especially for simple curves, particularly easily set up for quadratic curves, no reduction is necessary, but the more twisty the curve gets, the more the curve needs to be reduced in order to get segments that can safely be scaled.
 
-<Graphic title="Offsetting a quadratic Bézier curve" setup={this.setupQuadratic} draw={this.draw} onKeyDown={this.props.onKeyDown} />
-<Graphic title="Offsetting a cubic Bézier curve" setup={this.setupCubic} draw={this.draw} onKeyDown={this.props.onKeyDown} />
+<graphics-element title="Offsetting a quadratic Bézier curve" src="./offsetting.js" data-type="quadratic">
+  <input type="range" min="5" max="50" step="1" value="20" class="slide-control">
+</graphics-element>
+
+<graphics-element title="Offsetting a cubic Bézier curve" src="./offsetting.js" data-type="cubic">
+  <input type="range" min="5" max="50" step="1" value="20" class="slide-control">
+</graphics-element>
 
 You may notice that this may still lead to small 'jumps' in the sub-curves when moving the curve around. This is caused by the fact that we're still performing a naive form of offsetting, moving the control points the same distance as the start and end points. If the curve is large enough, this may still lead to incorrect offsets.

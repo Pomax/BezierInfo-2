@@ -700,9 +700,10 @@ class Bezier {
     d2 = typeof d2 === "undefined" ? d1 : d2;
     const reduced = this.reduce(),
       len = reduced.length,
-      fcurves = [],
-      bcurves = [];
-    let p,
+      fcurves = [];
+
+    let bcurves = [],
+      p,
       alen = 0,
       tlen = this.length();
 

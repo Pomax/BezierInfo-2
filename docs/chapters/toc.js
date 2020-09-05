@@ -56,7 +56,7 @@ export default [
 
   // "things made of more than on curve"
   'polybezier',
-  'shapes',
+  // 'shapes',  // I am not happy with how this section basically doesn't teach anything
   // 'drawing', // still just waiting to be finished......
 
   // curve offsetting
