@@ -10,7 +10,9 @@ Since arcs are mid-point-symmetrical, we need the control points to set up a sym
 
 First, let's try to fit the quadratic curve onto a circular arc. In the following sketch you can move the mouse around over a unit circle, to see how well, or poorly, a quadratic curve can approximate the arc from (1,0) to where your mouse cursor is:
 
-<Graphic title="Quadratic Bézier arc approximation" setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}/>
+<graphics-element title="Quadratic Bézier arc approximation" width="400" height="400" src="./arc-approximation.js">
+  <input type="range" min="-3.1415" max="3.1415" step="0.01" value="-0.7854" class="slide-control">
+</graphics-element>
 
 As you can see, things go horribly wrong quite quickly; even trying to approximate a quarter circle using a quadratic curve is a bad idea. An eighth of a turns might look okay, but how okay is okay? Let's apply some maths and find out. What we're interested in is how far off our on-curve coordinates are with respect to a circular arc, given a specific start and end angle. We'll be looking at how much space there is between the circular arc, and the quadratic curve's midpoint.
 

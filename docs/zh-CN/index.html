@@ -2133,29 +2133,36 @@ for p = 1 to points.length-3 (inclusive):
 <p>We already know that Bézier curves cannot model all curves that we can think of, and this includes perfect circles, as well as ellipses, and their arc counterparts. However, we can certainly approximate them to a degree that is visually acceptable. Quadratic and cubic curves offer us different curvature control, so in order to approximate a circle we will first need to figure out what the error is if we try to approximate arcs of increasing degree with quadratic and cubic curves, and where the coordinates even lie.</p>
 <p>Since arcs are mid-point-symmetrical, we need the control points to set up a symmetrical curve. For quadratic curves this means that the control point will be somewhere on a line that intersects the baseline at a right angle. And we don't get any choice on where that will be, since the derivatives at the start and end point have to line up, so our control point will lie at the intersection of the tangents at the start and end point.</p>
 <p>First, let's try to fit the quadratic curve onto a circular arc. In the following sketch you can move the mouse around over a unit circle, to see how well, or poorly, a quadratic curve can approximate the arc from (1,0) to where your mouse cursor is:</p>
-<Graphic title="Quadratic Bézier arc approximation" setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}/>
+<graphics-element title="Quadratic Bézier arc approximation" width="400" height="400" src="./chapters/circles/arc-approximation.js" >
+        <fallback-image>
+          <span class="view-source">Scripts are disabled. Showing fallback image.</span>
+          <img width="400px" height="400px" src="images\chapters\circles\6b6d06464219b8b0a046cfd99fe571d1.png">
+          <label></label>
+        </fallback-image>
+  <input type="range" min="-3.1415" max="3.1415" step="0.01" value="-0.7854" class="slide-control">
+</graphics-element>
 
 <p>As you can see, things go horribly wrong quite quickly; even trying to approximate a quarter circle using a quadratic curve is a bad idea. An eighth of a turns might look okay, but how okay is okay? Let's apply some maths and find out. What we're interested in is how far off our on-curve coordinates are with respect to a circular arc, given a specific start and end angle. We'll be looking at how much space there is between the circular arc, and the quadratic curve's midpoint.</p>
 <p>We start out with our start and end point, and for convenience we will place them on a unit circle (a circle around 0,0 with radius 1), at some angle <em>φ</em>:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles/8374c4190d6213b0ac0621481afaa754.svg" width="175px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles/8374c4190d6213b0ac0621481afaa754.svg" width="189px" height="40px" loading="lazy">
 <p>What we want to find is the intersection of the tangents, so we want a point C such that:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles/a127f926eced2751a09c54bf7c361b4a.svg" width="284px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles/a127f926eced2751a09c54bf7c361b4a.svg" width="304px" height="40px" loading="lazy">
 <p>i.e. we want a point that lies on the vertical line through S (at some distance <em>a</em> from S) and also lies on the tangent line through E (at some distance <em>b</em> from E). Solving this gives us:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles/b5d864e9ed0c44c56d454fbaa4218d5e.svg" width="219px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles/b5d864e9ed0c44c56d454fbaa4218d5e.svg" width="228px" height="40px" loading="lazy">
 <p>First we solve for <em>b</em>:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles/9e4d886c372f916f6511c41245ceee39.svg" width="560px" height="17px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles/9e4d886c372f916f6511c41245ceee39.svg" width="581px" height="16px" loading="lazy">
 <p>which yields:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles/c22f6d343ee0cce7bff6a617c946ca17.svg" width="101px" height="39px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles/c22f6d343ee0cce7bff6a617c946ca17.svg" width="103px" height="39px" loading="lazy">
 <p>which we can then substitute in the expression for <em>a</em>:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles/ef3ab62bb896019c6157c85aae5d1ed3.svg" width="231px" height="195px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles/ef3ab62bb896019c6157c85aae5d1ed3.svg" width="240px" height="193px" loading="lazy">
 <p>A quick check shows that plugging these values for <em>a</em> and <em>b</em> into the expressions for C<sub>x</sub> and C<sub>y</sub> give the same x/y coordinates for both "<em>a</em> away from A" and "<em>b</em> away from B", so let's continue: now that we know the coordinate values for C, we know where our on-curve point T for <em>t=0.5</em> (or angle φ/2) is, because we can just evaluate the Bézier polynomial, and we know where the circle arc's actual point P is for angle φ/2:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles/fe32474b4616ee9478e1308308f1b6bf.svg" width="188px" height="32px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles/fe32474b4616ee9478e1308308f1b6bf.svg" width="197px" height="31px" loading="lazy">
 <p>We compute T, observing that if <em>t=0.5</em>, the polynomial values (1-t)², 2(1-t)t, and t² are 0.25, 0.5, and 0.25 respectively:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles/e1059e611aa1e51db41f9ce0b4ebb95a.svg" width="252px" height="35px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles/e1059e611aa1e51db41f9ce0b4ebb95a.svg" width="268px" height="33px" loading="lazy">
 <p>Which, worked out for the x and y components, gives:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles/7754bc3c96ae3c90162fec3bd46bedff.svg" width="408px" height="77px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles/7754bc3c96ae3c90162fec3bd46bedff.svg" width="421px" height="76px" loading="lazy">
 <p>And the distance between these two is the standard Euclidean distance:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles/adbd056f4b8fcd05b1d4f2fce27d7657.svg" width="399px" height="153px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles/adbd056f4b8fcd05b1d4f2fce27d7657.svg" width="407px" height="149px" loading="lazy">
 <p>So, what does this distance function look like when we plot it for a number of ranges for the angle φ, such as a half circle, quarter circle and eighth circle?</p>
 <table><tbody><tr><td>
   <img src="images/arc-q-pi.gif" height="190"/>
@@ -2172,7 +2179,7 @@ for p = 1 to points.length-3 (inclusive):
 
 <p>We now see why the eighth circle arc looks decent, but the quarter circle arc doesn't: an error of roughly 0.06 at <em>t=0.5</em> means we're 6% off the mark... we will already be off by one pixel on a circle with pixel radius 17. Any decent sized quarter circle arc, say with radius 100px, will be way off if approximated by a quadratic curve! For the eighth circle arc, however, the error is only roughly 0.003, or 0.3%, which explains why it looks so close to the actual eighth circle arc. In fact, if we want a truly tiny error, like 0.001, we'll have to contend with an angle of (rounded) 0.593667, which equates to roughly 34 degrees. We'd need 11 quadratic curves to form a full circle with that precision! (technically, 10 and ten seventeenth, but we can't do partial curves, so we have to round up). That's a whole lot of curves just to get a shape that can be drawn using a simple function!</p>
 <p>In fact, let's flip the function around, so that if we plug in the precision error, labelled ε, we get back the maximum angle for that precision:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles/df87674db0f31fc3944aaeb6b890e196.svg" width="247px" height="53px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles/df87674db0f31fc3944aaeb6b890e196.svg" width="268px" height="60px" loading="lazy">
 <p>And frankly, things are starting to look a bit ridiculous at this point, we're doing way more maths than we've ever done, but thankfully this is as far as we need the maths to take us: If we plug in the precisions 0.1, 0.01, 0.001 and 0.0001 we get the radians values 1.748, 1.038, 0.594 and 0.3356; in degrees, that means we can cover roughly 100 degrees (requiring four curves), 59.5 degrees (requiring six curves), 34 degrees (requiring 11 curves), and 19.2 degrees (requiring a whopping nineteen curves).</p>
 <p>The bottom line? <strong>Quadratic curves are kind of lousy</strong> if you want circular (or elliptical, which are circles that have been squashed in one dimension) curves. We can do better, even if it's just by raising the order of our curve once. So let's try the same thing for cubic curves.</p>
 
@@ -2183,7 +2190,14 @@ for p = 1 to points.length-3 (inclusive):
 <p>For cubic curves, we basically want the curve to pass through three points on the circle: the start point, the mid point at "angle/2", and the end point at "angle". We then also need to make sure the control points are such that the start and end tangent lines line up with the circle's tangent lines at the start and end point.</p>
 <p>The first thing we can do is "guess" what the curve should look like, based on the previously outlined curve-through-three-points procedure. This will give use a curve with correct start, mid and end points, but possibly incorrect derivatives at the start and end, because the control points might not be in the right spot. We can then slide the control points along the lines that connect them to their respective end point, until they effect the corrected derivative at the start and end points.  However, if you look back at the section on fitting curves through three points, the rules used were such that they optimized for a near perfect hemisphere, so using the same guess won't be all that useful: guessing the solution based on knowing the solution is not really guessing.</p>
 <p>So have a graphical look at a "bad" guess versus the true fit, where we'll be using the bad guess and the description in the second paragraph to derive the maths for the true fit:</p>
-<Graphic title="Cubic Bézier arc approximation" setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}/>
+<graphics-element title="Cubic Bézier arc approximation" width="400" height="400" src="./chapters/circles_cubic/arc-approximation.js" >
+        <fallback-image>
+          <span class="view-source">Scripts are disabled. Showing fallback image.</span>
+          <img width="400px" height="400px" src="images\chapters\circles_cubic\9c6b58f84913ca69f930a19ade6baf53.png">
+          <label></label>
+        </fallback-image>
+  <input type="range" min="-3.1415" max="3.1415" step="0.01" value="-0.7854" class="slide-control">
+</graphics-element>
 
 <p>We see two curves here; in blue, our "guessed" curve and its control points, and in grey/black, the true curve fit, with proper control points that were shifted in, along line between our guessed control points, such that the derivatives at the start and end points are correct.</p>
 <p>We can already see that cubic curves are a lot better than quadratic curves, and don't look all that wrong until we go well past a quarter circle; ⅜th starts to hint at problems, and half a circle has an obvious "gap" between the real circle and the cubic approximation. Anything past that just looks plain ridiculous... but quarter curves actually look pretty okay!</p>
@@ -2204,11 +2218,11 @@ for p = 1 to points.length-3 (inclusive):
 <p>We see that cubic Bézier curves are much better when it comes to approximating circular arcs, with an error of less than 0.027 at the two "bulge" points for a quarter circle (which had an error of 0.06 for quadratic curves at the mid point), and an error near 0.001 for an eighth of a circle, so we're getting less than half the error for a quarter circle, or: at a slightly lower error, we're getting twice the arc. This makes cubic curves quite useful!</p>
 <p>In fact, the precision of a cubic curve at a quarter circle is considered "good enough" by so many people that it's generally considered "just fine" to use four cubic Bézier curves to fake a full circle when no circle primitives are available; generally, people won't notice that it's not a real circle unless you also happen to overlay an actual circle, so that the difference becomes obvious.</p>
 <p>So with the error analysis out of the way, how do we actually compute the coordinates needed to get that "true fit" cubic curve? The first observation is that we already know the start and end points, because they're the same as for the quadratic attempt:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles_cubic/a4f0dafbfe80c88723c3cc22277a9682.svg" width="175px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles_cubic/a4f0dafbfe80c88723c3cc22277a9682.svg" width="189px" height="40px" loading="lazy">
 <p>But we now need to find two control points, rather than one. If we want the derivatives at the start and end point to match the circle, then the first control point can only lie somewhere on the vertical line through S, and the second control point can only lie somewhere on the line tangent to point E, which means:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles_cubic/dfb83eec053c30e0a41b0a52aba24cd4.svg" width="113px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles_cubic/dfb83eec053c30e0a41b0a52aba24cd4.svg" width="117px" height="40px" loading="lazy">
 <p>where "a" is some scaling factor, and:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles_cubic/e75a848f5f8aead495e35175e2955e06.svg" width="163px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles_cubic/e75a848f5f8aead495e35175e2955e06.svg" width="168px" height="40px" loading="lazy">
 <p>where "b" is also some scaling factor.</p>
 <p>Starting with this information, we slowly maths our way to success, but I won't lie: the maths for this is pretty trig-heavy, and it's easy to get lost if you remember (or know!) some of the core trigonometric identities, so if you just want to see the final result just skip past the next section!</p>
 <div class="note">
@@ -2217,31 +2231,36 @@ for p = 1 to points.length-3 (inclusive):
 <p>Unlike for the quadratic case, we need some more information in order to compute <i>a</i> and <i>b</i>, since they're no longer dependent variables. First, we observe that the curve is symmetrical, so whatever values we end up finding for C<sub>1</sub> will apply to C<sub>2</sub> as well (rotated along its tangent), so we'll focus on finding the location of C<sub>1</sub> only. So here's where we do something that you might not expect: we're going to ignore for a moment, because we're going to have a much easier time if we just solve this problem with geometry first, then move to calculus to solve a much simpler problem.</p>
 <p>If we look at the triangle that is formed between our starting point, or initial guess C<sub>1</sub> and our real C<sub>1</sub>, there's something funny going on: if we treat the line {start,guess} as our opposite side, the line {guess,real} as our adjacent side, with {start,real} our hypotenuse, then the angle for the corner hypotenuse/adjacent is half that of the arc we're covering. Try it: if you place the end point at a quarter circle (pi/2, or 90 degrees), the angle in our triangle is half a quarter (pi/4, or 45 degrees). With that knowledge, and a knowledge of what the length of any of our lines segments are (as a function), we can determine where our control points are, and thus have everything we need to find the error distance function. Of the three lines, the one we can easiest determine is {start,guess}, so let's find out what the guessed control point is. Again geometrically, because we have the benefit of an on-curve <i>t=0.5</i> value.</p>
 <p>The distance from our guessed point to the start point is exactly the same as the projection distance we looked at earlier. Using <i>t=0.5</i> as our point "B" in the "A,B,C" projection, then we know the length of the line segment {C,A}, since it's d<sub>1</sub> = {A,B} + d<sub>2</sub> = {B,C}:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles_cubic/3189cac1ddac07c1487e1e51740ecc88.svg" width="397px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles_cubic/3189cac1ddac07c1487e1e51740ecc88.svg" width="408px" height="36px" loading="lazy">
 <p>So that just leaves us to find the distance from <i>t=0.5</i> to the baseline for an arbitrary angle φ, which is the distance from the centre of the circle to our <i>t=0.5</i> point, minus the distance from the centre to the line that runs from start point to end point. The first is the same as the point P we found for the quadratic curve:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles_cubic/fe32474b4616ee9478e1308308f1b6bf.svg" width="188px" height="32px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles_cubic/fe32474b4616ee9478e1308308f1b6bf.svg" width="197px" height="31px" loading="lazy">
 <p>And the distance from the origin to the line start/end is another application of angles, since the triangle {origin,start,C} has known angles, and two known sides. We can find the length of the line {origin,C}, which lets us trivially compute the coordinate for C:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles_cubic/0364731626a530c8a9b30f424ada53c5.svg" width="261px" height="67px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles_cubic/0364731626a530c8a9b30f424ada53c5.svg" width="267px" height="59px" loading="lazy">
 <p>With the coordinate C, and knowledge of coordinate B, we can determine coordinate A, and get a vector that is identical to the vector {start,guess}:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles_cubic/ee08d86b7497c7ab042ee899bf15d453.svg" width="397px" height="48px" loading="lazy">
-<img class="LaTeX SVG" src="./images/chapters/circles_cubic/195790bae7de813aec342ea82b5d8781.svg" width="211px" height="47px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles_cubic/ee08d86b7497c7ab042ee899bf15d453.svg" width="403px" height="43px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles_cubic/195790bae7de813aec342ea82b5d8781.svg" width="223px" height="41px" loading="lazy">
 <p>Which means we can now determine the distance {start,guessed}, which is the same as the distance {C,A}, and use that to determine the vertical distance from our start point to our C<sub>1</sub>:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles_cubic/178a838274748439778e2a29f5a27d0b.svg" width="252px" height="56px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles_cubic/178a838274748439778e2a29f5a27d0b.svg" width="259px" height="52px" loading="lazy">
 <p>And after this tedious detour to find the coordinate for C<sub>1</sub>, we can find C<sub>2</sub> fairly simply, since it's lies at distance -C<sub>1y</sub> along the end point's tangent:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles_cubic/49dbf244d50c787a4ab18694488d9b69.svg" width="524px" height="79px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles_cubic/49dbf244d50c787a4ab18694488d9b69.svg" width="547px" height="73px" loading="lazy">
 <p>And that's it, we have all four points now for an approximation of an arbitrary circular arc with angle φ.</p>
 </div>
 
 <p>So, to recap, given an angle φ, the new control coordinates are:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles_cubic/e2258660a796dcd6189a6f5e14326dad.svg" width="205px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles_cubic/e2258660a796dcd6189a6f5e14326dad.svg" width="216px" height="40px" loading="lazy">
 <p>and</p>
-<img class="LaTeX SVG" src="./images/chapters/circles_cubic/acbc5efb06bc34571ccc0322376e0b9b.svg" width="321px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles_cubic/acbc5efb06bc34571ccc0322376e0b9b.svg" width="339px" height="40px" loading="lazy">
 <p>And, because the "quarter curve" special case comes up so incredibly often, let's look at what these new control points mean for the curve coordinates of a quarter curve, by simply filling in φ = π/2:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles_cubic/877f9c217c51c0087be751a7580ed459.svg" width="412px" height="33px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles_cubic/877f9c217c51c0087be751a7580ed459.svg" width="420px" height="25px" loading="lazy">
 <p>Which, in decimal values, rounded to six significant digits, is:</p>
-<img class="LaTeX SVG" src="./images/chapters/circles_cubic/05d36e051a38905dcb81e65db8261f24.svg" width="412px" height="16px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/circles_cubic/05d36e051a38905dcb81e65db8261f24.svg" width="427px" height="16px" loading="lazy">
 <p>Of course, this is for a circle with radius 1, so if you have a different radius circle, simply multiply the coordinate by the radius you need. And then finally, forming a full curve is now a simple a matter of mirroring these coordinates about the origin:</p>
-<Graphic title="Cubic Bézier circle approximation" draw={this.drawCircle} static={true}/>
+<graphics-element title="Cubic Bézier circle approximation" width="400" height="400" src="./chapters/circles_cubic/circle.js" >
+        <fallback-image>
+          <span class="view-source">Scripts are disabled. Showing fallback image.</span>
+          <img width="400px" height="400px" src="images\chapters\circles_cubic\3c6f863c77cc2100573bf71adaabc12e.png">
+          <label></label>
+        </fallback-image></graphics-element>
 
       </section>
 <section id="arcapproximation">

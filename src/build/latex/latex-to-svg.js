@@ -94,7 +94,7 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
       )}" "${TeXfilename}"`,
       crop: `pdfcrop "${PDFfilename}"`,
       svg: `pdf2svg "${PDFfilenameCropped}" "${SVGfilename}"`,
-      svgo: `npx svgo "${SVGfilename}"`,
+      svgo: `npm run svgo -- "${SVGfilename}"`,
     };
 
     // Finally: run the conversion

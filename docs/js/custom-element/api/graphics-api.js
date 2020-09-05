@@ -514,9 +514,11 @@ class GraphicsAPI extends BaseAPI {
   /**
    * Draw a circular arc
    */
-  arc(x, y, r, s, e) {
+  arc(x, y, r, s, e, cx = false, cy = false) {
     this.ctx.beginPath();
+    if (cx !== false && cy != false) this.ctx.moveTo(cx, cy);
     this.ctx.arc(x, y, r, s, e);
+    if (cx !== false && cy != false) this.ctx.moveTo(cx, cy);
     this.ctx.fill();
     this.ctx.stroke();
   }

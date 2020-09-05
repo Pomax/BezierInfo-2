@@ -8,7 +8,9 @@ The first thing we can do is "guess" what the curve should look like, based on t
 
 So have a graphical look at a "bad" guess versus the true fit, where we'll be using the bad guess and the description in the second paragraph to derive the maths for the true fit:
 
-<Graphic title="Cubic Bézier arc approximation" setup={this.setup} draw={this.draw} onMouseMove={this.onMouseMove}/>
+<graphics-element title="Cubic Bézier arc approximation" width="400" height="400" src="./arc-approximation.js">
+  <input type="range" min="-3.1415" max="3.1415" step="0.01" value="-0.7854" class="slide-control">
+</graphics-element>
 
 We see two curves here; in blue, our "guessed" curve and its control points, and in grey/black, the true curve fit, with proper control points that were shifted in, along line between our guessed control points, such that the derivatives at the start and end points are correct.
 
@@ -177,4 +179,4 @@ Which, in decimal values, rounded to six significant digits, is:
 
 Of course, this is for a circle with radius 1, so if you have a different radius circle, simply multiply the coordinate by the radius you need. And then finally, forming a full curve is now a simple a matter of mirroring these coordinates about the origin:
 
-<Graphic title="Cubic Bézier circle approximation" draw={this.drawCircle} static={true}/>
+<graphics-element title="Cubic Bézier circle approximation" width="400" height="400" src="./circle.js"></graphics-element>
