@@ -19,7 +19,7 @@ draw() {
 
   var reduced = this.reduce(curve);
   reduced.forEach(c => {
-    setStroke( randomColor() );
+    setStroke(randomColor() );
     this.drawCurve(c);
     circle(c.points[0].x, c.points[0].y, 2);
   });
@@ -93,7 +93,7 @@ reduce(curve) {
         segment = p1.split(t1, t2);
         if (!segment.simple()) {
           t2 -= step;
-          if ( abs(t1 - t2) < step) {
+          if (abs(t1 - t2) < step) {
             // we can never form a reduction
             return [];
           }

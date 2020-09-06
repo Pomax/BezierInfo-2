@@ -43,12 +43,12 @@ draw() {
     noFill();
 
     this.s.forEach((s,i) => {
-        setStroke( randomColor(0.2));
+        setStroke(randomColor(0.2));
         line(
             i/(this.s.length-1) * this.width, 0,
             i/(this.s.length-1) * this.width, this.height
         )
-        setStroke( randomColor(1.0, false ));
+        setStroke(randomColor(1.0, false ));
         drawShape(s);
     })
 

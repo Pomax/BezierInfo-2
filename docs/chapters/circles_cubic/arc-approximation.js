@@ -78,8 +78,8 @@ getRealCurve(S, E, angle) {
   const f = 4/3 * tan(angle/4);
   const C1 = { x: w/2 + r, y: h/2 + r * f };
   const C2 = {
-    x: w/2 + r * ( cos(angle) + f * sin(angle) ),
-    y: h/2 + r * ( sin(angle) - f * cos(angle) )
+    x: w/2 + r * (cos(angle) + f * sin(angle)),
+    y: h/2 + r * (sin(angle) - f * cos(angle))
   };
   return new Bezier(this, [S, C1, C2, E]);
 }

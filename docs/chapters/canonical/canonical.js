@@ -83,7 +83,7 @@ loopFunction0(x) {
 }
 
 loopFunction1(x) {
-    return { x, y: ( sqrt(3) * sqrt(4*x - x*x) - x) / 2 };
+    return { x, y: (sqrt(3) * sqrt(4*x - x*x) - x) / 2 };
 }
 
 

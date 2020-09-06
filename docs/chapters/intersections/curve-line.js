@@ -47,7 +47,7 @@ draw() {
 drawLine(p1, p2) {
   setStroke(`black`);
   line(p1.x, p1.y, p2.x, p2.y);
-  setStroke( randomColor() );
+  setStroke(randomColor() );
   circle(p1.x, p1.y, 3);
   circle(p2.x, p2.y, 3);
 }

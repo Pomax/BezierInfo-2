@@ -17,7 +17,7 @@ draw() {
     // See "arc.js" for the code required to find arcs on the curve.
     let arcs = curve.arcs(this.error);
     arcs.forEach(a => {
-        setColor( randomColor(0.3) );
+        setColor(randomColor(0.3));
         arc(
             a.x, a.y, a.r, a.s, a.e,
             a.x, a.y

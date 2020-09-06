@@ -39,7 +39,7 @@ draw() {
     noLineDash();
 
     points.forEach(p => {
-        setColor( randomColor() );
+        setColor(randomColor());
         circle(p.x, p.y, 3);
     });
 }
@@ -56,7 +56,7 @@ dragSegment(p0, p1, p2, p3) {
           };
 
     noFill();
-    setStroke( randomColor() );
+    setStroke(randomColor() );
 
     start();
     this.addCoordinate(0, p1, p2, m1, m2);

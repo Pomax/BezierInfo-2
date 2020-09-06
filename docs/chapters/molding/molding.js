@@ -168,7 +168,7 @@ getIdealisedCurve(p1, p2, p3) {
           d2 = dist(p3.x, p3.y, p2.x, p2.y),
           t = d1 / (d1 + d2),
           { A, B, C, S, E } = Bezier.getABC(3, p1, p2, p3, t),
-          angle = ( atan2(E.y-S.y, E.x-S.x) - atan2(B.y-S.y, B.x-S.x) + TAU ) % TAU,
+          angle = (atan2(E.y-S.y, E.x-S.x) - atan2(B.y-S.y, B.x-S.x) + TAU) % TAU,
           bc = (angle < 0 || angle > PI ? -1 : 1) * dist(S.x, S.y, E.x, E.y)/3,
           de1 = t * bc,
           de2 = (1-t) * bc,

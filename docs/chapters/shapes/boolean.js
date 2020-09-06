@@ -58,7 +58,7 @@ draw() {
 
 
 drawSegment(segment) {
-    setStroke( randomColor(0.2) );
+    setStroke(randomColor(0.2) );
     start()
     segment.getLUT(16).forEach(p => vertex(p.x, p.y))
     end();
@@ -78,7 +78,7 @@ drawBoolean(s1, s2) {
                 ti = ti.map(s => s.split(`/`).map(parseFloat));
                 // remove "near enough to be considered duplicate" t pairs
                 for(let i=ti.length-1; i>0; i--) {
-                    if ( abs(ti[i][0] - ti[i-1][0]) < 0.01 && abs(ti[i][1] - ti[i-1][1]) < 0.01) {
+                    if (abs(ti[i][0] - ti[i-1][0]) < 0.01 && abs(ti[i][1] - ti[i-1][1]) < 0.01) {
                         ti.splice(i,1);
                     }
                 }

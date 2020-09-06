@@ -89,7 +89,7 @@ drawCurveIntervals(LUT) {
     let targetDistance = i/e * dlen;
     while(LUT[pos].d < targetDistance) pos++;
 
-    setStroke( randomColor() );
+    setStroke(randomColor() );
     start();
     for(let j=lastpos; j<=pos; j++) vertex(LUT[j].x, LUT[j].y);
     lastpos = pos;

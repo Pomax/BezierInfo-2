@@ -102,17 +102,17 @@ caclulateCenter(p1, p2, p3) {
 }
 
 showChords(p1, p2, p3, c) {
-  setStroke( randomColor() );
+  setStroke(randomColor() );
   line(p1.x, p1.y, p2.x, p2.y);
   let m1 = { x: (p1.x+p2.x)/2, y: (p1.y+p2.y)/2 };
   line(m1.x, m1.y, c.x + (c.x-m1.x)/2, c.y + (c.y-m1.y)/2);
 
-  setStroke( randomColor() );
+  setStroke(randomColor() );
   line(p3.x, p3.y, p2.x, p2.y);
   let m2 = { x: (p3.x+p2.x)/2, y: (p3.y+p2.y)/2 };
   line(m2.x, m2.y, c.x + (c.x-m2.x)/2, c.y + (c.y-m2.y)/2);
 
-  setStroke( randomColor() );
+  setStroke(randomColor() );
   line(p3.x, p3.y, p1.x, p1.y);
   let m3 = { x: (p3.x+p1.x)/2, y: (p3.y+p1.y)/2 };
   line(m3.x, m3.y, c.x + (c.x-m3.x)/2, c.y + (c.y-m3.y)/2);
@@ -131,7 +131,7 @@ showCurve(p1, p2, p3, c) {
 
     // Check which length we need to use for our e1-e2 segment,
     // corrected for whether B is "above" or "below" the baseline:
-    const angle = ( atan2(E.y-S.y, E.x-S.x) - atan2(B.y-S.y, B.x-S.x) + TAU ) % TAU,
+    const angle = (atan2(E.y-S.y, E.x-S.x) - atan2(B.y-S.y, B.x-S.x) + TAU) % TAU,
           bc = (angle < 0 || angle > PI ? -1 : 1) * dist(S.x, S.y, E.x, E.y)/3,
           de1 = t * bc,
           de2 = (1-t) * bc;

@@ -39,12 +39,12 @@ draw() {
 
 updateCurve(a) {
   let angle = -a;
-  let b = ( cos(angle) - 1 ) / sin(angle);
+  let b = (cos(angle) - 1 ) / sin(angle);
 
   // new control point
   curve.points[1] = {
-    x: w/2 + r * ( cos(angle) - b * sin(angle) ),
-    y: w/2 + r * ( sin(angle) + b * cos(angle) )
+    x: w/2 + r * (cos(angle) - b * sin(angle) ),
+    y: w/2 + r * (sin(angle) + b * cos(angle) )
   };
 
   // new endpoint

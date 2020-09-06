@@ -21,7 +21,7 @@ draw() {
 };
 
 drawCurve(c) {
-  setStroke( randomColor() );
+  setStroke(randomColor() );
   start()
   c.getLUT(16).forEach(p => vertex(p.x, p.y));
   end();

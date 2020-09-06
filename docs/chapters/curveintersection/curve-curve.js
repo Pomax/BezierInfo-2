@@ -95,7 +95,7 @@ drawIteration() {
     pair.forEach(b => {
       let curve = new Bezier(this, b.points);
       curve.drawCurve();
-      curve.drawBoundingBox( randomColor() );
+      curve.drawBoundingBox(randomColor());
     })
   });
 
