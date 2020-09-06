@@ -1,4 +1,5 @@
 import { enrich } from "../lib/enrich.js";
+import { create } from "../lib/create.js";
 import { Bezier } from "./types/bezier.js";
 import { BSpline } from "./types/bspline.js";
 import { Vector } from "./types/vector.js";
@@ -177,6 +178,23 @@ class GraphicsAPI extends BaseAPI {
   }
 
   /**
+   * Dynamically add a slider
+   */
+  addSlider(classes, propname, min, max, step, value, transform) {
+    if (this.element) {
+      let slider = create(`input`);
+      slider.type = `range`;
+      slider.min = min;
+      slider.max = max;
+      slider.step = step;
+      slider.setAttribute(`value`, value);
+      slider.setAttribute(`class`, classes);
+      this.element.append(slider);
+      this.setSlider(slider, propname, value, transform);
+    }
+  }
+
+  /**
    * Set up a slider to control a named, numerical property in the sketch.
    *
    * @param {String} local query selector for the type=range element.
@@ -185,22 +203,31 @@ class GraphicsAPI extends BaseAPI {
    * @param {boolean} redraw whether or not to redraw after updating the value from the slider.
    */
   setSlider(qs, propname, initial, transform) {
-    if (typeof this[propname] !== `undefined`) {
+    if (propname !== false && typeof this[propname] !== `undefined`) {
       throw new Error(`this.${propname} already exists: cannot bind slider.`);
     }
 
-    let slider = this.find(qs);
+    let slider = typeof qs === `string` ? this.find(qs) : qs;
 
     if (!slider) {
       console.warn(`Warning: no slider found for query selector "${qs}"`);
-      this[propname] = initial;
+      if (propname) this[propname] = initial;
       return undefined;
     }
 
     const updateProperty = (evt) => {
       let value = parseFloat(slider.value);
-      slider.setAttribute(`value`, value);
-      this[propname] = transform ? transform(value) : value;
+      try {
+        let checked = transform ? transform(value) ?? value : value;
+        if (propname) this[propname] = checked;
+      } catch (e) {
+        if (evt instanceof Event) {
+          evt.preventDefault();
+          evt.stopPropagation();
+        }
+        slider.value = e.value;
+        slider.setAttribute(`value`, e.value);
+      }
       if (!this.redrawing) this.redraw();
     };
 
@@ -209,6 +236,15 @@ class GraphicsAPI extends BaseAPI {
     slider.listen(`input`, updateProperty);
 
     return slider;
+  }
+
+  /**
+   * remove all sliders from this element
+   */
+  removeSliders() {
+    this.findAll(`input[type=range]`).forEach((s) => {
+      s.parentNode.removeChild(s);
+    });
   }
 
   /**
@@ -413,7 +449,7 @@ class GraphicsAPI extends BaseAPI {
    * Set the context lineWidth
    */
   setWidth(width) {
-    this.ctx.lineWidth = `${width}px`;
+    this.ctx.lineWidth = width;
   }
 
   /**

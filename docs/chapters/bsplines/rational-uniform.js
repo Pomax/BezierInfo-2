@@ -1,4 +1,4 @@
-let points=[];
+let points=[], weights;
 
 setup() {
   var r = this.width/3;
@@ -8,8 +8,19 @@ setup() {
       y: this.height/2 + r * Math.sin(i/6 * TAU)
     });
   }
+
+  weights = new BSpline(this, points, !!this.parameters.open).formWeights();
+
+  points.forEach((_,i) => {
+    addSlider(`slide-control`, false, 0, 10, 0.1, i%2===1? 2 : 6, v => this.setWeight(i, v));
+  });
+
   points = points.concat(points.slice(0,3));
   setMovable(points);
+}
+
+setWeight(i, v) {
+  weights[i] = v;
 }
 
 draw() {
@@ -33,7 +44,7 @@ draw() {
 
 drawSplineData() {
   const spline = new BSpline(this, points, !!this.parameters.open);
-  spline.formWeights();
+  spline.weights = weights;
 
   noFill();
   setStroke(`black`);

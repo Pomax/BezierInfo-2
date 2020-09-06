@@ -1,4 +1,4 @@
-import interpolate from "../util/spline.js";
+import interpolate from "../util/interpolate-bspline.js";
 
 // cubic B-Spline
 const DEGREE = 3;

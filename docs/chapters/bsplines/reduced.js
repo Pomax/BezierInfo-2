@@ -8,6 +8,27 @@ setup() {
     });
   }
   setMovable(points);
+
+  knots = new BSpline(this, points).formKnots(!!this.parameters.open);
+
+  const m = round(points.length/2);
+  knots[m+1] = knots[m];
+  knots[m+2] = knots[m];
+  for (let i=m+3; i<knots.length; i++) {
+    knots[i] = knots[i-1] + 1;
+  }
+
+  let min=0, max=knots.length-1;
+  knots.forEach((_,i) => {
+    addSlider(`slide-control`, false, min, max, 0.01, knots[i], v => this.setKnotValue(i, v));
+  });
+}
+
+setKnotValue(i, v) {
+  if (i>0 && v < knots[i-1]) throw {value: knots[i-1]};
+  if (i<knots.length-1 && v > knots[i+1]) throw {value: knots[i+1]};
+  knots[i] = v;
+  redraw();
 }
 
 draw() {
@@ -30,16 +51,8 @@ draw() {
 }
 
 drawSplineData() {
-  const spline = new BSpline(this, points, !!this.parameters.open);
-
-  const knots = spline.formKnots();
-  const m = round(points.length/2)|0;
-  knots[m+0] = knots[m];
-  knots[m+1] = knots[m];
-  knots[m+2] = knots[m];
-  for (let i=m+3; i<knots.length; i++) {
-    knots[i] = knots[i-1] + 1;
-  }
+  const spline = new BSpline(this, points);
+  spline.knots = knots;
 
   noFill();
   setStroke(`black`);

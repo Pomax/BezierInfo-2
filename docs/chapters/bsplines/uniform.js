@@ -1,4 +1,4 @@
-let points=[];
+let points=[], knots;
 
 setup() {
   for (let s=TAU/9, i=s/2; i<TAU; i+=s) {
@@ -8,6 +8,19 @@ setup() {
     });
   }
   setMovable(points);
+
+  knots = new BSpline(this, points).formKnots(!!this.parameters.open);
+  let min=0, max=knots.length-1;
+  knots.forEach((_,i) => {
+    addSlider(`slide-control`, false, min, max, 0.01, knots[i], v => this.setKnotValue(i, v));
+  });
+}
+
+setKnotValue(i, v) {
+  if (i>0 && v < knots[i-1]) throw {value: knots[i-1]};
+  if (i<knots.length-1 && v > knots[i+1]) throw {value: knots[i+1]};
+  knots[i] = v;
+  redraw();
 }
 
 draw() {
@@ -31,7 +44,7 @@ draw() {
 
 drawSplineData() {
   const spline = new BSpline(this, points);
-  spline.formKnots(!!this.parameters.open);
+  spline.knots = knots;
 
   noFill();
   setStroke(`black`);

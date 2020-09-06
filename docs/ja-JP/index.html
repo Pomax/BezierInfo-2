@@ -1843,7 +1843,7 @@ for (coordinate, index) in LUT:
 <graphics-element title="Fitting a Bézier curve" width="550" height="275" src="./chapters/curvefitting/curve-fitting.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="550px" height="275px" src="images\chapters\curvefitting\c6c8442e24793ce72a872ce29b2b4125.png">
+          <img width="550px" height="275px" src="images\chapters\curvefitting\78d32beb061391c47217611128446146.png">
           <label></label>
         </fallback-image>
   <button class="toggle">toggle</button>
@@ -2369,13 +2369,17 @@ Doing so for a degree <code>d</code> B-Spline with <code>n</code> control point 
 <p>One thing we need to keep in mind is that we're working with a spline that is constrained by its control points, so even though the <code>d(..., k)</code> values are zero or one at the lowest level, they are really "zero or one, times their respective control point", so in the next section you'll see the algorithm for running through the computation in a way that starts with a copy of the control point vector and then works its way up to that single point: that's pretty essential!</p>
 <p>If we run this computation "down", starting at d(3,3), then without special code in place we would be computing quite a few terms multiple times at each step. On the other hand, we can also start with that last "column", we can generate the terminating d() values first, then compute the a() constants, perform our multiplications, generate the previous step's d() values, compute their a() constants, do the multiplications, etc. until we end up all the way back at the top. If we run our computation this way, we don't need any explicit caching, we can just "recycle" the list of numbers we start with and simply update them as we move up the triangle. So, let's implement that!</p>
 <h2>Cool, cool... but I don't know what to do with that information</h2>
-<p>I know, this is pretty mathy, so let's have a look at what happens when we change parameters here. We can't change the maths for the interpolation functions, so that gives us only one way to control what happens here: the knot vector itself. As such, let's look at the graph that shows the interpolation functions for a cubic B-Spline with seven points with a uniform knot vector (so we see seven identical functions), representing how much each point (represented by one function each) influences the total curvature, given our knot values. And, because exploration is the key to discovery, let's make the knot vector a thing we can actually manipulate. Normally a proper knot vector has a constraint that any value is strictly equal to, or larger than the previous ones, but screw it this is programming, let's ignore that hard restriction and just mess with the knots however we like.</p>
+<p>I know, this is pretty mathy, so let's have a look at what happens when we change parameters here. We can't change the maths for the interpolation functions, so that gives us only one way to control what happens here: the knot vector itself. As such, let's look at the graph that shows the interpolation functions for a cubic B-Spline with seven points with a uniform knot vector (so we see seven identical functions), representing how much each point (represented by one function each) influences the total curvature, given our knot values. And, because exploration is the key to discovery, let's make the knot vector a thing we can actually manipulate (you will notice that knots are constrained in their value: any knot must strictly be equal to, or greater than, the previous value).</p>
 <!-- THIS GRAPH IS EXTREMELY NOT-USEFUL, BUT WE'RE PORTING IT FIRST, AND REWRITING IT LATER -->
 
-<div class="two-column">
-  <KnotController ref="interpolation-graph" />
-  <BSplineGraphic sketch={this.interpolationGraph} controller={(owner, knots) => this.bindKnots(owner, knots, "interpolation-graph")}/>
-</div>
+<graphics-element title="Visualising relative interpolation strengths" width="600" height="300" src="./chapters/bsplines/interpolation.js" >
+        <fallback-image>
+          <span class="view-source">Scripts are disabled. Showing fallback image.</span>
+          <img width="600px" height="300px" src="images\chapters\bsplines\84bd623b9d3d8bf01a656f49c17079b8.png">
+          <label></label>
+        </fallback-image>
+  <!-- weight factors go here, similar to curve fitting sliders -->
+</graphics-element>
 
 <p>Changing the values in the knot vector changes how much each point influences the total curvature (with some clever knot value manipulation, we can even make the influence of certain points disappear entirely!), so we can see that while the control points define the hull inside of which we're going to be drawing a curve, it is actually the knot vector that determines the actual <em>shape</em> of the curve inside that hull.</p>
 <p>After reading the rest of this section you may want to come back here to try some specific knot vectors, and see if the resulting interpolation landscape makes sense given what you will now think should happen!</p>
@@ -2398,8 +2402,8 @@ for(let L = 1; L &lt;= order; L++) {
 }</code></pre>
 <p>(A nice bit of behaviour in this code is that we work the interpolation "backwards", starting at <code>i=s</code> at each level of the interpolation, and we stop when <code>i = s - order + level</code>, so we always end up with a value for <code>i</code> such that those <code>v[i-1]</code> don't try to use an array index that doesn't exist)</p>
 <h2>Open vs. closed paths</h2>
-<p>Much like poly-Béziers, B-Splines can be either open, running from the first point to the last point, or closed, where the first and last point are <em>the same point</em>. However, because B-Splines are an interpolation of curves, not just point, we can't simply make the first and last point the same, we need to link a few point point: for an order <code>d</code> B-Spline, we need to make the last <code>d</code> point the same as the first <code>d</code> points. And the easiest way to do this is to simply append <code>points.splice(0,d)</code> to <code>points</code>. Done!</p>
-<p>Of course if we want to manipulate these kind of curves we need to make sure to mark them as "closed" so that we know the coordinate for <code>points[0]</code> and <code>points[n-k]</code> etc. are the same coordinate, and manipulating one will equally manipulate the other, but programming generally makes this really easy by storing references to coordinates (or other linked values such as coordinate weights, discussed in the NURBS section) rather than separate coordinate objects.</p>
+<p>Much like poly-Béziers, B-Splines can be either open, running from the first point to the last point, or closed, where the first and last point are the same coordinate. However, because B-Splines are an interpolation of curves, not just points, we can't simply make the first and last point the same, we need to link as many points as are necessary to form "a curve" that the spline performs interpolation with. As such, for an order <code>d</code> B-Spline, we need to make the first and last <code>d</code> points the same. This is of course hardly more work than before (simply append <code>points.splice(0,d)</code> to <code>points</code>) but it's important to remember that you need more than just a single point.</p>
+<p>Of course if we want to manipulate these kind of curves we need to make sure to mark them as "closed" so that we know the coordinate for <code>points[0]</code> and <code>points[n-k]</code> etc. don't just happen to have the same x/y values, but really are the same coordinate, so that manipulating one will equally manipulate the other, but programming generally makes this really easy by storing references to points, rather than copies (or other linked values such as coordinate weights, discussed in the NURBS section) rather than separate coordinate objects.</p>
 <h2>Manipulating the curve through the knot vector</h2>
 <p>The most important thing to understand when it comes to B-Splines is that they work <em>because</em> of the concept of a knot vector. As mentioned above, knots represent "where individual control points start/stop influencing the curve", but we never looked at the <em>values</em> that go in the knot vector. If you look back at the N() and a() functions, you see that interpolations are based on intervals in the knot vector, rather than the actual values in the knot vector, and we can exploit this to do some pretty interesting things with clever manipulation of the knot vector. Specifically there are four things we can do that are worth looking at:</p>
 <ol>
@@ -2413,7 +2417,7 @@ for(let L = 1; L &lt;= order; L++) {
 <graphics-element title="A uniform B-Spline" width="400" height="400" src="./chapters/bsplines/uniform.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="400px" height="400px" src="images\chapters\bsplines\5d3b04c3161a3429ce651bb7a5fa0399.png">
+          <img width="400px" height="400px" src="images\chapters\bsplines\7ac6e46280de14dce141fb073777dc8e.png">
           <label></label>
         </fallback-image>
   <!-- knot sliders go here, similar to the curve fitter section -->
@@ -2426,7 +2430,7 @@ for(let L = 1; L &lt;= order; L++) {
 <graphics-element title="A reduced uniform B-Spline" width="400" height="400" src="./chapters/bsplines/reduced.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="400px" height="400px" src="images\chapters\bsplines\93146ea89bb21999d9e18b57dd1bdd29.png">
+          <img width="400px" height="400px" src="images\chapters\bsplines\984c86b3b357c799aaab5a5fbd48d599.png">
           <label></label>
         </fallback-image>
   <!-- knot sliders go here, similar to the curve fitter section -->
@@ -2439,7 +2443,7 @@ for(let L = 1; L &lt;= order; L++) {
 <graphics-element title="An open, uniform B-Spline" width="400" height="400" src="./chapters/bsplines/uniform.js" data-open="true">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="400px" height="400px" src="images\chapters\bsplines\8caa3e8ff614ad9731b15dacaba98c3c.png">
+          <img width="400px" height="400px" src="images\chapters\bsplines\4c71f82901edc1a0acae31cf5be12c65.png">
           <label></label>
         </fallback-image>
   <!-- knot sliders go here, similar to the curve fitter section -->
@@ -2449,11 +2453,11 @@ for(let L = 1; L &lt;= order; L++) {
 <h3>Non-uniform B-Splines</h3>
 <p>This is essentially the "free form" version of a B-Spline, and also the least interesting to look at, as without any specific reason to pick specific knot intervals, there is nothing particularly interesting going on. There is one constraint to the knot vector, other than that any value <code>knots[k+1]</code> should be greater than or equal to <code>knots[k]</code>.</p>
 <h2>One last thing: Rational B-Splines</h2>
-<p>While it is true that this section on B-Splines is running quite long already, there is one more thing we need to talk about, and that's "Rational" splines, where the rationality applies to the "ratio", or relative weights, of the control points themselves. By introducing a ratio vector with weights to apply to each control point, we greatly increase our influence over the final curve shape: the more weight a control point carries, the close to that point the spline curve will lie, a bit like turning up the gravity of a control point.</p>
-<graphics-element title="An rational, uniform B-Spline" width="400" height="400" src="./chapters/bsplines/rational-uniform.js" >
+<p>While it is true that this section on B-Splines is running quite long already, there is one more thing we need to talk about, and that's "Rational" splines, where the rationality applies to the "ratio", or relative weights, of the control points themselves. By introducing a ratio vector with weights to apply to each control point, we greatly increase our influence over the final curve shape: the more weight a control point carries, the closer to that point the spline curve will lie, a bit like turning up the gravity of a control pointl, just like for rational Bézier curves.</p>
+<graphics-element title="A (closed) rational, uniform B-Spline" width="400" height="400" src="./chapters/bsplines/rational-uniform.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="400px" height="400px" src="images\chapters\bsplines\fc654445500dd595d6ae9de27a3dc46c.png">
+          <img width="400px" height="400px" src="images\chapters\bsplines\9915d887443459415a7bfb57bea1b898.png">
           <label></label>
         </fallback-image>
   <!-- knot sliders go here, similar to the curve fitter section -->

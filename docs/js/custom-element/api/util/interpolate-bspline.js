@@ -24,6 +24,11 @@ export default function interpolate(
     }
   }
 
+  // closed curve?
+  if (weights.length < points.length) {
+    weights = weights.concat(weights.slice(0, degree));
+  }
+
   if (!knots) {
     // build knot vector of length [n + degree + 1]
     var knots = [];
@@ -33,6 +38,11 @@ export default function interpolate(
   } else {
     if (knots.length !== n + degree + 1)
       throw new Error("bad knot vector length");
+  }
+
+  // closed curve?
+  if (knots.length === points.length) {
+    knots = knots.concat(knots.slice(0, degree));
   }
 
   var domain = [degree, knots.length - 1 - degree];

@@ -1,16 +1,15 @@
-let points = [], curve, sliders;
+let points=[], curve, tvalues=[];
 
 setup() {
   let btn = find(`.toggle`);
   if (btn) btn.listen(`click`, evt => this.toggle());
-  sliders = find(`.sliders`);
   this.mode = 0;
   this.label = `Using equidistant t values`;
 }
 
 toggle() {
   this.mode = (this.mode + 1) % 2;
-  if (sliders) this.setSliderValues(this.mode);
+  this.setSliderValues(this.mode);
   redraw();
 }
 
@@ -23,7 +22,7 @@ draw() {
   setFontSize(16);
   setTextStroke(`white`, 4);
   const n = points.length;
-  if (n > 2 && sliders && sliders.values) {
+  if (n > 2) {
     curve = this.fitCurveToPoints(n);
     curve.drawSkeleton(`blue`);
     curve.drawCurve();
@@ -35,7 +34,7 @@ draw() {
 
 fitCurveToPoints(n) {
   // alright, let's do this thing:
-  const tm = this.formTMatrix(sliders.values, n),
+  const tm = this.formTMatrix(tvalues, n),
         T = tm.T,
         Tt = tm.Tt,
         M = this.generateBasisMatrix(n),
@@ -107,28 +106,20 @@ onMouseDown() {
 
 
 updateSliders() {
-  if (sliders && points.length > 2) {
-    sliders.innerHTML = ``;
-    sliders.values = [];
-    this.sliders = points.map((p,i) => {
-      // TODO: this should probably be built into the graphics API as a
-      //       things that you can do, e.g. clearSliders() and addSlider()
-      let s = document.createElement(`input`);
-      s.setAttribute(`type`, `range`);
-      s.setAttribute(`min`, `0`);
-      s.setAttribute(`max`, `1`);
-      s.setAttribute(`step`, `0.01`);
-      s.classList.add(`slide-control`);
-      sliders.values[i] =  i/(points.length-1);
-      s.setAttribute(`value`, sliders.values[i]);
-      s.addEventListener(`input`, evt => {
-        this.label = `Using custom t values`;
-        sliders.values[i] = parseFloat(evt.target.value);
-        redraw();
-      });
-      sliders.append(s);
+  removeSliders();
+  const l = points.length-1;
+  if (l >= 2) {
+    points.forEach((_,i) => {
+      addSlider(`slide-control`, false, 0, 1, 0.01, i/l, v => this.setTvalue(i, v));
     });
   }
+  this.label = `Using equidistant t values`;
+}
+
+setTvalue(i, t) {
+  this.label = `Using custom t values`;
+  tvalues[i] = t;
+  redraw();
 }
 
 setSliderValues(mode) {
@@ -137,7 +128,7 @@ setSliderValues(mode) {
   // equidistant
   if (mode === 0) {
     this.label = `Using equidistant t values`;
-    sliders.values = [...new Array(n)].map((_,i) =>i/(n-1));
+    tvalues = [...new Array(n)].map((_,i) =>i/(n-1));
   }
 
   // polygonal distance
@@ -152,11 +143,11 @@ setSliderValues(mode) {
     }
     const S = [], len = D[n-1];
     D.forEach((v,i) => { S[i] = v/len; });
-    sliders.values = S;
+    tvalues = S;
   }
 
-  findAll(`.sliders input[type=range]`).forEach((s,i) => {
-    s.setAttribute(`value`, sliders.values[i]);
-    s.value = sliders.values[i];
+  findAll(`input[type=range]`).forEach((s,i) => {
+    s.setAttribute(`value`, tvalues[i]);
+    s.value = tvalues[i];
   });
 }
