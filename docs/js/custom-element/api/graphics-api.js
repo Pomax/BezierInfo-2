@@ -1,5 +1,6 @@
 import { enrich } from "../lib/enrich.js";
 import { Bezier } from "./types/bezier.js";
+import { BSpline } from "./types/bspline.js";
 import { Vector } from "./types/vector.js";
 import { Matrix } from "./types/matrix.js";
 import { Shape } from "./util/shape.js";
@@ -791,4 +792,4 @@ class GraphicsAPI extends BaseAPI {
   }
 }
 
-export { GraphicsAPI, Bezier, Vector, Matrix, Shape };
+export { GraphicsAPI, Bezier, BSpline, Vector, Matrix, Shape };

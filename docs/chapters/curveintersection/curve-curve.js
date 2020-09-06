@@ -4,7 +4,7 @@ setup() {
   setPanelCount(3);
   this.pairReset();
   this.setupEventListening();
-  setSlider(`.slide-control`, `epsilon`, 1.0, v => this.reset());
+  setSlider(`.slide-control`, `epsilon`, 1.0, v => this.reset(v));
 }
 
 pairReset() {
@@ -15,11 +15,12 @@ pairReset() {
   this.reset();
 }
 
-reset() {
+reset(v) {
   if (next && next.disabled) next.disabled = false;
   this.pairs = [[curve1, curve2]];
   this.finals = [];
   this.step = 0;
+  return v;
 }
 
 setupEventListening() {

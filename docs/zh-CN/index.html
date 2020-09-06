@@ -1578,7 +1578,7 @@ lli = function(line1, line2):
 <graphics-element title="Curve/curve intersections" width="825" height="275" src="./chapters/curveintersection/curve-curve.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="825px" height="275px" src="images\chapters\curveintersection\eae3bb142567d9e2b8c1e4d42e8ef505.png">
+          <img width="825px" height="275px" src="images\chapters\curveintersection\914e097fe4341697e05b6fd328cc4c91.png">
           <label></label>
         </fallback-image>
   <input type="range" min="0.01" max="1" step="0.01" value="1" class="slide-control">
@@ -2255,10 +2255,10 @@ for p = 1 to points.length-3 (inclusive):
 <p>Which, in decimal values, rounded to six significant digits, is:</p>
 <img class="LaTeX SVG" src="./images/chapters/circles_cubic/05d36e051a38905dcb81e65db8261f24.svg" width="427px" height="16px" loading="lazy">
 <p>Of course, this is for a circle with radius 1, so if you have a different radius circle, simply multiply the coordinate by the radius you need. And then finally, forming a full curve is now a simple a matter of mirroring these coordinates about the origin:</p>
-<graphics-element title="Cubic Bézier circle approximation" width="400" height="400" src="./chapters/circles_cubic/circle.js" >
+<graphics-element title="Cubic Bézier circle approximation" width="340" height="300" src="./chapters/circles_cubic/circle.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="400px" height="400px" src="images\chapters\circles_cubic\3c6f863c77cc2100573bf71adaabc12e.png">
+          <img width="340px" height="300px" src="images\chapters\circles_cubic\8676cce0d4394ae095c7e50be1238aa0.png">
           <label></label>
         </fallback-image></graphics-element>
 
@@ -2268,43 +2268,52 @@ for p = 1 to points.length-3 (inclusive):
 <p>Let's look at doing the exact opposite of the previous section: rather than approximating circular arc using Bézier curves, let's approximate Bézier curves using circular arcs.</p>
 <p>We already saw in the section on circle approximation that this will never yield a perfect equivalent, but sometimes you need circular arcs, such as when you're working with fabrication machinery, or simple vector languages that understand lines and circles, but not much else.</p>
 <p>The approach is fairly simple: pick a starting point on the curve, and pick two points that are further along the curve. Determine the circle that goes through those three points, and see if it fits the part of the curve we're trying to approximate. Decent fit? Try spacing the points further apart. Bad fit? Try spacing the points closer together. Keep doing this until you've found the "good approximation/bad approximation" boundary, record the "good" arc, and then move the starting point up to overlap the end point we previously found. Rinse and repeat until we've covered the entire curve.</p>
-<p>So: step 1, how do we find a circle through three points? That part is actually really simple. You may remember (if you ever learned it!) that a line between two points on a circle is called a <a href="https://en.wikipedia.org/wiki/Chord_%28geometry%29">chord</a>, and one property of chords is that the line from the center of any chord, perpendicular to that chord, passes through the center of the circle.</p>
-<p>So: if we have have three points, we have three (different) chords, and consequently, three (different) lines that go from those chords through the center of the circle. So we find the centers of the chords, find the perpendicular lines, find the intersection of those lines, and thus find the center of the circle.</p>
-<p>The following graphic shows this procedure with a different colour for each chord and its associated perpendicular through the center. You can move the points around as much as you like, those lines will always meet!</p>
-<Graphic title="Finding a circle through three points" setup={this.setupCircle} draw={this.drawCircle} />
-
-<p>So, with the procedure on how to find a circle through three points, finding the arc through those points is straight-forward: pick one of the three points as start point, pick another as an end point, and the arc has to necessarily go from the start point, over the remaining point, to the end point.</p>
-<p>So how can we convert a Bézier curve into a (sequence of) circular arc(s)?</p>
+<p>We already saw how to fit a circle through three points in the section on <a href="#pointcurves">creating a curve from three points</a>, and finding the arc through those points is straight-forward: pick one of the three points as start point, pick another as an end point, and the arc has to necessarily go from the start point, to the end point, over the remaining point.</p>
+<p>So, how can we convert a Bézier curve into a (sequence of) circular arc(s)?</p>
 <ul>
-<li>Start at <em>t=0</em></li>
-<li>Pick two points further down the curve at some value <em>m = t + n</em> and <em>e = t + 2n</em></li>
+<li>Start at <code>t=0</code></li>
+<li>Pick two points further down the curve at some value <code>m = t + n</code> and <code>e = t + 2n</code></li>
 <li>Find the arc that these points define</li>
 <li>Determine how close the found arc is to the curve:<ul>
-<li>Pick two additional points <em>e1 = t + n/2</em> and <em>e2 = t + n + n/2</em>.</li>
+<li>Pick two additional points <code>e1 = t + n/2</code> and <code>e2 = t + n + n/2</code>.</li>
 <li>These points, if the arc is a good approximation of the curve interval chosen, should
-  lie <em>on</em> the circle, so their distance to the center of the circle should be the
+  lie <code>on</code> the circle, so their distance to the center of the circle should be the
   same as the distance from any of the three other points to the center.</li>
 <li>For point points, determine the (absolute) error between the radius of the circle, and the
-<em>actual</em> distance from the center of the circle to the point on the curve.</li>
+<code>actual</code> distance from the center of the circle to the point on the curve.</li>
 <li>If this error is too high, we consider the arc bad, and try a smaller interval.</li>
 </ul>
 </li>
 </ul>
-<p>The result of this is shown in the next graphic: we start at a guaranteed failure: s=0, e=1. That's the entire curve. The midpoint is simply at <em>t=0.5</em>, and then we start performing a <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">Binary Search</a>.</p>
+<p>The result of this is shown in the next graphic: we start at a guaranteed failure: s=0, e=1. That's the entire curve. The midpoint is simply at <code>t=0.5</code>, and then we start performing a <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">binary search</a>.</p>
 <ol>
-<li>We start with {0, 0.5, 1}</li>
-<li>That'll fail, so we retry with the interval halved: {0, 0.25, 0.5}<ul>
-<li>If that arc's good, we move back up by half distance: {0, 0.375, 0.75}.</li>
-<li>However, if the arc was still bad, we move <em>down</em> by half the distance: {0, 0.125, 0.25}.</li>
+<li>We start with <code>low=0</code>, <code>mid=0.5</code> and <code>high=1</code></li>
+<li>That'll fail, so we retry with the interval halved: <code>{0, 0.25, 0.5}</code><ul>
+<li>If that arc's good, we move back up by half distance: <code>{0, 0.375, 0.75}</code>.</li>
+<li>However, if the arc was still bad, we move <em>down</em> by half the distance: <code>{0, 0.125, 0.25}</code>.</li>
 </ul>
 </li>
-<li>We keep doing this over and over until we have two arcs found in sequence of which the first arc is good, and the second arc is bad. When we find that pair, we've found the boundary between a good approximation and a bad approximation, and we pick the former.</li>
+<li>We keep doing this over and over until we have two arcs, in sequence, of which the first arc is good, and the second arc is bad. When we find that pair, we've found the boundary between a good approximation and a bad approximation, and we pick the good arc.</li>
 </ol>
 <p>The following graphic shows the result of this approach, with a default error threshold of 0.5, meaning that if an arc is off by a <em>combined</em> half pixel over both verification points, then we treat the arc as bad. This is an extremely simple error policy, but already works really well. Note that the graphic is still interactive, and you can use your up and down arrow keys keys to increase or decrease the error threshold, to see what the effect of a smaller or larger error threshold is.</p>
-<Graphic title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawSingleArc} onKeyDown={this.props.onKeyDown} />
+<graphics-element title="First arc approximation of a Bézier curve" width="275" height="275" src="./chapters/arcapproximation/arc.js" >
+        <fallback-image>
+          <span class="view-source">Scripts are disabled. Showing fallback image.</span>
+          <img width="275px" height="275px" src="images\chapters\arcapproximation\7c9cce8142fa3e85bb124520f40645ff.png">
+          <label>First arc approximation of a Bézier curve</label>
+        </fallback-image>
+  <input type="range" min="0.1" max="5" step="0.1" value="0.5" class="slide-control">
+</graphics-element>
 
 <p>With that in place, all that's left now is to "restart" the procedure by treating the found arc's end point as the new to-be-determined arc's starting point, and using points further down the curve. We keep trying this until the found end point is for <em>t=1</em>, at which point we are done. Again, the following graphic allows for up and down arrow key input to increase or decrease the error threshold, so you can see how picking a different threshold changes the number of arcs that are necessary to reasonably approximate a curve:</p>
-<Graphic title="Arc approximation of a Bézier curve" setup={this.setupCubic} draw={this.drawArcs} onKeyDown={this.props.onKeyDown} />
+<graphics-element title="Arc approximation of a Bézier curve" width="275" height="275" src="./chapters/arcapproximation/arcs.js" >
+        <fallback-image>
+          <span class="view-source">Scripts are disabled. Showing fallback image.</span>
+          <img width="275px" height="275px" src="images\chapters\arcapproximation\6f30b487d0cb60a4caeed4a199c48253.png">
+          <label>Arc approximation of a Bézier curve</label>
+        </fallback-image>
+  <input type="range" min="0.1" max="5" step="0.1" value="0.5" class="slide-control">
+</graphics-element>
 
 <p>So... what is this good for? Obviously, if you're working with technologies that can't do curves, but can do lines and circles, then the answer is pretty straightforward, but what else? There are some reasons why you might need this technique: using circular arcs means you can determine whether a coordinate lies "on" your curve really easily (simply compute the distance to each circular arc center, and if any of those are close to the arc radii, at an angle between the arc start and end, bingo, this point can be treated as lying "on the curve"). Another benefit is that this approximation is "linear": you can almost trivially travel along the arcs at fixed speed. You can also trivially compute the arc length of the approximated curve (it's a bit like curve flattening). The only thing to bear in mind is that this is a lossy equivalence: things that you compute based on the approximation are guaranteed "off" by some small value, and depending on how much precision you need, arc approximation is either going to be super useful, or completely useless. It's up to you to decide which, based on your application!</p>
 
@@ -2313,8 +2322,13 @@ for p = 1 to points.length-3 (inclusive):
       <h1><a href="zh-CN/index.html#bsplines">B-Splines</a></h1>
 <p>No discussion on Bézier curves is complete without also giving mention of that other beast in the curve design space: B-Splines. Easily confused to mean Bézier splines, that's not actually what they are; they are "basis function" splines, which makes a lot of difference, and we'll be looking at those differences in this section. We're not going to dive as deep into B-Splines as we have for Bézier curves (that would be an entire primer on its own) but we'll be looking at how B-Splines work, what kind of maths is involved in computing them, and how to draw them based on a number of parameters that you can pick for individual B-Splines.</p>
 <p>First off: B-Splines are <a href="https://en.wikipedia.org/wiki/Piecewise">piecewise polynomial interpolation curves</a>, where the "single curve" is built by performing polynomial interpolation over a set of points, using a sliding window of a fixed number of points. For instance, a "cubic" B-Spline defined by twelve points will have its curve built by evaluating the polynomial interpolation of four points, and the curve can be treated as a lot of different sections, each controlled by four points at a time, such that the full curve consists of smoothly connected sections defined by points {1,2,3,4}, {2,3,4,5}, ..., {8,9,10,11}, and finally {9,10,11,12}, for eight sections.</p>
-<p>What do they look like? They look like this! .. okay that's an empty graph, but simply click to place some point, with the stipulation that you need at least four point to see any curve. More than four points simply draws a longer B-Spline curve:</p>
-<BSplineGraphic sketch={this.basicSketch} />
+<p>What do they look like? They look like this! Tap on the graphic to add more points, and move points around to see how they map to the spline curve drawn.</p>
+<graphics-element title="A B-Spline example" width="600" height="300" src="./chapters/bsplines/basic.js" >
+        <fallback-image>
+          <span class="view-source">Scripts are disabled. Showing fallback image.</span>
+          <img width="600px" height="300px" src="images\chapters\bsplines\610232b8f7ce7ef3f0f012d55e385c6d.png">
+          <label></label>
+        </fallback-image></graphics-element>
 
 <p>The important part to notice here is that we are <strong>not</strong> doing the same thing with B-Splines that we do for poly-Béziers or Catmull-Rom curves: both of the latter simply define new sections as literally "new sections based on new points", so a 12 point cubic poly-Bézier curve is actually impossible, because we start with a four point curve, and then add three more points for each section that follows, so we can only have 4, 7, 10, 13, 16, etc point Poly-Béziers. Similarly, while Catmull-Rom curves can grow by adding single points, this addition of a single point introduces three implicit Bézier points. Cubic B-Splines, on the other hand, are smooth interpolations of <em>each possible curve involving four consecutive points</em>, such that at any point along the curve except for our start and end points, our on-curve coordinate is defined by four control points.</p>
 <p>Consider the difference to be this:</p>
@@ -2325,31 +2339,33 @@ for p = 1 to points.length-3 (inclusive):
 <p>In order to make this interpolation of curves work, the maths is necessarily more complex than the maths for Bézier curves, so let's have a look at how things work.</p>
 <h2>How to compute a B-Spline curve: some maths</h2>
 <p>Given a B-Spline of degree <code>d</code> and thus order <code>k=d+1</code> (so a quadratic B-Spline is degree 2 and order 3, a cubic B-Spline is degree 3 and order 4, etc) and <code>n</code> control points <code>P<sub>0</sub></code> through <code>P<sub>n-1</sub></code>, we can compute a point on the curve for some value <code>t</code> in the interval [0,1] (where 0 is the start of the curve, and 1 the end, just like for Bézier curves), by evaluating the following function:</p>
-<img class="LaTeX SVG" src="./images/chapters/bsplines/0f3451c711c0fe5d0b018aa4aa77d855.svg" width="169px" height="41px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/bsplines/0f3451c711c0fe5d0b018aa4aa77d855.svg" width="180px" height="41px" loading="lazy">
 <p>Which, honestly, doesn't tell us all that much. All we can see is that a point on a B-Spline curve is defined as "a mix of all the control points, weighted somehow", where the weighting is achieved through the <em>N(...)</em> function, subscripted with an obvious parameter <code>i</code>, which comes from our summation, and some magical parameter <code>k</code>. So we need to know two things: 1. what does N(t) do, and 2. what is that <code>k</code>? Let's cover both, in reverse order.</p>
 <p>The parameter <code>k</code> represents the "knot interval" over which a section of curve is defined. As we learned earlier, a B-Spline curve is itself an interpoliation of curves, and we can treat each transition where a control point starts or stops influencing the total curvature as a "knot on the curve".
 Doing so for a degree <code>d</code> B-Spline with <code>n</code> control point gives us <code>d + n + 1</code> knots, defining <code>d + n</code> intervals along the curve, and it is these intervals that the above <code>k</code> subscript to the N() function applies to.</p>
 <p>Then the N() function itself. What does it look like?</p>
-<img class="LaTeX SVG" src="./images/chapters/bsplines/cf45d1ea00d4866abc8a058b130299b4.svg" width="559px" height="43px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/bsplines/cf45d1ea00d4866abc8a058b130299b4.svg" width="584px" height="49px" loading="lazy">
 <p>So this is where we see the interpolation: N(t) for an (i,k) pair (that is, for a step in the above summation, on a specific knot interval) is a mix between N(t) for (i,k-1) and N(t) for (i+1,k-1), so we see that this is a recursive iteration where <code>i</code> goes up, and <code>k</code> goes down, so it seem reasonable to expect that this recursion has to stop at some point; obviously, it does, and specifically it does so for the following <code>i</code>/<code>k</code> values:</p>
-<img class="LaTeX SVG" src="./images/chapters/bsplines/adac18ea69cc58e01c8d5e15498e4aa6.svg" width="240px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/bsplines/adac18ea69cc58e01c8d5e15498e4aa6.svg" width="245px" height="40px" loading="lazy">
 <p>And this function finally has a straight up evaluation: if a <code>t</code> value lies within a knot-specific interval once we reach a <code>k=1</code> value, it "counts", otherwise it doesn't. We did cheat a little, though, because for all these values we need to scale our <code>t</code> value first, so that it lies in the interval bounded by <code>knots[d]</code> and <code>knots[n]</code>, which are the start point and end point where curvature is controlled by exactly <code>order</code> control points. For instance, for degree 3 (=order 4) and 7 control points, with knot vector [1,2,3,4,5,6,7,8,9,10,11], we map <code>t</code> from [the interval 0,1] to the interval [4,8], and then use that value in the functions above, instead.</p>
 <h2>Can we simplify that?</h2>
 <p>We can, yes.</p>
 <p>People far smarter than us have looked at this work, and two in particular — <a href="http://www.npl.co.uk/people/maurice-cox">Maurice Cox</a> and <a href="https://en.wikipedia.org/wiki/Carl_R._de_Boor">Carl de Boor</a> — came to a mathematically pleasing solution: to compute a point P(t), we can compute this point by evaluating <em>d(t)</em> on a curve section between knots <em>i</em> and <em>i+1</em>:</p>
-<img class="LaTeX SVG" src="./images/chapters/bsplines/763838ea6f9e6c6aa63ea5f9c6d9542f.svg" width="281px" height="21px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/bsplines/763838ea6f9e6c6aa63ea5f9c6d9542f.svg" width="287px" height="21px" loading="lazy">
 <p>This is another recursive function, with <em>k</em> values decreasing from the curve order to 1, and the value <em>α</em> (alpha) defined by:</p>
-<img class="LaTeX SVG" src="./images/chapters/bsplines/892209dad8fd1f839470dd061e870913.svg" width="255px" height="39px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/bsplines/892209dad8fd1f839470dd061e870913.svg" width="261px" height="39px" loading="lazy">
 <p>That looks complicated, but it's not. Computing alpha is just a fraction involving known, plain numbers and once we have our alpha value, computing (1-alpha) is literally just "computing one minus alpha". Computing this d() function is thus simply a matter of "computing simple arithmetics but with recursion", which might be computationally expensive because we're doing "a lot of" steps, but is also computationally cheap because each step only involves very simple maths. Of course as before the recursion has to stop:</p>
-<img class="LaTeX SVG" src="./images/chapters/bsplines/4c8f9814c50c708757eeb5a68afabb7f.svg" width="368px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/bsplines/4c8f9814c50c708757eeb5a68afabb7f.svg" width="376px" height="40px" loading="lazy">
 <p>So, we see two stopping conditions: either <code>i</code> becomes 0, in which case d() is zero, or <code>k</code> becomes zero, in which case we get the same "either 1 or 0" that we saw in the N() function above.</p>
 <p>Thanks to Cox and de Boor, we can compute points on a B-Spline pretty easily: we just need to compute a triangle of interconnected values. For instance, d() for i=3, k=3 yields the following triangle:</p>
-<img class="LaTeX SVG" src="./images/chapters/bsplines/7962d6fea86da6f53a7269fba30f0138.svg" width="417px" height="231px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/bsplines/7962d6fea86da6f53a7269fba30f0138.svg" width="419px" height="217px" loading="lazy">
 <p>That is, we compute d(3,3) as a mixture of d(2,3) and d(2,2): d(3,3) = a(3,3) x d(2,3) + (1-a(3,3)) x d(2,2)... and we simply keep expanding our triangle until we reach the terminating function parameters. Done deal!</p>
 <p>One thing we need to keep in mind is that we're working with a spline that is constrained by its control points, so even though the <code>d(..., k)</code> values are zero or one at the lowest level, they are really "zero or one, times their respective control point", so in the next section you'll see the algorithm for running through the computation in a way that starts with a copy of the control point vector and then works its way up to that single point: that's pretty essential!</p>
 <p>If we run this computation "down", starting at d(3,3), then without special code in place we would be computing quite a few terms multiple times at each step. On the other hand, we can also start with that last "column", we can generate the terminating d() values first, then compute the a() constants, perform our multiplications, generate the previous step's d() values, compute their a() constants, do the multiplications, etc. until we end up all the way back at the top. If we run our computation this way, we don't need any explicit caching, we can just "recycle" the list of numbers we start with and simply update them as we move up the triangle. So, let's implement that!</p>
 <h2>Cool, cool... but I don't know what to do with that information</h2>
 <p>I know, this is pretty mathy, so let's have a look at what happens when we change parameters here. We can't change the maths for the interpolation functions, so that gives us only one way to control what happens here: the knot vector itself. As such, let's look at the graph that shows the interpolation functions for a cubic B-Spline with seven points with a uniform knot vector (so we see seven identical functions), representing how much each point (represented by one function each) influences the total curvature, given our knot values. And, because exploration is the key to discovery, let's make the knot vector a thing we can actually manipulate. Normally a proper knot vector has a constraint that any value is strictly equal to, or larger than the previous ones, but screw it this is programming, let's ignore that hard restriction and just mess with the knots however we like.</p>
+<!-- THIS GRAPH IS EXTREMELY NOT-USEFUL, BUT WE'RE PORTING IT FIRST, AND REWRITING IT LATER -->
+
 <div class="two-column">
   <KnotController ref="interpolation-graph" />
   <BSplineGraphic sketch={this.interpolationGraph} controller={(owner, knots) => this.bindKnots(owner, knots, "interpolation-graph")}/>
@@ -2388,44 +2404,56 @@ for(let L = 1; L &lt;= order; L++) {
 </ol>
 <h3>Uniform B-Splines</h3>
 <p>The most straightforward type of B-Spline is the uniform spline. In a uniform spline, the knots are distributed uniformly over the entire curve interval. For instance, if we have a knot vector of length twelve, then a uniform knot vector would be [0,1,2,3,...,9,10,11]. Or [4,5,6,...,13,14,15], which defines <em>the same intervals</em>, or even [0,2,3,...,18,20,22], which also defines <em>the same intervals</em>, just scaled by a constant factor, which becomes normalised during interpolation and so does not contribute to the curvature.</p>
-<div class="two-column">
-  <KnotController ref="uniform-spline" />
-  <BSplineGraphic sketch={this.uniformBSpline} controller={(owner, knots) => this.bindKnots(owner, knots, "uniform-spline")}/>
-</div>
+<graphics-element title="A uniform B-Spline" width="400" height="400" src="./chapters/bsplines/uniform.js" >
+        <fallback-image>
+          <span class="view-source">Scripts are disabled. Showing fallback image.</span>
+          <img width="400px" height="400px" src="images\chapters\bsplines\5d3b04c3161a3429ce651bb7a5fa0399.png">
+          <label></label>
+        </fallback-image>
+  <!-- knot sliders go here, similar to the curve fitter section -->
+</graphics-element>
 
 <p>This is an important point: the intervals that the knot vector defines are <em>relative</em> intervals, so it doesn't matter if every interval is size 1, or size 100 - the relative differences between the intervals is what shapes any particular curve.</p>
 <p>The problem with uniform knot vectors is that, as we need <code>order</code> control points before we have any curve with which we can perform interpolation, the curve does not "start" at the first point, nor "ends" at the last point. Instead there are "gaps". We can get rid of these, by being clever about how we apply the following uniformity-breaking approach instead...</p>
 <h3>Reducing local curve complexity by collapsing intervals</h3>
-<p>By collapsing knot intervals by making two or more consecutive knots have the same value, we can reduce the curve complexity in the sections that are affected by the knots involved. This can have drastic effects: for every interval collapse, the curve order goes down, and curve continuity goes down, to the point where collapsing <code>order</code> knots creates a situation where all continuity is lost and the curve "kinks".</p>
-<div class="two-column">
-  <KnotController ref="center-cut-bspline" />
-  <BSplineGraphic sketch={this.centerCutBSpline} controller={(owner, knots) => this.bindKnots(owner, knots, "center-cut-bspline")}/>
-</div>
+<p>Collapsing knot intervals, by making two or more consecutive knots have the same value, allows us to reduce the curve complexity in the sections that are affected by the knots involved. This can have drastic effects: for every interval collapse, the curve order goes down, and curve continuity goes down, to the point where collapsing <code>order</code> knots creates a situation where all continuity is lost and the curve "kinks".</p>
+<graphics-element title="A reduced uniform B-Spline" width="400" height="400" src="./chapters/bsplines/reduced.js" >
+        <fallback-image>
+          <span class="view-source">Scripts are disabled. Showing fallback image.</span>
+          <img width="400px" height="400px" src="images\chapters\bsplines\93146ea89bb21999d9e18b57dd1bdd29.png">
+          <label></label>
+        </fallback-image>
+  <!-- knot sliders go here, similar to the curve fitter section -->
+</graphics-element>
+
 
 <h3>Open-Uniform B-Splines</h3>
 <p>By combining knot interval collapsing at the start and end of the curve, with uniform knots in between, we can overcome the problem of the curve not starting and ending where we'd kind of like it to:</p>
 <p>For any curve of degree <code>D</code> with control points <code>N</code>, we can define a knot vector of length <code>N+D+1</code> in which the values <code>0 ... D+1</code> are the same, the values <code>D+1 ... N+1</code> follow the "uniform" pattern, and the values <code>N+1 ... N+D+1</code> are the same again. For example, a cubic B-Spline with 7 control points can have a knot vector [0,0,0,0,1,2,3,4,4,4,4], or it might have the "identical" knot vector [0,0,0,0,2,4,6,8,8,8,8], etc. Again, it is the relative differences that determine the curve shape.</p>
-<div class="two-column">
-  <KnotController ref="open-uniform-bspline" />
-  <BSplineGraphic sketch={this.openUniformBSpline} controller={(owner, knots) => this.bindKnots(owner, knots, "open-uniform-bspline")}/>
-</div>
+<graphics-element title="An open, uniform B-Spline" width="400" height="400" src="./chapters/bsplines/uniform.js" data-open="true">
+        <fallback-image>
+          <span class="view-source">Scripts are disabled. Showing fallback image.</span>
+          <img width="400px" height="400px" src="images\chapters\bsplines\8caa3e8ff614ad9731b15dacaba98c3c.png">
+          <label></label>
+        </fallback-image>
+  <!-- knot sliders go here, similar to the curve fitter section -->
+</graphics-element>
+
 
 <h3>Non-uniform B-Splines</h3>
-<p>This is essentially the "free form" version of a B-Spline, and also the least interesting to look at, as without any specific reason to pick specific knot intervals, there is nothing particularly interesting going on. There is one constraint to the knot vector, and that is that any value <code>knots[k+1]</code> should be equal to, or greater than <code>knots[k]</code>.</p>
+<p>This is essentially the "free form" version of a B-Spline, and also the least interesting to look at, as without any specific reason to pick specific knot intervals, there is nothing particularly interesting going on. There is one constraint to the knot vector, other than that any value <code>knots[k+1]</code> should be greater than or equal to <code>knots[k]</code>.</p>
 <h2>One last thing: Rational B-Splines</h2>
 <p>While it is true that this section on B-Splines is running quite long already, there is one more thing we need to talk about, and that's "Rational" splines, where the rationality applies to the "ratio", or relative weights, of the control points themselves. By introducing a ratio vector with weights to apply to each control point, we greatly increase our influence over the final curve shape: the more weight a control point carries, the close to that point the spline curve will lie, a bit like turning up the gravity of a control point.</p>
-<div class="two-column">
-  {
-    // <KnotController ref="rational-uniform-bspline" />
-  }
-  <WeightController ref="rational-uniform-bspline-weights" />
-  <BSplineGraphic scrolling={true} sketch={this.rationalUniformBSpline} controller={(owner, knots, weights, closed) => {
-    // this.bindKnots(owner, knots, "rational-uniform-bspline");
-    this.bindWeights(owner, weights, closed, "rational-uniform-bspline-weights");
-  }} />
-</div>
+<graphics-element title="An rational, uniform B-Spline" width="400" height="400" src="./chapters/bsplines/rational-uniform.js" >
+        <fallback-image>
+          <span class="view-source">Scripts are disabled. Showing fallback image.</span>
+          <img width="400px" height="400px" src="images\chapters\bsplines\fc654445500dd595d6ae9de27a3dc46c.png">
+          <label></label>
+        </fallback-image>
+  <!-- knot sliders go here, similar to the curve fitter section -->
+</graphics-element>
 
-<p>Of course this brings us to the final topic that any text on B-Splines must touch on before calling it a day: the NURBS, or Non-Uniform Rational B-Spline (NURBS is not a plural, the capital S actually just stands for "spline", but a lot of people mistakenly treat it as if it is, so now you know better). NURBS are an important type of curve in computer-facilitated design, used a lot in 3D modelling (as NURBS surfaces) as well as in arbitrary-precision 2D design due to the level of control a NURBS curve offers designers.</p>
+<p>Of course this brings us to the final topic that any text on B-Splines must touch on before calling it a day: the <a href="https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline">NURBS</a>, or Non-Uniform Rational B-Spline (NURBS is not a plural, the capital S actually just stands for "spline", but a lot of people mistakenly treat it as if it is, so now you know better). NURBS is an important type of curve in computer-facilitated design, used a lot in 3D modelling (typically as NURBS surfaces) as well as in arbitrary-precision 2D design due to the level of control a NURBS curve offers designers.</p>
 <p>While a true non-uniform rational B-Spline would be hard to work with, when we talk about NURBS we typically mean the Open-Uniform Rational B-Spline, or OURBS, but that doesn't roll off the tongue nearly as nicely, and so remember that when people talk about NURBS, they typically mean open-uniform, which has the useful property of starting the curve at the first control point, and ending it at the last.</p>
 <h2>Extending our implementation to cover rational splines</h2>
 <p>The algorithm for working with Rational B-Splines is virtually identical to the regular algorithm, and the extension to work in the control point weights is fairly simple: we extend each control point from a point in its original number of dimensions (2D, 3D, etc) to one dimension higher, scaling the original dimensions by the control point's weight, and then assigning that weight as its value for the extended dimension.</p>

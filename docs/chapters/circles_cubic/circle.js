@@ -1,7 +1,7 @@
 let curve, r;
 
 setup() {
-    r = (this.width/4) | 0;
+    r = 100;
     curve = new Bezier(this, [
         { x: r, y: 0 },
         { x: r, y: 0.55228 * r },

@@ -36,7 +36,7 @@ function generateGraphicsModule(chapter, code, width, height, dataset) {
 
   let moduleCode = `
         import CanvasBuilder from 'canvas';
-        import { GraphicsAPI, Bezier, Vector, Matrix, Shape } from "${GRAPHICS_API_LOCATION}";
+        import { GraphicsAPI, Bezier, BSpline, Vector, Matrix, Shape } from "${GRAPHICS_API_LOCATION}";
 
         ${globalCode}
 

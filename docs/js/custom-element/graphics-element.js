@@ -207,7 +207,7 @@ class GraphicsElement extends CustomElement {
        * Program source: ${src}
        * Data attributes: ${JSON.stringify(this.dataset)}
        */
-      import { GraphicsAPI, Bezier, Vector, Matrix, Shape } from "${MODULE_PATH}/api/graphics-api.js";
+      import { GraphicsAPI, Bezier, BSpline, Vector, Matrix, Shape } from "${MODULE_PATH}/api/graphics-api.js";
 
       ${globalCode}
 

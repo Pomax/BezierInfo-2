@@ -1,0 +1,49 @@
+let points=[], knots;
+
+setup() {
+  for (let s=TAU/9, i=s/2; i<TAU; i+=s) {
+    points.push({
+      x: this.width/2 + 100 * Math.cos(i),
+      y: this.height/2 + 100 * Math.sin(i)
+    });
+  }
+  setMovable(points);
+}
+
+draw() {
+  clear();
+
+  setStroke(`lightgrey`);
+  drawGrid(20);
+
+  setStroke(`#CC00CC99`);
+  for (let i=0, e=points.length-1, p, n; i<e; i++) {
+    p = points[i];
+    n = points[i+1];
+    line(p.x, p.y, n.x, n.y);
+  }
+
+  setColor(`black`);
+  points.forEach(p => circle(p.x, p.y, 3));
+
+  this.drawSplineData();
+}
+
+drawSplineData() {
+  const spline = new BSpline(this, points, !!this.parameters.open);
+
+  const knots = spline.formKnots();
+  const m = round(points.length/2)|0;
+  knots[m+0] = knots[m];
+  knots[m+1] = knots[m];
+  knots[m+2] = knots[m];
+  for (let i=m+3; i<knots.length; i++) {
+    knots[i] = knots[i-1] + 1;
+  }
+
+  noFill();
+  setStroke(`black`);
+  start();
+  spline.getLUT((points.length - 3) * 20).forEach(p => vertex(p.x, p.y));
+  end();
+}

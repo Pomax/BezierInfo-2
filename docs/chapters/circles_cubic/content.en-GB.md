@@ -179,4 +179,4 @@ Which, in decimal values, rounded to six significant digits, is:
 
 Of course, this is for a circle with radius 1, so if you have a different radius circle, simply multiply the coordinate by the radius you need. And then finally, forming a full curve is now a simple a matter of mirroring these coordinates about the origin:
 
-<graphics-element title="Cubic Bézier circle approximation" width="400" height="400" src="./circle.js"></graphics-element>
+<graphics-element title="Cubic Bézier circle approximation" width="340" height="300" src="./circle.js"></graphics-element>
