@@ -11,6 +11,9 @@ setup() {
     {x:560,y:170}
   ];
   setMovable(points);
+  if (this.parameters.showCurves) {
+    addSlider(`highlight`, `highlight`, 1, 4, 1, 1);
+  }
 }
 
 draw() {
@@ -26,13 +29,19 @@ draw() {
       line(p.x, p.y, n.x, n.y);
     }
 
-    setColor(`black`);
+    this.drawSplineData();
+
     points.forEach((p,i) => {
-      circle(p.x, p.y, 3)
+      if (this.parameters.showCurves) {
+        if (this.highlight - 1 <= i && i <= this.highlight + 2) {
+          setColor(`red`);
+          circle(p.x, p.y, 5);
+        }
+      }
+      setColor(`black`);
+      circle(p.x, p.y, 3);
       text(`${i+1}`, p.x+5, p.y+5);
     });
-
-    this.drawSplineData();
 }
 
 drawSplineData() {
@@ -41,15 +50,19 @@ drawSplineData() {
 
     if (this.parameters.showCurves) {
       for(let i=0; i<points.length-3; i++) {
-        let c = new Bezier(this, points.slice(i,i+4));
-        c.drawCurve(randomColor());
+        const c = new Bezier(this, points.slice(i,i+4));
+        const highlight  = this.highlight === i+1;
+        if (highlight) c.drawSkeleton();
+        setWidth(highlight ? 3 : 1);
+        c.drawCurve(randomColor(highlight? 1 : 0.4));
       }
+      setWidth(1);
     }
 
     let spline = new BSpline(this, points);
 
     noFill();
-    setStroke(this.parameters.showCurves ? `#00000040` : `black`);
+    setStroke(this.parameters.showCurves ? `#000000CC` : `black`);
     start();
     spline.getLUT((points.length - 3) * 20).forEach(p => vertex(p.x, p.y));
     end();
@@ -62,6 +75,9 @@ onMouseDown() {
       y: this.cursor.y
     });
     resetMovable(points);
+    if (this.parameters.showCurves) {
+      updateSlider(`highlight`, 1, points.length-3, 1, 1);
+    }
     redraw();
   }
 }

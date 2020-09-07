@@ -1,8 +1,21 @@
+import fs from "fs-extra";
 import path from "path";
 import paths from "../../project-paths.js";
-import prettier from "prettier";
 import splitCodeSections from "../../../docs/js/custom-element/lib/split-code-sections.js";
 import performCodeSurgery from "../../../docs/js/custom-element/lib/perform-code-surgery.js";
+
+// Get all the values we need to ensure our generated graphics code knows
+// where it lives, and where it can find all its dependencies
+
+const apiSource = fs
+  .readFileSync(
+    path.join(paths.sitejs, `custom-element`, `api`, `graphics-api.js`)
+  )
+  .toString(`utf-8`);
+
+const API_IMPORTS = apiSource
+  .match(/(export { [^}]+ })/)[0]
+  .replace(`export`, `import`);
 
 const GRAPHICS_API_LOCATION = path
   .join(
@@ -15,10 +28,27 @@ const GRAPHICS_API_LOCATION = path
   .split(path.sep)
   .join(path.posix.sep);
 
+const IMPORT_GLOBALS_FROM_GRAPHICS_API = `${API_IMPORTS} from "${GRAPHICS_API_LOCATION}"`;
+
 const RELATIVE_IMPORT_LOCATION = path
   .relative(paths.temp, paths.chapters)
   .split(path.sep)
   .join(path.posix.sep);
+
+/**
+ * Node does not have a native canvas available, so we  need to shim a number
+ * of objects and functions to ensure it can generate a "first load" snapshot
+ * image use the node-canvas library, instead.
+ */
+const canvasBuilder = function canvasBuilder(w, h) {
+  const canvas = CanvasBuilder.createCanvas(w, h);
+  const ctx = canvas.getContext("2d");
+  canvas.addEventListener = canvas.setAttribute = noop;
+  canvas.classList = { add: noop };
+  canvas.style = {};
+  ctx.getTransform = () => ctx.currentTransform;
+  return { canvas, ctx };
+};
 
 /**
  * ...docs go here...
@@ -35,37 +65,23 @@ function generateGraphicsModule(chapter, code, width, height, dataset) {
   const classCode = performCodeSurgery(split.classCode);
 
   let moduleCode = `
-        import CanvasBuilder from 'canvas';
-        import { GraphicsAPI, Bezier, BSpline, Vector, Matrix, Shape } from "${GRAPHICS_API_LOCATION}";
+    import CanvasBuilder from 'canvas';
+    ${IMPORT_GLOBALS_FROM_GRAPHICS_API};
 
-        ${globalCode}
+    const noop = (()=>{});
+    const Image = CanvasBuilder.Image;
 
-        const noop = (()=>{});
-        const Image = CanvasBuilder.Image;
+    ${globalCode}
 
-        class Example extends GraphicsAPI {
-          ${classCode}
-        }
+    class Example extends GraphicsAPI { ${classCode} }
 
-        const example = new Example(undefined, ${width}, ${height}, (w,h) => {
-            const canvas = CanvasBuilder.createCanvas(w,h);
-            const ctx = canvas.getContext('2d');
+    const canvasBuilder = ${canvasBuilder}
+    const dataset = ${JSON.stringify(dataset)};
+    const example = new Example(undefined, ${width}, ${height}, canvasBuilder, dataset);
+    const canvas = example.canvas;
 
-            // as this is node-canvas, we need to shim some functions:
-            canvas.addEventListener = canvas.setAttribute = noop;
-            canvas.classList = { add: noop };
-            canvas.style = {};
-            ctx.getTransform = () => ctx.currentTransform;
-
-            return { canvas, ctx};
-        }, ${JSON.stringify(dataset)});
-
-        const canvas = example.canvas;
-
-        export { canvas };
-    `;
-
-  // return prettier.format(moduleCode, { parser: `babel` });
+    export { canvas };
+  `;
 
   return moduleCode;
 }

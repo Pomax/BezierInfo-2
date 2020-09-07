@@ -2331,12 +2331,12 @@ for p = 1 to points.length-3 (inclusive):
 <section id="bsplines">
       <h1><a href="#bsplines">B-Splines</a></h1>
 <p>No discussion on Bézier curves is complete without also giving mention of that other beast in the curve design space: B-Splines. Easily confused to mean Bézier splines, that's not actually what they are; they are "basis function" splines, which makes a lot of difference, and we'll be looking at those differences in this section. We're not going to dive as deep into B-Splines as we have for Bézier curves (that would be an entire primer on its own) but we'll be looking at how B-Splines work, what kind of maths is involved in computing them, and how to draw them based on a number of parameters that you can pick for individual B-Splines.</p>
-<p>First off: B-Splines are <a href="https://en.wikipedia.org/wiki/Piecewise">piecewise polynomial interpolation curves</a>, where the "single curve" is built by performing polynomial interpolation over a set of points, using a sliding window of a fixed number of points. For instance, a "cubic" B-Spline defined by twelve points will have its curve built by evaluating the polynomial interpolation of four points, and the curve can be treated as a lot of different sections, each controlled by four points at a time, such that the full curve consists of smoothly connected sections defined by points {1,2,3,4}, {2,3,4,5}, ..., {8,9,10,11}, and finally {9,10,11,12}, for eight sections.</p>
+<p>First off: B-Splines are <a href="https://en.wikipedia.org/wiki/Piecewise">piecewise</a>, <a href="https://en.wikipedia.org/wiki/Spline_(mathematics)">polynomial interpolation curves</a>, where the "single curve" is built by performing polynomial interpolation over a set of points, using a sliding window of a fixed number of points. For instance, a "cubic" B-Spline defined by twelve points will have its curve built by evaluating the polynomial interpolation of four points, and the curve can be treated as a lot of different sections, each controlled by four points at a time, such that the full curve consists of smoothly connected sections defined by points {1,2,3,4}, {2,3,4,5}, ..., {8,9,10,11}, and finally {9,10,11,12}, for eight sections.</p>
 <p>What do they look like? They look like this! Tap on the graphic to add more points, and move points around to see how they map to the spline curve drawn.</p>
 <graphics-element title="A B-Spline example" width="600" height="300" src="./chapters/bsplines/basic.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="600px" height="300px" src="images\chapters\bsplines\d9a99344a5de4b5be77824f8f8caa707.png">
+          <img width="600px" height="300px" src="images\chapters\bsplines\61f28e4b071beeaf755f8826c529fe0a.png">
           <label></label>
         </fallback-image></graphics-element>
 
@@ -2346,13 +2346,15 @@ for p = 1 to points.length-3 (inclusive):
 <li>for Bézier curves, the curve is defined as an interpolation of points, but:</li>
 <li>for B-Splines, the curve is defined as an interpolation of <em>curves</em>.</li>
 </ul>
-<p>In fact, let's look at that again, but this time with the base curves shown, too. Each consecutive four points defined one curve:</p>
+<p>In fact, let's look at that again, but this time with the base curves shown, too. Each consecutive four points define one curve:</p>
 <graphics-element title="The components of a B-Spline " width="600" height="300" src="./chapters/bsplines/basic.js" data-show-curves="true">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="600px" height="300px" src="images\chapters\bsplines\3f66c97dcdd56d201c2acda3bd403bbf.png">
+          <img width="600px" height="300px" src="images\chapters\bsplines\ac9e15a627ed2bc88c5e1b73147b7991.png">
           <label></label>
-        </fallback-image></graphics-element>
+        </fallback-image>
+  <!-- basis curve highlighter goes here -->
+</graphics-element>
 
 <p>In order to make this interpolation of curves work, the maths is necessarily more complex than the maths for Bézier curves, so let's have a look at how things work.</p>
 <h2>How to compute a B-Spline curve: some maths</h2>
@@ -2372,29 +2374,31 @@ Doing so for a degree <code>d</code> B-Spline with <code>n</code> control point 
 <img class="LaTeX SVG" src="./images/chapters/bsplines/763838ea6f9e6c6aa63ea5f9c6d9542f.svg" width="287px" height="21px" loading="lazy">
 <p>This is another recursive function, with <em>k</em> values decreasing from the curve order to 1, and the value <em>α</em> (alpha) defined by:</p>
 <img class="LaTeX SVG" src="./images/chapters/bsplines/892209dad8fd1f839470dd061e870913.svg" width="261px" height="39px" loading="lazy">
-<p>That looks complicated, but it's not. Computing alpha is just a fraction involving known, plain numbers and once we have our alpha value, computing (1-alpha) is literally just "computing one minus alpha". Computing this d() function is thus simply a matter of "computing simple arithmetics but with recursion", which might be computationally expensive because we're doing "a lot of" steps, but is also computationally cheap because each step only involves very simple maths. Of course as before the recursion has to stop:</p>
+<p>That looks complicated, but it's not. Computing alpha is just a fraction involving known, plain numbers. And, once we have our alpha value, we also have <code>(1-alpha)</code> because it's a trivial subtraction. Computing the <code>d()</code> function is thus mostly a matter of computing pretty simple arithmetical statements, with some caching of results so we can refer to them as we recurve. While the recursion might see computationally expensive, the total algorithm is cheap, as each step only involves very simple maths.</p>
+<p>Of course, the recursion does need a stop condition:</p>
 <img class="LaTeX SVG" src="./images/chapters/bsplines/4c8f9814c50c708757eeb5a68afabb7f.svg" width="376px" height="40px" loading="lazy">
-<p>So, we see two stopping conditions: either <code>i</code> becomes 0, in which case d() is zero, or <code>k</code> becomes zero, in which case we get the same "either 1 or 0" that we saw in the N() function above.</p>
-<p>Thanks to Cox and de Boor, we can compute points on a B-Spline pretty easily: we just need to compute a triangle of interconnected values. For instance, d() for i=3, k=3 yields the following triangle:</p>
-<img class="LaTeX SVG" src="./images/chapters/bsplines/7962d6fea86da6f53a7269fba30f0138.svg" width="419px" height="217px" loading="lazy">
-<p>That is, we compute d(3,3) as a mixture of d(2,3) and d(2,2): d(3,3) = a(3,3) x d(2,3) + (1-a(3,3)) x d(2,2)... and we simply keep expanding our triangle until we reach the terminating function parameters. Done deal!</p>
-<p>One thing we need to keep in mind is that we're working with a spline that is constrained by its control points, so even though the <code>d(..., k)</code> values are zero or one at the lowest level, they are really "zero or one, times their respective control point", so in the next section you'll see the algorithm for running through the computation in a way that starts with a copy of the control point vector and then works its way up to that single point: that's pretty essential!</p>
-<p>If we run this computation "down", starting at d(3,3), then without special code in place we would be computing quite a few terms multiple times at each step. On the other hand, we can also start with that last "column", we can generate the terminating d() values first, then compute the a() constants, perform our multiplications, generate the previous step's d() values, compute their a() constants, do the multiplications, etc. until we end up all the way back at the top. If we run our computation this way, we don't need any explicit caching, we can just "recycle" the list of numbers we start with and simply update them as we move up the triangle. So, let's implement that!</p>
-<h2>Cool, cool... but I don't know what to do with that information</h2>
-<p>I know, this is pretty mathy, so let's have a look at what happens when we change parameters here. We can't change the maths for the interpolation functions, so that gives us only one way to control what happens here: the knot vector itself. As such, let's look at the graph that shows the interpolation functions for a cubic B-Spline with seven points with a uniform knot vector (so we see seven identical functions), representing how much each point (represented by one function each) influences the total curvature, given our knot values. And, because exploration is the key to discovery, let's make the knot vector a thing we can actually manipulate (you will notice that knots are constrained in their value: any knot must strictly be equal to, or greater than, the previous value).</p>
-<!-- THIS GRAPH IS EXTREMELY NOT-USEFUL, BUT WE'RE PORTING IT FIRST, AND REWRITING IT LATER -->
+<p>So, we actually see two stopping conditions: either <code>i</code> becomes 0, in which case <code>d()</code> is zero, or <code>k</code> becomes zero, in which case we get the same "either 1 or 0" that we saw in the N() function above.</p>
+<p>Thanks to Cox and de Boor, we can compute points on a B-Spline pretty easily using the same kind of linear interpolation we saw in de Casteljau's algorithm. For instance, if we write out <code>d()</code> for <code>i=3</code> and <code>k=3</code>, we get the following recursion diagram:</p>
+<img class="LaTeX SVG" src="./images/chapters/bsplines/bd187c361b285ef878d0bc17af8a3900.svg" width="688px" height="328px" loading="lazy">
+<p>That is, we compute <code>d(3,3)</code> as a mixture of <code>d(2,3)</code> and <code>d(2,2)</code>, where those two are themselves a mixture of <code>d(1,3)</code> and <code>d(1,2)</code>, and <code>d(1,2)</code> and <code>d(1,1)</code>, respectively, which are themselves a mixture of etc. etc. We simply keep expanding our terms until we reach the stop conditions, and then sum everything back up. It's really quite elegant.</p>
+<p>One thing we need to keep in mind is that we're working with a spline that is constrained by its control points, so even though the <code>d(..., k)</code> values are zero or one at the lowest level, they are really "zero or one, times their respective control point", so in the next section you'll see the algorithm for running through the computation in a way that starts with a copy of the control point vector and then works its way up to that single point, rather than first starting "on the left", working our way "to the right" and then summing back up "to the left". We can just start on the right and work our way left immediately.</p>
+<!--
+## Cool, cool... but I don't know what to do with that information
+
+I know, this is pretty mathy, so let's have a look at what happens when we change parameters here. We can't change the maths for the interpolation functions, so that gives us only one way to control what happens here: the knot vector itself. As such, let's look at the graph that shows the interpolation functions for a cubic B-Spline with seven points with a uniform knot vector (so we see seven identical functions), representing how much each point (represented by one function each) influences the total curvature, given our knot values. And, because exploration is the key to discovery, let's make the knot vector a thing we can actually manipulate (you will notice that knots are constrained in their value: any knot must strictly be equal to, or greater than, the previous value).
 
 <graphics-element title="Visualising relative interpolation strengths" width="600" height="300" src="./chapters/bsplines/interpolation.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="600px" height="300px" src="images\chapters\bsplines\bd03680e4661ae7f4d687b2f229d2495.png">
+          <img width="600px" height="300px" src="images\chapters\bsplines\c7fe4f9cba8d4bc06436f4f238d202ce.png">
           <label></label>
-        </fallback-image>
-  <!-- weight factors go here, similar to curve fitting sliders -->
-</graphics-element>
+        </fallback-image></graphics-element>
 
-<p>Changing the values in the knot vector changes how much each point influences the total curvature (with some clever knot value manipulation, we can even make the influence of certain points disappear entirely!), so we can see that while the control points define the hull inside of which we're going to be drawing a curve, it is actually the knot vector that determines the actual <em>shape</em> of the curve inside that hull.</p>
-<p>After reading the rest of this section you may want to come back here to try some specific knot vectors, and see if the resulting interpolation landscape makes sense given what you will now think should happen!</p>
+Changing the values in the knot vector changes how much each point influences the total curvature (with some clever knot value manipulation, we can even make the influence of certain points disappear entirely!), so we can see that while the control points define the hull inside of which we're going to be drawing a curve, it is actually the knot vector that determines the actual *shape* of the curve inside that hull.
+
+After reading the rest of this section you may want to come back here to try some specific knot vectors, and see if the resulting interpolation landscape makes sense given what you will now think should happen!
+-->
+
 <h2>Running the computation</h2>
 <p>Unlike the de Casteljau algorithm, where the <code>t</code> value stays the same at every iteration, for B-Splines that is not the case, and so we end having to (for each point we evaluate) run a fairly involving bit of recursive computation. The algorithm is discussed on <a href="http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/de-Boor.html">this Michigan Tech</a> page, but an easier to read version is implemented by <a href="https://github.com/thibauts/b-spline/blob/master/index.js#L59-L71">b-spline.js</a>, so we'll look at its code.</p>
 <p>Given an input value <code>t</code>, we first map the input to a value from the domain [0,1] to the domain [knots[degree], knots[knots.length - 1 - degree]. Then, we find the section number <code>s</code> that this mapped <code>t</code> value lies on:</p>
@@ -2432,7 +2436,7 @@ for(let L = 1; L &lt;= order; L++) {
           <img width="400px" height="400px" src="images\chapters\bsplines\3cfaf7bf5e950072437cfe70391155fa.png">
           <label></label>
         </fallback-image>
-  <!-- knot sliders go here, similar to the curve fitter section -->
+  <!-- knot sliders go here -->
 </graphics-element>
 
 <p>This is an important point: the intervals that the knot vector defines are <em>relative</em> intervals, so it doesn't matter if every interval is size 1, or size 100 - the relative differences between the intervals is what shapes any particular curve.</p>
@@ -2445,7 +2449,7 @@ for(let L = 1; L &lt;= order; L++) {
           <img width="400px" height="400px" src="images\chapters\bsplines\6ba59877389e2c856234403ecbd953f9.png">
           <label></label>
         </fallback-image>
-  <!-- knot sliders go here, similar to the curve fitter section -->
+  <!-- knot sliders go here -->
 </graphics-element>
 
 
@@ -2458,7 +2462,7 @@ for(let L = 1; L &lt;= order; L++) {
           <img width="400px" height="400px" src="images\chapters\bsplines\9c4bbb753918e3cb8cbc5a770a2af9ee.png">
           <label></label>
         </fallback-image>
-  <!-- knot sliders go here, similar to the curve fitter section -->
+  <!-- knot sliders go here -->
 </graphics-element>
 
 
@@ -2469,10 +2473,10 @@ for(let L = 1; L &lt;= order; L++) {
 <graphics-element title="A (closed) rational, uniform B-Spline" width="400" height="400" src="./chapters/bsplines/rational-uniform.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="400px" height="400px" src="images\chapters\bsplines\dda4911d5148032e005a02ef33b78978.png">
+          <img width="400px" height="400px" src="images\chapters\bsplines\e50d628696245ef68b691e28b2162d56.png">
           <label></label>
         </fallback-image>
-  <!-- knot sliders go here, similar to the curve fitter section -->
+  <!-- knot sliders go here -->
 </graphics-element>
 
 <p>Of course this brings us to the final topic that any text on B-Splines must touch on before calling it a day: the <a href="https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline">NURBS</a>, or Non-Uniform Rational B-Spline (NURBS is not a plural, the capital S actually just stands for "spline", but a lot of people mistakenly treat it as if it is, so now you know better). NURBS is an important type of curve in computer-facilitated design, used a lot in 3D modelling (typically as NURBS surfaces) as well as in arbitrary-precision 2D design due to the level of control a NURBS curve offers designers.</p>

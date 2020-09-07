@@ -77,7 +77,6 @@ class Bezier extends Original {
   drawCurve(color = `#333`) {
     const ctx = this.ctx;
     ctx.cacheStyle();
-    ctx.lineWidth = 1;
     ctx.strokeStyle = color;
     ctx.beginPath();
     const lut = this.getLUT().slice();

@@ -195,6 +195,29 @@ class GraphicsAPI extends BaseAPI {
   }
 
   /**
+   * Update a slider with new min/max/step parameters, and value.
+   *
+   * @param {*} propname
+   * @param {*} min
+   * @param {*} max
+   * @param {*} step
+   * @param {*} value
+   */
+  updateSlider(propname, min, max, step, value) {
+    let slider = this._sliders[propname];
+
+    if (!slider) {
+      throw new Error(`this.${propname} has no associated slider.`);
+    }
+
+    slider.setAttribute(`min`, min);
+    slider.setAttribute(`max`, max);
+    slider.setAttribute(`step`, step);
+    slider.setAttribute(`value`, value);
+    slider.updateProperty(value);
+  }
+
+  /**
    * Set up a slider to control a named, numerical property in the sketch.
    *
    * @param {String} local query selector for the type=range element.
@@ -206,6 +229,8 @@ class GraphicsAPI extends BaseAPI {
     if (propname !== false && typeof this[propname] !== `undefined`) {
       throw new Error(`this.${propname} already exists: cannot bind slider.`);
     }
+
+    this._sliders = this._sliders || {};
 
     let propLabel = propname.replace(`!`, ``);
     propname = propLabel === propname ? propname : false;
@@ -225,6 +250,7 @@ class GraphicsAPI extends BaseAPI {
       wrapper.append(label);
       slider.parentNode.replaceChild(wrapper, slider);
       slider.setAttribute(`class`, `slider`);
+      this._sliders[propname] = slider;
       wrapper.append(slider);
       let valueField = create(`label`);
       valueField.classList.add(`slider-value`);
@@ -239,7 +265,7 @@ class GraphicsAPI extends BaseAPI {
       return undefined;
     }
 
-    const updateProperty = (evt) => {
+    slider.updateProperty = (evt) => {
       let value = parseFloat(slider.value);
       ui.update(value);
       try {
@@ -258,8 +284,8 @@ class GraphicsAPI extends BaseAPI {
     };
 
     slider.value = initial;
-    updateProperty({ target: { value: initial } });
-    slider.listen(`input`, updateProperty);
+    slider.updateProperty({ target: { value: initial } });
+    slider.listen(`input`, (evt) => slider.updateProperty(evt));
 
     return slider;
   }

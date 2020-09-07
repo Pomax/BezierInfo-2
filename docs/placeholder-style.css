@@ -162,7 +162,7 @@ graphics-element .slider-wrapper:first-of-type {
   clear: both;
   border-top: 1px solid black;
   margin-top: 0.1em;
-  padding-top: 2px;
+  padding-top: 0.4em;
 }
 
 graphics-element .slider-wrapper:last-of-type {
