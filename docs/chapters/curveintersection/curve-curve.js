@@ -4,7 +4,7 @@ setup() {
   setPanelCount(3);
   this.pairReset();
   this.setupEventListening();
-  setSlider(`.slide-control`, `epsilon`, 1.0, v => this.reset(v));
+  setSlider(`.slide-control`, `threshold`, 1.0, v => this.reset(v));
 }
 
 pairReset() {
@@ -52,7 +52,7 @@ draw() {
 
   this.drawIteration();
   setFill(`black`);
-  let information = `Initial curves, threshold = ${this.epsilon}px`
+  let information = `Initial curves, threshold = ${this.threshold}px`
   if (this.step) {
     information = `Curve collection at iteration ${this.step}`;
   }
@@ -72,7 +72,7 @@ drawIteration() {
     const pairs = this.pairs;
     this.pairs = [];
     pairs.forEach(pair => {
-        if(pair[0].length() < this.epsilon && pair[1].length() < this.epsilon)
+        if(pair[0].length() < this.threshold && pair[1].length() < this.threshold)
           return this.finals.push(pair);
 
         // split two curves into four curves

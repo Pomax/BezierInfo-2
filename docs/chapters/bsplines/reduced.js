@@ -20,7 +20,7 @@ setup() {
 
   let min=0, max=knots.length-1;
   knots.forEach((_,i) => {
-    addSlider(`slide-control`, false, min, max, 0.01, knots[i], v => this.setKnotValue(i, v));
+    addSlider(`slide-control`, `!knot ${i+1}`, min, max, 0.01, knots[i], v => this.setKnotValue(i, v));
   });
 }
 

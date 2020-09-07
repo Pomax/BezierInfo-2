@@ -110,7 +110,7 @@ updateSliders() {
   const l = points.length-1;
   if (l >= 2) {
     points.forEach((_,i) => {
-      addSlider(`slide-control`, false, 0, 1, 0.01, i/l, v => this.setTvalue(i, v));
+      addSlider(`slide-control`, `!t<sub>${i}</sub>`, 0, 1, 0.01, i/l, v => this.setTvalue(i, v));
     });
   }
   this.label = `Using equidistant t values`;

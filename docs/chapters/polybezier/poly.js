@@ -76,14 +76,14 @@ movePointsQuadratic(i, link) {
     let pl = points[(l+i-1)%l];
     let pr = points[(l+i+1)%l];
     let ppr = points[(l+i+3)%l];
-    pl.x += this.currentPoint.diff.x;
-    pl.y += this.currentPoint.diff.y;
-    pr.x += this.currentPoint.diff.x;
-    pr.y += this.currentPoint.diff.y;
-    ppl.x -= this.currentPoint.diff.x;
-    ppl.y -= this.currentPoint.diff.y;
-    ppr.x -= this.currentPoint.diff.x;
-    ppr.y -= this.currentPoint.diff.y;
+    pl.x += this.cursor.diff.x;
+    pl.y += this.cursor.diff.y;
+    pr.x += this.cursor.diff.x;
+    pr.y += this.cursor.diff.y;
+    ppl.x -= this.cursor.diff.x;
+    ppl.y -= this.cursor.diff.y;
+    ppr.x -= this.cursor.diff.x;
+    ppr.y -= this.cursor.diff.y;
 
     this.problem = points[(l+i+4)%l];
     if (ppr.y === this.problem.y) {
@@ -129,11 +129,12 @@ movePointsCubic(i, link) {
   const l = points.length;
   if (link === `conventional` && i%3 === 0) {
     let left = points[(l+i-1)%l];
-    left.x += this.currentPoint.diff.x;
-    left.y += this.currentPoint.diff.y;
+    left.x += this.cursor.diff.x;
+    left.y += this.cursor.diff.y;
+
     let right = points[(l+i+1)%l];
-    right.x += this.currentPoint.diff.x;
-    right.y += this.currentPoint.diff.y;
+    right.x += this.cursor.diff.x;
+    right.y += this.cursor.diff.y;
   }
 
   if (i%3 > 0) {

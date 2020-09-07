@@ -1,153 +1,193 @@
 :root[lang="en-GB"] {
-    font-family: 'Museo', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
-    font-size: 18px;
+  font-family: "Museo", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  font-size: 18px;
 }
 
 :root[lang="ja-JP"] {
-    font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'Osaka', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', 'MS PGothic', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
-    font-size: 16px;
+  font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Osaka",
+    "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", "MS PGothic", "Helvetica Neue",
+    "Helvetica", Arial, sans-serif;
+  font-size: 16px;
 }
 
 :root[lang="zh-CN"] {
-    font-family: '华文细黑', 'STXihei', 'PingFang TC', '微软雅黑体', 'Microsoft YaHei New', '微软雅黑', 'Microsoft Yahei', '宋体', 'SimSun', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
-    font-size: 17.2px;
+  font-family: "华文细黑", "STXihei", "PingFang TC", "微软雅黑体",
+    "Microsoft YaHei New", "微软雅黑", "Microsoft Yahei", "宋体", "SimSun",
+    "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  font-size: 17.2px;
 }
 
 h1 {
-    background: black;
-    color: white;
-    padding: 0.2em 0.5em;
+  background: black;
+  color: white;
+  padding: 0.2em 0.5em;
 }
 
 label[for="changelogtoggle"] {
-    display: inline-block;
-    cursor: pointer;
-    color: #2929b3;
-    margin-left: 2em;
+  display: inline-block;
+  cursor: pointer;
+  color: #2929b3;
+  margin-left: 2em;
 }
 
 #changelogtoggle {
-    display: none;
+  display: none;
 }
 
 #changelogtoggle:not(:checked) ~ * {
-    display: none;
+  display: none;
 }
 
-
 #chapters {
-    counter-reset: section;
+  counter-reset: section;
 }
 
 #chapters section h1:before {
-    counter-increment: section;
-    content: "§" counter(section);
-    margin-right: 1em;
+  counter-increment: section;
+  content: "§" counter(section);
+  margin-right: 1em;
 }
 
 #chapters section > h1 > a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 graphics-element {
-    background: #e8e8e8;
+  background: #e8e8e8;
 }
 
 div.print {
-    opacity: 0.2;
-    padding-left: 2em;
+  opacity: 0.2;
+  padding-left: 2em;
 }
 
 div.print:before {
-    content: "PRINT-ONLY:";
-    position: relative;
-    left: -2em;
+  content: "PRINT-ONLY:";
+  position: relative;
+  left: -2em;
 }
 
 div.print:after {
-    content: "END-PRINT-ONLY";
-    position: relative;
-    left: -2em;
+  content: "END-PRINT-ONLY";
+  position: relative;
+  left: -2em;
 }
 
 div.howtocode {
-    position: relative;
-    border: 1px solid black;
-    background: rgb(246, 255, 255);
-    margin: 1em;
-    padding: 1em 1em 0 1em;
+  position: relative;
+  border: 1px solid black;
+  background: rgb(246, 255, 255);
+  margin: 1em;
+  padding: 1em 1em 0 1em;
 }
 
 div.howtocode h3 {
-    box-sizing: border-box;
-    position: relative;
-    width: calc(100% + 2em - 4px);
-    left: calc(-1em + 2px);
-    background: black;
-    color: white;
-    padding: 0.2em;
-    margin: 0 auto;
-    margin-top: -1em;
+  box-sizing: border-box;
+  position: relative;
+  width: calc(100% + 2em - 4px);
+  left: calc(-1em + 2px);
+  background: black;
+  color: white;
+  padding: 0.2em;
+  margin: 0 auto;
+  margin-top: -1em;
 }
 
 div.note {
-    position: relative;
-    border: 1px solid black;
-    background: rgb(255, 255, 246);
-    margin: 1em;
-    padding: 1em 1em 0 1em;
+  position: relative;
+  border: 1px solid black;
+  background: rgb(255, 255, 246);
+  margin: 1em;
+  padding: 1em 1em 0 1em;
 }
 
 div.note:before {
-    display: inline-block;
-    content: "Note";
-    border: 1px solid black;
-    border-radius: 0.5em;
-    background: orange;
-    padding: 0.2em 0.5em;
-    position: absolute;
-    top: -0.5em;
-    left: -1em;
+  display: inline-block;
+  content: "Note";
+  border: 1px solid black;
+  border-radius: 0.5em;
+  background: orange;
+  padding: 0.2em 0.5em;
+  position: absolute;
+  top: -0.5em;
+  left: -1em;
 }
 
 img.LaTeX.SVG {
-    margin-left: 2em;
+  margin-left: 2em;
 }
 
 img.LaTeX.SVG + img.LaTeX.SVG {
-    margin-top: 1em;
-    margin-left: 1em;
+  margin-top: 1em;
+  margin-left: 1em;
 }
 
 pre {
-    display: inline-block;
-    margin-left: 1em;
-    background-color: lightyellow;
-    padding: 0.5em;
-    border: 1px dotted gray;
+  display: inline-block;
+  margin-left: 1em;
+  background-color: lightyellow;
+  padding: 0.5em;
+  border: 1px dotted gray;
 }
 
 code {
-    position: relative;
-    font-family: monospace;
-    font-size: 0.9rem;
+  position: relative;
+  font-family: monospace;
+  font-size: 0.9rem;
 }
 
 p code {
-    color: #ff6000;
-    font-weight: bold;
-    font-family: monospace;
-    font-size: 1.2em;
-    letter-spacing: -2px;
+  color: #ff6000;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 1.2em;
+  letter-spacing: -2px;
 }
 
-.slide-control {
-    display: block;
-    width: 100%;
+.slider-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  font-size: 90%;
+  background: white;
+  margin: -0.5em;
+  margin-left: -0.25em;
+  margin-right: -0.25em;
+  border: 1px solid black;
+  border-width: 0 1px;
+}
+
+graphics-element .slider-wrapper:first-of-type {
+  clear: both;
+  border-top: 1px solid black;
+  margin-top: 0.1em;
+  padding-top: 2px;
+}
+
+graphics-element .slider-wrapper:last-of-type {
+  border-bottom: 1px solid black;
+  margin-bottom: -0.25em;
+}
+
+.slider-wrapper .slider-label {
+  flex: 0 0 auto;
+  font-family: Arial;
+  padding: 0 0.5em;
+}
+
+.slider-wrapper .slider-value {
+  flex: 0 0 auto;
+  min-width: 3em;
+  padding-right: 0.25em;
+  text-align-last: center;
+}
+
+.slider-wrapper .slider {
+  flex: 1 1 auto;
 }
 
 .grid {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }

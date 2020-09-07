@@ -12,7 +12,7 @@ setup() {
   weights = new BSpline(this, points, !!this.parameters.open).formWeights();
 
   points.forEach((_,i) => {
-    addSlider(`slide-control`, false, 0, 10, 0.1, i%2===1? 2 : 6, v => this.setWeight(i, v));
+    addSlider(`slide-control`, `!weight ${i+1}`, 0, 10, 0.1, i%2===1? 2 : 6, v => this.setWeight(i, v));
   });
 
   points = points.concat(points.slice(0,3));

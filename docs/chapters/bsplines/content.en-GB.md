@@ -15,6 +15,10 @@ Consider the difference to be this:
 - for Bézier curves, the curve is defined as an interpolation of points, but:
 - for B-Splines, the curve is defined as an interpolation of *curves*.
 
+In fact, let's look at that again, but this time with the base curves shown, too. Each consecutive four points defined one curve:
+
+<graphics-element title="The components of a B-Spline " width="600" height="300" src="./basic.js" data-show-curves="true"></graphics-element>
+
 In order to make this interpolation of curves work, the maths is necessarily more complex than the maths for Bézier curves, so let's have a look at how things work.
 
 

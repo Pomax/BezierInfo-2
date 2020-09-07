@@ -207,7 +207,31 @@ class GraphicsAPI extends BaseAPI {
       throw new Error(`this.${propname} already exists: cannot bind slider.`);
     }
 
+    let propLabel = propname.replace(`!`, ``);
+    propname = propLabel === propname ? propname : false;
+
     let slider = typeof qs === `string` ? this.find(qs) : qs;
+
+    // relocate this slider
+    let ui = (() => {
+      if (!this.element) {
+        return { update: (v) => {} };
+      }
+      let wrapper = create(`div`);
+      wrapper.classList.add(`slider-wrapper`);
+      let label = create(`label`);
+      label.classList.add(`slider-label`);
+      label.innerHTML = propLabel;
+      wrapper.append(label);
+      slider.parentNode.replaceChild(wrapper, slider);
+      slider.setAttribute(`class`, `slider`);
+      wrapper.append(slider);
+      let valueField = create(`label`);
+      valueField.classList.add(`slider-value`);
+      valueField.textContent;
+      wrapper.append(valueField);
+      return { update: (v) => (valueField.textContent = v) };
+    })();
 
     if (!slider) {
       console.warn(`Warning: no slider found for query selector "${qs}"`);
@@ -217,6 +241,7 @@ class GraphicsAPI extends BaseAPI {
 
     const updateProperty = (evt) => {
       let value = parseFloat(slider.value);
+      ui.update(value);
       try {
         let checked = transform ? transform(value) ?? value : value;
         if (propname) this[propname] = checked;
@@ -225,6 +250,7 @@ class GraphicsAPI extends BaseAPI {
           evt.preventDefault();
           evt.stopPropagation();
         }
+        ui.update(e.value);
         slider.value = e.value;
         slider.setAttribute(`value`, e.value);
       }
@@ -242,7 +268,7 @@ class GraphicsAPI extends BaseAPI {
    * remove all sliders from this element
    */
   removeSliders() {
-    this.findAll(`input[type=range]`).forEach((s) => {
+    this.findAll(`.slider-wrapper`).forEach((s) => {
       s.parentNode.removeChild(s);
     });
   }

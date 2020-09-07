@@ -7,11 +7,11 @@ If we combine the work done in the previous sections on curve flattening and arc
 <div class="figure">
 
 <graphics-element title="Approximate quadratic curve arc length" src="./approximate.js" data-type="quadratic">
-    <input type="range" min="1" max="24" step="1" value="4" class="slide-control">
+    <input type="range" min="2" max="24" step="1" value="4" class="slide-control">
 </graphics-element>
 
 <graphics-element title="Approximate cubic curve arc length" src="./approximate.js" data-type="cubic">
-    <input type="range" min="1" max="32" step="1" value="8" class="slide-control">
+    <input type="range" min="2" max="32" step="1" value="8" class="slide-control">
 </graphics-element>
 
 </div>

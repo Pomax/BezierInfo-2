@@ -24,7 +24,7 @@ draw() {
     end();
 
     setFill(`black`);
-    text(`Approximating with ${this.steps} strips: ${computedArea} (true area: ${trueArea}`, w/2, h-10, CENTER);
+    text(`Approximating with ${this.steps} strips : ${computedArea} (true area: ${trueArea})`, w/2, h-10, CENTER);
 }
 
 drawSlices(w, h, a, n) {

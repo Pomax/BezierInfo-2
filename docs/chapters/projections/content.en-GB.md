@@ -24,4 +24,4 @@ This makes the interval we check smaller and smaller at each iteration, and we c
 
 So, let's see that in action: in this case, I'm going to arbitrarily say that if we're going to run the loop until the interval is smaller than 0.001, and show you what that means for projecting your mouse cursor or finger tip onto a rather complex Bézier curve (which, of course, you can reshape as you like). Also shown are the original three points that our coarse check finds.
 
-<graphics-element title="Projecting a point onto a Bézier curve" width="320" height="320" src="./project.js"></graphics-element>
+<graphics-element title="Projecting a point onto a Bézier curve" width="400" height="400" src="./project.js"></graphics-element>

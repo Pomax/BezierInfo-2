@@ -1,14 +1,27 @@
 import { enrich } from "./enrich.js";
 
-function create(element) {
+const noop = () => {};
+
+function create(tag) {
   if (typeof document !== `undefined`) {
-    return enrich(document.createElement(element));
+    return enrich(document.createElement(tag));
   }
 
-  return {
-    name: element,
-    tag: element.toUpperCase(),
+  const element = {
+    name: tag,
+    tag: tag.toUpperCase(),
+    append: noop,
+    appendChild: noop,
+    replaceChild: noop,
+    removeChild: noop,
+    classList: {
+      add: noop,
+      remove: noop,
+    },
+    children: [],
   };
+
+  return element;
 }
 
 export { create };

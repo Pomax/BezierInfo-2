@@ -28,7 +28,7 @@ And then we're done, we found "the" normal vector for a 3D curve. Let's see what
   <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
 </graphics-element>
 
-However, if you've played with that graphic a bit, you might have noticed something odd. The normal seems to "suddenly twist around" around between t=0.5 and t=0.9... Why is doing that?
+However, if you've played with that graphic a bit, you might have noticed something odd. The normal seems to "suddenly twist around the curve" between t=0.65 and t=0.75... Why is it doing that?
 
 As it turns out, it's doing that because that's how the maths works, and that's the problem with Frenet normals: while they are "mathematically correct", they are "practically problematic", and so for any kind of graphics work what we really want is a way to compute normals that just... look good.
 

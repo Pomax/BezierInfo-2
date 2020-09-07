@@ -23,6 +23,8 @@ bindButtons() {
 
 draw() {
     clear();
+    setStroke(`lightgrey`);
+    drawGrid(20);
     this.drawCurve();
 }
 
@@ -31,6 +33,7 @@ drawCurve() {
     // And the canvas only does 2nd and 3rd - we use de Casteljau's algorithm:
     start();
     noFill();
+    setStroke(`black`);
     for(let t=0; t<=1; t+=0.01) {
       let q = JSON.parse(JSON.stringify(points));
       while(q.length > 1) {
@@ -113,9 +116,9 @@ lower() {
     // And then we map our k-order list of coordinates
     // to an n-order list of coordinates, instead:
     const V = Mi.multiply(Mt);
-    const x = new Matrix(pts.map(p => [p.x]));
+    const x = new Matrix(points.map(p => [p.x]));
     const nx = V.multiply(x);
-    const y = new Matrix(pts.map(p => [p.y]));
+    const y = new Matrix(points.map(p => [p.y]));
     const ny = V.multiply(y);
 
     points = nx.data.map((x,i) => ({

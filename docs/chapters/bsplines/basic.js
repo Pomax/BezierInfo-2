@@ -19,7 +19,7 @@ draw() {
     setStroke(`lightgrey`);
     drawGrid(20);
 
-    setStroke(`#CC00CC99`);
+    setStroke(this.parameters.showCurves ? `transparent` : `#CC00CC99`);
     for (let i=0, e=points.length-1, p, n; i<e; i++) {
       p = points[i];
       n = points[i+1];
@@ -27,7 +27,10 @@ draw() {
     }
 
     setColor(`black`);
-    points.forEach(p => circle(p.x, p.y, 3));
+    points.forEach((p,i) => {
+      circle(p.x, p.y, 3)
+      text(`${i+1}`, p.x+5, p.y+5);
+    });
 
     this.drawSplineData();
 }
@@ -36,10 +39,17 @@ drawSplineData() {
     // we'll need at least 4 points
     if (points.length <= 3) return;
 
+    if (this.parameters.showCurves) {
+      for(let i=0; i<points.length-3; i++) {
+        let c = new Bezier(this, points.slice(i,i+4));
+        c.drawCurve(randomColor());
+      }
+    }
+
     let spline = new BSpline(this, points);
 
     noFill();
-    setStroke(`black`);
+    setStroke(this.parameters.showCurves ? `#00000040` : `black`);
     start();
     spline.getLUT((points.length - 3) * 20).forEach(p => vertex(p.x, p.y));
     end();

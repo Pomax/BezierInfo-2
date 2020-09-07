@@ -255,7 +255,7 @@ So let's try it out! The following graphic lets you place points, and will start
 
 <graphics-element title="Fitting a Bézier curve" width="550" src="./curve-fitting.js" >
   <button class="toggle">toggle</button>
-  <div class="sliders"><!-- this will contain range inputs, created by the graphic --></div>
+  <!-- additional sliders will get created on the fly -->
 </graphics-element>
 
 You'll note there is a convenient "toggle" buttons that lets you toggle between equidistant `t` values, and distance ratio along the polygon formed by the points. Arguably more interesting is that once you have points to abstract a curve, you also get <em>direct control</em> over the time values through sliders for each, because if the time values are our degree of freedom, you should be able to freely manipulate them and see what the effect on your curve is.

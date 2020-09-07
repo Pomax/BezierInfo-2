@@ -17,9 +17,9 @@ The following graphic applies this algorithm to a pair of cubic curves, one step
 (can you find the configuration that yields the maximum number of intersections between two cubic curves? Nine intersections!)
 
 <graphics-element title="Curve/curve intersections" width="825" src="./curve-curve.js">
-  <input type="range" min="0.01" max="1" step="0.01" value="1" class="slide-control">
   <button class="next">Advance one step</button>
   <button class="reset">Reset</button>
+  <input type="range" min="0.01" max="1" step="0.01" value="1" class="slide-control">
 </graphics-element>
 
 Finding self-intersections is effectively the same procedure, except that we're starting with a single curve, so we need to turn that into two separate curves first. This is trivially achieved by splitting at an inflection point, or if there are none, just splitting at `t=0.5` first, and then running the exact same algorithm as above, with all non-overlapping curve pairs getting removed at each iteration, and each successive step homing in on the curve's self-intersection points.

@@ -403,13 +403,13 @@ function Bezier(3,t,w[]):
 <graphics-element title="Our rational cubic Bézier curve" width="275" height="275" src="./chapters/weightcontrol/rational.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\weightcontrol\0ef06657f0540938686b9b35b249a22b.png">
+          <img width="275px" height="275px" src="images\chapters\weightcontrol\be18e8119472af796329f3e2159bdf94.png">
           <label>Our rational cubic Bézier curve</label>
         </fallback-image>
-  ratio 1 <input type="range" min="0.01" max="2" value="1" step="0.01"><span>1.0</span><br>
-  ratio 2 <input type="range" min="0.01" max="2" value="1" step="0.01"><span>1.0</span><br>
-  ratio 3 <input type="range" min="0.01" max="2" value="1" step="0.01"><span>1.0</span><br>
-  ratio 4 <input type="range" min="0.01" max="2" value="1" step="0.01"><span>1.0</span>
+  <input type="range" min="0.01" max="2" value="1" step="0.01" class="ratio-1">
+  <input type="range" min="0.01" max="2" value="1" step="0.01" class="ratio-2">
+  <input type="range" min="0.01" max="2" value="1" step="0.01" class="ratio-3">
+  <input type="range" min="0.01" max="2" value="1" step="0.01" class="ratio-4">
 </graphics-element>
 
 <p>You can think of the ratio values as each coordinate's "gravity": the higher the gravity, the closer to that coordinate the curve will want to be. You'll also notice that if you simply increase or decrease all the ratios by the same amount, nothing changes... much like with gravity, if the relative strengths stay the same, nothing really changes. The values define each coordinate's influence <em>relative to all other points</em>.</p>
@@ -732,7 +732,7 @@ function drawCurve(points[], t):
 <graphics-element title="A variable-order Bézier curve" width="275" height="275" src="./chapters/reordering/reorder.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\reordering\387f931043aabd6c467985c568482636.png">
+          <img width="275px" height="275px" src="images\chapters\reordering\81e559a69298ecc24c8edebe59e79647.png">
           <label>A variable-order Bézier curve</label>
         </fallback-image>
   <button class="raise">raise</button>
@@ -805,16 +805,16 @@ treated as a sequence of three (elementary) shear operations. When we combine th
 
 <p>The following two graphics show the tangent and normal along a quadratic and cubic curve, with the direction vector coloured blue, and the normal vector coloured red (the markers are spaced out evenly as <em>t</em>-intervals, not spaced equidistant).</p>
 <div class="figure">
-  <graphics-element title="Quadratic Bézier tangents and normals" width="275" height="275" src="./chapters/pointvectors/quadratic.js" >
+  <graphics-element title="Quadratic Bézier tangents and normals" width="275" height="275" src="./chapters/pointvectors/pointvectors.js" data-type="quadratic">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\pointvectors\44d454f380ae84dbe4661bd67c406edc.png">
+          <img width="275px" height="275px" src="images\chapters\pointvectors\f4d72cc162d4cbcc6d6a459fced01cfb.png">
           <label>Quadratic Bézier tangents and normals</label>
         </fallback-image></graphics-element>
-  <graphics-element title="Cubic Bézier tangents and normals" width="275" height="275" src="./chapters/pointvectors/cubic.js" >
+  <graphics-element title="Cubic Bézier tangents and normals" width="275" height="275" src="./chapters/pointvectors/pointvectors.js" data-type="cubic">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\pointvectors\58719bde12c1cbd535d5d8af1bef9c2b.png">
+          <img width="275px" height="275px" src="images\chapters\pointvectors\2724b6c42f36b4dbea6962cac844d2c3.png">
           <label>Cubic Bézier tangents and normals</label>
         </fallback-image></graphics-element>
 </div>
@@ -850,7 +850,7 @@ treated as a sequence of three (elementary) shear operations. When we combine th
   <input type="range" min="0" max="1" step="0.01" value="0" class="slide-control">
 </graphics-element>
 
-<p>However, if you've played with that graphic a bit, you might have noticed something odd. The normal seems to "suddenly twist around" around between t=0.5 and t=0.9... Why is doing that?</p>
+<p>However, if you've played with that graphic a bit, you might have noticed something odd. The normal seems to "suddenly twist around the curve" between t=0.65 and t=0.75... Why is it doing that?</p>
 <p>As it turns out, it's doing that because that's how the maths works, and that's the problem with Frenet normals: while they are "mathematically correct", they are "practically problematic", and so for any kind of graphics work what we really want is a way to compute normals that just... look good.</p>
 <p>Thankfully, Frenet normals are not our only option.</p>
 <p>Another option is to take a slightly more algorithmic approach and compute a form of <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/Computation-of-rotation-minimizing-frames.pdf">Rotation Minimising Frame</a> (also known as "parallel transport frame" or "Bishop frame") instead, where a "frame" is a set made up of the tangent, the rotational axis, and the normal vector, centered on an on-curve point.</p>
@@ -1349,19 +1349,19 @@ y = curve.get(t).y</code></pre>
   <graphics-element title="A function's approximated integral" width="275" height="275" src="./chapters/arclength/draw-slices.js" data-steps="10">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\arclength\580c33f599b70de44b17c546098508aa.png">
+          <img width="275px" height="275px" src="images\chapters\arclength\dc74a2f2da19470b8d721ece5f3ce268.png">
           <label>A function's approximated integral</label>
         </fallback-image></graphics-element>
   <graphics-element title="A better approximation" width="275" height="275" src="./chapters/arclength/draw-slices.js" data-steps="24">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\arclength\0d7138b99f5986332a050a8479eefa57.png">
+          <img width="275px" height="275px" src="images\chapters\arclength\4bffba7dda2a3556cf5b2ae7392083c6.png">
           <label>A better approximation</label>
         </fallback-image></graphics-element>
   <graphics-element title="An even better approximation" width="275" height="275" src="./chapters/arclength/draw-slices.js" data-steps="99">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\arclength\475547c773a7279dc037c9ced2c8c6dc.png">
+          <img width="275px" height="275px" src="images\chapters\arclength\4b5d220d02b08f6c9aa19389255ef8bb.png">
           <label>An even better approximation</label>
         </fallback-image></graphics-element>
 </div>
@@ -1402,7 +1402,7 @@ y = curve.get(t).y</code></pre>
           <img width="275px" height="275px" src="images\chapters\arclengthapprox\a040f6b7c7c33ada25ecfd1060726545.png">
           <label>Approximate quadratic curve arc length</label>
         </fallback-image>
-    <input type="range" min="1" max="24" step="1" value="4" class="slide-control">
+    <input type="range" min="2" max="24" step="1" value="4" class="slide-control">
 </graphics-element>
 
 <graphics-element title="Approximate cubic curve arc length" width="275" height="275" src="./chapters/arclengthapprox/approximate.js" data-type="cubic">
@@ -1411,7 +1411,7 @@ y = curve.get(t).y</code></pre>
           <img width="275px" height="275px" src="images\chapters\arclengthapprox\c270144cc41e4ebc4b0b2331473530fa.png">
           <label>Approximate cubic curve arc length</label>
         </fallback-image>
-    <input type="range" min="1" max="32" step="1" value="8" class="slide-control">
+    <input type="range" min="2" max="32" step="1" value="8" class="slide-control">
 </graphics-element>
 
 </div>
@@ -1578,12 +1578,12 @@ lli = function(line1, line2):
 <graphics-element title="Curve/curve intersections" width="825" height="275" src="./chapters/curveintersection/curve-curve.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="825px" height="275px" src="images\chapters\curveintersection\9540ecc84c3fc63a07f5372ab031c99e.png">
+          <img width="825px" height="275px" src="images\chapters\curveintersection\390fe022c4e290a7a9d3814ae2936b77.png">
           <label></label>
         </fallback-image>
-  <input type="range" min="0.01" max="1" step="0.01" value="1" class="slide-control">
   <button class="next">Advance one step</button>
   <button class="reset">Reset</button>
+  <input type="range" min="0.01" max="1" step="0.01" value="1" class="slide-control">
 </graphics-element>
 
 <p>Finding self-intersections is effectively the same procedure, except that we're starting with a single curve, so we need to turn that into two separate curves first. This is trivially achieved by splitting at an inflection point, or if there are none, just splitting at <code>t=0.5</code> first, and then running the exact same algorithm as above, with all non-overlapping curve pairs getting removed at each iteration, and each successive step homing in on the curve's self-intersection points.</p>
@@ -1714,10 +1714,10 @@ for (coordinate, index) in LUT:
 </ol>
 <p>This makes the interval we check smaller and smaller at each iteration, and we can keep running the three steps until the interval becomes so small as to lead to distances that are, for all intents and purposes, the same for all points.</p>
 <p>So, let's see that in action: in this case, I'm going to arbitrarily say that if we're going to run the loop until the interval is smaller than 0.001, and show you what that means for projecting your mouse cursor or finger tip onto a rather complex Bézier curve (which, of course, you can reshape as you like). Also shown are the original three points that our coarse check finds.</p>
-<graphics-element title="Projecting a point onto a Bézier curve" width="320" height="320" src="./chapters/projections/project.js" >
+<graphics-element title="Projecting a point onto a Bézier curve" width="400" height="400" src="./chapters/projections/project.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="320px" height="320px" src="images\chapters\projections\c40ab9e3f3d1f53872dff30a7bcdb003.png">
+          <img width="400px" height="400px" src="images\chapters\projections\3cc334d0ebc01cc5352e23ed47bc5414.png">
           <label></label>
         </fallback-image></graphics-element>
 
@@ -1837,11 +1837,11 @@ for (coordinate, index) in LUT:
 <graphics-element title="Fitting a Bézier curve" width="550" height="275" src="./chapters/curvefitting/curve-fitting.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="550px" height="275px" src="images\chapters\curvefitting\78d32beb061391c47217611128446146.png">
+          <img width="550px" height="275px" src="images\chapters\curvefitting\1307361f152242ab0263d81a469cf43b.png">
           <label></label>
         </fallback-image>
   <button class="toggle">toggle</button>
-  <div class="sliders"><!-- this will contain range inputs, created by the graphic --></div>
+  <!-- additional sliders will get created on the fly -->
 </graphics-element>
 
 <p>You'll note there is a convenient "toggle" buttons that lets you toggle between equidistant <code>t</code> values, and distance ratio along the polygon formed by the points. Arguably more interesting is that once you have points to abstract a curve, you also get <em>direct control</em> over the time values through sliders for each, because if the time values are our degree of freedom, you should be able to freely manipulate them and see what the effect on your curve is.</p>
@@ -1854,7 +1854,7 @@ for (coordinate, index) in LUT:
 <graphics-element title="A Catmull-Rom curve" width="275" height="275" src="./chapters/catmullconv/catmull-rom.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\catmullconv\aa46749b9469341d9249ca452390d875.png">
+          <img width="275px" height="275px" src="images\chapters\catmullconv\e1e640b29dd07f905c1555438511cad9.png">
           <label>A Catmull-Rom curve</label>
         </fallback-image>
   <input type="range" min="0.1" max="1" step="0.01" value="0.5" class="slide-control tension">
@@ -1982,13 +1982,13 @@ for p = 1 to points.length-3 (inclusive):
 <graphics-element title="Unlinked quadratic poly-Bézier" width="275" height="275" src="./chapters/polybezier/poly.js" data-type="quadratic" data-link="coordinate">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\polybezier\0553872bf00ebc557f4b11d69d634fc6.png">
+          <img width="275px" height="275px" src="images\chapters\polybezier\044f65dd588b0210499add16ea50a23d.png">
           <label>Unlinked quadratic poly-Bézier</label>
         </fallback-image></graphics-element>
 <graphics-element title="Unlinked cubic poly-Bézier" width="275" height="275" src="./chapters/polybezier/poly.js" data-type="cubic" data-link="coordinate">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\polybezier\60adbd6fe091a72e1ed37355e49a506e.png">
+          <img width="275px" height="275px" src="images\chapters\polybezier\babb27083b805c7c77bb93cfecbefb2b.png">
           <label>Unlinked cubic poly-Bézier</label>
         </fallback-image></graphics-element>
 
@@ -2000,13 +2000,13 @@ for p = 1 to points.length-3 (inclusive):
 <graphics-element title="Connected quadratic poly-Bézier" width="275" height="275" src="./chapters/polybezier/poly.js" data-type="quadratic" data-link="derivative">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\polybezier\1aeb331a5170c203c31c55ae8d55b809.png">
+          <img width="275px" height="275px" src="images\chapters\polybezier\b492c486c25f17a95c690e235b8ad483.png">
           <label>Connected quadratic poly-Bézier</label>
         </fallback-image></graphics-element>
 <graphics-element title="Connected cubic poly-Bézier" width="275" height="275" src="./chapters/polybezier/poly.js" data-type="cubic" data-link="derivative">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\polybezier\04bc7b98ba019a4a90bedce6e10eaf08.png">
+          <img width="275px" height="275px" src="images\chapters\polybezier\adc3b55c9956849ec86ecffcd8864d8a.png">
           <label>Connected cubic poly-Bézier</label>
         </fallback-image></graphics-element>
 
@@ -2016,13 +2016,13 @@ for p = 1 to points.length-3 (inclusive):
 <graphics-element title="Angularly connected quadratic poly-Bézier" width="275" height="275" src="./chapters/polybezier/poly.js" data-type="quadratic" data-link="direction">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\polybezier\acb8f004751017eaac4aae0b039c94cf.png">
+          <img width="275px" height="275px" src="images\chapters\polybezier\17a6ffbfffaa9046ad165ca880d9030d.png">
           <label>Angularly connected quadratic poly-Bézier</label>
         </fallback-image></graphics-element>
 <graphics-element title="Angularly connected cubic poly-Bézier" width="275" height="275" src="./chapters/polybezier/poly.js" data-type="cubic" data-link="direction">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\polybezier\1a3c6b24bea874d32334d62110507fcb.png">
+          <img width="275px" height="275px" src="images\chapters\polybezier\b7dfe772ac90d762f48772b691a9070f.png">
           <label>Angularly connected cubic poly-Bézier</label>
         </fallback-image></graphics-element>
 
@@ -2031,13 +2031,13 @@ for p = 1 to points.length-3 (inclusive):
 <graphics-element title="Standard connected quadratic poly-Bézier" width="275" height="275" src="./chapters/polybezier/poly.js" data-type="quadratic" data-link="conventional">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\polybezier\7afd119dd93a581ec161e2cbfc3c1e63.png">
+          <img width="275px" height="275px" src="images\chapters\polybezier\a1a3aabd22c0221beb38403a4532ea86.png">
           <label>Standard connected quadratic poly-Bézier</label>
         </fallback-image></graphics-element>
 <graphics-element title="Standard connected cubic poly-Bézier" width="275" height="275" src="./chapters/polybezier/poly.js" data-type="cubic"  data-link="conventional">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="275px" height="275px" src="images\chapters\polybezier\cfbfbbc56365ba547dc7e82b329c4007.png">
+          <img width="275px" height="275px" src="images\chapters\polybezier\b810f02639a79cf7f8ae416d7185614d.png">
           <label>Standard connected cubic poly-Bézier</label>
         </fallback-image></graphics-element>>
 
@@ -2326,7 +2326,7 @@ for p = 1 to points.length-3 (inclusive):
 <graphics-element title="A B-Spline example" width="600" height="300" src="./chapters/bsplines/basic.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="600px" height="300px" src="images\chapters\bsplines\610232b8f7ce7ef3f0f012d55e385c6d.png">
+          <img width="600px" height="300px" src="images\chapters\bsplines\d9a99344a5de4b5be77824f8f8caa707.png">
           <label></label>
         </fallback-image></graphics-element>
 
@@ -2336,6 +2336,14 @@ for p = 1 to points.length-3 (inclusive):
 <li>for Bézier curves, the curve is defined as an interpolation of points, but:</li>
 <li>for B-Splines, the curve is defined as an interpolation of <em>curves</em>.</li>
 </ul>
+<p>In fact, let's look at that again, but this time with the base curves shown, too. Each consecutive four points defined one curve:</p>
+<graphics-element title="The components of a B-Spline " width="600" height="300" src="./chapters/bsplines/basic.js" data-show-curves="true">
+        <fallback-image>
+          <span class="view-source">Scripts are disabled. Showing fallback image.</span>
+          <img width="600px" height="300px" src="images\chapters\bsplines\3f66c97dcdd56d201c2acda3bd403bbf.png">
+          <label></label>
+        </fallback-image></graphics-element>
+
 <p>In order to make this interpolation of curves work, the maths is necessarily more complex than the maths for Bézier curves, so let's have a look at how things work.</p>
 <h2>How to compute a B-Spline curve: some maths</h2>
 <p>Given a B-Spline of degree <code>d</code> and thus order <code>k=d+1</code> (so a quadratic B-Spline is degree 2 and order 3, a cubic B-Spline is degree 3 and order 4, etc) and <code>n</code> control points <code>P<sub>0</sub></code> through <code>P<sub>n-1</sub></code>, we can compute a point on the curve for some value <code>t</code> in the interval [0,1] (where 0 is the start of the curve, and 1 the end, just like for Bézier curves), by evaluating the following function:</p>
@@ -2369,7 +2377,7 @@ Doing so for a degree <code>d</code> B-Spline with <code>n</code> control point 
 <graphics-element title="Visualising relative interpolation strengths" width="600" height="300" src="./chapters/bsplines/interpolation.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="600px" height="300px" src="images\chapters\bsplines\84bd623b9d3d8bf01a656f49c17079b8.png">
+          <img width="600px" height="300px" src="images\chapters\bsplines\bd03680e4661ae7f4d687b2f229d2495.png">
           <label></label>
         </fallback-image>
   <!-- weight factors go here, similar to curve fitting sliders -->
@@ -2411,7 +2419,7 @@ for(let L = 1; L &lt;= order; L++) {
 <graphics-element title="A uniform B-Spline" width="400" height="400" src="./chapters/bsplines/uniform.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="400px" height="400px" src="images\chapters\bsplines\7ac6e46280de14dce141fb073777dc8e.png">
+          <img width="400px" height="400px" src="images\chapters\bsplines\3cfaf7bf5e950072437cfe70391155fa.png">
           <label></label>
         </fallback-image>
   <!-- knot sliders go here, similar to the curve fitter section -->
@@ -2424,7 +2432,7 @@ for(let L = 1; L &lt;= order; L++) {
 <graphics-element title="A reduced uniform B-Spline" width="400" height="400" src="./chapters/bsplines/reduced.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="400px" height="400px" src="images\chapters\bsplines\984c86b3b357c799aaab5a5fbd48d599.png">
+          <img width="400px" height="400px" src="images\chapters\bsplines\6ba59877389e2c856234403ecbd953f9.png">
           <label></label>
         </fallback-image>
   <!-- knot sliders go here, similar to the curve fitter section -->
@@ -2437,7 +2445,7 @@ for(let L = 1; L &lt;= order; L++) {
 <graphics-element title="An open, uniform B-Spline" width="400" height="400" src="./chapters/bsplines/uniform.js" data-open="true">
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="400px" height="400px" src="images\chapters\bsplines\4c71f82901edc1a0acae31cf5be12c65.png">
+          <img width="400px" height="400px" src="images\chapters\bsplines\9c4bbb753918e3cb8cbc5a770a2af9ee.png">
           <label></label>
         </fallback-image>
   <!-- knot sliders go here, similar to the curve fitter section -->
@@ -2451,7 +2459,7 @@ for(let L = 1; L &lt;= order; L++) {
 <graphics-element title="A (closed) rational, uniform B-Spline" width="400" height="400" src="./chapters/bsplines/rational-uniform.js" >
         <fallback-image>
           <span class="view-source">Scripts are disabled. Showing fallback image.</span>
-          <img width="400px" height="400px" src="images\chapters\bsplines\9915d887443459415a7bfb57bea1b898.png">
+          <img width="400px" height="400px" src="images\chapters\bsplines\dda4911d5148032e005a02ef33b78978.png">
           <label></label>
         </fallback-image>
   <!-- knot sliders go here, similar to the curve fitter section -->

@@ -1,24 +1,17 @@
-let curve;
+let curve, ratios=[1, 1, 1, 1];
 
 setup() {
   curve = Bezier.defaultCubic(this);
   setMovable(curve.points);
+  curve.points.forEach((p,i) => {
+    setSlider(`.ratio-${i+1}`, `!ratio-${i+1}`, 1, v => this.setRatio(i,v))
+  });
+}
 
-  const inputs = findAll(`input[type=range]`);
-  if (inputs) {
-    const ratios = inputs.map(i => parseFloat(i.value));
-    curve.setRatios(ratios);
-
-    inputs.forEach((input,pos) => {
-      const span = input.nextSibling;
-      input.listen(`input`, evt => {
-        const value = parseFloat(evt.target.value);
-        span.textContent = ratios[pos] = value;
-        curve.update();
-        this.redraw();
-      });
-    })
-  }
+setRatio(i, v) {
+  ratios[i] = v;
+  curve.setRatios(ratios);
+  redraw();
 }
 
 draw() {

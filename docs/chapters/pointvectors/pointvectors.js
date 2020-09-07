@@ -1,7 +1,16 @@
 let curve;
 
 setup() {
-    curve = Bezier.defaultCubic(this);
+    const type = this.type = this.parameters.type ?? `quadratic`;
+    if (type === `quadratic`) {
+        curve = Bezier.defaultQuadratic(this);
+    } else {
+        curve = Bezier.defaultCubic(this);
+        curve.points[0].x = 30;
+        curve.points[0].y = 230;
+        curve.points[1].x = 75;
+        curve.points[1].y = 50;
+    }
     setMovable(curve.points);
 }
 
@@ -15,7 +24,7 @@ draw() {
     for(let i=0; i<=10; i++) {
         let t = i/10.0;
         let p = curve.get(t);
-        let d = this.getDerivative(t, pts);
+        let d = this.type === `quadratic` ? this.getQuadraticDerivative(t, pts) : this.getCubicDerivative(t, pts);
 
         let m = sqrt(d.x*d.x + d.y*d.y);
         d = { x: d.x/m, y: d.y/m };
@@ -27,9 +36,6 @@ draw() {
         setStroke(`red`);
         line(p.x, p.y, p.x + n.x*f, p.y + n.y*f);
 
-        setStroke(`purple`);
-        line(p.x, p.y, p.x - n.x*f, p.y - n.y*f);
-
         setStroke(`black`);
         circle(p.x, p.y, 3);
     }
@@ -37,7 +43,25 @@ draw() {
     curve.drawPoints();
 }
 
-getDerivative(t, points) {
+getQuadraticDerivative(t, points) {
+    let mt = (1 - t), d = [
+        {
+            x: 2 * (points[1].x - points[0].x),
+            y: 2 * (points[1].y - points[0].y)
+        },
+        {
+            x: 2 * (points[2].x - points[1].x),
+            y: 2 * (points[2].y - points[1].y)
+        }
+    ];
+
+    return {
+        x: mt * d[0].x + t * d[1].x,
+        y: mt * d[0].y + t * d[1].y
+    };
+}
+
+getCubicDerivative(t, points) {
     let mt = (1 - t), a = mt*mt, b = mt*t, c = t*t, d = [
         {
             x: 3 * (points[1].x - points[0].x),
