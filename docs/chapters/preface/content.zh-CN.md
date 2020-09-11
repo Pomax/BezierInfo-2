@@ -15,10 +15,10 @@
 
 ## 注意：几乎所有的贝塞尔图形都是可交互的。
 
-这个页面使用了基于[Bezier.js](http://pomax.github.io/bezierjs) 的可交互例子。
+这个页面使用了基于[Bezier.js](https://pomax.github.io/bezierjs/) 的可交互例子。
 
 <!-- The following is no longer true
-，还有一些用[MathJax](http://MathJax.org) 排版的“真正的”数学（LaTeX形式）。这个页面是用Webpack离线生成的React应用，这便让加入“查看源码”选项更具挑战性了。我仍然试图将它们添加回来，但跟前几年的版本相比，不觉得它能够支撑部署这个更新。
+，还有一些用[MathJax](https://MathJax.org) 排版的“真正的”数学（LaTeX形式）。这个页面是用Webpack离线生成的React应用，这便让加入“查看源码”选项更具挑战性了。我仍然试图将它们添加回来，但跟前几年的版本相比，不觉得它能够支撑部署这个更新。
 -->
 
 ## 这本书是开源的。
@@ -35,6 +35,6 @@
 
 ## 给我买杯咖啡？
 
-如果你很喜欢这本书，或发现它对你要做的事很有帮助，或者你想知道怎么表达自己对这本书的感激，你可以 [给我买杯咖啡](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QPRDLNGDANJSW) ，所少钱取决于你。这份工作持续了很多年，从一份小小的简要到70多页关于贝塞尔曲线的读物，在完成它的过程中倾注了很多咖啡。我从未后悔花在这上面的每一分钟，但如果有更多咖啡的话，我可以坚持写下去!
+如果你很喜欢这本书，或发现它对你要做的事很有帮助，或者你想知道怎么表达自己对这本书的感激，你可以 [给我买杯咖啡](https://www.paypal.com/donate/?token=4OeU2bI9WLfex_fYcraxmooLUcJ_WDTn8AofsN1WYchMI7RB5Jq6CSZuAWNQTekJGyOh3G) ，所少钱取决于你。这份工作持续了很多年，从一份小小的简要到70多页关于贝塞尔曲线的读物，在完成它的过程中倾注了很多咖啡。我从未后悔花在这上面的每一分钟，但如果有更多咖啡的话，我可以坚持写下去!
 
 </div>

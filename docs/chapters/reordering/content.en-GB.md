@@ -18,7 +18,7 @@ The general rule for raising an *n<sup>th</sup>* order curve to an *(n+1)<sup>th
 
 However, this rule also has as direct consequence that you **cannot** generally safely lower a curve from *n<sup>th</sup>* order to *(n-1)<sup>th</sup>* order, because the control points cannot be "pulled apart" cleanly. We can try to, but the resulting curve will not be identical to the original, and may in fact look completely different.
 
-However, there is a surprisingly good way to ensure that a lower order curve looks "as close as reasonably possible" to the original curve: we can optimise the "least-squares distance" between the original curve and the lower order curve, in a single operation (also explained over on [Sirver's Castle](http://www.sirver.net/blog/2011/08/23/degree-reduction-of-bezier-curves)). However, to use it, we'll need to do some calculus work and then switch over to linear algebra. As mentioned in the section on matrix representations, some things can be done much more easily with matrices than with calculus functions, and this is one of those things. So... let's go!
+However, there is a surprisingly good way to ensure that a lower order curve looks "as close as reasonably possible" to the original curve: we can optimise the "least-squares distance" between the original curve and the lower order curve, in a single operation (also explained over on [Sirver's Castle](https://www.sirver.net/blog/2011/08/23/degree-reduction-of-bezier-curves/)). However, to use it, we'll need to do some calculus work and then switch over to linear algebra. As mentioned in the section on matrix representations, some things can be done much more easily with matrices than with calculus functions, and this is one of those things. So... let's go!
 
 We start by taking the standard Bézier function, and condensing it a little:
 
@@ -112,7 +112,7 @@ That might look unwieldy, but it's really just a mostly-zeroes matrix, with a ve
 
 Not too bad!
 
-Equally interesting, though, is that with this matrix operation established, we can now use an incredibly powerful and ridiculously simple way to find out a "best fit" way to reverse the operation, called [the normal equation](http://mathworld.wolfram.com/NormalEquation.html). What it does is minimize the sum of the square differences between one set of values and another set of values. Specifically, if we can express that as some function **A x = b**, we can use it. And as it so happens, that's exactly what we're dealing with, so:
+Equally interesting, though, is that with this matrix operation established, we can now use an incredibly powerful and ridiculously simple way to find out a "best fit" way to reverse the operation, called [the normal equation](https://mathworld.wolfram.com/NormalEquation.html). What it does is minimize the sum of the square differences between one set of values and another set of values. Specifically, if we can express that as some function **A x = b**, we can use it. And as it so happens, that's exactly what we're dealing with, so:
 
 \[
 \begin{aligned}

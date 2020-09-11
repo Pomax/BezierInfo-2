@@ -6,7 +6,7 @@ We'll do this in steps, because it's a bit of a journey to get to curve/curve in
 
 ### Line-line intersections
 
-If we have two line segments with two coordinates each, segments A-B and C-D, we can find the intersection of the lines these segments are an intervals on by linear algebra, using the procedure outlined in this [top coder](http://www.topcoder.com/tc?module=Static&d1=tutorials&d2=geometry2#line_line_intersection) article. Of course, we need to make sure that the intersection isn't just on the lines our line segments lie on, but actually on our line segments themselves. So after we find the intersection, we need to verify that it lies without the bounds of our original line segments.
+If we have two line segments with two coordinates each, segments A-B and C-D, we can find the intersection of the lines these segments are an intervals on by linear algebra, using the procedure outlined in this [top coder](https://www.topcoder.com/community/competitive-programming/tutorials/geometry-concepts-line-intersection-and-its-applications/) article. Of course, we need to make sure that the intersection isn't just on the lines our line segments lie on, but actually on our line segments themselves. So after we find the intersection, we need to verify that it lies without the bounds of our original line segments.
 
 The following graphic implements this intersection detection, showing a red point for an intersection on the lines our segments lie on (thus being a virtual intersection point), and a green point for an intersection that lies on both segments (being a real intersection point).
 

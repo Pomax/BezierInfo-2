@@ -152,6 +152,11 @@ class GraphicsAPI extends BaseAPI {
     this.currentPoint = false;
   }
 
+  setup() {
+    super.setup();
+    this.setGrid(20, `#F0F0F0`);
+  }
+
   resetMovable(...allpoints) {
     this.movable.splice(0, this.movable.length);
     if (allpoints) this.setMovable(...allpoints);
@@ -334,6 +339,7 @@ class GraphicsAPI extends BaseAPI {
     y = y ? y : x; // NOTE: this turns y=0 into y=x, which is fine. Scaling by 0 is really silly =)
     this.ctx.scale(x, y);
   }
+
   /**
    * transforms: screen to world
    */
@@ -565,6 +571,22 @@ class GraphicsAPI extends BaseAPI {
   }
 
   /**
+   * set the default grid size and color
+   * @param {*} size
+   * @param {*} color
+   */
+  setGrid(size, color) {
+    this._gridParams = { size, color };
+  }
+
+  /**
+   * disable drawing a grid when clearing.
+   */
+  noGrid() {
+    this._gridParams = false;
+  }
+
+  /**
    * Reset the canvas bitmap to a uniform color.
    */
   clear(color = `white`, preserveTransforms = false) {
@@ -574,6 +596,12 @@ class GraphicsAPI extends BaseAPI {
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.restoreStyle();
     if (!preserveTransforms) this.resetTransform();
+    if (this._gridParams) {
+      this.setStroke(this._gridParams.color);
+      this.translate(0.5, 0.5);
+      this.drawGrid(this._gridParams.size);
+      this.translate(-0.5, -0.5);
+    }
   }
 
   /**

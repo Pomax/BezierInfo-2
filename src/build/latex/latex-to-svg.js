@@ -139,22 +139,31 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
 
   // Make sure we hardcode the size of this LaTeX SVG image, because we absolutely
   // do not want the page to resize in any possible noticable way if we can help it.
-  var svg = fs.readFileSync(SVGfilename).toString(`utf8`);
-  var vb = svg.match(/viewBox="([^"]+)"/)[1].split(/\s+/);
+  let svg = fs.readFileSync(SVGfilename).toString(`utf8`);
 
-  // The SVG contains values in "pt" units, but to maximise legibility we convert
-  // these to "rem" instead, so that formulae are always sized based on the font
-  // around them, rather than being sized independently of the document text.
-  // Base browser sizes are 16pt so the conversion factor is 4/3.
-  var w = Math.round(((parseFloat(vb[2]) - parseFloat(vb[0])) * 4) / 3);
-  var h = Math.round(((parseFloat(vb[3]) - parseFloat(vb[1])) * 4) / 3);
+  try {
+    const vb = svg.match(/viewBox="([^"]+)"/)[1].split(/\s+/);
 
-  // Update the SVG's presentation size to use pixels
-  svg = svg.replace(`width="${vb[2]}pt"`, `width="${w}px"`);
-  svg = svg.replace(`height="${vb[3]}pt"`, `height="${h}px"`);
-  fs.writeFileSync(SVGfilename, svg, `utf8`);
+    // The SVG contains values in "pt" units, but to maximise legibility we convert
+    // these to "rem" instead, so that formulae are always sized based on the font
+    // around them, rather than being sized independently of the document text.
+    // Base browser sizes are 16pt so the conversion factor is 4/3.
+    const w = Math.round(((parseFloat(vb[2]) - parseFloat(vb[0])) * 4) / 3);
+    const h = Math.round(((parseFloat(vb[3]) - parseFloat(vb[1])) * 4) / 3);
 
-  return `<img class="LaTeX SVG" src="${srcURL}" width="${w}px" height="${h}px" loading="lazy">`;
+    // Update the SVG's presentation size to use pixels
+    svg = svg.replace(`width="${vb[2]}pt"`, `width="${w}px"`);
+    svg = svg.replace(`height="${vb[3]}pt"`, `height="${h}px"`);
+    fs.writeFileSync(SVGfilename, svg, `utf8`);
+
+    return `<img class="LaTeX SVG" src="${srcURL}" width="${w}px" height="${h}px" loading="lazy">`;
+  } catch (e) {
+    // This code exists because sometimes a file turns out to be empty, and I suspect that's
+    // because of successive SVGO calls, but whatever the cause: it's bad and should break the build.
+    console.log(SVGfilename);
+    console.error(e);
+    process.exit(1);
+  }
 }
 
 // This function really needs better stdio capture,

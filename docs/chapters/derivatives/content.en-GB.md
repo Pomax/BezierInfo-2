@@ -26,7 +26,7 @@ Sometimes just being told "this is the derivative" is nice, but you might want t
   B_{n,k}(t) \frac{d}{dt} = {n \choose k} t^k (1-t)^{n-k} \frac{d}{dt}
 \]
 
-Applying the [product](http://en.wikipedia.org/wiki/Product_rule) and [chain](http://en.wikipedia.org/wiki/Chain_rule) rules gives us:
+Applying the [product](https://en.wikipedia.org/wiki/Product_rule) and [chain](https://en.wikipedia.org/wiki/Chain_rule) rules gives us:
 
 \[
 \begin{array}{l}

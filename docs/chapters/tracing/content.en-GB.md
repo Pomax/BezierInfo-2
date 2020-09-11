@@ -20,4 +20,4 @@ So let's do exactly that: the following graph is similar to the previous one, sh
 
 Use the slider to increase or decrease the number of equidistant segments used to colour the curve.
 
-However, are there better ways? One such way is discussed in "[Moving Along a Curve with Specified Speed](http://www.geometrictools.com/Documentation/MovingAlongCurveSpecifiedSpeed.pdf)" by David Eberly of Geometric Tools, LLC, but basically because we have no explicit length function (or rather, one we don't have to constantly compute for different intervals), you may simply be better off with a traditional lookup table (LUT).
+However, are there better ways? One such way is discussed in "[Moving Along a Curve with Specified Speed](https://www.geometrictools.com/Documentation/MovingAlongCurveSpecifiedSpeed.pdf)" by David Eberly of Geometric Tools, LLC, but basically because we have no explicit length function (or rather, one we don't have to constantly compute for different intervals), you may simply be better off with a traditional lookup table (LUT).

@@ -109,7 +109,7 @@ So, what does this distance function look like when we plot it for a number of r
   <img src="images/arc-q-pi2.gif" height="187"/>
   plotted for 0 ≤ φ ≤ ½π:
 </td><td>
-  <a href="http://www.wolframalpha.com/input/?i=plot+sqrt%28%281%2F4+*+%28sin%28x%29+%2B+2tan%28x%2F2%29%29+-+sin%28x%2F2%29%29%5E2+%2B+%282sin%5E4%28x%2F4%29%29%5E2%29+for+0+%3C%3D+x+%3C%3D+pi%2F4">
+  <a href="https://www.wolframalpha.com/input/?i=plot+sqrt%28%281%2F4+*+%28sin%28x%29+%2B+2tan%28x%2F2%29%29+-+sin%28x%2F2%29%29%5E2+%2B+%282sin%5E4%28x%2F4%29%29%5E2%29+for+0+%3C%3D+x+%3C%3D+pi%2F4">
     <img src="images/arc-q-pi4.gif" height="174"/>
   </a>
   plotted for 0 ≤ φ ≤ ¼π:

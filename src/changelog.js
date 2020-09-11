@@ -1,6 +1,6 @@
 const CHANGELOG = {
-  "August 2020": [
-    "Completely redid all the code for the site, except for chapter text: the Primer is now finally a normal web page again.",
+  "August-September 2020": [
+    "Completely overhauled the site: the Primer is now a normal web page that works fine with JS disabled, but obviously better with JS turned on.",
   ],
 
   "June 2020": ["Added automatic CI/CD using Github Actions"],

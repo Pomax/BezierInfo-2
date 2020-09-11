@@ -70,7 +70,6 @@ drawCurveProjections() {
   this.cyz.drawCurve(`#EEF`);
 }
 
-
 drawPoint(t) {
   const {o, r, n, dt} = this.getFrenetVectors(t, this.points);
 
@@ -109,8 +108,8 @@ getFrenetVectors(t, originalPoints) {
   const dt = d1curve.get(t);
   const ddt = d1curve.derivative(t);
   const o = curve.get(t);
-  const b = vec.normalize(vec.plus(dt, ddt));
-  const r = vec.normalize(vec.cross(b, dt));
+  const b = vec.plus(dt, ddt);
+  const r = vec.cross(b, dt);
   const n = vec.normalize(vec.cross(r, dt));
   return { o, dt, r, n };
 }

@@ -78,7 +78,7 @@ raise() {
 }
 
 lower() {
-    // Based on http://www.sirver.net/blog/2011/08/23/degree-reduction-of-bezier-curves/
+    // Based on https://www.sirver.net/blog/2011/08/23/degree-reduction-of-bezier-curves/
 
     // TODO: FIXME: this is the same code as in the old codebase,
     //              and it does something odd to the either the

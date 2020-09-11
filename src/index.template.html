@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>{{ title }}</title>
-    <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+    <link rel="icon" href="images/favicon.png" type="image/png" />
 
-    {{ base }}
+    {{ base }}<!-- optional base tag for localized versions -->
+
+    <!-- page styling -->
+    <link rel="preload" href="images/paper.png" as="image" />
+    <link rel="stylesheet" href="placeholder-style.css" />
 
     <!-- And a slew of SEO related meta elements, because being discoverable is important -->
     <meta name="description" content="{{ description }}" />
@@ -45,9 +49,6 @@
     <script src="./js/custom-element/graphics-element.js" type="module" async></script>
     <link rel="stylesheet" href="./js/custom-element/graphics-element.css" />
 
-    <!-- page styling -->
-    <link rel="stylesheet" href="placeholder-style.css" />
-
     <!-- make images lazy load much earlier  -->
     <script src="./js/site/faster-lazy-loading.js" type="module" async defer></script>
   </head>
@@ -56,11 +57,44 @@
     <header>
       <h1>{{ title }}</h1>
       <h2>{{ subtitle }}</h2>
+
       <span>{{ langSwitchLabel }}</span>
-      <ul>
+
+      <ul class="lang-switcher">
         {{ langSwitcher }}
       </ul>
-      <span>{{ langHelpLabel }}</span>
+
+      <p>{{ langHelpLabel }}</p>
+
+      <noscript>
+        <div class="note">
+          <header>
+            <h2>This site (obviously) works best with JS enabled</h2>
+            <h3>But it's not required.</h3>
+          </header>
+
+          <p>
+            If you can read this &lt;noscript&gt; content, you have scripts disabled: thankfully,
+            this site is not going to force you to turn it on just to see any content. Everything
+            will work just fine, you can still read the text, navigate to sections, and see the
+            graphics that are used to illustrate the concepts that individual sections talk about.
+          </p>
+
+          <p>
+            <strong>However</strong>, a big part of this primer's experience is the fact that all
+            graphics are interactive, and for that to work, HTML Custom Elements need to work,
+            which requires Javascript to be enabled. If anything, you'll probably want to allow
+            scripts to run just for this site, and keep blocking everything else (although that
+            does mean you won't see comments, which use Disqus's comment syste, and you won't get
+            convenient "share a link to the section you're reading right now" buttons, if that's
+            something you like to do. You'll also be blocking my non-google pagehit tracker, which
+            lets me see who's linking to the primer, which you probably don't care about, but lets
+            me strike up conversations with folks who I would otherwise never know thought the
+            primer was worth linking to, and I like talking to people who care enough to link)
+          </p>
+        </div>
+      </noscript>
+
       <nav aria-labelledby="toc">
         <h1 id="toc">{{ tocLabel }}</h1>
         <ol>{{ toc }}</ol>
@@ -68,7 +102,8 @@
     </header>
 
     <main>
-      <section id="preface">{{ preface }}</section>
+      {{ preface }}
+
       <section id="changelog">
         <h1>{{ changelogTitle }}</h1>
         <p>{{ changelogDescription }}</p>
@@ -79,7 +114,16 @@
 
         <section>{{ changelog }}</section>
       </section>
+
       <section id="chapters">{{ chapters }}</section>
     </main>
+
+    <hr>
+
+    <footer class="copyright">
+      This article is © 2011-2020 to me, Mike "Pomax" Kamermans, but the text, code, and images are
+      <a href="https://github.com/Pomax/bezierinfo/blob/master/LICENSE.md">almost no rights reserved</a>.
+      Go do something cool with it!
+    </footer>
   </body>
 </html>

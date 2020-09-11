@@ -14,21 +14,24 @@
     "url": "https://github.com/Pomax/BezierInfo-2/issues"
   },
   "scripts": {
-    "start": "run-s clean time lint:* build pretty time clean",
+    "start": "run-s clean time lint:* build time clean",
     "test": "run-s start && run-p watch server browser",
     "------": "--- note that due to github's naming policy, the public dir is called 'docs' rather than 'public' ---",
     "browser": "open-cli http://localhost:8000",
     "build": "node ./src/build.js",
     "clean": "rm -f .timing && rm -rf ./temp",
+    "polish": "run-s pretty link-checker",
     "lint:tools": "prettier \"./src/**/*.js\" --write",
     "lint:lib": "prettier \"./docs/js/**/*.js\" --write",
-    "pretty": "echo not running `prettier \"./docs/**/index.html\" --write` as it increases filesize by 30%",
+    "link-checker": "link-checker docs/index.html --allow-hash-href --url-ignore \"(ja-JP|zh-CN|legendre).*\"",
+    "pretty": "prettier \"./docs/**/index.html\" --use-tabs --print-width 150 --write",
     "server": "cd docs && http-server -e -p 8000 --cors",
     "watch": "run-p watch:*",
     "watch:chapters": "chokidar \"./docs/chapters/**/*.*\" -c \"npm run build\"",
     "watch:customelement": "chokidar \"./docs/js/custom-element/**/*.js\" -c \"npm run build\"",
     "watch:src": "chokidar \"./src/**/*.*\" -c \"npm run build\"",
-    "svgo": "svgo --enable=derferenceUses --pretty",
+    "svgo": "svgo",
+    "svgo:pretty": "node ./src/svgo-pretty.js",
     "time": "node ./src/mark.js"
   },
   "keywords": [
@@ -42,17 +45,19 @@
     "book",
     "ebook"
   ],
+  "------": "There are a number of personal forks here, as they include patches not landed upstream yet",
   "devDependencies": {
-    "canvas": "git://github.com/Automattic/node-canvas#master",
+    "canvas": "git://github.com/Pomax/node-canvas#master",
     "chokidar-cli": "^2.1.0",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
     "http-server": "git://github.com/Pomax/http-server#patch-1",
+    "link-checker": "git://github.com/Pomax/link-checker#master",
     "marked": "^1.1.1",
     "npm-run-all": "^4.1.5",
     "nunjucks": "^3.2.2",
     "open-cli": "^6.0.1",
     "prettier": "^2.0.5",
-    "svgo": "git://github.com/strarsis/svgo#dereferenceUses-plugin"
+    "svgo": "git://github.com/Pomax/svgo#dereferenceUses-plugin"
   }
 }

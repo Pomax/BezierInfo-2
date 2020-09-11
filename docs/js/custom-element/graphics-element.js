@@ -134,6 +134,7 @@ class GraphicsElement extends CustomElement {
     if (codeElement) {
       src = codeElement.getAttribute("src");
       if (src) {
+        this.src = src;
         code = await fetch(src).then((response) => response.text());
       } else {
         code = codeElement.textContent;
@@ -141,6 +142,7 @@ class GraphicsElement extends CustomElement {
     } else {
       src = this.getAttribute("src");
       if (src) {
+        this.src = src;
         code = await fetch(src).then((response) => response.text());
       } else {
         code = this.textContent;
@@ -173,7 +175,6 @@ class GraphicsElement extends CustomElement {
    * Transform the graphics source code into global and class code.
    */
   processSource(src, code, rerender = false) {
-    this.rawCode = code;
     if (this.script) {
       if (this.script.parentNode) {
         this.script.parentNode.removeChild(this.script);
@@ -310,9 +311,7 @@ class GraphicsElement extends CustomElement {
     const a = document.createElement("a");
     a.classList.add("view-source");
     a.textContent = `view source`;
-    a.href = new URL(
-      `data:text/plain;charset=utf-8,${encodeURIComponent(this.rawCode)}`
-    );
+    a.href = this.src;
     a.target = `_blank`;
     if (this.label) slotParent.insertBefore(a, this.canvas);
   }

@@ -35,7 +35,7 @@ So, how can we compute `C`? We start with our observation that `C` always lies s
   C = u(t) \cdot P_{start} + (1-u(t)) \cdot P_{end}
 \]
 
-If we can figure out what the function `u(t)` looks like, we'll be done. Although we do need to remember that this `u(t)` will have a different for depending on whether we're working with quadratic or cubic curves. [Running through the maths](http://mathoverflow.net/questions/122257/finding-the-formula-for-Bézier-curve-ratios-hull-point-point-baseline) (with thanks to Boris Zbarsky) shows us the following two formulae:
+If we can figure out what the function `u(t)` looks like, we'll be done. Although we do need to remember that this `u(t)` will have a different for depending on whether we're working with quadratic or cubic curves. [Running through the maths](https://mathoverflow.net/questions/122257/finding-the-formula-for-bezier-curve-ratios-hull-point-point-baseline) (with thanks to Boris Zbarsky) shows us the following two formulae:
 
 \[
   u(t)_{quadratic} = \frac{(1-t)^2}{t^2 + (1-t)^2}

@@ -4,4 +4,4 @@ Much shorter than the previous section: we saw that Catmull-Rom curves need at l
 
 Short and sweet: we don't.
 
-We run through the maths that lets us [create a cubic Bézier curve](pointcurves), and then convert its coordinates to Catmull-Rom form using the conversion formulae we saw above.
+We run through the maths that lets us [create a cubic Bézier curve](#pointcurves), and then convert its coordinates to Catmull-Rom form using the conversion formulae we saw above.

@@ -27,4 +27,4 @@
 <graphics-element title="無限区間の3次ベジエ曲線" src="./extended.js" data-type="cubic"></graphics-element>
 </div>
 
-実際に、グラフィックデザインやコンピュータモデリングで使われている曲線の中には、座標が固定されていて、区間は自由に動かせるような曲線があります。これは、区間が固定されていて、座標を自由に動かすことのできるベジエ曲線とは反対になっています。すばらしい例が[「Spiro」曲線](http://levien.com/phd/phd.html)で、これは[オイラー螺旋とも呼ばれるクロソイド曲線](https://ja.wikipedia.org/wiki/クロソイド曲線)の一部分に基づいた曲線です。非常に美しく心地よい曲線で、[FontForge](https://fontforge.github.io)や[Inkscape](https://inkscape.org/ja/)など多くのグラフィックアプリに実装されており、フォントデザインにも利用されています（Inconsolataフォントなど）。
+実際に、グラフィックデザインやコンピュータモデリングで使われている曲線の中には、座標が固定されていて、区間は自由に動かせるような曲線があります。これは、区間が固定されていて、座標を自由に動かすことのできるベジエ曲線とは反対になっています。すばらしい例が[「Spiro」曲線](https://levien.com/phd/phd.html)で、これは[オイラー螺旋とも呼ばれるクロソイド曲線](https://ja.wikipedia.org/wiki/クロソイド曲線)の一部分に基づいた曲線です。非常に美しく心地よい曲線で、[FontForge](https://fontforge.org/en-US/)や[Inkscape](https://inkscape.org/ja/)など多くのグラフィックアプリに実装されており、フォントデザインにも利用されています（Inconsolataフォントなど）。

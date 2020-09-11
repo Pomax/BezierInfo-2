@@ -4,7 +4,7 @@ One common task that pops up in things like CSS work, or parametric equalisers, 
 
 We'll be tackling this problem in two stages: the first, which is the hard part, is figuring out which "t" value belongs to any given "x" value. For instance, have a look at the following graphic. On the left we have a Bézier curve that looks for all intents and purposes like it fits our criteria: every "x" has one and only one associated "y" value. On the right we see the function for just the "x" values: that's a cubic curve, but not a really crazy cubic curve. If you move the graphic's slider, you will see a red line drawn that corresponds to the `x` coordinate: this is a vertical line in the left graphic, and a horizontal line on the right.
 
-<graphics-element title="Finding t, given x=x(t). Left: our curve, right: the x=x(t) function" width="550" src="./basics.js">
+<graphics-element title="Finding t, given x=x(t). Left: our curve, right: the function x=f(t)" width="550" src="./basics.js">
   <input type="range" min="0" max="1" step="0.01" class="slide-control">
 </graphics-element>
 

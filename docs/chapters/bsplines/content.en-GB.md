@@ -59,7 +59,7 @@ And this function finally has a straight up evaluation: if a `t` value lies with
 
 We can, yes.
 
-People far smarter than us have looked at this work, and two in particular — [Maurice Cox](http://www.npl.co.uk/people/maurice-cox) and [Carl de Boor](https://en.wikipedia.org/wiki/Carl_R._de_Boor) — came to a mathematically pleasing solution: to compute a point P(t), we can compute this point by evaluating *d(t)* on a curve section between knots *i* and *i+1*:
+People far smarter than us have looked at this work, and two in particular — [Maurice Cox](https://www.npl.co.uk/people/maurice-cox) and [Carl de Boor](https://en.wikipedia.org/wiki/Carl_R._de_Boor) — came to a mathematically pleasing solution: to compute a point P(t), we can compute this point by evaluating *d(t)* on a curve section between knots *i* and *i+1*:
 
 \[
   d^k_i(t) = \alpha_{i,k} \cdot d^{k-1}_i(t) + (1-\alpha_{i,k}) \cdot d^{k-1}_{i-1}(t)
@@ -135,21 +135,9 @@ That is, we compute `d(3,3)` as a mixture of `d(2,3)` and `d(2,2)`, where those 
 
 One thing we need to keep in mind is that we're working with a spline that is constrained by its control points, so even though the `d(..., k)` values are zero or one at the lowest level, they are really "zero or one, times their respective control point", so in the next section you'll see the algorithm for running through the computation in a way that starts with a copy of the control point vector and then works its way up to that single point, rather than first starting "on the left", working our way "to the right" and then summing back up "to the left". We can just start on the right and work our way left immediately.
 
-<!--
-## Cool, cool... but I don't know what to do with that information
-
-I know, this is pretty mathy, so let's have a look at what happens when we change parameters here. We can't change the maths for the interpolation functions, so that gives us only one way to control what happens here: the knot vector itself. As such, let's look at the graph that shows the interpolation functions for a cubic B-Spline with seven points with a uniform knot vector (so we see seven identical functions), representing how much each point (represented by one function each) influences the total curvature, given our knot values. And, because exploration is the key to discovery, let's make the knot vector a thing we can actually manipulate (you will notice that knots are constrained in their value: any knot must strictly be equal to, or greater than, the previous value).
-
-<graphics-element title="Visualising relative interpolation strengths" width="600" height="300" src="./interpolation.js"></graphics-element>
-
-Changing the values in the knot vector changes how much each point influences the total curvature (with some clever knot value manipulation, we can even make the influence of certain points disappear entirely!), so we can see that while the control points define the hull inside of which we're going to be drawing a curve, it is actually the knot vector that determines the actual *shape* of the curve inside that hull.
-
-After reading the rest of this section you may want to come back here to try some specific knot vectors, and see if the resulting interpolation landscape makes sense given what you will now think should happen!
--->
-
 ## Running the computation
 
-Unlike the de Casteljau algorithm, where the `t` value stays the same at every iteration, for B-Splines that is not the case, and so we end having to (for each point we evaluate) run a fairly involving bit of recursive computation. The algorithm is discussed on [this Michigan Tech](http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/de-Boor.html) page, but an easier to read version is implemented by [b-spline.js](https://github.com/thibauts/b-spline/blob/master/index.js#L59-L71), so we'll look at its code.
+Unlike the de Casteljau algorithm, where the `t` value stays the same at every iteration, for B-Splines that is not the case, and so we end having to (for each point we evaluate) run a fairly involving bit of recursive computation. The algorithm is discussed on [this Michigan Tech](https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/de-Boor.html) page, but an easier to read version is implemented by [b-spline.js](https://github.com/thibauts/b-spline/blob/master/index.js#L59-L71), so we'll look at its code.
 
 Given an input value `t`, we first map the input to a value from the domain [0,1] to the domain [knots[degree], knots[knots.length - 1 - degree]. Then, we find the section number `s` that this mapped `t` value lies on:
 

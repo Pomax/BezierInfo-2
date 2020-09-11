@@ -17,10 +17,81 @@
   font-size: 17.2px;
 }
 
+:root {
+  background: #EEE;
+  background-image: url(images/paper.png);
+  padding: 0;
+  margin: 0;
+
+  --note-block-color: rgb(255, 255, 246);
+  --code-block-color: lightyellow;
+  --heading-color: #cfe6ff;
+  --heading-text: #333;
+}
+
+body {
+  margin: 0 auto;
+  width: auto;
+  background: #FFF;
+  box-shadow: 0 0 24px 16px white;
+  color: black;
+
+  --body-padding: 0.5em;
+  padding: var(--body-padding);
+}
+
+@media screen and (min-width: 576px) {
+  body { width: 540px; }
+}
+@media screen and (min-width: 768px) {
+  body {
+    --body-padding: 1em;
+    width: 720px; padding: 1em;
+  }
+}
+@media screen and (min-width: 992px) {
+  body { width: 960px }
+}
+@media screen and (min-width: 1200px) {
+  body { width: 1140px }
+}
+
+/*
+  TODO: add in prefers-color-scheme? This would definitely make graphics weird.
+*/
+
 h1 {
-  background: black;
-  color: white;
+  background: var(--heading-color);
+  color: var(--heading-text);
   padding: 0.2em 0.5em;
+}
+
+body > header:first-child > h1:first-child {
+  margin-top: 0;
+}
+
+h1 div.nav {
+  float: right;
+  font-size: 0.6em;
+  padding-top: 0.4em;
+}
+
+h1 div.nav a + a {
+  margin-left: 1em;
+}
+
+ul.lang-switcher {
+  display: inline;
+  text-indent: 0;
+  padding: 0;
+  margin: 0;
+}
+
+ul.lang-switcher li {
+  display: inline;
+  text-indent: 0;
+  padding: 0 0.2em;
+  margin: 0;
 }
 
 label[for="changelogtoggle"] {
@@ -58,20 +129,7 @@ graphics-element {
 }
 
 div.print {
-  opacity: 0.2;
-  padding-left: 2em;
-}
-
-div.print:before {
-  content: "PRINT-ONLY:";
-  position: relative;
-  left: -2em;
-}
-
-div.print:after {
-  content: "END-PRINT-ONLY";
-  position: relative;
-  left: -2em;
+  display: none;
 }
 
 div.howtocode {
@@ -87,17 +145,19 @@ div.howtocode h3 {
   position: relative;
   width: calc(100% + 2em - 4px);
   left: calc(-1em + 2px);
-  background: black;
-  color: white;
+  background: var(--heading-color);
+  color: var(--heading-text);
   padding: 0.2em;
   margin: 0 auto;
   margin-top: -1em;
+  border: 1px solid black;
+  border-bottom: none;
 }
 
 div.note {
   position: relative;
   border: 1px solid black;
-  background: rgb(255, 255, 246);
+  background: var(--note-block-color);
   margin: 1em;
   padding: 1em 1em 0 1em;
 }
@@ -115,18 +175,38 @@ div.note:before {
 }
 
 img.LaTeX.SVG {
-  margin-left: 2em;
+  margin: 0;
+  background: white;
+  padding: 1em 1em 1em 0;
+  border-radius: 0.3em;
 }
 
-img.LaTeX.SVG + img.LaTeX.SVG {
-  margin-top: 1em;
-  margin-left: 1em;
+/* The next two rules are a wonky fix for paragraph vs. image margins */
+
+p + img.LaTeX.SVG {
+  margin-top: -0.9em;
+}
+
+img.LaTeX.SVG + p {
+  margin-top: -0.25em;
+}
+
+div.note img.LaTeX.SVG {
+  background: var(--note-block-color);
+}
+
+pre img.LaTeX.SVG {
+  background: var(--code-block-color);
+}
+
+@media screen and (min-width: 768px) {
+  img.LaTeX.SVG { margin-left: 1em; }
 }
 
 pre {
   display: inline-block;
   margin-left: 1em;
-  background-color: lightyellow;
+  background-color: var(--code-block-color);
   padding: 0.5em;
   border: 1px dotted gray;
 }
@@ -138,11 +218,14 @@ code {
 }
 
 p code {
-  color: #ff6000;
-  font-weight: bold;
   font-family: monospace;
-  font-size: 1.2em;
-  letter-spacing: -2px;
+  display: inline-block;
+  border: 1px solid #DDD;
+  border-radius: 5px;
+  padding: 0 5px;
+  background: #EEE;
+  font-weight: bold;
+  vertical-align: 1px
 }
 
 .slider-wrapper {
@@ -190,4 +273,13 @@ graphics-element .slider-wrapper:last-of-type {
 .grid {
   display: flex;
   flex-wrap: wrap;
+}
+
+hr {
+  width: calc(100% + 2 * var(--body-padding));
+  position: relative;
+  left: calc(-1 * var(--body-padding));
+  border: none;
+  border-top: 1px solid black;
+  margin: 1em 0 2em 0;
 }

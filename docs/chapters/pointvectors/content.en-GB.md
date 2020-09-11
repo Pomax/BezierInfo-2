@@ -65,8 +65,8 @@ Which is the "long" version of the following matrix transformation:
 
 And that's all we need to rotate any coordinate. Note that for quarter, half, and three-quarter turns these functions become even easier, since *sin* and *cos* for these angles are, respectively: 0 and 1, -1 and 0, and 0 and -1.
 
-But ***why*** does this work? Why this matrix multiplication? [Wikipedia](http://en.wikipedia.org/wiki/Rotation_matrix#Decomposition_into_shears) (technically, Thomas Herter and Klaus Lott) tells us that a rotation matrix can be
-treated as a sequence of three (elementary) shear operations. When we combine this into a single matrix operation (because all matrix multiplications can be collapsed), we get the matrix that you see above. [DataGenetics](http://datagenetics.com/blog/august32013/index.html) have an excellent article about this very thing: it's really quite cool, and I strongly recommend taking a quick break from this primer to read that article.
+But ***why*** does this work? Why this matrix multiplication? [Wikipedia](https://en.wikipedia.org/wiki/Rotation_matrix#Decomposition_into_shears) (technically, Thomas Herter and Klaus Lott) tells us that a rotation matrix can be
+treated as a sequence of three (elementary) shear operations. When we combine this into a single matrix operation (because all matrix multiplications can be collapsed), we get the matrix that you see above. [DataGenetics](https://datagenetics.com/blog/august32013/index.html) have an excellent article about this very thing: it's really quite cool, and I strongly recommend taking a quick break from this primer to read that article.
 
 </div>
 
