@@ -47,7 +47,7 @@ Cubic curves are now better behaved when it comes to dragging control points aro
 Finally, we also want to make sure that moving the on-curve coordinates preserves the relative positions of the associated control points. With that, we get to the kind of curve control that you might be familiar with from applications like Photoshop, Inkscape, Blender, etc.
 
 <graphics-element title="Standard connected quadratic poly-Bézier" src="./poly.js" data-type="quadratic" data-link="conventional"></graphics-element>
-<graphics-element title="Standard connected cubic poly-Bézier" src="./poly.js" data-type="cubic"  data-link="conventional"></graphics-element>>
+<graphics-element title="Standard connected cubic poly-Bézier" src="./poly.js" data-type="cubic"  data-link="conventional"></graphics-element>
 
 Again, we see that cubic curves are now rather nice to work with, but quadratic curves have a new, very serious problem: we can move an on-curve point in such a way that we can't compute what needs to "happen next". Move the top point down, below the left and right points, for instance. There is no way to preserve correct control points without a kink at the bottom point. Quadratic curves: just not that good...
 
