@@ -29,12 +29,6 @@ setupEventListening() {
     this.step++;
     redraw();
   });
-
-  let reset = find(`.reset`);
-  if (reset) reset.listen([`click`,`touchstart`],  evt => {
-    this.pairReset();
-    redraw();
-  });
 }
 
 draw() {

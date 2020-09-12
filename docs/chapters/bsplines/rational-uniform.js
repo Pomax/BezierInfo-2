@@ -16,7 +16,7 @@ setup() {
   });
 
   points = points.concat(points.slice(0,3));
-  setMovable(points);
+  setMovable(points);;
 }
 
 setWeight(i, v) {
@@ -25,9 +25,6 @@ setWeight(i, v) {
 
 draw() {
   clear();
-
-  setStroke(`lightgrey`);
-  drawGrid(20);
 
   setStroke(`#CC00CC99`);
   for (let i=0, e=points.length-1, p, n; i<e; i++) {

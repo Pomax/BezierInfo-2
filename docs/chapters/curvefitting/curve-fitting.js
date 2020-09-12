@@ -15,8 +15,6 @@ toggle() {
 
 draw() {
   clear();
-  setColor('lightgrey');
-  drawGrid(10);
 
   setColor('black');
   setFontSize(16);

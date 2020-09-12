@@ -30,8 +30,6 @@ module.exports = {
   draw: function(api, curve) {
     api.setPanelCount(1);
     api.reset();
-    api.setColor('lightgrey');
-    api.drawGrid(10,10);
 
     api.setColor('black');
 

@@ -254,7 +254,7 @@ class GraphicsAPI extends BaseAPI {
       label.innerHTML = propLabel;
       wrapper.append(label);
       slider.parentNode.replaceChild(wrapper, slider);
-      slider.setAttribute(`class`, `slider`);
+      slider.classList.add(`slider`);
       this._sliders[propname] = slider;
       wrapper.append(slider);
       let valueField = create(`label`);
@@ -597,10 +597,12 @@ class GraphicsAPI extends BaseAPI {
     this.ctx.restoreStyle();
     if (!preserveTransforms) this.resetTransform();
     if (this._gridParams) {
+      this.ctx.cacheStyle();
       this.setStroke(this._gridParams.color);
       this.translate(0.5, 0.5);
       this.drawGrid(this._gridParams.size);
       this.translate(-0.5, -0.5);
+      this.ctx.restoreStyle();
     }
   }
 

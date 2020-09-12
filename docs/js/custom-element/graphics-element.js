@@ -45,6 +45,8 @@ class GraphicsElement extends CustomElement {
   constructor() {
     super({ header: false, footer: false });
 
+    this.originalHTML = this.outerHTML;
+
     // Do we load immediately?
     if (isInViewport(this)) {
       this.loadSource();
@@ -76,10 +78,13 @@ class GraphicsElement extends CustomElement {
   getStyle() {
     return `
       :host([hidden]) { display: none; }
+      :host { max-width: calc(2em + ${this.getAttribute(`width`)}px); }
       :host style { display: none; }
+      :host .top-title { display: flex; flex-direction: row; justify-content: space-between; }
       :host canvas { position: relative; z-index: 1; display: block; margin: auto; border-radius: 0; box-sizing: content-box!important; border: 1px solid lightgrey; }
       :host canvas:focus { border: 1px solid red; }
-      :host a.view-source { display: block; position:relative; top: -0.6em; margin-bottom: -0.2em; font-size: 60%; text-decoration: none; }
+      :host a.view-source { font-size: 60%; text-decoration: none; }
+      :host button.reset { font-size: 0.5em; }
       :host label { display: block; font-style:italic; font-size: 0.9em; text-align: right; }
     `;
   }
@@ -183,7 +188,10 @@ class GraphicsElement extends CustomElement {
       rerender = true;
     }
 
-    const uid = `bg-uid-${Date.now()}-${`${Math.random()}`.replace(`0.`, ``)}`;
+    const uid = (this.uid = `bg-uid-${Date.now()}-${`${Math.random()}`.replace(
+      `0.`,
+      ``
+    )}`);
     window[uid] = this;
 
     // Step 1: fix the imports. This is ... a bit of work.
@@ -242,6 +250,13 @@ class GraphicsElement extends CustomElement {
     )}`;
 
     if (rerender) this.render();
+  }
+
+  /**
+   * Reload this graphics element the brute force way.
+   */
+  async reset() {
+    this.outerHTML = this.originalHTML;
   }
 
   /**
@@ -308,12 +323,23 @@ class GraphicsElement extends CustomElement {
     if (this.canvas) slotParent.insertBefore(this.canvas, this._slot);
     if (this.label) slotParent.insertBefore(this.label, this._slot);
 
-    const a = document.createElement("a");
-    a.classList.add("view-source");
+    const toptitle = document.createElement(`div`);
+    toptitle.classList.add(`top-title`);
+
+    const a = document.createElement(`a`);
+    a.classList.add(`view-source`);
     a.textContent = `view source`;
     a.href = this.src;
     a.target = `_blank`;
-    if (this.label) slotParent.insertBefore(a, this.canvas);
+    toptitle.append(a);
+
+    const r = document.createElement(`button`);
+    r.classList.add(`reset`);
+    r.textContent = `reset`;
+    r.addEventListener(`click`, () => this.reset());
+    toptitle.append(r);
+
+    if (this.label) slotParent.insertBefore(toptitle, this.canvas);
   }
 }
 

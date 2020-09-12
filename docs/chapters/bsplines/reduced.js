@@ -34,9 +34,6 @@ setKnotValue(i, v) {
 draw() {
   clear();
 
-  setStroke(`lightgrey`);
-  drawGrid(20);
-
   setStroke(`#CC00CC99`);
   for (let i=0, e=points.length-1, p, n; i<e; i++) {
     p = points[i];

@@ -23,8 +23,6 @@ bindButtons() {
 
 draw() {
     clear();
-    setStroke(`lightgrey`);
-    drawGrid(20);
     this.drawCurve();
 }
 

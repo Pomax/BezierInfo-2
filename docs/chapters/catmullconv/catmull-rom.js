@@ -21,8 +21,6 @@ transformTension(v) {
 
 draw() {
     clear();
-    setStroke(`lightgrey`);
-    drawGrid(20);
 
     const p = points, n = points.length;
     for (let i=1, e=n-2; i<e; i++) {
