@@ -57,7 +57,7 @@ draw() {
 
 drawHighlight() {
     let c = screenToWorld({
-        x: map(this.position, 0, 1, -10, this.width + 10),
+        x: map(this.position, -0.1, 1.1, 0, this.width),
         y: this.height/2
     });
 

@@ -205,20 +205,22 @@ pre img.LaTeX.SVG {
 
 pre {
   display: inline-block;
-  margin-left: 1em;
+  margin-left: 0;
   background-color: var(--code-block-color);
   padding: 0.5em;
   border: 1px dotted gray;
 }
 
-code {
-  position: relative;
-  font-family: monospace;
-  font-size: 0.9rem;
+@media screen and (min-width: 768px) {
+  pre { margin-left: 1em; }
 }
 
-p code {
+
+code {
   font-family: monospace;
+}
+
+li code, p code {
   display: inline-block;
   border: 1px solid #DDD;
   border-radius: 5px;

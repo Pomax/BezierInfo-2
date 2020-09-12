@@ -60,7 +60,7 @@ function Bezier(n,t,w[]):
   return sum
 ```
 
-And now for the extremely optimized versions:
+And now for the optimized versions:
 
 ```
 function Bezier(2,t,w[]):
