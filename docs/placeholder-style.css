@@ -230,46 +230,42 @@ li code, p code {
   vertical-align: 1px
 }
 
-.slider-wrapper {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  font-size: 90%;
+table.slider-wrapper {
+  font-size: 75%;
   background: white;
-  margin: -0.5em;
-  margin-left: -0.25em;
-  margin-right: -0.25em;
   border: 1px solid black;
-  border-width: 0 1px;
+  border-collapse: collapse;
+  margin-top: 0.5em;
 }
 
-graphics-element .slider-wrapper:first-of-type {
-  clear: both;
-  border-top: 1px solid black;
-  margin-top: 0.1em;
-  padding-top: 0.4em;
+.slider-wrapper tr td {
+  width: 100%;
 }
 
-graphics-element .slider-wrapper:last-of-type {
-  border-bottom: 1px solid black;
-  margin-bottom: -0.25em;
+.slider-wrapper tr td:first-child {
+  width: 3em;
+  white-space: nowrap;
+}
+
+.slider-wrapper tr td:last-child {
+  width: 3em;
+  white-space: nowrap;
+  padding-left: 1em;
 }
 
 .slider-wrapper .slider-label {
-  flex: 0 0 auto;
   font-family: Arial;
   padding: 0 0.5em;
 }
 
 .slider-wrapper .slider-value {
-  flex: 0 0 auto;
-  min-width: 3em;
-  padding-right: 0.25em;
+  padding: 0 0.25em;
   text-align-last: center;
 }
 
 .slider-wrapper .slider {
-  flex: 1 1 auto;
+  width: 100%;
+  vertical-align: text-top;
 }
 
 .grid {

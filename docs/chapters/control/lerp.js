@@ -56,19 +56,16 @@ draw() {
 }
 
 drawHighlight() {
-    let c = screenToWorld({
-        x: map(this.position, -0.1, 1.1, 0, this.width),
-        y: this.height/2
-    });
+    const t = this.position;
 
-    if (c.x < 0) return;
-    if (c.x > this.width) return;
+    if (t===0) return;
+    if (t===1) return;
 
     noStroke();
     setFill(`rgba(255,0,0,0.3)`);
-    rect(c.x - 2, 0, 5, this.height);
+    rect(t*this.width - 2, 0, 5, this.height);
 
-    const p = this.f.map(f => f(c.x / this.width));
+    const p = this.f.map(f => f(t));
 
     setFill(`black`);
     p.forEach(p => {

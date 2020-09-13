@@ -1,6 +1,7 @@
 let curve;
 
 setup() {
+    setPanelCount(3);
     curve = Bezier.defaultCubic(this);
     setMovable(curve.points);
     setSlider(`.slide-control`, `position`, 0.5);
@@ -16,16 +17,15 @@ draw() {
 
     this.drawBasics(p);
 
-    translate(this.width/3, 0);
+    nextPanel();
     setStroke(`black`);
     line(0, 0, 0, this.height);
-
     this.drawSegment(c1, p, `first`);
 
-    translate(this.width/3, 0);
+    nextPanel();
+
     setStroke(`black`);
     line(0, 0, 0, this.height);
-
     this.drawSegment(c2, p, `second`);
 }
 
@@ -47,9 +47,9 @@ drawSegment(c, p, halfLabel) {
     setStroke(`lightblue`);
     curve.drawCurve(`lightblue`);
     curve.drawSkeleton(`lightblue`);
-    curve.drawStruts(this.struts);
     c.drawCurve();
     c.drawSkeleton(`black`);
+    c.points.forEach(p => circle(p.x, p.y, 3));
     noFill();
     setStroke(`red`);
     circle(p.x, p.y, 3);

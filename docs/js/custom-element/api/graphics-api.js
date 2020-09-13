@@ -242,25 +242,46 @@ class GraphicsAPI extends BaseAPI {
 
     let slider = typeof qs === `string` ? this.find(qs) : qs;
 
-    // relocate this slider
+    // create a slider row in the table of sliders
     let ui = (() => {
       if (!this.element) {
         return { update: (v) => {} };
       }
-      let wrapper = create(`div`);
-      wrapper.classList.add(`slider-wrapper`);
+
+      let table = find(`table.slider-wrapper`);
+
+      if (!table) {
+        table = slider.parentNode.querySelector(`table.slider-wrapper`);
+        if (!table) {
+          table = create(`table`);
+          table.classList.add(`slider-wrapper`);
+          slider.parentNode.replaceChild(table, slider);
+        }
+      }
+
+      let tr = create(`tr`);
+
+      let td = create(`td`);
       let label = create(`label`);
       label.classList.add(`slider-label`);
       label.innerHTML = propLabel;
-      wrapper.append(label);
-      slider.parentNode.replaceChild(wrapper, slider);
+      td.append(label);
+      tr.append(td);
+
+      td = create(`td`);
       slider.classList.add(`slider`);
       this._sliders[propname] = slider;
-      wrapper.append(slider);
+      td.append(slider);
+      tr.append(td);
+
+      td = create(`td`);
       let valueField = create(`label`);
       valueField.classList.add(`slider-value`);
       valueField.textContent;
-      wrapper.append(valueField);
+      td.append(valueField);
+      tr.append(td);
+
+      table.append(tr);
       return { update: (v) => (valueField.textContent = v) };
     })();
 
@@ -270,9 +291,14 @@ class GraphicsAPI extends BaseAPI {
       return undefined;
     }
 
+    let step = slider.getAttribute(`step`) || "1";
+    let res = !step.includes(`.`)
+      ? 0
+      : step.substring(step.indexOf(`.`) + 1).length;
+
     slider.updateProperty = (evt) => {
       let value = parseFloat(slider.value);
-      ui.update(value);
+      ui.update(value.toFixed(res));
       try {
         let checked = transform ? transform(value) ?? value : value;
         if (propname) this[propname] = checked;
@@ -281,7 +307,7 @@ class GraphicsAPI extends BaseAPI {
           evt.preventDefault();
           evt.stopPropagation();
         }
-        ui.update(e.value);
+        ui.update(e.value.toFixed(res));
         slider.value = e.value;
         slider.setAttribute(`value`, e.value);
       }
