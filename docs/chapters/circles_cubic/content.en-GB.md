@@ -47,13 +47,13 @@ But we now need to find two control points, rather than one. If we want the deri
   C_1 = S + a \cdot \begin{pmatrix} 0 \\ 1 \end{pmatrix}
 \]
 
-where "a" is some scaling factor, and:
+where "a" is some scaling factor we'll need to find the expression for, and:
 
 \[
-  C_2 = E + b \cdot \begin{pmatrix} -sin(φ) \\ cos(φ) \end{pmatrix}
+  C_2 = E + a \cdot \begin{pmatrix} sin(φ) \\ cos(φ) \end{pmatrix}
 \]
 
-where "b" is also some scaling factor.
+using the same scaling factor, because circular arcs are symmetrical, so our approximation will need to be symmetrical, too.
 
 Starting with this information, we slowly maths our way to success, but I won't lie: the maths for this is pretty trig-heavy, and it's easy to get lost if you remember (or know!) some of the core trigonometric identities, so if you just want to see the final result just skip past the next section!
 
@@ -121,7 +121,10 @@ And after this tedious detour to find the coordinate for C<sub>1</sub>, we can f
 
 \[
   \begin{array}{l}
-    E'_x = -sin(φ) \ , \ E'_y = cos(φ) \ , \ ||E'|| = \sqrt{ (-sin(φ))^2 + cos^2(φ)} = 1 \ , \\
+    E'_x = -sin(φ) \ ,\\
+    E'_y = cos(φ) \ , \\
+    ||E'|| = \sqrt{ (-sin(φ))^2 + cos^2(φ)} = 1 \ , \\
+    \\
     \left\{\begin{array}{l}
       C_2x = E_x - C_{1y} \cdot \frac{E_x'}{||E'||}
            = cos(φ) + C_{1y} \cdot sin(φ)

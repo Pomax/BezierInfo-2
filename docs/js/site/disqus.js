@@ -1,17 +1,13 @@
-const comments = document.getElementById(`disqus_thread`);
-
-document.addEventListener("scroll", scrollHandler, { passive: true });
-
-function scrollHandler() {
-  var bbox = comments.getBoundingClientRect();
-  var top = bbox.top;
-  var limit = window.innerHeight;
-  if (top < limit) {
-    loadDisqus();
-  }
-}
+new IntersectionObserver(function (entries) {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      loadDisqus();
+    }
+  });
+}).observe(document.getElementById(`disqus_thread`));
 
 let loadDisqus = () => {
+  loadDisqus = () => {};
   console.log(`loading Disqus comments`);
 
   globalThis.disqus_config = function () {
@@ -24,9 +20,4 @@ let loadDisqus = () => {
   script.async = true;
   script.setAttribute("data-timestamp", Date.now());
   document.head.appendChild(script);
-
-  loadDisqus = () => {};
-  document.removeEventListener("scroll", scrollHandler);
 };
-
-scrollHandler();

@@ -1,11 +1,11 @@
-let curve, r;
+let curve, r, kappa = 0.5519768352769461;
 
 setup() {
     r = 100;
     curve = new Bezier(this, [
         { x: r, y: 0 },
-        { x: r, y: 0.55228 * r },
-        { x: 0.55228 * r, y: r},
+        { x: r, y: kappa * r },
+        { x: kappa * r, y: r},
         { x: 0, y: r }
     ]);
 }
@@ -38,12 +38,12 @@ draw() {
     curve.drawCurve(`#CC00CC40`);
 
     setColor(`#CC00CC`);
-    line(r, 0, r, -0.55228 * r);
-    circle(r, -0.55228 * r, 2);
-    text(`reflected`, r + 7, -0.55228 * r + 3, LEFT);
+    line(r, 0, r, -kappa * r);
+    circle(r, -kappa * r, 2);
+    text(`reflected`, r + 7, -kappa * r + 3, LEFT);
 
     setColor(`#CC00CC40`);
-    line(0, -r, 0.55228 * r, -r);
+    line(0, -r, kappa * r, -r);
 
     curve.points.forEach(p => {
         p.x = -p.x;
@@ -52,12 +52,12 @@ draw() {
     curve.drawCurve(`#0000CC40`);
 
     setColor(`#0000CC`);
-    line(0, r, -0.55228 * r, r);
-    circle(-0.55228 * r, r, 2);
-    text(`reflected`, -0.55228 * r - 5, r + 3, RIGHT);
+    line(0, r, -kappa * r, r);
+    circle(-kappa * r, r, 2);
+    text(`reflected`, -kappa * r - 5, r + 3, RIGHT);
 
     setColor(`#0000CC40`);
-    line(-r, 0, -r, 0.55228 * r);
+    line(-r, 0, -r, kappa * r);
 
     curve.points.forEach(p => p.y = -p.y);
     curve.drawCurve(`#00000040`);
