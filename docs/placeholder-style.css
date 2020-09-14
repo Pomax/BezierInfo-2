@@ -281,3 +281,61 @@ hr {
   border-top: 1px solid black;
   margin: 1em 0 2em 0;
 }
+
+div.scl img[usemap] {
+  cursor: pointer;
+}
+
+div.dev, div.scl, div.github {
+  z-index: 10;
+}
+
+div.dev {
+  background: rgb(43, 49, 95);
+  color: rgb(81, 181, 255);
+  position: fixed;
+  transform: rotate(-45deg);
+  width: 22em;
+  text-align: center;
+  top: 4em;
+  left: -6em;
+  font-variant: small-caps;
+  font-weight: bolder;
+  font-family: Helvetica;
+  box-shadow: 0px 5px 7px 2px rgba(0, 0, 0, 0.3);
+  opacity: 0.2;
+}
+
+div.scl {
+  position:fixed;
+  top: 0.25em;
+  left: 0.25em;
+  padding: 4px
+}
+
+div.github {
+  --scale: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 0;
+  overflow: visible;
+  transform-origin: top right;
+  transform: scale(var(--scale));
+}
+@media screen and (min-width: 992px) {
+  div.github { --scale: 0.4; }
+}
+@media screen and (min-width: 1200px) {
+  div.github { --scale: 0.5; }
+}
+@media screen and (min-width: 1470px) {
+  div.github { --scale: 0.75; }
+}
+@media screen and (min-width: 1600px) {
+  div.github { --scale: 0.9; }
+}
+
+div.github img area {
+  cursor: pointer;
+}

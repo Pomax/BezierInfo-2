@@ -3,89 +3,84 @@
  * are updated to reflect the section someone is reading, rather than always pointing to
  * base article itself.
  */
-(function tryToBind() {
-  if (!document.querySelector(`map[name="rhtimap"]`)) {
-    return setTimeout(tryToBind, 300);
+class Tracker {
+  constructor() {
+    this.name = `A Primer on Bézier Curves`;
+    this.sectionTitle = false;
+    this.hash = false;
+    this.socials = ["rdt", "hn", "twt"];
   }
 
-  class Tracker {
-    constructor() {
-      this.section = false;
-      this.hash = false;
-      this.socials = ["rdt", "hn", "twt"];
-    }
-
-    update(data) {
-      this.section = data.section;
-      this.hash = data.hash;
-      this.socials.forEach((social) => {
-        var area = document.querySelector(`map area.sclnk-${social}`);
-        area.href = this[`get_${social}`]();
-      });
-    }
-
-    get url() {
-      return encodeURIComponent(
-        `https://pomax.github.io/bezierinfo${this.hash ? this.hash : ""}`
+  update(section) {
+    let a = section.querySelector(`h1 > a`);
+    this.hash = a.hash;
+    this.sectionTitle = a.textContent;
+    this.socials.forEach((social) => {
+      var area = document.querySelector(
+        `map[name=rhtimap] area.sclnk-${social}`
       );
-    }
+      area.href = this[`get_${social}`]();
+    });
+  }
 
-    getTitle() {
-      var title = `A Primer on Bézier Curves`;
-      if (this.section) {
-        title = `${this.section}-${title}`;
+  get url() {
+    return encodeURIComponent(
+      `https://pomax.github.io/bezierinfo${this.hash ? this.hash : ""}`
+    );
+  }
+
+  getTitle() {
+    let title = ``;
+    if (this.sectionTitle) {
+      title = `${this.name} — ${this.sectionTitle}`;
+    }
+    return encodeURIComponent(title);
+  }
+
+  get_rdt() {
+    var title = this.getTitle();
+    var text = encodeURIComponent(
+      `A free, online book for when you really need to know how to do Bézier things.`
+    );
+    return `https://www.reddit.com/submit?url=${this.url}&title=${title}&text=${text}`;
+  }
+
+  get_hn() {
+    var title = this.getTitle();
+    return `https://news.ycombinator.com/submitlink?u=${this.url}&t=${title}`;
+  }
+
+  get_twt() {
+    var text =
+      encodeURIComponent(
+        `Reading "${this.sectionTitle}" by @TheRealPomax over on `
+      ) + this.url;
+    return `https://twitter.com/intent/tweet?original_referer=${this.url}&text=${text}&hashtags=bezier,curves,maths`;
+  }
+}
+
+// we set the section and fragmentid based on which ever section's heading is nearest
+// the top of the screen, either just off-screen or in-screen
+const tracker = new Tracker();
+const sections = Array.from(document.querySelectorAll("#chapters section"));
+let prevScroll = 0;
+window.addEventListener(
+  `scroll`,
+  (evt) => {
+    // which direction are we scrolling?
+    const diff = window.scrollY - prevScroll;
+    prevScroll = window.scrollY;
+    const vh = window.innerHeight,
+      t = 0.33,
+      vht = t * vh,
+      vhb = (1 - t) * vh;
+    for (let s = 0, e = sections.length; s < e; s++) {
+      let section = sections[s];
+      let bbox = section.getBoundingClientRect();
+      if (bbox.top < vht && bbox.bottom > vhb) {
+        tracker.update(section);
       }
-      return encodeURIComponent(title);
     }
-
-    get_rdt() {
-      var title = this.getTitle();
-      var text = encodeURIComponent(
-        `A free, online book for when you really need to know how to do Bézier things.`
-      );
-      return `https://www.reddit.com/submit?url=${this.url}&title=${title}&text=${text}`;
-    }
-
-    get_hn() {
-      var title = this.getTitle();
-      return `https://news.ycombinator.com/submitlink?u=${this.url}&t=${title}`;
-    }
-
-    get_twt() {
-      var text =
-        encodeURIComponent(
-          `Reading "${this.section}" by @TheRealPomax over on `
-        ) + this.url;
-      return `https://twitter.com/intent/tweet?original_referer=${this.url}&text=${text}&hashtags=bezier,curves,maths`;
-    }
-  }
-
-  // we set the section and fragmentid based on which ever section's heading is nearest
-  // the top of the screen, either just off-screen or in-screen
-  var tracker = new Tracker();
-  var anchors = Array.from(document.querySelectorAll("section h2 a"));
-  var sections = anchors.map((a) => a.parentNode);
-  var sectionData = sections.map((section) => {
-    return {
-      section: section.textContent,
-      hash: section.querySelector("a").hash,
-    };
-  });
-
-  window.addEventListener(
-    "scroll",
-    function (evt) {
-      var min = 99999999999999999;
-      var element = false;
-      sections.forEach((s, pos) => {
-        var v = Math.abs(s.getBoundingClientRect().top);
-        if (v < min) {
-          min = v;
-          element = pos;
-        }
-      });
-      tracker.update(sectionData[element]);
-    },
-    { passive: true }
-  );
-})();
+  },
+  { passive: true }
+);

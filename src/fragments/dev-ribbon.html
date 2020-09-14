@@ -1,0 +1,12 @@
+<div class="dev" style="display:none;">
+    DEV PREVIEW ONLY
+    <script>
+        (function () {
+            var loc = window.location.toString();
+            if (loc.includes('localhost') || loc.includes('BezierInfo-2')) {
+                var e = document.querySelector('div.dev');
+                e.removeAttribute("style");
+            }
+        }());
+    </script>
+</div>

@@ -13,29 +13,7 @@
     <link rel="preload" href="images/paper.png" as="image" />
     <link rel="stylesheet" href="placeholder-style.css" />
 
-    <!-- And a slew of SEO related meta elements, because being discoverable is important -->
-    <meta name="description" content="{{ description }}" />
-
-    <!-- opengraph information -->
-    <meta property="og:title" content="{{ title }}" />
-    <meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
-    <meta property="og:type" content="text" />
-    <meta property="og:url" content="https://pomax.github.io/bezierinfo" />
-    <meta property="og:description" content="{{ description }}" />
-    <meta property="og:locale" content="{{ locale }}}}" />
-    <meta property="og:type" content="article" />
-    <meta property="og:published_time" content="2013-06-13 12:00:00" />
-    <meta property="og:author" content="Mike 'Pomax' Kamermans" />
-    <meta property="og:section" content="Bézier Curves" />
-    <meta property="og:tag" content="Bézier Curves" />
-
-    <!-- twitter card information -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@TheRealPomax" />
-    <meta name="twitter:creator" content="@TheRealPomax" />
-    <meta name="twitter:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
-    <meta name="twitter:url" content="https://pomax.github.io/bezierinfo" />
-    <meta name="twitter:description" content="{{ description }}" />
+    {% include "./fragments/meta.html" %}
 
     <!-- my own referral/page hit tracker, because Google knows enough -->
     <script src="./js/site/referrer.js" type="module" async></script>
@@ -54,46 +32,19 @@
   </head>
 
   <body>
+    {% include "./fragments/dev-ribbon.html" %}
+    {% include "./fragments/github.html" %}
+    {% include "./fragments/share.html" %}
     <header>
       <h1>{{ title }}</h1>
       <h2>{{ subtitle }}</h2>
-
       <span>{{ langSwitchLabel }}</span>
-
       <ul class="lang-switcher">
         {{ langSwitcher }}
       </ul>
-
       <p>{{ langHelpLabel }}</p>
 
-      <noscript>
-        <div class="note">
-          <header>
-            <h2>This site (obviously) works best with JS enabled</h2>
-            <h3>But it's not required.</h3>
-          </header>
-
-          <p>
-            If you can read this &lt;noscript&gt; content, you have scripts disabled: thankfully,
-            this site is not going to force you to turn it on just to see any content. Everything
-            will work just fine, you can still read the text, navigate to sections, and see the
-            graphics that are used to illustrate the concepts that individual sections talk about.
-          </p>
-
-          <p>
-            <strong>However</strong>, a big part of this primer's experience is the fact that all
-            graphics are interactive, and for that to work, HTML Custom Elements need to work,
-            which requires Javascript to be enabled. If anything, you'll probably want to allow
-            scripts to run just for this site, and keep blocking everything else (although that
-            does mean you won't see comments, which use Disqus's comment syste, and you won't get
-            convenient "share a link to the section you're reading right now" buttons, if that's
-            something you like to do. You'll also be blocking my non-google pagehit tracker, which
-            lets me see who's linking to the primer, which you probably don't care about, but lets
-            me strike up conversations with folks who I would otherwise never know thought the
-            primer was worth linking to, and I like talking to people who care enough to link)
-          </p>
-        </div>
-      </noscript>
+      {% include "./fragments/noscript.html" %}
 
       <nav aria-labelledby="toc">
         <h1 id="toc">{{ tocLabel }}</h1>
@@ -107,11 +58,9 @@
       <section id="changelog">
         <h1>{{ changelogTitle }}</h1>
         <p>{{ changelogDescription }}</p>
-
         <!-- non-JS content reveals are nice -->
         <label for="changelogtoggle">{{ toggleLabel }}</label>
         <input type="checkbox" id="changelogtoggle">
-
         <section>{{ changelog }}</section>
       </section>
 
@@ -126,6 +75,7 @@
       Go do something cool with it!
     </footer>
 
+    <!-- fix firefox's scroll position algorithm. Due to how it works, it cannot be async/defer -->
     <script src="./js/site/fix-scroll.js"></script>
   </body>
 </html>
