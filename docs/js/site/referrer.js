@@ -31,7 +31,7 @@
   if (loc.indexOf("file:///") !== -1) return;
   if (loc.indexOf("localhost") !== -1) return;
   // right, continue
-  var url = "http://pomax.nihongoresources.com/pages/bezierinfo/logger.php";
+  var url = "https://pomax.nihongoresources.com/pages/bezierinfo/logger.php";
   var xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
