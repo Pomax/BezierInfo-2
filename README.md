@@ -1,6 +1,6 @@
 # BezierInfo-2: a dev repository
 
-This is the development repository for ["A Primer on Bézier Curves"](https://pomax.github.io.bezierinfo), itself hosted as http://pomax.github.io/BezierInfo-2/
+This is the development repository for ["A Primer on Bézier Curves"](https://pomax.github.io.bezierinfo), itself hosted as https://pomax.github.io/BezierInfo-2/
 
 The primer is currently being rewritten from a React application to a pure HTML/CSS/Vanilla-JS tech stack.
 
