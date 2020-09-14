@@ -10,7 +10,7 @@ See https://github.com/Pomax/BezierInfo-2/issues/257 for the current rewrite sta
 
 ## Building everything
 
-Use the latest Node v14, with all dependencies installed. Nnote that [node-canvas](https://github.com/Automattic/node-canva) has [special instructions](https://github.com/Automattic/node-canvas/wiki/Installation:-Windows) because it's going to have to compile itself (however, JPEG support is not needed for this project).
+Use the latest Node v14, with all dependencies installed via `npm install`. Note that [node-canvas](https://github.com/Automattic/node-canva) has [special instructions](https://github.com/Automattic/node-canvas/wiki/Installation:-Windows) because it's going to have to compile itself (however, JPEG support is not needed for this project).
 
 - The general single-build-pass command is simply `npm start`
 - Continuous development is `npm test`
