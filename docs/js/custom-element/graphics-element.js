@@ -256,7 +256,15 @@ class GraphicsElement extends CustomElement {
    * Reload this graphics element the brute force way.
    */
   async reset() {
-    this.outerHTML = this.originalHTML;
+    const parent = this.parentNode;
+    const offDOM = document.createElement(`div`);
+    offDOM.innerHTML = this.originalHTML;
+    const newElement = offDOM.querySelector(`graphics-element`);
+    offDOM.style.display = `none`;
+    document.body.append(offDOM);
+    newElement.addEventListener(`loaded`, () =>
+      parent.replaceChild(newElement, this)
+    );
   }
 
   /**
@@ -284,6 +292,7 @@ class GraphicsElement extends CustomElement {
     // If we get here, there were no source code errors: undo the scheduled error print.
     clearTimeout(this.errorPrintTimeout);
     this.render();
+    this.dispatchEvent(new CustomEvent(`loaded`));
   }
 
   /**

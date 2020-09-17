@@ -24,7 +24,7 @@
   margin: 0;
 
   --note-block-color: rgb(255, 255, 246);
-  --code-block-color: lightyellow;
+  --code-block-color: rgba(0,0,0,0.03);
   --heading-color: #cfe6ff;
   --heading-text: #333;
 }
@@ -135,7 +135,7 @@ div.print {
 div.howtocode {
   position: relative;
   border: 1px solid black;
-  background: rgb(246, 255, 255);
+  background: #FCFCFD;
   margin: 1em;
   padding: 1em 1em 0 1em;
 }
@@ -217,7 +217,7 @@ pre {
 
 
 code {
-  font-family: monospace;
+  font-family: Courier;
 }
 
 li code, p code {
