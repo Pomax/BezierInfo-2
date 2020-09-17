@@ -261,10 +261,11 @@ class GraphicsElement extends CustomElement {
     offDOM.innerHTML = this.originalHTML;
     const newElement = offDOM.querySelector(`graphics-element`);
     offDOM.style.display = `none`;
-    document.body.append(offDOM);
-    newElement.addEventListener(`loaded`, () =>
-      parent.replaceChild(newElement, this)
-    );
+    document.body.appendChild(offDOM);
+    newElement.addEventListener(`loaded`, () => {
+      parent.replaceChild(newElement, this);
+      document.body.removeChild(offDOM);
+    });
   }
 
   /**
