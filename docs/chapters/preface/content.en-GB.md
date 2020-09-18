@@ -8,7 +8,7 @@ They're named after [Pierre Bézier](https://en.wikipedia.org/wiki/Pierre_B%C3%A
 
 Anyway, that's mostly trivia, what you are more likely to care about is that these curves are handy: you can link up multiple Bézier curves so that the combination looks like a single curve. If you've ever drawn Photoshop "paths" or worked with vector drawing programs like Flash, Illustrator or Inkscape, those curves you've been drawing are Bézier curves.
 
-But what if you need to program them yourself? What are the pitfalls? How do you draw them? What are the bounding boxes, how do you determine intersections, how can you extrude a curve, in short: how do you do everything that you might want when you do with these curves? That's what this page is for. Prepare to be mathed!
+But what if you need to program them yourself? What are the pitfalls? How do you draw them? What are the bounding boxes, how do you determine intersections, how can you extrude a curve, in short: how do you do everything that you might want to do with these curves? That's what this page is for. Prepare to be mathed!
 
 <div class="print">
 
@@ -30,7 +30,7 @@ This page uses interactive examples, relying heavily on [Bezier.js](https://poma
 
 ## This book is open source.
 
-This book is an open source software project, and lives on two github repositories. The first is [https://github.com/pomax/bezierinfo](https://github.com/pomax/bezierinfo) and is the purely-for-presentation version you are viewing right now. The other repository is [https://github.com/pomax/BezierInfo-2](https://github.com/pomax/BezierInfo-2), which is the development version, housing all the HTML, JavaScript, and CSS. You can fork either of these, and pretty much do with them as you please, except for passing it off as your own work wholesale, of course =)
+This book is an open source software project, and lives on two github repositories. The first is [https://github.com/pomax/bezierinfo](https://github.com/pomax/bezierinfo) and is the purely-for-presentation version you are viewing right now. The other repository is [https://github.com/pomax/BezierInfo-2](https://github.com/pomax/BezierInfo-2), which is the development version, housing all the code that gets turned _into_ the web version, and is also where you should file issues if you find bugs or have ideas on what to change or add to the primer.
 
 ## How complicated is the maths going to be?
 

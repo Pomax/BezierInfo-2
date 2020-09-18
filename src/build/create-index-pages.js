@@ -17,13 +17,16 @@ async function createIndexPages(locale, localeStrings, chapters) {
   const langSwitcher = generateLangSwitcher(localeStrings);
   const toclist = {};
 
+  const localePrefix = base ? `${locale}/` : ``;
   const preface = `<section id="preface">${chapters[sectionOrder[0]]}</section>`;
   const sections = formSectionData(chapters, sectionOrder, toclist, locale, base);
   const sectionText = finaliseSections(sections);
   const changelog = formChangeLog(changelogData);
+
   const renderContext = {
     base,
     locale,
+    localePrefix,
     langSwitcher,
     preface,
     toc: Object.values(toclist).join(`\n`),
