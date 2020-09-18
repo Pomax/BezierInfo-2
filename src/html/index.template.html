@@ -1,103 +1,88 @@
 <!DOCTYPE html>
 <html lang="{{ locale }}">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}{{ title }}{% endblock %}</title>
-    {{ base }}
 
-    <link rel="icon" href="images/favicon.png" type="image/png" />
-    {% block alternate %}
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="news/rss.xml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}{{ title }}{% endblock %}</title>
+
+  {{ base }}
+
+  <link rel="icon" href="images/favicon.png" type="image/png" />
+  {% block alternate %}
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="news/rss.xml">
+  {% endblock %}
+
+  <!-- page styling -->
+  <link rel="preload" href="images/paper.png" as="image" />
+  <link rel="stylesheet" href="placeholder-style.css" />
+
+  {% include "./fragments/meta.html" %}
+
+  {% block assets %}
+  <!-- my own referral/page hit tracker, because Google knows enough -->
+  <script src="./js/site/referrer.js" type="module" async></script>
+
+  <!--
+          The part that makes interactive graphics work: an HTML5 <graphics-element> custom element.
+          Note that we're not defering this: we just want it to kick in as soon as possible, and
+          given how much HTML there is, that means this can, and thus should, kick in before the
+          document is done even transferring.
+        -->
+  <script src="./js/custom-element/graphics-element.js" type="module" async></script>
+  <link rel="stylesheet" href="./js/custom-element/graphics-element.css" />
+
+  <!-- make images lazy load much earlier  -->
+  <script src="./js/site/better-lazy-loading.js" type="module" async defer></script>
+  {% endblock %}
+</head>
+
+<body>
+  {% include "./fragments/dev-ribbon.html" %}
+  {% include "./fragments/github.html" %}
+  {% block share %}{% include "./fragments/share.html" %}{% endblock %}
+
+  <header>
+    {% block header %}
+    <h1>{{ title }}</h1>
+    <h2>{{ subtitle }}</h2>
+    <span>{{ langSwitchLabel }}</span>
+    <ul class="lang-switcher">{{ langSwitcher }}</ul>
+    <p>{{ langHelpLabel }}</p>
+    {% include "./fragments/noscript.html" %}
+    {% include "./fragments/toc.html" %}
     {% endblock %}
+  </header>
 
-    <!-- page styling -->
-    <link rel="preload" href="images/paper.png" as="image" />
-    <link rel="stylesheet" href="placeholder-style.css" />
-
-    {% include "./fragments/meta.html" %}
-
-    {% block assets %}
-    <!-- my own referral/page hit tracker, because Google knows enough -->
-    <script src="./js/site/referrer.js" type="module" async></script>
-
-    <!--
-      The part that makes interactive graphics work: an HTML5 <graphics-element> custom element.
-      Note that we're not defering this: we just want it to kick in as soon as possible, and
-      given how much HTML there is, that means this can, and thus should, kick in before the
-      document is done even transferring.
-    -->
-    <script src="./js/custom-element/graphics-element.js" type="module" async></script>
-    <link rel="stylesheet" href="./js/custom-element/graphics-element.css" />
-
-    <!-- make images lazy load much earlier  -->
-    <script src="./js/site/better-lazy-loading.js" type="module" async defer></script>
+  <main>
+    {% block main %}
+    {{ preface }}
+    <section id="changelog">
+      <h1>{{ changelogTitle }}</h1>
+      <p>{{ changelogDescription }}</p>
+      <!-- non-JS content reveals are nice -->
+      <label for="changelogtoggle">{{ toggleLabel }}</label>
+      <input type="checkbox" id="changelogtoggle">
+      <section>{{ changelog }}</section>
+    </section>
+    <section id="chapters">{{ chapters }}</section>
     {% endblock %}
-  </head>
+  </main>
 
-  <body>
-    {% include "./fragments/dev-ribbon.html" %}
-    {% include "./fragments/github.html" %}
-    {% block share %}{% include "./fragments/share.html" %}{% endblock %}
+  <hr>
 
-    <header>
-      {% block header %}
-      <h1>{{ title }}</h1>
-      <h2>{{ subtitle }}</h2>
-      <span>{{ langSwitchLabel }}</span>
-      <ul class="lang-switcher">
-        {{ langSwitcher }}
-      </ul>
-      <p>{{ langHelpLabel }}</p>
-
-      {% include "./fragments/noscript.html" %}
-
-      <nav aria-labelledby="toc">
-        <h1 id="toc">{{ tocLabel }}</h1>
-        <h4>Preamble</h4>
-        <ol class="preamble">
-          <li><a href="{{ localePrefix }}#preface">{{ prefaceLabel }} </a></li>
-          <li><a href="{{ localePrefix }}#changelog">{{ changelogLabel }}</a></li>
-        </ol>
-        <h4>Main content</h4>
-        <ol>
-            {{ toc }}
-        </ol>
-      </nav>
-      {% endblock %}
-    </header>
-
-    <main>
-      {% block main %}
-
-      {{ preface }}
-
-      <section id="changelog">
-        <h1>{{ changelogTitle }}</h1>
-        <p>{{ changelogDescription }}</p>
-        <!-- non-JS content reveals are nice -->
-        <label for="changelogtoggle">{{ toggleLabel }}</label>
-        <input type="checkbox" id="changelogtoggle">
-        <section>{{ changelog }}</section>
-      </section>
-
-      <section id="chapters">{{ chapters }}</section>
-      {% endblock %}
-    </main>
-
-    <hr>
-
-    <footer class="copyright">
-      {% block footer %}
-      This article is © 2011-2020 to me, Mike "Pomax" Kamermans, but the text, code, and images are
-      <a href="https://github.com/Pomax/bezierinfo/blob/master/LICENSE.md">almost no rights reserved</a>.
-      Go do something cool with it!
-      {% endblock %}
-    </footer>
-
-    {% block scrollfix %}
-    <!-- fix firefox's scroll position algorithm. Due to how it works, it cannot be async/defer -->
-    <script src="./js/site/fix-scroll.js"></script>
+  <footer class="copyright">
+    {% block footer %}
+    This article is © 2011-2020 to me, Mike "Pomax" Kamermans, but the text, code, and images are
+    <a href="https://github.com/Pomax/bezierinfo/blob/master/LICENSE.md">almost no rights reserved</a>.
+    Go do something cool with it!
     {% endblock %}
-  </body>
+  </footer>
+
+  {% block scrollfix %}
+  <!-- fix firefox's scroll position algorithm. Due to how it works, it cannot be async/defer -->
+  <script src="./js/site/fix-scroll.js"></script>
+  {% endblock %}
+</body>
+
 </html>

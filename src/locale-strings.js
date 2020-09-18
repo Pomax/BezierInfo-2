@@ -41,16 +41,24 @@ const localeStringData = {
   toggleLabel: {
     "en-GB": `Toggle changes`,
   },
+  preambleLabel: {
+    "en-GB": `Preamble`,
+    "ja-JP": `前文`,
+    "zh-CN": `前言`,
+  },
   prefaceLabel: {
     "en-GB": `Preface`,
     "ja-JP": `まえがき`,
     "zh-CN": `序言`,
   },
+  mainContentLabel: {
+    "en-GB": `Main content`,
+  },
   changelogLabel: {
     "en-GB": `What's new`,
   },
   changelogDescription: {
-    "en-GB": `This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when, or click through to the <a href="news">News posts</a> for more detailed updates. (<a href="news/rss.xml">RSS feed</a> available)`,
+    "en-GB": `This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when, or click through to the <a href="{{ relurl }}news">News posts</a> for more detailed updates. (<a href="{{ relurl }}news/rss.xml">RSS feed</a> available)`,
   },
 };
 
@@ -110,14 +118,19 @@ class LocaleStrings {
     return Object.keys(localeStringData.title);
   }
 
-  extendContext(context) {
+  extendContext(contextToExtend, localeStringTemplating = {}) {
     const strings = this.strings;
 
     Object.keys(strings).forEach((key) => {
-      if (context[key]) {
+      if (contextToExtend[key]) {
         throw new Error(`Context already has key "${key}"!`);
       }
-      context[key] = strings[key];
+      let v = strings[key];
+      Object.entries(localeStringTemplating).forEach((keyval) => {
+        let [name, value] = keyval;
+        v = v.replace(new RegExp(`{{ ${name} }}`, `g`), value);
+      });
+      contextToExtend[key] = v;
     });
   }
 }
