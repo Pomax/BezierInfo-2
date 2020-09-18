@@ -2,20 +2,15 @@ const REG_KEY = `registered as custom element`;
 
 // helper function
 function NotImplemented(instance, fname) {
-  console.warn(
-    `missing implementation for ${fname}(...data) in ${instance.__proto__.constructor.name}`
-  );
+  console.warn(`missing implementation for ${fname}(...data) in ${instance.__proto__.constructor.name}`);
 }
 
 // helper function for turning "ClassName" into "class-name"
 function getElementTagName(cls) {
-  return cls.prototype.constructor.name.replace(
-    /([A-Z])([a-z])/g,
-    (a, b, c, d) => {
-      const r = `${b.toLowerCase()}${c}`;
-      return d > 0 ? `-${r}` : r;
-    }
-  );
+  return cls.prototype.constructor.name.replace(/([A-Z])([a-z])/g, (a, b, c, d) => {
+    const r = `${b.toLowerCase()}${c}`;
+    return d > 0 ? `-${r}` : r;
+  });
 }
 
 /**
@@ -56,18 +51,11 @@ class CustomElement extends HTMLElement {
 
     const route = {
       childList: (record) => {
-        this.handleChildChanges(
-          Array.from(record.addedNodes),
-          Array.from(record.removedNodes)
-        );
+        this.handleChildChanges(Array.from(record.addedNodes), Array.from(record.removedNodes));
         this.render();
       },
       attributes: (record) => {
-        this.handleAttributeChange(
-          record.attributeName,
-          record.oldValue,
-          this.getAttribute(record.attributeName)
-        );
+        this.handleAttributeChange(record.attributeName, record.oldValue, this.getAttribute(record.attributeName));
         this.render();
       },
     };
@@ -99,12 +87,9 @@ class CustomElement extends HTMLElement {
     this._style = document.createElement(`style`);
     this._style.textContent = this.getStyle();
 
-    if (this._options.header !== false)
-      this._header = document.createElement(`header`);
-    if (this._options.slot !== false && this._options.void !== true)
-      this._slot = document.createElement(`slot`);
-    if (this._options.footer !== false)
-      this._footer = document.createElement(`footer`);
+    if (this._options.header !== false) this._header = document.createElement(`header`);
+    if (this._options.slot !== false && this._options.void !== true) this._slot = document.createElement(`slot`);
+    if (this._options.footer !== false) this._footer = document.createElement(`footer`);
   }
 
   connectedCallback() {

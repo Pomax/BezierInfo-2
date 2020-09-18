@@ -14,17 +14,22 @@ const src = getModulePath(import.meta.url);
 
 const project = path.join(src, `..`);
 const publicDir = path.join(project, `docs`); // yeah... "docs". Because Github is fairly stupid here.
-const images = path.join(publicDir, `images`);
+
 const build = path.join(src, `build`);
 const chapters = path.join(publicDir, `chapters`);
+const html = path.join(src, `html`);
+const images = path.join(publicDir, `images`);
+const news = path.join(publicDir, `news`);
 const sitejs = path.join(publicDir, `js`);
 const temp = path.join(project, `temp`);
 
 const paths = {
-  project,
   build,
   chapters,
+  html,
   images,
+  news,
+  project,
   public: publicDir,
   sitejs,
   src,

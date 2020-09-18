@@ -8,18 +8,14 @@ import { fitCurveToPoints } from "../util/fit-curve-to-points.js";
 class Bezier extends Original {
   static defaultQuadratic(apiInstance) {
     if (!apiInstance) {
-      throw new Error(
-        `missing reference of API instance in Bezier.defaultQuadratic(instance)`
-      );
+      throw new Error(`missing reference of API instance in Bezier.defaultQuadratic(instance)`);
     }
     return new Bezier(apiInstance, 70, 250, 20, 110, 220, 60);
   }
 
   static defaultCubic(apiInstance) {
     if (!apiInstance) {
-      throw new Error(
-        `missing reference of API instance in Bezier.defaultCubic(instance)`
-      );
+      throw new Error(`missing reference of API instance in Bezier.defaultCubic(instance)`);
     }
     return new Bezier(apiInstance, 110, 150, 25, 190, 210, 250, 210, 30);
   }
@@ -28,9 +24,7 @@ class Bezier extends Original {
     if (!tvalues) {
       const D = [0];
       for (let i = 1; i < n; i++) {
-        D[i] =
-          D[i - 1] +
-          dist(points[i - 1].x, points[i - 1].y, points[i].x, points[i].y);
+        D[i] = D[i - 1] + dist(points[i - 1].x, points[i - 1].y, points[i].x, points[i].y);
       }
       const S = [],
         len = D[n - 1];
@@ -50,9 +44,7 @@ class Bezier extends Original {
 
   constructor(apiInstance, ...coords) {
     if (!apiInstance || !apiInstance.setMovable) {
-      throw new Error(
-        `missing reference of API instance in Bezier constructor`
-      );
+      throw new Error(`missing reference of API instance in Bezier constructor`);
     }
     super(...coords);
     this.api = apiInstance;
@@ -91,15 +83,7 @@ class Bezier extends Original {
   }
 
   drawPoints(labels = true) {
-    const colors = [
-      `red`,
-      `green`,
-      `blue`,
-      `yellow`,
-      `orange`,
-      `cyan`,
-      `magenta`,
-    ];
+    const colors = [`red`, `green`, `blue`, `yellow`, `orange`, `cyan`, `magenta`];
     const api = this.api;
     const ctx = this.ctx;
 

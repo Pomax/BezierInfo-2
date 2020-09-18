@@ -127,8 +127,7 @@ function transpose(M) {
 class Matrix {
   constructor(n, m, data) {
     data = n instanceof Array ? n : data;
-    this.data =
-      data ?? [...new Array(n)].map((v) => [...new Array(m)].map((v) => 0));
+    this.data = data ?? [...new Array(n)].map((v) => [...new Array(m)].map((v) => 0));
     this.rows = this.data.length;
     this.cols = this.data[0].length;
   }

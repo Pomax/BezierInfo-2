@@ -4,15 +4,7 @@ export default function impartSliderLogic(GraphicsAPI) {
   /**
    * Dynamically add a slider
    */
-  GraphicsAPI.prototype.addSlider = function addSlider(
-    classes,
-    propname,
-    min,
-    max,
-    step,
-    value,
-    transform
-  ) {
+  GraphicsAPI.prototype.addSlider = function addSlider(classes, propname, min, max, step, value, transform) {
     if (this.element) {
       let slider = create(`input`);
       slider.type = `range`;
@@ -35,13 +27,7 @@ export default function impartSliderLogic(GraphicsAPI) {
    * @param {*} step
    * @param {*} value
    */
-  GraphicsAPI.prototype.updateSlider = function updateSlider(
-    propname,
-    min,
-    max,
-    step,
-    value
-  ) {
+  GraphicsAPI.prototype.updateSlider = function updateSlider(propname, min, max, step, value) {
     let slider = this._sliders[propname];
 
     if (!slider) {
@@ -63,12 +49,7 @@ export default function impartSliderLogic(GraphicsAPI) {
    * @param {float} initial the initial value for this property.
    * @param {boolean} redraw whether or not to redraw after updating the value from the slider.
    */
-  GraphicsAPI.prototype.setSlider = function setSlider(
-    qs,
-    propname,
-    initial,
-    transform
-  ) {
+  GraphicsAPI.prototype.setSlider = function setSlider(qs, propname, initial, transform) {
     if (propname !== false && typeof this[propname] !== `undefined`) {
       throw new Error(`this.${propname} already exists: cannot bind slider.`);
     }
@@ -130,9 +111,7 @@ export default function impartSliderLogic(GraphicsAPI) {
     }
 
     let step = slider.getAttribute(`step`) || "1";
-    let res = !step.includes(`.`)
-      ? 0
-      : step.substring(step.indexOf(`.`) + 1).length;
+    let res = !step.includes(`.`) ? 0 : step.substring(step.indexOf(`.`) + 1).length;
 
     slider.updateProperty = (evt) => {
       let value = parseFloat(slider.value);

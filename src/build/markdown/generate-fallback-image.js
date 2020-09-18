@@ -38,10 +38,7 @@ async function generateFallbackImage(
 
   // Hash this code + dataset into a print that we can use to determine whether
   // or not we should generate an image or whether we already did that previously.
-  const hash = createHash(`md5`)
-    .update(code)
-    .update(JSON.stringify(dataset))
-    .digest(`hex`);
+  const hash = createHash(`md5`).update(code).update(JSON.stringify(dataset)).digest(`hex`);
 
   if (locale !== localeStrings.getDefaultLocale()) return hash;
 
@@ -62,10 +59,7 @@ async function generateFallbackImage(
   // Then we import our entirely valid JS module, which will run
   // the sketch code and export a canvas instance that we can
   // turn into an actual image file.
-  const module = path
-    .relative(thisModuleDir, modulePath)
-    .split(path.sep)
-    .join(path.posix.sep);
+  const module = path.relative(thisModuleDir, modulePath).split(path.sep).join(path.posix.sep);
 
   try {
     const { canvas } = await import(module);

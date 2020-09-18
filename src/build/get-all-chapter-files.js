@@ -2,12 +2,8 @@ import glob from "glob";
 import path from "path";
 import paths from "../project-paths.js";
 
-/**
- * ...docs go here...
- */
-
 function getAllChapterFiles() {
-  // note that this returns a promise, and so can be `await`ed.
+  // async, by returning a Promise
   return new Promise((resolve, reject) => {
     glob(path.join(paths.chapters, `**`, `content*md`), (err, files) => {
       if (err) reject(err);

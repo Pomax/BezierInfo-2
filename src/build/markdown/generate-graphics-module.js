@@ -7,33 +7,18 @@ import performCodeSurgery from "../../../docs/js/custom-element/lib/perform-code
 // Get all the values we need to ensure our generated graphics code knows
 // where it lives, and where it can find all its dependencies
 
-const apiSource = fs
-  .readFileSync(
-    path.join(paths.sitejs, `custom-element`, `api`, `graphics-api.js`)
-  )
-  .toString(`utf-8`);
+const apiSource = fs.readFileSync(path.join(paths.sitejs, `custom-element`, `api`, `graphics-api.js`)).toString(`utf-8`);
 
-const API_IMPORTS = apiSource
-  .match(/(export { [^}]+ })/)[0]
-  .replace(`export`, `import`);
+const API_IMPORTS = apiSource.match(/(export { [^}]+ })/)[0].replace(`export`, `import`);
 
 const GRAPHICS_API_LOCATION = path
-  .join(
-    path.relative(paths.temp, paths.public),
-    `js`,
-    `custom-element`,
-    `api`,
-    `graphics-api.js`
-  )
+  .join(path.relative(paths.temp, paths.public), `js`, `custom-element`, `api`, `graphics-api.js`)
   .split(path.sep)
   .join(path.posix.sep);
 
 const IMPORT_GLOBALS_FROM_GRAPHICS_API = `${API_IMPORTS} from "${GRAPHICS_API_LOCATION}"`;
 
-const RELATIVE_IMPORT_LOCATION = path
-  .relative(paths.temp, paths.chapters)
-  .split(path.sep)
-  .join(path.posix.sep);
+const RELATIVE_IMPORT_LOCATION = path.relative(paths.temp, paths.chapters).split(path.sep).join(path.posix.sep);
 
 /**
  * Node does not have a native canvas available, so we  need to shim a number

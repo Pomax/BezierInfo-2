@@ -18,9 +18,7 @@ function enrich(element) {
     if (!evtNames.map) evtNames = [evtNames];
     evtNames.forEach((evtName) => {
       if (!handler) {
-        return element.__listeners[evtName].forEach((h) =>
-          element.removeEventListener(evtName, h)
-        );
+        return element.__listeners[evtName].forEach((h) => element.removeEventListener(evtName, h));
       }
       element.removeEventListener(evtName, handler);
     });

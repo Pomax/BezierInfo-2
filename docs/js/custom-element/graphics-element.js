@@ -123,9 +123,7 @@ class GraphicsElement extends CustomElement {
     debugLog(`loading ${this.getAttribute(`src`)}`);
 
     if (!IMPORT_GLOBALS_FROM_GRAPHICS_API) {
-      const importStatement = (
-        await fetch(`${MODULE_PATH}/api/graphics-api.js`).then((r) => r.text())
-      )
+      const importStatement = (await fetch(`${MODULE_PATH}/api/graphics-api.js`).then((r) => r.text()))
         .match(/(export { [^}]+ })/)[0]
         .replace(`export`, `import`);
       IMPORT_GLOBALS_FROM_GRAPHICS_API = `${importStatement} from "${MODULE_PATH}/api/graphics-api.js"`;
@@ -188,10 +186,7 @@ class GraphicsElement extends CustomElement {
       rerender = true;
     }
 
-    const uid = (this.uid = `bg-uid-${Date.now()}-${`${Math.random()}`.replace(
-      `0.`,
-      ``
-    )}`);
+    const uid = (this.uid = `bg-uid-${Date.now()}-${`${Math.random()}`.replace(`0.`, ``)}`);
     window[uid] = this;
 
     // Step 1: fix the imports. This is ... a bit of work.
@@ -245,9 +240,7 @@ class GraphicsElement extends CustomElement {
 
     const script = (this.script = document.createElement(`script`));
     script.type = "module";
-    script.src = `data:application/javascript;charset=utf-8,${encodeURIComponent(
-      this.code
-    )}`;
+    script.src = `data:application/javascript;charset=utf-8,${encodeURIComponent(this.code)}`;
 
     if (rerender) this.render();
   }
@@ -258,14 +251,14 @@ class GraphicsElement extends CustomElement {
   async reset() {
     const parent = this.parentNode;
     const offDOM = document.createElement(`div`);
+    offDOM.style.display = `none`;
     offDOM.innerHTML = this.originalHTML;
     const newElement = offDOM.querySelector(`graphics-element`);
-    offDOM.style.display = `none`;
-    document.body.appendChild(offDOM);
-    newElement.addEventListener(`loaded`, () => {
+    newElement.addEventListener(`load`, () => {
       parent.replaceChild(newElement, this);
       document.body.removeChild(offDOM);
     });
+    document.body.appendChild(offDOM);
   }
 
   /**
@@ -293,7 +286,11 @@ class GraphicsElement extends CustomElement {
     // If we get here, there were no source code errors: undo the scheduled error print.
     clearTimeout(this.errorPrintTimeout);
     this.render();
-    this.dispatchEvent(new CustomEvent(`loaded`));
+    // Once we've rendered, we can send the "ready for use" signal.
+    this.dispatchEvent(new CustomEvent(`load`));
+    if (this.onload) {
+      this.onload();
+    }
   }
 
   /**
@@ -320,10 +317,7 @@ class GraphicsElement extends CustomElement {
       if (!this.script.__inserted) {
         // Schedule an error print, which will get cleared if there
         // were no source code errors.
-        this.errorPrintTimeout = setTimeout(
-          () => this.printCodeDueToError(),
-          1000
-        );
+        this.errorPrintTimeout = setTimeout(() => this.printCodeDueToError(), 1000);
         this.script.__inserted = true;
         this._shadow.appendChild(this.script);
       }

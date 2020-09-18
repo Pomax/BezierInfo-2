@@ -6,9 +6,7 @@
  * loading in", which is super shitty UX.
  */
 
-const images = Array.from(
-  document.querySelectorAll(`img.LaTeX.SVG[loading=lazy]`)
-);
+const images = Array.from(document.querySelectorAll(`img.LaTeX.SVG[loading=lazy]`));
 
 // Deactivate the images
 images.forEach((img) => {

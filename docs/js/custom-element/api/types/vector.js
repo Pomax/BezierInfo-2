@@ -23,11 +23,7 @@ class Vector {
   }
   normalize(f) {
     let mag = this.dist(0, 0, 0);
-    return new Vector(
-      (f * this.x) / mag,
-      (f * this.y) / mag,
-      (f * this.z) / mag
-    );
+    return new Vector((f * this.x) / mag, (f * this.y) / mag, (f * this.z) / mag);
   }
   getAngle() {
     return -Math.atan2(this.y, this.x);

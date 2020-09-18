@@ -7,8 +7,6 @@ import path from "path";
  */
 export default function getModulePath(urlstring) {
   const moduleURL = new URL(urlstring);
-  const moduleDir = path.dirname(
-    moduleURL.href.replace(`file:///`, process.platform === `win32` ? `` : `/`)
-  );
+  const moduleDir = path.dirname(moduleURL.href.replace(`file:///`, process.platform === `win32` ? `` : `/`));
   return moduleDir;
 }

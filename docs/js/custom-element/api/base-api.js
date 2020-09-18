@@ -6,14 +6,7 @@
  */
 class BaseAPI {
   static get privateMethods() {
-    return [
-      `constructor`,
-      `createHatchPatterns`,
-      `addListeners`,
-      `getCursorCoords`,
-    ]
-      .concat(this.superCallers)
-      .concat(this.eventHandlers);
+    return [`constructor`, `createHatchPatterns`, `addListeners`, `getCursorCoords`].concat(this.superCallers).concat(this.eventHandlers);
   }
 
   static get superCallers() {
@@ -26,10 +19,7 @@ class BaseAPI {
 
   static get methods() {
     const priv = this.privateMethods;
-    const names = Object.getOwnPropertyNames(this.prototype).concat([
-      `setSize`,
-      `redraw`,
-    ]);
+    const names = Object.getOwnPropertyNames(this.prototype).concat([`setSize`, `redraw`]);
     return names.filter((v) => priv.indexOf(v) < 0);
   }
 
@@ -101,9 +91,7 @@ class BaseAPI {
 
     const root = typeof document !== "undefined" ? document : canvas;
 
-    [`touchstart`, `mousedown`].forEach((evtName) =>
-      canvas.addEventListener(evtName, (evt) => this.onMouseDown(evt))
-    );
+    [`touchstart`, `mousedown`].forEach((evtName) => canvas.addEventListener(evtName, (evt) => this.onMouseDown(evt)));
 
     [`touchmove`, `mousemove`].forEach((evtName) =>
       canvas.addEventListener(evtName, (evt) => {
@@ -118,19 +106,13 @@ class BaseAPI {
       })
     );
 
-    [`touchend`, `mouseup`].forEach((evtName) =>
-      root.addEventListener(evtName, (evt) => this.onMouseUp(evt))
-    );
+    [`touchend`, `mouseup`].forEach((evtName) => root.addEventListener(evtName, (evt) => this.onMouseUp(evt)));
 
     this.keyboard = {};
 
-    [`keydown`].forEach((evtName) =>
-      canvas.addEventListener(evtName, (evt) => this.onKeyDown(evt))
-    );
+    [`keydown`].forEach((evtName) => canvas.addEventListener(evtName, (evt) => this.onKeyDown(evt)));
 
-    [`keyup`].forEach((evtName) =>
-      canvas.addEventListener(evtName, (evt) => this.onKeyUp(evt))
-    );
+    [`keyup`].forEach((evtName) => canvas.addEventListener(evtName, (evt) => this.onKeyUp(evt)));
   }
 
   stopEvent(evt) {

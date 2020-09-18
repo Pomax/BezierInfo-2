@@ -1,12 +1,11 @@
 import LocaleStrings from "./locale-strings.js";
 import { getAllChapterFiles } from "./build/get-all-chapter-files.js";
 import { processLocale } from "./build/process-locale.js";
-import { createIndexPages } from "./build/create-index-page.js";
+import { createIndexPages } from "./build/create-index-pages.js";
+import { createNewsPages } from "./build/create-news-pages.js";
 
 /**
  * main entry point:
- * - aggregate all content files organized by locale
- * -
  */
 getAllChapterFiles().then(async (chapterFiles) => {
   const start = Date.now();
@@ -20,6 +19,8 @@ getAllChapterFiles().then(async (chapterFiles) => {
     })
   );
 
+  await createNewsPages();
+
   const runtime = Date.now() - start;
-  console.log(`Finished build (${(runtime / 1000).toFixed(2)}s)`);
+  console.log(`\nFinished build (${(runtime / 1000).toFixed(2)}s)\n`);
 });

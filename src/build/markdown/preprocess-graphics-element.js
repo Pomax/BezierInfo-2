@@ -42,27 +42,15 @@ async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
 
       let title = ``;
 
-      if (updated.indexOf(`width=`) === -1)
-        updated = updated.replace(
-          /title="([^"]+)"\s*/,
-          (_, t) => `title="${(title = t)}" width="275" `
-        );
+      if (updated.indexOf(`width=`) === -1) updated = updated.replace(/title="([^"]+)"\s*/, (_, t) => `title="${(title = t)}" width="275" `);
 
-      if (updated.indexOf(`height=`) === -1)
-        updated = updated.replace(
-          /width="(\d+)"\s*/,
-          `width="$1" height="275" `
-        );
+      if (updated.indexOf(`height=`) === -1) updated = updated.replace(/width="(\d+)"\s*/, `width="$1" height="275" `);
 
       // Then add in the fallback code
-      const terms = updated.match(
-        /width="([^"]+)"\s+height="([^"]+)"\s+src="([^"]+)"\s*([^>]*)>/
-      );
+      const terms = updated.match(/width="([^"]+)"\s+height="([^"]+)"\s+src="([^"]+)"\s*([^>]*)>/);
 
       if (!terms) {
-        throw new Error(
-          `Bad markup for <graphics-element> while parsing:\n${updated}`
-        );
+        throw new Error(`Bad markup for <graphics-element> while parsing:\n${updated}`);
       }
 
       const [original, width, height, _, remainder] = terms;
@@ -90,10 +78,7 @@ async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
       );
 
       // Note: this is a URL, _not_ a file system location.
-      let imgUrl = path.join(
-        path.dirname(src.replace(`./`, `./images/`)),
-        `${imageHash}.png`
-      );
+      let imgUrl = path.join(path.dirname(src.replace(`./`, `./images/`)), `${imageHash}.png`);
 
       const replacement = `width="${width}" height="${height}" src="${src}" ${remainder}>
         <fallback-image>

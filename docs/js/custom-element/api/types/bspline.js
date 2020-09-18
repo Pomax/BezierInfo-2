@@ -47,9 +47,7 @@ class BSpline {
   }
 
   formUniformKnots() {
-    return (this.knots = [...new Array(this.points.length + DEGREE + 1)].map(
-      (_, i) => i
-    ));
+    return (this.knots = [...new Array(this.points.length + DEGREE + 1)].map((_, i) => i));
   }
 
   formNodes() {

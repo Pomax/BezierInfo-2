@@ -93,11 +93,7 @@ class Lexer {
       token = this.tokens[this.pos++];
       buffer.push(token);
       blen++;
-    } while (
-      token !== symbol &&
-      buffer[blen - 2] !== `\\` &&
-      this.pos < this.tokens.length
-    );
+    } while (token !== symbol && buffer[blen - 2] !== `\\` && this.pos < this.tokens.length);
     //    buffer = buffer.join(``);
     //    if (symbol === "`") {
     //      this.parseTemplateString(buffer);

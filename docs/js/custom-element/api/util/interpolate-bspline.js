@@ -1,20 +1,11 @@
 // https://github.com/thibauts/b-spline
-export default function interpolate(
-  t,
-  degree,
-  points,
-  knots,
-  weights,
-  result,
-  scaled
-) {
+export default function interpolate(t, degree, points, knots, weights, result, scaled) {
   var i, j, s, l; // function-scoped iteration variables
   var n = points.length; // points count
   var d = points[0].length; // point dimensionality
 
   if (degree < 1) throw new Error("degree must be at least 1 (linear)");
-  if (degree > n - 1)
-    throw new Error("degree must be less than or equal to point count - 1");
+  if (degree > n - 1) throw new Error("degree must be less than or equal to point count - 1");
 
   if (!weights) {
     // build weight vector of length [n]
@@ -36,8 +27,7 @@ export default function interpolate(
       knots[i] = i;
     }
   } else {
-    if (knots.length !== n + degree + 1)
-      throw new Error("bad knot vector length");
+    if (knots.length !== n + degree + 1) throw new Error("bad knot vector length");
   }
 
   // closed curve?

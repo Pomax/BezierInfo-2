@@ -14,10 +14,7 @@ export default function extractLaTeX(markdown) {
     if (pos !== -1) {
       let endpos = data.indexOf(endmark, pos) + endmark.length;
       let key = `latex${latexSection++}`;
-      latex[key] = data.substring(
-        pos + startmark.length,
-        endpos - endmark.length
-      );
+      latex[key] = data.substring(pos + startmark.length, endpos - endmark.length);
       data = `${data.slice(0, pos)}{{ ${key} }}${data.slice(endpos)}`;
     }
   } while (pos !== -1);

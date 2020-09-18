@@ -16,17 +16,13 @@ class Tracker {
     this.hash = a.hash;
     this.sectionTitle = a.textContent;
     this.socials.forEach((social) => {
-      var area = document.querySelector(
-        `map[name=rhtimap] area.sclnk-${social}`
-      );
+      var area = document.querySelector(`map[name=rhtimap] area.sclnk-${social}`);
       area.href = this[`get_${social}`]();
     });
   }
 
   get url() {
-    return encodeURIComponent(
-      `https://pomax.github.io/bezierinfo${this.hash ? this.hash : ""}`
-    );
+    return encodeURIComponent(`https://pomax.github.io/bezierinfo${this.hash ? this.hash : ""}`);
   }
 
   getTitle() {
@@ -39,9 +35,7 @@ class Tracker {
 
   get_rdt() {
     var title = this.getTitle();
-    var text = encodeURIComponent(
-      `A free, online book for when you really need to know how to do Bézier things.`
-    );
+    var text = encodeURIComponent(`A free, online book for when you really need to know how to do Bézier things.`);
     return `https://www.reddit.com/submit?url=${this.url}&title=${title}&text=${text}`;
   }
 
@@ -51,10 +45,7 @@ class Tracker {
   }
 
   get_twt() {
-    var text =
-      encodeURIComponent(
-        `Reading "${this.sectionTitle}" by @TheRealPomax over on `
-      ) + this.url;
+    var text = encodeURIComponent(`Reading "${this.sectionTitle}" by @TheRealPomax over on `) + this.url;
     return `https://twitter.com/intent/tweet?original_referer=${this.url}&text=${text}&hashtags=bezier,curves,maths`;
   }
 }

@@ -222,9 +222,7 @@ const utils = {
       return {
         x: (f1 * p[0].x + f2 * p[1].x + f3 * p[2].x + f4 * p[3].x) / d,
         y: (f1 * p[0].y + f2 * p[1].y + f3 * p[2].y + f4 * p[3].y) / d,
-        z: !_3d
-          ? false
-          : (f1 * p[0].z + f2 * p[1].z + f3 * p[2].z + f4 * p[3].z) / d,
+        z: !_3d ? false : (f1 * p[0].z + f2 * p[1].z + f3 * p[2].z + f4 * p[3].z) / d,
         t: t,
       };
     }
@@ -251,11 +249,7 @@ const utils = {
   },
 
   between: function (v, m, M) {
-    return (
-      (m <= v && v <= M) ||
-      utils.approximately(v, m) ||
-      utils.approximately(v, M)
-    );
+    return (m <= v && v <= M) || utils.approximately(v, m) || utils.approximately(v, M);
   },
 
   approximately: function (a, b, precision) {
@@ -378,8 +372,7 @@ const utils = {
   },
 
   lli8: function (x1, y1, x2, y2, x3, y3, x4, y4) {
-    const nx =
-        (x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4),
+    const nx = (x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4),
       ny = (x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4),
       d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
     if (d == 0) {
@@ -411,16 +404,7 @@ const utils = {
       y2 = p2.y,
       dx = (x2 - x1) / 3,
       dy = (y2 - y1) / 3;
-    return new Bezier(
-      x1,
-      y1,
-      x1 + dx,
-      y1 + dy,
-      x1 + 2 * dx,
-      y1 + 2 * dy,
-      x2,
-      y2
-    );
+    return new Bezier(x1, y1, x1 + dx, y1 + dy, x1 + 2 * dx, y1 + 2 * dy, x2, y2);
   },
 
   findbbox: function (sections) {
@@ -441,13 +425,7 @@ const utils = {
     };
   },
 
-  shapeintersections: function (
-    s1,
-    bbox1,
-    s2,
-    bbox2,
-    curveIntersectionThreshold
-  ) {
+  shapeintersections: function (s1, bbox1, s2, bbox2, curveIntersectionThreshold) {
     if (!utils.bboxoverlap(bbox1, bbox2)) return [];
     const intersections = [];
     const a1 = [s1.startcap, s1.forward, s1.back, s1.endcap];
@@ -482,13 +460,7 @@ const utils = {
       bbox: utils.findbbox([start, forward, back, end]),
     };
     shape.intersections = function (s2) {
-      return utils.shapeintersections(
-        shape,
-        shape.bbox,
-        s2,
-        s2.bbox,
-        curveIntersectionThreshold
-      );
+      return utils.shapeintersections(shape, shape.bbox, s2, s2.bbox, curveIntersectionThreshold);
     };
     return shape;
   },
@@ -685,11 +657,7 @@ const utils = {
     const qdsum = d.x * d.x + d.y * d.y;
 
     if (_3d) {
-      num = sqrt(
-        pow(d.y * dd.z - dd.y * d.z, 2) +
-          pow(d.z * dd.x - dd.z * d.x, 2) +
-          pow(d.x * dd.y - dd.x * d.y, 2)
-      );
+      num = sqrt(pow(d.y * dd.z - dd.y * d.z, 2) + pow(d.z * dd.x - dd.z * d.x, 2) + pow(d.x * dd.y - dd.x * d.y, 2));
       dnm = pow(qdsum + d.z * d.z, 3 / 2);
     } else {
       num = d.x * dd.y - d.y * dd.x;
@@ -803,15 +771,8 @@ const utils = {
       r = 100000,
       threshold = curveIntersectionThreshold || 0.5;
 
-    if (
-      c1b.x.size + c1b.y.size < threshold &&
-      c2b.x.size + c2b.y.size < threshold
-    ) {
-      return [
-        (((r * (c1._t1 + c1._t2)) / 2) | 0) / r +
-          "/" +
-          (((r * (c2._t1 + c2._t2)) / 2) | 0) / r,
-      ];
+    if (c1b.x.size + c1b.y.size < threshold && c2b.x.size + c2b.y.size < threshold) {
+      return [(((r * (c1._t1 + c1._t2)) / 2) | 0) / r + "/" + (((r * (c2._t1 + c2._t2)) / 2) | 0) / r];
     }
 
     let cc1 = c1.split(0.5),
@@ -832,9 +793,7 @@ const utils = {
     if (pairs.length === 0) return results;
 
     pairs.forEach(function (pair) {
-      results = results.concat(
-        utils.pairiteration(pair.left, pair.right, threshold)
-      );
+      results = results.concat(utils.pairiteration(pair.left, pair.right, threshold));
     });
 
     results = results.filter(function (v, i) {

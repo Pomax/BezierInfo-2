@@ -23,8 +23,7 @@ const ZERO = { x: 0, y: 0, z: 0 };
  */
 class Bezier {
   constructor(coords) {
-    let args =
-      coords && coords.forEach ? coords : Array.from(arguments).slice();
+    let args = coords && coords.forEach ? coords : Array.from(arguments).slice();
     let coordlen = false;
 
     if (typeof args[0] === "object") {
@@ -46,25 +45,19 @@ class Bezier {
     if (coordlen) {
       if (coordlen > 4) {
         if (arguments.length !== 1) {
-          throw new Error(
-            "Only new Bezier(point[]) is accepted for 4th and higher order curves"
-          );
+          throw new Error("Only new Bezier(point[]) is accepted for 4th and higher order curves");
         }
         higher = true;
       }
     } else {
       if (len !== 6 && len !== 8 && len !== 9 && len !== 12) {
         if (arguments.length !== 1) {
-          throw new Error(
-            "Only new Bezier(point[]) is accepted for 4th and higher order curves"
-          );
+          throw new Error("Only new Bezier(point[]) is accepted for 4th and higher order curves");
         }
       }
     }
 
-    const _3d = (this._3d =
-      (!higher && (len === 9 || len === 12)) ||
-      (coords && coords[0] && typeof coords[0].z !== "undefined"));
+    const _3d = (this._3d = (!higher && (len === 9 || len === 12)) || (coords && coords[0] && typeof coords[0].z !== "undefined"));
 
     const points = (this.points = []);
     for (let idx = 0, step = _3d ? 3 : 2; idx < len; idx += step) {
@@ -390,17 +383,7 @@ class Bezier {
     c.y /= m;
     c.z /= m;
     // rotation matrix
-    const R = [
-      c.x * c.x,
-      c.x * c.y - c.z,
-      c.x * c.z + c.y,
-      c.x * c.y + c.z,
-      c.y * c.y,
-      c.y * c.z - c.x,
-      c.x * c.z - c.y,
-      c.y * c.z + c.x,
-      c.z * c.z,
-    ];
+    const R = [c.x * c.x, c.x * c.y - c.z, c.x * c.z + c.y, c.x * c.y + c.z, c.y * c.y, c.y * c.z - c.x, c.x * c.z - c.y, c.y * c.z + c.x, c.z * c.z];
     // normal vector:
     const n = {
       x: R[0] * r1.x + R[1] * r1.y + R[2] * r1.z,
@@ -446,14 +429,8 @@ class Bezier {
     // no shortcut: use "de Casteljau" iteration.
     const q = this.hull(t1);
     const result = {
-      left:
-        this.order === 2
-          ? new Bezier([q[0], q[3], q[5]])
-          : new Bezier([q[0], q[4], q[7], q[9]]),
-      right:
-        this.order === 2
-          ? new Bezier([q[5], q[4], q[2]])
-          : new Bezier([q[9], q[8], q[6], q[3]]),
+      left: this.order === 2 ? new Bezier([q[0], q[3], q[5]]) : new Bezier([q[0], q[4], q[7], q[9]]),
+      right: this.order === 2 ? new Bezier([q[5], q[4], q[2]]) : new Bezier([q[9], q[8], q[6], q[3]]),
       span: q,
     };
 
@@ -722,12 +699,8 @@ class Bezier {
     reduced.forEach(function (segment) {
       slen = segment.length();
       if (graduated) {
-        fcurves.push(
-          segment.scale(linearDistanceFunction(d1, d3, tlen, alen, slen))
-        );
-        bcurves.push(
-          segment.scale(linearDistanceFunction(-d2, -d4, tlen, alen, slen))
-        );
+        fcurves.push(segment.scale(linearDistanceFunction(d1, d3, tlen, alen, slen)));
+        bcurves.push(segment.scale(linearDistanceFunction(-d2, -d4, tlen, alen, slen)));
       } else {
         fcurves.push(segment.scale(d1));
         bcurves.push(segment.scale(-d2));
@@ -766,11 +739,7 @@ class Bezier {
     const outline = this.outline(d1, d2).curves;
     const shapes = [];
     for (let i = 1, len = outline.length; i < len / 2; i++) {
-      const shape = utils.makeshape(
-        outline[i],
-        outline[len - i],
-        curveIntersectionThreshold
-      );
+      const shape = utils.makeshape(outline[i], outline[len - i], curveIntersectionThreshold);
       shape.startcap.virtual = i > 1;
       shape.endcap.virtual = i < len / 2 - 1;
       shapes.push(shape);
@@ -786,11 +755,7 @@ class Bezier {
     if (curve instanceof Bezier) {
       curve = curve.reduce();
     }
-    return this.curveintersects(
-      this.reduce(),
-      curve,
-      curveIntersectionThreshold
-    );
+    return this.curveintersects(this.reduce(), curve, curveIntersectionThreshold);
   }
 
   lineIntersects(line) {
@@ -835,11 +800,7 @@ class Bezier {
     // step 2: for each pairing, run through the convergence algorithm.
     let intersections = [];
     pairs.forEach(function (pair) {
-      const result = utils.pairiteration(
-        pair.left,
-        pair.right,
-        curveIntersectionThreshold
-      );
+      const result = utils.pairiteration(pair.left, pair.right, curveIntersectionThreshold);
       if (result.length > 0) {
         intersections = intersections.concat(result);
       }

@@ -38,29 +38,18 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
     const PDFfilename = TeXfilename.replace(`.tex`, `.pdf`);
     const PDFfilenameCropped = TeXfilename.replace(`.tex`, `-crop.pdf`);
 
-    let fonts = [
-      "\\setmainfont[Ligatures=TeX]{TeX Gyre Pagella}",
-      "\\setmathfont{TeX Gyre Pagella Math}",
-    ];
+    let fonts = ["\\setmainfont[Ligatures=TeX]{TeX Gyre Pagella}", "\\setmathfont{TeX Gyre Pagella Math}"];
 
     // For Chinese, we need the xeCJK package because there might be Chinese
     // in maths context, which base XeLaTeX can't quite deal with.
     if (locale === "zh-CN") {
-      fonts = [
-        "\\usepackage{xeCJK}",
-        "\\xeCJKsetup{CJKmath=true}",
-        "\\setCJKmainfont{gbsn00lp.ttf}",
-      ];
+      fonts = ["\\usepackage{xeCJK}", "\\xeCJKsetup{CJKmath=true}", "\\setCJKmainfont{gbsn00lp.ttf}"];
     }
 
     // The same goes for Japanese, although we obviously want a different
     // font than Chinese, as they are different languages entirely.
     if (locale === "ja-JP") {
-      fonts = [
-        "\\usepackage{xeCJK}",
-        "\\xeCJKsetup{CJKmath=true}",
-        "\\setCJKmainfont{ipaexm.ttf}",
-      ];
+      fonts = ["\\usepackage{xeCJK}", "\\xeCJKsetup{CJKmath=true}", "\\setCJKmainfont{ipaexm.ttf}"];
     }
 
     fs.writeFileSync(
@@ -78,20 +67,12 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
         `\\usepackage{unicode-math}`,
       ]
         .concat(fonts)
-        .concat([
-          `\\begin{document}`,
-          `\\[`,
-          cleanUp(latex),
-          `\\]`,
-          `\\end{document}`,
-        ])
+        .concat([`\\begin{document}`, `\\[`, cleanUp(latex), `\\]`, `\\end{document}`])
         .join(`\n`)
     );
 
     const commands = {
-      xetex: `xelatex -output-directory "${path.dirname(
-        TeXfilename
-      )}" "${TeXfilename}"`,
+      xetex: `xelatex -output-directory "${path.dirname(TeXfilename)}" "${TeXfilename}"`,
       crop: `pdfcrop "${PDFfilename}"`,
       svg: `pdf2svg "${PDFfilenameCropped}" "${SVGfilename}"`,
       svgo: `npm run svgo -- "${SVGfilename}"`,
@@ -99,9 +80,7 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
 
     // Finally: run the conversion
     try {
-      process.stdout.write(
-        `- running xelatex for block [${chapter}:${locale}:${block}] (${hash}.tex): `
-      );
+      process.stdout.write(`- running xelatex for block [${chapter}:${locale}:${block}] (${hash}.tex): `);
       runCmd(commands.xetex, hash);
 
       process.stdout.write(`  - cropping PDF to document content: `);
@@ -126,11 +105,7 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
 
         // collapse and fix transcript file path
         let transcript = loglines.splice(2, 3).join(``);
-        loglines.push(
-          transcript
-            .replace(`.log.`, `.log`)
-            .replace(`written on`, `written to`)
-        );
+        loglines.push(transcript.replace(`.log.`, `.log`).replace(`written on`, `written to`));
         console.error(`  |   ${loglines.join(`\n  |   `)}\n`);
       }
       return fail(hash);

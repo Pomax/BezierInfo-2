@@ -1,4 +1,4 @@
-import marked from "marked";
+import convert from "./convert.js";
 import latexToSVG from "../latex/latex-to-svg.js";
 import preprocessGraphicsElement from "./preprocess-graphics-element.js";
 import extractLaTeX from "./extract-latex.js";
@@ -10,13 +10,9 @@ nunjucks.configure(".", { autoescape: false });
  */
 async function convertMarkDown(chapter, localeStrings, markdown) {
   try {
-    markdown = await preprocessGraphicsElement(
-      chapter,
-      localeStrings,
-      markdown
-    );
+    markdown = await preprocessGraphicsElement(chapter, localeStrings, markdown);
   } catch (e) {
-    console.error(`Error in ${chapter}:${localeStrings.currentLocale}.`);
+    console.error(`Unrecoverable error in ${chapter}:${localeStrings.currentLocale}.`);
     console.error(e);
     process.exit(1);
   }
@@ -25,36 +21,9 @@ async function convertMarkDown(chapter, localeStrings, markdown) {
   // uniquely named templating variables, referencing keys in the `latex` array.
   const { data, latex } = extractLaTeX(markdown);
 
-  await Promise.all(
-    Object.keys(latex).map(
-      async (key, pos) =>
-        (latex[key] = await latexToSVG(
-          latex[key],
-          chapter,
-          localeStrings,
-          pos + 1
-        ))
-    )
-  );
+  await Promise.all(Object.keys(latex).map(async (key, pos) => (latex[key] = await latexToSVG(latex[key], chapter, localeStrings, pos + 1))));
 
-  let converted = marked(data, {
-    gfm: true,
-    headerIds: false,
-    mangle: false,
-  })
-    // sigh...
-    .replace(/&amp;/g, "&")
-    .replace(/&#39;/g, "'")
-    .replace(/&quot;/g, '"')
-    // templating introduces some funk
-    .replace(/<p>{{/g, `{{`)
-    .replace(/}}<\/p>/g, `}}`)
-    // also <sup> and <sub> in code does fun things
-    .replace(/&lt;sub&gt;/g, `<sub>`)
-    .replace(/&lt;\/sub&gt;/g, `</sub>`)
-    .replace(/&lt;sup&gt;/g, `<sup>`)
-    .replace(/&lt;\/sup&gt;/g, `</sup>`);
-
+  let converted = convert(data);
   return nunjucks.renderString(converted, latex);
 }
 

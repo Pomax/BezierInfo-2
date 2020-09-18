@@ -18,18 +18,7 @@ let CURRENT_HUE = 0;
  */
 class GraphicsAPI extends BaseAPI {
   static get constants() {
-    return [
-      `POINTER`,
-      `HAND`,
-      `PI`,
-      `TAU`,
-      `POLYGON`,
-      `CURVE`,
-      `BEZIER`,
-      `CENTER`,
-      `LEFT`,
-      `RIGHT`,
-    ];
+    return [`POINTER`, `HAND`, `PI`, `TAU`, `POLYGON`, `CURVE`, `BEZIER`, `CENTER`, `LEFT`, `RIGHT`];
   }
 
   draw() {
@@ -96,9 +85,7 @@ class GraphicsAPI extends BaseAPI {
     // as well as for "what it was the previous cursor event"
     this.cursor.last = { x: this.cursor.x, y: this.cursor.y };
 
-    const cdist = evt.targetTouches
-      ? TOUCH_PRECISION_ZONE
-      : MOUSE_PRECISION_ZONE;
+    const cdist = evt.targetTouches ? TOUCH_PRECISION_ZONE : MOUSE_PRECISION_ZONE;
 
     for (let i = 0, e = this.movable.length, p, d; i < e; i++) {
       p = this.movable[i];
@@ -413,8 +400,7 @@ class GraphicsAPI extends BaseAPI {
   }
 
   setFont(font) {
-    font =
-      font || `${this.font.weight} ${this.font.size}px ${this.font.family}`;
+    font = font || `${this.font.weight} ${this.font.size}px ${this.font.family}`;
     this.ctx.font = font;
   }
 
@@ -609,9 +595,7 @@ class GraphicsAPI extends BaseAPI {
     this.ctx.beginPath();
     let { x, y } = this.currentShape.first;
     this.ctx.moveTo(x, y);
-    this.currentShape.segments.forEach((s) =>
-      this[`draw${s.type}`](s.points, s.factor)
-    );
+    this.currentShape.segments.forEach((s) => this[`draw${s.type}`](s.points, s.factor));
     if (close) this.ctx.closePath();
     this.ctx.fill();
     this.ctx.stroke();

@@ -1,0 +1,15 @@
+{% extends "index.template.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block publishedTime %}{{ publishTime }}{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block share %}{% endblock %}
+
+{% block main %}{{ post }}{% endblock %}
+
+{% block footer %}
+  This post is a news entry for the <a href="..">Primer on Bézier Curves</a>
+{% endblock%}

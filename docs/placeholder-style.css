@@ -4,27 +4,25 @@
 }
 
 :root[lang="ja-JP"] {
-  font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Osaka",
-    "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", "MS PGothic", "Helvetica Neue",
+  font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Osaka", "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", "MS PGothic", "Helvetica Neue",
     "Helvetica", Arial, sans-serif;
   font-size: 16px;
 }
 
 :root[lang="zh-CN"] {
-  font-family: "华文细黑", "STXihei", "PingFang TC", "微软雅黑体",
-    "Microsoft YaHei New", "微软雅黑", "Microsoft Yahei", "宋体", "SimSun",
+  font-family: "华文细黑", "STXihei", "PingFang TC", "微软雅黑体", "Microsoft YaHei New", "微软雅黑", "Microsoft Yahei", "宋体", "SimSun",
     "Helvetica Neue", "Helvetica", Arial, sans-serif;
   font-size: 17.2px;
 }
 
 :root {
-  background: #EEE;
+  background: #eee;
   background-image: url(images/paper.png);
   padding: 0;
   margin: 0;
 
   --note-block-color: rgb(255, 255, 246);
-  --code-block-color: rgba(0,0,0,0.03);
+  --code-block-color: rgba(0, 0, 0, 0.03);
   --heading-color: #cfe6ff;
   --heading-text: #333;
 }
@@ -32,7 +30,7 @@
 body {
   margin: 0 auto;
   width: auto;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0 0 24px 16px white;
   color: black;
 
@@ -41,19 +39,26 @@ body {
 }
 
 @media screen and (min-width: 576px) {
-  body { width: 540px; }
+  body {
+    width: 540px;
+  }
 }
 @media screen and (min-width: 768px) {
   body {
     --body-padding: 1em;
-    width: 720px; padding: 1em;
+    width: 720px;
+    padding: 1em;
   }
 }
 @media screen and (min-width: 992px) {
-  body { width: 960px }
+  body {
+    width: 960px;
+  }
 }
 @media screen and (min-width: 1200px) {
-  body { width: 1140px }
+  body {
+    width: 1140px;
+  }
 }
 
 /*
@@ -135,7 +140,7 @@ div.print {
 div.howtocode {
   position: relative;
   border: 1px solid black;
-  background: #FCFCFD;
+  background: #fcfcfd;
   margin: 1em;
   padding: 1em 1em 0 1em;
 }
@@ -200,7 +205,9 @@ pre img.LaTeX.SVG {
 }
 
 @media screen and (min-width: 768px) {
-  img.LaTeX.SVG { margin-left: 1em; }
+  img.LaTeX.SVG {
+    margin-left: 1em;
+  }
 }
 
 pre {
@@ -212,22 +219,24 @@ pre {
 }
 
 @media screen and (min-width: 768px) {
-  pre { margin-left: 1em; }
+  pre {
+    margin-left: 1em;
+  }
 }
-
 
 code {
   font-family: Courier;
 }
 
-li code, p code {
+li code,
+p code {
   display: inline-block;
-  border: 1px solid #DDD;
+  border: 1px solid #ddd;
   border-radius: 5px;
   padding: 0 5px;
-  background: #EEE;
+  background: #eee;
   font-weight: bold;
-  vertical-align: 1px
+  vertical-align: 1px;
 }
 
 table.slider-wrapper {
@@ -286,7 +295,9 @@ div.scl img[usemap] {
   cursor: pointer;
 }
 
-div.dev, div.scl, div.github {
+div.dev,
+div.scl,
+div.github {
   z-index: 10;
 }
 
@@ -313,7 +324,7 @@ div.scl {
 @media screen and (min-width: 768px) {
   div.scl {
     display: block;
-    position:fixed;
+    position: fixed;
     top: 0.25em;
     left: 0.25em;
   }
@@ -330,18 +341,30 @@ div.github {
   transform: scale(var(--scale));
 }
 @media screen and (min-width: 992px) {
-  div.github { --scale: 0.4; }
+  div.github {
+    --scale: 0.4;
+  }
 }
 @media screen and (min-width: 1200px) {
-  div.github { --scale: 0.5; }
+  div.github {
+    --scale: 0.5;
+  }
 }
 @media screen and (min-width: 1470px) {
-  div.github { --scale: 0.75; }
+  div.github {
+    --scale: 0.75;
+  }
 }
 @media screen and (min-width: 1600px) {
-  div.github { --scale: 0.9; }
+  div.github {
+    --scale: 0.9;
+  }
 }
 
 div.github img area {
   cursor: pointer;
+}
+
+h5.post-date {
+  text-align: right;
 }
