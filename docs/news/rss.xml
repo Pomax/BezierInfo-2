@@ -16,7 +16,7 @@
   
   <item>
     <title>Rewriting the tech stack</title>
-    <link>https://pomax.github.io/bezierinfo/news/2020-08-28.html</link>
+    <link>https://pomax.github.io/bezierinfo/news/2020-09-20.html</link>
     <description>
 &lt;p&gt;Once upon a time, I needed to draw some Bezier curves because I was trying to create a Japanese kanji composition system that turned strokes into outlines, and that required knowing how to offset Bezier curves and... at the time (2011, time flies) there was no good single source of information for Bezier curves on the web. So I made one. Sure it started small, but it turns out that if you just keep adding bits to something, several years later you have quite the monster, and a single HTML file becomes intractible.&lt;/p&gt;
 &lt;p&gt;So, in 2016, when &lt;a href=&quot;&quot;&gt;React.js&lt;/a&gt; exploded onto the scene, I rewrote the primer as a React app, and it became a lot easier to maintain. Like, &lt;em&gt;a lot&lt;/em&gt; a lot. However, there was a downside: no JS meant no content. Sure, server-side rendering sort of existed, but not really, and because the Primer is hosted through github, there was no &quot;server&quot; to run. Plus, trying to rehydrate an app the size of the Primer from a giant HTML file had truly &lt;em&gt;dire&lt;/em&gt; performance.&lt;/p&gt;
@@ -30,6 +30,7 @@
 &lt;li&gt;A custom &lt;code&gt;&amp;lt;graphics-element&amp;gt;&lt;/code&gt; element that turns a &lt;code&gt;src=&quot;blah.js&quot;&lt;/code&gt; into an interactive canvas graphic...&lt;/li&gt;
 &lt;li&gt;...with that same source code being read in and run by Node.js &lt;em&gt;on a canvas&lt;/em&gt; to generate fallback images.&lt;/li&gt;
 &lt;li&gt;Real LaTeX code, that gets compiled into optimized SVG using &lt;code&gt;xelatex&lt;/code&gt;, &lt;code&gt;pdfcrop&lt;/code&gt;, &lt;code&gt;pdf2svg&lt;/code&gt;, and &lt;code&gt;svgo&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&quot;Lazy loaded everything&quot;, so that you get what you need, only when or even just before you need it.&lt;/li&gt;
 &lt;li&gt;Localized content based on a simple filenaming scheme.&lt;/li&gt;
 &lt;li&gt;Nicely formatted HTML, CSS, and JS thanks to &lt;code&gt;prettier&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Responsive CSS, so the content intelligently reflows where possible.&lt;/li&gt;
@@ -42,8 +43,8 @@
 &lt;p&gt;See you in the next post!&lt;/p&gt;
 &lt;p&gt;— Pomax&lt;/p&gt;
 </description>
-    <pubDate>2020-08-28</pubDate>
-    <guid>2020-08-28.html</guid>
+    <pubDate>2020-09-20</pubDate>
+    <guid>2020-09-20.html</guid>
   </item>
   
 
