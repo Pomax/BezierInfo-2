@@ -73,7 +73,7 @@ const CHANGELOG = Object.fromEntries(
     ],
 
     "October 2011": [
-      `First commit for the [bezierinfo](https://pomax.github.io/bezierinfo) site, based on the pre-Primer webpage that covered the basics of Bezier curves in HTML with Processing.js examples.`,
+      `First commit for the [bezierinfo](https://pomax.github.io/bezierinfo/) site, based on the pre-Primer webpage that covered the basics of Bezier curves in HTML with Processing.js examples.`,
     ],
   }).map((p) => [p[0], p[1].map((v) => marked(v))])
 );

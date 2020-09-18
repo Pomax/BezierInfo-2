@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>A Primer on Bézier Curves</title>
+  <link>https://pomax.github.io/bezierinfo</link>
+  <atom:link href="https://pomax.github.io/bezierinfo" rel="self"></atom:link>
+  <description>News updates for the <a href="https://pomax.github.io/bezierinfo">primer on Bézier Curves</a> by Pomax</description>
+  <language>en-GB</language>
+  <lastBuildDate>undefinedT12:00:00+00:00</lastBuildDate>
+  <image>
+    <url>https://pomax.github.io/bezierinfo/iamges/og-image.png</url>
+    <title>A Primer on Bézier Curves</title>
+    <link>https://pomax.github.io/bezierinfo</link>
+  </image>
+
+  
+  <item>
+    <title>Rewriting the tech stack</title>
+    <link>https://pomax.github.io/bezierinfo/news/2020-08-28.html</link>
+    <description>
+&lt;p&gt;Once upon a time, I needed to draw some Bezier curves because I was trying to create a Japanese kanji composition system that turned strokes into outlines, and that required knowing how to offset Bezier curves and... at the time (2011, time flies) there was no good single source of information for Bezier curves on the web. So I made one. Sure it started small, but it turns out that if you just keep adding bits to something, several years later you have quite the monster, and a single HTML file becomes intractible.&lt;/p&gt;
+&lt;p&gt;So, in 2016, when &lt;a href=&quot;&quot;&gt;React.js&lt;/a&gt; exploded onto the scene, I rewrote the primer as a React app, and it became a lot easier to maintain. Like, &lt;em&gt;a lot&lt;/em&gt; a lot. However, there was a downside: no JS meant no content. Sure, server-side rendering sort of existed, but not really, and because the Primer is hosted through github, there was no &quot;server&quot; to run. Plus, trying to rehydrate an app the size of the Primer from a giant HTML file had truly &lt;em&gt;dire&lt;/em&gt; performance.&lt;/p&gt;
+&lt;p&gt;So I left it a regular React app, and every time I thought &quot;wouldn&#39;t it be nice if it was just... a web page again?&quot; the browser landscape just hadn&#39;t caught up. Finally, in 2020, things are different: with a global pandemic, and some vacation time, and something random causing me to look up the state of HTML custom elements, everything was pointing at it being time to finally, &lt;em&gt;finally&lt;/em&gt;, turn the Primer back into a normal web page.&lt;/p&gt;
+&lt;p&gt;The new tech stack is, frankly, pretty amazing. It does some thing that weren&#39;t possible even a year ago, let alone back in 2016, and this is the first in a series of posts on how the new tech stack works. To give a bit of a teaser, the series will cover:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Essentially reinventing (a limited form of) Processing.js&lt;/li&gt;
+&lt;li&gt;Writing a custom build system, because I&#39;m exhausted with Webpack and hope to never use it again.&lt;/li&gt;
+&lt;li&gt;Using modern ES module code that runs in both the browser and Node.js.&lt;/li&gt;
+&lt;li&gt;Chapter content written as easy to read and write markdown format.&lt;/li&gt;
+&lt;li&gt;A custom &lt;code&gt;&amp;lt;graphics-element&amp;gt;&lt;/code&gt; element that turns a &lt;code&gt;src=&quot;blah.js&quot;&lt;/code&gt; into an interactive canvas graphic...&lt;/li&gt;
+&lt;li&gt;...with that same source code being read in and run by Node.js &lt;em&gt;on a canvas&lt;/em&gt; to generate fallback images.&lt;/li&gt;
+&lt;li&gt;Real LaTeX code, that gets compiled into optimized SVG using &lt;code&gt;xelatex&lt;/code&gt;, &lt;code&gt;pdfcrop&lt;/code&gt;, &lt;code&gt;pdf2svg&lt;/code&gt;, and &lt;code&gt;svgo&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Localized content based on a simple filenaming scheme.&lt;/li&gt;
+&lt;li&gt;Nicely formatted HTML, CSS, and JS thanks to &lt;code&gt;prettier&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Responsive CSS, so the content intelligently reflows where possible.&lt;/li&gt;
+&lt;li&gt;A &quot;Live build&quot; setup for working on the content and code.&lt;/li&gt;
+&lt;li&gt;Automatic link-checking to make sure none of the links in the Primer lead you to a 404.&lt;/li&gt;
+&lt;li&gt;This &quot;news&quot; section, so that I can write posts to go along with new sections getting added, or notable changes being made.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It&#39;s going to take me a while to detail the entire tech stack, but ultimately what matters is that you get a Primer that is a normal &quot;vanilla&quot; HTML, CSS, and JS page again, that &quot;just works&quot; even with JS disabled.&lt;/p&gt;
+&lt;p&gt;Enjoy &lt;a href=&quot;https://pomax.github.io/bezierinfo&quot;&gt;The new Primer on Bézier Curves&lt;/a&gt;, and if you find any problems, &lt;a href=&quot;https://github.com/Pomax/BezierInfo-2/issues&quot;&gt;you know where to go&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;See you in the next post!&lt;/p&gt;
+&lt;p&gt;— Pomax&lt;/p&gt;
+</description>
+    <pubDate>2020-08-28</pubDate>
+    <guid>2020-08-28.html</guid>
+  </item>
+  
+
+</channel>
+</rss>

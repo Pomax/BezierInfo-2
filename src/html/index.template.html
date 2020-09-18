@@ -3,11 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <title>{% block title %}{{ title }}{% endblock %}</title>
-    <link rel="icon" href="images/favicon.png" type="image/png" />
-
     {{ base }}
+
+    <link rel="icon" href="images/favicon.png" type="image/png" />
+    {% block alternate %}
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="news/rss.xml">
+    {% endblock %}
 
     <!-- page styling -->
     <link rel="preload" href="images/paper.png" as="image" />

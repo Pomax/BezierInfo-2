@@ -17,7 +17,7 @@ Use the latest Node v14, with all dependencies installed via `npm install`. Note
 
 #### Specialised commands:
 
-- `polish` runs `prettier` on the final .html files, as well as `link-checker` to make sure there are no dead links in the content.
+- `regenerate` runs a build followed by running `prettier` on the final .html files, as well as `link-checker` to make sure there are no dead links in the content.
 
 #### Even more specialized commands:
 

@@ -1,14 +1,34 @@
 {% extends "index.template.html" %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}A Primer on Bézier Curves - News{% endblock %}
 
 {% block publishedTime %}{{ publishTime }}{% endblock %}
 
-{% block header %}{% endblock %}
+{% block header %}
+  <h1>News posts</h1>
+{% endblock %}
 
 {% block share %}{% endblock %}
 
-{% block main %}{{ post }}{% endblock %}
+{% block main %}
+<p>
+  Every now and then the Primer gets updated - these posts chronicle the evolution of the site,
+  and hopefully offer interesting information not just about the process of maintaining a resource
+  like this, but also neat tech tricks, implementation approaches, maths that didn't make it into
+  the primer itself, etc.
+</p>
+
+<p>
+  This section is still very new, so for the moment there aren't all that many posts up yet, but
+  there's a series of posts planned already, and if you're the kind of person who likes to keep
+  tabs on updates by using RSS: good news, <a href="news/news.rss">have an RSS link!</a>.
+</p>
+
+<ul>
+  {% for data in details %}<li><a href="news/{{ data.filename }}">{{ data.title }}</a> ({{data.dateString }}) </li>
+{% endfor%}
+</ul>
+{% endblock %}
 
 {% block footer %}
   This post is a news entry for the <a href="..">Primer on Bézier Curves</a>
