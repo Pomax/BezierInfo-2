@@ -14,12 +14,13 @@
     "url": "https://github.com/Pomax/BezierInfo-2/issues"
   },
   "scripts": {
-    "start": "run-s clean time lint:* build time clean",
+    "start": "run-s clean:* time lint:* build time clean:temp",
     "test": "run-s start && run-p watch server browser",
     "------": "--- note that due to github's naming policy, the public dir is called 'docs' rather than 'public' ---",
     "browser": "open-cli http://localhost:8000",
     "build": "node ./src/build.js",
-    "clean": "rm -f .timing && rm -rf ./temp && rm -f ./docs/news/*.html",
+    "clean:temp": "rm -f .timing && rm -rf ./temp",
+    "clean:news": "rm -f ./docs/news/*.html",
     "polish": "run-s pretty link-checker",
     "regenerate": "run-s start polish",
     "lint:tools": "prettier \"./src/**/*.js\" --print-width 150 --write",
