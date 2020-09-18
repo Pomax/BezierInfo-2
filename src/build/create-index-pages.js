@@ -37,9 +37,7 @@ async function createIndexPages(locale, localeStrings, chapters) {
     currentTime: new Date().toISOString().substring(0, 19) + "+00:00",
   };
 
-  localeStrings.extendContext(renderContext, {
-    relurl: base === `` ? `` : `../`,
-  });
+  localeStrings.extendContext(renderContext);
 
   const index = nunjucks.render(`index.template.html`, renderContext);
   const writeDir = locale === defaultLocale ? paths.public : path.join(paths.public, locale);

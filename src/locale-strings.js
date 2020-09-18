@@ -58,7 +58,7 @@ const localeStringData = {
     "en-GB": `What's new`,
   },
   changelogDescription: {
-    "en-GB": `This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when, or click through to the <a href="{{ relurl }}news">News posts</a> for more detailed updates. (<a href="{{ relurl }}news/rss.xml">RSS feed</a> available)`,
+    "en-GB": `This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when, or click through to the <a href="./news">News posts</a> for more detailed updates. (<a href="./news/rss.xml">RSS feed</a> available)`,
   },
 };
 
