@@ -17,7 +17,7 @@ async function createIndexPages(locale, localeStrings, chapters) {
   const langSwitcher = generateLangSwitcher(localeStrings);
   const toclist = {};
 
-  const localePrefix = base ? `${locale}/` : ``;
+  const localePrefix = base ? `${locale}/index.html` : ``;
   const preface = `<section id="preface">${chapters[sectionOrder[0]]}</section>`;
   const sections = formSectionData(chapters, sectionOrder, toclist, locale, base);
   const sectionText = finaliseSections(sections);
