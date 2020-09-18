@@ -2,11 +2,9 @@
 
 This is the development repository for ["A Primer on Bézier Curves"](https://pomax.github.io.bezierinfo), itself hosted as https://pomax.github.io/BezierInfo-2/
 
-The primer is currently being rewritten from a React application to a pure HTML/CSS/Vanilla-JS tech stack.
+This is the new codebased for the primer, being a pure HTML/CSS/Vanilla-JS tech stack - the old version can be found on the [2016-react](https://github.com/Pomax/BezierInfo-2/tree/2016-react) branch
 
-React is nice, Webpack is convenient, but there's just very little need to serve the Primer as "a React app". Simply convert the various parts to HTML directly, and then assemble it as "a page" that _just works_, rather than as "an application" that won't even show content without JS enabled.
-
-See https://github.com/Pomax/BezierInfo-2/issues/257 for the current rewrite status
+Work is still underway on this new version, see https://github.com/Pomax/BezierInfo-2/issues/257 for the current task list.
 
 ## Building everything
 
