@@ -32,7 +32,7 @@
 		<meta property="og:locale" content="zh-CN" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2020-09-18T18:37:03+00:00" />
+		<meta property="og:updated_time" content="2020-09-18T18:56:08+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -153,6 +153,12 @@
 
 			<nav aria-labelledby="toc">
 				<h1 id="toc">目录</h1>
+				<h4>Preamble</h4>
+				<ol class="preamble">
+					<li><a href="#preface">序言 </a></li>
+					<li><a href="#changelog">What's new</a></li>
+				</ol>
+				<h4>Main content</h4>
 				<ol>
 					<li><a href="zh-CN/index.html#introduction">简单介绍</a></li>
 					<li><a href="zh-CN/index.html#whatis">什么构成了贝塞尔曲线？</a></li>
@@ -263,7 +269,11 @@
 				<h1>What's new?</h1>
 				<p>
 					This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand
-					this section to have a look at what got added, when.
+					this section to have a look at what got added, when, or click through to the <a href="news">News posts</a> for more detailed updates. (<a
+						href="news/rss.xml"
+						>RSS feed</a
+					>
+					available)
 				</p>
 				<!-- non-JS content reveals are nice -->
 				<label for="changelogtoggle">Toggle changes</label>
@@ -412,14 +422,14 @@
 						<graphics-element title="二次贝塞尔曲线" width="275" height="275" src="./chapters/introduction/quadratic.js">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\introduction\54e9ec0600ac436b0e6f0c6b5005cf03.png" />
+								<img width="275px" height="275px" src="images\chapters\introduction\54e9ec0600ac436b0e6f0c6b5005cf03.png" loading="lazy" />
 								<label>二次贝塞尔曲线</label>
 							</fallback-image></graphics-element
 						>
 						<graphics-element title="三次贝塞尔曲线" width="275" height="275" src="./chapters/introduction/cubic.js">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\introduction\8d158a13e9a86969b99c64057644cbc6.png" />
+								<img width="275px" height="275px" src="images\chapters\introduction\8d158a13e9a86969b99c64057644cbc6.png" loading="lazy" />
 								<label>三次贝塞尔曲线</label>
 							</fallback-image></graphics-element
 						>
@@ -450,7 +460,7 @@
 						<graphics-element title="Linear Interpolation leading to Bézier curves" width="825" height="275" src="./chapters/whatis/interpolation.js">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="825px" height="275px" src="images\chapters\whatis\524dd296e96c0fe2281fb95146f8ea65.png" />
+								<img width="825px" height="275px" src="images\chapters\whatis\524dd296e96c0fe2281fb95146f8ea65.png" loading="lazy" />
 								<label></label>
 							</fallback-image>
 							<input type="range" min="10" max="90" step="1" value="25" class="slide-control" />
@@ -497,7 +507,7 @@
 					<graphics-element title="(一部分的)圆: x=sin(t), y=cos(t)" width="275" height="275" src="./chapters/explanation/circle.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\explanation\6d2f915735ebdc05e42c0ea7adc85343.png" />
+							<img width="275px" height="275px" src="images\chapters\explanation\6d2f915735ebdc05e42c0ea7adc85343.png" loading="lazy" />
 							<label>(一部分的)圆: x=sin(t), y=cos(t)</label>
 						</fallback-image>
 						<input type="range" min="0" max="10" step="0.1" value="5" class="slide-control" />
@@ -633,7 +643,7 @@ function Bezier(3,t):
 						<graphics-element title="二次插值" width="275" height="275" src="./chapters/control/lerp.js" data-degree="3">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\control\2a0635829051977b265b64ef204f718e.png" />
+								<img width="275px" height="275px" src="images\chapters\control\2a0635829051977b265b64ef204f718e.png" loading="lazy" />
 								<label>二次插值</label>
 							</fallback-image>
 							<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
@@ -642,7 +652,7 @@ function Bezier(3,t):
 						<graphics-element title="三次插值" width="275" height="275" src="./chapters/control/lerp.js" data-degree="4">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\control\fca18b2602929f80e68d8964832f0f44.png" />
+								<img width="275px" height="275px" src="images\chapters\control\fca18b2602929f80e68d8964832f0f44.png" loading="lazy" />
 								<label>三次插值</label>
 							</fallback-image>
 							<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
@@ -651,7 +661,7 @@ function Bezier(3,t):
 						<graphics-element title="15次插值" width="275" height="275" src="./chapters/control/lerp.js" data-degree="15">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\control\989f4ca49d7099802cc0345dbeddca8c.png" />
+								<img width="275px" height="275px" src="images\chapters\control\989f4ca49d7099802cc0345dbeddca8c.png" loading="lazy" />
 								<label>15次插值</label>
 							</fallback-image>
 							<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
@@ -746,7 +756,7 @@ function Bezier(3,t,w[]):
 					<graphics-element title="Our rational cubic Bézier curve" width="275" height="275" src="./chapters/weightcontrol/rational.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\weightcontrol\be18e8119472af796329f3e2159bdf94.png" />
+							<img width="275px" height="275px" src="images\chapters\weightcontrol\be18e8119472af796329f3e2159bdf94.png" loading="lazy" />
 							<label>Our rational cubic Bézier curve</label>
 						</fallback-image>
 						<input type="range" min="0.01" max="2" value="1" step="0.01" class="ratio-1" />
@@ -823,14 +833,14 @@ function RationalBezier(3,t,w[],r[]):
 						<graphics-element title="二次无限区间贝塞尔曲线" width="275" height="275" src="./chapters/extended/extended.js" data-type="quadratic">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\extended\391a61142c56b79260680aefb08cd9c4.png" />
+								<img width="275px" height="275px" src="images\chapters\extended\391a61142c56b79260680aefb08cd9c4.png" loading="lazy" />
 								<label>二次无限区间贝塞尔曲线</label>
 							</fallback-image></graphics-element
 						>
 						<graphics-element title="三次无限区间贝塞尔曲线" width="275" height="275" src="./chapters/extended/extended.js" data-type="cubic">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\extended\baeceec6e1587794b8b275a90d5d85e9.png" />
+								<img width="275px" height="275px" src="images\chapters\extended\baeceec6e1587794b8b275a90d5d85e9.png" loading="lazy" />
 								<label>三次无限区间贝塞尔曲线</label>
 							</fallback-image></graphics-element
 						>
@@ -913,7 +923,7 @@ function RationalBezier(3,t,w[],r[]):
 					<graphics-element title="用de Casteljau算法来遍历曲线" width="275" height="275" src="./chapters/decasteljau/decasteljau.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\decasteljau\715d1d2eecc762d6bc1470954b145018.png" />
+							<img width="275px" height="275px" src="images\chapters\decasteljau\715d1d2eecc762d6bc1470954b145018.png" loading="lazy" />
 							<label>用de Casteljau算法来遍历曲线</label>
 						</fallback-image>
 						<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
@@ -962,7 +972,7 @@ function RationalBezier(3,t,w[],r[]):
 						<graphics-element title="拉平一条二次曲线" width="275" height="275" src="./chapters/flattening/flatten.js" data-type="quadratic">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\flattening\3deec756c96e53127cd1d615c61043ae.png" />
+								<img width="275px" height="275px" src="images\chapters\flattening\3deec756c96e53127cd1d615c61043ae.png" loading="lazy" />
 								<label>拉平一条二次曲线</label>
 							</fallback-image>
 							<input type="range" min="1" max="16" step="1" value="4" class="slide-control" />
@@ -971,7 +981,7 @@ function RationalBezier(3,t,w[],r[]):
 						<graphics-element title="拉平一条三次曲线" width="275" height="275" src="./chapters/flattening/flatten.js" data-type="cubic">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\flattening\e2bb7113d5cda2e3fd29bbc54fbe8841.png" />
+								<img width="275px" height="275px" src="images\chapters\flattening\e2bb7113d5cda2e3fd29bbc54fbe8841.png" loading="lazy" />
 								<label>拉平一条三次曲线</label>
 							</fallback-image>
 							<input type="range" min="1" max="24" step="1" value="8" class="slide-control" />
@@ -1015,7 +1025,7 @@ function RationalBezier(3,t,w[],r[]):
 					<graphics-element title="分割一条曲线" width="825" height="275" src="./chapters/splitting/splitting.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="825px" height="275px" src="images\chapters\splitting\891133c5f0e140b8c7e179af04e497e0.png" />
+							<img width="825px" height="275px" src="images\chapters\splitting\891133c5f0e140b8c7e179af04e497e0.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<input type="range" min="0" max="1" step="0.01" value="0.5" class="slide-control" />
@@ -1450,7 +1460,7 @@ function drawCurve(points[], t):
 					<graphics-element title="A variable-order Bézier curve" width="275" height="275" src="./chapters/reordering/reorder.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\reordering\71f47629388901b821976e034be159e4.png" />
+							<img width="275px" height="275px" src="images\chapters\reordering\71f47629388901b821976e034be159e4.png" loading="lazy" />
 							<label>A variable-order Bézier curve</label>
 						</fallback-image>
 						<button class="raise">raise</button>
@@ -1736,7 +1746,7 @@ function drawCurve(points[], t):
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\pointvectors\f4d72cc162d4cbcc6d6a459fced01cfb.png" />
+								<img width="275px" height="275px" src="images\chapters\pointvectors\f4d72cc162d4cbcc6d6a459fced01cfb.png" loading="lazy" />
 								<label>Quadratic Bézier tangents and normals</label>
 							</fallback-image></graphics-element
 						>
@@ -1749,7 +1759,7 @@ function drawCurve(points[], t):
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\pointvectors\2724b6c42f36b4dbea6962cac844d2c3.png" />
+								<img width="275px" height="275px" src="images\chapters\pointvectors\2724b6c42f36b4dbea6962cac844d2c3.png" loading="lazy" />
 								<label>Cubic Bézier tangents and normals</label>
 							</fallback-image></graphics-element
 						>
@@ -1823,7 +1833,7 @@ function drawCurve(points[], t):
 					<graphics-element title="Some known and unknown vectors" width="350" height="300" src="./chapters/pointvectors3d/frenet.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="350px" height="300px" src="images\chapters\pointvectors3d\59b6ce3fcbf79da171d86e962597097e.png" />
+							<img width="350px" height="300px" src="images\chapters\pointvectors3d\59b6ce3fcbf79da171d86e962597097e.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
@@ -1935,7 +1945,7 @@ function drawCurve(points[], t):
 					<graphics-element title="Some known and unknown vectors" width="350" height="300" src="./chapters/pointvectors3d/rotation-minimizing.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="350px" height="300px" src="images\chapters\pointvectors3d\9983328e50c2156c124bb1ea4ad5c05b.png" />
+							<img width="350px" height="300px" src="images\chapters\pointvectors3d\9983328e50c2156c124bb1ea4ad5c05b.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
@@ -1984,7 +1994,7 @@ function drawCurve(points[], t):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="825px" height="275px" src="images\chapters\components\008604bc4c53bd7e0d97c99a67812ad1.png" />
+							<img width="825px" height="275px" src="images\chapters\components\008604bc4c53bd7e0d97c99a67812ad1.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 
@@ -1997,7 +2007,7 @@ function drawCurve(points[], t):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="825px" height="275px" src="images\chapters\components\5214256129e6396e7ac1f1713fa9c88d.png" />
+							<img width="825px" height="275px" src="images\chapters\components\5214256129e6396e7ac1f1713fa9c88d.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
@@ -2297,7 +2307,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="825px" height="275px" src="images\chapters\extremities\9850eec01924deae7fda4400ce44270d.png" />
+							<img width="825px" height="275px" src="images\chapters\extremities\9850eec01924deae7fda4400ce44270d.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 
@@ -2311,7 +2321,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="825px" height="275px" src="images\chapters\extremities\890406c7bc96904224f8f14940bf3e56.png" />
+							<img width="825px" height="275px" src="images\chapters\extremities\890406c7bc96904224f8f14940bf3e56.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
@@ -2348,14 +2358,14 @@ function getCubicRoots(pa, pb, pc, pd) {
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\boundingbox\e2c621442e98e2cd20af7efe1cfb041f.png" />
+								<img width="275px" height="275px" src="images\chapters\boundingbox\e2c621442e98e2cd20af7efe1cfb041f.png" loading="lazy" />
 								<label>Quadratic Bézier bounding box</label>
 							</fallback-image></graphics-element
 						>
 						<graphics-element title="Cubic Bézier bounding box" width="275" height="275" src="./chapters/boundingbox/bbox.js" data-type="cubic">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\boundingbox\f8989a62ebec9d6f123291c146caab5b.png" />
+								<img width="275px" height="275px" src="images\chapters\boundingbox\f8989a62ebec9d6f123291c146caab5b.png" loading="lazy" />
 								<label>Cubic Bézier bounding box</label>
 							</fallback-image></graphics-element
 						>
@@ -2404,13 +2414,13 @@ function getCubicRoots(pa, pb, pc, pd) {
 						<graphics-element title="Aligning a quadratic curve" width="550" height="275" src="./chapters/aligning/aligning.js" data-type="quadratic">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="550px" height="275px" src="images\chapters\aligning\b3ccd45a72c815388aee6515fe37a486.png" />
+								<img width="550px" height="275px" src="images\chapters\aligning\b3ccd45a72c815388aee6515fe37a486.png" loading="lazy" />
 								<label></label> </fallback-image
 						></graphics-element>
 						<graphics-element title="Aligning a cubic curve" width="550" height="275" src="./chapters/aligning/aligning.js" data-type="cubic">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="550px" height="275px" src="images\chapters\aligning\31655f24b7dd8b8871687b6610d9ac0e.png" />
+								<img width="550px" height="275px" src="images\chapters\aligning\31655f24b7dd8b8871687b6610d9ac0e.png" loading="lazy" />
 								<label></label> </fallback-image
 						></graphics-element>
 					</div>
@@ -2436,14 +2446,14 @@ function getCubicRoots(pa, pb, pc, pd) {
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\tightbounds\ccc77ae1f57d7dd7ce4d5397fe1b140b.png" />
+								<img width="275px" height="275px" src="images\chapters\tightbounds\ccc77ae1f57d7dd7ce4d5397fe1b140b.png" loading="lazy" />
 								<label>Aligning a quadratic curve</label>
 							</fallback-image></graphics-element
 						>
 						<graphics-element title="Aligning a cubic curve" width="275" height="275" src="./chapters/tightbounds/tightbounds.js" data-type="cubic">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\tightbounds\419415bee6ffd7598c035c42de09a94f.png" />
+								<img width="275px" height="275px" src="images\chapters\tightbounds\419415bee6ffd7598c035c42de09a94f.png" loading="lazy" />
 								<label>Aligning a cubic curve</label>
 							</fallback-image></graphics-element
 						>
@@ -2577,7 +2587,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 					<graphics-element title="Finding cubic Bézier curve inflections" width="275" height="275" src="./chapters/inflections/inflection.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\inflections\9e1ce3975100600d4979370851929b73.png" />
+							<img width="275px" height="275px" src="images\chapters\inflections\9e1ce3975100600d4979370851929b73.png" loading="lazy" />
 							<label>Finding cubic Bézier curve inflections</label>
 						</fallback-image></graphics-element
 					>
@@ -2611,7 +2621,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 					<graphics-element title="The canonical curve map" width="400" height="400" src="./chapters/canonical/canonical.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="400px" height="400px" src="images\chapters\canonical\c086e72bd8aaeab37436515ab251b2df.png" />
+							<img width="400px" height="400px" src="images\chapters\canonical\c086e72bd8aaeab37436515ab251b2df.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 
@@ -2803,7 +2813,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 					<graphics-element title="A cubic curve mapped to canonical form" width="800" height="400" src="./chapters/canonical/interactive.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="800px" height="400px" src="images\chapters\canonical\83fe2473e20ea68b768765129ee44ae4.png" />
+							<img width="800px" height="400px" src="images\chapters\canonical\83fe2473e20ea68b768765129ee44ae4.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
@@ -2834,7 +2844,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="550px" height="275px" src="images\chapters\yforx\dd28d64458d22f4fe89c98568258efcb.png" />
+							<img width="550px" height="275px" src="images\chapters\yforx\dd28d64458d22f4fe89c98568258efcb.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<input type="range" min="0" max="1" step="0.01" class="slide-control" />
@@ -2881,7 +2891,7 @@ y = curve.get(t).y</code></pre>
 					<graphics-element title="Finding By(t), by finding t for a given x" width="275" height="275" src="./chapters/yforx/yforx.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\yforx\efcfe9b48ca4e65eef3d4bf3e4c97bc3.png" />
+							<img width="275px" height="275px" src="images\chapters\yforx\efcfe9b48ca4e65eef3d4bf3e4c97bc3.png" loading="lazy" />
 							<label>Finding By(t), by finding t for a given x</label>
 						</fallback-image>
 						<input type="range" min="0" max="1" step="0.01" class="slide-control" />
@@ -2943,21 +2953,21 @@ y = curve.get(t).y</code></pre>
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\arclength\dc74a2f2da19470b8d721ece5f3ce268.png" />
+								<img width="275px" height="275px" src="images\chapters\arclength\dc74a2f2da19470b8d721ece5f3ce268.png" loading="lazy" />
 								<label>A function's approximated integral</label>
 							</fallback-image></graphics-element
 						>
 						<graphics-element title="A better approximation" width="275" height="275" src="./chapters/arclength/draw-slices.js" data-steps="24">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\arclength\4bffba7dda2a3556cf5b2ae7392083c6.png" />
+								<img width="275px" height="275px" src="images\chapters\arclength\4bffba7dda2a3556cf5b2ae7392083c6.png" loading="lazy" />
 								<label>A better approximation</label>
 							</fallback-image></graphics-element
 						>
 						<graphics-element title="An even better approximation" width="275" height="275" src="./chapters/arclength/draw-slices.js" data-steps="99">
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\arclength\4b5d220d02b08f6c9aa19389255ef8bb.png" />
+								<img width="275px" height="275px" src="images\chapters\arclength\4b5d220d02b08f6c9aa19389255ef8bb.png" loading="lazy" />
 								<label>An even better approximation</label>
 							</fallback-image></graphics-element
 						>
@@ -3031,7 +3041,7 @@ y = curve.get(t).y</code></pre>
 					<graphics-element title="Arc length for a Bézier curve" width="275" height="275" src="./chapters/arclength/arclength.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\arclength\195f9a3c60f8dfe977c6450d21968f69.png" />
+							<img width="275px" height="275px" src="images\chapters\arclength\195f9a3c60f8dfe977c6450d21968f69.png" loading="lazy" />
 							<label>Arc length for a Bézier curve</label>
 						</fallback-image></graphics-element
 					>
@@ -3060,7 +3070,7 @@ y = curve.get(t).y</code></pre>
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\arclengthapprox\a040f6b7c7c33ada25ecfd1060726545.png" />
+								<img width="275px" height="275px" src="images\chapters\arclengthapprox\a040f6b7c7c33ada25ecfd1060726545.png" loading="lazy" />
 								<label>Approximate quadratic curve arc length</label>
 							</fallback-image>
 							<input type="range" min="2" max="24" step="1" value="4" class="slide-control" />
@@ -3075,7 +3085,7 @@ y = curve.get(t).y</code></pre>
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\arclengthapprox\c270144cc41e4ebc4b0b2331473530fa.png" />
+								<img width="275px" height="275px" src="images\chapters\arclengthapprox\c270144cc41e4ebc4b0b2331473530fa.png" loading="lazy" />
 								<label>Approximate cubic curve arc length</label>
 							</fallback-image>
 							<input type="range" min="2" max="32" step="1" value="8" class="slide-control" />
@@ -3190,7 +3200,7 @@ y = curve.get(t).y</code></pre>
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="825px" height="275px" src="images\chapters\curvature\5fcfb0572cae06717506c84768aa568c.png" />
+							<img width="825px" height="275px" src="images\chapters\curvature\5fcfb0572cae06717506c84768aa568c.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 
@@ -3214,7 +3224,7 @@ y = curve.get(t).y</code></pre>
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="825px" height="275px" src="images\chapters\curvature\876d7b2750d7c29068ac6181c3634d25.png" />
+							<img width="825px" height="275px" src="images\chapters\curvature\876d7b2750d7c29068ac6181c3634d25.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<input type="range" min="0" max="2" step="0.0005" value="0" class="slide-control" />
@@ -3246,7 +3256,7 @@ y = curve.get(t).y</code></pre>
 					<graphics-element title="The t-for-distance function" width="550" height="275" src="./chapters/tracing/distance-function.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="550px" height="275px" src="images\chapters\tracing\52f815cefe99dabc47ca83d0b97b61fc.png" />
+							<img width="550px" height="275px" src="images\chapters\tracing\52f815cefe99dabc47ca83d0b97b61fc.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 
@@ -3265,7 +3275,7 @@ y = curve.get(t).y</code></pre>
 					<graphics-element title="Fixed-interval coloring a curve" width="825" height="275" src="./chapters/tracing/tracing.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="825px" height="275px" src="images\chapters\tracing\09cfa54ec3709d54efdce78832e42367.png" />
+							<img width="825px" height="275px" src="images\chapters\tracing\09cfa54ec3709d54efdce78832e42367.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<input type="range" min="2" max="24" step="1" value="8" class="slide-control" />
@@ -3315,7 +3325,7 @@ y = curve.get(t).y</code></pre>
 					<graphics-element title="Line/line intersections" width="275" height="275" src="./chapters/intersections/line-line.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\intersections\cab1799841eedd1dcd1cd81b6045f40f.png" />
+							<img width="275px" height="275px" src="images\chapters\intersections\cab1799841eedd1dcd1cd81b6045f40f.png" loading="lazy" />
 							<label>Line/line intersections</label>
 						</fallback-image></graphics-element
 					>
@@ -3364,7 +3374,7 @@ lli = function(line1, line2):
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\intersections\7003a384ec371217af2b225ae65872e7.png" />
+								<img width="275px" height="275px" src="images\chapters\intersections\7003a384ec371217af2b225ae65872e7.png" loading="lazy" />
 								<label>Quadratic curve/line intersections</label>
 							</fallback-image></graphics-element
 						>
@@ -3377,7 +3387,7 @@ lli = function(line1, line2):
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\intersections\4a762fb56468c342c72756a76d134f05.png" />
+								<img width="275px" height="275px" src="images\chapters\intersections\4a762fb56468c342c72756a76d134f05.png" loading="lazy" />
 								<label>Cubic curve/line intersections</label>
 							</fallback-image></graphics-element
 						>
@@ -3445,7 +3455,7 @@ lli = function(line1, line2):
 					<graphics-element title="Curve/curve intersections" width="825" height="275" src="./chapters/curveintersection/curve-curve.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="825px" height="275px" src="images\chapters\curveintersection\e1f4f4dba7a338d342559bcfb0ea8e02.png" />
+							<img width="825px" height="275px" src="images\chapters\curveintersection\e1f4f4dba7a338d342559bcfb0ea8e02.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<button class="next">Advance one step</button>
@@ -3494,7 +3504,7 @@ lli = function(line1, line2):
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\abc\7a69dd4350ddda5701712e1d3b46b863.png" />
+								<img width="275px" height="275px" src="images\chapters\abc\7a69dd4350ddda5701712e1d3b46b863.png" loading="lazy" />
 								<label>Projections in a quadratic Bézier curve</label>
 							</fallback-image>
 							<input type="range" min="0" max="1" step="0.01" value="0.5" class="slide-control" />
@@ -3509,7 +3519,7 @@ lli = function(line1, line2):
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="images\chapters\abc\eeec7cf16fb22c666e0143a3a030731f.png" />
+								<img width="275px" height="275px" src="images\chapters\abc\eeec7cf16fb22c666e0143a3a030731f.png" loading="lazy" />
 								<label>Projections in a cubic Bézier curve</label>
 							</fallback-image>
 							<input type="range" min="0" max="1" step="0.01" value="0.5" class="slide-control" />
@@ -3621,7 +3631,7 @@ lli = function(line1, line2):
 					<graphics-element title="Fitting a quadratic Bézier curve" width="275" height="275" src="./chapters/pointcurves/quadratic.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\pointcurves\067a3df30e32708fc0d13f8eb78c0b05.png" />
+							<img width="275px" height="275px" src="images\chapters\pointcurves\067a3df30e32708fc0d13f8eb78c0b05.png" loading="lazy" />
 							<label>Fitting a quadratic Bézier curve</label>
 						</fallback-image></graphics-element
 					>
@@ -3641,7 +3651,7 @@ lli = function(line1, line2):
 					<graphics-element title="Finding a circle through three points" width="275" height="275" src="./chapters/pointcurves/circle.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\pointcurves\43875f6ad588bfd04cdb65b591a62052.png" />
+							<img width="275px" height="275px" src="images\chapters\pointcurves\43875f6ad588bfd04cdb65b591a62052.png" loading="lazy" />
 							<label>Finding a circle through three points</label>
 						</fallback-image></graphics-element
 					>
@@ -3697,7 +3707,7 @@ lli = function(line1, line2):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\pointcurves\75f7b5b31e98444e13f17e5c3e5b7322.png" />
+							<img width="275px" height="275px" src="images\chapters\pointcurves\75f7b5b31e98444e13f17e5c3e5b7322.png" loading="lazy" />
 							<label>Finding the cubic e₁ and e₂ given three points </label>
 						</fallback-image></graphics-element
 					>
@@ -3712,7 +3722,7 @@ lli = function(line1, line2):
 					<graphics-element title="Fitting a quadratic Bézier curve" width="275" height="275" src="./chapters/pointcurves/cubic.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\pointcurves\eab6ea46fa93030e03ec0ef7deb571dc.png" />
+							<img width="275px" height="275px" src="images\chapters\pointcurves\eab6ea46fa93030e03ec0ef7deb571dc.png" loading="lazy" />
 							<label>Fitting a quadratic Bézier curve</label>
 						</fallback-image></graphics-element
 					>
@@ -3783,7 +3793,7 @@ for (coordinate, index) in LUT:
 					<graphics-element title="Projecting a point onto a Bézier curve" width="400" height="400" src="./chapters/projections/project.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="400px" height="400px" src="images\chapters\projections\3cc334d0ebc01cc5352e23ed47bc5414.png" />
+							<img width="400px" height="400px" src="images\chapters\projections\3cc334d0ebc01cc5352e23ed47bc5414.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
@@ -3814,7 +3824,7 @@ for (coordinate, index) in LUT:
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="825px" height="275px" src="images\chapters\molding\aefb177e5532a9f995b9d88e85582c68.png" />
+							<img width="825px" height="275px" src="images\chapters\molding\aefb177e5532a9f995b9d88e85582c68.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 
@@ -3833,7 +3843,7 @@ for (coordinate, index) in LUT:
 					<graphics-element title="Molding a cubic Bézier curve" width="825" height="275" src="./chapters/molding/molding.js" data-type="cubic">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="825px" height="275px" src="images\chapters\molding\834af194de17a5eb2c1920773ab904e3.png" />
+							<img width="825px" height="275px" src="images\chapters\molding\834af194de17a5eb2c1920773ab904e3.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 
@@ -3857,7 +3867,7 @@ for (coordinate, index) in LUT:
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="825px" height="275px" src="images\chapters\molding\cdf7515d133cbf41ffbaea8c488e0924.png" />
+							<img width="825px" height="275px" src="images\chapters\molding\cdf7515d133cbf41ffbaea8c488e0924.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<input type="range" min="10" max="200" step="1" value="100" class="slide-control" />
@@ -4197,7 +4207,7 @@ for (coordinate, index) in LUT:
 					<graphics-element title="Fitting a Bézier curve" width="550" height="275" src="./chapters/curvefitting/curve-fitting.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="550px" height="275px" src="images\chapters\curvefitting\798f3d7151dfb2887c7881a08e65cdd3.png" />
+							<img width="550px" height="275px" src="images\chapters\curvefitting\798f3d7151dfb2887c7881a08e65cdd3.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<button class="toggle">toggle</button>
@@ -4229,7 +4239,7 @@ for (coordinate, index) in LUT:
 					<graphics-element title="A Catmull-Rom curve" width="275" height="275" src="./chapters/catmullconv/catmull-rom.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\catmullconv\aa46749b9469341d9249ca452390d875.png" />
+							<img width="275px" height="275px" src="images\chapters\catmullconv\aa46749b9469341d9249ca452390d875.png" loading="lazy" />
 							<label>A Catmull-Rom curve</label>
 						</fallback-image>
 						<input type="range" min="0.1" max="1" step="0.01" value="0.5" class="slide-control tension" />
@@ -4603,7 +4613,7 @@ for p = 1 to points.length-3 (inclusive):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\polybezier\044f65dd588b0210499add16ea50a23d.png" />
+							<img width="275px" height="275px" src="images\chapters\polybezier\044f65dd588b0210499add16ea50a23d.png" loading="lazy" />
 							<label>Unlinked quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
 					>
@@ -4617,7 +4627,7 @@ for p = 1 to points.length-3 (inclusive):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\polybezier\babb27083b805c7c77bb93cfecbefb2b.png" />
+							<img width="275px" height="275px" src="images\chapters\polybezier\babb27083b805c7c77bb93cfecbefb2b.png" loading="lazy" />
 							<label>Unlinked cubic poly-Bézier</label>
 						</fallback-image></graphics-element
 					>
@@ -4649,7 +4659,7 @@ for p = 1 to points.length-3 (inclusive):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\polybezier\b492c486c25f17a95c690e235b8ad483.png" />
+							<img width="275px" height="275px" src="images\chapters\polybezier\b492c486c25f17a95c690e235b8ad483.png" loading="lazy" />
 							<label>Connected quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
 					>
@@ -4663,7 +4673,7 @@ for p = 1 to points.length-3 (inclusive):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\polybezier\adc3b55c9956849ec86ecffcd8864d8a.png" />
+							<img width="275px" height="275px" src="images\chapters\polybezier\adc3b55c9956849ec86ecffcd8864d8a.png" loading="lazy" />
 							<label>Connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
 					>
@@ -4692,7 +4702,7 @@ for p = 1 to points.length-3 (inclusive):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\polybezier\17a6ffbfffaa9046ad165ca880d9030d.png" />
+							<img width="275px" height="275px" src="images\chapters\polybezier\17a6ffbfffaa9046ad165ca880d9030d.png" loading="lazy" />
 							<label>Angularly connected quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
 					>
@@ -4706,7 +4716,7 @@ for p = 1 to points.length-3 (inclusive):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\polybezier\b7dfe772ac90d762f48772b691a9070f.png" />
+							<img width="275px" height="275px" src="images\chapters\polybezier\b7dfe772ac90d762f48772b691a9070f.png" loading="lazy" />
 							<label>Angularly connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
 					>
@@ -4730,7 +4740,7 @@ for p = 1 to points.length-3 (inclusive):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\polybezier\a1a3aabd22c0221beb38403a4532ea86.png" />
+							<img width="275px" height="275px" src="images\chapters\polybezier\a1a3aabd22c0221beb38403a4532ea86.png" loading="lazy" />
 							<label>Standard connected quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
 					>
@@ -4744,7 +4754,7 @@ for p = 1 to points.length-3 (inclusive):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\polybezier\b810f02639a79cf7f8ae416d7185614d.png" />
+							<img width="275px" height="275px" src="images\chapters\polybezier\b810f02639a79cf7f8ae416d7185614d.png" loading="lazy" />
 							<label>Standard connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
 					>
@@ -4902,7 +4912,7 @@ for p = 1 to points.length-3 (inclusive):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\offsetting\768094c3c47d3888cf81e7a1d20d2eab.png" />
+							<img width="275px" height="275px" src="images\chapters\offsetting\768094c3c47d3888cf81e7a1d20d2eab.png" loading="lazy" />
 							<label>Offsetting a quadratic Bézier curve</label>
 						</fallback-image>
 						<input type="range" min="5" max="50" step="1" value="20" class="slide-control" />
@@ -4917,7 +4927,7 @@ for p = 1 to points.length-3 (inclusive):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\offsetting\1ad78f9f9d001278c491b0f2be5cc8ea.png" />
+							<img width="275px" height="275px" src="images\chapters\offsetting\1ad78f9f9d001278c491b0f2be5cc8ea.png" loading="lazy" />
 							<label>Offsetting a cubic Bézier curve</label>
 						</fallback-image>
 						<input type="range" min="5" max="50" step="1" value="20" class="slide-control" />
@@ -4969,7 +4979,7 @@ for p = 1 to points.length-3 (inclusive):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\graduatedoffset\8cc724d5343c65685d88c92b2d069a2a.png" />
+							<img width="275px" height="275px" src="images\chapters\graduatedoffset\8cc724d5343c65685d88c92b2d069a2a.png" loading="lazy" />
 							<label>Offsetting a quadratic Bézier curve</label>
 						</fallback-image>
 						<input type="range" min="5" max="50" step="1" value="20" class="slide-control" />
@@ -4984,7 +4994,7 @@ for p = 1 to points.length-3 (inclusive):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\graduatedoffset\17bf62e05a1fc3387b0c210f2decff45.png" />
+							<img width="275px" height="275px" src="images\chapters\graduatedoffset\17bf62e05a1fc3387b0c210f2decff45.png" loading="lazy" />
 							<label>Offsetting a cubic Bézier curve</label>
 						</fallback-image>
 						<input type="range" min="5" max="50" step="1" value="20" class="slide-control" />
@@ -5022,7 +5032,7 @@ for p = 1 to points.length-3 (inclusive):
 					<graphics-element title="Quadratic Bézier arc approximation" width="400" height="400" src="./chapters/circles/arc-approximation.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="400px" height="400px" src="images\chapters\circles\5801de8227960faa9bcbae578f78c2a3.png" />
+							<img width="400px" height="400px" src="images\chapters\circles\5801de8227960faa9bcbae578f78c2a3.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<input type="range" min="-3.1415" max="3.1415" step="0.01" value="-0.7854" class="slide-control" />
@@ -5147,7 +5157,7 @@ for p = 1 to points.length-3 (inclusive):
 					<graphics-element title="Cubic Bézier arc approximation" width="400" height="400" src="./chapters/circles_cubic/arc-approximation.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="400px" height="400px" src="images\chapters\circles_cubic\da768b84c91262bab8ab36f895e8569b.png" />
+							<img width="400px" height="400px" src="images\chapters\circles_cubic\da768b84c91262bab8ab36f895e8569b.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<input type="range" min="-3.1415" max="3.1415" step="0.01" value="-0.7854" class="slide-control" />
@@ -5381,7 +5391,7 @@ for p = 1 to points.length-3 (inclusive):
 					<graphics-element title="Cubic Bézier circle approximation" width="340" height="300" src="./chapters/circles_cubic/circle.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="340px" height="300px" src="images\chapters\circles_cubic\63f35fb58d3571200ac6ccea0384b9d7.png" />
+							<img width="340px" height="300px" src="images\chapters\circles_cubic\63f35fb58d3571200ac6ccea0384b9d7.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
@@ -5460,7 +5470,7 @@ for p = 1 to points.length-3 (inclusive):
 					<graphics-element title="First arc approximation of a Bézier curve" width="275" height="275" src="./chapters/arcapproximation/arc.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\arcapproximation\7c9cce8142fa3e85bb124520f40645ff.png" />
+							<img width="275px" height="275px" src="images\chapters\arcapproximation\7c9cce8142fa3e85bb124520f40645ff.png" loading="lazy" />
 							<label>First arc approximation of a Bézier curve</label>
 						</fallback-image>
 						<input type="range" min="0.1" max="5" step="0.1" value="0.5" class="slide-control" />
@@ -5475,7 +5485,7 @@ for p = 1 to points.length-3 (inclusive):
 					<graphics-element title="Arc approximation of a Bézier curve" width="275" height="275" src="./chapters/arcapproximation/arcs.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="images\chapters\arcapproximation\da76341b841df1af8a39f797e85dfe3c.png" />
+							<img width="275px" height="275px" src="images\chapters\arcapproximation\da76341b841df1af8a39f797e85dfe3c.png" loading="lazy" />
 							<label>Arc approximation of a Bézier curve</label>
 						</fallback-image>
 						<input type="range" min="0.1" max="5" step="0.1" value="0.5" class="slide-control" />
@@ -5520,7 +5530,7 @@ for p = 1 to points.length-3 (inclusive):
 					<graphics-element title="A B-Spline example" width="600" height="300" src="./chapters/bsplines/basic.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="600px" height="300px" src="images\chapters\bsplines\fe3a8ca5706f286d916e36699e237e51.png" />
+							<img width="600px" height="300px" src="images\chapters\bsplines\fe3a8ca5706f286d916e36699e237e51.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 
@@ -5542,7 +5552,7 @@ for p = 1 to points.length-3 (inclusive):
 					<graphics-element title="The components of a B-Spline " width="600" height="300" src="./chapters/bsplines/basic.js" data-show-curves="true">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="600px" height="300px" src="images\chapters\bsplines\41167c64c51386414c6e62f0b45e6295.png" />
+							<img width="600px" height="300px" src="images\chapters\bsplines\41167c64c51386414c6e62f0b45e6295.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<!-- basis curve highlighter goes here -->
@@ -5712,7 +5722,7 @@ for(let L = 1; L &lt;= order; L++) {
 					<graphics-element title="A uniform B-Spline" width="400" height="400" src="./chapters/bsplines/uniform.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="400px" height="400px" src="images\chapters\bsplines\48a30189e74658737b3a8b28bb816f8a.png" />
+							<img width="400px" height="400px" src="images\chapters\bsplines\48a30189e74658737b3a8b28bb816f8a.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<!-- knot sliders go here -->
@@ -5737,7 +5747,7 @@ for(let L = 1; L &lt;= order; L++) {
 					<graphics-element title="A reduced uniform B-Spline" width="400" height="400" src="./chapters/bsplines/reduced.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="400px" height="400px" src="images\chapters\bsplines\ceaef2fbee05a58aa11835925403b4cd.png" />
+							<img width="400px" height="400px" src="images\chapters\bsplines\ceaef2fbee05a58aa11835925403b4cd.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<!-- knot sliders go here -->
@@ -5758,7 +5768,7 @@ for(let L = 1; L &lt;= order; L++) {
 					<graphics-element title="An open, uniform B-Spline" width="400" height="400" src="./chapters/bsplines/uniform.js" data-open="true">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="400px" height="400px" src="images\chapters\bsplines\0215dc106e4ad51afe043c0176a595f6.png" />
+							<img width="400px" height="400px" src="images\chapters\bsplines\0215dc106e4ad51afe043c0176a595f6.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<!-- knot sliders go here -->
@@ -5781,7 +5791,7 @@ for(let L = 1; L &lt;= order; L++) {
 					<graphics-element title="A (closed) rational, uniform B-Spline" width="400" height="400" src="./chapters/bsplines/rational-uniform.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="400px" height="400px" src="images\chapters\bsplines\0d9c2186423466a32bb8fbd187409f82.png" />
+							<img width="400px" height="400px" src="images\chapters\bsplines\0d9c2186423466a32bb8fbd187409f82.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<!-- knot sliders go here -->

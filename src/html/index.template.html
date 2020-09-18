@@ -54,7 +54,15 @@
 
       <nav aria-labelledby="toc">
         <h1 id="toc">{{ tocLabel }}</h1>
-        <ol>{{ toc }}</ol>
+        <h4>Preamble</h4>
+        <ol class="preamble">
+          <li><a href="#preface">{{ prefaceLabel }} </a></li>
+          <li><a href="#changelog">{{ changelogLabel }}</a></li>
+        </ol>
+        <h4>Main content</h4>
+        <ol>
+            {{ toc }}
+        </ol>
       </nav>
       {% endblock %}
     </header>

@@ -83,7 +83,7 @@ async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
       const replacement = `width="${width}" height="${height}" src="${src}" ${remainder}>
         <fallback-image>
           <span class="view-source">${translate`disabledMessage`}</span>
-          <img width="${width}px" height="${height}px" src="${imgUrl}">
+          <img width="${width}px" height="${height}px" src="${imgUrl}" loading="lazy">
           <label>${title}</label>
         </fallback-image>`;
 
