@@ -25,7 +25,7 @@ draw() {
   noStroke();
   setFill(`rgba(100,255,100,0.4)`);
   let a = this.angle;
-  arc(w/2, h/2, r, a < 0 ? a : 0, a < 0 ? 0 : a, w/2, h/2);
+  wedge(w/2, h/2, r, a < 0 ? a : 0, a < 0 ? 0 : a);
 
   curve.drawSkeleton();
   curve.drawCurve();

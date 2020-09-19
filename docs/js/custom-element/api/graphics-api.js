@@ -38,6 +38,9 @@ class GraphicsAPI extends BaseAPI {
   get HAND() {
     return `pointer`;
   }
+  get CROSS() {
+    return `crosshair`;
+  }
   get POLYGON() {
     return Shape.POLYGON;
   }
@@ -55,25 +58,6 @@ class GraphicsAPI extends BaseAPI {
   }
   get RIGHT() {
     return `right`;
-  }
-  // hatching patterns
-  get HATCH1() {
-    return this.HATCHING[0];
-  }
-  get HATCH2() {
-    return this.HATCHING[1];
-  }
-  get HATCH3() {
-    return this.HATCHING[2];
-  }
-  get HATCH4() {
-    return this.HATCHING[3];
-  }
-  get HATCH5() {
-    return this.HATCHING[4];
-  }
-  get HATCH6() {
-    return this.HATCHING[5];
   }
 
   onMouseDown(evt) {
@@ -203,6 +187,17 @@ class GraphicsAPI extends BaseAPI {
   scale(x, y) {
     y = y ? y : x; // NOTE: this turns y=0 into y=x, which is fine. Scaling by 0 is really silly =)
     this.ctx.scale(x, y);
+  }
+
+  /**
+   * transforms: universal free transform based on applying
+   *
+   *       | a b c |
+   *   m = | d e f |
+   *       | 0 0 1 |
+   */
+  transform(a, b, c, d, e, f) {
+    this.ctx.transform(a, b, c, d, e, f);
   }
 
   /**
@@ -371,7 +366,7 @@ class GraphicsAPI extends BaseAPI {
   /**
    * Set the context lineWidth
    */
-  setWidth(width) {
+  setWidth(width = 1) {
     this.ctx.lineWidth = width;
   }
 
@@ -497,13 +492,20 @@ class GraphicsAPI extends BaseAPI {
   /**
    * Draw a circular arc
    */
-  arc(x, y, r, s, e, cx = false, cy = false) {
+  arc(x, y, r, s, e, wedge = false) {
     this.ctx.beginPath();
-    if (cx !== false && cy != false) this.ctx.moveTo(cx, cy);
+    if (wedge) this.ctx.moveTo(x, y);
     this.ctx.arc(x, y, r, s, e);
-    if (cx !== false && cy != false) this.ctx.moveTo(cx, cy);
+    if (wedge) this.ctx.moveTo(x, y);
     this.ctx.fill();
     this.ctx.stroke();
+  }
+
+  /**
+   * Draw a circular wedge
+   */
+  wedge(x, y, r, s, e) {
+    this.arc(x, y, r, s, e, true);
   }
 
   /**
@@ -540,11 +542,11 @@ class GraphicsAPI extends BaseAPI {
    * Draw a function plot from [start] to [end] in [steps] steps.
    * Returns the plot shape so that it can be cached for redrawing.
    */
-  plot(fn, start = 0, end = 1, steps = 24, xscale = 1, yscale = 1) {
+  plot(generator, start = 0, end = 1, steps = 24, xscale = 1, yscale = 1) {
     const interval = end - start;
     this.start();
     for (let i = 0, e = steps - 1, v; i < steps; i++) {
-      v = fn(start + (interval * i) / e);
+      v = generator(start + (interval * i) / e);
       this.vertex(v.x * xscale, v.y * yscale);
     }
     this.end();
@@ -585,7 +587,6 @@ class GraphicsAPI extends BaseAPI {
       this.currentShape.merge(shapes[i]);
     }
     this.end();
-    this.STARTREPORTING = false;
   }
 
   /**
@@ -599,6 +600,13 @@ class GraphicsAPI extends BaseAPI {
     if (close) this.ctx.closePath();
     this.ctx.fill();
     this.ctx.stroke();
+  }
+
+  /**
+   * Yield a snapshot of the current shape.
+   */
+  save() {
+    return this.currentShape;
   }
 
   /**
@@ -644,12 +652,6 @@ class GraphicsAPI extends BaseAPI {
       let [p1, p2, p3] = points.slice(i, i + 3);
       this.ctx.bezierCurveTo(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
     }
-  }
-  /**
-   * Yield a snapshot of the current shape.
-   */
-  save() {
-    return this.currentShape;
   }
 
   /**
@@ -704,8 +706,15 @@ class GraphicsAPI extends BaseAPI {
     return Math.round(v);
   }
 
-  random(v = 1) {
-    return Math.random() * v;
+  random(a, b) {
+    if (a === undefined) {
+      a = 0;
+      b = 1;
+    } else if (b === undefined) {
+      b = a;
+      a = 0;
+    }
+    return a + Math.random() * (b - a);
   }
 
   abs(v) {
@@ -742,10 +751,6 @@ class GraphicsAPI extends BaseAPI {
 
   atan2(dy, dx) {
     return Math.atan2(dy, dx);
-  }
-
-  pow(v, p) {
-    return Math.pow(v, p);
   }
 
   binomial(n, k) {

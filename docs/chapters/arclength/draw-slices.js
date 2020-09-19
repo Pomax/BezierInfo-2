@@ -33,7 +33,7 @@ drawSlices(w, h, a, n) {
     let area = 0;
     let step = w/n;
     for(let i=0, f=TAU/w, c, y; i<w; i += step) {
-        c = `rgba(150,150,255,${0.4 + 0.3 * random()}`;
+        c = `rgba(150,150,255,${random(0.4, 0.7)}`;
         if (n > 50) setStroke(c);
         setFill(c);
         y = sin((i+step/2) * f) * a;

@@ -50,33 +50,8 @@ class BSpline {
     return (this.knots = [...new Array(this.points.length + DEGREE + 1)].map((_, i) => i));
   }
 
-  formNodes() {
-    const knots = this.knots;
-    const domain = [DEGREE, knots.length - 1 - DEGREE],
-      nodes = [];
-
-    for (let k = 0; k < this.points.length; k++) {
-      let node = 0;
-      for (let offset = 1; offset <= DEGREE; offset++) {
-        node += knots[k + offset];
-      }
-      node /= DEGREE;
-      if (node < knots[domain[0]]) continue;
-      if (node > knots[domain[1]]) continue;
-      nodes.push(node);
-    }
-
-    return (this.nodes = nodes);
-  }
-
   formWeights() {
     return (this.weights = this.points.map((p) => 1));
-  }
-
-  setDegree(d) {
-    DEGREE += d;
-    this.knots = this.formKnots();
-    this.nodes = this.formNodes();
   }
 }
 

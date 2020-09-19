@@ -7,7 +7,7 @@ class Shape {
   constructor(type, factor, points = []) {
     this.first = false;
     this.segments = [];
-    this.addSegment(type, factor);
+    this.newSegment(type, factor);
     points.forEach((p) => this.vertex(p));
   }
   merge(other) {
@@ -22,7 +22,7 @@ class Shape {
     copy.segments = this.segments.map((s) => s.copy());
     return copy;
   }
-  addSegment(type, factor) {
+  newSegment(type, factor) {
     this.currentSegment = new Segment(type, factor);
     this.segments.push(this.currentSegment);
   }

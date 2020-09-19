@@ -5,8 +5,8 @@ setup() {
           h = this.height;
     for (let i=0; i<10; i++) {
       points.push({
-        x: w/2 + random() * 20 + cos(PI*2 * i/10) * (w/2 - 40),
-        y: h/2 + random() * 20 + sin(PI*2 * i/10) * (h/2 - 40)
+        x: w/2 + random(20) + cos(PI*2 * i/10) * (w/2 - 40),
+        y: h/2 + random(20) + sin(PI*2 * i/10) * (h/2 - 40)
       });
     }
     setMovable(points);

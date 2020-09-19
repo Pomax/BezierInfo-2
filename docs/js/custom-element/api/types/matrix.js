@@ -143,11 +143,11 @@ class Matrix {
   row(i) {
     return this.data[i];
   }
-  col(i) {
+  col(j) {
     var d = this.data,
       col = [];
     for (let r = 0, l = d.length; r < l; r++) {
-      col.push(d[r][i]);
+      col.push(d[r][j]);
     }
     return col;
   }

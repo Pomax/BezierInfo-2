@@ -53,7 +53,7 @@ computeCurvature(curve, t) {
         dd = curve.dderivative(t),
         num = d.x * dd.y - d.y * dd.x,
         qdsum = d.x * d.x + d.y * d.y,
-        dnm = pow(qdsum, 3 / 2);
+        dnm = qdsum ** 3/2;
 
   if (num === 0 || dnm === 0) return 0;
 
