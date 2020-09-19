@@ -16,6 +16,7 @@
   "scripts": {
     "start": "run-s clean:* time lint:* build time clean:temp",
     "test": "run-s start && run-p watch server browser",
+    "deploy": "run-s regenerate copy",
     "------": "--- note that due to github's naming policy, the public dir is called 'docs' rather than 'public' ---",
     "browser": "open-cli http://localhost:8000",
     "build": "node ./src/build.js",
@@ -23,6 +24,7 @@
     "clean:news": "rm -f ./docs/news/*.html",
     "polish": "run-s pretty link-checker",
     "regenerate": "run-s start polish",
+    "copy": "mkdir _ && mv ../bezierinfo/.git _ && rm -rf ../bezierinfo && cp -r ./docs/. ../bezierinfo && mv _/.git ../bezierinfo && rm -rf _",
     "lint:tools": "prettier \"./src/**/*.js\" --print-width 150 --write",
     "lint:lib": "prettier \"./docs/js/**/*.js\" --print-width 150 --write",
     "lint:css": "prettier \"./docs/**/*.css\" --print-width 150 --write",

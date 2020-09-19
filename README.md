@@ -8,14 +8,22 @@ Work is still underway on this new version, see https://github.com/Pomax/BezierI
 
 ## Building everything
 
-Use the latest Node v14, with all dependencies installed via `npm install`. Note that [node-canvas](https://github.com/Automattic/node-canva) has [special instructions](https://github.com/Automattic/node-canvas/wiki/Installation:-Windows) because it's going to have to compile itself (however, JPEG support is not needed for this project).
+Use the latest Node (currently v14), with all the project dependencies installed via `npm install`. Note that [node-canvas](https://github.com/Automattic/node-canva) has [special instructions for Windows users](https://github.com/Automattic/node-canvas/wiki/Installation:-Windows) because it's going to have to compile itself (GTK is _required_. However, JPEG support is not).
 
-- The general single-build-pass command is simply `npm start`
-- Continuous development is `npm test`
+Also note that you will need a TeX installation with several dependencies: on Windows, install [MiKTeX](https://miktex.org/download) and set it up so that it installs things as needed. On Linux/Unix/etc, you'll need to install the following packages:
+
+- xzdec
+- libpoppler-glib-dev
+- texlive
+- texlive-xetex
+- texlive-extra-utils
+
+You'll also need [pdf2svg](https://github.com/dawbarton/pdf2svg/), which on Windows means that in addition to building this utility from source, you'll all need to put the .exe file somewhere sensible (like `C:\Program Files (x86)\pdf2svg`) add then add that dir to your PATH, so `pdf2svg` can be invoked like any other CLI utility.
 
 #### Specialised commands:
 
 - `regenerate` runs a build followed by running `prettier` on the final .html files, as well as `link-checker` to make sure there are no dead links in the content.
+- `deploy` runs `regenerate` and then copies the content of the `docs` directory over to `../bezierinfo`, which is where the actual webview repo lives on my filesystem.
 
 #### Even more specialized commands:
 
@@ -23,4 +31,4 @@ Please see the package.json `"scripts"` section for the full list of commands. M
 
 ## Weird personal dependencies?
 
-There are a number of dependencies that are pulled from my own forks of projects, because they included patches (either by myself or others) that fix problems or shortcomings that have not been merged into upstream yet, or have been merged in but not released as a version that can be pulled down from npm yet.
+There are a number of dependencies that are pulled from my own forks of projects, because my versions include patches (either by myself or others) that fix problems or shortcomings that have not been merged into upstream (yet?), or _have_ been merged in but have not had a new release (yet?).

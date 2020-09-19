@@ -1,0 +1,3 @@
+All files in this repository are "almost no rights reserved": you may do anything you want with them, except pass them off wholesale as your own. The text, code, and graphics, are all free to use for whatever purpose you see fit. You don't even have to credit me (although if you do, that's always nice), __unless__ you're putting up your own version somewhere (either the whole thing or entire sections start to finish). If you do that, you'll have to credit the source, because your readers should know where the text came from, and if you're charging them to access it, they should be told that the material is available for free online with a clear indication on where they can go to continue reading for free.
+
+- Pomax
