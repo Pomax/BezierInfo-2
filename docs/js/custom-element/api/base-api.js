@@ -53,23 +53,27 @@ class BaseAPI {
         this.dataset = {};
       }
     }
-    this.parameters = Object.fromEntries(
-      Object.entries(this.dataset)
-        .map((pair) => {
-          let name = pair[0];
-          let v = pair[1];
-          if (v === `null` || v === `undefined`) return [];
-          if (v === `true`) return [name, true];
-          else if (v === `false`) return [name, false];
-          else {
-            let d = parseFloat(v);
-            // Use == to evaluate "is this a string number"
-            if (v == d) return [name, d];
-          }
-          return [name, v];
-        })
-        .filter((v) => v.length)
-    );
+    Object.defineProperty(this, `parameters`, {
+      writable: false,
+      configurable: false,
+      value: Object.fromEntries(
+        Object.entries(this.dataset)
+          .map((pair) => {
+            let name = pair[0];
+            let v = pair[1];
+            if (v === `null` || v === `undefined`) return [];
+            if (v === `true`) return [name, true];
+            else if (v === `false`) return [name, false];
+            else {
+              let d = parseFloat(v);
+              // Use == to evaluate "is this a string number"
+              if (v == d) return [name, d];
+            }
+            return [name, v];
+          })
+          .filter((v) => v.length)
+      ),
+    });
     this.addListeners();
     this.setSize(width, height);
     this.currentPoint = false;

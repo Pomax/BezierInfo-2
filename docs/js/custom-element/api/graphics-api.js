@@ -605,7 +605,7 @@ class GraphicsAPI extends BaseAPI {
   /**
    * Yield a snapshot of the current shape.
    */
-  save() {
+  saveShape() {
     return this.currentShape;
   }
 

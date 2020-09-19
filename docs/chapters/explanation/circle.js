@@ -8,29 +8,36 @@ draw() {
     const dim = this.height,
         w = dim,
         h = dim,
+        // midpoints
         w2 = w/2,
         h2 = h/2,
-        w4 = w2/2,
-        h4 = h2/2;
+        // quarterpoints
+        q = dim/4;
 
+    // draw axes with (0,0) in the middle of the graphic
     setStroke(`black`);
     line(0, h2, w, h2);
     line(w2, 0, w2, h);
 
-    var offset = {x:w2, y:h2};
-
-    for(let t=0, p, mod; t<=this.steps; t+=0.1) {
+    for(let t=0, p, step=0.1; t<=this.steps; t+=step) {
+      // create a point at distance 'q' from the midpoint
       p = {
-        x: w2 + w4 * cos(t),
-        y: h2 + h4 * sin(t)
+        x: w2 + q * cos(t),
+        y: h2 + q * sin(t)
       };
+
+      // and draw it.
       circle(p.x, p.y, 1);
 
-      mod = t % 1;
-      if(mod >= 0.9) {
-        text(`t = ${ round(t) }`,
-            w2 + 1.25 * w4 * cos(t) - 10,
-            h2 + 1.25 * h4 * sin(t) + 10
+      // then add a text label too, but only "near" each integer
+      // step of `t`. Since we're using floating point numbers,
+      // we can't rely on x * 1/x to actually be x (if only life
+      // were that easy) so we need to check whether `t` is "near"
+      // an integer value instead.
+      if(approx(t % 1, 1, step)) {
+        text(`t = ${round(t)}`,
+            w2 + 1.25 * q * cos(t) - 10,
+            h2 + 1.25 * q * sin(t) + 10
         );
         circle(p.x, p.y, 2);
       }

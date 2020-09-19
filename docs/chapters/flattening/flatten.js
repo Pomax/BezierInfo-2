@@ -10,8 +10,10 @@ setup() {
 draw() {
   clear();
 
+  // draw the curve's polygon, but not the curve itself.
   curve.drawSkeleton();
 
+  // sample the curve at a few points, and form a polygon with those points
   noFill();
   start();
   for(let i=0, e=this.steps; i<=e; i++) {
@@ -20,6 +22,7 @@ draw() {
   }
   end();
 
+  // and for completelion, draw the curve's control points
   curve.drawPoints();
 
   setFill(`black`);

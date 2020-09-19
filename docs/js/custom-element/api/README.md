@@ -14,13 +14,17 @@ draw() {
 
 All code starts at `setup()`, automatically calling `draw()` after setup has been completed. Standard JS scoping applies, so any variable declared outside of `setup`/`draw` will be a "global" variable.
 
-## User Events
+Note that neither of these functions are _required_: without a `setup()` function the code will just jump straight to `draw()`, and without a `draw()` function the code will simply not draw anything beyond the initial empty canvas.
+
+## User-initiated events
+
+### Touch/mouse events
 
 Graphics code can react to touch/mouse, which can be handled using:
 
 - `onMouseDown()` triggered by mouse/touch start events.
 - `onMouseUp()` triggered by mouse/touch end events.
-- `onMouseMose()` triggered by moving the mouse/your finger.
+- `onMouseMove()` triggered by moving the mouse/your finger.
 
 Mouse event data can be accessed via the `this.cursor` property, which encodes:
 
@@ -36,6 +40,35 @@ Mouse event data can be accessed via the `this.cursor` property, which encodes:
           difference between "now" and the original mousedown event.
 }
 ```
+
+#### Example
+
+```js
+setup() {
+    this.defaultBgColor = this.bgColor = `green`;
+}
+
+draw() {
+    clear(this.bgColor);
+}
+
+onMouseDown() {
+    this.bgColor = `blue`;
+    redraw();
+}
+
+onMouseMove() {
+    this.bgColor = `red`;
+    redraw();
+}
+
+onMouseUp() {
+    this.bgColor = this.defaultBgColor;
+    redraw();
+}
+```
+
+### Keyboard events
 
 Graphics code can also react to keyboard events, although this is a great way to make sure your code won't work for mobile devices, so it's better to use range sliders to keep things accessible. That said, they can be handled using:
 
@@ -54,15 +87,45 @@ Additionally, the `this.keyboard` property can be consulted for named keys to se
 
 ```js
 draw() {
-    if (this.keyboard[`ArrowUp`]) {
-        ...
+    if (this.keyboard[`w`] && this.keyboard[`d`]) {
+        // move up-left
     }
+}
+```
+
+#### Example
+
+```js
+setup() {
+    this.y = this.height/2;
+}
+
+draw() {
+    clear();
+    setColor(`black`);
+    rect(0, this.y-1, this.width, 3);
+}
+
+onKeyDown() {
+    const key = this.keyboard.currentKey;
+    if (key === `ArrowUp`) {
+        y -= 5
+    }
+    if (key === `ArrowDown`) {
+        y += 5;
+    }
+    y = constrain(y, 0, this.height);
+    redraw();
 }
 ```
 
 ## Controllable parameters
 
-Graphics code can be passed external values from HTML using data attributes:
+Graphics code can be provided with outside values in two different ways.
+
+### Using fixed startup parameters
+
+Graphics code can be passed fixed values from HTML using data attributes:
 
 ```html
 <graphics-element src="..." data-propname="somevalue"></graphics-element>
@@ -74,21 +137,38 @@ which can be access on the code side using
 this.parameters.propname;
 ```
 
-Additionally, graphics code has special functions for range values, either directly in code:
+Note that `this.parameters` is a protected object. Properties of the parameters object can be updated by your code, but you cannot reassign `this.parameters` itself.
+
+
+### Using dynamic value sliders
+
+Graphics code has also be provided with dynamic values by using range sliders. There are two ways to do this: purely in code, or by tying the graphics code to HTML sliders.
+
+#### In code
+
+If sliders may be dynamically required, the `addSlider` function can be used:
 
 ```js
 setup() {
-    // name, min, max, step, initial value
     addSlider(`rangeValue`, 0, 1, 0.001, 0.5);
 }
 
 draw() {
-    // values defined through sliders become accessible on `this`:
     console.log(this.rangeValue);
 }
 ```
 
-Alternatively, they can be hooked into a predefined slider:
+Its function signature is `addSlider(property name, min, max, step, initial value)`, in which the arguments represent:
+
+- `property name` a propertyname string that may start with `!`. If no `!` is used, the property name should follow the rules for variable names, as the property will be exposed as `this.propertyname` (e.g. is you use `rangeValue`, then `this.rangeValue` will exis and be kept up to date by the slider logic). If `!` is used, no `this.propertyname` will be be set up for use in your code. Regardless of whether `!` is used or not, the property name will also be displayed in the slider's UI.
+- `min` the minimum numerical value this variable will be able to take on
+- `max` the meximum numerical value this variable will be able to take on
+- `step` the value increase/decrease per step of the slider.
+- `initial value` the value that the associated variable will be assigned as part of the `addSlider` call.
+
+#### From HTML
+
+You can also "presupply" a graphic with sliders, if you know your graphic has a fixed number of dynamic variables. This uses the standard HTML `<input type="range">` element:
 
 ```html
 <graphics-element src="..." data-propname="somevalue">
@@ -96,11 +176,10 @@ Alternatively, they can be hooked into a predefined slider:
 </graphics-element>
 ```
 
-using the `setSlider` function:
+With the graphic code using `setSlider` with a query selector to find your slider element and tie it to a variable:
 
 ```js
 setup() {
-    // local query selector, name, initial value
     setSlider(`.my-slider`, `rangeValue`, 0.5);
 }
 
@@ -108,6 +187,17 @@ draw() {
     console.log(this.rangeValue);
 }
 ```
+
+Its function signature is `setSlider(query selector, property name, initial value)`, in which the arguments represent:
+
+- `query select` a CSS query selector for finding the right slider in your `<graphics-element>` tree. If you only have one slider then this query selector can simply be `input[type=range]`, but if you have multiple sliders it's a better idea to give each slider a CSS class that can be used to indentify it.
+- `property name` a propertyname string that may start with `!`. If no `!` is used, the property name should follow the rules for variable names, as the property will be exposed as `this.propertyname` (e.g. is you use `rangeValue`, then `this.rangeValue` will exis and be kept up to date by the slider logic). If `!` is used, no `this.propertyname` will be be set up for use in your code. Regardless of whether `!` is used or not, the property name will also be displayed in the slider's UI.
+- `initial value` the value that the associated variable will be assigned as part of the `addSlider` call.
+
+Note that while it might seem that `<input>` elements can be made fully self-descriptive for both the property name (using the `name` attribute) and initial value (using the `value` attribute), this code still needs to do the right thing even in the absence of an HTML page, and so the property name and initial value are explicitly required.
+
+**warning:** if you try to set up a slider for a property name that you have already defined, the code will throw a runtime error.
+
 
 ## Movable points
 
@@ -117,12 +207,12 @@ An important part of the Graphics API is showing shapes that are controlled or d
 - `resetMovable()` will clear the list of movable points.
 - `resetMovable(points, ...)` is the same as calling `resetMovable()` followed by `setMovable(points, ...)`.
 
+
 ## The API
 
 The following is the list of API functions that can be used to draw... whatever you like, really.
 
-
-### gGobal constants
+### Global constants
 
 - `PI` 3.14159265358979
 - `TAU` 6.28318530717958
@@ -247,7 +337,7 @@ In addition to transformations, there are also two functions to allow you to map
 - `drawShape(...shapes)` draw one or more saved full shapes (see below)
 - `image(img, x = 0, y = 0, w = auto, h = auto)` draw an image at some (x,y) coordinate, defaulting to (0,0), scaled to some width and height, defaulting to the native image dimensions
 - `line(x1, y1, x2, y2)` draw a line from (x1,y1) to (x2,y2)
-- `plot(fn, start = 0, end = 1, steps = 24, xscale = 1, yscale = 1)` plot a function defined by `fn` (which must take a single numerical input, and output an object of the form `{x:..., y:...}`) for inputs in the interval [start,end], at a resolution of `steps` steps, with the resulting values scaled by `xscale` horizontally, and `yscale` vertically.
+- `plot(fn, start = 0, end = 1, steps = 24, xscale = 1, yscale = 1)` plot a function defined by `fn` (which must take a single numerical input, and output an object of the form `{x:..., y:...}`) for inputs in the interval [start,end], at a resolution of `steps` steps, with the resulting values scaled by `xscale` horizontally, and `yscale` vertically. This function returns the plot as a `Shape` for later reuse.
 - `point(x, y)` draw a single point at (x,y)
 - `rect(x, y, w, h)` draw a rectangle from (x,y) with width `w` and height `h`
 - `redraw()` triggers a new draw loop. Use this instead of calling `draw()` directly when you wish to draw a new frame as part of event handling.
@@ -263,7 +353,7 @@ In addition to transformations, there are also two functions to allow you to map
 - `saveShape()` returns the current shape for later reuse
 
 
-## Built in object types
+## Built-in object types
 
 ### Shape
 
