@@ -23,12 +23,15 @@ draw() {
 
   this.drawLine(...line);
 
+  // To find our intersections, we align the curve to our line,
+  // so that all we need to do now is find the roots for the curve.
   const [p1, p2] = line;
   const aligned = utils.align(curve.points, {p1,p2});
   const nB = new Bezier(this, aligned);
   const roots = utils.roots(nB.points);
   const coords = roots.map(t => curve.get(t));
 
+  // done: any roots we find are intersections on our original curve.
   if (roots.length) {
     roots.forEach((t,i) => {
       var p = coords[i];

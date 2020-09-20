@@ -71,6 +71,9 @@ draw() {
 
 movePointsQuadratic(i, link) {
   const l = points.length;
+
+  // Logic for "conventional" moving of an on-curve point,
+  // moving its associated control points, too.
   if (link === `conventional` && i%2 === 0) {
     let ppl = points[(l+i-3)%l];
     let pl = points[(l+i-1)%l];
@@ -91,6 +94,8 @@ movePointsQuadratic(i, link) {
     }
   }
 
+  // Moving a control points moves literally every
+  // other control points, too.
   if (i%2 === 1) {
     let c1 = points[(l+i-2)%l];
     let p1 = points[(l+i-1)%l];
@@ -127,6 +132,9 @@ movePointsQuadratic(i, link) {
 
 movePointsCubic(i, link) {
   const l = points.length;
+
+  // Logic for "conventional" moving of an on-curve point,
+  // moving its associated control points, too.
   if (link === `conventional` && i%3 === 0) {
     let left = points[(l+i-1)%l];
     left.x += this.cursor.diff.x;
@@ -137,6 +145,7 @@ movePointsCubic(i, link) {
     right.y += this.cursor.diff.y;
   }
 
+  // Moving a control points moves the control "across its on-curve point".
   if (i%3 > 0) {
     let c, p;
     if (i%3 === 1) {

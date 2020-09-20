@@ -23,9 +23,12 @@ draw() {
   scale(0.85);
   translate(30,30);
 
+  // This first part is the same as the previous graphic
   setFill(`black`);
   drawAxes("t", 0, 1, "d", 0, len|0, w, h);
   let LUT = this.plotDistanceFunction(w, h, len);
+
+  // but this part is new.
   this.drawPlotIntervals(w, h, LUT);
 
   resetTransform();

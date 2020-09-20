@@ -28,11 +28,15 @@ draw() {
 
 plotDistanceFunction(w, h, len) {
   noFill();
+
+  // There is no way we're capturing the distance function as a nice
+  // easy function, so instead we're going to do the next best thing:
+  // sample the curve at a number of points, and then construct the
+  // function plot as we walk from one sample to the next.
   let LUT = curve.getLUT(this.steps * 10);
-  let d = 0;
   start();
   vertex(0,0);
-  for(let i=1, e=LUT.length, p1, p2; i<e; i++) {
+  for(let i=1, e=LUT.length, p1, p2, d=0; i<e; i++) {
     p1 = LUT[i-1];
     p2 = LUT[i];
     d += dist(p1.x, p1.y, p2.x, p2.y);

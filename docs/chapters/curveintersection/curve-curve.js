@@ -56,7 +56,7 @@ draw() {
     text(`${this.finals.length} intersections found.`, this.panelWidth/2, this.height - 10, CENTER);
   }
 
-  // panel 3: intersections
+  // panel 3: the (already known) intersections
   nextPanel();
   this.drawIntersections();
 }
@@ -73,7 +73,7 @@ drawIteration() {
         const s1 = pair[0].split(0.5);
         const s2 = pair[1].split(0.5);
 
-        // cross check
+        // cross check to see if we need to keep any of the pairs
         if (s1.left.overlaps(s2.left)) { this.pairs.push([ s1.left, s2.left ]); }
         if (s1.left.overlaps(s2.right)) { this.pairs.push([ s1.left, s2.right ]); }
         if (s1.right.overlaps(s2.left)) { this.pairs.push([ s1.right, s2.left ]); }
@@ -81,10 +81,12 @@ drawIteration() {
     });
   }
 
+  // if we have no pairs left, the next button should not be clickable anymore.
   if (!this.pairs.length && next) {
     next.disabled = true;
   }
 
+  // draw any curves we have in our pairs list
   this.pairs.forEach(pair => {
     pair.forEach(b => {
       let curve = new Bezier(this, b.points);
@@ -93,6 +95,7 @@ drawIteration() {
     })
   });
 
+  // and draw any "finals" as established intersections at this point.
   setStroke(`red`);
   this.finals.forEach(pair => {
     let p = pair[0].get(0.5);

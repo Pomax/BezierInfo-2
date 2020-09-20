@@ -17,16 +17,19 @@ draw() {
 
   curve.drawSkeleton();
 
+  // First, reduce our curves into a set of simple sections
   var reduced = this.reduce(curve);
   reduced.forEach(c => {
     setStroke(randomColor() );
     this.drawCurve(c);
     circle(c.points[0].x, c.points[0].y, 2);
   });
+
   var last = reduced.slice(-1)[0];
   let p = last.points[3] ?? last.points[2];
   circle(p.x, p.y, 3);
 
+  // then, we can offset each simple curve by projective scaling
   setStroke(`#FF000050`);
   var offset = curve.offset(this.distance);
   offset.forEach(c => {
@@ -38,6 +41,7 @@ draw() {
   p = last.points[3] ?? last.points[2];
   circle(p.x, p.y, 3);
 
+  // on both sides, so we need to offset by -distance, too.
   setStroke(`#0000FF50`);
   var offset = curve.offset(-this.distance);
   offset.forEach(c => {
@@ -116,3 +120,5 @@ reduce(curve) {
 
   return pass2;
 }
+
+// TODO: duplicate the offset code from utils.js? It's *a lot* of code, though...

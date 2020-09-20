@@ -1,11 +1,13 @@
 let Point = Vector, points = [];
 
 setup() {
-    points.push(new Point(50,50));
-    points.push(new Point(150,110));
-    points.push(new Point(50,250));
-    points.push(new Point(170,170));
-    setMovable(points);
+  points = [
+    new Point(50,50),
+    new Point(150,110),
+    new Point(50,250),
+    new Point(170,170),
+  ];
+  setMovable(points);
 }
 
 draw() {
@@ -16,6 +18,9 @@ draw() {
   this.drawLine(p1,p2);
   this.drawLine(p3,p4);
 
+  // compute the line/line intesection: note that this does NOT
+  // mean the line *segments* intersect, just that the lines,
+  // which are infinitely long, intersect.
   const p = this.lli(
     p1.x, p1.y,
     p2.x, p2.y,
@@ -23,6 +28,7 @@ draw() {
     p4.x, p4.y
   );
 
+  // if there is an intersection, is that point on both line *segments*?
   if (p) {
     if (this.onLine(p, p1, p2) && this.onLine(p, p3, p4)) {
       setColor(`lime`);
@@ -44,6 +50,7 @@ drawLine(p1, p2) {
   circle(p2.x, p2.y, 2);
 }
 
+// The line/line intersection code can be found all over the web.
 lli(x1, y1, x2, y2, x3, y3, x4, y4) {
   const nx = (x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4),
         ny = (x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4),
@@ -52,6 +59,7 @@ lli(x1, y1, x2, y2, x3, y3, x4, y4) {
   return { x: nx / d, y: ny / d };
 }
 
+// is point p on the line p1--p2?
 onLine(p, p1, p2) {
   const mx = min(p1.x, p2.x),
         my = min(p1.y, p2.y),
