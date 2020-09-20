@@ -40,7 +40,8 @@ If we drop all the zero-terms, this gives us:
 
 We can see that our original curve definition has been simplified considerably. The following graphics illustrate the result of aligning our example curves to the x-axis, with the cubic case using the coordinates that were just used in the example formulae:
 
-<div class="figure">
 <graphics-element title="Aligning a quadratic curve" width="550" src="./aligning.js" data-type="quadratic"></graphics-element>
+
+&nbsp;
+
 <graphics-element title="Aligning a cubic curve" width="550" src="./aligning.js" data-type="cubic"></graphics-element>
-</div>

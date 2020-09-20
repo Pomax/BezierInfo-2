@@ -10,4 +10,6 @@ If you move points in a curve sideways, you should only see the middle graph cha
 
 <graphics-element title="Quadratic Bézier curve components" width="825" src="./components.js" data-type="quadratic"></graphics-element>
 
+&nbsp;
+
 <graphics-element title="Cubic Bézier curve components" width="825" src="./components.js" data-type="cubic"></graphics-element>

@@ -1,6 +1,8 @@
 let curve;
 
 setup() {
+  setPanelCount(3);
+
   let type = this.parameters.type ?? `quadratic`;
   if (type === `quadratic`) {
       curve = Bezier.defaultQuadratic(this);
@@ -14,11 +16,21 @@ setup() {
 draw() {
   clear();
   const dim = this.height;
+  let pcount = curve.points.length;
   curve.drawSkeleton();
   curve.drawCurve();
   curve.drawPoints();
 
-  translate(dim, 0);
+  nextPanel();
+  this.drawComponentX(dim, pcount);
+
+  resetTransform();
+  nextPanel();
+  nextPanel();
+  this.drawComponentY(dim, pcount);
+}
+
+drawComponentX(dim, pcount) {
   setStroke(`black`);
   line(0,0,0,dim);
 
@@ -26,14 +38,15 @@ draw() {
   translate(40,20);
   drawAxes(`t`, 0, 1, `X`, 0, dim, dim, dim);
 
-  let pcount = curve.points.length;
+  // remap our curve so that y becomes our x
+  // coordinates, and x becomes the t intervals.
   new Bezier(this, curve.points.map((p,i) => ({
     x: (i/(pcount-1)) * dim,
     y: p.x
   }))).drawCurve();
+}
 
-  resetTransform();
-  translate(2*dim, 0);
+drawComponentY(dim, pcount) {
   setStroke(`black`);
   line(0,0,0,dim);
 
@@ -41,6 +54,8 @@ draw() {
   translate(40,20);
   drawAxes(`t`, 0,1, `Y`, 0, dim, dim, dim);
 
+  // remap our curve, leaving y as is, but
+  // making  x be the t intervals.
   new Bezier(this, curve.points.map((p,i) => ({
     x: (i/(pcount-1)) * dim,
     y: p.y

@@ -16,6 +16,9 @@ draw() {
 
   setStroke("red");
   curve.drawSkeleton(`lightblue`);
+
+  // instead of running an arclength summation, we
+  // just... sum the lengths of our line segments.
   LUT.forEach((p1,i) => {
     if (i===0) return;
     let p0 = LUT[i-1];

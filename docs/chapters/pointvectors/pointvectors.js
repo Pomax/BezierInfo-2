@@ -6,6 +6,7 @@ setup() {
         curve = Bezier.defaultQuadratic(this);
     } else {
         curve = Bezier.defaultCubic(this);
+        // to show this off for Cubic curves we need to change some of the points
         curve.points[0].x = 30;
         curve.points[0].y = 230;
         curve.points[1].x = 75;
@@ -25,22 +26,28 @@ draw() {
         let t = i/10.0;
         let p = curve.get(t);
         let d = this.type === `quadratic` ? this.getQuadraticDerivative(t, pts) : this.getCubicDerivative(t, pts);
-
-        let m = sqrt(d.x*d.x + d.y*d.y);
-        d = { x: d.x/m, y: d.y/m };
-        let n = this.getNormal(t, d);
-
-        setStroke(`blue`);
-        line(p.x, p.y, p.x + d.x*f, p.y + d.y*f);
-
-        setStroke(`red`);
-        line(p.x, p.y, p.x + n.x*f, p.y + n.y*f);
-
-        setStroke(`black`);
-        circle(p.x, p.y, 3);
+        this.drawVectors(f, t, p, d);
     }
 
     curve.drawPoints();
+}
+
+drawVectors(f, t, p, d) {
+    let m = sqrt(d.x*d.x + d.y*d.y);
+    d = { x: d.x/m, y: d.y/m };
+    let n = this.getNormal(t, d);
+
+    // draw the tangent vector
+    setStroke(`blue`);
+    line(p.x, p.y, p.x + d.x*f, p.y + d.y*f);
+
+    // draw the normal vector
+    setStroke(`red`);
+    line(p.x, p.y, p.x + n.x*f, p.y + n.y*f);
+
+    // and the point these are for
+    setStroke(`black`);
+    circle(p.x, p.y, 3);
 }
 
 getQuadraticDerivative(t, points) {

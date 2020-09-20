@@ -3,36 +3,37 @@
 If you want to move objects along a curve, or "away from" a curve, the two vectors you're most interested in are the tangent vector and normal vector for curve points. These are actually really easy to find. For moving and orienting along a curve, we use the tangent, which indicates the direction of travel at specific points, and is literally just the first derivative of our curve:
 
 \[
-\left \{ \begin{matrix}
+\begin{matrix}
   tangent_x(t) = B'_x(t) \\
+  \\
   tangent_y(t) = B'_y(t)
-\end{matrix} \right.
+\end{matrix}
 \]
 
 This gives us the directional vector we want. We can normalize it to give us uniform directional vectors (having a length of 1.0) at each point, and then do whatever it is we want to do based on those directions:
 
 \[
-  d = || tangent(t) || = \sqrt{B'_x(t)^2 + B'_y(t)^2}
-\]
-
-\[
-\left \{ \begin{matrix}
-  \hat{x}(t) = || tangent_x(t) ||
-             =\frac{tangent_x(t)}{ || tangent(t) || }
+\begin{matrix}
+  d = \left \| tangent(t) \right \| = \sqrt{B'_x(t)^2 + B'_y(t)^2} \\
+  \\
+  \hat{x}(t) = \left \| tangent_x(t) \right \|
+             =\frac{tangent_x(t)}{ \left \| tangent(t) \right \| }
              = \frac{B'_x(t)}{d} \\
-  \hat{y}(t) = || tangent_y(t) ||
-             = \frac{tangent_y(t)}{ || tangent(t) || }
+  \\
+  \hat{y}(t) = \left \| tangent_y(t) \right \|
+             = \frac{tangent_y(t)}{ \left \| tangent(t) \right \| }
              = \frac{B'_y(t)}{d}
-\end{matrix} \right.
+\end{matrix}
 \]
 
 The tangent is very useful for moving along a line, but what if we want to move away from the curve instead, perpendicular to the curve at some point <i>t</i>? In that case we want the *normal* vector. This vector runs at a right angle to the direction of the curve, and is typically of length 1.0, so all we have to do is rotate the normalized directional vector and we're done:
 
 \[
-\left \{ \begin{array}{l}
+\begin{array}{l}
   normal_x(t) = \hat{x}(t) \cdot \cos{\frac{\pi}{2}} - \hat{y}(t) \cdot \sin{\frac{\pi}{2}} = - \hat{y}(t) \\
+  \\
   normal_y(t) = \underset{quarter\ circle\ rotation} {\underbrace{ \hat{x}(t) \cdot \sin{\frac{\pi}{2}} + \hat{y}(t) \cdot \cos{\frac{\pi}{2}} }} = \hat{x}(t)
-\end{array} \right.
+\end{array}
 \]
 
 <div class="note">

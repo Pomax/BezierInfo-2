@@ -22,7 +22,7 @@ export default function performCodeSurgery(code) {
   // 3. rewrite all public GraphicsAPI functions to have the required `this.` prefix
 
   GraphicsAPI.methods.forEach((fn) => {
-    const re = new RegExp(`([({\\s\\r\\n])${fn}\\(`, `g`);
+    const re = new RegExp(`([!({\\s\\r\\n])${fn}\\(`, `g`);
     code = code.replace(re, `$1this.${fn}(`);
   });
 

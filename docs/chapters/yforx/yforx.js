@@ -28,6 +28,7 @@ draw() {
   // find our answer:
   let y = round(curve.get(t).y);
 
+  // and draw everything
   setStroke("red");
   line(x, y, x, h);
   line(x, y, 0, y);

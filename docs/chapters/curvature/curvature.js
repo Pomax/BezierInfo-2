@@ -19,6 +19,8 @@ draw() {
     curve.drawPoints();
   });
 
+  // For the "both directions" version, we also want
+  // to show the circle that fits our curve.
   if (this.parameters.omni) {
     let t = this.position;
     let curve = q;
@@ -30,14 +32,16 @@ draw() {
 drawCurvature(curve) {
   let s, t, p, n, k, ox, oy;
   for(s=0; s<256; s++) {
-    setStroke(`rgba(255,127,${s},0.6)`);
+    // compute the curvature at `t`:
     t = s/255;
     p = curve.get(t);
     n = curve.normal(t);
     k = this.computeCurvature(curve, t) * 10000;
 
+    // and then draw it.
     ox = k * n.x;
     oy = k * n.y;
+    setStroke(`rgba(255,127,${s},0.6)`);
     line(p.x, p.y, p.x + ox, p.y + oy);
 
     // And if requested, also draw it along the anti-normal.
@@ -55,6 +59,7 @@ computeCurvature(curve, t) {
         qdsum = d.x * d.x + d.y * d.y,
         dnm = qdsum ** 3/2;
 
+  // shortcut
   if (num === 0 || dnm === 0) return 0;
 
   return num / dnm;
@@ -70,7 +75,6 @@ drawIncidentCircle(curve, t) {
 
   setFill(`rgba(200,200,255,0.4)`);
   setStroke(`red`);
-
   line(p.x, p.y, rx, ry);
   circle(p.x, p.y, 3);
   circle(rx, ry, 3);

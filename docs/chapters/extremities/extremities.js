@@ -1,6 +1,7 @@
 let curve;
 
 setup() {
+    setPanelCount(3);
     const type = this.parameters.type ?? `quadratic`;
     if (type === `quadratic`) {
         curve = Bezier.defaultQuadratic(this);
@@ -19,7 +20,19 @@ draw() {
     curve.drawCurve();
     curve.drawPoints();
 
-    translate(dim, 0);
+    nextPanel();
+
+    this.drawComponentX(dim, degree);
+
+    resetTransform();
+    nextPanel();
+    nextPanel();
+
+    this.drawComponentY(dim, degree);
+}
+
+
+drawComponentX(dim, degree) {
     setStroke(`black`);
     line(0,0,0,dim);
 
@@ -27,13 +40,16 @@ draw() {
     translate(40,20);
     drawAxes(`t`, 0, 1, `X`, 0, dim, dim, dim);
 
-    this.plotDimension(dim, new Bezier(this, curve.points.map((p,i) => ({
+    const B = new Bezier(this, curve.points.map((p,i) => ({
         x: (i/degree) * dim,
         y: p.x
-    }))));
+    })));
 
-    resetTransform();
-    translate(2*dim, 0);
+    // this is where things differ from the previous section
+    this.plotDimension(dim, B);
+}
+
+drawComponentY(dim, degree) {
     setStroke(`black`);
     line(0,0,0,dim);
 
@@ -41,10 +57,13 @@ draw() {
     translate(40,20);
     drawAxes(`t`, 0,1, `Y`, 0, dim, dim, dim);
 
-    this.plotDimension(dim, new Bezier(this, curve.points.map((p,i) => ({
-      x: (i/degree) * dim,
-      y: p.y
-    }))))
+    const B = new Bezier(this, curve.points.map((p,i) => ({
+        x: (i/degree) * dim,
+        y: p.y
+    })));
+
+    // this is where things differ from the previous section
+    this.plotDimension(dim, B)
 }
 
 plotDimension(dim, dimension) {
@@ -144,18 +163,27 @@ plotCubicDimension(t1, y1, t2, y2, dim, dimension, reverse) {
 }
 
 getRoots(v1, v2, v3) {
-    if (v3 === undefined) {
-      return [-v1 / (v2 - v1)];
-    }
+    // is this actually a line?
+    if (v3 === undefined) return [-v1 / (v2 - v1)];
 
-    const a = v1 - 2*v2 + v3,
-        b = 2 * (v2 - v1),
-        c = v1,
-        d = b*b - 4*a*c;
+    // quadratic root finding is not super complex.
+    const a = v1 - 2*v2 + v3;
+
+    // no root:
     if (a === 0) return [];
+
+    const b = 2 * (v2 - v1),
+          c = v1,
+          d = b*b - 4*a*c;
+
+    // no root:
     if (d < 0) return [];
+
+    // one root:
     const f = -b / (2*a);
     if (d === 0) return [f]
+
+    // two roots:
     const l = sqrt(d) / (2*a);
     return [f-l, f+l];
 }

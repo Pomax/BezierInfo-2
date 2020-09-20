@@ -12,6 +12,7 @@ draw() {
     curve.drawCurve();
     curve.drawPoints();
 
+    // align our curve and let's do some root finding
     const p = curve.align().points,
 
           a = p[2].x * p[1].y,
@@ -25,8 +26,11 @@ draw() {
 
           roots = [];
 
-    if (this.almost(x, 0) ) {
-      if (!this.almost(y, 0) ) {
+    // because of floating point maths, we can't check whether
+    // x or y "are" zero, because they could be some value that is
+    // just off from zero due to floating point compound errors.
+    if (approx(x, 0)) {
+      if (!approx(y, 0)) {
         roots.push(-z / y);
       }
     }
@@ -36,15 +40,14 @@ draw() {
               sq = sqrt(det),
               d2 = 2 * x;
 
-        if (!this.almost(d2, 0) ) {
+        if (!approx(d2, 0) ) {
             roots.push(-(y+sq) / d2);
             roots.push((sq-y) / d2);
         }
     }
 
-    setStroke(`red`);
-    setFill(`red`);
-
+    // Aaaan let's draw them
+    setColor(`red`);
     roots.forEach(t => {
         if (0 <= t && t <= 1) {
            let p = curve.get(t);
@@ -52,8 +55,4 @@ draw() {
            text(`t=${t.toFixed(2)}`, p.x + 5, p.y + 15);
         }
      });
-}
-
-almost(v1, v2, epsilon=0.00001) {
-    return abs(v1 - v2) < epsilon;
 }

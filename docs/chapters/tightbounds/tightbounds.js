@@ -12,11 +12,13 @@ draw() {
     curve.drawCurve();
     curve.drawPoints();
 
+    // Similar to aligning, we transform the curve first
     let translated = this.translatePoints(curve.points);
     let rotated = this.rotatePoints(translated);
     let rtcurve = new Bezier(this, rotated);
     let extrema = rtcurve.extrema();
 
+    // and the we run the regular bounding box code
     let minx = Number.MAX_SAFE_INTEGER,
         miny = minx,
         maxx = Number.MIN_SAFE_INTEGER,
@@ -36,6 +38,8 @@ draw() {
 
     noFill();
     setStroke(`#0F0`);
+
+    // But, crucially, we now need to reverse-transform the bbox corners:
 
     let tx = curve.points[0].x;
     let ty = curve.points[0].y;

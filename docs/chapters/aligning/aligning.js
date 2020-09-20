@@ -15,6 +15,7 @@ draw() {
     translate(this.width/2, 0);
     line(0,0,0,this.height);
 
+    // draw the realigned curve:
     this.drawRTCurve(
         this.rotatePoints(
             this.translatePoints(
@@ -25,7 +26,7 @@ draw() {
 }
 
 translatePoints(points) {
-    // translate to (0,0)
+    // translate so that the curve starts at (0,0)
     let m = points[0];
     return points.map(v => {
         return {
@@ -36,7 +37,7 @@ translatePoints(points) {
 }
 
 rotatePoints(points) {
-    // rotate so that last point is (...,0)
+    // rotate the curve so that the point is (...,0)
     let degree = curve.points.length - 1;
     let dx = points[degree].x;
     let dy = points[degree].y;
@@ -50,13 +51,18 @@ rotatePoints(points) {
 }
 
 drawRTCurve(points) {
-    let degree = curve.points.length - 1;
-    let ncurve = new Bezier(this, points);
+    // draw axes
     translate(60, this.height/2);
     setStroke(`grey`);
-    line(0,-this.height,0,this.height);
-    line(-60,0,this.width,0);
+    line(0, -this.height, 0, this.height);
+    line(-60, 0, this.width, 0);
+
+    // draw transformed curve
+    let degree = curve.points.length - 1;
+    let ncurve = new Bezier(this, points);
     ncurve.drawCurve();
+
+    // and label the last point in the transformed curve
     setFill(`black`);
     text(`(0,0)`, 5,15);
     text(`(${points[degree].x|0},0)`, points[degree].x, -5, CENTER);
