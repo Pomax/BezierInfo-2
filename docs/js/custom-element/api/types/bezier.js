@@ -68,7 +68,7 @@ class Bezier extends Original {
 
   drawCurve(color = `#333`) {
     const ctx = this.ctx;
-    ctx.cacheStyle();
+    ctx.save();
     ctx.strokeStyle = color;
     ctx.beginPath();
     const lut = this.getLUT().slice();
@@ -79,7 +79,7 @@ class Bezier extends Original {
       ctx.lineTo(p.x, p.y);
     }
     ctx.stroke();
-    ctx.restoreStyle();
+    ctx.restore();
   }
 
   drawPoints(labels = true) {
@@ -87,7 +87,7 @@ class Bezier extends Original {
     const api = this.api;
     const ctx = this.ctx;
 
-    ctx.cacheStyle();
+    ctx.save();
     ctx.lineWidth = 2;
     ctx.strokeStyle = `#999`;
     this.points.forEach((p, i) => {
@@ -100,20 +100,20 @@ class Bezier extends Original {
         api.text(`(${x},${y})`, x + 10, y + 10);
       }
     });
-    ctx.restoreStyle();
+    ctx.restore();
   }
 
   drawSkeleton(color = `#555`) {
     const api = this.api;
     const ctx = this.ctx;
-    ctx.cacheStyle();
+    ctx.save();
     const p = this.points;
     api.noFill();
     api.setStroke(color);
     api.start();
     p.forEach((v) => api.vertex(v.x, v.y));
     api.end();
-    ctx.restoreStyle();
+    ctx.restore();
   }
 
   getStrutPoints(t) {
@@ -139,7 +139,7 @@ class Bezier extends Original {
 
     const api = this.api;
     const ctx = api.ctx;
-    ctx.cacheStyle();
+    ctx.save();
     api.noFill();
     api.setStroke(color);
 
@@ -155,7 +155,7 @@ class Bezier extends Original {
       api.end();
       s += n;
     }
-    ctx.restoreStyle();
+    ctx.restore();
 
     return p;
   }
@@ -167,11 +167,11 @@ class Bezier extends Original {
       MX = bbox.x.max,
       MY = bbox.y.max,
       api = this.api;
-    api.cacheStyle();
+    api.save();
     api.noFill();
     api.setStroke(color);
     api.rect(mx, my, MX - mx, MY - my);
-    api.restoreStyle();
+    api.restore();
   }
 }
 

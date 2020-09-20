@@ -303,8 +303,8 @@ For coloring purposes, there is also the `randomColor` function:
 
 For temporary work, where you might want to change some properties and then revert to the previous state, there are two functions available:
 
-- `cacheStyle()` cache the current collection of properties. This uses a stack, with each call adding a new "snapshot" on the stack.
-- `restoreStyle()` restore the most recently cached state from the stack.
+- `save()` cache the current collection of properties. This uses a stack, with each call adding a new "snapshot" on the stack.
+- `restore()` restore the most recently cached state from the stack.
 
 ### Coordinate transform function
 

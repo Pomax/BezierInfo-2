@@ -41,7 +41,7 @@ class BaseAPI {
     if (canvasBuildFunction) {
       const { canvas, ctx } = canvasBuildFunction(width, height);
       this.canvas = canvas;
-      this.ctx = enhanceContext(ctx);
+      this.ctx = ctx;
       this.preSized = true;
     } else {
       this.canvas = document.createElement(`canvas`);
@@ -223,7 +223,7 @@ class BaseAPI {
       this.canvas.width = this.width;
       this.canvas.style.width = `${this.width}px`;
       this.canvas.height = this.height;
-      this.ctx = enhanceContext(this.canvas.getContext(`2d`));
+      this.ctx = this.canvas.getContext(`2d`);
     }
   }
 
@@ -257,36 +257,6 @@ class BaseAPI {
     this.draw();
     this.redrawing = false;
   }
-}
-
-// Ensure there are cacheStyle/restoreStyle functions
-// on the Canvas context, so that it's trivial to make
-// temporary changes.
-function enhanceContext(ctx) {
-  const styles = [];
-  ctx.cacheStyle = () => {
-    let m = ctx.currentTransform || ctx.getTransform();
-    let e = {
-      strokeStyle: ctx.strokeStyle,
-      fillStyle: ctx.fillStyle,
-      lineWidth: ctx.lineWidth,
-      textAlign: ctx.textAlign,
-      transform: [m.a, m.b, m.c, m.d, m.e, m.f],
-      font: ctx.font,
-      shadowColor: ctx.shadowColor,
-      shadowBlur: ctx.shadowColor,
-    };
-    styles.push(e);
-  };
-  ctx.restoreStyle = () => {
-    const v = styles.pop();
-    Object.keys(v).forEach((k) => {
-      let val = v[k];
-      if (k !== `transform`) ctx[k] = val;
-      else ctx.setTransform(val[0], val[1], val[2], val[3], val[4], val[5]);
-    });
-  };
-  return ctx;
 }
 
 export { BaseAPI };

@@ -8,7 +8,7 @@ What do they look like? They look like this! Tap on the graphic to add more poin
 
 <graphics-element title="A B-Spline example" width="600" height="300" src="./basic.js"></graphics-element>
 
-The important part to notice here is that we are **not** doing the same thing with B-Splines that we do for poly-Béziers or Catmull-Rom curves: both of the latter simply define new sections as literally "new sections based on new points", so a 12 point cubic poly-Bézier curve is actually impossible, because we start with a four point curve, and then add three more points for each section that follows, so we can only have 4, 7, 10, 13, 16, etc point Poly-Béziers. Similarly, while Catmull-Rom curves can grow by adding single points, this addition of a single point introduces three implicit Bézier points. Cubic B-Splines, on the other hand, are smooth interpolations of *each possible curve involving four consecutive points*, such that at any point along the curve except for our start and end points, our on-curve coordinate is defined by four control points.
+The important part to notice here is that we are **not** doing the same thing with B-Splines that we do for poly-Béziers or Catmull-Rom curves: both of the latter simply define new sections as literally "new sections based on new points", so a 12 point cubic poly-Bézier curve is actually impossible, because we start with a four point curve, and then add three more points for each section that follows, so we can only have 4, 7, 10, 13, 16, etc. point Poly-Béziers. Similarly, while Catmull-Rom curves can grow by adding single points, this addition of a single point introduces three implicit Bézier points. Cubic B-Splines, on the other hand, are smooth interpolations of *each possible curve involving four consecutive points*, such that at any point along the curve except for our start and end points, our on-curve coordinate is defined by four control points.
 
 Consider the difference to be this:
 
@@ -34,7 +34,7 @@ Given a B-Spline of degree `d` and thus order `k=d+1` (so a quadratic B-Spline i
 
 Which, honestly, doesn't tell us all that much. All we can see is that a point on a B-Spline curve is defined as "a mix of all the control points, weighted somehow", where the weighting is achieved through the *N(...)* function, subscripted with an obvious parameter `i`, which comes from our summation, and some magical parameter `k`. So we need to know two things: 1. what does N(t) do, and 2. what is that `k`? Let's cover both, in reverse order.
 
-The parameter `k` represents the "knot interval" over which a section of curve is defined. As we learned earlier, a B-Spline curve is itself an interpoliation of curves, and we can treat each transition where a control point starts or stops influencing the total curvature as a "knot on the curve".
+The parameter `k` represents the "knot interval" over which a section of curve is defined. As we learned earlier, a B-Spline curve is itself an interpolation of curves, and we can treat each transition where a control point starts or stops influencing the total curvature as a "knot on the curve".
 Doing so for a degree `d` B-Spline with `n` control point gives us `d + n + 1` knots, defining `d + n` intervals along the curve, and it is these intervals that the above `k` subscript to the N() function applies to.
 
 Then the N() function itself. What does it look like?
@@ -43,7 +43,7 @@ Then the N() function itself. What does it look like?
   N_{i,k}(t) = \left ( \frac{t-knot_i}{knot_{(i+k-1)} - knot_i}\right ) \cdot N_{i,k-1}(t) + \left ( \frac{knot_{(i+k)}-t}{knot_{(i+k)} - knot_{(i+1)}} \right ) \cdot N_{i+1,k-1}(t)
 \]
 
-So this is where we see the interpolation: N(t) for an (i,k) pair (that is, for a step in the above summation, on a specific knot interval) is a mix between N(t) for (i,k-1) and N(t) for (i+1,k-1), so we see that this is a recursive iteration where `i` goes up, and `k` goes down, so it seem reasonable to expect that this recursion has to stop at some point; obviously, it does, and specifically it does so for the following `i`/`k` values:
+So this is where we see the interpolation: N(t) for an `(i,k)` pair (that is, for a step in the above summation, on a specific knot interval) is a mix between N(t) for `(i,k-1)` and N(t) for `(i+1,k-1)`, so we see that this is a recursive iteration where `i` goes up, and `k` goes down, so it seem reasonable to expect that this recursion has to stop at some point; obviously, it does, and specifically it does so for the following `i`/`k` values:
 
 \[
   N_{i,1}(t) = \left\{\begin{matrix}
@@ -59,7 +59,7 @@ And this function finally has a straight up evaluation: if a `t` value lies with
 
 We can, yes.
 
-People far smarter than us have looked at this work, and two in particular — [Maurice Cox](https://www.npl.co.uk/people/maurice-cox) and [Carl de Boor](https://en.wikipedia.org/wiki/Carl_R._de_Boor) — came to a mathematically pleasing solution: to compute a point P(t), we can compute this point by evaluating *d(t)* on a curve section between knots *i* and *i+1*:
+People far smarter than us have looked at this work, and two in particular — [Maurice Cox](https://www.npl.co.uk/people/maurice-cox) and [Carl de Boor](https://en.wikipedia.org/wiki/Carl_R._de_Boor) — came to a mathematically pleasing solution: to compute a point P(t), we can compute this point by evaluating *d(t)* on a curve section between knots `i` and `i+1`:
 
 \[
   d^k_i(t) = \alpha_{i,k} \cdot d^{k-1}_i(t) + (1-\alpha_{i,k}) \cdot d^{k-1}_{i-1}(t)
@@ -139,7 +139,7 @@ One thing we need to keep in mind is that we're working with a spline that is co
 
 Unlike the de Casteljau algorithm, where the `t` value stays the same at every iteration, for B-Splines that is not the case, and so we end having to (for each point we evaluate) run a fairly involving bit of recursive computation. The algorithm is discussed on [this Michigan Tech](https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/de-Boor.html) page, but an easier to read version is implemented by [b-spline.js](https://github.com/thibauts/b-spline/blob/master/index.js#L59-L71), so we'll look at its code.
 
-Given an input value `t`, we first map the input to a value from the domain [0,1] to the domain [knots[degree], knots[knots.length - 1 - degree]. Then, we find the section number `s` that this mapped `t` value lies on:
+Given an input value `t`, we first map the input to a value from the domain `[0,1]` to the domain `[knots[degree], knots[knots.length - 1 - degree]`. Then, we find the section number `s` that this mapped `t` value lies on:
 
 ```
 for(s=domain[0]; s < domain[1]; s++) {
@@ -233,7 +233,7 @@ While a true non-uniform rational B-Spline would be hard to work with, when we t
 
 ## Extending our implementation to cover rational splines
 
-The algorithm for working with Rational B-Splines is virtually identical to the regular algorithm, and the extension to work in the control point weights is fairly simple: we extend each control point from a point in its original number of dimensions (2D, 3D, etc) to one dimension higher, scaling the original dimensions by the control point's weight, and then assigning that weight as its value for the extended dimension.
+The algorithm for working with Rational B-Splines is virtually identical to the regular algorithm, and the extension to work in the control point weights is fairly simple: we extend each control point from a point in its original number of dimensions (2D, 3D, etc.) to one dimension higher, scaling the original dimensions by the control point's weight, and then assigning that weight as its value for the extended dimension.
 
 For example, a 2D point `(x,y)` with weight `w` becomes a 3D point `(w * x, w * y, w)`.
 

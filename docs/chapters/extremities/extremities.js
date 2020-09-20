@@ -67,7 +67,7 @@ drawComponentY(dim, degree) {
 }
 
 plotDimension(dim, dimension) {
-    cacheStyle();
+    save();
     dimension.drawCurve();
 
     setFill(`red`);
@@ -118,7 +118,7 @@ plotQuadraticDimension(t1, y1, t2, y2, dim, dimension, reverse) {
     text(`t = ${t1.toFixed(2)}`, map(t1, 0,1, 15,dim-15), y1 + 25);
     circle(t2 * dim, y2, 3);
     text(`t = ${t2.toFixed(2)}`, map(t2, 0,1, 15,dim-15), y2 + 25);
-    restoreStyle();
+    restore();
 }
 
 
@@ -159,7 +159,7 @@ plotCubicDimension(t1, y1, t2, y2, dim, dimension, reverse) {
         }
     });
 
-    restoreStyle();
+    restore();
 }
 
 getRoots(v1, v2, v3) {

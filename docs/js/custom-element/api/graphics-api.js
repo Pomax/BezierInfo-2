@@ -416,17 +416,17 @@ class GraphicsAPI extends BaseAPI {
   }
 
   /**
-   * Cache all styling values
+   * Save the current state/properties on a stack
    */
-  cacheStyle() {
-    this.ctx.cacheStyle();
+  save() {
+    this.ctx.save();
   }
 
   /**
-   * restore all previous styling values
+   * Restore the most recently saved state/properties from the stack
    */
-  restoreStyle() {
-    this.ctx.restoreStyle();
+  restore() {
+    this.ctx.restore();
   }
 
   /**
@@ -449,19 +449,19 @@ class GraphicsAPI extends BaseAPI {
    * Reset the canvas bitmap to a uniform color.
    */
   clear(color = `white`, preserveTransforms = false) {
-    this.ctx.cacheStyle();
+    this.save();
     this.resetTransform();
     this.ctx.fillStyle = color;
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.restoreStyle();
+    this.restore();
     if (!preserveTransforms) this.resetTransform();
     if (this._gridParams) {
-      this.ctx.cacheStyle();
+      this.save();
       this.setStroke(this._gridParams.color);
       this.translate(0.5, 0.5);
       this.drawGrid(this._gridParams.size);
       this.translate(-0.5, -0.5);
-      this.ctx.restoreStyle();
+      this.restore();
     }
   }
 
@@ -517,7 +517,7 @@ class GraphicsAPI extends BaseAPI {
       x = x.x;
     }
     const ctx = this.ctx;
-    ctx.cacheStyle();
+    ctx.save();
     if (alignment) {
       ctx.textAlign = alignment;
     }
@@ -527,7 +527,7 @@ class GraphicsAPI extends BaseAPI {
       this.ctx.strokeText(str, x, y);
     }
     this.ctx.fillText(str, x, y);
-    ctx.restoreStyle();
+    ctx.restore();
   }
 
   /**

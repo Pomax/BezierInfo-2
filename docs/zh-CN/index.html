@@ -33,7 +33,7 @@
 		<meta property="og:locale" content="zh-CN" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2020-09-20T05:43:12+00:00" />
+		<meta property="og:updated_time" content="2020-09-20T21:20:31+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -2298,7 +2298,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="825px" height="275px" src="images\chapters\extremities\1b70524bfb7d159a48f0b370d81ee2f6.png" loading="lazy" />
+							<img width="825px" height="275px" src="images\chapters\extremities\fd68347a917c9b703ff8005287ac6ca4.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 
@@ -2312,7 +2312,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="825px" height="275px" src="images\chapters\extremities\a77025630019ef3d90ffa279879a205a.png" loading="lazy" />
+							<img width="825px" height="275px" src="images\chapters\extremities\fbfe9464c9653f5efcd04411e683faf9.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
@@ -5529,7 +5529,7 @@ for p = 1 to points.length-3 (inclusive):
 						The important part to notice here is that we are <strong>not</strong> doing the same thing with B-Splines that we do for poly-Béziers or
 						Catmull-Rom curves: both of the latter simply define new sections as literally "new sections based on new points", so a 12 point cubic
 						poly-Bézier curve is actually impossible, because we start with a four point curve, and then add three more points for each section that
-						follows, so we can only have 4, 7, 10, 13, 16, etc point Poly-Béziers. Similarly, while Catmull-Rom curves can grow by adding single
+						follows, so we can only have 4, 7, 10, 13, 16, etc. point Poly-Béziers. Similarly, while Catmull-Rom curves can grow by adding single
 						points, this addition of a single point introduces three implicit Bézier points. Cubic B-Splines, on the other hand, are smooth
 						interpolations of <em>each possible curve involving four consecutive points</em>, such that at any point along the curve except for our
 						start and end points, our on-curve coordinate is defined by four control points.
@@ -5569,7 +5569,7 @@ for p = 1 to points.length-3 (inclusive):
 					</p>
 					<p>
 						The parameter <code>k</code> represents the "knot interval" over which a section of curve is defined. As we learned earlier, a B-Spline
-						curve is itself an interpoliation of curves, and we can treat each transition where a control point starts or stops influencing the total
+						curve is itself an interpolation of curves, and we can treat each transition where a control point starts or stops influencing the total
 						curvature as a "knot on the curve". Doing so for a degree <code>d</code> B-Spline with <code>n</code> control point gives us
 						<code>d + n + 1</code> knots, defining <code>d + n</code> intervals along the curve, and it is these intervals that the above
 						<code>k</code> subscript to the N() function applies to.
@@ -5577,10 +5577,10 @@ for p = 1 to points.length-3 (inclusive):
 					<p>Then the N() function itself. What does it look like?</p>
 					<img class="LaTeX SVG" src="./images/chapters/bsplines/cf45d1ea00d4866abc8a058b130299b4.svg" width="584px" height="49px" loading="lazy" />
 					<p>
-						So this is where we see the interpolation: N(t) for an (i,k) pair (that is, for a step in the above summation, on a specific knot
-						interval) is a mix between N(t) for (i,k-1) and N(t) for (i+1,k-1), so we see that this is a recursive iteration where <code>i</code> goes
-						up, and <code>k</code> goes down, so it seem reasonable to expect that this recursion has to stop at some point; obviously, it does, and
-						specifically it does so for the following <code>i</code>/<code>k</code> values:
+						So this is where we see the interpolation: N(t) for an <code>(i,k)</code> pair (that is, for a step in the above summation, on a specific
+						knot interval) is a mix between N(t) for <code>(i,k-1)</code> and N(t) for <code>(i+1,k-1)</code>, so we see that this is a recursive
+						iteration where <code>i</code> goes up, and <code>k</code> goes down, so it seem reasonable to expect that this recursion has to stop at
+						some point; obviously, it does, and specifically it does so for the following <code>i</code>/<code>k</code> values:
 					</p>
 					<img class="LaTeX SVG" src="./images/chapters/bsplines/adac18ea69cc58e01c8d5e15498e4aa6.svg" width="245px" height="40px" loading="lazy" />
 					<p>
@@ -5597,7 +5597,7 @@ for p = 1 to points.length-3 (inclusive):
 						People far smarter than us have looked at this work, and two in particular —
 						<a href="https://www.npl.co.uk/people/maurice-cox">Maurice Cox</a> and
 						<a href="https://en.wikipedia.org/wiki/Carl_R._de_Boor">Carl de Boor</a> — came to a mathematically pleasing solution: to compute a point
-						P(t), we can compute this point by evaluating <em>d(t)</em> on a curve section between knots <em>i</em> and <em>i+1</em>:
+						P(t), we can compute this point by evaluating <em>d(t)</em> on a curve section between knots <code>i</code> and <code>i+1</code>:
 					</p>
 					<img class="LaTeX SVG" src="./images/chapters/bsplines/763838ea6f9e6c6aa63ea5f9c6d9542f.svg" width="287px" height="21px" loading="lazy" />
 					<p>
@@ -5644,8 +5644,9 @@ for p = 1 to points.length-3 (inclusive):
 						is implemented by <a href="https://github.com/thibauts/b-spline/blob/master/index.js#L59-L71">b-spline.js</a>, so we'll look at its code.
 					</p>
 					<p>
-						Given an input value <code>t</code>, we first map the input to a value from the domain [0,1] to the domain [knots[degree],
-						knots[knots.length - 1 - degree]. Then, we find the section number <code>s</code> that this mapped <code>t</code> value lies on:
+						Given an input value <code>t</code>, we first map the input to a value from the domain <code>[0,1]</code> to the domain
+						<code>[knots[degree], knots[knots.length - 1 - degree]</code>. Then, we find the section number <code>s</code> that this mapped
+						<code>t</code> value lies on:
 					</p>
 					<pre><code>for(s=domain[0]; s &lt; domain[1]; s++) {
   if(knots[s] &lt;= t && t &lt;= knots[s+1]) break;
@@ -5804,7 +5805,7 @@ for(let L = 1; L &lt;= order; L++) {
 					<h2>Extending our implementation to cover rational splines</h2>
 					<p>
 						The algorithm for working with Rational B-Splines is virtually identical to the regular algorithm, and the extension to work in the
-						control point weights is fairly simple: we extend each control point from a point in its original number of dimensions (2D, 3D, etc) to
+						control point weights is fairly simple: we extend each control point from a point in its original number of dimensions (2D, 3D, etc.) to
 						one dimension higher, scaling the original dimensions by the control point's weight, and then assigning that weight as its value for the
 						extended dimension.
 					</p>

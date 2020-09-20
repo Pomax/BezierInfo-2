@@ -65,5 +65,8 @@
     "open-cli": "^6.0.1",
     "prettier": "^2.0.5",
     "svgo": "git://github.com/Pomax/svgo#dereferenceUses-plugin"
+  },
+  "dependencies": {
+    "write-good": "^1.0.3"
   }
 }
