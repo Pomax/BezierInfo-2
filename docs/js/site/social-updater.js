@@ -45,7 +45,7 @@ class Tracker {
   }
 
   get_twt() {
-    var text = encodeURIComponent(`Reading "${this.sectionTitle}" by @TheRealPomax over on `) + this.url;
+    var text = encodeURIComponent(`Reading “${this.sectionTitle}” by @TheRealPomax over on `) + this.url;
     return `https://twitter.com/intent/tweet?original_referer=${this.url}&text=${text}&hashtags=bezier,curves,maths`;
   }
 }

@@ -11,8 +11,11 @@
 
 {% block share %}{% endblock %}
 
-{% block main %}{{ post }}{% endblock %}
+{% block main %}
+  {% include "./fragments/share-post.html" %}
+  {{ post }}
+{% endblock %}
 
 {% block footer %}
   This post is a news entry for the <a href="https://pomax.github.io/bezierinfo/">Primer on Bézier Curves</a>
-{% endblock%}
+{% endblock %}
