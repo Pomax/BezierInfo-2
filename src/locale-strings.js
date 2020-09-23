@@ -67,7 +67,7 @@ const localeStringData = {
 // =============================
 
 class LocaleStrings {
-  constructor(locale) {
+  constructor(locale = `en-GB`) {
     this.currentLocale = locale;
     const strings = (this.strings = {});
 

@@ -3,6 +3,7 @@ import path from "path";
 import paths from "../../project-paths.js";
 import splitCodeSections from "../../../docs/js/custom-element/lib/split-code-sections.js";
 import performCodeSurgery from "../../../docs/js/custom-element/lib/perform-code-surgery.js";
+import toPosix from "../../to-posix.js";
 
 // Get all the values we need to ensure our generated graphics code knows
 // where it lives, and where it can find all its dependencies
@@ -17,8 +18,6 @@ const GRAPHICS_API_LOCATION = path
   .join(path.posix.sep);
 
 const IMPORT_GLOBALS_FROM_GRAPHICS_API = `${API_IMPORTS} from "${GRAPHICS_API_LOCATION}"`;
-
-const RELATIVE_IMPORT_LOCATION = path.relative(paths.temp, paths.chapters).split(path.sep).join(path.posix.sep);
 
 /**
  * Node does not have a native canvas available, so we  need to shim a number
@@ -38,10 +37,13 @@ const canvasBuilder = function canvasBuilder(w, h) {
 /**
  * ...docs go here...
  */
-function generateGraphicsModule(chapter, code, width, height, dataset) {
+function generateGraphicsModule(pathdata, code, width, height, dataset) {
+  const { file } = pathdata;
+  const relativeWriteDir = toPosix(path.relative(paths.temp, path.dirname(file)));
+
   // step 1: fix the imports
   code = code.replace(/(import .+? from) "([^"]+)"/g, (_, main, group) => {
-    return `${main} "${RELATIVE_IMPORT_LOCATION}/${chapter}/${group}"`;
+    return `${main} "${relativeWriteDir}/${group}"`;
   });
 
   // step 2: split up the code into "global" vs. "class" code

@@ -3,7 +3,8 @@ import fs from "fs-extra";
 import path from "path";
 import paths from "../project-paths.js";
 import nunjucks from "nunjucks";
-import convert from "./markdown/convert.js";
+import LocaleStrings from "../locale-strings.js";
+import { convertMarkDown } from "./markdown/convert-markdown.js";
 
 nunjucks.configure(paths.html, { autoescape: false });
 
@@ -15,8 +16,9 @@ const locale = `en-GB`;
  */
 async function createNewsPages() {
   const start = Date.now();
+  const localeStrings = new LocaleStrings();
   const files = await getNewsFiles();
-  const details = files.filter((f) => !f.includes(`draft`)).map((file) => generatePost(file));
+  const details = await Promise.all(files.filter((f) => !f.includes(`draft`)).map((file) => generatePost(file, localeStrings)));
   console.log(`Processing News posts took ${(Date.now() - start) / 1000}s`);
   generateNewsIndex(details);
   generateRSSFeed(details);
@@ -37,7 +39,7 @@ function getNewsFiles() {
 /**
  * ...docs go here...
  */
-function generatePost(file) {
+async function generatePost(file, localeStrings) {
   // get the post, and the data its filename implies
   const filename = path.basename(file).replace(`.md`, `.html`);
   const postDate = filename.replace(`.html`, ``);
@@ -45,7 +47,17 @@ function generatePost(file) {
   const dateString = new Date(postDate).toUTCString().substring(0, 16);
 
   // split off the post's title
-  let post = convert(data);
+  let post = await convertMarkDown(
+    {
+      imagepath: path.join(paths.images, `news`, filename),
+      modulepubdir: `./news/`,
+      file: file,
+      id: filename,
+    },
+    localeStrings,
+    data
+  );
+
   const title = post.substring(post.indexOf(`<h1>`) + 4, post.indexOf(`</h1>`));
   post = post.replace(`<h1>${title}</h1>`, ``);
 

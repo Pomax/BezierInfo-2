@@ -77,6 +77,7 @@ class BaseAPI {
     this.addListeners();
     this.setSize(width, height);
     this.currentPoint = false;
+    this.frame = 0;
     this.setup();
     this.draw();
   }
@@ -175,7 +176,6 @@ class BaseAPI {
     this.stopEvent(evt);
     this.cursor.down = false;
     this.cursor.move = false;
-    this.getCursorCoords(evt);
   }
 
   /**
@@ -244,6 +244,7 @@ class BaseAPI {
    * This is the draw (loop) function.
    */
   draw() {
+    this.frame++;
     // console.log(`draw`);
   }
 

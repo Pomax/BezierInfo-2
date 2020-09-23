@@ -27,7 +27,7 @@
 		<meta property="og:locale" content="en-GB" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2020-09-18T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2020-09-22T11:58:20+00:00" />
+		<meta property="og:updated_time" content="2020-09-23T03:29:44+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -142,13 +142,33 @@
 				<li>Essentially reinventing (a limited form of) Processing.js</li>
 				<li>Writing a custom build system, because I'm exhausted with Webpack and hope to never use it again.</li>
 				<li>Using modern ES module code that runs in both the browser and Node.js.</li>
-				<li>Chapter content written as easy to read and write markdown format.</li>
+				<li>
+					Chapter content written as easy to read and write markdown format: <a href="./news/2020-09-18.md">view this blog post's source file</a>.
+				</li>
 				<li>A custom <code>&lt;graphics-element&gt;</code> element that turns a <code>src="blah.js"</code> into an interactive canvas graphic...</li>
 				<li>...with that same source code being read in and run by Node.js <em>on a canvas</em> to generate fallback images.</li>
+			</ul>
+			<blockquote>
+				<graphics-element title="An example graphic" width="275" height="275" src="./news/example.js">
+					<fallback-image>
+						<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+						<img width="275px" height="275px" src="./images/news/2020-09-18.html/b465a1526a406578c9806a9985e2dbd0.png" loading="lazy" />
+						<label>An example graphic</label>
+					</fallback-image></graphics-element
+				>
+			</blockquote>
+
+			<ul>
 				<li>
 					Real LaTeX code, that gets compiled into optimized SVG using <code>xelatex</code>, <code>pdfcrop</code>, <code>pdf2svg</code>, and
-					<code>svgo</code>.
+					<code>svgo</code>:
 				</li>
+			</ul>
+			<blockquote>
+				<img class="LaTeX SVG" src="./images/news/2020-09-18.html/24b6ead799277b0d73687d2fc5532a84.svg" width="401px" height="97px" loading="lazy" />
+			</blockquote>
+
+			<ul>
 				<li>"Lazy loaded everything", so that you get what you need, only when or even just before you need it.</li>
 				<li>Localized content based on a simple filenaming scheme.</li>
 				<li>Nicely formatted HTML, CSS, and JS thanks to <code>prettier</code>.</li>

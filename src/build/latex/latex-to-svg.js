@@ -4,6 +4,7 @@ import paths from "../../project-paths.js";
 import { createHash } from "crypto";
 import { execSync } from "child_process";
 import cleanUp from "./cleanup.js";
+import toPOSIX from "../../to-posix.js";
 
 /**
  * This converts a latex block into a .svg file by running it through
@@ -15,18 +16,18 @@ import cleanUp from "./cleanup.js";
  * so that the document won't constantly reflow as it loads images
  * in.
  */
-export default async function latexToSVG(latex, chapter, localeStrings, block) {
+export default async function latexToSVG(latex, pathdata, localeStrings, block) {
+  const { imagepath, id } = pathdata;
   latex = colorPreProcess(latex);
 
   const locale = localeStrings.getCurrentLocale();
   const hash = createHash(`md5`).update(latex).digest(`hex`);
 
   const TeXfilename = path.join(paths.temp, `${hash}.tex`);
-  const chapterDir = path.join(paths.images, `chapters`, chapter);
-  fs.ensureDirSync(chapterDir);
+  fs.ensureDirSync(imagepath);
 
-  const SVGfilename = path.join(chapterDir, `${hash}.svg`);
-  const srcURL = `./images/chapters/${chapter}/${hash}.svg`;
+  const SVGfilename = path.join(imagepath, `${hash}.svg`);
+  const srcURL = `./${toPOSIX(path.relative(paths.public, SVGfilename))}`;
 
   if (!fs.existsSync(SVGfilename)) {
     // There is no SVG graphic for the LaTeX code yet, so we need to generate
@@ -80,7 +81,7 @@ export default async function latexToSVG(latex, chapter, localeStrings, block) {
 
     // Finally: run the conversion
     try {
-      process.stdout.write(`- running xelatex for block [${chapter}:${locale}:${block}] (${hash}.tex): `);
+      process.stdout.write(`- running xelatex for block [${id}:${locale}:${block}] (${hash}.tex): `);
       runCmd(commands.xetex, hash);
 
       process.stdout.write(`  - cropping PDF to document content: `);

@@ -27,10 +27,27 @@
 &lt;li&gt;Essentially reinventing (a limited form of) Processing.js&lt;/li&gt;
 &lt;li&gt;Writing a custom build system, because I&#39;m exhausted with Webpack and hope to never use it again.&lt;/li&gt;
 &lt;li&gt;Using modern ES module code that runs in both the browser and Node.js.&lt;/li&gt;
-&lt;li&gt;Chapter content written as easy to read and write markdown format.&lt;/li&gt;
+&lt;li&gt;Chapter content written as easy to read and write markdown format: &lt;a href=&quot;./news/2020-09-18.md&quot;&gt;view this blog post&#39;s source file&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;A custom &lt;code&gt;&amp;lt;graphics-element&amp;gt;&lt;/code&gt; element that turns a &lt;code&gt;src=&quot;blah.js&quot;&lt;/code&gt; into an interactive canvas graphic...&lt;/li&gt;
 &lt;li&gt;...with that same source code being read in and run by Node.js &lt;em&gt;on a canvas&lt;/em&gt; to generate fallback images.&lt;/li&gt;
-&lt;li&gt;Real LaTeX code, that gets compiled into optimized SVG using &lt;code&gt;xelatex&lt;/code&gt;, &lt;code&gt;pdfcrop&lt;/code&gt;, &lt;code&gt;pdf2svg&lt;/code&gt;, and &lt;code&gt;svgo&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+    &lt;graphics-element title=&quot;An example graphic&quot; width=&quot;275&quot; height=&quot;275&quot; src=&quot;./news/example.js&quot; &gt;
+        &lt;fallback-image&gt;
+          &lt;span class=&quot;view-source&quot;&gt;Scripts are disabled. Showing fallback image.&lt;/span&gt;
+          &lt;img width=&quot;275px&quot; height=&quot;275px&quot; src=&quot;./images/news/2020-09-18.html/b465a1526a406578c9806a9985e2dbd0.png&quot; loading=&quot;lazy&quot;&gt;
+          &lt;label&gt;An example graphic&lt;/label&gt;
+        &lt;/fallback-image&gt;&lt;/graphics-element&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Real LaTeX code, that gets compiled into optimized SVG using &lt;code&gt;xelatex&lt;/code&gt;, &lt;code&gt;pdfcrop&lt;/code&gt;, &lt;code&gt;pdf2svg&lt;/code&gt;, and &lt;code&gt;svgo&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;img class=&quot;LaTeX SVG&quot; src=&quot;./images/news/2020-09-18.html/24b6ead799277b0d73687d2fc5532a84.svg&quot; width=&quot;401px&quot; height=&quot;97px&quot; loading=&quot;lazy&quot;&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
 &lt;li&gt;&quot;Lazy loaded everything&quot;, so that you get what you need, only when or even just before you need it.&lt;/li&gt;
 &lt;li&gt;Localized content based on a simple filenaming scheme.&lt;/li&gt;
 &lt;li&gt;Nicely formatted HTML, CSS, and JS thanks to &lt;code&gt;prettier&lt;/code&gt;.&lt;/li&gt;

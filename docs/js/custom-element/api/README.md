@@ -231,6 +231,7 @@ The following is the list of API functions that can be used to draw... whatever 
 
 - `this.width` the width of the graphic
 - `this.height` the height of the graphic
+- `this.frame` the current frame (i.e. the number of times `draw()` has run)
 - `this.panelWidth` the width of a single panel in the graphic, only meaningful in conjunction with `setPanelWidth` (see below)
 - `this.parameters` the collection of externally passed parameters (via HTML: `data-...` attributes, via JS: a key/value object)
 - `this.cursor` represents the current mouse/touch cursor state

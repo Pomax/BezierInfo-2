@@ -107,11 +107,15 @@ class GraphicsAPI extends BaseAPI {
       for (let i = 0, e = this.movable.length, p; i < e; i++) {
         p = this.movable[i];
         if (new Vector(p).dist(this.cursor) <= 5) {
-          this.setCursor(this.HAND);
+          if (this.canvas.style.cursor !== `none`) {
+            this.setCursor(this.HAND);
+          }
           return; // NOTE: this is a return, not a break!
         }
       }
-      this.setCursor(this.POINTER);
+      if (this.canvas.style.cursor !== `none`) {
+        this.setCursor(this.POINTER);
+      }
     }
   }
 

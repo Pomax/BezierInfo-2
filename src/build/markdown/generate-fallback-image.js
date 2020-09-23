@@ -4,6 +4,7 @@ import { createHash } from "crypto";
 import { generateGraphicsModule } from "./generate-graphics-module.js";
 import paths from "../../project-paths.js";
 import getModulePath from "../../get-module-path.js";
+import toPosix from "../../to-posix.js";
 
 const thisModuleDir = getModulePath(import.meta.url);
 
@@ -17,7 +18,7 @@ const thisModuleDir = getModulePath(import.meta.url);
  * @param {Number} h The sketch height in pixels
  */
 async function generateFallbackImage(
-  chapter,
+  pathdata,
   localeStrings,
   src,
   w,
@@ -25,6 +26,7 @@ async function generateFallbackImage(
   dataset = {} // Abstracted from the <graphics-element .... data-name="value"> markup
 ) {
   const locale = localeStrings.getCurrentLocale();
+  const { imagepath } = pathdata;
 
   // Get the sketch code
   const sourcePath = path.join(paths.chapters, `..`, src);
@@ -40,18 +42,18 @@ async function generateFallbackImage(
   // or not we should generate an image or whether we already did that previously.
   const hash = createHash(`md5`).update(code).update(JSON.stringify(dataset)).digest(`hex`);
 
-  if (locale !== localeStrings.getDefaultLocale()) return hash;
+  fs.ensureDirSync(imagepath);
+  const filePath = path.join(imagepath, `${hash}.png`);
+  const imgUrl = `./${toPosix(path.relative(paths.public, filePath))}`;
 
-  const destPath = path.dirname(path.join(paths.images, src));
-  fs.ensureDirSync(destPath);
+  if (locale !== localeStrings.getDefaultLocale()) return imgUrl;
 
-  const filePath = path.join(destPath, `${hash}.png`);
-  if (fs.existsSync(filePath)) return hash;
+  if (fs.existsSync(filePath)) return imgUrl;
 
   // If we get here, we need to actually run the magic: convert
   // this to a valid JS module code and write this to a temporary
   // file so we can import it.
-  const nodeCode = generateGraphicsModule(chapter, code, w, h, dataset);
+  const nodeCode = generateGraphicsModule(pathdata, code, w, h, dataset);
   const codeFile = `./nodecode.${Date.now()}.${Math.random()}.js`;
   const modulePath = path.join(paths.temp, codeFile);
   fs.writeFileSync(modulePath, nodeCode, `utf8`);
@@ -78,7 +80,7 @@ async function generateFallbackImage(
     console.error(e);
   }
 
-  return hash;
+  return imgUrl;
 }
 
 export default generateFallbackImage;

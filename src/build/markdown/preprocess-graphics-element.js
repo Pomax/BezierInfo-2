@@ -18,7 +18,8 @@ function formDataSet(data) {
 /**
  * ...docs go here...
  */
-async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
+async function preprocessGraphicsElement(pathdata, localeStrings, markdown) {
+  const { modulepubdir, imagepath, file, id } = pathdata;
   const translate = localeStrings.translate;
 
   let pos = -1,
@@ -57,18 +58,19 @@ async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
 
       let src = terms[3];
 
-      if (src.indexOf(`../`) === 0) src = `./chapters/${chapter}/${src}`;
+      if (src.indexOf(`../`) === 0) src = `${modulepubdir}${src}`;
       else {
         if (src[0] !== `.`) src = `./${src}`;
-        src = src.replace(`./`, `./chapters/${chapter}/`);
+        src = src.replace(`./`, `${modulepubdir}`);
       }
 
       // ======================================
       //   this is super fancy functionality:
       // ======================================
 
-      let imageHash = await generateFallbackImage(
-        chapter,
+      // Note: this is a URL relative to the public dir, **not** a file system location.
+      let imgUrl = await generateFallbackImage(
+        pathdata,
         localeStrings,
         src,
         width,
@@ -76,9 +78,6 @@ async function preprocessGraphicsElement(chapter, localeStrings, markdown) {
         // Including the markup-dataset means we can generate distinct images for distinct "instances".
         formDataSet(remainder.trim())
       );
-
-      // Note: this is a URL, _not_ a file system location.
-      let imgUrl = path.join(path.dirname(src.replace(`./`, `./images/`)), `${imageHash}.png`);
 
       const replacement = `width="${width}" height="${height}" src="${src}" ${remainder}>
         <fallback-image>

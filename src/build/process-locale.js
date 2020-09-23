@@ -39,7 +39,16 @@ async function processLocale(locale, localeStrings, chapterFiles) {
     localeFiles.map(async (file) => {
       const chapter = file.match(/chapters\/([^/]+)\/content./)[1];
       const markdown = fs.readFileSync(file).toString("utf8");
-      chapters[chapter] = await convertMarkDown(chapter, localeStrings, markdown);
+      chapters[chapter] = await convertMarkDown(
+        {
+          imagepath: path.join(paths.images, `chapters`, chapter),
+          modulepubdir: `./chapters/${chapter}/`,
+          file: file,
+          id: chapter,
+        },
+        localeStrings,
+        markdown
+      );
     })
   );
 
