@@ -86,7 +86,7 @@ function generateNewsIndex(details) {
     base,
     details,
     locale,
-    publishTime: `${details.postDate}T12:00:00+00:00`,
+    publishTime: new Date(),
   };
   const index = nunjucks.render(`news.template.html`, renderContext);
   fs.writeFileSync(path.join(paths.news, `index.html`), index, `utf8`);
@@ -98,7 +98,7 @@ function generateNewsIndex(details) {
 function generateRSSFeed(details) {
   const renderContext = {
     items: details,
-    buildDate: `${details.postDate}T12:00:00+00:00`,
+    buildDate: new Date(),
   };
   const index = nunjucks.render(`rss.template.xml`, renderContext);
   fs.writeFileSync(path.join(paths.news, `rss.xml`), index, `utf8`);
