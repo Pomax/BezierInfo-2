@@ -60,7 +60,9 @@ async function generatePost(file, localeStrings) {
 
   const title = post.substring(post.indexOf(`<h1>`) + 4, post.indexOf(`</h1>`));
   post = post.replace(`<h1>${title}</h1>`, ``);
-
+  const postDateTime = new Date(postDate).toString();
+  const pubDate = `${postDateTime.substring(0, postDateTime.indexOf(`GMT`) - 1)} +00:00`;
+  const now = new Date().toString();
   const renderContext = {
     base,
     post,
@@ -70,12 +72,12 @@ async function generatePost(file, localeStrings) {
     filename,
     locale,
     dateString,
-    publishTime: `${postDate}T12:00:00+00:00`,
-    currentTime: new Date().toISOString().substring(0, 19) + "+00:00",
+    publishTime: pubDate,
+    currentTime: `${now.substring(0, now.indexOf("GMT") - 1)} +00:00`,
   };
   const newspage = nunjucks.render(`post.template.html`, renderContext);
   fs.writeFileSync(path.join(paths.news, filename), newspage, `utf8`);
-  return { filename, postDate, title, post, dateString };
+  return { filename, pubDate, title, post, dateString };
 }
 
 /**
@@ -96,9 +98,10 @@ function generateNewsIndex(details) {
  * ...docs go here...
  */
 function generateRSSFeed(details) {
+  const now = new Date().toString();
   const renderContext = {
     items: details,
-    buildDate: new Date(),
+    buildDate: `${now.substring(0, now.indexOf(`GMT`) - 1)} +00:00`,
   };
   const index = nunjucks.render(`rss.template.xml`, renderContext);
   fs.writeFileSync(path.join(paths.news, `rss.xml`), index, `utf8`);

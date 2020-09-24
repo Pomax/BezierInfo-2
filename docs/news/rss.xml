@@ -6,7 +6,7 @@
   <atom:link href="https://pomax.github.io/bezierinfo" rel="self"></atom:link>
   <description>News updates for the <a href="https://pomax.github.io/bezierinfo">primer on Bézier Curves</a> by Pomax</description>
   <language>en-GB</language>
-  <lastBuildDate>Tue Sep 22 2020 20:51:04 GMT-0700 (Pacific Daylight Time)</lastBuildDate>
+  <lastBuildDate>Wed Sep 23 2020 17:48:27 +00:00</lastBuildDate>
   <image>
     <url>https://pomax.github.io/bezierinfo/images/og-image.png</url>
     <title>A Primer on Bézier Curves</title>
@@ -61,7 +61,7 @@
 &lt;p&gt;See you in the next post!&lt;/p&gt;
 &lt;p&gt;— Pomax&lt;/p&gt;
 </description>
-    <pubDate>2020-09-18</pubDate>
+    <pubDate>Thu Sep 17 2020 17:00:00 +00:00</pubDate>
     <guid>2020-09-18.html</guid>
   </item>
   
