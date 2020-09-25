@@ -25,6 +25,10 @@
   --code-block-color: rgba(0, 0, 0, 0.03);
   --heading-color: #cfe6ff;
   --heading-text: #333;
+
+  --line-numbers: 2.2em;
+  --side-padding: 2em;
+  --line-height: 16px;
 }
 
 body {
@@ -194,7 +198,7 @@ div.note:before {
 img.LaTeX.SVG {
   margin: 0;
   background: white;
-  padding: 1em 1em 1em 0;
+  padding: 1em 1em 0.25em 0;
   border-radius: 0.3em;
 }
 
@@ -379,4 +383,56 @@ div.github img area {
 
 h5.post-date {
   text-align: right;
+}
+
+table.code {
+  border-collapse: collapse;
+  margin: 0;
+  margin-left: var(--side-padding);
+  width: calc(100% - 3 * var(--side-padding));
+  border: 0.5em solid #f0f0f0;
+  border-width: 0.5em 0;
+}
+
+table.code td {
+  background: #f0f0f0;
+  border: none;
+  padding: 0;
+  cursor: default;
+}
+
+table.code td,
+table.code td textarea {
+  font-family: Courier;
+  font-size: 16px;
+  white-space: pre;
+}
+
+table.code td textarea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  resize: none;
+  cursor: text;
+  color: inherit;
+  padding-left: 1em;
+  background: transparent;
+  overflow: hidden;
+}
+
+table.code tr td[rowspan] {
+  position: relative;
+}
+
+table.code tr td:first-child {
+  width: 1.5em;
+  padding-right: 0.25em;
+  text-align: right;
+  user-select: none;
+  color: #999;
+  cursor: default;
+  border-right: 1px solid red;
 }

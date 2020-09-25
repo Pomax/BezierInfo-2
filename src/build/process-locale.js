@@ -40,14 +40,14 @@ async function processLocale(locale, localeStrings, chapterFiles) {
       const chapter = file.match(/chapters\/([^/]+)\/content./)[1];
       const markdown = fs.readFileSync(file).toString("utf8");
       chapters[chapter] = await convertMarkDown(
+        markdown,
         {
           imagepath: path.join(paths.images, `chapters`, chapter),
           modulepubdir: `./chapters/${chapter}/`,
           file: file,
           id: chapter,
         },
-        localeStrings,
-        markdown
+        localeStrings
       );
     })
   );

@@ -27,7 +27,7 @@
 		<meta property="og:locale" content="en-GB" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="Thu Sep 17 2020 17:00:00 +00:00" />
-		<meta property="og:updated_time" content="Wed Sep 23 2020 17:48:27 +00:00" />
+		<meta property="og:updated_time" content="Fri Sep 25 2020 15:42:02 +00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -165,13 +165,76 @@
 				</li>
 			</ul>
 			<blockquote>
-				<img class="LaTeX SVG" src="./images/news/2020-09-18.html/24b6ead799277b0d73687d2fc5532a84.svg" width="401px" height="97px" loading="lazy" />
+				<img class="LaTeX SVG" src="./images/news/2020-09-18.html/15225da473048d8c7b5b473b89de0b66.svg" width="401px" height="97px" loading="lazy" />
 			</blockquote>
 
 			<ul>
 				<li>"Lazy loaded everything", so that you get what you need, only when or even just before you need it.</li>
 				<li>Localized content based on a simple filenaming scheme.</li>
 				<li>Nicely formatted HTML, CSS, and JS thanks to <code>prettier</code>.</li>
+				<li>with some code formatting so that there are line numbers without needing JS:</li>
+			</ul>
+
+			<table class="code">
+				<tr>
+					<td>1</td>
+					<td rowspan="13">
+						<textarea disabled rows="13" role="doc-example">
+let curve;
+
+setup() {
+    curve = Bezier.defaultCubic();
+    setMovable(curve.points);
+    noGrid();
+}
+
+draw() {
+    clear(`lightblue`);
+    curve.drawCurve();
+    curve.drawPoints();
+}</textarea
+						>
+					</td>
+				</tr>
+				<tr>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>3</td>
+				</tr>
+				<tr>
+					<td>4</td>
+				</tr>
+				<tr>
+					<td>5</td>
+				</tr>
+				<tr>
+					<td>6</td>
+				</tr>
+				<tr>
+					<td>7</td>
+				</tr>
+				<tr>
+					<td>8</td>
+				</tr>
+				<tr>
+					<td>9</td>
+				</tr>
+				<tr>
+					<td>10</td>
+				</tr>
+				<tr>
+					<td>11</td>
+				</tr>
+				<tr>
+					<td>12</td>
+				</tr>
+				<tr>
+					<td>13</td>
+				</tr>
+			</table>
+
+			<ul>
 				<li>Responsive CSS, so the content intelligently reflows where possible.</li>
 				<li>A "Live build" setup for working on the content and code.</li>
 				<li>Automatic link-checking to make sure none of the links in the Primer lead you to a 404.</li>

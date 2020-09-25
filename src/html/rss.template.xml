@@ -13,15 +13,14 @@
     <link>https://pomax.github.io/bezierinfo</link>
   </image>
 
-  {% for item in items %}
-  <item>
+  {% for item in items %}<item>
     <title>{{ item.title }}</title>
     <link>https://pomax.github.io/bezierinfo/news/{{ item.filename }}</link>
-    <description>{{ item.post | escape }}</description>
+    <description>
+    {{ item.post | escape }}
+    </description>
     <pubDate>{{ item.pubDate }}</pubDate>
     <guid>{{ item.filename }}</guid>
-  </item>
-  {% endfor %}
-
+  </item>{% endfor %}
 </channel>
 </rss>

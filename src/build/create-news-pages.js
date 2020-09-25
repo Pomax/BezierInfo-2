@@ -48,14 +48,14 @@ async function generatePost(file, localeStrings) {
 
   // split off the post's title
   let post = await convertMarkDown(
+    data,
     {
       imagepath: path.join(paths.images, `news`, filename),
       modulepubdir: `./news/`,
       file: file,
       id: filename,
     },
-    localeStrings,
-    data
+    localeStrings
   );
 
   const title = post.substring(post.indexOf(`<h1>`) + 4, post.indexOf(`</h1>`));

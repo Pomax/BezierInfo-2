@@ -6,18 +6,18 @@
   <atom:link href="https://pomax.github.io/bezierinfo" rel="self"></atom:link>
   <description>News updates for the <a href="https://pomax.github.io/bezierinfo">primer on Bézier Curves</a> by Pomax</description>
   <language>en-GB</language>
-  <lastBuildDate>Wed Sep 23 2020 17:48:27 +00:00</lastBuildDate>
+  <lastBuildDate>Fri Sep 25 2020 15:42:02 +00:00</lastBuildDate>
   <image>
     <url>https://pomax.github.io/bezierinfo/images/og-image.png</url>
     <title>A Primer on Bézier Curves</title>
     <link>https://pomax.github.io/bezierinfo</link>
   </image>
 
-  
   <item>
     <title>Rewriting the tech stack</title>
     <link>https://pomax.github.io/bezierinfo/news/2020-09-18.html</link>
     <description>
+    
 &lt;p&gt;Once upon a time, I needed to draw some Bezier curves because I was trying to create a Japanese kanji composition system that turned strokes into outlines, and that required knowing how to offset Bezier curves and... at the time (2011, time flies) there was no good single source of information for Bezier curves on the web. So I made one. Sure it started small, but it turns out that if you just keep adding bits to something, several years later you have quite the monster, and a single HTML file becomes intractible.&lt;/p&gt;
 &lt;p&gt;So, in 2016, when &lt;a href=&quot;&quot;&gt;React.js&lt;/a&gt; exploded onto the scene, I rewrote the primer as a React app, and it became a lot easier to maintain. Like, &lt;em&gt;a lot&lt;/em&gt; a lot. However, there was a downside: no JS meant no content. Sure, server-side rendering sort of existed, but not really, and because the Primer is hosted through github, there was no &quot;server&quot; to run. Plus, trying to rehydrate an app the size of the Primer from a giant HTML file had truly &lt;em&gt;dire&lt;/em&gt; performance.&lt;/p&gt;
 &lt;p&gt;So I left it a regular React app, and every time I thought &quot;wouldn&#39;t it be nice if it was just... a web page again?&quot; the browser landscape just hadn&#39;t caught up. Finally, in 2020, things are different: with a global pandemic, and some vacation time, and something random causing me to look up the state of HTML custom elements, everything was pointing at it being time to finally, &lt;em&gt;finally&lt;/em&gt;, turn the Primer back into a normal web page.&lt;/p&gt;
@@ -44,13 +44,45 @@
 &lt;li&gt;Real LaTeX code, that gets compiled into optimized SVG using &lt;code&gt;xelatex&lt;/code&gt;, &lt;code&gt;pdfcrop&lt;/code&gt;, &lt;code&gt;pdf2svg&lt;/code&gt;, and &lt;code&gt;svgo&lt;/code&gt;:&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;img class=&quot;LaTeX SVG&quot; src=&quot;./images/news/2020-09-18.html/24b6ead799277b0d73687d2fc5532a84.svg&quot; width=&quot;401px&quot; height=&quot;97px&quot; loading=&quot;lazy&quot;&gt;
+&lt;img class=&quot;LaTeX SVG&quot; src=&quot;./images/news/2020-09-18.html/15225da473048d8c7b5b473b89de0b66.svg&quot; width=&quot;401px&quot; height=&quot;97px&quot; loading=&quot;lazy&quot;&gt;
 &lt;/blockquote&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&quot;Lazy loaded everything&quot;, so that you get what you need, only when or even just before you need it.&lt;/li&gt;
 &lt;li&gt;Localized content based on a simple filenaming scheme.&lt;/li&gt;
 &lt;li&gt;Nicely formatted HTML, CSS, and JS thanks to &lt;code&gt;prettier&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;with some code formatting so that there are line numbers without needing JS:&lt;/li&gt;
+&lt;/ul&gt;
+
+    &lt;table class=&quot;code&quot;&gt;&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td rowspan=&quot;13&quot;&gt;
+          &lt;textarea disabled rows=&quot;13&quot; role=&quot;doc-example&quot;&gt;let curve;
+
+setup() {
+    curve = Bezier.defaultCubic();
+    setMovable(curve.points);
+    noGrid();
+}
+
+draw() {
+    clear(`lightblue`);
+    curve.drawCurve();
+    curve.drawPoints();
+}&lt;/textarea&gt;
+        &lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;2&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;6&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;7&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;9&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;10&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;11&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;12&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;13&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+  
+&lt;ul&gt;
 &lt;li&gt;Responsive CSS, so the content intelligently reflows where possible.&lt;/li&gt;
 &lt;li&gt;A &quot;Live build&quot; setup for working on the content and code.&lt;/li&gt;
 &lt;li&gt;Automatic link-checking to make sure none of the links in the Primer lead you to a 404.&lt;/li&gt;
@@ -60,11 +92,10 @@
 &lt;p&gt;Enjoy &lt;a href=&quot;https://pomax.github.io/bezierinfo&quot;&gt;The new Primer on Bézier Curves&lt;/a&gt;, and if you find any problems, &lt;a href=&quot;https://github.com/Pomax/BezierInfo-2/issues&quot;&gt;you know where to go&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;See you in the next post!&lt;/p&gt;
 &lt;p&gt;— Pomax&lt;/p&gt;
-</description>
+
+    </description>
     <pubDate>Thu Sep 17 2020 17:00:00 +00:00</pubDate>
     <guid>2020-09-18.html</guid>
   </item>
-  
-
 </channel>
 </rss>

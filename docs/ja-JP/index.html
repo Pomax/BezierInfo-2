@@ -33,7 +33,7 @@
 		<meta property="og:locale" content="ja-JP" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2020-09-24T00:48:27+00:00" />
+		<meta property="og:updated_time" content="2020-09-25T22:42:02+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -469,7 +469,7 @@
 					<p>
 						例えば、2点間の距離がわかっているとして、一方の点から距離の20%だけ離れた（すなわち、もう一方の点から80%離れた）新しい点を求めたい場合、次のようにとても簡単に計算できます。
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/whatis/4df088f01d0fd4de84a50bbc2e25f8a7.svg" width="433px" height="108px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/whatis/06bbc5c11ad3fd88ff93eb2c06177b66.svg" width="433px" height="108px" loading="lazy" />
 					<p>
 						では、実際に見てみましょう。下の図はインタラクティブになっています。上下キーで補間の比率が増減しますので、どうなるか確かめてみましょう。最初に3点があり、それを結んで2本の直線が引かれています。この直線の上でそれぞれ線形補間を行うと、2つの点が得られます。この2点の間でさらに線形補間を行うと、1つの点を得ることができます。そして、あらゆる比率に対して同様に点を求め、それをすべて集めると、このようにベジエ曲線ができるのです。
 					</p>
@@ -481,7 +481,6 @@
 						</fallback-image>
 						<input type="range" min="10" max="90" step="1" value="25" class="slide-control" />
 					</graphics-element>
-
 					<p>また、これが複雑な方の数学につながっていきます。微積分です。</p>
 					<p>
 						いま上で行ったものとは似つかないように思えますが、実はあれは2次曲線を描いていたのです。ただし一発で描きあげるのではなく、手順を追って描いていきました。ベジエ曲線は多項式関数で表現できますが、その一方で、とても単純な補間の補間の補間の……というふうにも説明できます。これがベジエ曲線のおもしろいところです。これはまた、ベジェ曲線は「本当の数学」で見る（関数を調べたり微分を調べたり、あらゆる方法で）ことも可能ですし、「機械的」な組み立て操作として見る（例えば、ベジエ曲線は組み立てに使う点の間からは決してはみ出ないということがわかります）ことも可能だということを意味しています。
@@ -498,27 +497,27 @@
 					<p>
 						ベジエ曲線は「パラメトリック」関数の一種です。数学的に言えば、パラメトリック関数というのはインチキです。というのも、「関数」はきっちり定義された用語であり、いくつかの入力を<strong>1つ</strong>の出力に対応させる写像を表すものだからです。いくつかの数値を入れると、1つの数値が出てきます。入れる数値が変わっても、出てくる数値はやはり1つだけです。パラメトリック関数はインチキです。基本的には「じゃあわかった、値を複数個出したいから、関数を複数個使うことにするよ」ということです。例として、ある値<i>x</i>に何らかの操作を行い、別の値へと写す関数があるとします。
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/explanation/1caef9931f954e32eae5067b732c1018.svg" width="93px" height="17px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/explanation/0cc876c56200446c60114c1b0eeeb2cc.svg" width="96px" height="17px" loading="lazy" />
 					<p>
 						<i>f(x)</i
 						>という記法は、これが関数（1つしかない場合は慣習的に<i>f</i>と呼びます）であり、その出力が1つの変数（この場合は<i>x</i>です）に応じて変化する、ということを示す標準的な方法です。<i>x</i>を変化させると、<i>f(x)</i>の出力が変化します。
 					</p>
 					<p>ここまでは順調です。では、パラメトリック関数について、これがどうインチキなのかを見てみましょう。以下の2つの関数を考えます。</p>
-					<img class="LaTeX SVG" src="./images/chapters/explanation/0f5cffd58e864fec6739a57664eb8cbd.svg" width="92px" height="37px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/explanation/a2891980850ddbb27d308ac112d69f74.svg" width="93px" height="36px" loading="lazy" />
 					<p>
 						注目すべき箇所は特に何もありません。ただの正弦関数と余弦関数です。ただし、入力が別々の名前になっていることに気づくでしょう。仮に<i>a</i>の値を変えたとしても、<i>f(b)</i>の出力の値は変わらないはずです。なぜなら、こちらの関数には<i>a</i>は使われていないからです。パラメトリック関数は、これを変えてしまうのでインチキなのです。パラメトリック関数においては、どの関数も変数を共有しています。例えば、
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/066a910ae6aba69c40a338320759cdd1.svg"
-						width="104px"
+						src="./images/chapters/explanation/7acc94ec70f053fd10dab69d424b02a6.svg"
+						width="100px"
 						height="40px"
 						loading="lazy"
 					/>
 					<p>
 						複数の関数がありますが、変数は1つだけです。<i>t</i>の値を変えた場合、<i>f<sub>a</sub>(t)</i>と<i>f<sub>b</sub>(t)</i>の両方の出力が変わります。これがどのように役に立つのか、疑問に思うかもしれません。しかし、実際には答えは至ってシンプルです。<i>f<sub>a</sub>(t)</i>と<i>f<sub>b</sub>(t)</i>のラベルを、パラメトリック曲線の表示によく使われているもので置き換えてやれば、ぐっとはっきりするかと思います。
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/explanation/4cf6fb369841e2c5d36e5567a8db4306.svg" width="79px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/explanation/6914ba615733c387251682db7a3db045.svg" width="77px" height="40px" loading="lazy" />
 					<p>きました。<i>x</i>/<i>y</i>座標です。謎の値<i>t</i>を通して繫がっています。</p>
 					<p>
 						というわけで、普通の関数では<i>y</i>座標を<i>x</i>座標によって定義しますが、パラメトリック曲線ではそうではなく、座標の値を「制御」変数と結びつけます。<i>t</i>の値を変化させるたびに<strong>2つ</strong>の値が変化するので、これをグラフ上の座標
@@ -532,16 +531,15 @@
 						</fallback-image>
 						<input type="range" min="0" max="10" step="0.1" value="5" class="slide-control" />
 					</graphics-element>
-
 					<p>
 						ベジエ曲線はパラメトリック関数の一種であり、どの次元に対しても同じ基底関数を使うという点で特徴づけられます。先ほどの例では、<i>x</i>の値と<i>y</i>の値とで異なる関数（正弦関数と余弦関数）を使っていましたが、ベジエ曲線では<i>x</i>と<i>y</i>の両方で「二項係数多項式」を使います。では、二項係数多項式とは何でしょう？
 					</p>
 					<p>高校で習った、こんな形の多項式を思い出すかもしれません。</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/bb06cb82d372f822a7b35e661502bd72.svg"
-						width="219px"
-						height="19px"
+						src="./images/chapters/explanation/855a34c7f72733be6529c3fb33fa1a23.svg"
+						width="213px"
+						height="20px"
 						loading="lazy"
 					/>
 					<p>
@@ -552,7 +550,7 @@
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/6e15c433dc2340271e007742009e3532.svg"
+						src="./images/chapters/explanation/adc7729f7872d71f3fbb1a79741ce10f.svg"
 						width="347px"
 						height="64px"
 						loading="lazy"
@@ -562,7 +560,7 @@
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/c605597fb629b964921c6a4bca7fa4c9.svg"
+						src="./images/chapters/explanation/6aa5d4e20e83be1c95eaad792517dde9.svg"
 						width="163px"
 						height="85px"
 						loading="lazy"
@@ -575,7 +573,7 @@
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/741097d69c182e8742695af23980bd8f.svg"
+						src="./images/chapters/explanation/9229934d71b0b02921bc92594ef11a98.svg"
 						width="288px"
 						height="61px"
 						loading="lazy"
@@ -585,7 +583,7 @@
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/f24fd5e27968d96957ba706b16d8e90b.svg"
+						src="./images/chapters/explanation/b5977078d36d847fb299cbe3e7e2c3ba.svg"
 						width="321px"
 						height="59px"
 						loading="lazy"
@@ -596,18 +594,47 @@
 					<div class="howtocode">
 						<h3>基底関数の実装方法</h3>
 						<p>上で説明した関数を使えば、数学的な組み立て方で、基底関数をナイーブに実装することもできます。</p>
-						<pre><code>function Bezier(n,t):
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="5">
+									<textarea disabled rows="5" role="doc-example">
+function Bezier(n,t):
   sum = 0
-  for(k=0; k&lt;n; k++):
+  for(k=0; k<n; k++):
     sum += n!/(k!*(n-k)!) * (1-t)^(n-k) * t^(k)
-  return sum</code></pre>
+  return sum</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+						</table>
+
 						<p>
 							「こともできる」と書いたのは、この方法では実装しない方が良いからです。階乗は<em>とてつもなく</em>重い計算なのです。また、先ほどの説明からわかるように、実際は階乗を使わなくても、かなり簡単にパスカルの三角形を作ることができます。[1]から始めて[1,1]、[1,2,1]、[1,3,3,1]、……としていくだけです。下の段は上の段よりも1つ要素が増え、各段の先頭と末尾は1になります。中間の数はどれも、左右斜め上にある両要素の和になります。
 						</p>
 						<p>
 							このパスカルの三角形は、「リストのリスト」として瞬時に生成できます。そして、これをルックアップテーブルとして利用すれば、二項係数を計算する必要はまったくなくなります。
 						</p>
-						<pre><code>lut = [      [1],           // n=0
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="18">
+									<textarea disabled rows="18" role="doc-example">
+lut = [      [1],           // n=0
             [1,1],          // n=1
            [1,2,1],         // n=2
           [1,3,3,1],        // n=3
@@ -616,27 +643,112 @@
        [1,6,15,20,15,6,1]]  // n=6
 
 binomial(n,k):
-  while(n &gt;= lut.length):
+  while(n >= lut.length):
     s = lut.length
     nextRow = new array(size=s+1)
     nextRow[0] = 1
-    for(i=1, prev=s-1; i&lt;s; i++):
+    for(i=1, prev=s-1; i<s; i++):
       nextRow[i] = lut[prev][i-1] + lut[prev][i]
     nextRow[s] = 1
     lut.add(nextRow)
-  return lut[n][k]</code></pre>
+  return lut[n][k]</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>8</td>
+							</tr>
+							<tr>
+								<td>9</td>
+							</tr>
+							<tr>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>11</td>
+							</tr>
+							<tr>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td>13</td>
+							</tr>
+							<tr>
+								<td>14</td>
+							</tr>
+							<tr>
+								<td>15</td>
+							</tr>
+							<tr>
+								<td>16</td>
+							</tr>
+							<tr>
+								<td>17</td>
+							</tr>
+							<tr>
+								<td>18</td>
+							</tr>
+						</table>
+
 						<p>
 							これはどのように動くのでしょう？最初に、十分に大きなサイズのルックアップテーブルを宣言します。次に、求めたい値を得るための関数を定義します。この関数は、求めたい値のn/kのペアがテーブル中にまだ存在しない場合、先にテーブルを拡張するようになっています。さて、これで基底関数は次のようになりました。
 						</p>
-						<pre><code>function Bezier(n,t):
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="5">
+									<textarea disabled rows="5" role="doc-example">
+function Bezier(n,t):
   sum = 0
-  for(k=0; k&lt;=n; k++):
+  for(k=0; k<=n; k++):
     sum += binomial(n,k) * (1-t)^(n-k) * t^(k)
-  return sum</code></pre>
+  return sum</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+						</table>
+
 						<p>
 							完璧です。もちろん、さらなる最適化を施すこともできます。コンピュータグラフィクス用途ではたいてい、任意の次数の曲線が必要になるわけではありません。2次と3次の曲線だけが必要であれば、以下のようにコードを劇的に単純化することができます（実際、この入門では任意の次数までは扱いませんので、これに似たようなコードが出てきます）。
 						</p>
-						<pre><code>function Bezier(2,t):
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="13">
+									<textarea disabled rows="13" role="doc-example">
+function Bezier(2,t):
   t2 = t * t
   mt = 1-t
   mt2 = mt * mt
@@ -648,7 +760,48 @@ function Bezier(3,t):
   mt = 1-t
   mt2 = mt * mt
   mt3 = mt2 * mt
-  return mt3 + 3*mt2*t + 3*mt*t2 + t3</code></pre>
+  return mt3 + 3*mt2*t + 3*mt*t2 + t3</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>8</td>
+							</tr>
+							<tr>
+								<td>9</td>
+							</tr>
+							<tr>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>11</td>
+							</tr>
+							<tr>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td>13</td>
+							</tr>
+						</table>
+
 						<p>これで基底関数をプログラムする方法がわかりました。すばらしい。</p>
 					</div>
 
@@ -675,23 +828,27 @@ function Bezier(3,t):
 							<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
 						</graphics-element>
 
-						<graphics-element title="3次の補間" width="275" height="275" src="./chapters/control/lerp.js" data-degree="4">
-							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="./images/chapters/control/4b206c16ccf8a06a0834fe9e5254560c.png" loading="lazy" />
-								<label>3次の補間</label>
-							</fallback-image>
-							<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
-						</graphics-element>
+						<p>
+							<graphics-element title="3次の補間" width="275" height="275" src="./chapters/control/lerp.js" data-degree="4">
+								<fallback-image>
+									<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+									<img width="275px" height="275px" src="./images/chapters/control/4b206c16ccf8a06a0834fe9e5254560c.png" loading="lazy" />
+									<label>3次の補間</label>
+								</fallback-image>
+								<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
+							</graphics-element>
+						</p>
 
-						<graphics-element title="15次の補間" width="275" height="275" src="./chapters/control/lerp.js" data-degree="15">
-							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="./images/chapters/control/be82cd31c4892a8f0582b1b5285231d9.png" loading="lazy" />
-								<label>15次の補間</label>
-							</fallback-image>
-							<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
-						</graphics-element>
+						<p>
+							<graphics-element title="15次の補間" width="275" height="275" src="./chapters/control/lerp.js" data-degree="15">
+								<fallback-image>
+									<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+									<img width="275px" height="275px" src="./images/chapters/control/be82cd31c4892a8f0582b1b5285231d9.png" loading="lazy" />
+									<label>15次の補間</label>
+								</fallback-image>
+								<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
+							</graphics-element>
+						</p>
 					</div>
 
 					<p>
@@ -700,11 +857,11 @@ function Bezier(3,t):
 					<p>
 						曲線を変更したい場合は、各点の重みを変える（実質的には補間率を変える）必要があります。これはとても単純で、寄与の大きさを変えるための値を、各点にただ掛ければいいのです。この値は「重み」と呼ばれていますが、これを元のベジエ関数に組み込めば、次のようになります。
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/control/2af72ea0c3517bc05f36a08cbbed6002.svg" width="360px" height="59px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/control/9df7dc66b51db8e3046e1f359874c38e.svg" width="360px" height="59px" loading="lazy" />
 					<p>
 						複雑そうに見えますが、運がいいことに「重み」というのは実はただの座標値です。というのは<i>n</i>次の曲線の場合、w<sub>0</sub>が始点の座標、w<sub>n</sub>が終点の座標となり、その間はどれも制御点の座標になります。例えば、始点が(120,160)、制御点が(35,200)と(220,260)、終点が(220,40)となる3次ベジエ曲線は、次のようになります。
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/control/c0d4dbc07b8ec7c0a18ea43c8a386935.svg" width="476px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/control/20b0be6397fbd726298de6ec70a8544b.svg" width="473px" height="40px" loading="lazy" />
 					<p>この式からは、記事の冒頭に出てきた曲線が得られます。</p>
 					<Graphic title="あの3次ベジエ曲線" setup="{this.drawCubic}" draw="{this.drawCurve}" />
 
@@ -714,13 +871,42 @@ function Bezier(3,t):
 					<div class="howtocode">
 						<h3>重みつき基底関数の実装方法</h3>
 						<p>基底関数の実装方法はすでに知っていますし、これに制御点を組み込むのは非常に簡単です。</p>
-						<pre><code>function Bezier(n,t,w[]):
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="5">
+									<textarea disabled rows="5" role="doc-example">
+function Bezier(n,t,w[]):
   sum = 0
-  for(k=0; k&lt;n; k++):
+  for(k=0; k<n; k++):
     sum += w[k] * binomial(n,k) * (1-t)^(n-k) * t^(k)
-  return sum</code></pre>
+  return sum</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+						</table>
+
 						<p>そして、最適化を行ったバージョンは以下のようになります。</p>
-						<pre><code>function Bezier(2,t,w[]):
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="13">
+									<textarea disabled rows="13" role="doc-example">
+function Bezier(2,t,w[]):
   t2 = t * t
   mt = 1-t
   mt2 = mt * mt
@@ -732,7 +918,48 @@ function Bezier(3,t,w[]):
   mt = 1-t
   mt2 = mt * mt
   mt3 = mt2 * mt
-  return w[0]*mt3 + 3*w[1]*mt2*t + 3*w[2]*mt*t2 + w[3]*t3</code></pre>
+  return w[0]*mt3 + 3*w[1]*mt2*t + 3*w[2]*mt*t2 + w[3]*t3</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>8</td>
+							</tr>
+							<tr>
+								<td>9</td>
+							</tr>
+							<tr>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>11</td>
+							</tr>
+							<tr>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td>13</td>
+							</tr>
+						</table>
+
 						<p>これで、重みつき基底関数をプログラムする方法がわかりました。</p>
 					</div>
 				</section>
@@ -748,17 +975,17 @@ function Bezier(3,t,w[]):
 					<p>Adding these ratio values to the regular Bézier curve function is fairly easy. Where the regular function is the following:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/weightcontrol/02457b19087540dfb144978419524a85.svg"
-						width="285px"
+						src="./images/chapters/weightcontrol/85d526fb17f9e859dcd7d40d22192e37.svg"
+						width="276px"
 						height="41px"
 						loading="lazy"
 					/>
 					<p>The function for rational Bézier curves has two more terms:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/weightcontrol/3fd61ab3fe88f694e70f61e4f8ea056b.svg"
-						width="436px"
-						height="47px"
+						src="./images/chapters/weightcontrol/02165788eb08947243196b24b10c19c0.svg"
+						width="407px"
+						height="48px"
 						loading="lazy"
 					/>
 					<p>
@@ -794,7 +1021,6 @@ function Bezier(3,t,w[]):
 						<input type="range" min="0.01" max="2" value="1" step="0.01" class="ratio-3" />
 						<input type="range" min="0.01" max="2" value="1" step="0.01" class="ratio-4" />
 					</graphics-element>
-
 					<p>
 						You can think of the ratio values as each coordinate's "gravity": the higher the gravity, the closer to that coordinate the curve will
 						want to be. You'll also notice that if you simply increase or decrease all the ratios by the same amount, nothing changes... much like
@@ -804,7 +1030,13 @@ function Bezier(3,t,w[]):
 					<div class="howtocode">
 						<h3>How to implement rational curves</h3>
 						<p>Extending the code of the previous section to include ratios is almost trivial:</p>
-						<pre><code>function RationalBezier(2,t,w[],r[]):
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="26">
+									<textarea disabled rows="26" role="doc-example">
+function RationalBezier(2,t,w[],r[]):
   t2 = t * t
   mt = 1-t
   mt2 = mt * mt
@@ -829,7 +1061,87 @@ function RationalBezier(3,t,w[],r[]):
     r[3] * t3
   ]
   basis = f[0] + f[1] + f[2] + f[3]
-  return (f[0] * w[0] + f[1] * w[1] + f[2] * w[2] + f[3] * w[3])/basis</code></pre>
+  return (f[0] * w[0] + f[1] * w[1] + f[2] * w[2] + f[3] * w[3])/basis</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>8</td>
+							</tr>
+							<tr>
+								<td>9</td>
+							</tr>
+							<tr>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>11</td>
+							</tr>
+							<tr>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td>13</td>
+							</tr>
+							<tr>
+								<td>14</td>
+							</tr>
+							<tr>
+								<td>15</td>
+							</tr>
+							<tr>
+								<td>16</td>
+							</tr>
+							<tr>
+								<td>17</td>
+							</tr>
+							<tr>
+								<td>18</td>
+							</tr>
+							<tr>
+								<td>19</td>
+							</tr>
+							<tr>
+								<td>20</td>
+							</tr>
+							<tr>
+								<td>21</td>
+							</tr>
+							<tr>
+								<td>22</td>
+							</tr>
+							<tr>
+								<td>23</td>
+							</tr>
+							<tr>
+								<td>24</td>
+							</tr>
+							<tr>
+								<td>25</td>
+							</tr>
+							<tr>
+								<td>26</td>
+							</tr>
+						</table>
+
 						<p>And that's all we have to do.</p>
 					</div>
 				</section>
@@ -844,13 +1156,13 @@ function RationalBezier(3,t,w[],r[]):
 					<p>
 						このことは、曲線の「始点」から曲線の「終点」までどうやって動かすか、ということにすべて関係しています。2つの値を混ぜ合わせて1つの値をつくる場合、一般の式は次のようになります。
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/extended/a75e84f0e7f92c2f3e8ef10b49744ba5.svg" width="252px" height="20px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/extended/b0eb0b24e7fa29c545ab1479d2df0554.svg" width="252px" height="20px" loading="lazy" />
 					<p>
 						明らかに、始点では<code>a=1, b=0</code>とする必要があります。こうすれば、値1が100%、値2が0%で混ぜ合わさるからです。また、終点では<code
 							>a=0, b=1</code
 						>とする必要があります。こうすれば、値1が0%、値2が100%で混ぜ合わさります。これに加えて、<code>a</code>と<code>b</code>を独立にしておきたくはありません。独立になっている場合、何でも好きな値にすることできますが、こうすると例えば「値1が100%<strong>かつ</strong>値2が100%」のようなことが可能になってしまいます。これはこれで原則としてはかまいませんが、ベジエ曲線の場合は混ぜ合わさった値が常に始点と終点の<em>間</em>になってほしいのです。というわけで、混ぜ合わせの和が100%を決して超えないように、<code>a</code>と<code>b</code>の値を設定する必要があります。これは次のようにすれば簡単です。
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/extended/f41f553d448de8559d68fccd9c2f27d4.svg" width="293px" height="20px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/extended/fd520a6e2c7f39e90496e5cf494cce2e.svg" width="293px" height="20px" loading="lazy" />
 					<p>
 						こうすれば、和が100%を超えることはないと保証できます。<code>a</code>の値を区間[0,1]に制限してしまえば、混ぜ合わさった値は常に2つの値の間のどこか（両端を含む）になり、また和は常に100%になります。
 					</p>
@@ -900,27 +1212,27 @@ function RationalBezier(3,t,w[],r[]):
 					<p>
 						ベジエ曲線は、行列演算の形でも表現することができます。ベジエ曲線の式を多項式基底と係数行列で表し、実際の座標も行列として表現するのです。これがどういうことを意味しているのか、3次ベジエ曲線について見てみましょう。
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/matrix/5aea6d4d5855135051715fb1cc0ec531.svg" width="468px" height="20px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/matrix/9a9a55f5b0323d9ea88f82fc6be58ad3.svg" width="468px" height="20px" loading="lazy" />
 					<p>実際の座標を一旦無視すると、次のようになります。</p>
-					<img class="LaTeX SVG" src="./images/chapters/matrix/e524525c62234ce616a1e51c9848c169.svg" width="353px" height="19px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/matrix/87cfac83cb8a4b0bee68ef006effc611.svg" width="353px" height="19px" loading="lazy" />
 					<p>これは、4つの項の和になっています。</p>
-					<img class="LaTeX SVG" src="./images/chapters/matrix/c1f815481ad5132bebc1b1f0a3edf20f.svg" width="140px" height="75px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/matrix/cdd88611833f3b178df91278359a4193.svg" width="140px" height="75px" loading="lazy" />
 					<p>それぞれの項を展開します。</p>
-					<img class="LaTeX SVG" src="./images/chapters/matrix/9bc905d79bb22580b8c1cd75a791db73.svg" width="397px" height="75px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/matrix/ec118f296511c6e9ac8727be3703a7ce.svg" width="397px" height="75px" loading="lazy" />
 					<p>その上で、係数の0や1もすべて明示的に書けば、このようになります。</p>
-					<img class="LaTeX SVG" src="./images/chapters/matrix/e0d89b48cd11a726c00a2f689d48d57c.svg" width="217px" height="75px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/matrix/67a5ea33d6c6558f7d954b18226f4956.svg" width="217px" height="75px" loading="lazy" />
 					<p><em>さらに</em>、これは4つの行列演算の和として見ることができます。</p>
-					<img class="LaTeX SVG" src="./images/chapters/matrix/6da69918482a0b6b84d90a72dbeae9dd.svg" width="607px" height="72px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/matrix/8ecff6b8a37d60385d287ea2b26876db.svg" width="607px" height="72px" loading="lazy" />
 					<p>これを1つの行列演算にまとめると、以下のようになります。</p>
-					<img class="LaTeX SVG" src="./images/chapters/matrix/e94ae04eb5732c05d38fa1c97a2a25b0.svg" width="227px" height="72px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/matrix/b9527f7d5a0f5d2d737eac118d69243e.svg" width="227px" height="72px" loading="lazy" />
 					<p>
 						多項式基底をこのような形で表現する場合、通常はその基底を昇冪の順に並べます。したがって、<code>t</code>の行列を左右反転させ、大きな「混合」行列は上下に反転させる必要があります。
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/matrix/24bdad213879407a35b23c18394293aa.svg" width="227px" height="72px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/matrix/1a64ed455c6dd2f8cacca5e5e12bdcc1.svg" width="227px" height="72px" loading="lazy" />
 					<p>そして最後に、もともとあった座標を3番目の行列として付け加えます。</p>
-					<img class="LaTeX SVG" src="./images/chapters/matrix/009c671bc526b5d75c30411c3c3a7e91.svg" width="323px" height="73px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/matrix/b32cae2dfc47d5f36df0bc3defb7dfa8.svg" width="323px" height="73px" loading="lazy" />
 					<p>2次ベジエ曲線の場合も同様に変形することができ、最終的には以下のようになります。</p>
-					<img class="LaTeX SVG" src="./images/chapters/matrix/77a11d65d7cffc4b84a85c4bec837792.svg" width="263px" height="55px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/matrix/1bae50fefa43210b3a6259d1984f6cbc.svg" width="263px" height="55px" loading="lazy" />
 					<p>
 						<code>t</code
 						>の値を代入して行列の乗算を行えば、もともとの多項式関数から計算したときの値や、線形補間によって順次求めたときの値と、まったく同じものが得られます。
@@ -969,31 +1281,100 @@ function RationalBezier(3,t,w[],r[]):
 						</fallback-image>
 						<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
 					</graphics-element>
-
 					<div class="howtocode">
 						<h3>ド・カステリョのアルゴリズムの実装方法</h3>
 						<p>いま説明したアルゴリズムを実装すると、以下のようになります。</p>
-						<pre><code>function drawCurve(points[], t):
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="8">
+									<textarea disabled rows="8" role="doc-example">
+function drawCurve(points[], t):
   if(points.length==1):
     draw(points[0])
   else:
     newpoints=array(points.size-1)
-    for(i=0; i&lt;newpoints.length; i++):
+    for(i=0; i<newpoints.length; i++):
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
-    drawCurve(newpoints, t)</code></pre>
+    drawCurve(newpoints, t)</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>8</td>
+							</tr>
+						</table>
+
 						<p>
 							これで実装完了です。ただし、+演算子のオーバーロードなどという贅沢品はたいてい無いでしょうから、<code>x</code>や<code>y</code>の値を直接扱う場合のコードも示しておきます。
 						</p>
-						<pre><code>function drawCurve(points[], t):
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="10">
+									<textarea disabled rows="10" role="doc-example">
+function drawCurve(points[], t):
   if(points.length==1):
     draw(points[0])
   else:
     newpoints=array(points.size-1)
-    for(i=0; i&lt;newpoints.length; i++):
+    for(i=0; i<newpoints.length; i++):
       x = (1-t) * points[i].x + t * points[i+1].x
       y = (1-t) * points[i].y + t * points[i+1].y
       newpoints[i] = new point(x,y)
-    drawCurve(newpoints, t)</code></pre>
+    drawCurve(newpoints, t)</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>8</td>
+							</tr>
+							<tr>
+								<td>9</td>
+							</tr>
+							<tr>
+								<td>10</td>
+							</tr>
+						</table>
+
 						<p>
 							さて、これは何をしているのでしょう？関数に渡す点のリストが長さ1であれば、点を1つ描きます。それ以外であれば、比率<i>t</i>の位置の点（すなわち、さきほどの説明に出てきた「印」）のリストを作り、そしてこの新しいリストを引数にして関数を呼び出します。
 						</p>
@@ -1020,14 +1401,16 @@ function RationalBezier(3,t,w[],r[]):
 							<input type="range" min="1" max="16" step="1" value="4" class="slide-control" />
 						</graphics-element>
 
-						<graphics-element title="3次ベジエ曲線の平坦化" width="275" height="275" src="./chapters/flattening/flatten.js" data-type="cubic">
-							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-								<img width="275px" height="275px" src="./images/chapters/flattening/0e0e4a2ee46bd89bcfde9f75cfe43292.png" loading="lazy" />
-								<label>3次ベジエ曲線の平坦化</label>
-							</fallback-image>
-							<input type="range" min="1" max="24" step="1" value="8" class="slide-control" />
-						</graphics-element>
+						<p>
+							<graphics-element title="3次ベジエ曲線の平坦化" width="275" height="275" src="./chapters/flattening/flatten.js" data-type="cubic">
+								<fallback-image>
+									<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+									<img width="275px" height="275px" src="./images/chapters/flattening/0e0e4a2ee46bd89bcfde9f75cfe43292.png" loading="lazy" />
+									<label>3次ベジエ曲線の平坦化</label>
+								</fallback-image>
+								<input type="range" min="1" max="24" step="1" value="8" class="slide-control" />
+							</graphics-element>
+						</p>
 					</div>
 
 					<p>
@@ -1036,21 +1419,79 @@ function RationalBezier(3,t,w[],r[]):
 					<div class="howtocode">
 						<h3>曲線平坦化の実装方法</h3>
 						<p>上でいま解説したアルゴリズムを使って実装するだけです。</p>
-						<pre><code>function flattenCurve(curve, segmentCount):
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="7">
+									<textarea disabled rows="7" role="doc-example">
+function flattenCurve(curve, segmentCount):
   step = 1/segmentCount;
   coordinates = [curve.getXValue(0), curve.getYValue(0)]
-  for(i=1; i &lt;= segmentCount; i++):
+  for(i=1; i <= segmentCount; i++):
     t = i*step;
     coordinates.push[curve.getXValue(t), curve.getYValue(t)]
-  return coordinates;</code></pre>
+  return coordinates;</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+						</table>
+
 						<p>これで完了です。実装できました。あとは、一連の直線で結果の「曲線」を描画するだけです。</p>
-						<pre><code>function drawFlattenedCurve(curve, segmentCount):
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="7">
+									<textarea disabled rows="7" role="doc-example">
+function drawFlattenedCurve(curve, segmentCount):
   coordinates = flattenCurve(curve, segmentCount)
   coord = coordinates[0], _coord;
-  for(i=1; i &lt; coordinates.length; i++):
+  for(i=1; i < coordinates.length; i++):
     _coord = coordinates[i]
     line(coord, _coord)
-    coord = _coord</code></pre>
+    coord = _coord</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+						</table>
+
 						<p>先頭の座標を参照点にしてスタートし、あとはそれぞれの点からその次の点へと、直線を引いていくだけです。</p>
 					</div>
 				</section>
@@ -1070,11 +1511,16 @@ function RationalBezier(3,t,w[],r[]):
 						</fallback-image>
 						<input type="range" min="0" max="1" step="0.01" value="0.5" class="slide-control" />
 					</graphics-element>
-
 					<div class="howtocode">
 						<h3>曲線分割の実装方法</h3>
 						<p>ド・カステリョの関数の中に記録する処理を追加すれば、曲線の分割が実装できます。</p>
-						<pre><code>left=[]
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="16">
+									<textarea disabled rows="16" role="doc-example">
+left=[]
 right=[]
 function drawCurve(points[], t):
   if(points.length==1):
@@ -1083,13 +1529,63 @@ function drawCurve(points[], t):
     draw(points[0])
   else:
     newpoints=array(points.size-1)
-    for(i=0; i&lt;newpoints.length; i++):
+    for(i=0; i<newpoints.length; i++):
       if(i==0):
         left.add(points[i])
       if(i==newpoints.length-1):
         right.add(points[i+1])
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
-    drawCurve(newpoints, t)</code></pre>
+    drawCurve(newpoints, t)</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>8</td>
+							</tr>
+							<tr>
+								<td>9</td>
+							</tr>
+							<tr>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>11</td>
+							</tr>
+							<tr>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td>13</td>
+							</tr>
+							<tr>
+								<td>14</td>
+							</tr>
+							<tr>
+								<td>15</td>
+							</tr>
+							<tr>
+								<td>16</td>
+							</tr>
+						</table>
+
 						<p>
 							ある値<code>t</code>に対してこの関数を実行すると、<code>left</code>と<code>right</code>に新しい2曲線の座標が入ります。一方は<code>t</code>の「左」側、もう一方は「右」側の曲線です。この2曲線は元の曲線と同じ次数になり、また元の曲線とぴったり重なります。
 						</p>
@@ -1106,7 +1602,7 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/matrixsplit/77a11d65d7cffc4b84a85c4bec837792.svg"
+						src="./images/chapters/matrixsplit/1bae50fefa43210b3a6259d1984f6cbc.svg"
 						width="263px"
 						height="55px"
 						loading="lazy"
@@ -1114,7 +1610,7 @@ function drawCurve(points[], t):
 					<p>ならびに</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/matrixsplit/c58330e12d25c678b593ddbd4afa7c52.svg"
+						src="./images/chapters/matrixsplit/f690ff0502d9fd7d4697cc43d98afd5d.svg"
 						width="323px"
 						height="73px"
 						loading="lazy"
@@ -1125,7 +1621,7 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/matrixsplit/278b67e9b908f4abcf2e9d069a6b29a4.svg"
+						src="./images/chapters/matrixsplit/f565e66677138927335535d009409c3d.svg"
 						width="648px"
 						height="55px"
 						loading="lazy"
@@ -1133,7 +1629,7 @@ function drawCurve(points[], t):
 					<p>ならびに</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/matrixsplit/dbdbbe9aed4dacb1c1c5ae29b4371870.svg"
+						src="./images/chapters/matrixsplit/ebf8d72c6056476172deeb89726b75c8.svg"
 						width="805px"
 						height="75px"
 						loading="lazy"
@@ -1152,28 +1648,28 @@ function drawCurve(points[], t):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/c79b607a92c42789fde57c6a8c4259fd.svg"
+							src="./images/chapters/matrixsplit/c32007be095224e0d157a8f71c62c90e.svg"
 							width="348px"
 							height="55px"
 							loading="lazy"
 						/>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/3ed7fa50bf68beef4c77d23e665063d2.svg"
+							src="./images/chapters/matrixsplit/63d1337d275abf7b296d500b9b5821fd.svg"
 							width="249px"
 							height="55px"
 							loading="lazy"
 						/>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/d0a2afc05a974e7e25ce0564505818be.svg"
+							src="./images/chapters/matrixsplit/d9d04b9b6c66788d18832a383d6f7ea0.svg"
 							width="252px"
 							height="55px"
 							loading="lazy"
 						/>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/c1fcb64541c09e6d180c3d4a5511858e.svg"
+							src="./images/chapters/matrixsplit/baedd4067516584d425b93331b7ce04f.svg"
 							width="255px"
 							height="55px"
 							loading="lazy"
@@ -1189,7 +1685,7 @@ function drawCurve(points[], t):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/7d629178a5fb985a35770002d1912535.svg"
+							src="./images/chapters/matrixsplit/5e008143622c66bb5e9cc4d5d6a8ea62.svg"
 							width="627px"
 							height="56px"
 							loading="lazy"
@@ -1197,21 +1693,21 @@ function drawCurve(points[], t):
 						<p>いいですね！これで、新しい2次ベジエ曲線が得られます。</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/b5cf45e4b34fdd18f599b79549844d45.svg"
+							src="./images/chapters/matrixsplit/dceed84990aaf6878bcc67ddbaa8d8d9.svg"
 							width="417px"
 							height="55px"
 							loading="lazy"
 						/>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/859b7bc7b78e8e297ae5fddd9be40ab7.svg"
+							src="./images/chapters/matrixsplit/f63067c2c3042c374a58dfa7f692309e.svg"
 							width="479px"
 							height="55px"
 							loading="lazy"
 						/>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/abb3edce2229312f351d81092ba2145b.svg"
+							src="./images/chapters/matrixsplit/e58196b82b78f584779208cce88137f5.svg"
 							width="492px"
 							height="55px"
 							loading="lazy"
@@ -1230,14 +1726,14 @@ function drawCurve(points[], t):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/2f2bec1e77039a40c31220f5bf83641a.svg"
+							src="./images/chapters/matrixsplit/6a22184e6ca869d28f4a252b64f23eff.svg"
 							width="381px"
 							height="55px"
 							loading="lazy"
 						/>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/daaae36f13bb97f2a7ac21eec6903755.svg"
+							src="./images/chapters/matrixsplit/3b5e41808b6c3bc66f3da2f40651410e.svg"
 							width="313px"
 							height="55px"
 							loading="lazy"
@@ -1245,14 +1741,14 @@ function drawCurve(points[], t):
 						<p>区間[<em>z</em>,1]を求めたい場合は、かわりに次のような計算になります。</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/0f84dbf6e3ea7db732ceb9d71caf9b22.svg"
+							src="./images/chapters/matrixsplit/e079f44b56e07c8d7f83c17c8ebf1ecf.svg"
 							width="461px"
 							height="55px"
 							loading="lazy"
 						/>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/a34473afe7a4160b45ce0f2a770fad99.svg"
+							src="./images/chapters/matrixsplit/4764868f43815e471bb1ea95a81e1633.svg"
 							width="412px"
 							height="57px"
 							loading="lazy"
@@ -1260,7 +1756,7 @@ function drawCurve(points[], t):
 						<p>先ほどと同じ手法を使い、[<em>なにか · M</em>]を[<em>M · なにか</em>]に変えます。</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/567c29ee78b49c700f54b17780682543.svg"
+							src="./images/chapters/matrixsplit/c341532f693c2c1adfd298597bbfb5b5.svg"
 							width="729px"
 							height="57px"
 							loading="lazy"
@@ -1268,21 +1764,21 @@ function drawCurve(points[], t):
 						<p>よって、後半部分の曲線は結局のところ以下のようになります。</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/19049f556723a4f2d985a631a91ae290.svg"
+							src="./images/chapters/matrixsplit/e2622175dadafecc015f15c79ddf3002.svg"
 							width="421px"
 							height="55px"
 							loading="lazy"
 						/>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/e9f64464287d3d5c6a4cbe64e21746c8.svg"
+							src="./images/chapters/matrixsplit/4ce218bc968cbd98da0ca6ab66d415ed.svg"
 							width="473px"
 							height="57px"
 							loading="lazy"
 						/>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/f2695b6d6417c60343b4934dae8118f8.svg"
+							src="./images/chapters/matrixsplit/9a4899b69e03cd4ad02c5eedffaa6a2f.svg"
 							width="492px"
 							height="57px"
 							loading="lazy"
@@ -1299,7 +1795,7 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/matrixsplit/e16eba6dfb9f0b8d1abc3e1cd3ba63a2.svg"
+						src="./images/chapters/matrixsplit/480ebd0234e2fe1adc94926e8ed4339c.svg"
 						width="576px"
 						height="55px"
 						loading="lazy"
@@ -1307,7 +1803,7 @@ function drawCurve(points[], t):
 					<p>および</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/matrixsplit/6aeb749eb26f5a9199c1b16d7d421dc0.svg"
+						src="./images/chapters/matrixsplit/17e308aa6d459b1d06d3160cc8e2e786.svg"
 						width="571px"
 						height="57px"
 						loading="lazy"
@@ -1317,7 +1813,7 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/matrixsplit/5e3fae45d325d0f0681731fb606b6fbc.svg"
+						src="./images/chapters/matrixsplit/11505e0215ef026f2e49383ebb4a1abb.svg"
 						width="841px"
 						height="75px"
 						loading="lazy"
@@ -1325,7 +1821,7 @@ function drawCurve(points[], t):
 					<p>および</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/matrixsplit/0d2e895e767c4cecb0fccafee1273152.svg"
+						src="./images/chapters/matrixsplit/a899891096d82b7fdb23a90e6106b6df.svg"
 						width="837px"
 						height="77px"
 						loading="lazy"
@@ -1358,7 +1854,7 @@ function drawCurve(points[], t):
 						The general rule for raising an <em>n<sup>th</sup></em> order curve to an <em>(n+1)<sup>th</sup></em> order curve is as follows (observing
 						that the start and end weights are the same as the start and end weights for the old curve):
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/reordering/faf29599c9307f930ec28065c96fde2a.svg" width="805px" height="61px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/reordering/dc6b93062b74a7162cd98edd7b95cd24.svg" width="768px" height="61px" loading="lazy" />
 					<p>
 						However, this rule also has as direct consequence that you <strong>cannot</strong> generally safely lower a curve from
 						<em>n<sup>th</sup></em> order to <em>(n-1)<sup>th</sup></em> order, because the control points cannot be "pulled apart" cleanly. We can
@@ -1372,27 +1868,27 @@ function drawCurve(points[], t):
 						some things can be done much more easily with matrices than with calculus functions, and this is one of those things. So... let's go!
 					</p>
 					<p>We start by taking the standard Bézier function, and condensing it a little:</p>
-					<img class="LaTeX SVG" src="./images/chapters/reordering/1244a85c1f9044b6f77cb709c682159c.svg" width="429px" height="41px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/reordering/8090b63b005bf3edb916b97bda317a0e.svg" width="408px" height="41px" loading="lazy" />
 					<p>
 						Then, we apply one of those silly (actually, super useful) calculus tricks: since our <code>t</code> value is always between zero and one
 						(inclusive), we know that <code>(1-t)</code> plus <code>t</code> always sums to 1. As such, we can express any value as a sum of
 						<code>t</code> and <code>1-t</code>:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/reordering/b2fda1dcce5bb13317aa42ebf5e7ea6c.svg" width="384px" height="17px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/reordering/ff224ded6bbbc94b43130f5f8eeb5d29.svg" width="379px" height="16px" loading="lazy" />
 					<p>
 						So, with that seemingly trivial observation, we rewrite that Bézier function by splitting it up into a sum of a <code>(1-t)</code> and
 						<code>t</code> component:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/reordering/41e184228d85023abdadd6ce2acb54c7.svg" width="332px" height="68px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/reordering/56130afc4cb313e0e74cf670d34590f6.svg" width="316px" height="67px" loading="lazy" />
 					<p>
 						So far so good. Now, to see why we did this, let's write out the <code>(1-t)</code> and <code>t</code> parts, and see what that gives us.
 						I promise, it's about to make sense. We start with <code>(1-t)</code>:
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/reordering/4debbed5922d2bd84fd322c616872d20.svg"
-						width="400px"
-						height="163px"
+						src="./images/chapters/reordering/0f5698b31598b2390e966fc5e43ab53e.svg"
+						width="387px"
+						height="160px"
 						loading="lazy"
 					/>
 					<p>
@@ -1404,9 +1900,9 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/reordering/483c89c8726f7fd0dca0b7de339b04bd.svg"
-						width="479px"
-						height="161px"
+						src="./images/chapters/reordering/ab7c087f7c070d43a42f3f03010a7427.svg"
+						width="471px"
+						height="159px"
 						loading="lazy"
 					/>
 					<p>
@@ -1420,8 +1916,8 @@ function drawCurve(points[], t):
 					<p>Let's do this:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/reordering/dd8d8d98f66ce9f51b95cbf48225e97b.svg"
-						width="481px"
+						src="./images/chapters/reordering/4ff41e183d60d5fd10a5d3d30dd63358.svg"
+						width="465px"
 						height="257px"
 						loading="lazy"
 					/>
@@ -1429,13 +1925,13 @@ function drawCurve(points[], t):
 						And this is where we switch over from calculus to linear algebra, and matrices: we can now express this relation between Bézier(n,t) and
 						Bézier(n+1,t) as a very simple matrix multiplication:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/reordering/773fdc86b686647c823b4f499aca3a35.svg" width="77px" height="17px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/reordering/1f5b60d190a1c7099b3411e4cc477291.svg" width="71px" height="16px" loading="lazy" />
 					<p>where the matrix <strong>M</strong> is an <code>n+1</code> by <code>n</code> matrix, and looks like:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/reordering/7a9120997e4a4855ecda435553a7bbdf.svg"
-						width="340px"
-						height="172px"
+						src="./images/chapters/reordering/056e25c397c524d80f378ce3823c7e78.svg"
+						width="336px"
+						height="187px"
 						loading="lazy"
 					/>
 					<p>
@@ -1453,9 +1949,9 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/reordering/d52f60b331c1b8d6733eb5217adfbc4d.svg"
-						width="288px"
-						height="109px"
+						src="./images/chapters/reordering/46e64dc07502e14217ec83d755f736ee.svg"
+						width="272px"
+						height="116px"
 						loading="lazy"
 					/>
 					<p>The steps taken here are:</p>
@@ -1504,7 +2000,7 @@ function drawCurve(points[], t):
 					<p>First, let's look at the derivative rule for Bézier curves, which is:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/derivatives/eb4442acc5bc17f4649eb04b2953ed9b.svg"
+						src="./images/chapters/derivatives/f67d2d379ba6dfaa7f7686a7d1eae367.svg"
 						width="333px"
 						height="44px"
 						loading="lazy"
@@ -1515,7 +2011,7 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/derivatives/2622790efa97f1915e7998787d8ce977.svg"
+						src="./images/chapters/derivatives/67ca2710769505572e097ffb40de099f.svg"
 						width="343px"
 						height="44px"
 						loading="lazy"
@@ -1535,7 +2031,7 @@ function drawCurve(points[], t):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/e755c2adfec5d266c50e064407ca369b.svg"
+							src="./images/chapters/derivatives/a992185a346518b5ca159484019b6917.svg"
 							width="209px"
 							height="36px"
 							loading="lazy"
@@ -1546,7 +2042,7 @@ function drawCurve(points[], t):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/95a0cd4cc919a3fd5b192ffeb00c231e.svg"
+							src="./images/chapters/derivatives/c3ac18fe4ba0606a15bc111e52b17a9a.svg"
 							width="412px"
 							height="28px"
 							loading="lazy"
@@ -1554,7 +2050,7 @@ function drawCurve(points[], t):
 						<p>Which is hard to work with, so let's expand that properly:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/bd3c740be364071c86ccf42b99d5eba4.svg"
+							src="./images/chapters/derivatives/12fa7f83f055ef2078cc9f04e1468663.svg"
 							width="344px"
 							height="27px"
 							loading="lazy"
@@ -1565,7 +2061,7 @@ function drawCurve(points[], t):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/6770214cceeb0e13e371bd908867751f.svg"
+							src="./images/chapters/derivatives/64c06c61727d0912a67c0f287a395e47.svg"
 							width="545px"
 							height="76px"
 							loading="lazy"
@@ -1573,7 +2069,7 @@ function drawCurve(points[], t):
 						<p>And that's the first part done: the two components inside the parentheses are actually regular, lower-order Bézier expressions:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/fb823558e99662b24d46ae55ac93ce38.svg"
+							src="./images/chapters/derivatives/f81cd6166665abcc4aa433f31c20eac4.svg"
 							width="533px"
 							height="48px"
 							loading="lazy"
@@ -1584,7 +2080,7 @@ function drawCurve(points[], t):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/28991bba7c13698619f36b6261d91d68.svg"
+							src="./images/chapters/derivatives/897cfd8648720dc21463a9358cc65ab4.svg"
 							width="527px"
 							height="112px"
 							loading="lazy"
@@ -1595,7 +2091,7 @@ function drawCurve(points[], t):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/b7815b1502029ed9d805b6ba0801a53f.svg"
+							src="./images/chapters/derivatives/18c6e782012234a2c7425204505c8888.svg"
 							width="300px"
 							height="109px"
 							loading="lazy"
@@ -1609,7 +2105,7 @@ function drawCurve(points[], t):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/c7b13e6507450b3da7dc4ce3c10c370f.svg"
+							src="./images/chapters/derivatives/0c8a8fb27762b2f16a154937de35a764.svg"
 							width="295px"
 							height="71px"
 							loading="lazy"
@@ -1617,7 +2113,7 @@ function drawCurve(points[], t):
 						<p>And that's just a summation of lower order curves:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/89ceb6024ead6f710e3e0f09d2864f43.svg"
+							src="./images/chapters/derivatives/977ff6fb1c7bff664e844f33ff23f420.svg"
 							width="716px"
 							height="36px"
 							loading="lazy"
@@ -1625,7 +2121,7 @@ function drawCurve(points[], t):
 						<p>We can rewrite this as a normal summation, and we're done:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/514090a0fd6c64b7d85a9dc5721a0fa6.svg"
+							src="./images/chapters/derivatives/d51bf2f64f109da5a4138b24321597d1.svg"
 							width="545px"
 							height="51px"
 							loading="lazy"
@@ -1638,14 +2134,14 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/derivatives/14cb9fbbaae9e7d87ae6bef3ea7a782e.svg"
+						src="./images/chapters/derivatives/1cb112753c51e98aa328484f12b4a4f1.svg"
 						width="352px"
 						height="55px"
 						loading="lazy"
 					/>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/derivatives/c010c0df4bb911b84da6e9d379617e4b.svg"
+						src="./images/chapters/derivatives/43eea1ddd3646dc387511e16d2508db2.svg"
 						width="533px"
 						height="59px"
 						loading="lazy"
@@ -1658,7 +2154,7 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/derivatives/03967e3ecdbff78684995ca9c22a6106.svg"
+						src="./images/chapters/derivatives/7040219e3888bf6cf2f6750259da327f.svg"
 						width="523px"
 						height="73px"
 						loading="lazy"
@@ -1682,8 +2178,8 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/pointvectors/83c36a23bfe24946e88630d77ea2cb9a.svg"
-						width="140px"
+						src="./images/chapters/pointvectors/8b15a314beca97071b0ccb22c969355d.svg"
+						width="132px"
 						height="59px"
 						loading="lazy"
 					/>
@@ -1693,9 +2189,9 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/pointvectors/5ffdfe2c3619aade280fbc4f43b30faf.svg"
-						width="287px"
-						height="120px"
+						src="./images/chapters/pointvectors/b60cdba673c2c9fc84c800f07fd18145.svg"
+						width="279px"
+						height="121px"
 						loading="lazy"
 					/>
 					<p>
@@ -1705,9 +2201,9 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/pointvectors/3f439e8106eb359d9323c5c2899b326b.svg"
-						width="321px"
-						height="77px"
+						src="./images/chapters/pointvectors/349ae68c5a68247857960032eb76b8de.svg"
+						width="324px"
+						height="79px"
 						loading="lazy"
 					/>
 					<div class="note">
@@ -1722,16 +2218,16 @@ function drawCurve(points[], t):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/pointvectors/deec095950fcd1f9c980be76a7093fe6.svg"
-							width="179px"
+							src="./images/chapters/pointvectors/1df6c055ae8e41a46bfdebc55a4f17c0.svg"
+							width="183px"
 							height="37px"
 							loading="lazy"
 						/>
 						<p>Which is the "long" version of the following matrix transformation:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/pointvectors/2a55cb2d23c25408aa10cfd8db13278b.svg"
-							width="205px"
+							src="./images/chapters/pointvectors/f02e359a5e47667919738fff69d2625b.svg"
+							width="211px"
 							height="40px"
 							loading="lazy"
 						/>
@@ -1855,7 +2351,6 @@ function drawCurve(points[], t):
 						</fallback-image>
 						<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
 					</graphics-element>
-
 					<p>
 						However, if you've played with that graphic a bit, you might have noticed something odd. The normal seems to "suddenly twist around the
 						curve" between t=0.65 and t=0.75... Why is it doing that?
@@ -1906,14 +2401,46 @@ function drawCurve(points[], t):
 							We first assume we have a function for calculating the Frenet frame at a point, which we already discussed above, inn a way that it
 							yields a frame with properties:
 						</p>
-						<pre><code>{
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="6">
+									<textarea disabled rows="6" role="doc-example">
+{
   o: origin of all vectors, i.e. the on-curve point,
   t: tangent vector,
   r: rotational axis vector,
   n: normal vector
-}</code></pre>
+}</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+						</table>
+
 						<p>Then, we can write a function that generates a sequence of RM frames in the following manner:</p>
-						<pre><code>generateRMFrames(steps) -&gt; frames:
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="36">
+									<textarea disabled rows="36" role="doc-example">
+generateRMFrames(steps) -> frames:
   step = 1.0/steps
 
   // Start off with the standard tangent/axis/normal frame
@@ -1921,7 +2448,7 @@ function drawCurve(points[], t):
   frames.add(getFrenetFrame(0))
 
   // start constructing RM frames:
-  for t0 = 0, t0 &lt; 1.0, t0 += step:
+  for t0 = 0, t0 < 1.0, t0 += step:
     // start with the previous, known frame
     x0 = frames.last
 
@@ -1948,7 +2475,117 @@ function drawCurve(points[], t):
     // and we're done here:
     x1.r = riL - v2 * 2/c2 * v2 · riL
     x1.n = x1.r × x1.t
-    frames.add(x1)</code></pre>
+    frames.add(x1)</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>8</td>
+							</tr>
+							<tr>
+								<td>9</td>
+							</tr>
+							<tr>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>11</td>
+							</tr>
+							<tr>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td>13</td>
+							</tr>
+							<tr>
+								<td>14</td>
+							</tr>
+							<tr>
+								<td>15</td>
+							</tr>
+							<tr>
+								<td>16</td>
+							</tr>
+							<tr>
+								<td>17</td>
+							</tr>
+							<tr>
+								<td>18</td>
+							</tr>
+							<tr>
+								<td>19</td>
+							</tr>
+							<tr>
+								<td>20</td>
+							</tr>
+							<tr>
+								<td>21</td>
+							</tr>
+							<tr>
+								<td>22</td>
+							</tr>
+							<tr>
+								<td>23</td>
+							</tr>
+							<tr>
+								<td>24</td>
+							</tr>
+							<tr>
+								<td>25</td>
+							</tr>
+							<tr>
+								<td>26</td>
+							</tr>
+							<tr>
+								<td>27</td>
+							</tr>
+							<tr>
+								<td>28</td>
+							</tr>
+							<tr>
+								<td>29</td>
+							</tr>
+							<tr>
+								<td>30</td>
+							</tr>
+							<tr>
+								<td>31</td>
+							</tr>
+							<tr>
+								<td>32</td>
+							</tr>
+							<tr>
+								<td>33</td>
+							</tr>
+							<tr>
+								<td>34</td>
+							</tr>
+							<tr>
+								<td>35</td>
+							</tr>
+							<tr>
+								<td>36</td>
+							</tr>
+						</table>
+
 						<p>
 							Ignoring comments, this is certainly more code than when we were just computing a single Frenet frame, but it's not a crazy amount more
 							code to get much better looking normals.
@@ -1967,7 +2604,6 @@ function drawCurve(points[], t):
 						</fallback-image>
 						<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
 					</graphics-element>
-
 					<p>That looks so much better!</p>
 					<p>
 						For those reading along with the code: we don't even strictly speaking need a Frenet frame to start with: we could, for instance, treat
@@ -2014,7 +2650,6 @@ function drawCurve(points[], t):
 							<img width="825px" height="275px" src="./images/chapters/components/1e6e38f6403dbe4c8b80295a94fc6748.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
-
 					<p>&nbsp;</p>
 					<graphics-element
 						title="Cubic Bézier curve components"
@@ -2049,16 +2684,16 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/extremities/6db78123d4b676ffdf85d53670c77468.svg"
-						width="189px"
-						height="64px"
+						src="./images/chapters/extremities/55e16ef652d30face0f6586b675a6c7b.svg"
+						width="187px"
+						height="63px"
 						loading="lazy"
 					/>
 					<p>And then we turn this into our solution for <code>t</code> using basic arithmetics:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/extremities/1c0367fad2a0d6946db1f55a8520793a.svg"
-						width="139px"
+						src="./images/chapters/extremities/1fab66c84e7df38a2edda147f939bd80.svg"
+						width="135px"
 						height="77px"
 						loading="lazy"
 					/>
@@ -2075,9 +2710,9 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/extremities/0ec5cc72a428d75defb480530b50d720.svg"
-						width="433px"
-						height="37px"
+						src="./images/chapters/extremities/e010384d41b8efd3b430071884656b79.svg"
+						width="411px"
+						height="40px"
 						loading="lazy"
 					/>
 					<p>
@@ -2092,17 +2727,17 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/extremities/e06ec558d99b53e559d24524f4201951.svg"
-						width="553px"
-						height="37px"
+						src="./images/chapters/extremities/99f05b09492d54d669831881026b11fa.svg"
+						width="537px"
+						height="36px"
 						loading="lazy"
 					/>
 					<p>And then, using these <em>v</em> values, we can find out what our <em>a</em>, <em>b</em>, and <em>c</em> should be:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/extremities/ddc6f99a543afad25c55cf16b9deeed9.svg"
-						width="317px"
-						height="112px"
+						src="./images/chapters/extremities/d1c65d927825f20c3c358d1ff96ce881.svg"
+						width="315px"
+						height="119px"
 						loading="lazy"
 					/>
 					<p>
@@ -2111,9 +2746,9 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/extremities/d9e66caeb45b6643112ce3d971b17e5b.svg"
+						src="./images/chapters/extremities/a6acf08f43aa1f48c08a40e76bdd2a31.svg"
 						width="308px"
-						height="64px"
+						height="63px"
 						loading="lazy"
 					/>
 					<p>Easy-peasy. We can now almost trivially find the roots by plugging those values into the quadratic formula.</p>
@@ -2134,9 +2769,9 @@ function drawCurve(points[], t):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/extremities/997a8cc704c0ab0e364cb8b532df90b0.svg"
-						width="264px"
-						height="41px"
+						src="./images/chapters/extremities/d31432533bd7940545d4a269eefbabf2.svg"
+						width="253px"
+						height="44px"
 						loading="lazy"
 					/>
 					<p>
@@ -2167,14 +2802,20 @@ function drawCurve(points[], t):
 							<a href="https://en.wikipedia.org/wiki/Complex_number">"complex" number</a> space (denoted with ℂ). And, as it so happens, Cardano is
 							also attributed as the first mathematician in history to have made use of complex numbers in his calculations. For this very algorithm!
 						</p>
-						<pre><code>// A helper function to filter for values in the [0,1] interval:
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="81">
+									<textarea disabled rows="81" role="doc-example">
+// A helper function to filter for values in the [0,1] interval:
 function accept(t) {
-  return 0&lt;=t && t &lt;=1;
+  return 0<=t && t <=1;
 }
 
 // A real-cuberoots-only function:
 function cuberoot(v) {
-  if(v&lt;0) return -pow(-v,1/3);
+  if(v<0) return -pow(-v,1/3);
   return pow(v,1/3);
 }
 
@@ -2218,12 +2859,12 @@ function getCubicRoots(pa, pb, pc, pd) {
   var u1, v1, root1, root2, root3;
 
   // three possible real roots:
-  if (discriminant &lt; 0) {
+  if (discriminant < 0) {
     var mp3  = -p/3,
     mp33 = mp3*mp3*mp3,
     r    = sqrt( mp33 ),
     t    = -q / (2*r),
-    cosphi = t&lt;-1 ? -1 : t&gt;1 ? 1 : t,
+    cosphi = t<-1 ? -1 : t>1 ? 1 : t,
     phi  = acos(cosphi),
     crtr = cuberoot(r),
     t1   = 2*crtr;
@@ -2235,7 +2876,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 
   // three real roots, but two of them are equal:
   if(discriminant === 0) {
-    u1 = q2 &lt; 0 ? cuberoot(-q2) : -cuberoot(q2);
+    u1 = q2 < 0 ? cuberoot(-q2) : -cuberoot(q2);
     root1 = 2*u1 - a/3;
     root2 = -u1 - a/3;
     return [root1, root2].filter(accept);
@@ -2247,7 +2888,251 @@ function getCubicRoots(pa, pb, pc, pd) {
   v1 = cuberoot(sd + q2);
   root1 = u1 - v1 - a/3;
   return [root1].filter(accept);
-}</code></pre>
+}</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>8</td>
+							</tr>
+							<tr>
+								<td>9</td>
+							</tr>
+							<tr>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>11</td>
+							</tr>
+							<tr>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td>13</td>
+							</tr>
+							<tr>
+								<td>14</td>
+							</tr>
+							<tr>
+								<td>15</td>
+							</tr>
+							<tr>
+								<td>16</td>
+							</tr>
+							<tr>
+								<td>17</td>
+							</tr>
+							<tr>
+								<td>18</td>
+							</tr>
+							<tr>
+								<td>19</td>
+							</tr>
+							<tr>
+								<td>20</td>
+							</tr>
+							<tr>
+								<td>21</td>
+							</tr>
+							<tr>
+								<td>22</td>
+							</tr>
+							<tr>
+								<td>23</td>
+							</tr>
+							<tr>
+								<td>24</td>
+							</tr>
+							<tr>
+								<td>25</td>
+							</tr>
+							<tr>
+								<td>26</td>
+							</tr>
+							<tr>
+								<td>27</td>
+							</tr>
+							<tr>
+								<td>28</td>
+							</tr>
+							<tr>
+								<td>29</td>
+							</tr>
+							<tr>
+								<td>30</td>
+							</tr>
+							<tr>
+								<td>31</td>
+							</tr>
+							<tr>
+								<td>32</td>
+							</tr>
+							<tr>
+								<td>33</td>
+							</tr>
+							<tr>
+								<td>34</td>
+							</tr>
+							<tr>
+								<td>35</td>
+							</tr>
+							<tr>
+								<td>36</td>
+							</tr>
+							<tr>
+								<td>37</td>
+							</tr>
+							<tr>
+								<td>38</td>
+							</tr>
+							<tr>
+								<td>39</td>
+							</tr>
+							<tr>
+								<td>40</td>
+							</tr>
+							<tr>
+								<td>41</td>
+							</tr>
+							<tr>
+								<td>42</td>
+							</tr>
+							<tr>
+								<td>43</td>
+							</tr>
+							<tr>
+								<td>44</td>
+							</tr>
+							<tr>
+								<td>45</td>
+							</tr>
+							<tr>
+								<td>46</td>
+							</tr>
+							<tr>
+								<td>47</td>
+							</tr>
+							<tr>
+								<td>48</td>
+							</tr>
+							<tr>
+								<td>49</td>
+							</tr>
+							<tr>
+								<td>50</td>
+							</tr>
+							<tr>
+								<td>51</td>
+							</tr>
+							<tr>
+								<td>52</td>
+							</tr>
+							<tr>
+								<td>53</td>
+							</tr>
+							<tr>
+								<td>54</td>
+							</tr>
+							<tr>
+								<td>55</td>
+							</tr>
+							<tr>
+								<td>56</td>
+							</tr>
+							<tr>
+								<td>57</td>
+							</tr>
+							<tr>
+								<td>58</td>
+							</tr>
+							<tr>
+								<td>59</td>
+							</tr>
+							<tr>
+								<td>60</td>
+							</tr>
+							<tr>
+								<td>61</td>
+							</tr>
+							<tr>
+								<td>62</td>
+							</tr>
+							<tr>
+								<td>63</td>
+							</tr>
+							<tr>
+								<td>64</td>
+							</tr>
+							<tr>
+								<td>65</td>
+							</tr>
+							<tr>
+								<td>66</td>
+							</tr>
+							<tr>
+								<td>67</td>
+							</tr>
+							<tr>
+								<td>68</td>
+							</tr>
+							<tr>
+								<td>69</td>
+							</tr>
+							<tr>
+								<td>70</td>
+							</tr>
+							<tr>
+								<td>71</td>
+							</tr>
+							<tr>
+								<td>72</td>
+							</tr>
+							<tr>
+								<td>73</td>
+							</tr>
+							<tr>
+								<td>74</td>
+							</tr>
+							<tr>
+								<td>75</td>
+							</tr>
+							<tr>
+								<td>76</td>
+							</tr>
+							<tr>
+								<td>77</td>
+							</tr>
+							<tr>
+								<td>78</td>
+							</tr>
+							<tr>
+								<td>79</td>
+							</tr>
+							<tr>
+								<td>80</td>
+							</tr>
+							<tr>
+								<td>81</td>
+							</tr>
+						</table>
 					</div>
 
 					<p>
@@ -2290,9 +3175,9 @@ function getCubicRoots(pa, pb, pc, pd) {
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/extremities/c621cc41f6f22ee1beedbcb510fa5b6b.svg"
-						width="139px"
-						height="43px"
+						src="./images/chapters/extremities/53e67a29f134bd561aca550a2091a196.svg"
+						width="132px"
+						height="45px"
 						loading="lazy"
 					/>
 					<p>(The Wikipedia article has a decent animation for this process, so I will not add a graphic for that here)</p>
@@ -2328,7 +3213,6 @@ function getCubicRoots(pa, pb, pc, pd) {
 							<img width="825px" height="275px" src="./images/chapters/extremities/fd68347a917c9b703ff8005287ac6ca4.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
-
 					<p>And for cubic curves, that means first and second derivatives, in red and purple respectively:</p>
 					<graphics-element
 						title="Cubic Bézier curve extremities"
@@ -2411,19 +3295,19 @@ function getCubicRoots(pa, pb, pc, pd) {
 						rotate the curves so that the last point always lies on the x-axis, too, making its coordinate (...,0). This further simplifies the
 						function for the y-component to an <em>n-2</em> term function. For instance, if we have a cubic curve such as this:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/aligning/d480a9aa41917e5230d432cdbd6899b1.svg" width="487px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/aligning/203a75eeab5295c3ace2725e12893672.svg" width="476px" height="40px" loading="lazy" />
 					<p>
 						Then translating it so that the first coordinate lies on (0,0), moving all <em>x</em> coordinates by -120, and all <em>y</em> coordinates
 						by -160, gives us:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/aligning/50679d61424222d7b6b97eb3aa663582.svg" width="471px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/aligning/17282cb081f862dec197e591718c5f41.svg" width="460px" height="40px" loading="lazy" />
 					<p>
 						If we then rotate the curve so that its end point lies on the x-axis, the coordinates (integer-rounded for illustrative purposes here)
 						become:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/aligning/a9af1c06a00bb3c4af816a138fb0a66d.svg" width="463px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/aligning/72ab12864982fd8d9ee757689be93f2c.svg" width="452px" height="40px" loading="lazy" />
 					<p>If we drop all the zero-terms, this gives us:</p>
-					<img class="LaTeX SVG" src="./images/chapters/aligning/c78b203ff33e5c1606728b552505d61c.svg" width="397px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/aligning/041c2f2d5c115e27f059595775732dfa.svg" width="387px" height="40px" loading="lazy" />
 					<p>
 						We can see that our original curve definition has been simplified considerably. The following graphics illustrate the result of aligning
 						our example curves to the x-axis, with the cubic case using the coordinates that were just used in the example formulae:
@@ -2434,7 +3318,6 @@ function getCubicRoots(pa, pb, pc, pd) {
 							<img width="550px" height="275px" src="./images/chapters/aligning/28cc0f129fa0c028a1addd702e99f162.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
-
 					<p>&nbsp;</p>
 					<graphics-element title="Aligning a cubic curve" width="550" height="275" src="./chapters/aligning/aligning.js" data-type="cubic">
 						<fallback-image>
@@ -2502,7 +3385,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 						inflection, and we can find out where those happen relatively easily.
 					</p>
 					<p>What we need to do is solve a simple equation:</p>
-					<img class="LaTeX SVG" src="./images/chapters/inflections/bafdb6583323bda71d9a15c02d1fdec2.svg" width="59px" height="17px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/inflections/ed68dcfb203517ca080fe48914769fb0.svg" width="59px" height="16px" loading="lazy" />
 					<p>
 						What we're saying here is that given the curvature function <em>C(t)</em>, we want to know for which values of <em>t</em> this function is
 						zero, meaning there is no "curvature", which will be exactly at the point between our circle being on one side of the curve, and our
@@ -2510,9 +3393,9 @@ function getCubicRoots(pa, pb, pc, pd) {
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/inflections/2029bca9f4fa15739553636af99b70a8.svg"
-						width="399px"
-						height="19px"
+						src="./images/chapters/inflections/a283e01df17f3d763ec89621f2af6c5c.svg"
+						width="385px"
+						height="21px"
 						loading="lazy"
 					/>
 					<p>
@@ -2534,16 +3417,16 @@ function getCubicRoots(pa, pb, pc, pd) {
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/inflections/4d78ebcf8626f777725d67d3672fa480.svg"
-							width="613px"
+							src="./images/chapters/inflections/c68722c9f3f8cd3d1e7a1616a37bc4e3.svg"
+							width="601px"
 							height="71px"
 							loading="lazy"
 						/>
 						<p>And of course the same functions for <em>y</em>:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/inflections/97b34ad5920612574d1b2a1a9d22d571.svg"
-							width="397px"
+							src="./images/chapters/inflections/be9e409d619ecd735b0fbc219bec6d07.svg"
+							width="399px"
 							height="69px"
 							loading="lazy"
 						/>
@@ -2553,9 +3436,9 @@ function getCubicRoots(pa, pb, pc, pd) {
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/inflections/b2433959e1f451fa3bf238fc37e04527.svg"
-							width="557px"
-							height="96px"
+							src="./images/chapters/inflections/75fae2d0a94eae4addf074c294855fc7.svg"
+							width="552px"
+							height="97px"
 							loading="lazy"
 						/>
 						<p>
@@ -2570,9 +3453,9 @@ function getCubicRoots(pa, pb, pc, pd) {
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/inflections/1679090a942a43d27f886f236fc8d62b.svg"
+						src="./images/chapters/inflections/e50243eaa99b5acc08533dd2e9b71a74.svg"
 						width="533px"
-						height="19px"
+						height="20px"
 						loading="lazy"
 					/>
 					<p>
@@ -2581,17 +3464,17 @@ function getCubicRoots(pa, pb, pc, pd) {
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/inflections/4b5c7d0bf0fcd769db007dd98d4a024d.svg"
-						width="480px"
+						src="./images/chapters/inflections/750893530458a4796d3afddcc901ec91.svg"
+						width="467px"
 						height="73px"
 						loading="lazy"
 					/>
 					<p>This is a plain quadratic curve, and we know how to solve <em>C(t) = 0</em>; we use the quadratic formula:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/inflections/7c9762c0e04693eb743905cdc0487f8b.svg"
-						width="428px"
-						height="53px"
+						src="./images/chapters/inflections/590588aede098d00dd493123c4a632cc.svg"
+						width="405px"
+						height="55px"
 						loading="lazy"
 					/>
 					<p>
@@ -2642,7 +3525,6 @@ function getCubicRoots(pa, pb, pc, pd) {
 							<img width="400px" height="400px" src="./images/chapters/canonical/c086e72bd8aaeab37436515ab251b2df.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
-
 					<p>This is a fairly funky image, so let's see what the various parts of it mean...</p>
 					<p>
 						We see the three fixed points at (0,0), (0,1) and (1,1). The various regions and boundaries indicate what property the original curve will
@@ -2662,9 +3544,9 @@ function getCubicRoots(pa, pb, pc, pd) {
 							</p>
 							<img
 								class="LaTeX SVG"
-								src="./images/chapters/canonical/63ccae0ebe0ca70dc2afb507ab32e4bd.svg"
-								width="187px"
-								height="36px"
+								src="./images/chapters/canonical/674d251590411398d06fb99cba7920f7.svg"
+								width="180px"
+								height="37px"
 								loading="lazy"
 							/>
 						</li>
@@ -2675,9 +3557,9 @@ function getCubicRoots(pa, pb, pc, pd) {
 							</p>
 							<img
 								class="LaTeX SVG"
-								src="./images/chapters/canonical/add5f7fb210a306fe9ff933113f6fb91.svg"
-								width="241px"
-								height="37px"
+								src="./images/chapters/canonical/6959a552f2c90a2bcaa787c23e19f488.svg"
+								width="231px"
+								height="39px"
 								loading="lazy"
 							/>
 						</li>
@@ -2685,8 +3567,8 @@ function getCubicRoots(pa, pb, pc, pd) {
 							<p>...on the top (blue) edge, the curve's start point touches the curve, forming a loop. This edge is described by the function:</p>
 							<img
 								class="LaTeX SVG"
-								src="./images/chapters/canonical/4230e959138d8400e04abf316360009a.svg"
-								width="159px"
+								src="./images/chapters/canonical/464b4ec0b67f248459792752be86d46d.svg"
+								width="153px"
 								height="37px"
 								loading="lazy"
 							/>
@@ -2743,12 +3625,12 @@ function getCubicRoots(pa, pb, pc, pd) {
 						cx + dy), which means we can't do translation, since that requires we end up with some kind of (x + a, y + b). If we add a bogus
 						<em>z</em> coordinate that is always 1, then we can suddenly add arbitrary values. For example:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/canonical/2a411f175dcc987cdcc12e7df49ca272.svg" width="491px" height="55px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/canonical/7ed8b53100737cbf7d87aa6267395d2b.svg" width="464px" height="55px" loading="lazy" />
 					<p>
 						Sweet! <em>z</em> stays 1, so we can effectively ignore it entirely, but we added some plain values to our x and y coordinates. So, if we
 						want to subtract p1.x and p1.y, we use:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/canonical/ba5f418452c3657f3c4dd4b319e59070.svg" width="469px" height="57px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/canonical/f855cbf1d73e4bb7bccbbd4721d95f41.svg" width="447px" height="57px" loading="lazy" />
 					<p>
 						Running all our coordinates through this transformation gives a new set of coordinates, let's call those <strong>U</strong>, where the
 						first coordinate lies on (0,0), and the rest is still somewhat free. Our next job is to make sure point 2 ends up lying on the
@@ -2756,12 +3638,12 @@ function getCubicRoots(pa, pb, pc, pd) {
 						currently have. This is called <a href="https://en.wikipedia.org/wiki/Shear_matrix">shearing</a>, and the typical x-shear matrix and its
 						transformation looks like this:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/canonical/10025fdab2b3fd20f5d389cbe7e3e3ce.svg" width="208px" height="53px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/canonical/2b6478075f2f9f5e5973e01b3b3a0c8b.svg" width="195px" height="53px" loading="lazy" />
 					<p>
 						So we want some shearing value that, when multiplied by <em>y</em>, yields <em>-x</em>, so our x coordinate becomes zero. That value is
 						simply <em>-x/y</em>, because *-x/y * y = -x*. Done:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/canonical/20684d22b3ddc52fd6abde8ce56608a9.svg" width="135px" height="65px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/canonical/ccbfd22cbccf633d182f7f451dee5164.svg" width="133px" height="67px" loading="lazy" />
 					<p>
 						Now, running this on all our points generates a new set of coordinates, let's call those <strong>V</strong>, which now have point 1 on
 						(0,0) and point 2 on (0, some-value), and we wanted it at (0,1), so we need to
@@ -2769,7 +3651,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 						point 3 to end up on (1,1), so we can also scale x to make sure its x-coordinate will be 1 after we run the transform. That means we'll be
 						x-scaling by 1/point3<sub>x</sub>, and y-scaling by point2<sub>y</sub>. This is really easy:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/canonical/8cbef24b8c3b26f9daf2f89d27d36e95.svg" width="136px" height="67px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/canonical/8e39a9e0c7469b4b45a260dd23bd4c6a.svg" width="137px" height="71px" loading="lazy" />
 					<p>
 						Then, finally, this generates a new set of coordinates, let's call those W, of which point 1 lies on (0,0), point 2 lies on (0,1), and
 						point three lies on (1, ...) so all that's left is to make sure point 3 ends up at (1,1) - but we can't scale! Point 2 is already in the
@@ -2778,13 +3660,13 @@ function getCubicRoots(pa, pb, pc, pd) {
 						but y-shearing. Additionally, we don't actually want to end up at zero (which is what we did before) so we need to shear towards an
 						offset, in this case 1:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/canonical/0430e8c7f7d4ec80e6527f96f3d56e5c.svg" width="140px" height="63px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/canonical/9420fd9d7a8de30714e23b8f31b3aa6d.svg" width="140px" height="65px" loading="lazy" />
 					<p>
 						And this generates our final set of four coordinates. Of these, we already know that points 1 through 3 are (0,0), (0,1) and (1,1), and
 						only the last coordinate is "free". In fact, given any four starting coordinates, the resulting "transformation mapped" coordinate will
 						be:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/canonical/f039b4e7cf0203df9fac48dad820b2b7.svg" width="460px" height="79px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/canonical/e61fd49e554a0ffc7d64893c75cd376d.svg" width="455px" height="91px" loading="lazy" />
 					<p>
 						Okay, well, that looks plain ridiculous, but: notice that every coordinate value is being offset by the initial translation, and also
 						notice that <em>a lot</em> of terms in that expression are repeated. Even though the maths looks crazy as a single expression, we can just
@@ -2794,13 +3676,13 @@ function getCubicRoots(pa, pb, pc, pd) {
 						First, let's just do that translation step as a "preprocessing" operation so we don't have to subtract the values all the time. What does
 						that leave?
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/canonical/13c09950363c33627fd3a20343f2f6ce.svg" width="800px" height="65px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/canonical/5f174bc5019245f467ca63ae84b90a4b.svg" width="775px" height="67px" loading="lazy" />
 					<p>
 						Suddenly things look a lot simpler: the mapped x is fairly straight forward to compute, and we see that the mapped y actually contains the
 						mapped x in its entirety, so we'll have that part already available when we need to evaluate it. In fact, let's pull out all those common
 						factors to see just how simple this is:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/canonical/ddee51855ef3a9ee7660c395b0a041c7.svg" width="581px" height="55px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/canonical/88e3fae7aeef6d7614290587422542c9.svg" width="563px" height="55px" loading="lazy" />
 					<p>
 						That's kind of super-simple to write out in code, I think you'll agree. Coding math tends to be easier than the formulae initially make it
 						look!
@@ -2867,7 +3749,6 @@ function getCubicRoots(pa, pb, pc, pd) {
 						</fallback-image>
 						<input type="range" min="0" max="1" step="0.01" class="slide-control" />
 					</graphics-element>
-
 					<p>
 						Now, if you look more closely at that right graphic, you'll notice something interesting: if we treat the red line as "the x axis", then
 						the point where the function crosses our line is really just a root for the cubic function x(t) through a shifted "x-axis"... and
@@ -2875,23 +3756,29 @@ function getCubicRoots(pa, pb, pc, pd) {
 						cubic case either: because of the kind of curve we're starting with, we <em>know</em> there is only root, simplifying the code we need!
 					</p>
 					<p>First, let's look at the function for x(t):</p>
-					<img class="LaTeX SVG" src="./images/chapters/yforx/9df91c28af38c1ba2e2d38d2714c9446.svg" width="336px" height="19px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/yforx/316e7fae61e10014000d770209779ab6.svg" width="335px" height="19px" loading="lazy" />
 					<p>
 						We can rewrite this to a plain polynomial form, by just fully writing out the expansion and then collecting the polynomial factors, as:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/yforx/9ab2b830fe7fb73350c19bde04e9441b.svg" width="451px" height="19px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/yforx/4d23ee228c5b1cbc40e380496c2184d1.svg" width="445px" height="19px" loading="lazy" />
 					<p>
 						Nothing special here: that's a standard cubic polynomial in "power" form (i.e. all the terms are ordered by their power of
 						<code>t</code>). So, given that <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code>, <em>and</em> <code>x(t)</code> are all
 						known constants, we can trivially rewrite this (by moving the <code>x(t)</code> across the equal sign) as:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/yforx/61e43d68f6eb677d0fccd473c121e782.svg" width="472px" height="19px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/yforx/699459d89ca6622c90c1e42e4aa03f32.svg" width="465px" height="19px" loading="lazy" />
 					<p>
 						You might be wondering "where did all the other 'minus x' for all the other values a, b, c, and d go?" and the answer there is that they
 						all cancel out, so the only one we actually need to subtract is the one at the end. Handy! So now we just solve this equation using
 						Cardano's algorithm, and we're left with some rather short code:
 					</p>
-					<pre><code>// prepare our values for root finding:
+
+					<table class="code">
+						<tr>
+							<td>1</td>
+							<td rowspan="10">
+								<textarea disabled rows="10" role="doc-example">
+// prepare our values for root finding:
 x = a value we already know
 xcoord = our set of Bézier curve's x coordinates
 foreach p in xcoord: p.x -= x
@@ -2900,7 +3787,39 @@ foreach p in xcoord: p.x -= x
 t = getRoots(p[0], p[1], p[2], p[3])[0]
 
 // find our answer:
-y = curve.get(t).y</code></pre>
+y = curve.get(t).y</textarea
+								>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>5</td>
+						</tr>
+						<tr>
+							<td>6</td>
+						</tr>
+						<tr>
+							<td>7</td>
+						</tr>
+						<tr>
+							<td>8</td>
+						</tr>
+						<tr>
+							<td>9</td>
+						</tr>
+						<tr>
+							<td>10</td>
+						</tr>
+					</table>
+
 					<p>
 						So the procedure is fairly straight forward: pick an <code>x</code>, find the associted <code>t</code> value, evaluate our curve
 						<em>for</em> that <code>t</code> value, which gives us the curve's {x,y} coordinate, which means we know <code>y</code> for this
@@ -2926,9 +3845,9 @@ y = curve.get(t).y</code></pre>
 						<em>f<sub>y</sub>(t)</em>, then the length of the curve, measured from start point to some point <em>t = z</em>, is computed using the
 						following seemingly straight forward (if a bit overwhelming) formula:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/arclength/cb24cda7f7f4bbf3be7104c460e0ec9f.svg" width="156px" height="41px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/arclength/59ebc3a7c3547a50998d1ea3664fb688.svg" width="140px" height="33px" loading="lazy" />
 					<p>or, more commonly written using Leibnitz notation as:</p>
-					<img class="LaTeX SVG" src="./images/chapters/arclength/d3003177813309f88f58a1f515f5df9f.svg" width="259px" height="41px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/arclength/2f80643c66d8f1448b13537a7b24eb45.svg" width="245px" height="35px" loading="lazy" />
 					<p>
 						This formula says that the length of a parametric curve is in fact equal to the <strong>area</strong> underneath a function that looks a
 						remarkable amount like Pythagoras' rule for computing the diagonal of a straight angled triangle. This sounds pretty simple, right? Sadly,
@@ -2954,7 +3873,7 @@ y = curve.get(t).y</code></pre>
 						works, I can recommend the University of South Florida video lecture on the procedure, linked in this very paragraph. The general solution
 						we're looking for is the following:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/arclength/e168758d35b8f6781617eda5a32b20bf.svg" width="667px" height="71px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/arclength/261454d5d35a6dcefe97f3e4cfe5a142.svg" width="636px" height="71px" loading="lazy" />
 					<p>
 						In plain text: an integral function can always be treated as the sum of an (infinite) number of (infinitely thin) rectangular strips
 						sitting "under" the function's plotted graph. To illustrate this idea, the following graph shows the integral for a sinusoid function. The
@@ -3016,9 +3935,9 @@ y = curve.get(t).y</code></pre>
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/arclength/5509919419288129322cfbd4c60d0a4f.svg"
-							width="343px"
-							height="69px"
+							src="./images/chapters/arclength/0748ad25185548150b6c1c4c7039207e.svg"
+							width="341px"
+							height="72px"
 							loading="lazy"
 						/>
 						<p>
@@ -3032,15 +3951,15 @@ y = curve.get(t).y</code></pre>
 							values, for any <em>n</em>, so if we want to approximate our integral with only two terms (which is a bit low, really) then
 							<a href="./legendre-gauss.html">these tables</a> would tell us that for <em>n=2</em> we must use the following values:
 						</p>
-						<img class="LaTeX SVG" src="./images/chapters/arclength/d0d93f1cc26b560309dade1f1aa012f2.svg" width="65px" height="81px" loading="lazy" />
+						<img class="LaTeX SVG" src="./images/chapters/arclength/a91fbfb7abc38ff712ef660d85679f2e.svg" width="63px" height="93px" loading="lazy" />
 						<p>
 							Which means that in order for us to approximate the integral, we must plug these values into the approximate function, which gives us:
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/arclength/e96dd431f6ef9433ccf25909dddd5bca.svg"
-							width="496px"
-							height="41px"
+							src="./images/chapters/arclength/046bbb52e8c8ed617fdf3a4fd18d62e1.svg"
+							width="476px"
+							height="44px"
 							loading="lazy"
 						/>
 						<p>
@@ -3093,7 +4012,6 @@ y = curve.get(t).y</code></pre>
 							</fallback-image>
 							<input type="range" min="2" max="24" step="1" value="4" class="slide-control" />
 						</graphics-element>
-
 						<graphics-element
 							title="Approximate cubic curve arc length"
 							width="275"
@@ -3178,12 +4096,12 @@ y = curve.get(t).y</code></pre>
 						we can find a lot of insight.
 					</p>
 					<p>So, what does the function look like? This:</p>
-					<img class="LaTeX SVG" src="./images/chapters/curvature/d9c893051586eb8d9de51c0ae1ef8fae.svg" width="115px" height="41px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/curvature/060acd6ff0a050fe4d98a7802a2b3a3f.svg" width="113px" height="47px" loading="lazy" />
 					<p>
 						Which is really just a "short form" that glosses over the fact that we're dealing with functions of <code>t</code>, so let's expand that a
 						tiny bit:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/curvature/828333034b4fed8e248683760d6bc6f4.svg" width="248px" height="48px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/curvature/afd8cb8b0fe291ff703752c1c9cc33d4.svg" width="239px" height="55px" loading="lazy" />
 					<p>
 						And while that's a litte more verbose, it's still just as simple to work with as the first function: the curvature at some point on any
 						(and this cannot be overstated: <em>any</em>) curve is a ratio between the first and second derivative cross product, and something that
@@ -3192,13 +4110,42 @@ y = curve.get(t).y</code></pre>
 						evaluating this function for any <strong>t</strong> value is just a matter of basic arithematics.
 					</p>
 					<p>In fact, let's just implement it right now:</p>
-					<pre><code>function kappa(t, B):
+
+					<table class="code">
+						<tr>
+							<td>1</td>
+							<td rowspan="7">
+								<textarea disabled rows="7" role="doc-example">
+function kappa(t, B):
   d = B.getDerivative(t)
   dd = B.getSecondDerivative(t)
   numerator = d.x * dd.y - dd.x * d.y
   denominator = pow(d.x*d.x + d.y*d.y, 3/2)
   if denominator is 0: return NaN;
-  return numerator / denominator</code></pre>
+  return numerator / denominator</textarea
+								>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>5</td>
+						</tr>
+						<tr>
+							<td>6</td>
+						</tr>
+						<tr>
+							<td>7</td>
+						</tr>
+					</table>
+
 					<p>
 						That was easy! (Well okay, that "not a number" value will need to be taken into account by downstream code, but that's a reality of
 						programming anwyay)
@@ -3221,14 +4168,13 @@ y = curve.get(t).y</code></pre>
 							<img width="825px" height="275px" src="./images/chapters/curvature/2398b098e6ac9da9dc109239b49715ed.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
-
 					<p>
 						One thing you may have noticed in this sketch is that sometimes the curvature looks fine, but seems to be pointing in the wrong direction,
 						making it hard to line up the curves properly. A way around that, of course, is to show the curvature on both sides of the curve, so let's
 						just do that. But let's take it one step further: we can also compute the associated "radius of curvature", which gives us the implicit
 						circle that "fits" the curve's curvature at any point, using what is possibly the simplest bit of maths found in this entire primer:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/curvature/6ed4fd2ead35c57984caddf9fe375a5f.svg" width="81px" height="37px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/curvature/561ab3a938d655550de0abf458ac2494.svg" width="81px" height="37px" loading="lazy" />
 					<p>
 						So let's revisit the previous graphic with the curvature visualised on both sides of our curves, as well as showing the circle that "fits"
 						our curve at some point that we can control by using a slider:
@@ -3277,7 +4223,6 @@ y = curve.get(t).y</code></pre>
 							<img width="550px" height="275px" src="./images/chapters/tracing/d6239520389637a3c42e76ee44d86c41.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
-
 					<p>
 						So, how do we "cut up" the arc length function at regular intervals, when we can't really work with it? We basically cheat: we run through
 						the curve using <code>t</code> values, determine the distance-for-this-<code>t</code>-value at each point we generate during the run, and
@@ -3298,7 +4243,6 @@ y = curve.get(t).y</code></pre>
 						</fallback-image>
 						<input type="range" min="2" max="24" step="1" value="8" class="slide-control" />
 					</graphics-element>
-
 					<p>Use the slider to increase or decrease the number of equidistant segments used to colour the curve.</p>
 					<p>
 						However, are there better ways? One such way is discussed in "<a
@@ -3347,7 +4291,6 @@ y = curve.get(t).y</code></pre>
 							<label>Line/line intersections</label>
 						</fallback-image></graphics-element
 					>
-
 					<div class="howtocode">
 						<h3>Implementing line-line intersections</h3>
 						<p>
@@ -3355,7 +4298,13 @@ y = curve.get(t).y</code></pre>
 							but sometimes you need more function signatures, because you might not want to call your function with eight distinct parameters. Maybe
 							you're using point structs for the line. Let's get coding:
 						</p>
-						<pre><code>lli8 = function(x1,y1,x2,y2,x3,y3,x4,y4):
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="17">
+									<textarea disabled rows="17" role="doc-example">
+lli8 = function(x1,y1,x2,y2,x3,y3,x4,y4):
   var nx=(x1*y2-y1*x2)*(x3-x4)-(x1-x2)*(x3*y4-y3*x4),
       ny=(x1*y2-y1*x2)*(y3-y4)-(y1-y2)*(x3*y4-y3*x4),
       d=(x1-x2)*(y3-y4)-(y1-y2)*(x3-x4);
@@ -3371,7 +4320,59 @@ lli4 = function(p1, p2, p3, p4):
   return lli8(x1,y1,x2,y2,x3,y3,x4,y4)
 
 lli = function(line1, line2):
-  return lli4(line1.p1, line1.p2, line2.p1, line2.p2)</code></pre>
+  return lli4(line1.p1, line1.p2, line2.p1, line2.p2)</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>8</td>
+							</tr>
+							<tr>
+								<td>9</td>
+							</tr>
+							<tr>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>11</td>
+							</tr>
+							<tr>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td>13</td>
+							</tr>
+							<tr>
+								<td>14</td>
+							</tr>
+							<tr>
+								<td>15</td>
+							</tr>
+							<tr>
+								<td>16</td>
+							</tr>
+							<tr>
+								<td>17</td>
+							</tr>
+						</table>
 					</div>
 
 					<h3>What about curve-line intersections?</h3>
@@ -3479,7 +4480,6 @@ lli = function(line1, line2):
 						<button class="next">Advance one step</button>
 						<input type="range" min="0.01" max="5" step="0.01" value="1" class="slide-control" />
 					</graphics-element>
-
 					<p>
 						Finding self-intersections is effectively the same procedure, except that we're starting with a single curve, so we need to turn that into
 						two separate curves first. This is trivially achieved by splitting at an inflection point, or if there are none, just splitting at
@@ -3572,7 +4572,7 @@ lli = function(line1, line2):
 						So, how can we compute <code>C</code>? We start with our observation that <code>C</code> always lies somewhere between the start and ends
 						points, so logically <code>C</code> will have a function that interpolates between those two coordinates:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/abc/cd2e47cdc2e23ec86cd1ca1cb4286645.svg" width="241px" height="17px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/6a65a8327c06bc6f14cc4e0751d8e49e.svg" width="236px" height="16px" loading="lazy" />
 					<p>
 						If we can figure out what the function <code>u(t)</code> looks like, we'll be done. Although we do need to remember that this
 						<code>u(t)</code> will have a different for depending on whether we're working with quadratic or cubic curves.
@@ -3581,9 +4581,9 @@ lli = function(line1, line2):
 						>
 						(with thanks to Boris Zbarsky) shows us the following two formulae:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/abc/5484dc53e408a4259891a65212ef8636.svg" width="192px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/c10cf18edeffed67dc94d250310db475.svg" width="188px" height="41px" loading="lazy" />
 					<p>And</p>
-					<img class="LaTeX SVG" src="./images/chapters/abc/63fbe4e666a7dad985ec4110e17c249f.svg" width="167px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/50543216f39c1b10af7cf4823844dd31.svg" width="167px" height="41px" loading="lazy" />
 					<p>
 						So, if we know the start and end coordinates, and we know the <em>t</em> value, we know C, without having to calculate the
 						<code>A</code> or even <code>B</code> coordinates. In fact, we can do the same for the ratio function: as another function of
@@ -3591,18 +4591,18 @@ lli = function(line1, line2):
 						pure function of <code>t</code>, too.
 					</p>
 					<p>We start by observing that, given <code>A</code>, <code>B</code>, and <code>C</code>, the following always holds:</p>
-					<img class="LaTeX SVG" src="./images/chapters/abc/385d1fd4aecbd2066e6e284a84408be6.svg" width="272px" height="39px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/b9854fbcb1096f736607d292dbe48371.svg" width="251px" height="39px" loading="lazy" />
 					<p>Working out the maths for this, we see the following two formulae for quadratic and cubic curves:</p>
-					<img class="LaTeX SVG" src="./images/chapters/abc/059000c5c8a37dcc8d7fa04154a05df3.svg" width="255px" height="41px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/f78ce50f725f208f25090abc7fd741b7.svg" width="245px" height="41px" loading="lazy" />
 					<p>And</p>
-					<img class="LaTeX SVG" src="./images/chapters/abc/b4987e9b77b0df604238b88596c5f7c3.svg" width="228px" height="41px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/c018aab3952ea9193848564aab12b241.svg" width="223px" height="41px" loading="lazy" />
 					<p>
 						Which now leaves us with some powerful tools: given thee points (start, end, and "some point on the curve"), as well as a
 						<code>t</code> value, we can <em>contruct</em> curves: we can compute <code>C</code> using the start and end points, and our
 						<code>u(t)</code> function, and once we have <code>C</code>, we can use our on-curve point (<code>B</code>) and the
 						<code>ratio(t)</code> function to find <code>A</code>:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/abc/12aaf0d7fd20b3c551a0ec76b18bd7d2.svg" width="231px" height="39px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/bb8674f5f36b054b7734e34b91ed924f.svg" width="217px" height="37px" loading="lazy" />
 					<p>
 						With <code>A</code> found, finding <code>e1</code> and <code>e2</code> for quadratic curves is a matter of running the linear
 						interpolation with <code>t</code> between start and <code>A</code> to yield <code>e1</code>, and between <code>A</code> and end to yield
@@ -3610,9 +4610,9 @@ lli = function(line1, line2):
 						distance ratio between <code>e1</code> to <code>B</code> and <code>B</code> to <code>e2</code> is the Bézier ratio <code>(1-t):t</code>,
 						we can reverse engineer <code>v1</code> and <code>v2</code>:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/abc/bc245327e0b011712168bad1c48dfec4.svg" width="139px" height="75px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/eccc1bdb9423bbfe2d42418fc8a7dd24.svg" width="132px" height="75px" loading="lazy" />
 					<p>And then reverse engineer the curve's control control points:</p>
-					<img class="LaTeX SVG" src="./images/chapters/abc/3c696e0364d61b1391695342707d6ccc.svg" width="177px" height="72px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/c14d8ce6eccca2c8063af40e5ac0bfd4.svg" width="164px" height="73px" loading="lazy" />
 					<p>
 						So: if we have a curve's start and end point, then for any <code>t</code> value we implicitly know all the ABC values, which (combined
 						with an educated guess on appropriate <code>e1</code> and <code>e2</code> coordinates for cubic curves) gives us the necessary information
@@ -3637,9 +4637,9 @@ lli = function(line1, line2):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/pointcurves/3c7516c16a5dea95df741f4263cecd1c.svg"
-						width="132px"
-						height="85px"
+						src="./images/chapters/pointcurves/f8182445c1cd7ae9f368b88fa7090e53.svg"
+						width="119px"
+						height="84px"
 						loading="lazy"
 					/>
 					<p>
@@ -3653,7 +4653,6 @@ lli = function(line1, line2):
 							<label>Fitting a quadratic Bézier curve</label>
 						</fallback-image></graphics-element
 					>
-
 					<p>
 						For cubic curves we need to do a little more work, but really only just a little. We're first going to assume that a decent curve through
 						the three points should approximate a circular arc, which first requires knowing how to fit a circle to three points. You may remember (if
@@ -3673,7 +4672,6 @@ lli = function(line1, line2):
 							<label>Finding a circle through three points</label>
 						</fallback-image></graphics-element
 					>
-
 					<p>
 						With that covered, we now also know the tangent line to our point <code>B</code>, because the tangent to any point on the circle is a line
 						through that point, perpendicular to the line from that point to the center. That just leaves marking appropriate points
@@ -3683,9 +4681,9 @@ lli = function(line1, line2):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/pointcurves/55d4f7ed095dfea8f9772208abc83b51.svg"
-						width="147px"
-						height="49px"
+						src="./images/chapters/pointcurves/8ffdd4a58cbd0fc24caef781f23a7950.svg"
+						width="139px"
+						height="40px"
 						loading="lazy"
 					/>
 					<p>
@@ -3698,9 +4696,9 @@ lli = function(line1, line2):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/pointcurves/9203537b7dca98ebb2d7017c76100fde.svg"
-						width="507px"
-						height="21px"
+						src="./images/chapters/pointcurves/a5cd63b54be6b554290c38787cfbbabd.svg"
+						width="488px"
+						height="24px"
 						loading="lazy"
 					/>
 					<p>
@@ -3710,9 +4708,9 @@ lli = function(line1, line2):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/pointcurves/6f0e2b6494d7dae2ea79a46a499d7ed4.svg"
-						width="183px"
-						height="49px"
+						src="./images/chapters/pointcurves/4fe687c8a65265a2a755ba5841d0e31d.svg"
+						width="177px"
+						height="40px"
 						loading="lazy"
 					/>
 					<p>The result of this approach looks as follows:</p>
@@ -3729,7 +4727,6 @@ lli = function(line1, line2):
 							<label>Finding the cubic e₁ and e₂ given three points </label>
 						</fallback-image></graphics-element
 					>
-
 					<p>
 						It is important to remember that even though we're using a circular arc to come up with decent <code>e1</code> and <code>e2</code> terms,
 						we're <em>not</em> trying to perfectly create a circular arc with a cubic curve (which is good, because we can't;
@@ -3744,7 +4741,6 @@ lli = function(line1, line2):
 							<label>Fitting a quadratic Bézier curve</label>
 						</fallback-image></graphics-element
 					>
-
 					<p>That looks perfectly servicable!</p>
 					<p>
 						Of course, we can take this one step further: we can't just "create" curves, we also have (almost!) all the tools available to "mold"
@@ -3772,13 +4768,42 @@ lli = function(line1, line2):
 						<a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">binary search</a>. First, we do a coarse distance-check based on
 						<code>t</code> values associated with the curve's "to draw" coordinates (using a lookup table, or LUT). This is pretty fast:
 					</p>
-					<pre><code>p = some point to project onto the curve
+
+					<table class="code">
+						<tr>
+							<td>1</td>
+							<td rowspan="7">
+								<textarea disabled rows="7" role="doc-example">
+p = some point to project onto the curve
 d = some initially huge value
 i = 0
 for (coordinate, index) in LUT:
-  if distance(coordinate, p) &lt; d:
+  if distance(coordinate, p) < d:
     d = distance(coordinate, p)
-    i = index</code></pre>
+    i = index</textarea
+								>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>5</td>
+						</tr>
+						<tr>
+							<td>6</td>
+						</tr>
+						<tr>
+							<td>7</td>
+						</tr>
+					</table>
+
 					<p>
 						After this runs, we know that <code>LUT[i]</code> is the coordinate on the curve <em>in our LUT</em> that is closest to the point we want
 						to project, so that's a pretty good initial guess as to what the best projection onto our curve is. To refine it, we note that LUT[i] is a
@@ -3829,9 +4854,9 @@ for (coordinate, index) in LUT:
 						initial <code>B</code> coordinate. We don't even need the latter: with our <code>t</code> value and "whever the cursor is" as target
 						<code>B</code>, we can compute the associated <code>C</code>:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/molding/079d318ad693b6b17413a91f5de06be8.svg" width="256px" height="21px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/molding/70262c533569a7da06cc1b950e932d6f.svg" width="248px" height="24px" loading="lazy" />
 					<p>And then the associated <code>A</code>:</p>
-					<img class="LaTeX SVG" src="./images/chapters/molding/82a99caec5f84fb26dce28277377c041.svg" width="244px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/molding/6f12fcc00f4106bbc920d7451398d3b2.svg" width="231px" height="41px" loading="lazy" />
 					<p>And we're done, because that's our new quadratic control point!</p>
 					<graphics-element
 						title="Molding a quadratic Bézier curve"
@@ -3845,7 +4870,6 @@ for (coordinate, index) in LUT:
 							<img width="825px" height="275px" src="./images/chapters/molding/aefb177e5532a9f995b9d88e85582c68.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
-
 					<p>
 						As before, cubic curves are a bit more work, because while it's easy to find our initial <code>t</code> value and ABC values, getting
 						those all-important <code>e1</code> and <code>e2</code> coordinates is going to pose a bit of a problem... in the section on curve
@@ -3864,7 +4888,6 @@ for (coordinate, index) in LUT:
 							<img width="825px" height="275px" src="./images/chapters/molding/834af194de17a5eb2c1920773ab904e3.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
-
 					<p>
 						That looks reasonable, close to the original point, but the further we drag our point, the less "useful" things become. Especially if we
 						drag our point across the baseline, rather than turning into a nice curve.
@@ -3890,7 +4913,6 @@ for (coordinate, index) in LUT:
 						</fallback-image>
 						<input type="range" min="10" max="200" step="1" value="100" class="slide-control" />
 					</graphics-element>
-
 					<p>
 						The slide controls the "falloff distance" relative to where the original point on the curve is, so that as we drag our point around, it
 						interpolates with a bias towards "preserving <code>t</code>/<code>e1</code>/<code>e2</code>" closer to the original point, and bias
@@ -3957,17 +4979,17 @@ for (coordinate, index) in LUT:
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/bd8e8e294eec10d2bf6ef857c7c0c2c2.svg"
-							width="307px"
-							height="41px"
+							src="./images/chapters/curvefitting/31d659cbc72bf304abf4c9a75b6b81de.svg"
+							width="295px"
+							height="43px"
 							loading="lazy"
 						/>
 						<p>And then we (trivially) rearrange the terms across multiple lines:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/2b8334727d3b004c6e87263fec6b32b7.svg"
-							width="225px"
-							height="61px"
+							src="./images/chapters/curvefitting/a6faaf6083c818431988fef49421cc47.svg"
+							width="216px"
+							height="64px"
 							loading="lazy"
 						/>
 						<p>
@@ -3978,40 +5000,40 @@ for (coordinate, index) in LUT:
 						<p>With that arrangement, we can easily decompose this as a matrix multiplication:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/94acb5850778dcb16c2ba3cfa676f537.svg"
-							width="592px"
+							src="./images/chapters/curvefitting/505ab1ada6a187e9ba392d19739ac2c5.svg"
+							width="572px"
 							height="53px"
 							loading="lazy"
 						/>
 						<p>We can do the same for the cubic curve, of course. We know the base function for cubics:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/7eada6f12045423de24d9a2ab8e293b1.svg"
-							width="360px"
+							src="./images/chapters/curvefitting/06605e008956609e8844ef95697c9096.svg"
+							width="355px"
 							height="19px"
 							loading="lazy"
 						/>
 						<p>So we write out the expansion and rearrange:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/875ca8eea72e727ccb881b4c0b6a3224.svg"
-							width="255px"
-							height="84px"
+							src="./images/chapters/curvefitting/7c6b50cee5dc685515943a199d7a65fc.svg"
+							width="248px"
+							height="87px"
 							loading="lazy"
 						/>
 						<p>Which we can then decompose:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/03ec73258d5c95eed39a2ea8665e0b07.svg"
-							width="417px"
+							src="./images/chapters/curvefitting/9651a687e1522b00bcba063881230902.svg"
+							width="404px"
 							height="72px"
 							loading="lazy"
 						/>
 						<p>And, of course, we can do this for quartic curves too (skipping the expansion step):</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/9151c0fdf9689ee598a2d029ab2ffe34.svg"
-							width="505px"
+							src="./images/chapters/curvefitting/409d10c3005b0c93489d72a5dba692d7.svg"
+							width="491px"
 							height="92px"
 							loading="lazy"
 						/>
@@ -4028,8 +5050,8 @@ for (coordinate, index) in LUT:
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/curvefitting/2bef3da3828d63d690460ce9947dbde2.svg"
-						width="67px"
+						src="./images/chapters/curvefitting/b017da988c9a778a4ce6a6f4ea4790d4.svg"
+						width="63px"
 						height="73px"
 						loading="lazy"
 					/>
@@ -4056,8 +5078,8 @@ for (coordinate, index) in LUT:
 					<p>To get these values, we first compute the general "distance along the polygon" matrix:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/curvefitting/78b8ba1aba2e4c9ad3f7890299c90152.svg"
-						width="403px"
+						src="./images/chapters/curvefitting/2f82371abb7835f9b9d440dc5dd151a8.svg"
+						width="395px"
 						height="40px"
 						loading="lazy"
 					/>
@@ -4068,8 +5090,8 @@ for (coordinate, index) in LUT:
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/curvefitting/08f4beaebf83dca594ad125bdca7e436.svg"
-						width="289px"
+						src="./images/chapters/curvefitting/6f734d319a1cfe0de76574a65abb07e1.svg"
+						width="272px"
 						height="55px"
 						loading="lazy"
 					/>
@@ -4084,8 +5106,8 @@ for (coordinate, index) in LUT:
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/curvefitting/7e5d59272621baf942bc722208ce70c2.svg"
-						width="184px"
+						src="./images/chapters/curvefitting/464dbfb5adb6233108053dfac6fa4fe5.svg"
+						width="177px"
 						height="23px"
 						loading="lazy"
 					/>
@@ -4095,8 +5117,8 @@ for (coordinate, index) in LUT:
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/curvefitting/ab334858d3fa309cc1a5ba535a2ca168.svg"
-						width="204px"
+						src="./images/chapters/curvefitting/940455f4016ab1be6d46c6f176fd2f76.svg"
+						width="195px"
 						height="41px"
 						loading="lazy"
 					/>
@@ -4108,17 +5130,17 @@ for (coordinate, index) in LUT:
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/curvefitting/2d42758fba3370f52191306752c2705c.svg"
-						width="151px"
-						height="23px"
+						src="./images/chapters/curvefitting/7b0199bb515d2754c03d8f796b29febf.svg"
+						width="141px"
+						height="21px"
 						loading="lazy"
 					/>
 					<p>In which we can replace the rather cumbersome "squaring" operation with a more conventional matrix equivalent:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/curvefitting/5f7fcb86ae1c19612b9fe02e23229e31.svg"
-						width="241px"
-						height="23px"
+						src="./images/chapters/curvefitting/8068231b915832938136d5833f74751d.svg"
+						width="225px"
+						height="21px"
 						loading="lazy"
 					/>
 					<p>
@@ -4133,25 +5155,25 @@ for (coordinate, index) in LUT:
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/curvefitting/6202d7bd150c852b432d807c40fb1647.svg"
-						width="208px"
+						src="./images/chapters/curvefitting/4dd55c228a26bb50da912a45e8721024.svg"
+						width="201px"
 						height="96px"
 						loading="lazy"
 					/>
 					<p>Which, because of the first and last values in <strong>S</strong>, means:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/curvefitting/4ffad56e281ee79d0688e93033429f0a.svg"
-						width="216px"
+						src="./images/chapters/curvefitting/38bb81bdd3eaa72c2336514187aa374b.svg"
+						width="212px"
 						height="92px"
 						loading="lazy"
 					/>
 					<p>Now we can properly write out the error function as matrix operations:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/curvefitting/8d09f2be2c6db79ee966f170ffc25815.svg"
-						width="239px"
-						height="23px"
+						src="./images/chapters/curvefitting/989f2ad06ae308f71cef527a5594129a.svg"
+						width="231px"
+						height="21px"
 						loading="lazy"
 					/>
 					<p>
@@ -4161,9 +5183,9 @@ for (coordinate, index) in LUT:
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/curvefitting/283bc9e8fe59a78d3c74860f62a66ecb.svg"
-						width="200px"
-						height="35px"
+						src="./images/chapters/curvefitting/ea24b0e42f0a89464bda275ac8f9bacf.svg"
+						width="197px"
+						height="36px"
 						loading="lazy"
 					/>
 					<div class="note">
@@ -4194,9 +5216,9 @@ for (coordinate, index) in LUT:
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/curvefitting/d84d1c71a3ce1918f53eaf8f9fe98ac4.svg"
-						width="163px"
-						height="24px"
+						src="./images/chapters/curvefitting/9dec10b81a61b456ca1550cd9b7ba513.svg"
+						width="168px"
+						height="27px"
 						loading="lazy"
 					/>
 					<p>
@@ -4231,7 +5253,6 @@ for (coordinate, index) in LUT:
 						<button class="toggle">toggle</button>
 						<!-- additional sliders will get created on the fly -->
 					</graphics-element>
-
 					<p>
 						You'll note there is a convenient "toggle" buttons that lets you toggle between equidistant <code>t</code> values, and distance ratio
 						along the polygon formed by the points. Arguably more interesting is that once you have points to abstract a curve, you also get
@@ -4262,7 +5283,6 @@ for (coordinate, index) in LUT:
 						</fallback-image>
 						<input type="range" min="0.1" max="1" step="0.01" value="0.5" class="slide-control tension" />
 					</graphics-element>
-
 					<p>
 						Now, it may look like Catmull-Rom curves are very different from Bézier curves, because these curves can get very long indeed, but what
 						looks like a single Catmull-Rom curve is actually a <a href="https://en.wikipedia.org/wiki/Spline_(mathematics)">spline</a>: a single
@@ -4274,9 +5294,9 @@ for (coordinate, index) in LUT:
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/catmullconv/2844a4f4d222374a25b5f673c94679d9.svg"
-						width="297px"
-						height="84px"
+						src="./images/chapters/catmullconv/00357d2a2168fe313cd0b38d95a1a681.svg"
+						width="287px"
+						height="88px"
 						loading="lazy"
 					/>
 					<p>
@@ -4291,7 +5311,13 @@ for (coordinate, index) in LUT:
 						<a href="https://en.wikipedia.org/wiki/Centripetal_Catmull%E2%80%93Rom_spline#Definition">considerable</a> more
 						<a href="https://en.wikipedia.org/wiki/Kochanek%E2%80%93Bartels_spline">complex</a>):
 					</p>
-					<pre><code>tension = some value greater than 0, defaulting to 1
+
+					<table class="code">
+						<tr>
+							<td>1</td>
+							<td rowspan="19">
+								<textarea disabled rows="19" role="doc-example">
+tension = some value greater than 0, defaulting to 1
 points = a list of at least 4 coordinates
 
 for p = 1 to points.length-3 (inclusive):
@@ -4309,7 +5335,66 @@ for p = 1 to points.length-3 (inclusive):
     c1 = t^3 - 2*t^2 + t,
     c2 = -2*t^3 + 3*t^2,
     c3 = t^3 - t^2
-    point(c0 * v1 + c1 * dv1 + c2 * v2 + c3 * dv2)</code></pre>
+    point(c0 * v1 + c1 * dv1 + c2 * v2 + c3 * dv2)</textarea
+								>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>5</td>
+						</tr>
+						<tr>
+							<td>6</td>
+						</tr>
+						<tr>
+							<td>7</td>
+						</tr>
+						<tr>
+							<td>8</td>
+						</tr>
+						<tr>
+							<td>9</td>
+						</tr>
+						<tr>
+							<td>10</td>
+						</tr>
+						<tr>
+							<td>11</td>
+						</tr>
+						<tr>
+							<td>12</td>
+						</tr>
+						<tr>
+							<td>13</td>
+						</tr>
+						<tr>
+							<td>14</td>
+						</tr>
+						<tr>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td>16</td>
+						</tr>
+						<tr>
+							<td>17</td>
+						</tr>
+						<tr>
+							<td>18</td>
+						</tr>
+						<tr>
+							<td>19</td>
+						</tr>
+					</table>
+
 					<p>
 						Now, since a Catmull-Rom curve is a form of <a href="https://en.wikipedia.org/wiki/Cubic_Hermite_spline">cubic Hermite spline</a>, and as
 						cubic Bézier curves are <em>also</em> a form of cubic Hermite spline, we run into an interesting bit of maths programming: we can
@@ -4333,8 +5418,8 @@ for p = 1 to points.length-3 (inclusive):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/catmullconv/9215d05705c8e8a7ebd718ae6f690371.svg"
-						width="423px"
+						src="./images/chapters/catmullconv/8d3a5ca7188f53b914229133b3dbe5fe.svg"
+						width="409px"
 						height="75px"
 						loading="lazy"
 					/>
@@ -4359,9 +5444,9 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/1811b59c5ab9233f08590396e5d03303.svg"
-							width="196px"
-							height="79px"
+							src="./images/chapters/catmullconv/b94a4dafc12ba7e4fbf3aff924f55464.svg"
+							width="187px"
+							height="83px"
 							loading="lazy"
 						/>
 						<p>
@@ -4372,17 +5457,17 @@ for p = 1 to points.length-3 (inclusive):
 						<p>Computing <em>T</em> is really more "arranging the numbers":</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/4d524810417b4caffedd13af23135f5b.svg"
-							width="621px"
-							height="79px"
+							src="./images/chapters/catmullconv/a55773fdcdfd99947acc4f86ad2d4a3d.svg"
+							width="591px"
+							height="83px"
 							loading="lazy"
 						/>
 						<p>Thus:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/f41487aff3e34fafd5d4ee5979f133f1.svg"
-							width="145px"
-							height="76px"
+							src="./images/chapters/catmullconv/7bab9dd3da654b05fa065076894e2d82.svg"
+							width="143px"
+							height="81px"
 							loading="lazy"
 						/>
 						<p>
@@ -4393,9 +5478,9 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/06ae1e3fdc660e59d618e0760e8e9ab5.svg"
-							width="291px"
-							height="79px"
+							src="./images/chapters/catmullconv/8de53f207d68b25854a5f0b924ac6010.svg"
+							width="285px"
+							height="84px"
 							loading="lazy"
 						/>
 						<p>
@@ -4404,73 +5489,73 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/cc1e2ff43350c32f0ae9ba9a7652b8fb.svg"
-							width="423px"
+							src="./images/chapters/catmullconv/1f9fc156aeed9eb092573cd7446593d9.svg"
+							width="409px"
 							height="75px"
 							loading="lazy"
 						/>
 						<p>Replace point/tangent vector with the expression for all-coordinates:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/f08e34395ce2812276fd70548f805041.svg"
-							width="564px"
-							height="76px"
+							src="./images/chapters/catmullconv/defc6fa4b51fa3c1945d15449f0f392d.svg"
+							width="549px"
+							height="81px"
 							loading="lazy"
 						/>
 						<p>and merge the matrices:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/f2b2a16a41d134ce0dfd544ab77ff25e.svg"
-							width="465px"
-							height="76px"
+							src="./images/chapters/catmullconv/8a2a00812363fe1a6cfa7f81b48d31d1.svg"
+							width="455px"
+							height="84px"
 							loading="lazy"
 						/>
 						<p>This looks a lot like the Bézier matrix form, which as we saw in the chapter on Bézier curves, should look like this:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/8f56909fcb62b8eef18b9b9559575c13.svg"
-							width="359px"
-							height="75px"
+							src="./images/chapters/catmullconv/c1f8861583b4176a9b607aa6a05f9356.svg"
+							width="353px"
+							height="73px"
 							loading="lazy"
 						/>
 						<p>So, if we want to express a Catmull-Rom curve using a Bézier curve, we'll need to turn this Catmull-Rom bit:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/b21386f86bef8894f108c5441dad10de.svg"
+							src="./images/chapters/catmullconv/574bed6665be06b309b8da722c616a41.svg"
 							width="227px"
-							height="76px"
+							height="84px"
 							loading="lazy"
 						/>
 						<p>Into something that looks like this:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/78ac9df086ec19147414359369b563fc.svg"
-							width="171px"
-							height="75px"
+							src="./images/chapters/catmullconv/fe2e6fd487df224b2f55a601898ce333.svg"
+							width="167px"
+							height="73px"
 							loading="lazy"
 						/>
 						<p>And the way we do that is with a fairly straight forward bit of matrix rewriting. We start with the equality we need to ensure:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/a47b072a325812ac4f0ff52c22792588.svg"
-							width="452px"
-							height="76px"
+							src="./images/chapters/catmullconv/b59ff8d654e65df4c874901983208893.svg"
+							width="440px"
+							height="84px"
 							loading="lazy"
 						/>
 						<p>Then we remove the coordinate vector from both sides without affecting the equality:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/841fb6a2a035c9bcf5a2d46f2a67709b.svg"
-							width="356px"
-							height="76px"
+							src="./images/chapters/catmullconv/65e589eafae8ff2f39392d8143d2845c.svg"
+							width="353px"
+							height="84px"
 							loading="lazy"
 						/>
 						<p>Then we can "get rid of" the Bézier matrix on the right by left-multiply both with the inverse of the Bézier matrix:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/cbdd46d5e2e1a6202ef46fb03711ebe4.svg"
-							width="672px"
-							height="84px"
+							src="./images/chapters/catmullconv/917b176a45959b026c56f81999505dc7.svg"
+							width="657px"
+							height="88px"
 							loading="lazy"
 						/>
 						<p>
@@ -4479,17 +5564,17 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/3ea54fe939d076f8db605c5b480e7db0.svg"
-							width="372px"
-							height="84px"
+							src="./images/chapters/catmullconv/4e0da16710a7339f04dd844c7705423e.svg"
+							width="369px"
+							height="88px"
 							loading="lazy"
 						/>
 						<p>And now we're <em>basically</em> done. We just multiply those two matrices and we know what <em>V</em> is:</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/169fd85a95e4d16fe289a75583017a11.svg"
-							width="160px"
-							height="73px"
+							src="./images/chapters/catmullconv/1cef6bbf7b3d10e8c0aaecfac816cc86.svg"
+							width="161px"
+							height="77px"
 							loading="lazy"
 						/>
 						<p>We now have the final piece of our function puzzle. Let's run through each step.</p>
@@ -4498,8 +5583,8 @@ for p = 1 to points.length-3 (inclusive):
 						</ol>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/cc1e2ff43350c32f0ae9ba9a7652b8fb.svg"
-							width="423px"
+							src="./images/chapters/catmullconv/1f9fc156aeed9eb092573cd7446593d9.svg"
+							width="409px"
 							height="75px"
 							loading="lazy"
 						/>
@@ -4508,9 +5593,9 @@ for p = 1 to points.length-3 (inclusive):
 						</ol>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/f814bb8d627f9c8f33b347c1cf13d4c7.svg"
-							width="329px"
-							height="79px"
+							src="./images/chapters/catmullconv/211dadbb9d0f6b2e381f18ea3c4d12fb.svg"
+							width="324px"
+							height="84px"
 							loading="lazy"
 						/>
 						<ol start="3">
@@ -4518,9 +5603,9 @@ for p = 1 to points.length-3 (inclusive):
 						</ol>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/5f2750de827497375d9a915f96686885.svg"
-							width="448px"
-							height="76px"
+							src="./images/chapters/catmullconv/a8158b35ec221cccff51a53cdc7f440b.svg"
+							width="441px"
+							height="81px"
 							loading="lazy"
 						/>
 						<ol start="4">
@@ -4528,9 +5613,9 @@ for p = 1 to points.length-3 (inclusive):
 						</ol>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/79e333cd0c569657eea033b04fb5e61b.svg"
+							src="./images/chapters/catmullconv/53f216327c0bbcf02b2a331fbf44d389.svg"
 							width="348px"
-							height="76px"
+							height="84px"
 							loading="lazy"
 						/>
 						<ol start="5">
@@ -4538,9 +5623,9 @@ for p = 1 to points.length-3 (inclusive):
 						</ol>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/1b8a782f7540503d38067317e4cd00b0.svg"
-							width="436px"
-							height="75px"
+							src="./images/chapters/catmullconv/4c8684109149b0dc79f5583a5912fcd9.svg"
+							width="431px"
+							height="77px"
 							loading="lazy"
 						/>
 						<ol start="6">
@@ -4548,9 +5633,9 @@ for p = 1 to points.length-3 (inclusive):
 						</ol>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/e3d30ab368dcead1411532ce3814d3f3.svg"
-							width="353px"
-							height="77px"
+							src="./images/chapters/catmullconv/157b287d6b74109d8c8b634990ea6549.svg"
+							width="348px"
+							height="81px"
 							loading="lazy"
 						/>
 						<p>And we're done: we finally know how to convert these two curves!</p>
@@ -4562,9 +5647,9 @@ for p = 1 to points.length-3 (inclusive):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/catmullconv/ba31c32eba62f1e3b15066cd5ddda597.svg"
-						width="268px"
-						height="81px"
+						src="./images/chapters/catmullconv/c0e30b49fbfce6f6b3c81eaa6ca5154f.svg"
+						width="249px"
+						height="85px"
 						loading="lazy"
 					/>
 					<p>
@@ -4573,17 +5658,17 @@ for p = 1 to points.length-3 (inclusive):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/catmullconv/26363fc09f8cf2d41ea5b4256656bb6d.svg"
-						width="300px"
-						height="79px"
+						src="./images/chapters/catmullconv/d09e7466c267614c89ead28d6a900ba1.svg"
+						width="284px"
+						height="77px"
 						loading="lazy"
 					/>
 					<p>Or, if your API allows you to specify Catmull-Rom curves using plain coordinates:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/catmullconv/eae7f01976e511ee38b08b6edc8765d2.svg"
-						width="300px"
-						height="80px"
+						src="./images/chapters/catmullconv/9593c057c84ebf9beb70fd57a11c7e12.svg"
+						width="284px"
+						height="77px"
 						loading="lazy"
 					/>
 				</section>
@@ -4649,20 +5734,19 @@ for p = 1 to points.length-3 (inclusive):
 							<label>Unlinked cubic poly-Bézier</label>
 						</fallback-image></graphics-element
 					>
-
 					<p>
 						Dragging the control points around only affects the curve segments that the control point belongs to, and moving an on-curve point leaves
 						the control points where they are, which is not the most useful for practical modelling purposes. So, let's add in the logic we need to
 						make things a little better. We'll start by linking up control points by ensuring that the "incoming" derivative at an on-curve point is
 						the same as it's "outgoing" derivative:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/polybezier/408dd95905a5f001179c4da6051e49c5.svg" width="129px" height="17px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/polybezier/a37252ff55837b918d9d64078ae92ae7.svg" width="124px" height="17px" loading="lazy" />
 					<p>
 						We can effect this quite easily, because we know that the vector from a curve's last control point to its last on-curve point is equal to
 						the derivative vector. If we want to ensure that the first control point of the next curve matches that, all we have to do is mirror that
 						last control point through the last on-curve point. And mirroring any point A through any point B is really simple:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/polybezier/8c1b570b3efdfbbc39ddedb4adcaaff6.svg" width="320px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/polybezier/ec93d3c42f0ae52a05d0aff9739675e5.svg" width="304px" height="40px" loading="lazy" />
 					<p>
 						So let's implement that and see what it gets us. The following two graphics show a quadratic and a cubic poly-Bézier curve again, but this
 						time moving the control points around moves others, too. However, you might see something unexpected going on for quadratic curves...
@@ -4695,7 +5779,6 @@ for p = 1 to points.length-3 (inclusive):
 							<label>Connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
 					>
-
 					<p>
 						As you can see, quadratic curves are particularly ill-suited for poly-Bézier curves, as all the control points are effectively linked.
 						Move one of them, and you move all of them. Not only that, but if we move the on-curve points, it's possible to get a situation where a
@@ -4738,7 +5821,6 @@ for p = 1 to points.length-3 (inclusive):
 							<label>Angularly connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
 					>
-
 					<p>
 						Cubic curves are now better behaved when it comes to dragging control points around, but the quadratic poly-Bézier still has the problem
 						that moving one control points will move the control points and may ending up defining "the next" control point in a way that doesn't
@@ -4776,7 +5858,6 @@ for p = 1 to points.length-3 (inclusive):
 							<label>Standard connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
 					>
-
 					<p>
 						Again, we see that cubic curves are now rather nice to work with, but quadratic curves have a new, very serious problem: we can move an
 						on-curve point in such a way that we can't compute what needs to "happen next". Move the top point down, below the left and right points,
@@ -4822,9 +5903,9 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/offsetting/1d4be24e5896dce3c16c8e71f9cc8881.svg"
-							width="111px"
-							height="17px"
+							src="./images/chapters/offsetting/3c80407cfd0bd8c8ebea239272aeabe5.svg"
+							width="108px"
+							height="16px"
 							loading="lazy"
 						/>
 						<p>
@@ -4835,9 +5916,9 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/offsetting/5bfee4f2ae27304475673d0596e42f9a.svg"
-							width="153px"
-							height="17px"
+							src="./images/chapters/offsetting/de8cdb128273beff2d98534b9f090b85.svg"
+							width="151px"
+							height="16px"
 							loading="lazy"
 						/>
 						<p>
@@ -4849,8 +5930,8 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/offsetting/fa6c243de2aa78b7451e0086848dfdfc.svg"
-							width="128px"
+							src="./images/chapters/offsetting/57e62f3f2f7526b2cf7c1b276c17e472.svg"
+							width="120px"
 							height="40px"
 							loading="lazy"
 						/>
@@ -4861,9 +5942,9 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/offsetting/b262e50c085815421d94e120fc17f1c8.svg"
-							width="189px"
-							height="44px"
+							src="./images/chapters/offsetting/cf8e602eb0595cf4d9b851c6bda741af.svg"
+							width="169px"
+							height="36px"
 							loading="lazy"
 						/>
 						<p>
@@ -4871,9 +5952,9 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/offsetting/1d586b939b44ff9bdb42562a12ac2779.svg"
-							width="229px"
-							height="44px"
+							src="./images/chapters/offsetting/af4b584bb280cc941603255f62c9cc1a.svg"
+							width="209px"
+							height="36px"
 							loading="lazy"
 						/>
 						<p>
@@ -4935,7 +6016,6 @@ for p = 1 to points.length-3 (inclusive):
 						</fallback-image>
 						<input type="range" min="5" max="50" step="1" value="20" class="slide-control" />
 					</graphics-element>
-
 					<graphics-element
 						title="Offsetting a cubic Bézier curve"
 						width="275"
@@ -4950,7 +6030,6 @@ for p = 1 to points.length-3 (inclusive):
 						</fallback-image>
 						<input type="range" min="5" max="50" step="1" value="20" class="slide-control" />
 					</graphics-element>
-
 					<p>
 						You may notice that this may still lead to small 'jumps' in the sub-curves when moving the curve around. This is caused by the fact that
 						we're still performing a naive form of offsetting, moving the control points the same distance as the start and end points. If the curve
@@ -5002,7 +6081,6 @@ for p = 1 to points.length-3 (inclusive):
 						</fallback-image>
 						<input type="range" min="5" max="50" step="1" value="20" class="slide-control" />
 					</graphics-element>
-
 					<graphics-element
 						title="Offsetting a cubic Bézier curve"
 						width="275"
@@ -5055,7 +6133,6 @@ for p = 1 to points.length-3 (inclusive):
 						</fallback-image>
 						<input type="range" min="-3.1415" max="3.1415" step="0.01" value="-0.7854" class="slide-control" />
 					</graphics-element>
-
 					<p>
 						As you can see, things go horribly wrong quite quickly; even trying to approximate a quarter circle using a quadratic curve is a bad idea.
 						An eighth of a turns might look okay, but how okay is okay? Let's apply some maths and find out. What we're interested in is how far off
@@ -5066,33 +6143,33 @@ for p = 1 to points.length-3 (inclusive):
 						We start out with our start and end point, and for convenience we will place them on a unit circle (a circle around 0,0 with radius 1), at
 						some angle <em>φ</em>:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/circles/8374c4190d6213b0ac0621481afaa754.svg" width="189px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/circles/c6b179d2a85b51c1a422f769197947fa.svg" width="175px" height="40px" loading="lazy" />
 					<p>What we want to find is the intersection of the tangents, so we want a point C such that:</p>
-					<img class="LaTeX SVG" src="./images/chapters/circles/a127f926eced2751a09c54bf7c361b4a.svg" width="304px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/circles/ae08c8a734426e4c6dd0373f7ced2d41.svg" width="284px" height="40px" loading="lazy" />
 					<p>
 						i.e. we want a point that lies on the vertical line through S (at some distance <em>a</em> from S) and also lies on the tangent line
 						through E (at some distance <em>b</em> from E). Solving this gives us:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/circles/b5d864e9ed0c44c56d454fbaa4218d5e.svg" width="228px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/circles/8237af1396bb567d70c8b5e4dd7f8115.svg" width="219px" height="40px" loading="lazy" />
 					<p>First we solve for <em>b</em>:</p>
-					<img class="LaTeX SVG" src="./images/chapters/circles/9e4d886c372f916f6511c41245ceee39.svg" width="581px" height="16px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/circles/a0fd085fa6191c9c5e026028074c6c51.svg" width="560px" height="17px" loading="lazy" />
 					<p>which yields:</p>
-					<img class="LaTeX SVG" src="./images/chapters/circles/c22f6d343ee0cce7bff6a617c946ca17.svg" width="103px" height="39px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/circles/06369b00338310df0a810c592485aa0a.svg" width="101px" height="39px" loading="lazy" />
 					<p>which we can then substitute in the expression for <em>a</em>:</p>
-					<img class="LaTeX SVG" src="./images/chapters/circles/ef3ab62bb896019c6157c85aae5d1ed3.svg" width="240px" height="193px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/circles/5a23f3bc298c85540c6dd18e304d9224.svg" width="231px" height="195px" loading="lazy" />
 					<p>
 						A quick check shows that plugging these values for <em>a</em> and <em>b</em> into the expressions for C<sub>x</sub> and C<sub>y</sub> give
 						the same x/y coordinates for both "<em>a</em> away from A" and "<em>b</em> away from B", so let's continue: now that we know the
 						coordinate values for C, we know where our on-curve point T for <em>t=0.5</em> (or angle φ/2) is, because we can just evaluate the Bézier
 						polynomial, and we know where the circle arc's actual point P is for angle φ/2:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/circles/fe32474b4616ee9478e1308308f1b6bf.svg" width="197px" height="31px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/circles/e33aefe157f12d688fcecc8a81eee83a.svg" width="188px" height="32px" loading="lazy" />
 					<p>We compute T, observing that if <em>t=0.5</em>, the polynomial values (1-t)², 2(1-t)t, and t² are 0.25, 0.5, and 0.25 respectively:</p>
-					<img class="LaTeX SVG" src="./images/chapters/circles/e1059e611aa1e51db41f9ce0b4ebb95a.svg" width="268px" height="33px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/circles/a04bd1558a76e60b8ca6e1fe4fa38c00.svg" width="252px" height="35px" loading="lazy" />
 					<p>Which, worked out for the x and y components, gives:</p>
-					<img class="LaTeX SVG" src="./images/chapters/circles/7754bc3c96ae3c90162fec3bd46bedff.svg" width="421px" height="76px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/circles/986ae9104e0bc52e95689ae7ae4504db.svg" width="408px" height="77px" loading="lazy" />
 					<p>And the distance between these two is the standard Euclidean distance:</p>
-					<img class="LaTeX SVG" src="./images/chapters/circles/adbd056f4b8fcd05b1d4f2fce27d7657.svg" width="407px" height="149px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/circles/6b4eb46b5f772fafcf8cfe390da8402c.svg" width="399px" height="153px" loading="lazy" />
 					<p>
 						So, what does this distance function look like when we plot it for a number of ranges for the angle φ, such as a half circle, quarter
 						circle and eighth circle?
@@ -5133,7 +6210,7 @@ for p = 1 to points.length-3 (inclusive):
 						In fact, let's flip the function around, so that if we plug in the precision error, labelled ε, we get back the maximum angle for that
 						precision:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/circles/df87674db0f31fc3944aaeb6b890e196.svg" width="268px" height="60px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/circles/f9d15462df31186feef8c3d53c0f6163.svg" width="247px" height="53px" loading="lazy" />
 					<p>
 						And frankly, things are starting to look a bit ridiculous at this point, we're doing way more maths than we've ever done, but thankfully
 						this is as far as we need the maths to take us: If we plug in the precisions 0.1, 0.01, 0.001 and 0.0001 we get the radians values 1.748,
@@ -5180,7 +6257,6 @@ for p = 1 to points.length-3 (inclusive):
 						</fallback-image>
 						<input type="range" min="-3.1415" max="3.1415" step="0.01" value="-0.7854" class="slide-control" />
 					</graphics-element>
-
 					<p>
 						We see two curves here; in blue, our "guessed" curve and its control points, and in grey/black, the true curve fit, with proper control
 						points that were shifted in, along line between our guessed control points, such that the derivatives at the start and end points are
@@ -5239,8 +6315,8 @@ for p = 1 to points.length-3 (inclusive):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/a4f0dafbfe80c88723c3cc22277a9682.svg"
-						width="189px"
+						src="./images/chapters/circles_cubic/fb21bf8b5cd13b3149885dd426bf79b4.svg"
+						width="175px"
 						height="40px"
 						loading="lazy"
 					/>
@@ -5251,16 +6327,16 @@ for p = 1 to points.length-3 (inclusive):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/dfb83eec053c30e0a41b0a52aba24cd4.svg"
-						width="117px"
+						src="./images/chapters/circles_cubic/0b4c1e8f1f7a9c1292787f127ddb1624.svg"
+						width="113px"
 						height="40px"
 						loading="lazy"
 					/>
 					<p>where "a" is some scaling factor we'll need to find the expression for, and:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/14c238eb17045cda3205c6ce9944004c.svg"
-						width="157px"
+						src="./images/chapters/circles_cubic/d28eb43a1b34befb7659dcdfb3a9e718.svg"
+						width="151px"
 						height="40px"
 						loading="lazy"
 					/>
@@ -5296,9 +6372,9 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/3189cac1ddac07c1487e1e51740ecc88.svg"
-							width="408px"
-							height="36px"
+							src="./images/chapters/circles_cubic/750e2c874fb58237608ebade1589fccc.svg"
+							width="397px"
+							height="40px"
 							loading="lazy"
 						/>
 						<p>
@@ -5308,7 +6384,7 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/fe32474b4616ee9478e1308308f1b6bf.svg"
+							src="./images/chapters/circles_cubic/e33aefe157f12d688fcecc8a81eee83a.svg"
 							width="188px"
 							height="32px"
 							loading="lazy"
@@ -5319,9 +6395,9 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/0364731626a530c8a9b30f424ada53c5.svg"
-							width="267px"
-							height="59px"
+							src="./images/chapters/circles_cubic/7a863b956c3d87df5289b36e29555001.svg"
+							width="261px"
+							height="67px"
 							loading="lazy"
 						/>
 						<p>
@@ -5330,16 +6406,16 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/ee08d86b7497c7ab042ee899bf15d453.svg"
-							width="403px"
-							height="43px"
+							src="./images/chapters/circles_cubic/2ba4e0e2dbbdf3ea7dbd9cff3e049d0d.svg"
+							width="397px"
+							height="48px"
 							loading="lazy"
 						/>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/195790bae7de813aec342ea82b5d8781.svg"
-							width="223px"
-							height="41px"
+							src="./images/chapters/circles_cubic/046e0bec7cc3d8a502b2f76b4722be2d.svg"
+							width="211px"
+							height="47px"
 							loading="lazy"
 						/>
 						<p>
@@ -5348,9 +6424,9 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/178a838274748439778e2a29f5a27d0b.svg"
-							width="259px"
-							height="52px"
+							src="./images/chapters/circles_cubic/fa5d308b0b50400fbae1411f390bc7ce.svg"
+							width="252px"
+							height="56px"
 							loading="lazy"
 						/>
 						<p>
@@ -5359,9 +6435,9 @@ for p = 1 to points.length-3 (inclusive):
 						</p>
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/1ab9827727b8f7fe466a124b0e1867ce.svg"
-							width="547px"
-							height="131px"
+							src="./images/chapters/circles_cubic/aa4d4d4175699c2feb561cf04e107477.svg"
+							width="524px"
+							height="137px"
 							loading="lazy"
 						/>
 						<p>And that's it, we have all four points now for an approximation of an arbitrary circular arc with angle φ.</p>
@@ -5370,16 +6446,16 @@ for p = 1 to points.length-3 (inclusive):
 					<p>So, to recap, given an angle φ, the new control coordinates are:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/e2258660a796dcd6189a6f5e14326dad.svg"
-						width="216px"
+						src="./images/chapters/circles_cubic/24675851ca7ce917a00a02084b456447.svg"
+						width="205px"
 						height="40px"
 						loading="lazy"
 					/>
 					<p>and</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/acbc5efb06bc34571ccc0322376e0b9b.svg"
-						width="339px"
+						src="./images/chapters/circles_cubic/909b5f634b8a5efa61742e2d4f94af5d.svg"
+						width="321px"
 						height="40px"
 						loading="lazy"
 					/>
@@ -5389,16 +6465,16 @@ for p = 1 to points.length-3 (inclusive):
 					</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/877f9c217c51c0087be751a7580ed459.svg"
-						width="420px"
-						height="25px"
+						src="./images/chapters/circles_cubic/5ef95ecfcf09a88a58f9bcafa659ed90.svg"
+						width="412px"
+						height="33px"
 						loading="lazy"
 					/>
 					<p>Which, in decimal values, rounded to six significant digits, is:</p>
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/05d36e051a38905dcb81e65db8261f24.svg"
-						width="427px"
+						src="./images/chapters/circles_cubic/80f6807fcb4f81fdda5b77071a1a67b2.svg"
+						width="412px"
 						height="16px"
 						loading="lazy"
 					/>
@@ -5493,7 +6569,6 @@ for p = 1 to points.length-3 (inclusive):
 						</fallback-image>
 						<input type="range" min="0.1" max="5" step="0.1" value="0.5" class="slide-control" />
 					</graphics-element>
-
 					<p>
 						With that in place, all that's left now is to "restart" the procedure by treating the found arc's end point as the new to-be-determined
 						arc's starting point, and using points further down the curve. We keep trying this until the found end point is for <em>t=1</em>, at which
@@ -5508,7 +6583,6 @@ for p = 1 to points.length-3 (inclusive):
 						</fallback-image>
 						<input type="range" min="0.1" max="5" step="0.1" value="0.5" class="slide-control" />
 					</graphics-element>
-
 					<p>
 						So... what is this good for? Obviously, if you're working with technologies that can't do curves, but can do lines and circles, then the
 						answer is pretty straightforward, but what else? There are some reasons why you might need this technique: using circular arcs means you
@@ -5551,7 +6625,6 @@ for p = 1 to points.length-3 (inclusive):
 							<img width="600px" height="300px" src="./images/chapters/bsplines/fe3a8ca5706f286d916e36699e237e51.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
-
 					<p>
 						The important part to notice here is that we are <strong>not</strong> doing the same thing with B-Splines that we do for poly-Béziers or
 						Catmull-Rom curves: both of the latter simply define new sections as literally "new sections based on new points", so a 12 point cubic
@@ -5575,7 +6648,6 @@ for p = 1 to points.length-3 (inclusive):
 						</fallback-image>
 						<!-- basis curve highlighter goes here -->
 					</graphics-element>
-
 					<p>
 						In order to make this interpolation of curves work, the maths is necessarily more complex than the maths for Bézier curves, so let's have
 						a look at how things work.
@@ -5587,7 +6659,7 @@ for p = 1 to points.length-3 (inclusive):
 						>, we can compute a point on the curve for some value <code>t</code> in the interval [0,1] (where 0 is the start of the curve, and 1 the
 						end, just like for Bézier curves), by evaluating the following function:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/bsplines/0f3451c711c0fe5d0b018aa4aa77d855.svg" width="180px" height="41px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/bsplines/89f8e37237d066fa70ccf6d37b3a4922.svg" width="169px" height="41px" loading="lazy" />
 					<p>
 						Which, honestly, doesn't tell us all that much. All we can see is that a point on a B-Spline curve is defined as "a mix of all the control
 						points, weighted somehow", where the weighting is achieved through the <em>N(...)</em> function, subscripted with an obvious parameter
@@ -5602,14 +6674,14 @@ for p = 1 to points.length-3 (inclusive):
 						<code>k</code> subscript to the N() function applies to.
 					</p>
 					<p>Then the N() function itself. What does it look like?</p>
-					<img class="LaTeX SVG" src="./images/chapters/bsplines/cf45d1ea00d4866abc8a058b130299b4.svg" width="584px" height="49px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/bsplines/cbdf5a61de10eeb6f23be077cf047ab5.svg" width="559px" height="43px" loading="lazy" />
 					<p>
 						So this is where we see the interpolation: N(t) for an <code>(i,k)</code> pair (that is, for a step in the above summation, on a specific
 						knot interval) is a mix between N(t) for <code>(i,k-1)</code> and N(t) for <code>(i+1,k-1)</code>, so we see that this is a recursive
 						iteration where <code>i</code> goes up, and <code>k</code> goes down, so it seem reasonable to expect that this recursion has to stop at
 						some point; obviously, it does, and specifically it does so for the following <code>i</code>/<code>k</code> values:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/bsplines/adac18ea69cc58e01c8d5e15498e4aa6.svg" width="245px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/bsplines/ee203de6e554936588eb93adead0a3e5.svg" width="240px" height="40px" loading="lazy" />
 					<p>
 						And this function finally has a straight up evaluation: if a <code>t</code> value lies within a knot-specific interval once we reach a
 						<code>k=1</code> value, it "counts", otherwise it doesn't. We did cheat a little, though, because for all these values we need to scale
@@ -5626,12 +6698,12 @@ for p = 1 to points.length-3 (inclusive):
 						<a href="https://en.wikipedia.org/wiki/Carl_R._de_Boor">Carl de Boor</a> — came to a mathematically pleasing solution: to compute a point
 						P(t), we can compute this point by evaluating <em>d(t)</em> on a curve section between knots <code>i</code> and <code>i+1</code>:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/bsplines/763838ea6f9e6c6aa63ea5f9c6d9542f.svg" width="287px" height="21px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/bsplines/f0bf7d0f1931060cd801ff707f482c16.svg" width="281px" height="21px" loading="lazy" />
 					<p>
 						This is another recursive function, with <em>k</em> values decreasing from the curve order to 1, and the value <em>α</em> (alpha) defined
 						by:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/bsplines/892209dad8fd1f839470dd061e870913.svg" width="261px" height="39px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/bsplines/c7af721e5e201fc3742bce67ff6cd560.svg" width="255px" height="39px" loading="lazy" />
 					<p>
 						That looks complicated, but it's not. Computing alpha is just a fraction involving known, plain numbers. And, once we have our alpha
 						value, we also have <code>(1-alpha)</code> because it's a trivial subtraction. Computing the <code>d()</code> function is thus mostly a
@@ -5639,7 +6711,7 @@ for p = 1 to points.length-3 (inclusive):
 						recursion might see computationally expensive, the total algorithm is cheap, as each step only involves very simple maths.
 					</p>
 					<p>Of course, the recursion does need a stop condition:</p>
-					<img class="LaTeX SVG" src="./images/chapters/bsplines/4c8f9814c50c708757eeb5a68afabb7f.svg" width="376px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/bsplines/392b7cadd922c5e46fa89ab09716aa7e.svg" width="368px" height="40px" loading="lazy" />
 					<p>
 						So, we actually see two stopping conditions: either <code>i</code> becomes 0, in which case <code>d()</code> is zero, or
 						<code>k</code> becomes zero, in which case we get the same "either 1 or 0" that we saw in the N() function above.
@@ -5649,7 +6721,7 @@ for p = 1 to points.length-3 (inclusive):
 						Casteljau's algorithm. For instance, if we write out <code>d()</code> for <code>i=3</code> and <code>k=3</code>, we get the following
 						recursion diagram:
 					</p>
-					<img class="LaTeX SVG" src="./images/chapters/bsplines/bd187c361b285ef878d0bc17af8a3900.svg" width="688px" height="328px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/bsplines/f0e96cf0de35d55c20e131e904ef2cc5.svg" width="641px" height="336px" loading="lazy" />
 					<p>
 						That is, we compute <code>d(3,3)</code> as a mixture of <code>d(2,3)</code> and <code>d(2,2)</code>, where those two are themselves a
 						mixture of <code>d(1,3)</code> and <code>d(1,2)</code>, and <code>d(1,2)</code> and <code>d(1,1)</code>, respectively, which are
@@ -5675,23 +6747,78 @@ for p = 1 to points.length-3 (inclusive):
 						<code>[knots[degree], knots[knots.length - 1 - degree]</code>. Then, we find the section number <code>s</code> that this mapped
 						<code>t</code> value lies on:
 					</p>
-					<pre><code>for(s=domain[0]; s &lt; domain[1]; s++) {
-  if(knots[s] &lt;= t && t &lt;= knots[s+1]) break;
-}</code></pre>
+
+					<table class="code">
+						<tr>
+							<td>1</td>
+							<td rowspan="3">
+								<textarea disabled rows="3" role="doc-example">
+for(s=domain[0]; s < domain[1]; s++) {
+  if(knots[s] <= t && t <= knots[s+1]) break;
+}</textarea
+								>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>3</td>
+						</tr>
+					</table>
+
 					<p>
 						after running this code, <code>s</code> is the index for the section the point will lie on. We then run the algorithm mentioned on the MU
 						page (updated to use this description's variable names):
 					</p>
-					<pre><code>let v = copy of control points
 
-for(let L = 1; L &lt;= order; L++) {
-  for(let i=s; i &gt; s + L - order; i--) {
+					<table class="code">
+						<tr>
+							<td>1</td>
+							<td rowspan="10">
+								<textarea disabled rows="10" role="doc-example">
+let v = copy of control points
+
+for(let L = 1; L <= order; L++) {
+  for(let i=s; i > s + L - order; i--) {
     let numerator = t - knots[i]
     let denominator = knots[i - L + order] - knots[i]
     let alpha = numerator / denominator
     let v[i] = alpha * v[i] + (1-alpha) * v[i-1]
   }
-}</code></pre>
+}</textarea
+								>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>5</td>
+						</tr>
+						<tr>
+							<td>6</td>
+						</tr>
+						<tr>
+							<td>7</td>
+						</tr>
+						<tr>
+							<td>8</td>
+						</tr>
+						<tr>
+							<td>9</td>
+						</tr>
+						<tr>
+							<td>10</td>
+						</tr>
+					</table>
+
 					<p>
 						(A nice bit of behaviour in this code is that we work the interpolation "backwards", starting at <code>i=s</code> at each level of the
 						interpolation, and we stop when <code>i = s - order + level</code>, so we always end up with a value for <code>i</code> such that those
@@ -5746,7 +6873,6 @@ for(let L = 1; L &lt;= order; L++) {
 						</fallback-image>
 						<!-- knot sliders go here -->
 					</graphics-element>
-
 					<p>
 						This is an important point: the intervals that the knot vector defines are <em>relative</em> intervals, so it doesn't matter if every
 						interval is size 1, or size 100 - the relative differences between the intervals is what shapes any particular curve.
@@ -5771,7 +6897,6 @@ for(let L = 1; L &lt;= order; L++) {
 						</fallback-image>
 						<!-- knot sliders go here -->
 					</graphics-element>
-
 					<h3>Open-Uniform B-Splines</h3>
 					<p>
 						By combining knot interval collapsing at the start and end of the curve, with uniform knots in between, we can overcome the problem of the
@@ -5792,7 +6917,6 @@ for(let L = 1; L &lt;= order; L++) {
 						</fallback-image>
 						<!-- knot sliders go here -->
 					</graphics-element>
-
 					<h3>Non-uniform B-Splines</h3>
 					<p>
 						This is essentially the "free form" version of a B-Spline, and also the least interesting to look at, as without any specific reason to
@@ -5815,7 +6939,6 @@ for(let L = 1; L &lt;= order; L++) {
 						</fallback-image>
 						<!-- knot sliders go here -->
 					</graphics-element>
-
 					<p>
 						Of course this brings us to the final topic that any text on B-Splines must touch on before calling it a day: the
 						<a href="https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline">NURBS</a>, or Non-Uniform Rational B-Spline (NURBS is not a plural,
