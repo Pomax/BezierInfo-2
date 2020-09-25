@@ -41,6 +41,7 @@ drawCurvature(curve) {
     // and then draw it.
     ox = k * n.x;
     oy = k * n.y;
+
     setStroke(`rgba(255,127,${s},0.6)`);
     line(p.x, p.y, p.x + ox, p.y + oy);
 
@@ -57,7 +58,7 @@ computeCurvature(curve, t) {
         dd = curve.dderivative(t),
         num = d.x * dd.y - d.y * dd.x,
         qdsum = d.x * d.x + d.y * d.y,
-        dnm = qdsum ** 3/2;
+        dnm = qdsum ** (3/2);
 
   // shortcut
   if (num === 0 || dnm === 0) return 0;
