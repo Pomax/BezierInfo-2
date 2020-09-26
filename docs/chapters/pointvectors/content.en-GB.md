@@ -39,7 +39,7 @@ The tangent is very useful for moving along a line, but what if we want to move 
 <div class="note">
 
 Rotating coordinates is actually very easy, if you know the rule for it. You might find it explained as "applying a [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix), which is what we'll look at here, too. Essentially, the idea is to take the circles over which we can rotate, and simply "sliding the coordinates" over these circles by the desired
-angle. If we want a quarter circle turn, we take the coordinate, slide it along the cirle by a quarter turn, and done.
+angle. If we want a quarter circle turn, we take the coordinate, slide it along the circle by a quarter turn, and done.
 
 To turn any point <i>(x,y)</i> into a rotated point <i>(x',y')</i> (over 0,0) by some angle φ, we apply this nice and easy computation:
 

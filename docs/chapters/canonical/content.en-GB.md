@@ -48,7 +48,7 @@ Without repeating the paper mentioned at the top of this section, the loop-bound
 
 The right bound for the loop region, indicating where the curve switches from "having inflections" to "having a loop", for the general cubic curve, is actually mirrored over x=1, but for Bézier curves this right half doesn't apply, so we don't need to pay attention to it. Similarly, the boundaries for t=0 and t=1 loops are also nice clean curves but get "cut off" when we only look at what the general curve does over the interval t=0 to t=1.
 
-For the full details, head over to the paper and read through sections 3 and 4. If you still remember your high school precalculus, you can probably follow along with this paper, although you might have to read it a few times before all the bits "click".
+For the full details, head over to the paper and read through sections 3 and 4. If you still remember your high school pre-calculus, you can probably follow along with this paper, although you might have to read it a few times before all the bits "click".
 
 </div>
 

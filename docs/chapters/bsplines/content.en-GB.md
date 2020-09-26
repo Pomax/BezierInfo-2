@@ -221,7 +221,7 @@ This is essentially the "free form" version of a B-Spline, and also the least in
 
 ## One last thing: Rational B-Splines
 
-While it is true that this section on B-Splines is running quite long already, there is one more thing we need to talk about, and that's "Rational" splines, where the rationality applies to the "ratio", or relative weights, of the control points themselves. By introducing a ratio vector with weights to apply to each control point, we greatly increase our influence over the final curve shape: the more weight a control point carries, the closer to that point the spline curve will lie, a bit like turning up the gravity of a control pointl, just like for rational Bézier curves.
+While it is true that this section on B-Splines is running quite long already, there is one more thing we need to talk about, and that's "Rational" splines, where the rationality applies to the "ratio", or relative weights, of the control points themselves. By introducing a ratio vector with weights to apply to each control point, we greatly increase our influence over the final curve shape: the more weight a control point carries, the closer to that point the spline curve will lie, a bit like turning up the gravity of a control point, just like for rational Bézier curves.
 
 <graphics-element title="A (closed) rational, uniform B-Spline" width="400" height="400" src="rational-uniform.js">
   <!-- knot sliders go here -->

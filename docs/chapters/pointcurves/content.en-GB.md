@@ -54,6 +54,6 @@ It is important to remember that even though we're using a circular arc to come 
 
 <graphics-element title="Fitting a quadratic Bézier curve" src="./cubic.js"></graphics-element>
 
-That looks perfectly servicable!
+That looks perfectly serviceable!
 
 Of course, we can take this one step further: we can't just "create" curves, we also have (almost!) all the tools available to "mold" curves, where we can reshape a curve by dragging a point on the curve around while leaving the start and end fixed, effectively molding the shape as if it were clay or the like. We'll see the last tool we need to do that in the next section, and then we'll look at implementing curve molding in the section after that, so read on!

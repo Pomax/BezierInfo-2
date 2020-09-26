@@ -33,7 +33,7 @@
 		<meta property="og:locale" content="ja-JP" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2020-09-26T22:21:50+00:00" />
+		<meta property="og:updated_time" content="2020-09-26T22:53:06+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -2204,7 +2204,7 @@ function drawCurve(points[], t):
 							Rotating coordinates is actually very easy, if you know the rule for it. You might find it explained as "applying a
 							<a href="https://en.wikipedia.org/wiki/Rotation_matrix">rotation matrix</a>, which is what we'll look at here, too. Essentially, the
 							idea is to take the circles over which we can rotate, and simply "sliding the coordinates" over these circles by the desired angle. If
-							we want a quarter circle turn, we take the coordinate, slide it along the cirle by a quarter turn, and done.
+							we want a quarter circle turn, we take the coordinate, slide it along the circle by a quarter turn, and done.
 						</p>
 						<p>
 							To turn any point <i>(x,y)</i> into a rotated point <i>(x',y')</i> (over 0,0) by some angle φ, we apply this nice and easy computation:
@@ -2770,12 +2770,12 @@ generateRMFrames(steps) -> frames:
 					<p>
 						We can see that the easier formula only has two constants, rather than four, and only two expressions involving <code>t</code>, rather
 						than three: this makes things considerably easier to solve because it lets us use
-						<a href="https://www.wolframalpha.com/input/?i=t%5E3+%2B+pt+%2B+q">regular calculus</a> to find the values that satisfy the equasion.
+						<a href="https://www.wolframalpha.com/input/?i=t%5E3+%2B+pt+%2B+q">regular calculus</a> to find the values that satisfy the equation.
 					</p>
 					<p>
 						Now, there is one small hitch: as a cubic function, the solutions may be
-						<a href="https://en.wikipedia.org/wiki/Complex_number">complex numbers</a> rather than plain numbers... And Cardona realised this,
-						centuries befor complex numbers were a well-understood and established part of number theory. His interpretation of them was "these
+						<a href="https://en.wikipedia.org/wiki/Complex_number">complex numbers</a> rather than plain numbers... And Cardano realised this,
+						centuries before complex numbers were a well-understood and established part of number theory. His interpretation of them was "these
 						numbers are impossible but that's okay because they disappear again in later steps", allowing him to not think about them too much, but we
 						have it even easier: as we're trying to find the roots for display purposes, we don't even <em>care</em> about complex numbers: we're
 						going to simplify Cardano's approach just that tiny bit further by throwing away any solution that's not a plain number.
@@ -3135,7 +3135,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 					</p>
 					<p>
 						And of course, as a quartic curve also has meaningful second and third derivatives, we can quite easily compute those by using the
-						derivative of the derivative (of the derivative), just as for cubic cuvers.
+						derivative of the derivative (of the derivative), just as for cubic curves.
 					</p>
 					<h3>Quintic and higher order curves: finding numerical solutions</h3>
 					<p>
@@ -3156,7 +3156,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 						step, the closer we'll get to that "perfect, precise" answer. And as it turns out, there is a really nice numerical root-finding
 						algorithm, called the <a href="https://en.wikipedia.org/wiki/Newton-Raphson">Newton-Raphson</a> root finding method (yes, after
 						<em><a href="https://en.wikipedia.org/wiki/Isaac_Newton">that</a></em> Newton), which we can make use of. The Newton-Raphson approach
-						consists of taking our impossible-to-solve function <code>f(x)</code>, picking some intial value <code>x</code> (literally any value will
+						consists of taking our impossible-to-solve function <code>f(x)</code>, picking some initial value <code>x</code> (literally any value will
 						do), and calculating <code>f(x)</code>. We can think of that value as the "height" of the function at <code>x</code>. If that height is
 						zero, we're done, we have found a root. If it isn't, we calculate the tangent line at <code>f(x)</code> and calculate at which
 						<code>x</code> value <em>its</em> height is zero (which we've already seen is very easy). That will give us a new <code>x</code> and we
@@ -3594,7 +3594,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 							curve does over the interval t=0 to t=1.
 						</p>
 						<p>
-							For the full details, head over to the paper and read through sections 3 and 4. If you still remember your high school precalculus, you
+							For the full details, head over to the paper and read through sections 3 and 4. If you still remember your high school pre-calculus, you
 							can probably follow along with this paper, although you might have to read it a few times before all the bits "click".
 						</p>
 					</div>
@@ -3716,7 +3716,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 						<a href="ja-JP/index.html#yforx">Finding Y, given X</a>
 					</h1>
 					<p>
-						One common task that pops up in things like CSS work, or parametric equalisers, or image leveling, or any other number of applications
+						One common task that pops up in things like CSS work, or parametric equalizers, or image leveling, or any other number of applications
 						where Bézier curves are used as control curves in a way that there is really only ever one "y" value associated with one "x" value, you
 						might want to cut out the middle man, as it were, and compute "y" directly based on "x". After all, the function looks simple enough,
 						finding the "y" value should be simple too, right? Unfortunately, not really. However, it <em>is</em> possible and as long as you have
@@ -3745,7 +3745,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 					<p>
 						Now, if you look more closely at that right graphic, you'll notice something interesting: if we treat the red line as "the x axis", then
 						the point where the function crosses our line is really just a root for the cubic function x(t) through a shifted "x-axis"... and
-						<a href="#extremities">we've already seen</a> how to calculate roots, so let's just run cubuc root finding - and not even the complicated
+						<a href="#extremities">we've already seen</a> how to calculate roots, so let's just run cubic root finding - and not even the complicated
 						cubic case either: because of the kind of curve we're starting with, we <em>know</em> there is only root, simplifying the code we need!
 					</p>
 					<p>First, let's look at the function for x(t):</p>
@@ -3814,7 +3814,7 @@ y = curve.get(t).y</textarea
 					</table>
 
 					<p>
-						So the procedure is fairly straight forward: pick an <code>x</code>, find the associted <code>t</code> value, evaluate our curve
+						So the procedure is fairly straight forward: pick an <code>x</code>, find the associated <code>t</code> value, evaluate our curve
 						<em>for</em> that <code>t</code> value, which gives us the curve's {x,y} coordinate, which means we know <code>y</code> for this
 						<code>x</code>. Move the slider for the following graphic to see this in action:
 					</p>
@@ -4051,8 +4051,8 @@ y = curve.get(t).y</textarea
 					<p>
 						However, there's a problem with this approach: if we think about this a little more, we realise that "what a curve looks like" and its
 						derivative values are pretty much entirely unrelated. After all, the section on <a href="#reordering">reordering curves</a> showed us that
-						the same looking curve can have an infinite number of curve expressions of arbitraryly high Bézier degree, and each of those will have
-						<em>widly</em> different derivative values.
+						the same looking curve can have an infinite number of curve expressions of arbitrarily high Bézier degree, and each of those will have
+						<em>wildly</em> different derivative values.
 					</p>
 					<p>
 						So what we really want is some kind of expression that's not based on any particular expression of <code>t</code>, but is based on
@@ -4096,7 +4096,7 @@ y = curve.get(t).y</textarea
 					</p>
 					<img class="LaTeX SVG" src="./images/chapters/curvature/afd8cb8b0fe291ff703752c1c9cc33d4.svg" width="239px" height="55px" loading="lazy" />
 					<p>
-						And while that's a litte more verbose, it's still just as simple to work with as the first function: the curvature at some point on any
+						And while that's a little more verbose, it's still just as simple to work with as the first function: the curvature at some point on any
 						(and this cannot be overstated: <em>any</em>) curve is a ratio between the first and second derivative cross product, and something that
 						looks oddly similar to the standard Euclidean distance function. And nothing in these functions is hard to calculate either: for Bézier
 						curves, simply knowing our curve coordinates means <a href="#derivatives">we know what the first and second derivatives are</a>, and so
@@ -4141,12 +4141,12 @@ function kappa(t, B):
 
 					<p>
 						That was easy! (Well okay, that "not a number" value will need to be taken into account by downstream code, but that's a reality of
-						programming anwyay)
+						programming anyway)
 					</p>
 					<p>
 						With all of that covered, let's line up some curves! The following graphic gives you two curves that look identical, but use quadratic and
 						cubic functions, respectively. As you can see, despite their derivatives being necessarily different, their curvature (thanks to being
-						derived based on maths that "ignores" specific function derivative, and instead gives a formulat that smooths out any differences) is
+						derived based on maths that "ignores" specific function derivative, and instead gives a formula that smooths out any differences) is
 						exactly the same. And because of that, we can put them together such that the point where they overlap has the same curvature for both
 						curves, giving us the smoothest transition.
 					</p>
@@ -4545,7 +4545,7 @@ lli = function(line1, line2):
 							a point that we get by projecting A, through B, onto the line between the curve's start and end points: let's call that <code>C</code>.
 						</li>
 						<li>
-							for both qudratic and cubic curves, two points <code>e1</code> and <code>e2</code>, which represent the single-to-last step in de
+							for both quadratic and cubic curves, two points <code>e1</code> and <code>e2</code>, which represent the single-to-last step in de
 							Casteljau's algorithm: in the last step, we find <code>B</code> at <code>(1-t) * e1 + t * e2</code>.
 						</li>
 						<li>
@@ -4591,7 +4591,7 @@ lli = function(line1, line2):
 					<img class="LaTeX SVG" src="./images/chapters/abc/c018aab3952ea9193848564aab12b241.svg" width="223px" height="41px" loading="lazy" />
 					<p>
 						Which now leaves us with some powerful tools: given thee points (start, end, and "some point on the curve"), as well as a
-						<code>t</code> value, we can <em>contruct</em> curves: we can compute <code>C</code> using the start and end points, and our
+						<code>t</code> value, we can <em>construct</em> curves: we can compute <code>C</code> using the start and end points, and our
 						<code>u(t)</code> function, and once we have <code>C</code>, we can use our on-curve point (<code>B</code>) and the
 						<code>ratio(t)</code> function to find <code>A</code>:
 					</p>
@@ -4734,7 +4734,7 @@ lli = function(line1, line2):
 							<label>Fitting a quadratic Bézier curve</label>
 						</fallback-image></graphics-element
 					>
-					<p>That looks perfectly servicable!</p>
+					<p>That looks perfectly serviceable!</p>
 					<p>
 						Of course, we can take this one step further: we can't just "create" curves, we also have (almost!) all the tools available to "mold"
 						curves, where we can reshape a curve by dragging a point on the curve around while leaving the start and end fixed, effectively molding
@@ -4844,7 +4844,7 @@ for (coordinate, index) in LUT:
 					</p>
 					<p>
 						For quadratic curve, this is a really simple trick: we project our cursor onto the curve, which gives us a <code>t</code> value and
-						initial <code>B</code> coordinate. We don't even need the latter: with our <code>t</code> value and "whever the cursor is" as target
+						initial <code>B</code> coordinate. We don't even need the latter: with our <code>t</code> value and "wherever the cursor is" as target
 						<code>B</code>, we can compute the associated <code>C</code>:
 					</p>
 					<img class="LaTeX SVG" src="./images/chapters/molding/70262c533569a7da06cc1b950e932d6f.svg" width="248px" height="24px" loading="lazy" />
@@ -4888,7 +4888,7 @@ for (coordinate, index) in LUT:
 					<p>
 						One way to combat this might be to combine the above approach with the approach from the
 						<a href="#pointcurves">creating curves</a> section: generate both the "unchanged <code>t</code>/<code>e1</code>/<code>e2</code>" curve, as
-						well as the "idealised" curve through the start/cursor/end points, with idealised <code>t</code> value, and then interpolating between
+						well as the "idealized" curve through the start/cursor/end points, with idealized <code>t</code> value, and then interpolating between
 						those two curves:
 					</p>
 					<graphics-element
@@ -4909,8 +4909,8 @@ for (coordinate, index) in LUT:
 					<p>
 						The slide controls the "falloff distance" relative to where the original point on the curve is, so that as we drag our point around, it
 						interpolates with a bias towards "preserving <code>t</code>/<code>e1</code>/<code>e2</code>" closer to the original point, and bias
-						towards "idealised" form the further away we move our point, with anything that's further than our falloff distance simply
-						<em>being</em> the idealised curve. We don't even try to interpolate at that point.
+						towards "idealized" form the further away we move our point, with anything that's further than our falloff distance simply
+						<em>being</em> the idealized curve. We don't even try to interpolate at that point.
 					</p>
 					<p>
 						A more advanced way to try to smooth things out is to implement <em>continuous</em> molding, where we constantly update the curve as we
@@ -5225,7 +5225,7 @@ for (coordinate, index) in LUT:
 						So before we try that out, how much code is involved in implementing this? Honestly, that answer depends on how much you're going to be
 						writing yourself. If you already have a matrix maths library available, then really not that much code at all. On the other hand, if you
 						are writing this from scratch, you're going to have to write some utility functions for doing your matrix work for you, so it's really
-						anywhere from 50 lines of code to maybe 200 lines of code. Not a bad price to pay for being able to fit curves to prespecified
+						anywhere from 50 lines of code to maybe 200 lines of code. Not a bad price to pay for being able to fit curves to pre-specified
 						coordinates.
 					</p>
 					<p>
@@ -5261,7 +5261,7 @@ for (coordinate, index) in LUT:
 					<p>
 						Taking an excursion to different splines, the other common design curve is the
 						<a href="https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline">Catmull-Rom spline</a>, which unlike Bézier curves
-						pass <em>through</em> each control point, so they offer a kind of "nuilt-in" curve fitting.
+						pass <em>through</em> each control point, so they offer a kind of "built-in" curve fitting.
 					</p>
 					<p>
 						In fact, let's start with just playing with one: the following graphic has a predefined curve that you manipulate the points for, and lets
@@ -5295,7 +5295,7 @@ for (coordinate, index) in LUT:
 					<p>
 						One downside of this is that—as you may have noticed from the graphic—the first and last point of the overall curve don't actually join up
 						with the rest of the curve: they don't have a previous/next point respectively, and so there is no way to calculate what their tangent
-						should be. Which also makes it rather tricky to fit a Camull-Rom curve to three points like we were able to do for Bézier curves. More on
+						should be. Which also makes it rather tricky to fit a Catmull-Rom curve to three points like we were able to do for Bézier curves. More on
 						that in <a href="#catmullfitting">the next section</a>.
 					</p>
 					<p>
@@ -5390,14 +5390,14 @@ for p = 1 to points.length-3 (inclusive):
 
 					<p>
 						Now, since a Catmull-Rom curve is a form of <a href="https://en.wikipedia.org/wiki/Cubic_Hermite_spline">cubic Hermite spline</a>, and as
-						cubic Bézier curves are <em>also</em> a form of cubic Hermite spline, we run into an interesting bit of maths programming: we can
-						losslessly convert between the two, and the maths for doing so is surprisingly simple!
+						cubic Bézier curves are <em>also</em> a form of cubic Hermite spline, we run into an interesting bit of maths programming: we can convert
+						one to the other and back, and the maths for doing so is surprisingly simple!
 					</p>
 					<p>The main difference between Catmull-Rom curves and Bézier curves is "what the points mean":</p>
 					<ul>
 						<li>
 							A cubic Bézier curve is defined by a start point, a control point that implies the tangent at the start, a control point that implies
-							the tangent at the end, and an end point, plus a characterising matrix that we can multiply by that point vector to get on-curve
+							the tangent at the end, and an end point, plus a characterizing matrix that we can multiply by that point vector to get on-curve
 							coordinates.
 						</li>
 						<li>
@@ -6921,8 +6921,8 @@ for(let L = 1; L <= order; L++) {
 						While it is true that this section on B-Splines is running quite long already, there is one more thing we need to talk about, and that's
 						"Rational" splines, where the rationality applies to the "ratio", or relative weights, of the control points themselves. By introducing a
 						ratio vector with weights to apply to each control point, we greatly increase our influence over the final curve shape: the more weight a
-						control point carries, the closer to that point the spline curve will lie, a bit like turning up the gravity of a control pointl, just
-						like for rational Bézier curves.
+						control point carries, the closer to that point the spline curve will lie, a bit like turning up the gravity of a control point, just like
+						for rational Bézier curves.
 					</p>
 					<graphics-element title="A (closed) rational, uniform B-Spline" width="400" height="400" src="./chapters/bsplines/rational-uniform.js">
 						<fallback-image>

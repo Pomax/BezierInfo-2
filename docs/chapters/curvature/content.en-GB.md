@@ -8,7 +8,7 @@ What we want is to ensure that the [curvature](https://en.wikipedia.org/wiki/Cur
 
 Problem solved!
 
-However, there's a problem with this approach: if we think about this a little more, we realise that "what a curve looks like" and its derivative values are pretty much entirely unrelated. After all, the section on [reordering curves](#reordering) showed us that the same looking curve can have an infinite number of curve expressions of arbitraryly high Bézier degree, and each of those will have _widly_ different derivative values.
+However, there's a problem with this approach: if we think about this a little more, we realise that "what a curve looks like" and its derivative values are pretty much entirely unrelated. After all, the section on [reordering curves](#reordering) showed us that the same looking curve can have an infinite number of curve expressions of arbitrarily high Bézier degree, and each of those will have _wildly_ different derivative values.
 
 So what we really want is some kind of expression that's not based on any particular expression of `t`, but is based on something that is invariant to the _kind_ of function(s) we use to draw our curve. And the prime candidate for this is our curve expression, reparameterised for distance: no matter what order of Bézier curve we use, if we were able to rewrite it as a function of distance-along-the-curve, all those different degree Bézier functions would end up being _the same_ function for "coordinate at some distance D along the curve".
 
@@ -39,7 +39,7 @@ Which is really just a "short form" that glosses over the fact that we're dealin
   \kappa(t) = \frac{{B_x}'(t){B_y}''(t) - {B_x}''(t){B_y}'(t)}{({B_x}'(t)^2+{B_y}'(t)^2)^{\frac{3}{2}}}
 \]
 
-And while that's a litte more verbose, it's still just as simple to work with as the first function: the curvature at some point on any (and this cannot be overstated: _any_) curve is a ratio between the first and second derivative cross product, and something that looks oddly similar to the standard Euclidean distance function. And nothing in these functions is hard to calculate either: for Bézier curves, simply knowing our curve coordinates means [we know what the first and second derivatives are](#derivatives), and so evaluating this function for any **t** value is just a matter of basic arithematics.
+And while that's a little more verbose, it's still just as simple to work with as the first function: the curvature at some point on any (and this cannot be overstated: _any_) curve is a ratio between the first and second derivative cross product, and something that looks oddly similar to the standard Euclidean distance function. And nothing in these functions is hard to calculate either: for Bézier curves, simply knowing our curve coordinates means [we know what the first and second derivatives are](#derivatives), and so evaluating this function for any **t** value is just a matter of basic arithematics.
 
 In fact, let's just implement it right now:
 
@@ -53,9 +53,9 @@ function kappa(t, B):
   return numerator / denominator
 ```
 
-That was easy! (Well okay, that "not a number" value will need to be taken into account by downstream code, but that's a reality of programming anwyay)
+That was easy! (Well okay, that "not a number" value will need to be taken into account by downstream code, but that's a reality of programming anyway)
 
-With all of that covered, let's line up some curves! The following graphic gives you two curves that look identical, but use quadratic and cubic functions, respectively. As you can see, despite their derivatives being necessarily different, their curvature (thanks to being derived based on maths that "ignores" specific function derivative, and instead gives a formulat that smooths out any differences) is exactly the same. And because of that, we can put them together such that the point where they overlap has the same curvature for both curves, giving us the smoothest transition.
+With all of that covered, let's line up some curves! The following graphic gives you two curves that look identical, but use quadratic and cubic functions, respectively. As you can see, despite their derivatives being necessarily different, their curvature (thanks to being derived based on maths that "ignores" specific function derivative, and instead gives a formula that smooths out any differences) is exactly the same. And because of that, we can put them together such that the point where they overlap has the same curvature for both curves, giving us the smoothest transition.
 
 <graphics-element title="Matching curvatures for a quadratic and cubic Bézier curve" width="825" src="./curvature.js"></graphics-element>
 

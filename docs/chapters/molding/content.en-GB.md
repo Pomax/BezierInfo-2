@@ -2,7 +2,7 @@
 
 Armed with knowledge of the "ABC" relation, point-on-curve projection, and guestimating reasonable looking helper values for cubic curve construction, we can finally cover curve molding: updating a curve's shape interactively, by dragging points on the curve around.
 
-For quadratic curve, this is a really simple trick: we project our cursor onto the curve, which gives us a `t` value and initial `B` coordinate. We don't even need the latter: with our `t` value and "whever the cursor is" as target `B`, we can compute the associated `C`:
+For quadratic curve, this is a really simple trick: we project our cursor onto the curve, which gives us a `t` value and initial `B` coordinate. We don't even need the latter: with our `t` value and "wherever the cursor is" as target `B`, we can compute the associated `C`:
 
 \[
   C = u(t)_{q} \cdot Start + \left ( 1-u(t)_{q} \right ) \cdot End
@@ -26,12 +26,12 @@ For example, let's see what happens if we just "go with what we get" when we pic
 
 That looks reasonable, close to the original point, but the further we drag our point, the less "useful" things become. Especially if we drag our point across the baseline, rather than turning into a nice curve.
 
-One way to combat this might be to combine the above approach with the approach from the [creating curves](#pointcurves) section: generate both the "unchanged `t`/`e1`/`e2`" curve, as well as the "idealised" curve through the start/cursor/end points, with idealised `t` value, and then interpolating between those two curves:
+One way to combat this might be to combine the above approach with the approach from the [creating curves](#pointcurves) section: generate both the "unchanged `t`/`e1`/`e2`" curve, as well as the "idealized" curve through the start/cursor/end points, with idealized `t` value, and then interpolating between those two curves:
 
 <graphics-element title="Molding a cubic Bézier curve" width="825" src="./molding.js" data-type="cubic" data-interpolated="true">
   <input type="range" min="10" max="200" step="1" value="100" class="slide-control">
 </graphics-element>
 
-The slide controls the "falloff distance" relative to where the original point on the curve is, so that as we drag our point around, it interpolates with a bias towards "preserving `t`/`e1`/`e2`" closer to the original point, and bias towards "idealised" form the further away we move our point, with anything that's further than our falloff distance simply _being_ the idealised curve. We don't even try to interpolate at that point.
+The slide controls the "falloff distance" relative to where the original point on the curve is, so that as we drag our point around, it interpolates with a bias towards "preserving `t`/`e1`/`e2`" closer to the original point, and bias towards "idealized" form the further away we move our point, with anything that's further than our falloff distance simply _being_ the idealized curve. We don't even try to interpolate at that point.
 
 A more advanced way to try to smooth things out is to implement _continuous_ molding, where we constantly update the curve as we move around, and constantly change what our `B` point is, based on constantly projecting the cursor on the curve _as we're updating it_ - this is, you won't be surprised to learn, tricky, and beyond the scope of this section: interpolation (with a reasonable distance) will do for now!

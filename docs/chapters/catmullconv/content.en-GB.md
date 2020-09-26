@@ -1,6 +1,6 @@
 # Bézier curves and Catmull-Rom curves
 
-Taking an excursion to different splines, the other common design curve is the [Catmull-Rom spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline), which unlike Bézier curves pass _through_ each control point, so they offer a kind of "nuilt-in" curve fitting.
+Taking an excursion to different splines, the other common design curve is the [Catmull-Rom spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline), which unlike Bézier curves pass _through_ each control point, so they offer a kind of "built-in" curve fitting.
 
 In fact, let's start with just playing with one: the following graphic has a predefined curve that you manipulate the points for, and lets you add points by clicking/tapping the background, as well as let you control "how fast" the curve passes through its point using the tension slider. The tenser the curve, the more the curve tends towards straight lines from one point to the next.
 
@@ -28,7 +28,7 @@ Now, it may look like Catmull-Rom curves are very different from Bézier curves,
   \right ]_{point-tangent}
 \]
 
-One downside of this is that—as you may have noticed from the graphic—the first and last point of the overall curve don't actually join up with the rest of the curve: they don't have a previous/next point respectively, and so there is no way to calculate what their tangent should be. Which also makes it rather tricky to fit a Camull-Rom curve to three points like we were able to do for Bézier curves. More on that in [the next section](#catmullfitting).
+One downside of this is that—as you may have noticed from the graphic—the first and last point of the overall curve don't actually join up with the rest of the curve: they don't have a previous/next point respectively, and so there is no way to calculate what their tangent should be. Which also makes it rather tricky to fit a Catmull-Rom curve to three points like we were able to do for Bézier curves. More on that in [the next section](#catmullfitting).
 
 In fact, before we move on, let's look at how to actually draw the basic form of these curves (I say basic, because there are a number of variations that make things [considerable](https://en.wikipedia.org/wiki/Centripetal_Catmull%E2%80%93Rom_spline#Definition) more [complex](https://en.wikipedia.org/wiki/Kochanek%E2%80%93Bartels_spline)):
 
@@ -54,11 +54,11 @@ for p = 1 to points.length-3 (inclusive):
     point(c0 * v1 + c1 * dv1 + c2 * v2 + c3 * dv2)
 ```
 
-Now, since a Catmull-Rom curve is a form of [cubic Hermite spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline), and as cubic Bézier curves are _also_ a form of cubic Hermite spline, we run into an interesting bit of maths programming: we can losslessly convert between the two, and the maths for doing so is surprisingly simple!
+Now, since a Catmull-Rom curve is a form of [cubic Hermite spline](https://en.wikipedia.org/wiki/Cubic_Hermite_spline), and as cubic Bézier curves are _also_ a form of cubic Hermite spline, we run into an interesting bit of maths programming: we can convert one to the other and back, and the maths for doing so is surprisingly simple!
 
 The main difference between Catmull-Rom curves and Bézier curves is "what the points mean":
 
-- A cubic Bézier curve is defined by a start point, a control point that implies the tangent at the start, a control point that implies the tangent at the end, and an end point, plus a characterising matrix that we can multiply by that point vector to get on-curve coordinates.
+- A cubic Bézier curve is defined by a start point, a control point that implies the tangent at the start, a control point that implies the tangent at the end, and an end point, plus a characterizing matrix that we can multiply by that point vector to get on-curve coordinates.
 - A Catmull-Rom curve is defined by a start point, a tangent that for that starting point, an end point, and a tangent for that end point, plus a characteristic matrix that we can multiple by the point vector to get on-curve coordinates.
 
 Those are _very_ similar, so let's see exactly _how_ similar they are. We've already see the matrix form for Bézier curves, so how different is the matrix form for Catmull-Rom curves?:

@@ -24,7 +24,7 @@ So these graphics show us several things:
 1. a point at the tip of the curve construction's "hat": let's call that `A`, as well as
 2. our on-curve point give our chosen `t` value: let's call that `B`, and finally,
 3. a point that we get by projecting A, through B, onto the line between the curve's start and end points: let's call that `C`.
-4. for both qudratic and cubic curves, two points `e1` and `e2`, which represent the single-to-last step in de Casteljau's algorithm: in the last step, we find `B` at `(1-t) * e1 + t * e2`.
+4. for both quadratic and cubic curves, two points `e1` and `e2`, which represent the single-to-last step in de Casteljau's algorithm: in the last step, we find `B` at `(1-t) * e1 + t * e2`.
 4. for cubic curves, also the points `v1` and `v2`, which together with `A` represent the first step in de Casteljau's algorithm: in the next step, we find `e1` and `e2`.
 
 These three values A, B, and C allow us to derive an important identity formula for quadratic and cubic Bézier curves: for any point on the curve with some `t` value, the ratio of distances from A to B and B to C is fixed: if some `t` value sets up a C that is 20% away from the start and 80% away from the end, then _it doesn't matter where the start, end, or control points are_; for that `t` value, `C` will *always* lie at 20% from the start and 80% from the end point. Go ahead, pick an on-curve point in either graphic and then move all the other points around: if you only move the control points, start and end won't move, and so neither will C, and if you move either start or end point, C will move but its relative position will not change.
@@ -67,7 +67,7 @@ And
   ratio(t)_{cubic} = \left | \frac{t^3 + (1-t)^3 - 1}{t^3 + (1-t)^3} \right |
 \]
 
-Which now leaves us with some powerful tools: given thee points (start, end, and "some point on the curve"), as well as a `t` value, we can _contruct_ curves: we can compute `C` using the start and end points, and our `u(t)` function, and once we have `C`, we can use our on-curve point (`B`) and the `ratio(t)` function to find `A`:
+Which now leaves us with some powerful tools: given thee points (start, end, and "some point on the curve"), as well as a `t` value, we can _construct_ curves: we can compute `C` using the start and end points, and our `u(t)` function, and once we have `C`, we can use our on-curve point (`B`) and the `ratio(t)` function to find `A`:
 
 \[
   A = B - \frac{C - B}{ratio(t)} = B + \frac{B - C}{ratio(t)}
