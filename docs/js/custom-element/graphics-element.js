@@ -37,8 +37,6 @@ CustomElement.register(class ProgramCode extends HTMLElement {});
  * Our custom element
  */
 class GraphicsElement extends CustomElement {
-  static DEBUG = false;
-
   /**
    * Create an instance of this element
    */
@@ -347,7 +345,11 @@ class GraphicsElement extends CustomElement {
   }
 }
 
+// Register our custom element
 CustomElement.register(GraphicsElement);
+
+// static property to regular debugging
+GraphicsElement.DEBUG = false;
 
 // debugging should be behind a flag
 function debugLog(...data) {

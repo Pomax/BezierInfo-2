@@ -86,9 +86,9 @@ class Bezier {
     this.update();
   }
 
-  static SVGtoBeziers = function (d) {
+  static SVGtoBeziers(d) {
     return convertPath(Bezier, d);
-  };
+  }
 
   static quadraticFromPoints(p1, p2, p3, t) {
     if (typeof t === "undefined") {
