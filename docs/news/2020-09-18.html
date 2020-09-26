@@ -27,7 +27,7 @@
 		<meta property="og:locale" content="en-GB" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="Thu Sep 17 2020 17:00:00 +00:00" />
-		<meta property="og:updated_time" content="Fri Sep 25 2020 21:26:45 +00:00" />
+		<meta property="og:updated_time" content="Sat Sep 26 2020 09:36:40 +00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -121,10 +121,10 @@
 				something, several years later you have quite the monster, and a single HTML file becomes intractible.
 			</p>
 			<p>
-				So, in 2016, when <a href="">React.js</a> exploded onto the scene, I rewrote the primer as a React app, and it became a lot easier to
-				maintain. Like, <em>a lot</em> a lot. However, there was a downside: no JS meant no content. Sure, server-side rendering sort of existed, but
-				not really, and because the Primer is hosted through github, there was no "server" to run. Plus, trying to rehydrate an app the size of the
-				Primer from a giant HTML file had truly <em>dire</em> performance.
+				So, in 2016, when <a href="https://reactjs.org/">React.js</a> exploded onto the scene, I rewrote the primer as a React app, and it became a
+				lot easier to maintain. Like, <em>a lot</em> a lot. However, there was a downside: no JS meant no content. Sure, server-side rendering sort of
+				existed, but not really, and because the Primer is hosted through github, there was no "server" to run. Plus, trying to rehydrate an app the
+				size of the Primer from a giant HTML file had truly <em>dire</em> performance.
 			</p>
 			<p>
 				So I left it a regular React app, and every time I thought "wouldn't it be nice if it was just... a web page again?" the browser landscape
@@ -146,7 +146,10 @@
 					Chapter content written as easy to read and write markdown format: <a href="./news/2020-09-18.md">view this blog post's source file</a>.
 				</li>
 				<li>A custom <code>&lt;graphics-element&gt;</code> element that turns a <code>src="blah.js"</code> into an interactive canvas graphic...</li>
-				<li>...with that same source code being read in and run by Node.js <em>on a canvas</em> to generate fallback images.</li>
+				<li>
+					...with that same source code being read in and run by Node.js <em>on a canvas</em> to generate fallback images so that even without JS,
+					graphics work.
+				</li>
 			</ul>
 			<blockquote>
 				<graphics-element title="An example graphic" width="275" height="275" src="./news/example.js">
@@ -160,8 +163,8 @@
 
 			<ul>
 				<li>
-					Real LaTeX code, that gets compiled into optimized SVG using <code>xelatex</code>, <code>pdfcrop</code>, <code>pdf2svg</code>, and
-					<code>svgo</code>:
+					Real LaTeX code, that gets saved as <code>.tex</code> file, so it can be compiled into optimized SVG using <code>xelatex</code>,
+					<code>pdfcrop</code>, <code>pdf2svg</code>, and <code>svgo</code>:
 				</li>
 			</ul>
 			<blockquote>
@@ -249,7 +252,7 @@ draw() {
 				<a href="https://github.com/Pomax/BezierInfo-2/issues">you know where to go</a>.
 			</p>
 			<p>See you in the next post!</p>
-			<p>— Pomax</p>
+			<p>— <a href="https://twitter.com/TheRealPomax">Pomax</a></p>
 		</main>
 
 		<hr />

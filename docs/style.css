@@ -436,3 +436,9 @@ table.code tr td:first-child {
   cursor: default;
   border-right: 1px solid red;
 }
+
+a.rss-link {
+  position: relative;
+  z-index: 10;
+  float: right;
+}
