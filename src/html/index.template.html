@@ -79,9 +79,18 @@
     {% endblock %}
   </footer>
 
-  {% block scrollfix %}
-  <!-- fix firefox's scroll position algorithm. Due to how it works, it cannot be async/defer -->
-  <script src="./js/site/fix-scroll.js"></script>
+  {% block commenthash %}
+  <script>
+    if (window.location.hash.includes(`#comment-`)) {
+      const baseHash = window.location.hash;
+      document.addEventListener(`disqus:ready`, () => {
+        console.log(`setting location`);
+        window.location.hash = ``;
+        window.location.hash = baseHash;
+      });
+      document.getElementById(`disqus_thread`).scrollIntoView();
+    }
+  </script>
   {% endblock %}
 </body>
 

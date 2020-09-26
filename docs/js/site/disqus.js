@@ -13,6 +13,13 @@ let loadDisqus = () => {
   globalThis.disqus_config = function () {
     this.page.url = "https://pomax.github.io/bezierinfo";
     this.page.identifier = "bezierinfo";
+    this.callbacks.onReady = [
+      function () {
+        setTimeout(() => {
+          document.dispatchEvent(new CustomEvent(`disqus:ready`));
+        }, 200);
+      },
+    ];
   };
 
   const script = document.createElement("script");
