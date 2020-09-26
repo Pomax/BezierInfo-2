@@ -14,6 +14,7 @@ setup() {
 draw() {
     clear();
 
+    // First and foremost, the curve itself
     curve.drawSkeleton();
     curve.drawCurve();
     curve.drawPoints();
@@ -21,6 +22,7 @@ draw() {
 
     nextPanel();
 
+    // then the "as you're moving a point" curve:
     curve.drawSkeleton(`lightblue`);
     curve.drawCurve(`lightblue`);
     curve.points.forEach(p => circle(p.x, p.y, 2));
@@ -28,6 +30,7 @@ draw() {
 
     nextPanel();
 
+    // And finally, only the result
     this.drawResult();
 }
 
@@ -57,6 +60,10 @@ drawMark() {
 }
 
 drawQuadraticMark() {
+    // This is the function that composes a new quadratic curve
+    // based on the established start and end points, as well as
+    // the information it knows about point B that you started
+    // when when you clicked/tapped the graphic.
     let {B, t} = this.mark;
     setFill(`black`);
     text(`t: ${t.toFixed(5)}`, this.panelWidth/2, 15, CENTER);
@@ -71,7 +78,6 @@ drawQuadraticMark() {
         circle(p.x, p.y, 3);
         text(lbl[i], p.x + 10, p.y);
     });
-
 
     if (this.currentPoint) {
         let {A,B,C,S,E} = curve.getABC(t, this.position);
@@ -88,6 +94,10 @@ drawQuadraticMark() {
 }
 
 drawCubicMark() {
+    // This is the function that composes a new cubic curve based
+    // on the established start and end points, as well as the
+    // information it knows about point B that you started when
+    // when you clicked/tapped the graphic.
     const S = curve.points[0],
           E = curve.points[curve.order],
           {B, t, e1, e2} = this.mark,
@@ -98,9 +108,16 @@ drawCubicMark() {
           ne1 = { x: nB.x + d1.x, y: nB.y + d1.y },
           ne2 = { x: nB.x + d2.x, y: nB.y + d2.y },
           {A, C} = curve.getABC(t, nB),
+          // The cubic case requires us to derive two control points,
+          // which we'll do in a separate function to keep the code
+          // at least somewhat manageable.
           {v1, v2, C1, C2} = this.deriveControlPoints(S, A, E, ne1, ne2, t);
 
     if (this.parameters.interpolated) {
+        // For the last example, we need to show what the "ideal" curve
+        // looks like, in addition to the one we actually get when we
+        // rely on the B we picked with the `t` value and e1/e2 points
+        // that point B had...
         const ideal = this.getIdealisedCurve(S, nB, E);
         this.ideal = new Bezier(this, [ideal.S, ideal.C1, ideal.C2, ideal.E]);
     }
@@ -140,7 +157,9 @@ drawCubicMark() {
 }
 
 deriveControlPoints(S, A, E, e1, e2, t) {
-    // And then use those to derive the correct v1/v2/C1/C2 coordinates
+    // Deriving the control points is effectively "doing what
+    // we talk about in the section", in code:
+
     const v1 = {
         x: A.x - (A.x - e1.x)/(1-t),
         y: A.y - (A.y - e1.y)/(1-t)
@@ -163,6 +182,10 @@ deriveControlPoints(S, A, E, e1, e2, t) {
 }
 
 getIdealisedCurve(p1, p2, p3) {
+    // This "reruns" the curve composition, but with a `t` value
+    // that is unrelated to the actual point B we picked, instead
+    // using whatever the appropriate `t` value would be if we were
+    // trying to fit a circular arc, as per earlier in the section.
     const c = utils.getccenter(p1, p2, p3),
           d1 = dist(p1.x, p1.y, p2.x, p2.y),
           d2 = dist(p3.x, p3.y, p2.x, p2.y),
@@ -195,11 +218,13 @@ drawResult() {
     last.points.forEach(p => circle(p.x, p.y, 2));
 
     if (this.mark) {
+        // Did you click/touch somewhere on the curve?
         let t = this.mark.t;
         let B = last.get(t);
         circle(B.x, B.y, 3);
 
         if (this.ideal) {
+            // Do we want to show the "interpolated" composition?
             let d = dist(this.mark.B.x, this.mark.B.y, this.position.x, this.position.y);
             let t = min(this.falloff, d) / this.falloff;
             this.ideal.drawCurve(`lightblue`);
@@ -219,10 +244,12 @@ drawResult() {
 
 onMouseDown() {
     if (this.currentPoint !== this.position) {
+        // "moving one of the curve's construction points"
         this.mark = false;
         this.position.projection = false;
     }
     else if (this.position.projection) {
+        // "moving an on-curve point"
         let t = this.position.projection.t;
         if (this.type === `quadratic`) {
             this.mark = {
