@@ -10,18 +10,6 @@ Anyway, that's mostly trivia, what you are more likely to care about is that the
 
 But what if you need to program them yourself? What are the pitfalls? How do you draw them? What are the bounding boxes, how do you determine intersections, how can you extrude a curve, in short: how do you do everything that you might want to do with these curves? That's what this page is for. Prepare to be mathed!
 
-<div class="print">
-
-## PS: buy me a coffee?
-
-If you enjoyed this book enough to print it out, you might be wondering if there is some way to give something back. To answer that question: you can always buy me a coffee, however-much a coffee is where you live. Or, if you want to pay a fair price for this book, you can buy me a really expensive coffee =)
-
-This book has grown over the years from a short primer to a 100+ print-page-equivalent ebook on the subject of Bézier curves, and a lot of coffee went into the making of it. I don't regret a minute I spent on writing it, but I can always do with some more coffee to keep on writing! Please visit https://pomax.github.io/bezierinfo/ and click on the link in the "Help support the book" preface section to donate some coffee money.
-
-</div>
-
-—Pomax (or in the tweetworld, [@TheRealPomax](https://twitter.com/TheRealPomax))
-
 <div class="note">
 
 ## Virtually all Bézier graphics are interactive.
@@ -35,6 +23,10 @@ This book is an open source software project, and lives on two github repositori
 ## How complicated is the maths going to be?
 
 Most of the mathematics in this Primer are early high school maths. If you understand basic arithmetic, and you know how to read English, you should be able to get by just fine. There will at times be *far* more complicated maths, but if you don't feel like digesting them, you can safely skip over them by either skipping over the "detail boxes" in section or by just jumping to the end of a section with maths that looks too involving. The end of sections typically simply list the conclusions so you can just work with those values directly.
+
+## What language is all this example code in?
+
+There are way too many programming languages to favour one of all others, soo all the example code in this Primer uses a form of pseudo-code that uses a syntax that's close enough to, but not actually, modern scripting languages like JS, Python, etc. That means you won't be able to copy-paste any of it without giving it any thought, but that's intentional: if you're reading this primer, presumably you want to _learn_, and you don't learn by copy-pasting. You learn by doing things yourself, _making mistakes_, and then fixing those mistakes. Now, of course, I didn't intentionally add errors in the example code just to trick you into making mistakes (that would be horrible!) but I _did_ intentionally keep the code from favouring one programming language over another. Don't worry though, if you know even a single procedural programming language, you should be able to read the examples without any difficulties.
 
 ## Questions, comments:
 

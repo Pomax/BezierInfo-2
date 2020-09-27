@@ -65,9 +65,12 @@ body {
   }
 }
 
-/*
-  TODO: add in prefers-color-scheme? This would definitely make graphics weird.
-*/
+a,
+a:visited {
+  color: rgb(0, 0, 238);
+}
+
+/* --------------------- */
 
 h1 {
   background: var(--heading-color);
@@ -89,6 +92,10 @@ h1 div.nav a + a {
   margin-left: 1em;
 }
 
+header h2 + div {
+  text-align: center;
+}
+
 ul.lang-switcher {
   display: inline;
   text-indent: 0;
@@ -102,6 +109,20 @@ ul.lang-switcher li {
   padding: 0 0.2em;
   margin: 0;
 }
+ul.lang-switcher + p {
+  font-size: 85%;
+  margin: 0;
+}
+
+@media screen and (min-width: 992px) {
+  ul.lang-switcher + p {
+    display: inline;
+    margin-left: 0.25em;
+    font-size: 75%;
+  }
+}
+
+/* --------------------- */
 
 label[for="changelogtoggle"] {
   display: inline-block;
@@ -130,6 +151,8 @@ main {
   display: none;
 }
 
+/* --------------------- */
+
 #chapters {
   counter-reset: section;
 }
@@ -140,14 +163,19 @@ main {
   margin-right: 1em;
 }
 
+#chapters section h1 {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-bottom: 1px solid black;
+}
+
 #chapters section > h1 > a {
   text-decoration: none;
   color: inherit;
 }
 
-graphics-element {
-  background: #e8e8e8;
-}
+/* --------------------- */
 
 div.print {
   display: none;
@@ -180,6 +208,7 @@ div.note {
   border: 1px solid black;
   background: var(--note-block-color);
   margin: 1em;
+  margin-top: 2em;
   padding: 1em 1em 0 1em;
 }
 
@@ -194,6 +223,8 @@ div.note:before {
   top: -0.5em;
   left: -1em;
 }
+
+/* --------------------- */
 
 img.LaTeX.SVG {
   margin: 0;
@@ -226,33 +257,10 @@ pre img.LaTeX.SVG {
   }
 }
 
-pre {
-  display: inline-block;
-  margin-left: 0;
-  background-color: var(--code-block-color);
-  padding: 0.5em;
-  border: 1px dotted gray;
-}
+/* --------------------- */
 
-@media screen and (min-width: 768px) {
-  pre {
-    margin-left: 1em;
-  }
-}
-
-code {
-  font-family: Courier;
-}
-
-li code,
-p code {
-  display: inline-block;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 0 5px;
-  background: #eee;
-  font-weight: bold;
-  vertical-align: 1px;
+graphics-element {
+  background: #e8e8e8;
 }
 
 table.slider-wrapper {
@@ -298,6 +306,8 @@ table.slider-wrapper {
   flex-wrap: wrap;
 }
 
+/* --------------------- */
+
 hr {
   width: calc(100% + 2 * var(--body-padding));
   position: relative;
@@ -336,6 +346,8 @@ div.dev {
 div.scl {
   display: none;
 }
+
+/* --------------------- */
 
 @media screen and (min-width: 768px) {
   div.scl {
@@ -381,8 +393,41 @@ div.github img area {
   cursor: pointer;
 }
 
+/* --------------------- */
+
 h5.post-date {
   text-align: right;
+}
+
+/* --------------------- */
+
+li code,
+p code {
+  display: inline-block;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 0 5px;
+  background: #eee;
+  font-weight: bold;
+  vertical-align: 1px;
+}
+
+pre {
+  display: inline-block;
+  margin-left: 0;
+  background-color: var(--code-block-color);
+  padding: 0.5em;
+  border: 1px dotted gray;
+}
+
+@media screen and (min-width: 768px) {
+  pre {
+    margin-left: 1em;
+  }
+}
+
+code {
+  font-family: Courier;
 }
 
 table.code {
@@ -437,8 +482,12 @@ table.code tr td:first-child {
   border-right: 1px solid red;
 }
 
+/* --------------------- */
+
 a.rss-link {
   position: relative;
   z-index: 10;
   float: right;
 }
+
+/* --------------------- */

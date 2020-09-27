@@ -16,6 +16,30 @@ const localeStringData = {
   description: {
     "en-GB": `A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.`,
   },
+  longDescription: {
+    "en-GB": `
+      <p>
+        Welcome to the Primer on Bezier Curves. This is a free website/ebook dealing with both
+        the maths and programming aspects of Bezier Curves, covering a wide range of topics
+        relating to drawing and working with that curve that seems to pop up everywhere, from
+        Photoshop paths to CSS easing functions to Font outline descriptions.
+      </p>
+      <p>
+        If this is your first time here: welcome! Let me know if you were looking for anything
+        in particular that the primer doesn't cover over on the <a href="https://github.com/Pomax/BezierInfo-2/issues">issue tracker</a>!
+      </p>
+
+      <p>
+        If this is a resource that you're using for research, or writing your own software,
+        please consider <a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">donating</a>
+        (any amount helps) or signing up as <a href="https://www.patreon.com/bezierinfo">a patron on Patreon</a>.
+        I don't get paid to work on this, so if you find this site valuable, and you'd like it
+        to stick around for a long time to come, a lot of coffee went into writing this over the
+        years, and a lot more coffee will need to go into it yet: if you can spare a coffee, you'd
+        be helping keep a resource alive and well!
+      </p>
+    `,
+  },
   tocLabel: {
     "en-GB": `Table of Contents`,
     "ja-JP": `目次`,

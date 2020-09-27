@@ -18,8 +18,6 @@
 
 </div>
 
-—Pomax (Twitter上では[@TheRealPomax](https://twitter.com/TheRealPomax))
-
 <div class="note">
 
 ## 注：ベジエの図はすべてインタラクティブになっています。

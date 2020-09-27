@@ -31,7 +31,7 @@
 		<meta property="og:locale" content="en-GB" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2020-09-26T22:53:06+00:00" />
+		<meta property="og:updated_time" content="2020-09-27T17:04:48+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -121,13 +121,35 @@
 				A Primer on Bézier Curves<a class="rss-link" href="news/rss.xml"><img src="images/rss.png" /></a>
 			</h1>
 			<h2>A free, online book for when you really need to know how to do Bézier things.</h2>
-			<span>Read this in your own language:</span>
-			<ul class="lang-switcher">
-				<li><a href="./index.html">English</a></li>
-				<li><a href="./ja-JP/index.html">日本語</a></li>
-				<li><a href="./zh-CN/index.html">中文</a></li>
-			</ul>
-			<p>Don't see your language listed? <a href="https://github.com/Pomax/BezierInfo-2/wiki/localize">Help translate this content!</a></p>
+			<div>
+				<span>Read this in your own language:</span>
+				<ul class="lang-switcher">
+					<li><a href="./index.html">English</a></li>
+					<li><a href="./ja-JP/index.html">日本語</a></li>
+					<li><a href="./zh-CN/index.html">中文</a></li>
+				</ul>
+				<p>(Don't see your language listed? <a href="https://github.com/Pomax/BezierInfo-2/wiki/localize">Help translate this content!</a>)</p>
+			</div>
+
+			<p>
+				Welcome to the Primer on Bezier Curves. This is a free website/ebook dealing with both the maths and programming aspects of Bezier Curves,
+				covering a wide range of topics relating to drawing and working with that curve that seems to pop up everywhere, from Photoshop paths to CSS
+				easing functions to Font outline descriptions.
+			</p>
+			<p>
+				If this is your first time here: welcome! Let me know if you were looking for anything in particular that the primer doesn't cover over on the
+				<a href="https://github.com/Pomax/BezierInfo-2/issues">issue tracker</a>!
+			</p>
+
+			<p>
+				If this is a resource that you're using for research, or writing your own software, please consider
+				<a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">donating</a> (any amount helps) or
+				signing up as <a href="https://www.patreon.com/bezierinfo">a patron on Patreon</a>. I don't get paid to work on this, so if you find this site
+				valuable, and you'd like it to stick around for a long time to come, a lot of coffee went into writing this over the years, and a lot more
+				coffee will need to go into it yet: if you can spare a coffee, you'd be helping keep a resource alive and well!
+			</p>
+
+			<p>— <a href="https://twitter.com/TheRealPomax">Pomax</a></p>
 			<noscript>
 				<div class="note">
 					<header>
@@ -243,22 +265,6 @@
 					determine intersections, how can you extrude a curve, in short: how do you do everything that you might want to do with these curves? That's
 					what this page is for. Prepare to be mathed!
 				</p>
-				<div class="print">
-					<h2>PS: buy me a coffee?</h2>
-					<p>
-						If you enjoyed this book enough to print it out, you might be wondering if there is some way to give something back. To answer that
-						question: you can always buy me a coffee, however-much a coffee is where you live. Or, if you want to pay a fair price for this book, you
-						can buy me a really expensive coffee =)
-					</p>
-					<p>
-						This book has grown over the years from a short primer to a 100+ print-page-equivalent ebook on the subject of Bézier curves, and a lot of
-						coffee went into the making of it. I don't regret a minute I spent on writing it, but I can always do with some more coffee to keep on
-						writing! Please visit <a href="https://pomax.github.io/bezierinfo/">https://pomax.github.io/bezierinfo/</a> and click on the link in the
-						"Help support the book" preface section to donate some coffee money.
-					</p>
-				</div>
-
-				<p>—Pomax (or in the tweetworld, <a href="https://twitter.com/TheRealPomax">@TheRealPomax</a>)</p>
 				<div class="note">
 					<h2>Virtually all Bézier graphics are interactive.</h2>
 					<p>
@@ -280,6 +286,16 @@
 						you should be able to get by just fine. There will at times be <em>far</em> more complicated maths, but if you don't feel like digesting
 						them, you can safely skip over them by either skipping over the "detail boxes" in section or by just jumping to the end of a section with
 						maths that looks too involving. The end of sections typically simply list the conclusions so you can just work with those values directly.
+					</p>
+					<h2>What language is all this example code in?</h2>
+					<p>
+						There are way too many programming languages to favour one of all others, soo all the example code in this Primer uses a form of
+						pseudo-code that uses a syntax that's close enough to, but not actually, modern scripting languages like JS, Python, etc. That means you
+						won't be able to copy-paste any of it without giving it any thought, but that's intentional: if you're reading this primer, presumably you
+						want to <em>learn</em>, and you don't learn by copy-pasting. You learn by doing things yourself, <em>making mistakes</em>, and then fixing
+						those mistakes. Now, of course, I didn't intentionally add errors in the example code just to trick you into making mistakes (that would
+						be horrible!) but I <em>did</em> intentionally keep the code from favouring one programming language over another. Don't worry though, if
+						you know even a single procedural programming language, you should be able to read the examples without any difficulties.
 					</p>
 					<h2>Questions, comments:</h2>
 					<p>
