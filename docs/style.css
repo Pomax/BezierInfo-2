@@ -163,11 +163,13 @@ main {
   margin-right: 1em;
 }
 
-#chapters section h1 {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  border-bottom: 1px solid black;
+@media screen and (min-width: 768px) {
+  #chapters section h1 {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    border-bottom: 1px solid black;
+  }
 }
 
 #chapters section > h1 > a {
