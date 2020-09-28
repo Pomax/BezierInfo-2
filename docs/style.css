@@ -242,7 +242,7 @@ p + img.LaTeX.SVG {
 }
 
 img.LaTeX.SVG + p {
-  margin-top: -0.25em;
+  margin-top: 0.5em;
 }
 
 div.note img.LaTeX.SVG {
