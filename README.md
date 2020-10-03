@@ -18,6 +18,8 @@ Also note that you will need a TeX installation with several dependencies: on Wi
 - texlive-xetex
 - texlive-extra-utils
 
+To make life easier, if your distro uses apt-get, just run `sudo apt-get install xzdec libpoppler-glib-dev texlive texlive-xetex texlive-extra-utils`
+
 You'll also need [pdf2svg](https://github.com/dawbarton/pdf2svg/), which on Windows means that in addition to building this utility from source, you'll all need to put the .exe file somewhere sensible (like `C:\Program Files (x86)\pdf2svg`) add then add that dir to your PATH, so `pdf2svg` can be invoked like any other CLI utility.
 
 #### Specialised commands:
