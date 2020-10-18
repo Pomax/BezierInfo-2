@@ -1,0 +1,5 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                   t - knots[i]
+                                                      α    = ─────────────────────────
+                                                       i,k   knots[i+1+n-k] - knots[i]

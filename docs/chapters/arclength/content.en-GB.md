@@ -24,12 +24,12 @@ So we turn to numerical approaches again. The method we'll look at here is the [
   \int_{-1}^{1}f(t) dt
   \simeq
   \left [
-    \underset{strip\ 1}{ \underbrace{ C_1 \cdot f\left(t_1\right) }}
-    \ +\ ...
-    \ +\ \underset{strip\ n}{ \underbrace{ C_n \cdot f\left(t_n\right) }}
+    \underset{strip~1}{ \underbrace{ C_1 \cdot f\left(t_1\right) }}
+    ~+~...
+    ~+~\underset{strip~n}{ \underbrace{ C_n \cdot f\left(t_n\right) }}
   \right ]
   =
-  \underset{strips\ 1\ through\ n}{
+  \underset{strips~1~through~n}{
     \underbrace{
       \sum_{i=1}^{n}{
         C_i \cdot f\left(t_i\right)

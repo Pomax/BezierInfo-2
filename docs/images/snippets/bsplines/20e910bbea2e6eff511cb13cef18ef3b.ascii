@@ -1,0 +1,30 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+              ╭                                ╭                                ╭          1     0           0
+              │                                │                                │         α   × d ,   with  d    either 0 or 1 
+              │                                │          2     1           1   │          3     3           3
+              │                                │         α   × d ,   with  d  = ╡                 +                              
+              │                                │          3     3           3   │ ╭      1 ╮     0           0
+              │                                │                                │ │ 1 - α  │  × d ,   with  d    either 0 or 1 
+              │          3     2           2   │                                ╰ ╰      3 ╯     2           2
+              │         α   × d ,   with  d  = ╡                 +                                                                
+              │          3     3           3   │                                ╭           1     0
+              │                                │                                │          α   × d                             
+              │                                │ ╭      2 ╮     1           1   │           2     2
+              │                                │ │ 1 - α  │  × d ,   with  d  = ╡                 +                              
+          3   │                                │ ╰      3 ╯     2           2   │ ╭      1 ╮     0           0
+         d  = ╡                                │                                │ │ 1 - α  │  × d ,   with  d    either 0 or 1     
+          3   │                                ╰                                ╰ ╰      2 ╯     1           1
+              │                 +                                                                                                 
+              │                                ╭           2     1
+              │                                │          α   × d                                                                
+              │                                │           2     2
+              │                                │                                                                                 
+              │ ╭      3 ╮     2           2   │                 +                                                               
+              │ │ 1 - α  │  × d ,   with  d  = ╡                                ╭           1     0                               
+              │ ╰      3 ╯     2           2   │                                │          α   × d 
+              │                                │ ╭      2 ╮     1           1   │           1     1
+              │                                │ │ 1 - α  │  × d ,   with  d  = ╡                 +                              
+              │                                │ ╰      2 ╯     1           1   │ ╭      1 ╮     0           0
+              │                                │                                │ │ 1 - α  │  × d ,   with  d    either 0 or 1 
+              ╰                                ╰                                ╰ ╰      1 ╯     0           0

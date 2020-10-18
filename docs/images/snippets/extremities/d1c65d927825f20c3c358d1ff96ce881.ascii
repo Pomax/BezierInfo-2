@@ -1,0 +1,17 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                             2                  2
+                                               B'(t)= v (1-t)  + 2v (1-t)t + v t            
+                                                       1           2          3
+                                                          2                    2       2
+                                                 ...= v (t  - 2t + 1) + 2v (t-t ) + v t     
+                                                       1                  2          3
+                                                         2                          2      2
+                                                 ...= v t  - 2v t + v  + 2v t - 2v t  + v t 
+                                                       1       1     1     2      2      3
+                                                         2       2      2
+                                                 ...= v t  - 2v t  + v t  - 2v t + v  + 2v t
+                                                       1       2      3       1     1     2
+                                                                  2
+                                                 ...= (v -2v +v )t  + 2(v -v )t + v         
+                                                        1   2  3         2  1      1

@@ -1,0 +1,3 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                          1 = cos(φ) + b  · -sin(φ)  → \ 1 - cos(φ) = -b  · sin(φ)  → \ -1 + cos(φ) = b  · sin(φ)

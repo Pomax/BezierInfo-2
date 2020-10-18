@@ -1,0 +1,5 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                             d    ╭ n ╮  k      n-k d
+                                                     B   (t) ── = │   │ t  (1-t)    ──
+                                                      n,k    dt   ╰ k ╯             dt

@@ -1,0 +1,4 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                   x' = x  · cos (\phi) - y  · sin (\phi)
+                                                   y' = x  · sin (\phi) + y  · cos (\phi)

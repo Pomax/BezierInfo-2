@@ -1,0 +1,7 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                      ┌ 1 0 0 ┐    ┌              2        ┐
+                      -1              │   1   │    │ 1  z        z         │    ┌  1  0 0 ┐   ┌      2                   2 ┐
+                Q' = M    · Z'  · M = │ 1 ─ 0 │  · │ 0 1-z 2  · z  · (1-z) │  · │ -2  2 0 │ = │ (z-1)  -2  · z  · (z-1) z  │
+                                      │   2   │    │                2      │    └  1 -2 1 ┘   │    0        -(z-1)      z  │
+                                      └ 1 1 1 ┘    └ 0  0      (1-z)       ┘                  └    0           0        1  ┘

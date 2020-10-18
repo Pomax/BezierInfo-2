@@ -1,0 +1,7 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                                         ┌────────┐
+                                                                                         │ 2
+                                                        2                           -b ±⟍│b  - 4ac
+                                         Given f(t) = at  + bt + c, f(t)=0 when t = ───────────────
+                                                                                          2a

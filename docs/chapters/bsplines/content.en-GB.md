@@ -76,7 +76,7 @@ That looks complicated, but it's not. Computing alpha is just a fraction involvi
 Of course, the recursion does need a stop condition:
 
 \[
-  d^k_0(t) = 0, \ d^0_i(t) = N_{i,1}(t) =
+  d^k_0(t) = 0, ~d^0_i(t) = N_{i,1}(t) =
   \left\{\begin{matrix}
     1& \text{if } t \in [knot_i,knot_{i+1}) \\
     0& \text{otherwise}
@@ -90,39 +90,39 @@ Thanks to Cox and de Boor, we can compute points on a B-Spline pretty easily usi
 \[
   d^3_3 = \left \{
     \begin{aligned}
-      \alpha^3_3 \times d^2_3, & \ \textit{ with } d^2_3 = \left \{
+      \alpha^3_3 \times d^2_3, & ~\textit{ with } d^2_3 = \left \{
         \begin{aligned}
-          \alpha^2_3 \times d^1_3, & \ \textit{ with } d^1_3 =
+          \alpha^2_3 \times d^1_3, & ~\textit{ with } d^1_3 =
             \left \{
               \begin{aligned}
-                \alpha^1_3 \times d^0_3, & \ \textit{ with } d^0_3 \textit{ either 0 or 1} \\
+                \alpha^1_3 \times d^0_3, & ~\textit{ with } d^0_3 \textit{ either 0 or 1} \\
                 + & \\
-                \left ( 1 - \alpha^1_3 \right ) \times d^0_2, & \ \textit{ with } d^0_2 \textit{ either 0 or 1} \\
+                \left ( 1 - \alpha^1_3 \right ) \times d^0_2, & ~\textit{ with } d^0_2 \textit{ either 0 or 1} \\
               \end{aligned}
             \right . \\
           + & \\
-          \left ( 1 - \alpha^2_3 \right ) \times d^1_2, & \ \textit{ with } d^1_2 =
+          \left ( 1 - \alpha^2_3 \right ) \times d^1_2, & ~\textit{ with } d^1_2 =
             \left \{
               \begin{aligned}
                 \alpha^1_2 \times d^0_2 & \\
                 + & \\
-                \left ( 1 - \alpha^1_2 \right ) \times d^0_1, & \ \textit{ with } d^0_1 \textit{ either 0 or 1} \\
+                \left ( 1 - \alpha^1_2 \right ) \times d^0_1, & ~\textit{ with } d^0_1 \textit{ either 0 or 1} \\
               \end{aligned}
             \right . \\
         \end{aligned}
       \right . \\
       + & \\
-      \left ( 1 - \alpha^3_3 \right ) \times d^2_2, & \ \textit{ with } d^2_2 = \left \{
+      \left ( 1 - \alpha^3_3 \right ) \times d^2_2, & ~\textit{ with } d^2_2 = \left \{
         \begin{aligned}
           \alpha^2_2 \times d^1_2 & \\
           & \\
           + & \\
-          \left ( 1 - \alpha^2_2 \right ) \times d^1_1, & \ \textit{ with } d^1_1 =
+          \left ( 1 - \alpha^2_2 \right ) \times d^1_1, & ~\textit{ with } d^1_1 =
             \left \{
               \begin{aligned}
                 \alpha^1_1 \times d^0_1 \\
                 + & \\
-                \left ( 1 - \alpha^1_1 \right ) \times d^0_0, & \ \textit{ with } d^0_0 \textit{ either 0 or 1} \\
+                \left ( 1 - \alpha^1_1 \right ) \times d^0_0, & ~\textit{ with } d^0_0 \textit{ either 0 or 1} \\
               \end{aligned}
             \right . \\
         \end{aligned}

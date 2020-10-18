@@ -19,13 +19,13 @@ As you can see, things go horribly wrong quite quickly; even trying to approxima
 We start out with our start and end point, and for convenience we will place them on a unit circle (a circle around 0,0 with radius 1), at some angle *φ*:
 
 \[
-  S = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \ , \ \  E = \begin{pmatrix} cos(φ) \\ sin(φ) \end{pmatrix}
+  S = \begin{pmatrix} 1 \\ 0 \end{pmatrix} ~, ~\  E = \begin{pmatrix} cos(φ) \\ sin(φ) \end{pmatrix}
 \]
 
 What we want to find is the intersection of the tangents, so we want a point C such that:
 
 \[
-  C = S + a \cdot \begin{pmatrix} 0 \\ 1 \end{pmatrix} \ , \ \ C = E + b \cdot \begin{pmatrix} -sin(φ) \\ cos(φ) \end{pmatrix}
+  C = S + a \cdot \begin{pmatrix} 0 \\ 1 \end{pmatrix} ~, ~\ C = E + b \cdot \begin{pmatrix} -sin(φ) \\ cos(φ) \end{pmatrix}
 \]
 
 i.e. we want a point that lies on the vertical line through S (at some distance *a* from S) and also lies on the tangent line through E (at some distance *b* from E). Solving this gives us:
@@ -41,8 +41,8 @@ First we solve for *b*:
 
 \[
   \begin{array}{l}
-    1 = cos(φ) + b \cdot -sin(φ) \ → \
-    1 - cos(φ) = -b \cdot sin(φ) \ → \
+    1 = cos(φ) + b \cdot -sin(φ) ~→ \
+    1 - cos(φ) = -b \cdot sin(φ) ~→ \
     -1 + cos(φ) = b \cdot sin(φ)
   \end{array}
 \]
@@ -68,7 +68,7 @@ which we can then substitute in the expression for *a*:
 A quick check shows that plugging these values for *a* and *b* into the expressions for C<sub>x</sub> and C<sub>y</sub> give the same x/y coordinates for both "*a* away from A" and "*b* away from B", so let's continue: now that we know the coordinate values for C, we know where our on-curve point T for *t=0.5* (or angle φ/2) is, because we can just evaluate the Bézier polynomial, and we know where the circle arc's actual point P is for angle φ/2:
 
 \[
-  P_x = cos(\frac{φ}{2}) \ , \ \  P_y = sin(\frac{φ}{2})
+  P_x = cos(\frac{φ}{2}) ~, ~\  P_y = sin(\frac{φ}{2})
 \]
 
 We compute T, observing that if *t=0.5*, the polynomial values (1-t)², 2(1-t)t, and t² are 0.25, 0.5, and 0.25 respectively:
@@ -93,10 +93,10 @@ And the distance between these two is the standard Euclidean distance:
 
 \[
   \begin{aligned}
-    d_x(φ) &= T_x - P_x = \frac{1}{4}(3 + cos(φ)) - cos(\frac{φ}{2}) = 2sin^4\left(\frac{φ}{4}\right) \ , \\
-    d_y(φ) &= T_y - P_y = \frac{1}{4}\left(2tan\left(\frac{φ}{2}\right) + sin(φ)\right) - sin(\frac{φ}{2}) \ , \\
+    d_x(φ) &= T_x - P_x = \frac{1}{4}(3 + cos(φ)) - cos(\frac{φ}{2}) = 2sin^4\left(\frac{φ}{4}\right) ~, \\
+    d_y(φ) &= T_y - P_y = \frac{1}{4}\left(2tan\left(\frac{φ}{2}\right) + sin(φ)\right) - sin(\frac{φ}{2}) ~, \\
     &⇓\\
-    d(φ) &= \sqrt{d^2_x + d^2_y} = \ ... \  = 2sin^4(\frac{φ}{4})\sqrt{\frac{1}{cos^2(\frac{φ}{2})}}
+    d(φ) &= \sqrt{d^2_x + d^2_y} = ~... ~ = 2sin^4(\frac{φ}{4})\sqrt{\frac{1}{cos^2(\frac{φ}{2})}}
   \end{aligned}
 \]
 

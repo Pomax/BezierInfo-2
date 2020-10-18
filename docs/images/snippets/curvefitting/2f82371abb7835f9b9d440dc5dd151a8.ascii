@@ -1,0 +1,6 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                     ╭            d  = 0
+                                      D = ┌ d  d  ... d  ┐,   where  ╡             1                 
+                                          └  1  2      n ┘           │ d  = d    +  length(p   , p )
+                                                                     ╰  i    i-1            i-1   i

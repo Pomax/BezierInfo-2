@@ -1,0 +1,11 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                           ╭ d = || Start - B||
+                                                           │  1
+                                                           │ d = || End - B||  
+                                                           │  2
+                                                           ╡      d             
+                                                           │       1
+                                                           │  t= ─────         
+                                                           │     d +d 
+                                                           ╰      1  2

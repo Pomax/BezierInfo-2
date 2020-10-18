@@ -8,12 +8,12 @@ The general rule for raising an *n<sup>th</sup>* order curve to an *(n+1)<sup>th
 
 \[
   Bézier(k,t) = \sum_{i=0}^{k}
-                \underset{binomial\ term}{\underbrace{\binom{k}{i}}}
+                \underset{binomial~term}{\underbrace{\binom{k}{i}}}
                 \cdot\
-                \underset{polynomial\ term}{\underbrace{(1-t)^{k-i} \cdot t^{i}}}
-                \ \cdot \
-                \underset{new\ weights}{\underbrace{\left ( \frac{(k-i) \cdot w_i + i \cdot w_{i-1}}{k} \right )}}
-  \ ,\ with\ k = n+1\ and\ w_{i-1}=0\ when\ i = 0
+                \underset{polynomial~term}{\underbrace{(1-t)^{k-i} \cdot t^{i}}}
+                ~\cdot \
+                \underset{new~weights}{\underbrace{\left ( \frac{(k-i) \cdot w_i + i \cdot w_{i-1}}{k} \right )}}
+  ~,~with~k = n+1~and~w_{i-1}=0~when~i = 0
 \]
 
 However, this rule also has as direct consequence that you **cannot** generally safely lower a curve from *n<sup>th</sup>* order to *(n-1)<sup>th</sup>* order, because the control points cannot be "pulled apart" cleanly. We can try to, but the resulting curve will not be identical to the original, and may in fact look completely different.

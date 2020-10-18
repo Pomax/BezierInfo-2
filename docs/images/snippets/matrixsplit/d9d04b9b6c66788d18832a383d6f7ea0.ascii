@@ -1,0 +1,8 @@
+\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
+ 
+                                                                                                    ┌ P  ┐
+                                                                                   -1               │  1 │
+                                  = ┌      2 ┐  · \underset…こうして…\underbrace M  · M    · Z  · M   · │ P  │
+                                    └ 1 t t  ┘                                                      │  2 │
+                                                                                                    │ P  │
+                                                                                                    └  3 ┘

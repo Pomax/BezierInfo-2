@@ -1,0 +1,7 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                                            ┌──────────┐
+                                                                                            │ 2
+                                    x = -3a + 2b + 3c - d ╮                            -y ±⟍│y  - 4 x z
+                                    y =    3a - b - 3c    ╞  C(t) = 0  \Rightarrow t = ─────────────────
+                                    z =       c - a       ╯                                   2x

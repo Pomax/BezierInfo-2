@@ -1,0 +1,8 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                    ╭  ┌─────────────┐ ╮
+                                                                    │  │     ┌──────┐  │
+                                                                    │ ⟍│2+ε-⟍│ε(2+ε)   │
+                                                    φ = 4  · arccos │ ──────────────── │
+                                                                    │        ┌─┐       │
+                                                                    ╰       ⟍│2        ╯

@@ -66,7 +66,7 @@ And that's the first part done: the two components inside the parentheses are ac
   ... = n \left (
     \frac{x!}{y!(x-y)!} t^{y} (1-t)^{x-y} - \frac{x!}{k!(x-k)!} t^k (1-t)^{x-k}
   \right )
-  \ ,\ with\ x=n-1,\ y=k-1
+  ~,~with~x=n-1,~y=k-1
   \\
   ... = n \left ( B_{(n-1),(k-1)}(t) - B_{(n-1),k}(t) \right )
 \end{array}
@@ -98,7 +98,7 @@ Two of these terms fall way: the first term falls away because there is no -1<su
 
 \[\begin{array}{lclc}
   n \cdot B_{n-1,BLUE[0]}(t) \cdot w_1 &-& n \cdot B_{n-1,BLUE[0]}(t) \cdot w_0 &+ \\
-  n \cdot B_{n-1,RED[1]}(t) \cdot w_2 &-& \ n \cdot B_{n-1,RED[1]}(t) \cdot w_1 &+ \\
+  n \cdot B_{n-1,RED[1]}(t) \cdot w_2 &-& ~n \cdot B_{n-1,RED[1]}(t) \cdot w_1 &+ \\
   n \cdot B_{n-1,MAGENTA[2]}(t) \cdot w_3 &-& n \cdot B_{n-1,MAGENTA[2]}(t) \cdot w_2 &+ \\
   ...
 \end{array}\]
@@ -109,14 +109,14 @@ And that's just a summation of lower order curves:
   Bézier_{n,k}(t) \frac{d}{dt} = n \cdot B_{(n-1),BLUE[0]}(t) \cdot (w_1 - w_0)
                             + n \cdot B_{(n-1),RED[1]}(t) \cdot (w_2 - w_1)
                             + n \cdot B_{(n-1),MAGENTA[2]}(t) \cdot (w_3 - w_2)
-                            \ + \ ...
+                            ~+ ~...
 \]
 
 We can rewrite this as a normal summation, and we're done:
 
 \[
   Bézier_{n,k}(t) \frac{d}{dt} = \sum_{k=0}^{n-1} n \cdot B_{n-1,k}(t) \cdot (w_{k+1} - w_k)
-                               = \sum_{k=0}^{n-1} B_{n-1,k}(t) \cdot \underset{derivative\ weights}
+                               = \sum_{k=0}^{n-1} B_{n-1,k}(t) \cdot \underset{derivative~weights}
                                  {\underbrace{n \cdot (w_{k+1} - w_k)}}
 \]
 
@@ -126,21 +126,21 @@ Let's rewrite that in a form similar to our original formula, so we can see the 
 
 \[
   Bézier(n,t) = \sum_{i=0}^{n}
-                \underset{binomial\ term}{\underbrace{\binom{n}{i}}}
+                \underset{binomial~term}{\underbrace{\binom{n}{i}}}
                 \cdot\
-                \underset{polynomial\ term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
+                \underset{polynomial~term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
                 \cdot\
                 \underset{weight}{\underbrace{w_i}}
 \]
 
 \[
   Bézier'(n,t) = \sum_{i=0}^{k}
-                \underset{binomial\ term}{\underbrace{\binom{k}{i}}}
+                \underset{binomial~term}{\underbrace{\binom{k}{i}}}
                 \cdot\
-                \underset{polynomial\ term}{\underbrace{(1-t)^{k-i} \cdot t^{i}}}
+                \underset{polynomial~term}{\underbrace{(1-t)^{k-i} \cdot t^{i}}}
                 \cdot\
-                \underset{derivative\ weight}{\underbrace{n \cdot (w_{i+1} - w_i)}}
-                {\ , \ with \ k=n-1}
+                \underset{derivative~weight}{\underbrace{n \cdot (w_{i+1} - w_i)}}
+                {~, ~with ~k=n-1}
 \]
 
 
@@ -148,8 +148,8 @@ What are the differences? In terms of the actual Bézier curve, virtually nothin
 
 \[ \begin{array}{llll}
   B(n,t),    &        & w = \{A,B,C,D\} \\
-  B'(n,t),   & n = 3, & w' = \{A',B',C'\}    &= \{3 \cdot (B-A), {\ } 3 \cdot (C-B), {\ } 3 \cdot (D-C)\} \\
-  B''(n,t),  & n = 2, & w'' = \{A'',B''\}    &= \{2 \cdot (B'-A'), {\ } 2 \cdot (C'-B')\} \\
+  B'(n,t),   & n = 3, & w' = \{A',B',C'\}    &= \{3 \cdot (B-A), {~} 3 \cdot (C-B), {~} 3 \cdot (D-C)\} \\
+  B''(n,t),  & n = 2, & w'' = \{A'',B''\}    &= \{2 \cdot (B'-A'), {~} 2 \cdot (C'-B')\} \\
   B'''(n,t), & n = 1, & w''' = \{A'''\} &= \{1 \cdot (B''-A'')\}
 \end{array} \]
 

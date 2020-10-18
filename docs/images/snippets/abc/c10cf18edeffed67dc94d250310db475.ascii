@@ -1,0 +1,7 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                               2
+                                                                          (1-t) 
+                                                        u(t)          = ───────────
+                                                            quadratic    2        2
+                                                                        t  + (1-t) 

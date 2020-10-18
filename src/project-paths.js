@@ -19,6 +19,7 @@ const build = path.join(src, `build`);
 const chapters = path.join(publicDir, `chapters`);
 const html = path.join(src, `html`);
 const images = path.join(publicDir, `images`);
+const snippets = path.join(images, `snippets`);
 const news = path.join(publicDir, `news`);
 const sitejs = path.join(publicDir, `js`);
 const temp = path.join(project, `temp`);
@@ -32,6 +33,7 @@ const paths = {
   project,
   public: publicDir,
   sitejs,
+  snippets,
   src,
   temp,
 };

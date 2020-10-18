@@ -1,0 +1,13 @@
+ \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+  
+      ╭                 x   · y       x   · y              ╮
+      │                  2     4       2     3             │
+      │            x  - ──────── / x -────────             │   ╭         x           ╮
+      │             4      y        3    y                 │   │          43         │                ╭      x   · y               x   · y  ╮
+      │                     2             2                │   │                     │                │       2     4               2     3 │
+... = │                                                    │ = │ y        ╭     y  ╮ │,  where  x   = │ x  - ──────── \middle / x -──────── │
+      │ y    ╭     y  ╮    ╭      x   · y       x   · y  ╮ │   │  4       │      3 │ │           43   │  4      y                3    y     │
+      │  4   │      3 │    │       2     4       2     3 │ │   │ ── + x   │ 1 - ── │ │                ╰          2                     2    ╯
+      │ ── + │ 1 - ── │  · │ x  - ──────── / x -──────── │ │   │ y     43 │     y  │ │
+      │ y    │     y  │    │  4      y        3    y     │ │   ╰  2       ╰      2 ╯ ╯
+      ╰  2   ╰      2 ╯    ╰          2             2    ╯ ╯

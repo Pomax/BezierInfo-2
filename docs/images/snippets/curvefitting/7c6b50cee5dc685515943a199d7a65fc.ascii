@@ -1,0 +1,9 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                       B     =a                     
+                                                        cubic
+                                                              - 3at + 3bt           
+                                                                   2     2    2     
+                                                              + 3at - 6bt +3ct      
+                                                                  3      3    3    3
+                                                              - at  + 3bt -3ct + dt 

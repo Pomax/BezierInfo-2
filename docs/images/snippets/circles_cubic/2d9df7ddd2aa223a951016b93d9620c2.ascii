@@ -1,0 +1,4 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                 S = (1, 0)  , \ C  = (1, 0.55228)  , \ C  = (0.55228 , 1)  , \ E = (0, 1)
+                                                  1                      2

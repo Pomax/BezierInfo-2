@@ -1,0 +1,10 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                             B '(t)B ''(t) - B ''(t)B '(t)
+                                                              x     y         x      y
+                                                 \kappa(t) = ─────────────────────────────
+                                                                                   3
+                                                                                   ─
+                                                                         2       2 2
+                                                                  (B '(t) +B '(t) ) 
+                                                                    x       y

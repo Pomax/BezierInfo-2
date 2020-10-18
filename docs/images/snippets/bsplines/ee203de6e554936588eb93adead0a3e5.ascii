@@ -1,0 +1,5 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                             ╭ 1 if  t ∈[knot ,knot   )
+                                                   N   (t) = ╡               i     i+1  
+                                                    i,1      ╰ 0       otherwise

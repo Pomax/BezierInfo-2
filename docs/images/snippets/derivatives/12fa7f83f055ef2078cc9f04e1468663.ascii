@@ -1,0 +1,5 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                   kn!     k-1      n-k   (n-k)n!   k      n-1-k
+                                           ... = ──────── t    (1-t)    - ──────── t  (1-t)     
+                                                 k!(n-k)!                 k!(n-k)!

@@ -1,0 +1,5 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                          __ n                    n-i     i
+                                            Bézier(n,t) = ❯      \binomni  · (1-t)     · t   · w 
+                                                          ‾‾ i=0                                i

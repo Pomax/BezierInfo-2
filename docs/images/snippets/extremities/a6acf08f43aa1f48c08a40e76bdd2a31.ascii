@@ -1,0 +1,8 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                   a= v -2v +v  = 3(-p  + 3p  - 3p  + p )
+                                                       1   2  3       1     2     3    4
+                                                   b= 2(v -v ) = 6(p  - 2p  + p )        
+                                                         2  1       1     2    3
+                                                   c= v  = 3(p -p )                      
+                                                       1      2  1

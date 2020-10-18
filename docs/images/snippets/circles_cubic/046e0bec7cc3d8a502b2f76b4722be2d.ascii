@@ -1,0 +1,8 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                    ╭                   4
+                                                    │ \vecv  = {C,A}  = ─  · (B  - C )
+                                                    ╡      x        x   3      x    x  
+                                                    │                   4
+                                                    │ \vecv  = {C,A}  = ─  · (B  - C )
+                                                    ╰      y        y   3      y    y

@@ -1,0 +1,6 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                B(n,t),           w = {A,B,C,D}   
+                                B'(n,t),   n = 3, w' = {A',B',C'} = {3  · (B-A),   3  · (C-B),   3  · (D-C)}
+                                B''(n,t),  n = 2, w'' = {A'',B''} = {2  · (B'-A'),   2  · (C'-B')}          
+                                B'''(n,t), n = 1, w''' = {A'''}   = {1  · (B''-A'')}                        

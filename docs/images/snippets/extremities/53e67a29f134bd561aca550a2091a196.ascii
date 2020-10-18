@@ -1,0 +1,7 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                        f (x )
+                                                                         y  n
+                                                            x    = x  - ───────
+                                                             n+1    n   f' (x )
+                                                                          y  n

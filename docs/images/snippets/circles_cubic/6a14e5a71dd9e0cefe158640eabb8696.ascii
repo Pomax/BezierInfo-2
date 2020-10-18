@@ -1,0 +1,6 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                   ╭       ┌─┐   ╮           ╭    ┌─┐       ╮
+                                                   │      ⟍│2 -1 │           │   ⟍│2 -1     │                
+                              S = (1, 0)  , \ C  = │ 1, 4 ────── │  , \ C  = │ 4 ────── , 1 │  , \ E = (0, 1)
+                                               1   ╰        3    ╯       2   ╰     3        ╯

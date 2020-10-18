@@ -1,0 +1,6 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+        ╭                         3                              2                                        2                      3
+        ╡ x = \colorblue0  · (1-t)  \colorblue - 85  · 3  · (1-t)   · t \colorblue - 12  · 3  · (1-t)  · t  \colorblue + 156  · t  
+        │                         3                              2                                         2                    3
+        ╰ y = \colorblue0  · (1-t)  \colorblue - 40  · 3  · (1-t)   · t \colorblue + 140  · 3  · (1-t)  · t  \colorblue + 0  · t 

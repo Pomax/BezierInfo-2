@@ -1,0 +1,7 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                             3
+                                                                        (1-t) 
+                                                          u(t)      = ───────────
+                                                              cubic    3        3
+                                                                      t  + (1-t) 

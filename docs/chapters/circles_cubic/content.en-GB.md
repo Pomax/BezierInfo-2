@@ -39,7 +39,7 @@ In fact, the precision of a cubic curve at a quarter circle is considered "good 
 
 So with the error analysis out of the way, how do we actually compute the coordinates needed to get that "true fit" cubic curve? The first observation is that we already know the start and end points, because they're the same as for the quadratic attempt:
 
-\[ S = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \ , \ \  E = \begin{pmatrix} cos(φ) \\ sin(φ) \end{pmatrix} \]
+\[ S = \begin{pmatrix} 1 \\ 0 \end{pmatrix} ~, ~\  E = \begin{pmatrix} cos(φ) \\ sin(φ) \end{pmatrix} \]
 
 But we now need to find two control points, rather than one. If we want the derivatives at the start and end point to match the circle, then the first control point can only lie somewhere on the vertical line through S, and the second control point can only lie somewhere on the line tangent to point E, which means:
 
@@ -74,17 +74,17 @@ The distance from our guessed point to the start point is exactly the same as th
 So that just leaves us to find the distance from <i>t=0.5</i> to the baseline for an arbitrary angle φ, which is the distance from the centre of the circle to our <i>t=0.5</i> point, minus the distance from the centre to the line that runs from start point to end point. The first is the same as the point P we found for the quadratic curve:
 
 \[
-  P_x = cos(\frac{φ}{2}) \ , \ \  P_y = sin(\frac{φ}{2})
+  P_x = cos(\frac{φ}{2}) ~, ~\  P_y = sin(\frac{φ}{2})
 \]
 
 And the distance from the origin to the line start/end is another application of angles, since the triangle {origin,start,C} has known angles, and two known sides. We can find the length of the line {origin,C}, which lets us trivially compute the coordinate for C:
 
 \[
   \begin{array}{l}
-    l = cos(\frac{φ}{2}) \ , \\
+    l = cos(\frac{φ}{2}) ~, \\
     \left\{\begin{array}{l}
-      C_x = l \cdot cos\left(\frac{φ}{2}\right) = cos^2\left(\frac{φ}{2}\right)\ , \\
-      C_y = l \cdot sin\left(\frac{φ}{2}\right) = cos(\frac{φ}{2}) \cdot sin\left(\frac{φ}{2}\right)\ , \\
+      C_x = l \cdot cos\left(\frac{φ}{2}\right) = cos^2\left(\frac{φ}{2}\right)~, \\
+      C_y = l \cdot sin\left(\frac{φ}{2}\right) = cos(\frac{φ}{2}) \cdot sin\left(\frac{φ}{2}\right)~, \\
     \end{array}\right.
   \end{array}
 \]
@@ -121,9 +121,9 @@ And after this tedious detour to find the coordinate for C<sub>1</sub>, we can f
 
 \[
   \begin{array}{l}
-    E'_x = -sin(φ) \ ,\\
-    E'_y = cos(φ) \ , \\
-    ||E'|| = \sqrt{ (-sin(φ))^2 + cos^2(φ)} = 1 \ , \\
+    E'_x = -sin(φ) ~,\\
+    E'_y = cos(φ) ~, \\
+    ||E'|| = \sqrt{ (-sin(φ))^2 + cos^2(φ)} = 1 ~, \\
     \\
     \left\{\begin{array}{l}
       C_2x = E_x - C_{1y} \cdot \frac{E_x'}{||E'||}
@@ -146,7 +146,7 @@ So, to recap, given an angle φ, the new control coordinates are:
   C_1 = \left [ \begin{matrix}
     1 \\
     f
-  \end{matrix} \right ],\ with\ f = \frac{4}{3} tan \left( \frac{φ}{4} \right)
+  \end{matrix} \right ],~with~f = \frac{4}{3} tan \left( \frac{φ}{4} \right)
 \]
 
 and
@@ -155,16 +155,16 @@ and
   C_2 = \left [ \begin{matrix}
     cos(φ) + f \cdot sin(φ) \\
     sin(φ) - f \cdot cos(φ)
-  \end{matrix} \right ],\ with\ f = \frac{4}{3} tan \left( \frac{φ}{4} \right)
+  \end{matrix} \right ],~with~f = \frac{4}{3} tan \left( \frac{φ}{4} \right)
 \]
 
 And, because the "quarter curve" special case comes up so incredibly often, let's look at what these new control points mean for the curve coordinates of a quarter curve, by simply filling in φ = π/2:
 
 \[
   \begin{array}{l}
-    S = (1, 0) \ , \
-    C_1 = \left ( 1, 4 \frac{\sqrt{2}-1}{3} \right ) \ , \
-    C_2 = \left ( 4 \frac{\sqrt{2}-1}{3} , 1 \right ) \ , \
+    S = (1, 0) ~, \
+    C_1 = \left ( 1, 4 \frac{\sqrt{2}-1}{3} \right ) ~, \
+    C_2 = \left ( 4 \frac{\sqrt{2}-1}{3} , 1 \right ) ~, \
     E = (0, 1)
   \end{array}
 \]
@@ -173,9 +173,9 @@ Which, in decimal values, rounded to six significant digits, is:
 
 \[
   \begin{array}{l}
-    S = (1, 0) \ , \
-    C_1 = (1, 0.55228) \ , \
-    C_2 = (0.55228 , 1) \ , \
+    S = (1, 0) ~, \
+    C_1 = (1, 0.55228) ~, \
+    C_2 = (0.55228 , 1) ~, \
     E = (0, 1)
   \end{array}
 \]

@@ -1,0 +1,7 @@
+\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
+ 
+                                           1次= (1-t) + t                                        
+                                                    2                      2
+                                           2次= (1-t)  + 2  · (1-t)  · t + t                     
+                                                    3             2                       2    3
+                                           3次= (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 

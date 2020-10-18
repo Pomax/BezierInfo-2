@@ -1,0 +1,5 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                      C  = S + a  · \begin{pmatrix} 0
+                                                       1
+                                                              1 \end{pmatrix}

@@ -22,9 +22,9 @@ If we want to change the curve, we need to change the weights of each point, eff
 
 \[
   Bézier(n,t) = \sum_{i=0}^{n}
-                \underset{binomial\ term}{\underbrace{\binom{n}{i}}}
+                \underset{binomial~term}{\underbrace{\binom{n}{i}}}
                 \cdot\
-                \underset{polynomial\ term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
+                \underset{polynomial~term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
                 \cdot\
                 \underset{weight}{\underbrace{w_i}}
 \]

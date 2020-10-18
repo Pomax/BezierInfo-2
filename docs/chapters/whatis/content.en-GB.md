@@ -9,12 +9,12 @@ If we know the distance between those two points, and we want a new point that i
 \[
 Given \left (
   \begin{aligned}
-    p_1 &= some\ point \\
-    p_2 &= some\ other\ point \\
+    p_1 &= some~point \\
+    p_2 &= some~other~point \\
     distance &= (p_2 - p_1) \\
     ratio &= \frac{percentage}{100} \\
   \end{aligned}
-\right ),\ our\ new\ point = p_1 + distance \cdot ratio
+\right ),~our~new~point = p_1 + distance \cdot ratio
 \]
 
 So let's look at that in action: the following graphic is interactive in that you can use your up and down arrow keys to increase or decrease the interpolation ratio, to see what happens. We start with three points, which gives us two lines. Linear interpolation over those lines gives us two points, between which we can again perform linear interpolation, yielding a single point. And that point —and all points we can form in this way for all ratios taken together— form our Bézier curve:

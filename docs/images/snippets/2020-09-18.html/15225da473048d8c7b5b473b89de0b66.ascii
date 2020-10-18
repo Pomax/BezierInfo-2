@@ -1,0 +1,11 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                     __ n=3                  n-k k
+                                          B(t)     = ❯     \ P  \binomnk(1-t)   t                
+                                              cubic  ‾‾ k=0    
+                                                              k
+                                                                                                 
+                                                             3            2             2       3
+                                                   = P  (1-t)  + 3 P (1-t) t + 3P (1-t)t  + P  t 
+                                                                                              
+                                                      0             1            2           3

@@ -1,0 +1,5 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                           S = \begin{pmatrix} 1
+                                              0 \end{pmatrix}  ,  \ E = \begin{pmatrix} cos(φ)
+                                                            sin(φ) \end{pmatrix}

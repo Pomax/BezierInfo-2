@@ -90,9 +90,9 @@
 
 \[
   Bézier(n,t) = \sum_{i=0}^{n}
-                \underset{binomial\ term}{\underbrace{\binom{n}{i}}}
+                \underset{binomial~term}{\underbrace{\binom{n}{i}}}
                 \cdot\
-                \underset{polynomial\ term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
+                \underset{polynomial~term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
 \]
 
 这就是贝塞尔曲线完整的描述。在这个函数中的Σ表示了这是一系列的加法（用Σ下面的变量，从...=<值>开始，直到Σ上面的数字结束）。

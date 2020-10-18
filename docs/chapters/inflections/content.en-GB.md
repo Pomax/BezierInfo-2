@@ -29,8 +29,8 @@ Of course, before we do our aligned check, let's see what happens if we compute 
 \[
 \begin{aligned}
   & Bézier(t) = x_1(1-t)^3 + 3x_2(1-t)^2t + 3x_3(1-t)t^2 + x_4t^3 \\
-  & Bézier^\prime(t) = a(1-t)^2 + 2b(1-t)t + ct^2\  \left\{ a=3(x_2-x_1),b=3(x_3-x_2),c=3(x_4-x_3) \right\} \\
-  & Bézier^{\prime\prime}(t) = u(1-t) + vt\ \left\{ u=2(b-a),v=2(c-b) \right\}\
+  & Bézier^\prime(t) = a(1-t)^2 + 2b(1-t)t + ct^2~ \left\{ a=3(x_2-x_1),b=3(x_3-x_2),c=3(x_4-x_3) \right\} \\
+  & Bézier^{\prime\prime}(t) = u(1-t) + vt~\left\{ u=2(b-a),v=2(c-b) \right\}\
 \end{aligned}
 \]
 
@@ -75,7 +75,7 @@ That's a lot easier to work with: we see a fair number of terms that we can comp
     c = x_2 \cdot y_3 \\
     d = x_4 \cdot y_3
   \end{matrix}\right\}
-  \ C(t) = (-3a + 2b + 3c - d)t^2 + (3a - b - 3c)t + (c - a)
+  ~C(t) = (-3a + 2b + 3c - d)t^2 + (3a - b - 3c)t + (c - a)
 \]
 
 This is a plain quadratic curve, and we know how to solve *C(t) = 0*; we use the quadratic formula:
@@ -86,7 +86,7 @@ This is a plain quadratic curve, and we know how to solve *C(t) = 0*; we use the
     y =& 3a - b - 3c \\
     z =& c - a
   \end{matrix}\right\}
-  \ C(t) = 0 \ \Rightarrow\ t = \frac{-y \pm \sqrt{y^2 - 4 x z}}{2x}
+  ~C(t) = 0 ~\Rightarrow~t = \frac{-y \pm \sqrt{y^2 - 4 x z}}{2x}
 \]
 
 We can easily compute this value *if* the discriminator isn't a negative number (because we only want real roots, not complex roots), and *if* *x* is not zero, because divisions by zero are rather useless.

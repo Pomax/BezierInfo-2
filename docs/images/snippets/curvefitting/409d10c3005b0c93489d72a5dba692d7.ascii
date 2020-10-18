@@ -1,0 +1,7 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                              ┌  1  0   0   0 0 ┐    ┌ a ┐
+                                                                              │ -4  4   0   0 0 │    │ b │
+                                  B       = T  · M  · C = ┌      2  3  4 ┐  · │  6 -12  6   0 0 │  · │ c │
+                                   quartic                └ 1 t t  t  t  ┘    │ -4  12 -12  4 0 │    │ d │
+                                                                              └  1  -4  6  -4 1 ┘    └ e ┘

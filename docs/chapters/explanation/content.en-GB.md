@@ -92,9 +92,9 @@ It's basically just a sum of "every combination of <i>a</i> and <i>b</i>", progr
 
 \[
   Bézier(n,t) = \sum_{i=0}^{n}
-                \underset{binomial\ term}{\underbrace{\binom{n}{i}}}
+                \underset{binomial~term}{\underbrace{\binom{n}{i}}}
                 \cdot\
-                \underset{polynomial\ term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
+                \underset{polynomial~term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
 \]
 
 And that's the full description for Bézier curves. Σ in this function indicates that this is a series of additions (using the variable listed below the Σ, starting at ...=&lt;value&gt; and ending at the value listed on top of the Σ).
