@@ -9,12 +9,15 @@ const localeStringData = {
     "en-GB": `A Primer on Bézier Curves`,
     "ja-JP": `ベジェ曲線入門`,
     "zh-CN": `贝塞尔曲线底漆`,
+    "uk-UA": `Підручник з кривих Безьє`,
   },
   subtitle: {
     "en-GB": `A free, online book for when you really need to know how to do Bézier things.`,
+    "uk-UA": `Безкоштовна онлайн-книга, яка навчить вас всьому необхідному, щоб працювати з кривими Безьє.`,
   },
   description: {
     "en-GB": `A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.`,
+    "uk-UA": `Детальне пояснення кривих Безьє та можливостей їх застосування.`,
   },
   longDescription: {
     "en-GB": `
@@ -44,26 +47,33 @@ const localeStringData = {
     "en-GB": `Table of Contents`,
     "ja-JP": `目次`,
     "zh-CN": `目录`,
+    "uk-UA": `Зміст`,
   },
   localeName: {
     "en-GB": `English`,
     "ja-JP": `日本語`,
     "zh-CN": `中文`,
+    "uk-UA": `Українська`,
   },
   langSwitchLabel: {
     "en-GB": `Read this in your own language:`,
+    "uk-UA": `Читати рідною мовою:`,
   },
   langHelpLabel: {
     "en-GB": `Don't see your language listed? <a href="https://github.com/Pomax/BezierInfo-2/wiki/localize">Help translate this content!</a>`,
+    "uk-UA": `Не бачите вашої мови у списку? <a href="https://github.com/Pomax/BezierInfo-2/wiki/localize">Допоможіть перекласти цей контент!</a>`,
   },
   disabledMessage: {
     "en-GB": `Scripts are disabled. Showing fallback image.`,
+    "uk-UA": `Скрипти вимкнено`,
   },
   changelogTitle: {
     "en-GB": `What's new?`,
+    "uk-UA": `Що нового?`,
   },
   toggleLabel: {
     "en-GB": `Toggle changes`,
+    "uk-UA": `Перемкнути зміни`,
   },
   preambleLabel: {
     "en-GB": `Preamble`,
@@ -74,12 +84,15 @@ const localeStringData = {
     "en-GB": `Preface`,
     "ja-JP": `まえがき`,
     "zh-CN": `序言`,
+    "uk-UA": `Передмова`,
   },
   mainContentLabel: {
     "en-GB": `Main content`,
+    "uk-UA": `Основний вміст`,
   },
   changelogLabel: {
     "en-GB": `What's new`,
+    "uk-UA": `Зміни`,
   },
   changelogDescription: {
     "en-GB": `This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when, or click through to the <a href="./news">News posts</a> for more detailed updates. (<a href="./news/rss.xml">RSS feed</a> available)`,
