@@ -42,6 +42,25 @@ const localeStringData = {
         be helping keep a resource alive and well!
       </p>
     `,
+    "uk-UA": `
+      <p>
+        Ласкаво прошу до Підручника з кривих Безьє. Це безкоштовний вебсайт/електронна книга, що пояснює і математичні, і програмувальні аспекти
+        кривих Безьє, покриваючи широкий спектр областей, які стосуються малювання та роботи з цими кривими. Криві Безьє застосовуються всюди, починаючи з кривих у Photoshop, і закінчуючи  
+         функціями пом'якшення (easing function) CSS та описом контурів популярних шрифтів.
+      </p>
+      <p>
+        Якщо ви тут вперше: ласкаво прошу! Напишіть мені <a href="https://github.com/Pomax/BezierInfo-2/issues">сюди</a>, якщо вас цікавить щось, пов'язане з кривими Безьє, чого немає у підручнику.
+      </p>
+
+      <p>
+        Якщо ви використовуєте цей ресурс для наукових досліджень, або пишете власне програмне забезпечення, будь ласка, розгляньте можливість
+        <a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">фінансової підтримки</a>
+        (будь-яка сума вітається), або <a href="https://www.patreon.com/bezierinfo">станьте патроном на Patreon</a>.
+        Мені не платять за цю роботу, тому якщо ви вважаєте цей сайт корисним, і хотіли б, щоб він підтримувався протягом тривалого часу, знайте: 
+        багато кави потрібно було за ці роки, і ще багато буде потрібно. Тому, якщо можете допомогти з кавою, то можете бути впевнені, що цей ресурс буде підтримуватися ще довго!
+        be helping keep a resource alive and well!
+      </p>
+    `,
   },
   tocLabel: {
     "en-GB": `Table of Contents`,
@@ -79,6 +98,7 @@ const localeStringData = {
     "en-GB": `Preamble`,
     "ja-JP": `前文`,
     "zh-CN": `前言`,
+    "uk-UA": `Передмова`,
   },
   prefaceLabel: {
     "en-GB": `Preface`,
@@ -96,6 +116,7 @@ const localeStringData = {
   },
   changelogDescription: {
     "en-GB": `This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when, or click through to the <a href="./news">News posts</a> for more detailed updates. (<a href="./news/rss.xml">RSS feed</a> available)`,
+    "uk-UA": `Цей підручник постійно розвививається, тож залежно від того, коли ви востаннє його переглядали, тут можуть бути оновлення. Перейдіть за <a href="./news">цим посиланням</a>, щоб побачити, що було додано. (Також доступний <a href="./news/rss.xml">RSS-канал</a>)`,
   },
 };
 
