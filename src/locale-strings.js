@@ -98,7 +98,7 @@ const localeStringData = {
     "en-GB": `Preamble`,
     "ja-JP": `前文`,
     "zh-CN": `前言`,
-    "uk-UA": `Передмова`,
+    "uk-UA": `Преамбула`,
   },
   prefaceLabel: {
     "en-GB": `Preface`,
