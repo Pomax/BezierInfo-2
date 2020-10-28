@@ -10,7 +10,7 @@ Work is still underway on this new version, see https://github.com/Pomax/BezierI
 
 Use the latest Node (currently v14), with all the project dependencies installed via `npm install`. Note that [node-canvas](https://github.com/Automattic/node-canva) has [special instructions for Windows users](https://github.com/Automattic/node-canvas/wiki/Installation:-Windows) because it's going to have to compile itself (GTK is _required_. However, JPEG support is not).
 
-Also note that you will need a TeX installation with several dependencies: on Windows, install [MiKTeX](https://miktex.org/download) and set it up so that it installs things as needed. On Linux/Unix/etc, you'll need to install the following packages:
+Also note that you will need a TeX installation with several dependencies: on Windows, install [MiKTeX](https://miktex.org/download) and set it up so that it automatically installs things as needed. On Linux/Unix/etc, you'll need to install the following packages:
 
 - xzdec
 - libpoppler-glib-dev
