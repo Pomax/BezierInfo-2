@@ -54,7 +54,7 @@ const localeStringData = {
     "en-GB": `Read this in your own language:`,
   },
   langHelpLabel: {
-    "en-GB": `Don't see your language listed? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Help translate this content!</a>`,
+    "en-GB": `Don't see your language listed, or want to see it reach 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Help translate this content!</a>`,
   },
   disabledMessage: {
     "en-GB": `Scripts are disabled. Showing fallback image.`,
