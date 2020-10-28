@@ -52,9 +52,14 @@ async function processLocale(locale, localeStrings, chapterFiles) {
     })
   );
 
-  logRunInformation(locale, defaultLocale, missing, localized, sectionList, start);
+  const percentage = logRunInformation(locale, defaultLocale, missing, localized, sectionList, start);
 
-  return chapters;
+  return {
+    chapters,
+    locale,
+    localeStrings,
+    percentage,
+  };
 }
 
 export { processLocale };
@@ -65,11 +70,14 @@ export { processLocale };
 function logRunInformation(locale, defaultLocale, missing, localized, sectionList, start) {
   if (locale === defaultLocale && missing > 0) {
     console.log(`Warning: ${missing} chapters appear to be missing, based on the ToC listing.`);
+    return 0;
   } else {
     if (localized < sectionList.length) {
       console.log(`${locale} partially localized: [${localized}/${sectionList.length}]`);
+      return Math.round((100 * localized) / sectionList.length);
     } else {
       console.log(`${locale} fully localized.`);
+      return 100;
     }
   }
 

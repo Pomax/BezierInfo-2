@@ -2,7 +2,7 @@
  * ...docs go here...
  * @param {*} localeStrings
  */
-export default function generateLangSwitcher(localeStrings) {
+export default function generateLangSwitcher(localeStrings, langProgress) {
   const defaultLocale = localeStrings.getDefaultLocale();
 
   return localeStrings
@@ -15,7 +15,7 @@ export default function generateLangSwitcher(localeStrings) {
         link = `./${locale}/index.html`;
       }
       let localeName = localeStrings.getLocaleName(locale);
-      return `<li><a href="${link}">${localeName}</a></li>`;
+      return `<li><a href="${link}">${localeName}</a> <span class="localisation-progress">(${langProgress[locale]}%)</span></li>`;
     })
     .join(`\n`);
 }
