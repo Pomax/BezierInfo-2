@@ -37,8 +37,8 @@ Which will start the build run in "watch" mode, opening a browser with the compi
 
 #### Specialised commands:
 
-- `regenerate` runs a build followed by running `prettier` on the final .html files, as well as `link-checker` to make sure there are no dead links in the content.
-- `deploy` runs `regenerate` and then copies the content of the `docs` directory over to `../bezierinfo`, which is where the actual webview repo lives on my filesystem.
+- `npm run regenerate` runs a build followed by running `prettier` on the final .html files, as well as `link-checker` to make sure there are no dead links in the content.
+- `npm run deploy` runs `regenerate` and then copies the content of the `docs` directory over to `../bezierinfo`, which is where the actual webview repo lives on my filesystem.
 
 #### Even more specialized commands:
 
