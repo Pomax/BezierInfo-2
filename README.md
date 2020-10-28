@@ -26,6 +26,15 @@ To make life easier, if your distro uses apt-get, just run this:
 sudo apt-get update && sudo apt-get install xzdec libpoppler-glib-dev texlive texlive-xetex texlive-extra-utils pdf2svg
 ```
 
+With all the dependencies in place, you can now test everything using:
+
+```
+> npm test
+```
+
+Which will start the build run in "watch" mode, opening a browser with the compiled project, and recompiling as you update and save files.
+
+
 #### Specialised commands:
 
 - `regenerate` runs a build followed by running `prettier` on the final .html files, as well as `link-checker` to make sure there are no dead links in the content.
