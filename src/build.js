@@ -15,13 +15,17 @@ getAllChapterFiles().then(async (chapterFiles) => {
   const start = Date.now();
   const languageCodes = Object.keys(chapterFiles);
 
-  await Promise.all(
+  const build = await Promise.all(
     languageCodes.map(async (locale) => {
       const localeStrings = new LocaleStrings(locale);
-      const chapters = await processLocale(locale, localeStrings, chapterFiles);
-      return createIndexPages(locale, localeStrings, chapters);
+      return await processLocale(locale, localeStrings, chapterFiles);
     })
   );
+
+  const progress = {};
+  build.forEach((e) => (progress[e.locale] = e.percentage));
+
+  await Promise.all(build.map((e) => createIndexPages(e.locale, e.localeStrings, e.chapters, progress)));
 
   await createNewsPages();
 

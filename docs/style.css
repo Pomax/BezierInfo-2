@@ -1,20 +1,3 @@
-:root[lang="en-GB"] {
-  font-family: "Museo", "Helvetica Neue", "Helvetica", Arial, sans-serif;
-  font-size: 18px;
-}
-
-:root[lang="ja-JP"] {
-  font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Osaka", "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", "MS PGothic", "Helvetica Neue",
-    "Helvetica", Arial, sans-serif;
-  font-size: 15.6px;
-}
-
-:root[lang="zh-CN"] {
-  font-family: "华文细黑", "STXihei", "PingFang TC", "微软雅黑体", "Microsoft YaHei New", "微软雅黑", "Microsoft Yahei", "宋体", "SimSun",
-    "Helvetica Neue", "Helvetica", Arial, sans-serif;
-  font-size: 16.7px;
-}
-
 :root {
   background: #eee;
   background-image: url(images/paper.png);
@@ -111,9 +94,15 @@ ul.lang-switcher li {
 }
 ul.lang-switcher + p {
   font-size: 85%;
-  margin: 0;
+  margin-bottom: 2em;
 }
 
+ul.lang-switcher li .localisation-progress {
+  font-size: 60%;
+  vertical-align: middle;
+}
+
+/*
 @media screen and (min-width: 992px) {
   ul.lang-switcher + p {
     display: inline;
@@ -121,6 +110,7 @@ ul.lang-switcher + p {
     font-size: 75%;
   }
 }
+*/
 
 /* --------------------- */
 

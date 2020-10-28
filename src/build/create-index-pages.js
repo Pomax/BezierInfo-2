@@ -11,10 +11,10 @@ nunjucks.configure(paths.html, { autoescape: false });
 /**
  * ...docs go here...
  */
-async function createIndexPages(locale, localeStrings, chapters) {
+async function createIndexPages(locale, localeStrings, chapters, langProgress) {
   const defaultLocale = localeStrings.getDefaultLocale();
   const base = locale !== defaultLocale ? `<base href="..">` : ``;
-  const langSwitcher = generateLangSwitcher(localeStrings);
+  const langSwitcher = generateLangSwitcher(localeStrings, langProgress);
   const toclist = {};
 
   const localePrefix = base ? `${locale}/index.html` : ``;
