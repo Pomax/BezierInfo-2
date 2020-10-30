@@ -9,12 +9,15 @@ const localeStringData = {
     "en-GB": `A Primer on Bézier Curves`,
     "ja-JP": `ベジェ曲線入門`,
     "zh-CN": `贝塞尔曲线底漆`,
+    "uk-UA": `Підручник з кривих Безьє`,
   },
   subtitle: {
     "en-GB": `A free, online book for when you really need to know how to do Bézier things.`,
+    "uk-UA": `Безкоштовна онлайн-книга, яка навчить вас всьому необхідному, щоб працювати з кривими Безьє.`,
   },
   description: {
     "en-GB": `A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.`,
+    "uk-UA": `Детальне пояснення кривих Безьє та можливостей їх застосування.`,
   },
   longDescription: {
     "en-GB": `
@@ -39,50 +42,88 @@ const localeStringData = {
         be helping keep a resource alive and well!
       </p>
     `,
+    "uk-UA": `
+      <p>
+        Ласкаво прошу до Підручника з кривих Безьє. Це безкоштовний вебсайт/електронна книга, що пояснює і математичні, і програмувальні аспекти
+        кривих Безьє, покриваючи широкий спектр областей, які стосуються малювання та роботи з цими кривими. Криві Безьє застосовуються всюди, починаючи з кривих у Photoshop, і закінчуючи  
+         функціями пом'якшення (easing function) CSS та описом контурів популярних шрифтів.
+      </p>
+      <p>
+        Якщо ви тут вперше: ласкаво прошу! Напишіть мені <a href="https://github.com/Pomax/BezierInfo-2/issues">сюди</a>, якщо вас цікавить щось, пов'язане з кривими Безьє, чого немає у підручнику.
+      </p>
+
+      <p>
+        Якщо ви використовуєте цей ресурс для наукових досліджень, або пишете власне програмне забезпечення, будь ласка, розгляньте можливість
+        <a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">фінансової підтримки</a>
+        (будь-яка сума вітається), або <a href="https://www.patreon.com/bezierinfo">станьте патроном на Patreon</a>.
+        Мені не платять за цю роботу, тому якщо ви вважаєте цей сайт корисним, і хотіли б, щоб він підтримувався протягом тривалого часу, знайте: 
+        багато кави потрібно було за ці роки, і ще багато буде потрібно. Тому, якщо можете допомогти з кавою, то можете бути впевнені, що цей ресурс буде підтримуватися ще довго!
+      </p>
+    `,
   },
   tocLabel: {
     "en-GB": `Table of Contents`,
     "ja-JP": `目次`,
     "zh-CN": `目录`,
+    "uk-UA": `Зміст`,
   },
   localeName: {
     "en-GB": `English`,
     "ja-JP": `日本語`,
     "zh-CN": `中文`,
+    "uk-UA": `Українська`,
   },
   langSwitchLabel: {
     "en-GB": `Read this in your own language:`,
+    "uk-UA": `Читати рідною мовою:`,
   },
   langHelpLabel: {
-    "en-GB": `Don't see your language listed, or want to see it reach 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Help translate this content!</a>`,
+    "en-GB": `Don't see your language listed? <a href="https://github.com/Pomax/BezierInfo-2/wiki/localize">Help translate this content!</a>`,
+    "uk-UA": `Не бачите вашої мови у списку? <a href="https://github.com/Pomax/BezierInfo-2/wiki/localize">Допоможіть перекласти цей контент!</a>`,
   },
   disabledMessage: {
     "en-GB": `Scripts are disabled. Showing fallback image.`,
+    "uk-UA": `Скрипти вимкнено`,
   },
   changelogTitle: {
     "en-GB": `What's new?`,
+    "uk-UA": `Що нового?`,
   },
   toggleLabel: {
     "en-GB": `Toggle changes`,
+    "uk-UA": `Перемкнути зміни`,
   },
   preambleLabel: {
     "en-GB": `Preamble`,
     "ja-JP": `前文`,
     "zh-CN": `前言`,
+    "uk-UA": `Преамбула`,
   },
   prefaceLabel: {
     "en-GB": `Preface`,
     "ja-JP": `まえがき`,
     "zh-CN": `序言`,
+    "uk-UA": `Передмова`,
   },
   mainContentLabel: {
     "en-GB": `Main content`,
+    "uk-UA": `Основний вміст`,
   },
   changelogLabel: {
     "en-GB": `What's new`,
+    "uk-UA": `Зміни`,
   },
   changelogDescription: {
     "en-GB": `This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when, or click through to the <a href="./news">News posts</a> for more detailed updates. (<a href="./news/rss.xml">RSS feed</a> available)`,
+    "uk-UA": `Цей підручник постійно розвививається, тож залежно від того, коли ви востаннє його переглядали, тут можуть бути оновлення. Перейдіть за <a href="./news">цим посиланням</a>, щоб побачити, що було додано. (Також доступний <a href="./news/rss.xml">RSS-канал</a>)`,
+  },
+  previous: {
+    "en-GB": `previous`,
+    "uk-UA": `попередня сторінка`,
+  },
+  next: {
+    "en-GB": `next`,
+    "uk-UA": `наступна сторінка`,
   },
 };
 
