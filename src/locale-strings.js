@@ -117,6 +117,14 @@ const localeStringData = {
     "en-GB": `This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when, or click through to the <a href="./news">News posts</a> for more detailed updates. (<a href="./news/rss.xml">RSS feed</a> available)`,
     "uk-UA": `Цей підручник постійно розвививається, тож залежно від того, коли ви востаннє його переглядали, тут можуть бути оновлення. Перейдіть за <a href="./news">цим посиланням</a>, щоб побачити, що було додано. (Також доступний <a href="./news/rss.xml">RSS-канал</a>)`,
   },
+  previous: {
+    "en-GB": `previous`,
+    "uk-UA": `попередня сторінка`,
+  },
+  next: {
+    "en-GB": `next`,
+    "uk-UA": `наступна сторінка`,
+  },
 };
 
 // =============================
