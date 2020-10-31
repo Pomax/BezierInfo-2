@@ -2,6 +2,8 @@ import marked from "marked";
 
 const CHANGELOG = Object.fromEntries(
   Object.entries({
+    "October 2020": [`Added the Ukranian locale! Help out in getting its localization to 100%!`],
+
     "August-September 2020": [
       `Completely overhauled the site: the Primer is now a normal web page that works fine with JS disabled, but obviously better with JS turned on.`,
     ],
