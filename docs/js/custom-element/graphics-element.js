@@ -330,14 +330,14 @@ class GraphicsElement extends CustomElement {
 
     const a = document.createElement(`a`);
     a.classList.add(`view-source`);
-    a.textContent = `view source`;
+    a.textContent = this.getAttribute(`viewSource`) || `view source`;
     a.href = this.src;
     a.target = `_blank`;
     toptitle.append(a);
 
     const r = document.createElement(`button`);
     r.classList.add(`reset`);
-    r.textContent = `reset`;
+    r.textContent = this.getAttribute(`reset`) || `reset`;
     r.addEventListener(`click`, () => this.reset());
     toptitle.append(r);
 

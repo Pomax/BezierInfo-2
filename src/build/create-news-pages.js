@@ -3,7 +3,7 @@ import fs from "fs-extra";
 import path from "path";
 import paths from "../project-paths.js";
 import nunjucks from "nunjucks";
-import LocaleStrings from "../locale-strings.js";
+import LocaleStrings from "../localization.js";
 import { convertMarkDown } from "./markdown/convert-markdown.js";
 
 nunjucks.configure(paths.html, { autoescape: false });

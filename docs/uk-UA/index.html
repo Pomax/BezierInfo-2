@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja-JP">
+<html lang="uk-UA">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>ベジェ曲線入門</title>
+		<title>Підручник з кривих Безьє</title>
 
 		<base href=".." />
 
@@ -14,31 +14,29 @@
 		<!-- page styling -->
 		<link rel="preload" href="images/paper.png" as="image" />
 		<style>
-			:root[lang="ja-JP"] {
-				font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Osaka", "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", "MS PGothic",
-					"Helvetica Neue", Helvetica, Arial, sans-serif;
-				font-size: 15.6px;
+			@font-face {
+				font-family: Roboto;
+				src: url(./fonts/roboto-v20-latin-regular.woff) format("WOFF");
+			}
+
+			:root[lang="uk-UA"] {
+				font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+				font-size: 17.4px;
 			}
 		</style>
 
 		<link rel="stylesheet" href="style.css" />
 
 		<!-- And a slew of SEO related meta elements, because being discoverable is important -->
-		<meta
-			name="description"
-			content="A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them."
-		/>
+		<meta name="description" content="Детальне пояснення кривих Безьє та можливостей їх застосування." />
 
 		<!-- opengraph information -->
-		<meta property="og:title" content="ベジェ曲線入門" />
+		<meta property="og:title" content="Підручник з кривих Безьє" />
 		<meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
 		<meta property="og:type" content="text" />
-		<meta property="og:url" content="https://pomax.github.io/bezierinfo/ja-JP" />
-		<meta
-			property="og:description"
-			content="A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them."
-		/>
-		<meta property="og:locale" content="ja-JP" />
+		<meta property="og:url" content="https://pomax.github.io/bezierinfo/uk-UA" />
+		<meta property="og:description" content="Детальне пояснення кривих Безьє та можливостей їх застосування." />
+		<meta property="og:locale" content="uk-UA" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
 		<meta property="og:updated_time" content="2020-10-31T03:08:55+00:00" />
@@ -51,11 +49,8 @@
 		<meta name="twitter:site" content="@TheRealPomax" />
 		<meta name="twitter:creator" content="@TheRealPomax" />
 		<meta name="twitter:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
-		<meta name="twitter:url" content="https://pomax.github.io/bezierinfo/ja-JP" />
-		<meta
-			name="twitter:description"
-			content="A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them."
-		/>
+		<meta name="twitter:url" content="https://pomax.github.io/bezierinfo/uk-UA" />
+		<meta name="twitter:description" content="Детальне пояснення кривих Безьє та можливостей їх застосування." />
 
 		<!-- my own referral/page hit tracker, because Google knows enough -->
 		<script src="./js/site/referrer.js" type="module" async></script>
@@ -128,11 +123,11 @@
 
 		<header>
 			<h1>
-				ベジェ曲線入門<a class="rss-link" href="news/rss.xml"><img src="images/rss.png" /></a>
+				Підручник з кривих Безьє<a class="rss-link" href="news/rss.xml"><img src="images/rss.png" /></a>
 			</h1>
-			<h2>A free, online book for when you really need to know how to do Bézier things.</h2>
+			<h2>Безкоштовна онлайн-книга, яка навчить вас всьому необхідному, щоб працювати з кривими Безьє.</h2>
 			<div>
-				<span>Read this in your own language:</span>
+				<span>Читати рідною мовою:</span>
 				<ul class="lang-switcher">
 					<li><a href="./index.html">English</a> &nbsp;</li>
 					<li><a href="./ja-JP/index.html">日本語</a> <span class="localisation-progress">(24%)</span></li>
@@ -140,26 +135,26 @@
 					<li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
 				</ul>
 				<p>
-					(Don't see your language listed, or want to see it reach 100%?
-					<a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Help translate this content!</a>)
+					(Не бачите своєї мови у списку або хочете, щоб вона досягла 100%?
+					<a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Допоможіть перекласти цей контент!</a>)
 				</p>
 			</div>
 
 			<p>
-				Welcome to the Primer on Bezier Curves. This is a free website/ebook dealing with both the maths and programming aspects of Bezier Curves,
-				covering a wide range of topics relating to drawing and working with that curve that seems to pop up everywhere, from Photoshop paths to CSS
-				easing functions to Font outline descriptions.
+				Ласкаво прошу до Підручника з кривих Безьє. Це безкоштовний вебсайт/електронна книга, що пояснює і математичні, і програмувальні аспекти
+				кривих Безьє, покриваючи широкий спектр областей, які стосуються малювання та роботи з цими кривими. Криві Безьє застосовуються всюди,
+				починаючи з кривих у Photoshop, і закінчуючи функціями пом'якшення (easing function) CSS та описом контурів популярних шрифтів.
 			</p>
 			<p>
-				If this is your first time here: welcome! Let me know if you were looking for anything in particular that the primer doesn't cover over on the
-				<a href="https://github.com/Pomax/BezierInfo-2/issues">issue tracker</a>!
+				Якщо ви тут вперше: ласкаво прошу! Напишіть мені <a href="https://github.com/Pomax/BezierInfo-2/issues">сюди</a>, якщо вас цікавить щось,
+				пов'язане з кривими Безьє, чого немає у підручнику.
 			</p>
 			<p>
-				If this is a resource that you're using for research, or writing your own software, please consider
-				<a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">donating</a> (any amount helps) or
-				signing up as <a href="https://www.patreon.com/bezierinfo">a patron on Patreon</a>. I don't get paid to work on this, so if you find this site
-				valuable, and you'd like it to stick around for a long time to come, a lot of coffee went into writing this over the years, and a lot more
-				coffee will need to go into it yet: if you can spare a coffee, you'd be helping keep a resource alive and well!
+				Якщо ви використовуєте цей ресурс для наукових досліджень, або пишете власне програмне забезпечення, будь ласка, розгляньте можливість
+				<a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">фінансової підтримки</a>
+				(будь-яка сума вітається), або <a href="https://www.patreon.com/bezierinfo">станьте патроном на Patreon</a>. Мені не платять за цю роботу,
+				тому якщо ви вважаєте цей сайт корисним, і хотіли б, щоб він підтримувався протягом тривалого часу, знайте: багато кави потрібно було за ці
+				роки, і ще багато буде потрібно. Тому, якщо можете допомогти з кавою, то можете бути впевнені, що цей ресурс буде підтримуватися ще довго!
 			</p>
 
 			<p>— <a href="https://twitter.com/TheRealPomax">Pomax</a></p>
@@ -185,146 +180,159 @@
 				</div>
 			</noscript>
 			<nav aria-labelledby="toc">
-				<h1 id="toc">目次</h1>
-				<h4>前文</h4>
+				<h1 id="toc">Зміст</h1>
+				<h4>Преамбула</h4>
 				<ol class="preamble">
-					<li><a href="ja-JP/index.html#preface">まえがき </a></li>
-					<li><a href="ja-JP/index.html#changelog">What's new</a></li>
+					<li><a href="uk-UA/index.html#preface">Передмова </a></li>
+					<li><a href="uk-UA/index.html#changelog">Зміни</a></li>
 				</ol>
-				<h4>Main content</h4>
+				<h4>Основний вміст</h4>
 				<ol>
-					<li><a href="ja-JP/index.html#introduction">バッとした導入</a></li>
-					<li><a href="ja-JP/index.html#whatis">ではベジエ曲線はどうやってできるのでしょう？</a></li>
-					<li><a href="ja-JP/index.html#explanation">ベジエ曲線の数学</a></li>
-					<li><a href="ja-JP/index.html#control">ベジエ曲線の曲率の制御</a></li>
-					<li><a href="ja-JP/index.html#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a></li>
-					<li><a href="ja-JP/index.html#extended">ベジエ曲線の区間 [0,1]</a></li>
-					<li><a href="ja-JP/index.html#matrix">行列演算としてのベジエ曲線の曲率</a></li>
-					<li><a href="ja-JP/index.html#decasteljau">ド・カステリョのアルゴリズム</a></li>
-					<li><a href="ja-JP/index.html#flattening">簡略化した描画</a></li>
-					<li><a href="ja-JP/index.html#splitting">曲線の分割</a></li>
-					<li><a href="ja-JP/index.html#matrixsplit">行列による曲線の分割</a></li>
-					<li><a href="ja-JP/index.html#reordering">Lowering and elevating curve order</a></li>
-					<li><a href="ja-JP/index.html#derivatives">Derivatives</a></li>
-					<li><a href="ja-JP/index.html#pointvectors">Tangents and normals</a></li>
-					<li><a href="ja-JP/index.html#pointvectors3d">Working with 3D normals</a></li>
-					<li><a href="ja-JP/index.html#components">Component functions</a></li>
-					<li><a href="ja-JP/index.html#extremities">Finding extremities: root finding</a></li>
-					<li><a href="ja-JP/index.html#boundingbox">Bounding boxes</a></li>
-					<li><a href="ja-JP/index.html#aligning">Aligning curves</a></li>
-					<li><a href="ja-JP/index.html#tightbounds">Tight bounding boxes</a></li>
-					<li><a href="ja-JP/index.html#inflections">Curve inflections</a></li>
-					<li><a href="ja-JP/index.html#canonical">The canonical form (for cubic curves)</a></li>
-					<li><a href="ja-JP/index.html#yforx">Finding Y, given X</a></li>
-					<li><a href="ja-JP/index.html#arclength">Arc length</a></li>
-					<li><a href="ja-JP/index.html#arclengthapprox">Approximated arc length</a></li>
-					<li><a href="ja-JP/index.html#curvature">Curvature of a curve</a></li>
-					<li><a href="ja-JP/index.html#tracing">Tracing a curve at fixed distance intervals</a></li>
-					<li><a href="ja-JP/index.html#intersections">Intersections</a></li>
-					<li><a href="ja-JP/index.html#curveintersection">Curve/curve intersection</a></li>
-					<li><a href="ja-JP/index.html#abc">The projection identity</a></li>
-					<li><a href="ja-JP/index.html#pointcurves">Creating a curve from three points</a></li>
-					<li><a href="ja-JP/index.html#projections">Projecting a point onto a Bézier curve</a></li>
-					<li><a href="ja-JP/index.html#molding">Molding a curve</a></li>
-					<li><a href="ja-JP/index.html#curvefitting">Curve fitting</a></li>
-					<li><a href="ja-JP/index.html#catmullconv">Bézier curves and Catmull-Rom curves</a></li>
-					<li><a href="ja-JP/index.html#catmullfitting">Creating a Catmull-Rom curve from three points</a></li>
-					<li><a href="ja-JP/index.html#polybezier">Forming poly-Bézier curves</a></li>
-					<li><a href="ja-JP/index.html#offsetting">Curve offsetting</a></li>
-					<li><a href="ja-JP/index.html#graduatedoffset">Graduated curve offsetting</a></li>
-					<li><a href="ja-JP/index.html#circles">Circles and quadratic Bézier curves</a></li>
-					<li><a href="ja-JP/index.html#circles_cubic">Circles and cubic Bézier curves</a></li>
-					<li><a href="ja-JP/index.html#arcapproximation">Approximating Bézier curves with circular arcs</a></li>
-					<li><a href="ja-JP/index.html#bsplines">B-Splines</a></li>
-					<li><a href="ja-JP/index.html#comments">Comments and questions</a></li>
+					<li><a href="uk-UA/index.html#introduction">Короткий вступ</a></li>
+					<li><a href="uk-UA/index.html#whatis">So what makes a Bézier Curve?</a></li>
+					<li><a href="uk-UA/index.html#explanation">The mathematics of Bézier curves</a></li>
+					<li><a href="uk-UA/index.html#control">Controlling Bézier curvatures</a></li>
+					<li><a href="uk-UA/index.html#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a></li>
+					<li><a href="uk-UA/index.html#extended">The Bézier interval [0,1]</a></li>
+					<li><a href="uk-UA/index.html#matrix">Bézier curvatures as matrix operations</a></li>
+					<li><a href="uk-UA/index.html#decasteljau">de Casteljau's algorithm</a></li>
+					<li><a href="uk-UA/index.html#flattening">Simplified drawing</a></li>
+					<li><a href="uk-UA/index.html#splitting">Splitting curves</a></li>
+					<li><a href="uk-UA/index.html#matrixsplit">Splitting curves using matrices</a></li>
+					<li><a href="uk-UA/index.html#reordering">Lowering and elevating curve order</a></li>
+					<li><a href="uk-UA/index.html#derivatives">Derivatives</a></li>
+					<li><a href="uk-UA/index.html#pointvectors">Tangents and normals</a></li>
+					<li><a href="uk-UA/index.html#pointvectors3d">Working with 3D normals</a></li>
+					<li><a href="uk-UA/index.html#components">Component functions</a></li>
+					<li><a href="uk-UA/index.html#extremities">Finding extremities: root finding</a></li>
+					<li><a href="uk-UA/index.html#boundingbox">Bounding boxes</a></li>
+					<li><a href="uk-UA/index.html#aligning">Aligning curves</a></li>
+					<li><a href="uk-UA/index.html#tightbounds">Tight bounding boxes</a></li>
+					<li><a href="uk-UA/index.html#inflections">Curve inflections</a></li>
+					<li><a href="uk-UA/index.html#canonical">The canonical form (for cubic curves)</a></li>
+					<li><a href="uk-UA/index.html#yforx">Finding Y, given X</a></li>
+					<li><a href="uk-UA/index.html#arclength">Arc length</a></li>
+					<li><a href="uk-UA/index.html#arclengthapprox">Approximated arc length</a></li>
+					<li><a href="uk-UA/index.html#curvature">Curvature of a curve</a></li>
+					<li><a href="uk-UA/index.html#tracing">Tracing a curve at fixed distance intervals</a></li>
+					<li><a href="uk-UA/index.html#intersections">Intersections</a></li>
+					<li><a href="uk-UA/index.html#curveintersection">Curve/curve intersection</a></li>
+					<li><a href="uk-UA/index.html#abc">The projection identity</a></li>
+					<li><a href="uk-UA/index.html#pointcurves">Creating a curve from three points</a></li>
+					<li><a href="uk-UA/index.html#projections">Projecting a point onto a Bézier curve</a></li>
+					<li><a href="uk-UA/index.html#molding">Molding a curve</a></li>
+					<li><a href="uk-UA/index.html#curvefitting">Curve fitting</a></li>
+					<li><a href="uk-UA/index.html#catmullconv">Bézier curves and Catmull-Rom curves</a></li>
+					<li><a href="uk-UA/index.html#catmullfitting">Creating a Catmull-Rom curve from three points</a></li>
+					<li><a href="uk-UA/index.html#polybezier">Forming poly-Bézier curves</a></li>
+					<li><a href="uk-UA/index.html#offsetting">Curve offsetting</a></li>
+					<li><a href="uk-UA/index.html#graduatedoffset">Graduated curve offsetting</a></li>
+					<li><a href="uk-UA/index.html#circles">Circles and quadratic Bézier curves</a></li>
+					<li><a href="uk-UA/index.html#circles_cubic">Circles and cubic Bézier curves</a></li>
+					<li><a href="uk-UA/index.html#arcapproximation">Approximating Bézier curves with circular arcs</a></li>
+					<li><a href="uk-UA/index.html#bsplines">B-Splines</a></li>
+					<li><a href="uk-UA/index.html#comments">Comments and questions</a></li>
 				</ol>
 			</nav>
 		</header>
 
 		<main>
 			<section id="preface">
-				<h1>まえがき</h1>
+				<h1>Preface</h1>
 				<p>
-					2次元上になにかを描くとき、普通は線を使いますが、これは直線と曲線の2つに分類することができます。直線を描くのはとても簡単で、これをコンピュータに描かせるのも容易です。直線の始点と終点をコンピュータに与えてやれば、ポン！直線が描けました。疑問の余地もありません。
+					In order to draw things in 2D, we usually rely on lines, which typically get classified into two categories: straight lines, and curves. The
+					first of these are as easy to draw as they are easy to make a computer draw. Give a computer the first and last point in the line, and BAM!
+					straight line. No questions asked.
 				</p>
 				<p>
-					しかしながら、曲線の方はもっと大きな問題です。私たちはフリーハンドでいとも簡単に曲線を描くことができますが、コンピュータの方は少し不利です。曲線の描き方を表した数学的な関数が与えられないと、コンピュータは曲線を描くことができないのです。実際には、直線でさえも関数が必要になります。直線の関数はとても簡単なので、わたしたちはよく無視してしまいますが、コンピュータにとっては直線であれ曲線であれ、線はすべて「関数」なのです。しかしこれは、コンピュータで速く計算できて、きれいな曲線が得られるような関数を見つける必要がある、ということになります。そのような関数はたくさんありますが、多くの関心を集め続け、そしてどんな場面でも使われている、ある特定の関数に対してこの記事では焦点を絞ります。この関数は「ベジエ」曲線を描きます。
+					Curves, however, are a much bigger problem. While we can draw curves with ridiculous ease freehand, computers are a bit handicapped in that
+					they can't draw curves unless there is a mathematical function that describes how it should be drawn. In fact, they even need this for
+					straight lines, but the function is ridiculously easy, so we tend to ignore that as far as computers are concerned; all lines are
+					"functions", regardless of whether they're straight or curves. However, that does mean that we need to come up with fast-to-compute
+					functions that lead to nice looking curves on a computer. There are a number of these, and in this article we'll focus on a particular
+					function that has received quite a bit of attention and is used in pretty much anything that can draw curves: Bézier curves.
 				</p>
 				<p>
-					ベジエ曲線は<a href="https://ja.wikipedia.org/wiki/%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%E3%83%BB%E3%83%99%E3%82%B8%E3%82%A7"
-						>Pierre Bézier</a
-					>から名付けられました。この曲線がデザイン作業に適していることを世界に知らしめたのが、彼なのです（ルノーに勤務し、1962年にその研究を発表しました）。ただし、この曲線を「発明」したのは彼が最初で唯一というわけではありません。数学者<a
-						href="https://en.wikipedia.org/wiki/Paul_de_Casteljau"
-						>Paul de Casteljau</a
-					>はシトロエンで働いていた1959年、この曲線の性質について研究し、ベジエ曲線の非常にエレガントな描き方を発見しました。これが最初だと言う人もいます。しかしながら、de
-					Casteljauは自分の成果を発表しなかったため、「誰が最初か？」という問いに答えるのがとても難しくなっています。またベジエ曲線は、核心的には<a
-						href="https://ja.wikipedia.org/wiki/%E3%82%BB%E3%83%AB%E3%82%B2%E3%82%A4%E3%83%BB%E3%83%99%E3%83%AB%E3%83%B3%E3%82%B7%E3%83%A5%E3%83%86%E3%82%A4%E3%83%B3"
-						>Sergei Natanovich Bernstein</a
-					>が研究した「ベルンシュタイン多項式」という数学関数の一種ですが、こちらの公刊に関しては少なくとも1912年まで遡ることができます。いずれにせよ、これらはほとんど瑣末なことです。より注目すべきなのは、ベジエ曲線は取り扱いに便利だいうことです。たとえば複数のベジエ曲線を繋いで、1つの曲線に見えるようにすることができます。もしあなたがPhotoshopで「パス」を描いたり、FlashやIllustrator、Inkscapeのようなベクタードローイングソフトを使ったことがあるのであれば、そこで描いてきた曲線はベジエ曲線です。
+					They're named after <a href="https://en.wikipedia.org/wiki/Pierre_B%C3%A9zier">Pierre Bézier</a>, who is principally responsible for making
+					them known to the world as a curve well-suited for design work (publishing his investigations in 1962 while working for Renault), although
+					he was not the first, or only one, to "invent" these type of curves. One might be tempted to say that the mathematician
+					<a href="https://en.wikipedia.org/wiki/Paul_de_Casteljau">Paul de Casteljau</a> was first, as he began investigating the nature of these
+					curves in 1959 while working at Citroën, and came up with a really elegant way of figuring out how to draw them. However, de Casteljau did
+					not publish his work, making the question "who was first" hard to answer in any absolute sense. Or is it? Bézier curves are, at their core,
+					"Bernstein polynomials", a family of mathematical functions investigated by
+					<a href="https://en.wikipedia.org/wiki/Sergei_Natanovich_Bernstein">Sergei Natanovich Bernstein</a>, whose publications on them date back at
+					least as far as 1912.
 				</p>
 				<p>
-					では、これを自分でプログラムしなければならないとなったらどうでしょう？ハマりどころは何でしょうか？どうやってベジエ曲線を描くのでしょう？バウンディングボックスとは何で、どうやって交点を求め、どうやったら曲線を押し出せるのでしょうか？つまるところ、ベジエ曲線に対して行いたいあらゆる操作は、どのようにすればいいのでしょう？このページはそれに答えるためにあります。数学にとりかかりましょう！
+					Anyway, that's mostly trivia, what you are more likely to care about is that these curves are handy: you can link up multiple Bézier curves
+					so that the combination looks like a single curve. If you've ever drawn Photoshop "paths" or worked with vector drawing programs like Flash,
+					Illustrator or Inkscape, those curves you've been drawing are Bézier curves.
 				</p>
-				<div class="print">
-					<h2>追伸：コーヒーをおごってくれませんか？</h2>
-					<p>
-						この本のことを印刷するほど気に入ったのであれば、あなたは「何かお礼をする方法はないか」と考えているかもしれません。この質問に対する答えはこうです：いつでもわたしにコーヒーをおごってください。あなたが住んでいるところの、コーヒー1杯の値段でかまいません。この本にかなりの金額を支払いたいのであれば、非常に高価なコーヒーをおごってくれてもかまいません
-						=)
-					</p>
-					<p>
-						この本は小さな入門からはじまり、印刷85ページ以上に相当するようなベジエ曲線の電子書籍へと、年々成長してきています。そして、多くのコーヒーがその執筆に費やされてきました。わたしは執筆に使った時間が惜しいとは思いませんが、もう少しコーヒーがあれば、ずっと書き続けることができるのです！<a
-							href="https://pomax.github.io/bezierinfo/%E3%81%AB%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%97%E3%81%A6%E3%82%AA%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E7%89%88%E3%81%AE%E3%81%BE%E3%81%88%E3%81%8C%E3%81%8D%E3%81%AB%E3%81%82%E3%82%8B%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%92%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF%E3%81%97%E3%80%81%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC%E4%BB%A3%E3%82%92%E5%AF%84%E4%BB%98%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%E3%80%82"
-							>https://pomax.github.io/bezierinfo/にアクセスしてオンライン版のまえがきにあるリンクをクリックし、コーヒー代を寄付してください。</a
-						>
-					</p>
-				</div>
-
+				<p>
+					But what if you need to program them yourself? What are the pitfalls? How do you draw them? What are the bounding boxes, how do you
+					determine intersections, how can you extrude a curve, in short: how do you do everything that you might want to do with these curves? That's
+					what this page is for. Prepare to be mathed!
+				</p>
 				<div class="note">
-					<h2>注：ベジエの図はすべてインタラクティブになっています。</h2>
-					<p>このページでは<a href="https://pomax.github.io/bezierjs/">Bezier.js</a>を活用し、インタラクティブな例示を行っています。</p>
-					<!-- The following is no longer true
-また、[MathJax](https://mathjax.org)というすばらしいライブラリによって、（LaTeX式の）「本物」の数学組版を行っています。このページはWebpackを使い、Reactアプリケーションとしてオフラインで生成されていますが、このために「ソースを表示」オプションを追加することがかなり難しくなってしまいました。これをどうやって追加すべきかは今もまだ考え中ですが、かといって、数年ぶりとなる今回の更新を延期したくはありませんでした。
--->
-
-					<h2>本書はオープンソースです。</h2>
+					<h2>Virtually all Bézier graphics are interactive.</h2>
 					<p>
-						この本はオープンソースソフトウェアのプロジェクトで、2つのGitHubリポジトリ上に存在しています。1つ目の<a
-							href="https://github.com/pomax/bezierinfo"
-							>https://github.com/pomax/bezierinfo</a
-						>は表示のためだけに用意されたバージョンで、あなたが今読んでいるものです。もう一方の<a href="https://github.com/pomax/BezierInfo-2"
-							>https://github.com/pomax/BezierInfo-2</a
-						>は開発版で、すべてのHTML・JavaScript・CSSが含まれています。どちらのリポジトリもフォークすることができますし、あなたの好きなように使ってかまいません。ただし、これを自分の成果だと騙って売ることはもちろん除きます。=)
+						This page uses interactive examples, relying heavily on <a href="https://pomax.github.io/bezierjs/">Bezier.js</a>, as well as maths
+						formulae which are typeset into SVG using the <a href="https://ctan.org/pkg/xetex">XeLaTeX</a> typesetting system and
+						<a href="https://github.com/dawbarton/pdf2svg">pdf2svg</a> by <a href="https://cityinthesky.co.uk/">David Barton</a>.
 					</p>
-					<h2>数学はどこまで難しくなりますか？</h2>
+					<h2>This book is open source.</h2>
 					<p>
-						この入門に出てくる数学は、大半が高校初年度程度です。基本的な計算を理解していて、英語の読み方が分かっていれば、こなすことができるはずです。時には<em>ずっと</em>難しい数学も出てきますが、もし理解できないように感じたら、そこは読み飛ばしても大丈夫です。節の中の「詳細欄」を飛ばしてもいいですし、厄介そうな数学があれば節の最後まで読み飛ばしてもかまいません。各節の最後にはたいてい結論を並べてありますので、これを直に利用することもできます。
+						This book is an open source software project, and lives on two github repositories. The first is
+						<a href="https://github.com/pomax/bezierinfo">https://github.com/pomax/bezierinfo</a> and is the purely-for-presentation version you are
+						viewing right now. The other repository is <a href="https://github.com/pomax/BezierInfo-2">https://github.com/pomax/BezierInfo-2</a>,
+						which is the development version, housing all the code that gets turned <em>into</em> the web version, and is also where you should file
+						issues if you find bugs or have ideas on what to change or add to the primer.
 					</p>
-					<h2>質問・コメント：</h2>
+					<h2>How complicated is the maths going to be?</h2>
 					<p>
-						新しい節の提案があれば、<a href="https://github.com/pomax/BezierInfo-2/issues">GitHubのissueトラッカー</a
-						>をクリックしてください（右上にあるリポジトリのリンクからでもたどり着けます）。改訂中のため、現在はこのページにはコメント欄がありませんが、内容に関する質問がある場合にもissueトラッカーを使ってかまいません。改訂が完了したら、総合的なコメント欄を復活させる予定です。あるいは、「質問対象の節を選択して『質問』ボタンをクリック」するような項目別のシステムになるかもしれません。いずれわかります。
+						Most of the mathematics in this Primer are early high school maths. If you understand basic arithmetic, and you know how to read English,
+						you should be able to get by just fine. There will at times be <em>far</em> more complicated maths, but if you don't feel like digesting
+						them, you can safely skip over them by either skipping over the "detail boxes" in section or by just jumping to the end of a section with
+						maths that looks too involving. The end of sections typically simply list the conclusions so you can just work with those values directly.
 					</p>
-					<h2>コーヒーをおごってくれませんか？</h2>
+					<h2>What language is all this example code in?</h2>
 					<p>
-						この本が気に入った場合や、取り組んでいたことに役に立つと思った場合、あるいは、この本への感謝をわたしに伝えるにはどうすればいいのかわからない場合。そのような場合には、<a
-							href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA"
-							>わたしにコーヒーをおごってください</a
-						>。あなたが住んでいるところのコーヒー1杯の値段でかまいません。この本は小さな入門からはじまり、印刷で70ページほどに相当するようなベジエ曲線の読み物へと、年々成長してきています。そして、多くのコーヒーが執筆に費やされてきました。わたしは執筆に使った時間が惜しいとは思いませんが、もう少しコーヒーがあれば、ずっと書き続けることができるのです！
+						There are way too many programming languages to favour one of all others, soo all the example code in this Primer uses a form of
+						pseudo-code that uses a syntax that's close enough to, but not actually, modern scripting languages like JS, Python, etc. That means you
+						won't be able to copy-paste any of it without giving it any thought, but that's intentional: if you're reading this primer, presumably you
+						want to <em>learn</em>, and you don't learn by copy-pasting. You learn by doing things yourself, <em>making mistakes</em>, and then fixing
+						those mistakes. Now, of course, I didn't intentionally add errors in the example code just to trick you into making mistakes (that would
+						be horrible!) but I <em>did</em> intentionally keep the code from favouring one programming language over another. Don't worry though, if
+						you know even a single procedural programming language, you should be able to read the examples without any difficulties.
+					</p>
+					<h2>Questions, comments:</h2>
+					<p>
+						If you have suggestions for new sections, hit up the <a href="https://github.com/pomax/BezierInfo-2/issues">Github issue tracker</a> (also
+						reachable from the repo linked to in the upper right). If you have questions about the material, there's currently no comment section
+						while I'm doing the rewrite, but you can use the issue tracker for that as well. Once the rewrite is done, I'll add a general comment
+						section back in, and maybe a more topical "select this section of text and hit the 'question' button to ask a question about it" system.
+						We'll see.
+					</p>
+					<h2>Help support the book!</h2>
+					<p>
+						If you enjoyed this book, or you simply found it useful for something you were trying to get done, and you were wondering how to let me
+						know you appreciated this book, you have two options: you can either head on over to the
+						<a href="https://www.patreon.com/bezierinfo">Patreon page</a> for this book, or if you prefer to make a one-time donation, head on over to
+						the <a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">buy Pomax a coffee</a> page. This
+						work has grown from a small primer to a 100-plus print-page-equivalent reader on the subject of Bézier curves over the years, and a lot of
+						coffee went into the making of it. I don't regret a minute I spent on writing it, but I can always do with some more coffee to keep on
+						writing!
 					</p>
 				</div>
 			</section>
 			<section id="changelog">
-				<h1>What's new?</h1>
+				<h1>Що нового?</h1>
 				<p>
-					This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand
-					this section to have a look at what got added, when, or click through to the <a href="./news">News posts</a> for more detailed updates. (<a
-						href="./news/rss.xml"
-						>RSS feed</a
-					>
-					available)
+					Цей підручник постійно розвививається, тож залежно від того, коли ви востаннє його переглядали, тут можуть бути оновлення. Перейдіть за
+					<a href="./news">цим посиланням</a>, щоб побачити, що було додано. (Також доступний <a href="./news/rss.xml">RSS-канал</a>)
 				</p>
 				<!-- non-JS content reveals are nice -->
-				<label for="changelogtoggle">Toggle changes</label>
+				<label for="changelogtoggle">Перемкнути зміни</label>
 				<input type="checkbox" id="changelogtoggle" />
 				<section>
 					<h2>August-September 2020</h2>
@@ -459,111 +467,134 @@
 			<section id="chapters">
 				<section id="introduction">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#whatis">次</a></div>
-						<a href="ja-JP/index.html#introduction">バッとした導入</a>
+						<div class="nav"><a href="uk-UA/index.html#whatis">наступний</a></div>
+						<a href="uk-UA/index.html#introduction">Короткий вступ</a>
 					</h1>
 					<p>
-						まずは良い例から始めましょう。ベジエ曲線というのは、下の図に表示されているもののことです。ベジエ曲線はある始点からある終点へと延びており、その曲率は1個以上の「中間」制御点に左右されています。さて、このページの図はどれもインタラクティブになっていますので、ここで曲線をちょっと操作してみましょう。点をドラッグしたとき、曲線の形がそれに応じてどう変化するのか、確かめてみてください。
+						Давайте розпочнемо з добрих новин: криві Безьє, про які ми говоритимемо, ви зможете побачити далі на графіках. Ці криві розпочинаються у
+						якійсь певній точці, і закінчуються у якійсь певній точці. Їх кривизна залежить від однієї або кількох "проміжних" контрольних точок.
+						Зараз, оскільки всі графіки на цій сторінці інтерактивні, поекспериментуйте трохи з цими кривими. Клікніть на точку мишкою й потягніть -
+						так ви зможете відчути, як форма кривої змінюється в залежності від ваших дій.
 					</p>
 					<div class="figure">
 						<graphics-element
-							title="2次のベジエ曲線"
+							title="Квадратичні криві Безьє"
 							width="275"
 							height="275"
 							src="./chapters/introduction/quadratic.js"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/introduction/54e9ec0600ac436b0e6f0c6b5005cf03.png" loading="lazy" />
-								<label>2次のベジエ曲線</label>
+								<label>Квадратичні криві Безьє</label>
 							</fallback-image></graphics-element
 						>
 						<graphics-element
-							title="3次のベジエ曲線"
+							title="Кубічні криві Безьє"
 							width="275"
 							height="275"
 							src="./chapters/introduction/cubic.js"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/introduction/8d158a13e9a86969b99c64057644cbc6.png" loading="lazy" />
-								<label>3次のベジエ曲線</label>
+								<label>Кубічні криві Безьє</label>
 							</fallback-image></graphics-element
 						>
 					</div>
 
 					<p>
-						ベジエ曲線は、CAD（computer aided designやCAM（computer aided manufacturing）のアプリケーションで多用されています。もちろん、Adobe
-						Illustrator・Photoshop・Inkscape・Gimp などのグラフィックデザインアプリケーションや、SVG（scalable vector
-						graphics）・OpenTypeフォント（otf/ttf）のようなグラフィック技術でも利用されています。ベジエ曲線はたくさんのものに使われていますので、これについてもっと詳しく学びたいのであれば……さあ、準備しましょう！
+						Ці криві інтенсивно використовуються у системах автоматизованого проектування та виробництва (CAD/CAM), а також у програмах для графічного
+						дизайну, таких як Adobe Illustrator, Photoshop, Inkscape, GIMP, тощо. Також криві Безьє використовуються у графічних технологіях, таких як
+						масштабована векторна графіка (SVG) та шрифти OpenType (TTF/OTF). Криві Безьє використовуються багато де, тому якщо хочете дізнатись про
+						них більше, приготуйтесь трохи повчитися!
 					</p>
 				</section>
 				<section id="whatis">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#introduction">前</a><a href="ja-JP/index.html#explanation">次</a></div>
-						<a href="ja-JP/index.html#whatis">ではベジエ曲線はどうやってできるのでしょう？</a>
+						<div class="nav"><a href="uk-UA/index.html#introduction">попередній</a><a href="uk-UA/index.html#explanation">наступний</a></div>
+						<a href="uk-UA/index.html#whatis">So what makes a Bézier Curve?</a>
 					</h1>
 					<p>
-						ベジエ曲線がどのように動くのか、点を触ってみて感覚が摑めたかもしれません。では、実際のところベジエ曲線<em>とは</em>いったい何でしょうか？これを説明する方法は2通りありますが、どちらの説明でも行き着く先はまったく同じです。一方は複雑な数学を使うのに対し、もう一方はとても簡単です。というわけで……簡単な説明の方から始めましょう。
+						Playing with the points for curves may have given you a feel for how Bézier curves behave, but what <em>are</em> Bézier curves, really?
+						There are two ways to explain what a Bézier curve is, and they turn out to be the entirely equivalent, but one of them uses complicated
+						maths, and the other uses really simple maths. So... let's start with the simple explanation:
 					</p>
 					<p>
-						ベジエ曲線は、<a href="https://ja.wikipedia.org/wiki/%E7%B7%9A%E5%BD%A2%E8%A3%9C%E9%96%93">線形補間</a
-						>の結果です。というと難しそうに聞こえますが、誰でも幼い頃から線形補間をやってきています。例えば、何か2つのものの間を指し示すときには、いつも線形補間を行っています。線形補間とは、単純に「2点の間から点を得る」ことなのです。
+						Bézier curves are the result of <a href="https://en.wikipedia.org/wiki/Linear_interpolation">linear interpolations</a>. That sounds
+						complicated but you've been doing linear interpolation since you were very young: any time you had to point at something between two other
+						things, you've been applying linear interpolation. It's simply "picking a point between two points".
 					</p>
 					<p>
-						例えば、2点間の距離がわかっているとして、一方の点から距離の20%だけ離れた（すなわち、もう一方の点から80%離れた）新しい点を求めたい場合、次のようにとても簡単に計算できます。
+						If we know the distance between those two points, and we want a new point that is, say, 20% the distance away from the first point (and
+						thus 80% the distance away from the second point) then we can compute that really easily:
 					</p>
 					<!--
-\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                 ╭ p = 一方の点      ╮
-                                                 │  1            │
-                                                 │ p = もう一方の点    │
-                                                 │  2            │
-                                                 │ 距離= (p  - p ) │のとき、新しい点 = p  + 距離  · 比率
-                                                 │       2    1  │            1
-                                                 │     百分率       │
-                                                 │ 比率= ───       │
-                                                 ╰     100       ╯
+                                      ╭       p = some point       ╮
+                                      │        1                   │
+                                      │       p = some other point │
+                                      │        2                   │
+                                Given │ distance= (p  - p )        │, our new point = p  + distance  · ratio
+                                      │             2    1         │                   1
+                                      │           percentage       │
+                                      │    ratio= ──────────       │
+                                      ╰              100           ╯
 -->
-					<img class="LaTeX SVG" src="./images/chapters/whatis/06bbc5c11ad3fd88ff93eb2c06177b66.svg" width="433px" height="108px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/whatis/c3f06301f5ce610df1217bc633257297.svg" width="501px" height="103px" loading="lazy" />
 					<p>
-						では、実際に見てみましょう。下の図はインタラクティブになっています。上下キーで補間の比率が増減しますので、どうなるか確かめてみましょう。最初に3点があり、それを結んで2本の直線が引かれています。この直線の上でそれぞれ線形補間を行うと、2つの点が得られます。この2点の間でさらに線形補間を行うと、1つの点を得ることができます。そして、あらゆる比率に対して同様に点を求め、それをすべて集めると、このようにベジエ曲線ができるのです。
+						So let's look at that in action: the following graphic is interactive in that you can use your up and down arrow keys to increase or
+						decrease the interpolation ratio, to see what happens. We start with three points, which gives us two lines. Linear interpolation over
+						those lines gives us two points, between which we can again perform linear interpolation, yielding a single point. And that point —and all
+						points we can form in this way for all ratios taken together— form our Bézier curve:
 					</p>
 					<graphics-element
 						title="Linear Interpolation leading to Bézier curves"
 						width="825"
 						height="275"
 						src="./chapters/whatis/interpolation.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="825px" height="275px" src="./images/chapters/whatis/524dd296e96c0fe2281fb95146f8ea65.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<input type="range" min="10" max="90" step="1" value="25" class="slide-control" />
 					</graphics-element>
-					<p>また、これが複雑な方の数学につながっていきます。微積分です。</p>
+					<p>And that brings us to the complicated maths: calculus.</p>
 					<p>
-						いま上で行ったものとは似つかないように思えますが、実はあれは2次曲線を描いていたのです。ただし一発で描きあげるのではなく、手順を追って描いていきました。ベジエ曲線は多項式関数で表現できますが、その一方で、とても単純な補間の補間の補間の……というふうにも説明できます。これがベジエ曲線のおもしろいところです。これはまた、ベジェ曲線は「本当の数学」で見る（関数を調べたり微分を調べたり、あらゆる方法で）ことも可能ですし、「機械的」な組み立て操作として見る（例えば、ベジエ曲線は組み立てに使う点の間からは決してはみ出ないということがわかります）ことも可能だということを意味しています。
+						While it doesn't look like that's what we've just done, we actually just drew a quadratic curve, in steps, rather than in a single go. One
+						of the fascinating parts about Bézier curves is that they can both be described in terms of polynomial functions, as well as in terms of
+						very simple interpolations of interpolations of [...]. That, in turn, means we can look at what these curves can do based on both "real
+						maths" (by examining the functions, their derivatives, and all that stuff), as well as by looking at the "mechanical" composition (which
+						tells us, for instance, that a curve will never extend beyond the points we used to construct it).
 					</p>
 					<p>
-						それでは、もう少し詳しくベジエ曲線を見ていきましょう。数学的な表現やそこから導かれる性質、さらには、ベジエ曲線に対して／ベジエ曲線を使ってできるさまざまな内容についてです。
+						So let's start looking at Bézier curves a bit more in depth: their mathematical expressions, the properties we can derive from them, and
+						the various things we can do to, and with, Bézier curves.
 					</p>
 				</section>
 				<section id="explanation">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#whatis">前</a><a href="ja-JP/index.html#control">次</a></div>
-						<a href="ja-JP/index.html#explanation">ベジエ曲線の数学</a>
+						<div class="nav"><a href="uk-UA/index.html#whatis">попередній</a><a href="uk-UA/index.html#control">наступний</a></div>
+						<a href="uk-UA/index.html#explanation">The mathematics of Bézier curves</a>
 					</h1>
 					<p>
-						ベジエ曲線は「パラメトリック」関数の一種です。数学的に言えば、パラメトリック関数というのはインチキです。というのも、「関数」はきっちり定義された用語であり、いくつかの入力を<strong>1つ</strong>の出力に対応させる写像を表すものだからです。いくつかの数値を入れると、1つの数値が出てきます。入れる数値が変わっても、出てくる数値はやはり1つだけです。パラメトリック関数はインチキです。基本的には「じゃあわかった、値を複数個出したいから、関数を複数個使うことにするよ」ということです。例として、ある値<i>x</i>に何らかの操作を行い、別の値へと写す関数があるとします。
+						Bézier curves are a form of "parametric" function. Mathematically speaking, parametric functions are cheats: a "function" is actually a
+						well defined term representing a mapping from any number of inputs to a <strong>single</strong> output. Numbers go in, a single number
+						comes out. Change the numbers that go in, and the number that comes out is still a single number.
+					</p>
+					<p>
+						Parametric functions cheat. They basically say "alright, well, we want multiple values coming out, so we'll just use more than one
+						function". An illustration: Let's say we have a function that maps some value, let's call it <i>x</i>, to some other value, using some
+						kind of number manipulation:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -572,10 +603,10 @@
 -->
 					<img class="LaTeX SVG" src="./images/chapters/explanation/0cc876c56200446c60114c1b0eeeb2cc.svg" width="96px" height="17px" loading="lazy" />
 					<p>
-						<i>f(x)</i
-						>という記法は、これが関数（1つしかない場合は慣習的に<i>f</i>と呼びます）であり、その出力が1つの変数（この場合は<i>x</i>です）に応じて変化する、ということを示す標準的な方法です。<i>x</i>を変化させると、<i>f(x)</i>の出力が変化します。
+						The notation <i>f(x)</i> is the standard way to show that it's a function (by convention called <i>f</i> if we're only listing one) and
+						its output changes based on one variable (in this case, <i>x</i>). Change <i>x</i>, and the output for <i>f(x)</i> changes.
 					</p>
-					<p>ここまでは順調です。では、パラメトリック関数について、これがどうインチキなのかを見てみましょう。以下の2つの関数を考えます。</p>
+					<p>So far, so good. Now, let's look at parametric functions, and how they cheat. Let's take the following two functions:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -584,7 +615,9 @@
 -->
 					<img class="LaTeX SVG" src="./images/chapters/explanation/a2891980850ddbb27d308ac112d69f74.svg" width="93px" height="36px" loading="lazy" />
 					<p>
-						注目すべき箇所は特に何もありません。ただの正弦関数と余弦関数です。ただし、入力が別々の名前になっていることに気づくでしょう。仮に<i>a</i>の値を変えたとしても、<i>f(b)</i>の出力の値は変わらないはずです。なぜなら、こちらの関数には<i>a</i>は使われていないからです。パラメトリック関数は、これを変えてしまうのでインチキなのです。パラメトリック関数においては、どの関数も変数を共有しています。例えば、
+						There's nothing really remarkable about them, they're just a sine and cosine function, but you'll notice the inputs have different names.
+						If we change the value for <i>a</i>, we're not going to change the output value for <i>f(b)</i>, since <i>a</i> isn't used in that
+						function. Parametric functions cheat by changing that. In a parametric function all the different functions share a variable, like this:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -602,7 +635,10 @@
 						loading="lazy"
 					/>
 					<p>
-						複数の関数がありますが、変数は1つだけです。<i>t</i>の値を変えた場合、<i>f<sub>a</sub>(t)</i>と<i>f<sub>b</sub>(t)</i>の両方の出力が変わります。これがどのように役に立つのか、疑問に思うかもしれません。しかし、実際には答えは至ってシンプルです。<i>f<sub>a</sub>(t)</i>と<i>f<sub>b</sub>(t)</i>のラベルを、パラメトリック曲線の表示によく使われているもので置き換えてやれば、ぐっとはっきりするかと思います。
+						Multiple functions, but only one variable. If we change the value for <i>t</i>, we change the outcome of both <i>f<sub>a</sub>(t)</i> and
+						<i>f<sub>b</sub>(t)</i>. You might wonder how that's useful, and the answer is actually pretty simple: if we change the labels
+						<i>f<sub>a</sub>(t)</i> and <i>f<sub>b</sub>(t)</i> with what we usually mean with them for parametric curves, things might be a lot more
+						obvious:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -611,30 +647,36 @@
                                                                  y = sin (t)
 -->
 					<img class="LaTeX SVG" src="./images/chapters/explanation/6914ba615733c387251682db7a3db045.svg" width="77px" height="40px" loading="lazy" />
-					<p>きました。<i>x</i>/<i>y</i>座標です。謎の値<i>t</i>を通して繫がっています。</p>
+					<p>There we go. <i>x</i>/<i>y</i> coordinates, linked through some mystery value <i>t</i>.</p>
 					<p>
-						というわけで、普通の関数では<i>y</i>座標を<i>x</i>座標によって定義しますが、パラメトリック曲線ではそうではなく、座標の値を「制御」変数と結びつけます。<i>t</i>の値を変化させるたびに<strong>2つ</strong>の値が変化するので、これをグラフ上の座標
-						(<i>x</i>,<i>y</i>)として使うことができます。例えば、先ほどの関数の組は円周上の点を生成します。負の無限大から正の無限大へと<i>t</i>を動かすと、得られる座標(<i>x</i>,<i>y</i>)は常に中心(0,0)・半径1の円の上に乗ります。<i>t</i>を0から5まで変化させてプロットした場合は、このようになります。
+						So, parametric curves don't define a <i>y</i> coordinate in terms of an <i>x</i> coordinate, like normal functions do, but they instead
+						link the values to a "control" variable. If we vary the value of <i>t</i>, then with every change we get <strong>two</strong> values,
+						which we can use as (<i>x</i>,<i>y</i>) coordinates in a graph. The above set of functions, for instance, generates points on a circle: We
+						can range <i>t</i> from negative to positive infinity, and the resulting (<i>x</i>,<i>y</i>) coordinates will always lie on a circle with
+						radius 1 around the origin (0,0). If we plot it for <i>t</i> from 0 to 5, we get this:
 					</p>
 					<graphics-element
-						title="（部分）円 x=sin(t), y=cos(t)"
+						title="A (partial) circle: x=sin(t), y=cos(t)"
 						width="275"
 						height="275"
 						src="./chapters/explanation/circle.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/explanation/959762e39ae32407e914a687d804ff3a.png" loading="lazy" />
-							<label>（部分）円 x=sin(t), y=cos(t)</label>
+							<label>A (partial) circle: x=sin(t), y=cos(t)</label>
 						</fallback-image>
 						<input type="range" min="0" max="10" step="0.1" value="5" class="slide-control" />
 					</graphics-element>
 					<p>
-						ベジエ曲線はパラメトリック関数の一種であり、どの次元に対しても同じ基底関数を使うという点で特徴づけられます。先ほどの例では、<i>x</i>の値と<i>y</i>の値とで異なる関数（正弦関数と余弦関数）を使っていましたが、ベジエ曲線では<i>x</i>と<i>y</i>の両方で「二項係数多項式」を使います。では、二項係数多項式とは何でしょう？
+						Bézier curves are just one out of the many classes of parametric functions, and are characterised by using the same base function for all
+						of the output values. In the example we saw above, the <i>x</i> and <i>y</i> values were generated by different functions (one uses a
+						sine, the other a cosine); but Bézier curves use the "binomial polynomial" for both the <i>x</i> and <i>y</i> outputs. So what are
+						binomial polynomials?
 					</p>
-					<p>高校で習った、こんな形の多項式を思い出すかもしれません。</p>
+					<p>You may remember polynomials from high school. They're those sums that look like this:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -649,91 +691,101 @@
 						loading="lazy"
 					/>
 					<p>
-						最高次の項が<i>x³</i>であれば3次多項式、<i>x²</i>であれば2次多項式と呼び、<i>x</i>だけの場合は1次多項式――ただの直線です。（そして<i>x</i>の入った項が何もなければ、多項式ではありません！）
+						If the highest order term they have is <i>x³</i>, they're called "cubic" polynomials; if it's <i>x²</i>, it's a "square" polynomial; if
+						it's just <i>x</i>, it's a line (and if there aren't even any terms with <i>x</i> it's not a polynomial!)
 					</p>
 					<p>
-						ベジエ曲線は<i>x</i>の多項式ではなく、<i>t</i>の多項式です。<i>t</i>の値は0から1までの間に制限され、その係数<i>a</i>、<i>b</i>などは「二項係数」の形をとります。というと複雑そうに聞こえますが、実際には値を組み合わせて、とてもシンプルに記述できます。
+						Bézier curves are polynomials of <i>t</i>, rather than <i>x</i>, with the value for <i>t</i> being fixed between 0 and 1, with
+						coefficients <i>a</i>, <i>b</i> etc. taking the "binomial" form, which sounds fancy but is actually a pretty simple description for mixing
+						values:
 					</p>
 					<!--
-\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                           1次= (1-t) + t                                        
-                                                    2                      2
-                                           2次= (1-t)  + 2  · (1-t)  · t + t                     
-                                                    3             2                       2    3
-                                           3次= (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 
+                                         linear= (1-t) + t                                        
+                                                      2                      2
+                                         square= (1-t)  + 2  · (1-t)  · t + t                     
+                                                      3             2                       2    3
+                                          cubic= (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/adc7729f7872d71f3fbb1a79741ce10f.svg"
-						width="347px"
+						src="./images/chapters/explanation/2493468e73b73f43eba8f66f0c189d1a.svg"
+						width="367px"
 						height="64px"
 						loading="lazy"
 					/>
 					<p>
-						「そこまでシンプルには見えないよ」と思っていることでしょう。しかし仮に、<i>t</i>を取り去って係数に1を掛けることにしてしまえば、急激に簡単になります。これが二項係数部分の項です。
+						I know what you're thinking: that doesn't look too simple! But if we remove <i>t</i> and add in "times one", things suddenly look pretty
+						easy. Check out these binomial terms:
 					</p>
 					<!--
-\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                           1次=  1 + 1           
-                                                           2次=  1 + 2 + 1       
-                                                           3次=  1 + 3 + 3 + 1   
-                                                           4次= 1 + 4 + 6 + 4 + 1
+                                                          linear=  1 + 1           
+                                                          square=  1 + 2 + 1       
+                                                           cubic=  1 + 3 + 3 + 1   
+                                                         quartic= 1 + 4 + 6 + 4 + 1
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/6aa5d4e20e83be1c95eaad792517dde9.svg"
-						width="163px"
-						height="85px"
+						src="./images/chapters/explanation/8986c536df8153b30197c3a5407d233a.svg"
+						width="184px"
+						height="87px"
 						loading="lazy"
 					/>
 					<p>
-						2は1+1に等しく、3は2+1や1+2に等しく、6は3+3に等しく、……ということに注目してください。見てわかるように、先頭と末尾は単に1になっていますが、中間はどれも次数が増えるたびに「上の2つの数を足し合わせた」ものになっています。<i>これなら</i>覚えやいですね。
+						Notice that 2 is the same as 1+1, and 3 is 2+1 and 1+2, and 6 is 3+3... As you can see, each time we go up a dimension, we simply start
+						and end with 1, and everything in between is just "the two numbers above it, added together", giving us a simple number sequence known as
+						<a href="https://en.wikipedia.org/wiki/Pascal%27s_triangle">Pascal's triangle</a>. Now <i>that's</i> easy to remember.
 					</p>
 					<p>
-						多項式部分の項がどうなっているのか、同じぐらい簡単な方法で考えることができます。仮に、<i>(1-t)</i>を<i>a</i>に、<i>t</i>を<i>b</i>に書き換え、さらに重みを一旦削除してしまえば、このようになります。
+						There's an equally simple way to figure out how the polynomial terms work: if we rename <i>(1-t)</i> to <i>a</i> and <i>t</i> to <i>b</i>,
+						and remove the weights for a moment, we get this:
 					</p>
 					<!--
-     \usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
+     \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
       
-1次= \colorbluea + \colorredb                                                                                                                          
-2次= \colorbluea  · \colorbluea + \colorbluea  · \colorredb + \colorredb  · \colorredb                                                                 
-3次= \colorbluea  · \colorbluea  · \colorbluea + \colorbluea  · \colorbluea  · \colorredb + \colorbluea  · \colorredb  · \colorredb + \colorredb  · \co
-                                                                                     
-                                                                                     
-                                                                lorredb  · \colorredb
+linear= \colorbluea + \colorredb                                                                                                                      
+square= \colorbluea  · \colorbluea + \colorbluea  · \colorredb + \colorredb  · \colorredb                                                             
+ cubic= \colorbluea  · \colorbluea  · \colorbluea + \colorbluea  · \colorbluea  · \colorredb + \colorbluea  · \colorredb  · \colorredb + \colorredb  ·
+                                                                                       
+                                                                                       
+                                                               \colorredb  · \colorredb
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/9229934d71b0b02921bc92594ef11a98.svg"
-						width="288px"
-						height="61px"
+						src="./images/chapters/explanation/2c47081c2a9c20d2110f13daa482a3ab.svg"
+						width="301px"
+						height="60px"
 						loading="lazy"
 					/>
 					<p>
-						これは要するに、「<i>a</i>と<i>b</i>のすべての組み合わせ」の単なる和です。プラスが出てくるたびに、<i>a</i>を<i>b</i>へと1つずつ置き換えていけばよいのです。こちらも本当に単純です。さて、これで「二項係数多項式」がわかりました。完璧を期するため、この関数の一般の形を示しておきます。
+						It's basically just a sum of "every combination of <i>a</i> and <i>b</i>", progressively replacing <i>a</i>'s with <i>b</i>'s after every
+						+ sign. So that's actually pretty simple too. So now you know binomial polynomials, and just for completeness I'm going to show you the
+						generic function for this:
 					</p>
 					<!--
-\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                __ n                                                                             n-i     i
-                  Bézier(n,t) = ❯      \underset二項係数部分の項\underbrace\binomni  · \ \underset多項式部分の項\underbrace(1-t)     · t 
-                                ‾‾ i=0
+                          __ n                                                                                          n-i     i
+            Bézier(n,t) = ❯      \undersetbinomial term\underbrace\binomni  · \ \undersetpolynomial term\underbrace(1-t)     · t 
+                          ‾‾ i=0
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/b5977078d36d847fb299cbe3e7e2c3ba.svg"
-						width="321px"
-						height="59px"
+						src="./images/chapters/explanation/f79dd2f2d992e22b8d057fdc641290b0.svg"
+						width="300px"
+						height="55px"
 						loading="lazy"
 					/>
 					<p>
-						そして、これがベジエ曲線の完全な表現です。この関数中のΣは、加算の繰り返し（Σの下にある変数を使って、...=&lt;値&gt;から始めてΣの下にある値まで）を表します。
+						And that's the full description for Bézier curves. Σ in this function indicates that this is a series of additions (using the variable
+						listed below the Σ, starting at ...=&lt;value&gt; and ending at the value listed on top of the Σ).
 					</p>
 					<div class="howtocode">
-						<h3>基底関数の実装方法</h3>
-						<p>上で説明した関数を使えば、数学的な組み立て方で、基底関数をナイーブに実装することもできます。</p>
+						<h3>How to implement the basis function</h3>
+						<p>We could naively implement the basis function as a mathematical construct, using the function as our guide, like this:</p>
 
 						<table class="code">
 							<tr>
@@ -763,10 +815,14 @@ function Bezier(n,t):
 						</table>
 
 						<p>
-							「こともできる」と書いたのは、この方法では実装しない方が良いからです。階乗は<em>とてつもなく</em>重い計算なのです。また、先ほどの説明からわかるように、実際は階乗を使わなくても、かなり簡単にパスカルの三角形を作ることができます。[1]から始めて[1,1]、[1,2,1]、[1,3,3,1]、……としていくだけです。下の段は上の段よりも1つ要素が増え、各段の先頭と末尾は1になります。中間の数はどれも、左右斜め上にある両要素の和になります。
+							I say we could, because we're not going to: the factorial function is <em>incredibly</em> expensive. And, as we can see from the above
+							explanation, we can actually create Pascal's triangle quite easily without it: just start at [1], then [1,1], then [1,2,1], then
+							[1,3,3,1], and so on, with each next row fitting 1 more number than the previous row, starting and ending with "1", with all the numbers
+							in between being the sum of the previous row's elements on either side "above" the one we're computing.
 						</p>
 						<p>
-							このパスカルの三角形は、「リストのリスト」として瞬時に生成できます。そして、これをルックアップテーブルとして利用すれば、二項係数を計算する必要はまったくなくなります。
+							We can generate this as a list of lists lightning fast, and then never have to compute the binomial terms because we have a lookup
+							table:
 						</p>
 
 						<table class="code">
@@ -782,7 +838,7 @@ lut = [      [1],           // n=0
         [1,5,10,10,5,1],    // n=5
        [1,6,15,20,15,6,1]]  // n=6
 
-binomial(n,k):
+function binomial(n,k):
   while(n >= lut.length):
     s = lut.length
     nextRow = new array(size=s+1)
@@ -849,7 +905,9 @@ binomial(n,k):
 						</table>
 
 						<p>
-							これはどのように動くのでしょう？最初に、十分に大きなサイズのルックアップテーブルを宣言します。次に、求めたい値を得るための関数を定義します。この関数は、求めたい値のn/kのペアがテーブル中にまだ存在しない場合、先にテーブルを拡張するようになっています。さて、これで基底関数は次のようになりました。
+							So what's going on here? First, we declare a lookup table with a size that's reasonably large enough to accommodate most lookups. Then,
+							we declare a function to get us the values we need, and we make sure that if an <i>n/k</i> pair is requested that isn't in the LUT yet,
+							we expand it first. Our basis function now looks like this:
 						</p>
 
 						<table class="code">
@@ -880,7 +938,9 @@ function Bezier(n,t):
 						</table>
 
 						<p>
-							完璧です。もちろん、さらなる最適化を施すこともできます。コンピュータグラフィクス用途ではたいてい、任意の次数の曲線が必要になるわけではありません。2次と3次の曲線だけが必要であれば、以下のようにコードを劇的に単純化することができます（実際、この入門では任意の次数までは扱いませんので、これに似たようなコードが出てきます）。
+							Perfect. Of course, we can optimize further. For most computer graphics purposes, we don't need arbitrary curves (although we will also
+							provide code for arbitrary curves in this primer); we need quadratic and cubic curves, and that means we can drastically simplify the
+							code:
 						</p>
 
 						<table class="code">
@@ -942,89 +1002,102 @@ function Bezier(3,t):
 							</tr>
 						</table>
 
-						<p>これで基底関数をプログラムする方法がわかりました。すばらしい。</p>
+						<p>And now we know how to program the basis function. Excellent.</p>
 					</div>
 
-					<p>というわけで、基底関数がどのようなものか理解できました。今度はベジエ曲線を特別にする魔法――制御点を導入する時間です。</p>
+					<p>So, now we know what the basis function looks like, time to add in the magic that makes Bézier curves so special: control points.</p>
 				</section>
 				<section id="control">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#explanation">前</a><a href="ja-JP/index.html#weightcontrol">次</a></div>
-						<a href="ja-JP/index.html#control">ベジエ曲線の曲率の制御</a>
+						<div class="nav"><a href="uk-UA/index.html#explanation">попередній</a><a href="uk-UA/index.html#weightcontrol">наступний</a></div>
+						<a href="uk-UA/index.html#control">Controlling Bézier curvatures</a>
 					</h1>
 					<p>
-						ベジエ曲線は（すべての「スプライン」と同様に）補間関数です。これは点の集合を受け取って、それらの点のどこか「内側」の値を生成するということです。（このことから、制御点同士を結んで輪郭をつくったとき、その外側に位置する点は決して生成されないことがわかります。なお、この輪郭を曲線の「包」と呼びます。お役立ち情報でした！）実際に、補間関数によって生成された値に対する、各点の寄与の大きさを可視化することができますが、これを見れば、ベジエ曲線のどの場所でどの点が重要になるのかがわかります。
+						Bézier curves are, like all "splines", interpolation functions. This means that they take a set of points, and generate values somewhere
+						"between" those points. (One of the consequences of this is that you'll never be able to generate a point that lies outside the outline
+						for the control points, commonly called the "hull" for the curve. Useful information!). In fact, we can visualize how each point
+						contributes to the value generated by the function, so we can see which points are important, where, in the curve.
 					</p>
 					<p>
-						下のグラフは、2次ベジエ曲線や3次ベジエ曲線の補間関数を表しています。ここでSは、ベジエ関数全体に対しての、その点の寄与の大きさを示します。ある<i>t</i>において、ベジエ曲線を定義する各点の補間率がどのようになっているのか、クリックドラッグをして確かめてみてください。
+						The following graphs show the interpolation functions for quadratic and cubic curves, with "S" being the strength of a point's
+						contribution to the total sum of the Bézier function. Click-and-drag to see the interpolation percentages for each curve-defining point at
+						a specific <i>t</i> value.
 					</p>
 					<div class="figure">
 						<graphics-element
-							title="2次の補間"
+							title="Quadratic interpolations"
 							width="275"
 							height="275"
 							src="./chapters/control/lerp.js"
 							data-degree="3"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/control/f700cd59e6021b0e06b819105ec931da.png" loading="lazy" />
-								<label>2次の補間</label>
+								<label>Quadratic interpolations</label>
 							</fallback-image>
 							<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
 						</graphics-element>
 						<graphics-element
-							title="3次の補間"
+							title="Cubic interpolations"
 							width="275"
 							height="275"
 							src="./chapters/control/lerp.js"
 							data-degree="4"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/control/4b206c16ccf8a06a0834fe9e5254560c.png" loading="lazy" />
-								<label>3次の補間</label>
+								<label>Cubic interpolations</label>
 							</fallback-image>
 							<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
 						</graphics-element>
 						<graphics-element
-							title="15次の補間"
+							title="15th degree interpolations"
 							width="275"
 							height="275"
 							src="./chapters/control/lerp.js"
 							data-degree="15"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/control/be82cd31c4892a8f0582b1b5285231d9.png" loading="lazy" />
-								<label>15次の補間</label>
+								<label>15th degree interpolations</label>
 							</fallback-image>
 							<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
 						</graphics-element>
 					</div>
 
 					<p>
-						あわせて、15次ベジエ関数における補間関数も示しています。始点と終点は他の制御点と比較して、曲線の形に対してかなり大きな影響を与えていることがわかります。
+						Also shown is the interpolation function for a 15<sup>th</sup> order Bézier function. As you can see, the start and end point contribute
+						considerably more to the curve's shape than any other point in the control point set.
 					</p>
 					<p>
-						曲線を変更したい場合は、各点の重みを変える（実質的には補間率を変える）必要があります。これはとても単純で、寄与の大きさを変えるための値を、各点にただ掛ければいいのです。この値は「重み」と呼ばれていますが、これを元のベジエ関数に組み込めば、次のようになります。
+						If we want to change the curve, we need to change the weights of each point, effectively changing the interpolations. The way to do this
+						is about as straightforward as possible: just multiply each point with a value that changes its strength. These values are conventionally
+						called "weights", and we can add them to our original Bézier function:
 					</p>
 					<!--
-\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
- 
-                 __ n                                                                             n-i     i
-   Bézier(n,t) = ❯      \underset二項係数部分の項\underbrace\binomni  · \ \underset多項式部分の項\underbrace(1-t)     · t   · \ \underset重み\underbracew 
-                 ‾‾ i=0                                                                                                                 i
+    \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+     
+              __ n                                                                                          n-i     i
+Bézier(n,t) = ❯      \undersetbinomial term\underbrace\binomni  · \ \undersetpolynomial term\underbrace(1-t)     · t   · \
+              ‾‾ i=0
+                                                            \undersetweight\underbracew 
+                                                                                       i
 -->
-					<img class="LaTeX SVG" src="./images/chapters/control/9df7dc66b51db8e3046e1f359874c38e.svg" width="360px" height="59px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/control/b58fb122c5c8159938182c185f287142.svg" width="352px" height="55px" loading="lazy" />
 					<p>
-						複雑そうに見えますが、運がいいことに「重み」というのは実はただの座標値です。というのは<i>n</i>次の曲線の場合、w<sub>0</sub>が始点の座標、w<sub>n</sub>が終点の座標となり、その間はどれも制御点の座標になります。例えば、始点が(120,160)、制御点が(35,200)と(220,260)、終点が(220,40)となる3次ベジエ曲線は、次のようになります。
+						That looks complicated, but as it so happens, the "weights" are actually just the coordinate values we want our curve to have: for an
+						<i>n<sup>th</sup></i> order curve, w<sub>0</sub> is our start coordinate, w<sub>n</sub> is our last coordinate, and everything in between
+						is a controlling coordinate. Say we want a cubic curve that starts at (110,150), is controlled by (25,190) and (210,250) and ends at
+						(210,30), we use this Bézier curve:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -1035,15 +1108,28 @@ function Bezier(3,t):
   ╰ y = \colordarkred150  · (1-t)  + \colordarkgreen190  · 3  · (1-t)   · t + \colordarkblue250  · 3  · (1-t)  · t  + \coloramber30  · t 
 -->
 					<img class="LaTeX SVG" src="./images/chapters/control/20b0be6397fbd726298de6ec70a8544b.svg" width="473px" height="40px" loading="lazy" />
-					<p>この式からは、記事の冒頭に出てきた曲線が得られます。</p>
-					<Graphic title="あの3次ベジエ曲線" setup="{this.drawCubic}" draw="{this.drawCurve}" />
-
+					<p>Which gives us the curve we saw at the top of the article:</p>
+					<graphics-element
+						title="Our cubic Bézier curve"
+						width="275"
+						height="275"
+						src="./chapters/control/../introduction/cubic.js"
+						reset="скинути"
+						viewSource="view source"
+					>
+						<fallback-image>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
+							<img width="275px" height="275px" src="./images/chapters/control/8d158a13e9a86969b99c64057644cbc6.png" loading="lazy" />
+							<label>Our cubic Bézier curve</label>
+						</fallback-image></graphics-element
+					>
 					<p>
-						ベジエ曲線で、他にはどんなことができるでしょうか？実は、非常にたくさんのことが可能です。この記事の残りの部分では、実現可能な各種操作や適用可能なアルゴリズム、そしてこれによって達成できるタスクについて扱います。
+						What else can we do with Bézier curves? Quite a lot, actually. The rest of this article covers a multitude of possible operations and
+						algorithms that we can apply, and the tasks they achieve.
 					</p>
 					<div class="howtocode">
-						<h3>重みつき基底関数の実装方法</h3>
-						<p>基底関数の実装方法はすでに知っていますし、これに制御点を組み込むのは非常に簡単です。</p>
+						<h3>How to implement the weighted basis function</h3>
+						<p>Given that we already know how to implement basis function, adding in the control points is remarkably easy:</p>
 
 						<table class="code">
 							<tr>
@@ -1052,7 +1138,7 @@ function Bezier(3,t):
 									<textarea disabled rows="5" role="doc-example">
 function Bezier(n,t,w[]):
   sum = 0
-  for(k=0; k<n; k++):
+  for(k=0; k<=n; k++):
     sum += w[k] * binomial(n,k) * (1-t)^(n-k) * t^(k)
   return sum</textarea
 									>
@@ -1072,7 +1158,7 @@ function Bezier(n,t,w[]):
 							</tr>
 						</table>
 
-						<p>そして、最適化を行ったバージョンは以下のようになります。</p>
+						<p>And now for the optimized versions:</p>
 
 						<table class="code">
 							<tr>
@@ -1133,13 +1219,13 @@ function Bezier(3,t,w[]):
 							</tr>
 						</table>
 
-						<p>これで、重みつき基底関数をプログラムする方法がわかりました。</p>
+						<p>And now we know how to program the weighted basis function.</p>
 					</div>
 				</section>
 				<section id="weightcontrol">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#control">前</a><a href="ja-JP/index.html#extended">次</a></div>
-						<a href="ja-JP/index.html#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a>
+						<div class="nav"><a href="uk-UA/index.html#control">попередній</a><a href="uk-UA/index.html#extended">наступний</a></div>
+						<a href="uk-UA/index.html#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a>
 					</h1>
 					<p>
 						We can further control Bézier curves by "rationalising" them: that is, adding a "ratio" value in addition to the weight value discussed in
@@ -1206,11 +1292,11 @@ function Bezier(3,t,w[]):
 						width="275"
 						height="275"
 						src="./chapters/weightcontrol/rational.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/weightcontrol/3d71e2b9373684eebcb0dc8563f70b18.png" loading="lazy" />
 							<label>Our rational cubic Bézier curve</label>
 						</fallback-image>
@@ -1345,98 +1431,107 @@ function RationalBezier(3,t,w[],r[]):
 				</section>
 				<section id="extended">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#weightcontrol">前</a><a href="ja-JP/index.html#matrix">次</a></div>
-						<a href="ja-JP/index.html#extended">ベジエ曲線の区間 [0,1]</a>
+						<div class="nav"><a href="uk-UA/index.html#weightcontrol">попередній</a><a href="uk-UA/index.html#matrix">наступний</a></div>
+						<a href="uk-UA/index.html#extended">The Bézier interval [0,1]</a>
 					</h1>
 					<p>
-						ここまでの説明で、ベジエ曲線の裏側にある数学がわかりました。しかし、気づいているかもしれませんが、ひとつ引っかかる点があります。ベジエ曲線はいつも<code>t=0</code>から<code>t=1</code>の間を動いていますが、どうしてこの特定の区間なのでしょう？
+						Now that we know the mathematics behind Bézier curves, there's one curious thing that you may have noticed: they always run from
+						<code>t=0</code> to <code>t=1</code>. Why that particular interval?
 					</p>
 					<p>
-						このことは、曲線の「始点」から曲線の「終点」までどうやって動かすか、ということにすべて関係しています。2つの値を混ぜ合わせて1つの値をつくる場合、一般の式は次のようになります。
-					</p>
-					<!--
-\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
- 
-                                                        混ぜ合わさった値 = a  · 値  + b  · 値 
-                                                                         1         2
--->
-					<img class="LaTeX SVG" src="./images/chapters/extended/b0eb0b24e7fa29c545ab1479d2df0554.svg" width="252px" height="20px" loading="lazy" />
-					<p>
-						明らかに、始点では<code>a=1, b=0</code>とする必要があります。こうすれば、値1が100%、値2が0%で混ぜ合わさるからです。また、終点では<code
-							>a=0, b=1</code
-						>とする必要があります。こうすれば、値1が0%、値2が100%で混ぜ合わさります。これに加えて、<code>a</code>と<code>b</code>を独立にしておきたくはありません。独立になっている場合、何でも好きな値にすることできますが、こうすると例えば「値1が100%<strong>かつ</strong>値2が100%」のようなことが可能になってしまいます。これはこれで原則としてはかまいませんが、ベジエ曲線の場合は混ぜ合わさった値が常に始点と終点の<em>間</em>になってほしいのです。というわけで、混ぜ合わせの和が100%を決して超えないように、<code>a</code>と<code>b</code>の値を設定する必要があります。これは次のようにすれば簡単です。
+						It all has to do with how we run from "the start" of our curve to "the end" of our curve. If we have a value that is a mixture of two
+						other values, then the general formula for this is:
 					</p>
 					<!--
-\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                     混ぜ合わさった値 = a  · 値  + (1 - a)  · 値 
-                                                                      1               2
+                                                    mixture = a  · value  + b  · value 
+                                                                        1             2
 -->
-					<img class="LaTeX SVG" src="./images/chapters/extended/fd520a6e2c7f39e90496e5cf494cce2e.svg" width="293px" height="20px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/extended/f56f59f3c0b057c8ec79a477e4e38bec.svg" width="215px" height="16px" loading="lazy" />
 					<p>
-						こうすれば、和が100%を超えることはないと保証できます。<code>a</code>の値を区間[0,1]に制限してしまえば、混ぜ合わさった値は常に2つの値の間のどこか（両端を含む）になり、また和は常に100%になります。
+						The obvious start and end values here need to be <code>a=1, b=0</code>, so that the mixed value is 100% value 1, and 0% value 2, and
+						<code>a=0, b=1</code>, so that the mixed value is 0% value 1 and 100% value 2. Additionally, we don't want "a" and "b" to be independent:
+						if they are, then we could just pick whatever values we like, and end up with a mixed value that is, for example, 100% value 1
+						<strong>and</strong> 100% value 2. In principle that's fine, but for Bézier curves we always want mixed values <em>between</em> the start
+						and end point, so we need to make sure we can never set "a" and "b" to some values that lead to a mix value that sums to more than 100%.
+						And that's easy:
+					</p>
+					<!--
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                    m = a  · value  + (1 - a)  · value 
+                                                                  1                   2
+-->
+					<img class="LaTeX SVG" src="./images/chapters/extended/e2e71b397009b51af8a3ee848bc727b4.svg" width="215px" height="16px" loading="lazy" />
+					<p>
+						With this we can guarantee that we never sum above 100%. By restricting <code>a</code> to values in the interval [0,1], we will always be
+						somewhere between our two values (inclusively), and we will always sum to a 100% mix.
 					</p>
 					<p>
-						しかし……この式を0と1の間の値だけで使うのではなく、もし仮にこの区間の外の値で使うとしたら、どうなるのでしょう？めちゃくちゃになってしまうのでしょうか？……実はそうではありません。「その先」が見えるのです。
+						But... what if we use this form, which is based on the assumption that we will only ever use values between 0 and 1, and instead use
+						values outside of that interval? Do things go horribly wrong? Well... not really, but we get to "see more".
 					</p>
 					<p>
-						ベジエ曲線の場合、区間を広げると曲線は単純に「そのまま延びて」いきます。ベジエ曲線はある多項式曲線の一部分にすぎませんので、単純に区間を広くとればとるほど、曲線のより多くの部分が現れるようになります。では、どのように見えるのでしょうか？
+						In the case of Bézier curves, extending the interval simply makes our curve "keep going". Bézier curves are simply segments of some
+						polynomial curve, so if we pick a wider interval we simply get to see more of the curve. So what do they look like?
 					</p>
 					<p>
-						下の2つの図は「いつもの方法」で描いたベジエ曲線ですが、これと一緒に、<code>t</code>の値をずっと先まで広げた場合の「延びた」ベジエ曲線も表示しています。見てわかるように、曲線の残りの部分には多くの「かたち」が隠れています。そして曲線の点を動かせば、その部分の形状も変わります。
+						The following two graphics show you Bézier curves rendered "the usual way", as well as the curves they "lie on" if we were to extend the
+						<code>t</code> values much further. As you can see, there's a lot more "shape" hidden in the rest of the curve, and we can model those
+						parts by moving the curve points around.
 					</p>
 					<div class="figure">
 						<graphics-element
-							title="無限区間の2次ベジエ曲線"
+							title="Quadratic infinite interval Bézier curve"
 							width="275"
 							height="275"
 							src="./chapters/extended/extended.js"
 							data-type="quadratic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/extended/37948bde4bf0d25bde85f172bf55b9fb.png" loading="lazy" />
-								<label>無限区間の2次ベジエ曲線</label>
+								<label>Quadratic infinite interval Bézier curve</label>
 							</fallback-image></graphics-element
 						>
 						<graphics-element
-							title="無限区間の3次ベジエ曲線"
+							title="Cubic infinite interval Bézier curve"
 							width="275"
 							height="275"
 							src="./chapters/extended/extended.js"
 							data-type="cubic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/extended/2d17acb381ebdd28f0ff43be00d723c4.png" loading="lazy" />
-								<label>無限区間の3次ベジエ曲線</label>
+								<label>Cubic infinite interval Bézier curve</label>
 							</fallback-image></graphics-element
 						>
 					</div>
 
 					<p>
-						実際に、グラフィックデザインやコンピュータモデリングで使われている曲線の中には、座標が固定されていて、区間は自由に動かせるような曲線があります。これは、区間が固定されていて、座標を自由に動かすことのできるベジエ曲線とは反対になっています。すばらしい例が<a
-							href="https://levien.com/phd/phd.html"
-							>「Spiro」曲線</a
-						>で、これは<a href="https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AD%E3%82%BD%E3%82%A4%E3%83%89%E6%9B%B2%E7%B7%9A"
-							>オイラー螺旋とも呼ばれるクロソイド曲線</a
-						>の一部分に基づいた曲線です。非常に美しく心地よい曲線で、<a href="https://fontforge.org/en-US/">FontForge</a>や<a
-							href="https://inkscape.org/ja/"
-							>Inkscape</a
-						>など多くのグラフィックアプリに実装されており、フォントデザインにも利用されています（Inconsolataフォントなど）。
+						In fact, there are curves used in graphics design and computer modelling that do the opposite of Bézier curves; rather than fixing the
+						interval, and giving you freedom to choose the coordinates, they fix the coordinates, but give you freedom over the interval. A great
+						example of this is the <a href="https://levien.com/phd/phd.html">"Spiro" curve</a>, which is a curve based on part of a
+						<a href="https://en.wikipedia.org/wiki/Euler_spiral">Cornu Spiral, also known as Euler's Spiral</a>. It's a very aesthetically pleasing
+						curve and you'll find it in quite a few graphics packages like <a href="https://fontforge.org/en-US/">FontForge</a> and
+						<a href="https://inkscape.org">Inkscape</a>. It has even been used in font design, for example for the Inconsolata typeface.
 					</p>
 				</section>
 				<section id="matrix">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#extended">前</a><a href="ja-JP/index.html#decasteljau">次</a></div>
-						<a href="ja-JP/index.html#matrix">行列演算としてのベジエ曲線の曲率</a>
+						<div class="nav"><a href="uk-UA/index.html#extended">попередній</a><a href="uk-UA/index.html#decasteljau">наступний</a></div>
+						<a href="uk-UA/index.html#matrix">Bézier curvatures as matrix operations</a>
 					</h1>
 					<p>
-						ベジエ曲線は、行列演算の形でも表現することができます。ベジエ曲線の式を多項式基底と係数行列で表し、実際の座標も行列として表現するのです。これがどういうことを意味しているのか、3次ベジエ曲線について見てみましょう。
+						We can also represent Bézier curves as matrix operations, by expressing the Bézier formula as a polynomial basis function and a
+						coefficients matrix, and the actual coordinates as a matrix. Let's look at what this means for the cubic curve, using P<sub>...</sub> to
+						refer to coordinate values "in one or more dimensions":
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -1446,7 +1541,7 @@ function RationalBezier(3,t,w[],r[]):
                                       1              2                        3                        4
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/9a9a55f5b0323d9ea88f82fc6be58ad3.svg" width="468px" height="20px" loading="lazy" />
-					<p>実際の座標を一旦無視すると、次のようになります。</p>
+					<p>Disregarding our actual coordinates for a moment, we have:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1454,7 +1549,7 @@ function RationalBezier(3,t,w[],r[]):
                                           B(t) = (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/87cfac83cb8a4b0bee68ef006effc611.svg" width="353px" height="19px" loading="lazy" />
-					<p>これは、4つの項の和になっています。</p>
+					<p>We can write this as a sum of four expressions:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1468,7 +1563,7 @@ function RationalBezier(3,t,w[],r[]):
                                                                +       t  
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/cdd88611833f3b178df91278359a4193.svg" width="140px" height="75px" loading="lazy" />
-					<p>それぞれの項を展開します。</p>
+					<p>And we can expand these expressions:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1482,7 +1577,7 @@ function RationalBezier(3,t,w[],r[]):
                                             +        t  · t  · t       =            t  
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/ec118f296511c6e9ac8727be3703a7ce.svg" width="397px" height="75px" loading="lazy" />
-					<p>その上で、係数の0や1もすべて明示的に書けば、このようになります。</p>
+					<p>Furthermore, we can make all the 1 and 0 factors explicit:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1496,7 +1591,7 @@ function RationalBezier(3,t,w[],r[]):
                                                        + +1  · t  + 0  · t  + 0  · t + 0 
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/67a5ea33d6c6558f7d954b18226f4956.svg" width="217px" height="75px" loading="lazy" />
-					<p><em>さらに</em>、これは4つの行列演算の和として見ることができます。</p>
+					<p>And <em>that</em>, we can view as a series of four matrix operations:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1506,7 +1601,7 @@ function RationalBezier(3,t,w[],r[]):
                                      └ 1  ┘                    └ 0  ┘                    └ 0  ┘                    └ 0 ┘
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/8ecff6b8a37d60385d287ea2b26876db.svg" width="607px" height="72px" loading="lazy" />
-					<p>これを1つの行列演算にまとめると、以下のようになります。</p>
+					<p>If we compact this into a single matrix operation, we get:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1517,7 +1612,8 @@ function RationalBezier(3,t,w[],r[]):
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/b9527f7d5a0f5d2d737eac118d69243e.svg" width="227px" height="72px" loading="lazy" />
 					<p>
-						多項式基底をこのような形で表現する場合、通常はその基底を昇冪の順に並べます。したがって、<code>t</code>の行列を左右反転させ、大きな「混合」行列は上下に反転させる必要があります。
+						This kind of polynomial basis representation is generally written with the bases in increasing order, which means we need to flip our
+						<code>t</code> matrix horizontally, and our big "mixing" matrix upside down:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -1528,7 +1624,7 @@ function RationalBezier(3,t,w[],r[]):
                                                                        └ -1  3 -3 1 ┘
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/1a64ed455c6dd2f8cacca5e5e12bdcc1.svg" width="227px" height="72px" loading="lazy" />
-					<p>そして最後に、もともとあった座標を3番目の行列として付け加えます。</p>
+					<p>And then finally, we can add in our original coordinates as a single third matrix:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1542,7 +1638,7 @@ function RationalBezier(3,t,w[],r[]):
                                                                                         └  4 ┘
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/b32cae2dfc47d5f36df0bc3defb7dfa8.svg" width="323px" height="73px" loading="lazy" />
-					<p>2次ベジエ曲線の場合も同様に変形することができ、最終的には以下のようになります。</p>
+					<p>We can perform the same trick for the quadratic curve, in which case we end up with:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1555,63 +1651,72 @@ function RationalBezier(3,t,w[],r[]):
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/1bae50fefa43210b3a6259d1984f6cbc.svg" width="263px" height="55px" loading="lazy" />
 					<p>
-						<code>t</code
-						>の値を代入して行列の乗算を行えば、もともとの多項式関数から計算したときの値や、線形補間によって順次求めたときの値と、まったく同じものが得られます。
+						If we plug in a <code>t</code> value, and then multiply the matrices, we will get exactly the same values as when we evaluate the original
+						polynomial function, or as when we evaluate the curve using progressive linear interpolation.
 					</p>
 					<p>
-						<strong>では、なぜわざわざ行列を使うのでしょう？</strong>
-						行列表現を使うことによって、他の表現ではわからなかった関数の性質を発見できるようになります。ベジエ曲線は<a
-							href="https://ja.wikipedia.org/wiki/%E4%B8%89%E8%A7%92%E8%A1%8C%E5%88%97"
-							>三角行列</a
-						>の形になり、その行列式は実際の座標の積に等しくなることがわかります。また、この行列には逆行列が存在しますが、これは<a
-							href="https://ja.wikipedia.org/wiki/%E6%AD%A3%E5%89%87%E8%A1%8C%E5%88%97#.E7.89.B9.E5.BE.B4.E3.81.A5.E3.81.91"
-							>さまざまな性質</a
-						>が満たされることを意味します。もっとも、疑問の中心は「それでなぜこれが役に立つのか？」という点でしょうが、「ただちには役に立たない」というのが回答です。しかしながら、この先に出てくる曲線のプロパティの中には、関数を操作して求めることも、また行列をうまいこと利用して求めることも、どちらでも可能な例があります。そしてときには、行列による手法の方が（劇的に）速くなる場合があるのです。
+						<strong>So: why would we bother with matrices?</strong> Matrix representations allow us to discover things about functions that would
+						otherwise be hard to tell. It turns out that the curves form
+						<a href="https://en.wikipedia.org/wiki/Triangular_matrix">triangular matrices</a>, and they have a determinant equal to the product of the
+						actual coordinates we use for our curve. It's also invertible, which means there's
+						<a href="https://en.wikipedia.org/wiki/Invertible_matrix#The_invertible_matrix_theorem">a ton of properties</a> that are all satisfied. Of
+						course, the main question is "why is this useful to us now?", and the answer to that is that it's not <em>immediately</em> useful, but
+						you'll be seeing some instances where certain curve properties can be either computed via function manipulation, or via clever use of
+						matrices, and sometimes the matrix approach can be (drastically) faster.
 					</p>
-					<p>というわけで、現時点では「ベジエ曲線は行列で表現可能」ということだけを覚えて、次に進みましょう。</p>
+					<p>So for now, just remember that we can represent curves this way, and let's move on.</p>
 				</section>
 				<section id="decasteljau">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#matrix">前</a><a href="ja-JP/index.html#flattening">次</a></div>
-						<a href="ja-JP/index.html#decasteljau">ド・カステリョのアルゴリズム</a>
+						<div class="nav"><a href="uk-UA/index.html#matrix">попередній</a><a href="uk-UA/index.html#flattening">наступний</a></div>
+						<a href="uk-UA/index.html#decasteljau">de Casteljau's algorithm</a>
 					</h1>
 					<p>
-						ベジエ曲線を描く場合は、<code>t</code>の値を0から1まで動かしながら重みつき基底関数を計算し、プロットに必要な<code>x/y</code>の値を求めます。しかし、曲線が複雑になればなるほど、計算コストがかかるようになってしまいます。そこでその代わりに、「ド・カステリョのアルゴリズム」を使って曲線を描くこともできます。こちらは幾何学的に曲線を描く方法で、実装も非常に簡単です。実際、鉛筆と定規を使って手描きすることもできるほど、とても簡単な方法なのです。
+						If we want to draw Bézier curves, we can run through all values of <code>t</code> from 0 to 1 and then compute the weighted basis function
+						at each value, getting the <code>x/y</code> values we need to plot. Unfortunately, the more complex the curve gets, the more expensive
+						this computation becomes. Instead, we can use <em>de Casteljau's algorithm</em> to draw curves. This is a geometric approach to curve
+						drawing, and it's really easy to implement. So easy, in fact, you can do it by hand with a pencil and ruler.
 					</p>
-					<p><code>x/y</code>の値を求めるために関数を使うのではなく、次のようにします。</p>
+					<p>Rather than using our calculus function to find <code>x/y</code> values for <code>t</code>, let's do this instead:</p>
 					<ul>
-						<li><code>t</code>を（そのまま）比率として考えます。t=0は直線上の0%の位置、t=1は100%の位置です。</li>
-						<li>曲線を定める点同士を結ぶように、それぞれ直線を引きます。<code>n</code>次の曲線であれば、<code>n</code>本の直線を引きます。</li>
+						<li>treat <code>t</code> as a ratio (which it is). t=0 is 0% along a line, t=1 is 100% along a line.</li>
+						<li>Take all lines between the curve's defining points. For an order <code>n</code> curve, that's <code>n</code> lines.</li>
 						<li>
-							各直線上において、距離が<code>t</code>となる点にそれぞれ印をつけます。例えば<code>t</code>が0.2なら、始点から20%、終点から80%の位置になります。
+							Place markers along each of these line, at distance <code>t</code>. So if <code>t</code> is 0.2, place the mark at 20% from the start,
+							80% from the end.
 						</li>
-						<li>今度は、<code>それらの</code>点同士を直線で結びます。<code>n-1</code>本の直線が得られます。</li>
-						<li>各直線上において、距離が<code>t</code>となる点にそれぞれ印をつけます。</li>
-						<li><code>それらの</code>点同士を直線で結びます。<code>n-2</code>本の直線が得られます。</li>
-						<li>印をつけ、直線で結び、印をつけ、……</li>
-						<li>1本の直線になるまで繰り返します。その直線上の<code>t</code>の点は、元の曲線上で<code>t</code>となる点に一致しています。</li>
+						<li>Now form lines between <code>those</code> points. This gives <code>n-1</code> lines.</li>
+						<li>Place markers along each of these line at distance <code>t</code>.</li>
+						<li>Form lines between <code>those</code> points. This'll be <code>n-2</code> lines.</li>
+						<li>Place markers, form lines, place markers, etc.</li>
+						<li>
+							Repeat this until you have only one line left. The point <code>t</code> on that line coincides with the original curve point at
+							<code>t</code>.
+						</li>
 					</ul>
 					<p>
-						下の図にマウスを乗せると、この様子を実際に見ることができます。ド・カステリョのアルゴリズムによって曲線上の点を明示的に計算していますが、マウスを動かすと求める点が変わります。マウスカーソルを左から右へ（もちろん、右から左へでも）動かせば、このアルゴリズムによって曲線が生成される様子がわかります。
+						To see this in action, mouse-over the following sketch. Moving the mouse changes which curve point is explicitly evaluated using de
+						Casteljau's algorithm, moving the cursor left-to-right (or, of course, right-to-left), shows you how a curve is generated using this
+						approach.
 					</p>
 					<graphics-element
-						title="ド・カステリョのアルゴリズムで曲線をたどる"
+						title="Traversing a curve using de Casteljau's algorithm"
 						width="275"
 						height="275"
 						src="./chapters/decasteljau/decasteljau.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/decasteljau/df92f529841f39decf9ad62b0967855a.png" loading="lazy" />
-							<label>ド・カステリョのアルゴリズムで曲線をたどる</label>
+							<label>Traversing a curve using de Casteljau's algorithm</label>
 						</fallback-image>
 						<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
 					</graphics-element>
 					<div class="howtocode">
-						<h3>ド・カステリョのアルゴリズムの実装方法</h3>
-						<p>いま説明したアルゴリズムを実装すると、以下のようになります。</p>
+						<h3>How to implement de Casteljau's algorithm</h3>
+						<p>Let's just use the algorithm we just specified, and implement that:</p>
 
 						<table class="code">
 							<tr>
@@ -1653,7 +1758,8 @@ function drawCurve(points[], t):
 						</table>
 
 						<p>
-							これで実装完了です。ただし、+演算子のオーバーロードなどという贅沢品はたいてい無いでしょうから、<code>x</code>や<code>y</code>の値を直接扱う場合のコードも示しておきます。
+							And done, that's the algorithm implemented. Except usually you don't get the luxury of overloading the "+" operator, so let's also give
+							the code for when you need to work with <code>x</code> and <code>y</code> values:
 						</p>
 
 						<table class="code">
@@ -1704,62 +1810,71 @@ function drawCurve(points[], t):
 						</table>
 
 						<p>
-							さて、これは何をしているのでしょう？関数に渡す点のリストが長さ1であれば、点を1つ描きます。それ以外であれば、比率<i>t</i>の位置の点（すなわち、さきほどの説明に出てきた「印」）のリストを作り、そしてこの新しいリストを引数にして関数を呼び出します。
+							So what does this do? This draws a point, if the passed list of points is only 1 point long. Otherwise it will create a new list of
+							points that sit at the <i>t</i> ratios (i.e. the "markers" outlined in the above algorithm), and then call the draw function for this
+							new list.
 						</p>
 					</div>
 				</section>
 				<section id="flattening">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#decasteljau">前</a><a href="ja-JP/index.html#splitting">次</a></div>
-						<a href="ja-JP/index.html#flattening">簡略化した描画</a>
+						<div class="nav"><a href="uk-UA/index.html#decasteljau">попередній</a><a href="uk-UA/index.html#splitting">наступний</a></div>
+						<a href="uk-UA/index.html#flattening">Simplified drawing</a>
 					</h1>
 					<p>
-						曲線を複数点で「サンプリング」し、さらにそれを直線で繫げてしまえば、描画の手順を簡略化することができます。単なる一連の直線、つまり「平坦」な線へと曲線を単純化するので、この処理は「平坦化」という名前で知られています。
+						We can also simplify the drawing process by "sampling" the curve at certain points, and then joining those points up with straight lines,
+						a process known as "flattening", as we are reducing a curve to a simple sequence of straight, "flat" lines.
 					</p>
 					<p>
-						例えば「X個の線分がほしい」場合には、分割数がそうなるようにサンプリング間隔を選び、曲線をサンプリングします。この方法の利点は速さです。曲線の座標を100個だの1000個だの計算するのではなく、ずっと少ない回数のサンプリングでも、十分きれいに見えるような曲線を作ることができるのです。欠点はもちろん、「本物の曲線」に比べて精度が損なわれてしまうことです。したがって、交点の検出や曲線の位置揃えを正しく行いたい場合には、平坦化した曲線は普通利用できません。
+						We can do this is by saying "we want X segments", and then sampling the curve at intervals that are spaced such that we end up with the
+						number of segments we wanted. The advantage of this method is that it's fast: instead of evaluating 100 or even 1000 curve coordinates, we
+						can sample a much lower number and still end up with a curve that sort-of-kind-of looks good enough. The disadvantage of course is that we
+						lose the precision of working with "the real curve", so we usually can't use the flattened for doing true intersection detection, or
+						curvature alignment.
 					</p>
 					<div class="figure">
 						<graphics-element
-							title="2次ベジエ曲線の平坦化"
+							title="Flattening a quadratic curve"
 							width="275"
 							height="275"
 							src="./chapters/flattening/flatten.js"
 							data-type="quadratic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/flattening/6813bfc608aea11df1dda444b9f18123.png" loading="lazy" />
-								<label>2次ベジエ曲線の平坦化</label>
+								<label>Flattening a quadratic curve</label>
 							</fallback-image>
 							<input type="range" min="1" max="16" step="1" value="4" class="slide-control" />
 						</graphics-element>
 						<graphics-element
-							title="3次ベジエ曲線の平坦化"
+							title="Flattening a cubic curve"
 							width="275"
 							height="275"
 							src="./chapters/flattening/flatten.js"
 							data-type="cubic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/flattening/0e0e4a2ee46bd89bcfde9f75cfe43292.png" loading="lazy" />
-								<label>3次ベジエ曲線の平坦化</label>
+								<label>Flattening a cubic curve</label>
 							</fallback-image>
 							<input type="range" min="1" max="24" step="1" value="8" class="slide-control" />
 						</graphics-element>
 					</div>
 
 					<p>
-						2次ベジエ曲線も3次ベジエ曲線も、図をクリックして上下キーを押すと曲線の分割数が増減しますので、試してみてください。ある曲線では分割数が少なくてもうまくいきますが、曲線が複雑になればなるほど、曲率の変化を正確に捉えるためにはより多くの分割数が必要になることがわかります（3次ベジエ曲線で試してみてください）。
+						Try clicking on the sketch and using your up and down arrow keys to lower the number of segments for both the quadratic and cubic curve.
+						You'll notice that for certain curvatures, a low number of segments works quite well, but for more complex curvatures (try this for the
+						cubic curve), a higher number is required to capture the curvature changes properly.
 					</p>
 					<div class="howtocode">
-						<h3>曲線平坦化の実装方法</h3>
-						<p>上でいま解説したアルゴリズムを使って実装するだけです。</p>
+						<h3>How to implement curve flattening</h3>
+						<p>Let's just use the algorithm we just specified, and implement that:</p>
 
 						<table class="code">
 							<tr>
@@ -1796,7 +1911,7 @@ function flattenCurve(curve, segmentCount):
 							</tr>
 						</table>
 
-						<p>これで完了です。実装できました。あとは、一連の直線で結果の「曲線」を描画するだけです。</p>
+						<p>And done, that's the algorithm implemented. That just leaves drawing the resulting "curve" as a sequence of lines:</p>
 
 						<table class="code">
 							<tr>
@@ -1833,35 +1948,38 @@ function drawFlattenedCurve(curve, segmentCount):
 							</tr>
 						</table>
 
-						<p>先頭の座標を参照点にしてスタートし、あとはそれぞれの点からその次の点へと、直線を引いていくだけです。</p>
+						<p>We start with the first coordinate as reference point, and then just draw lines between each point and its next point.</p>
 					</div>
 				</section>
 				<section id="splitting">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#flattening">前</a><a href="ja-JP/index.html#matrixsplit">次</a></div>
-						<a href="ja-JP/index.html#splitting">曲線の分割</a>
+						<div class="nav"><a href="uk-UA/index.html#flattening">попередній</a><a href="uk-UA/index.html#matrixsplit">наступний</a></div>
+						<a href="uk-UA/index.html#splitting">Splitting curves</a>
 					</h1>
 					<p>
-						ベジエ曲線を分割して、繫ぎ合わせたときに元に戻るような小さい2曲線にしたい場合にも、ド・カステリョのアルゴリズムを使えば、これに必要な点をすべて求めることができます。ある値<code>t</code>に対してド・カステリョの骨格を組み立てると、その<code>t</code>で曲線を分割する際に必要になる点がすべて得られます。骨格内部の点のうち、曲線上の点から見て手前側にある点によって一方の曲線が定義され、向こう側にある点によってもう一方の曲線が定義されます。
+						Using de Casteljau's algorithm, we can also find all the points we need to split up a Bézier curve into two, smaller curves, which taken
+						together form the original curve. When we construct de Casteljau's skeleton for some value <code>t</code>, the procedure gives us all the
+						points we need to split a curve at that <code>t</code> value: one curve is defined by all the inside skeleton points found prior to our
+						on-curve point, with the other curve being defined by all the inside skeleton points after our on-curve point.
 					</p>
 					<graphics-element
-						title="曲線の分割"
+						title="Splitting a curve"
 						width="825"
 						height="275"
 						src="./chapters/splitting/splitting.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="825px" height="275px" src="./images/chapters/splitting/fce5eb16dfcd103797c5e17bd77f1437.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
 						<input type="range" min="0" max="1" step="0.01" value="0.5" class="slide-control" />
 					</graphics-element>
 					<div class="howtocode">
-						<h3>曲線分割の実装方法</h3>
-						<p>ド・カステリョの関数の中に記録する処理を追加すれば、曲線の分割が実装できます。</p>
+						<h3>implementing curve splitting</h3>
+						<p>We can implement curve splitting by bolting some extra logging onto the de Casteljau function:</p>
 
 						<table class="code">
 							<tr>
@@ -1935,18 +2053,21 @@ function drawCurve(points[], t):
 						</table>
 
 						<p>
-							ある値<code>t</code>に対してこの関数を実行すると、<code>left</code>と<code>right</code>に新しい2曲線の座標が入ります。一方は<code>t</code>の「左」側、もう一方は「右」側の曲線です。この2曲線は元の曲線と同じ次数になり、また元の曲線とぴったり重なります。
+							After running this function for some value <code>t</code>, the <code>left</code> and <code>right</code> arrays will contain all the
+							coordinates for two new curves - one to the "left" of our <code>t</code> value, the other on the "right". These new curves will have the
+							same order as the original curve, and can be overlaid exactly on the original curve.
 						</p>
 					</div>
 				</section>
 				<section id="matrixsplit">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#splitting">前</a><a href="ja-JP/index.html#reordering">次</a></div>
-						<a href="ja-JP/index.html#matrixsplit">行列による曲線の分割</a>
+						<div class="nav"><a href="uk-UA/index.html#splitting">попередній</a><a href="uk-UA/index.html#reordering">наступний</a></div>
+						<a href="uk-UA/index.html#matrixsplit">Splitting curves using matrices</a>
 					</h1>
 					<p>
-						曲線分割には、ベジエ曲線の行列表現を利用する方法もあります。<a href="#matrix">行列についての節</a
-						>では、行列の乗算で曲線が表現できることを確認しました。特に2次・3次のベジエ曲線に関しては、それぞれ以下のような形になりました（読みやすさのため、ベジエの係数ベクトルを反転させています）。
+						Another way to split curves is to exploit the matrix representation of a Bézier curve. In <a href="#matrix">the section on matrices</a>,
+						we saw that we can represent curves as matrix multiplications. Specifically, we saw these two forms for the quadratic and cubic curves
+						respectively: (we'll reverse the Bézier coefficients vector for legibility)
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -1965,7 +2086,7 @@ function drawCurve(points[], t):
 						height="55px"
 						loading="lazy"
 					/>
-					<p>ならびに</p>
+					<p>and</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1986,8 +2107,9 @@ function drawCurve(points[], t):
 						loading="lazy"
 					/>
 					<p>
-						曲線をある点<code>t = z</code
-						>で分割し、新しく2つの（自明ですが、より短い）ベジエ曲線を作ることを考えましょう。曲線の行列表現と線形代数を利用すると、この2つのベジエ曲線の座標を求めることができます。まず、実際の「曲線上の点」の情報を分解し、新しい行列の積のかたちにします。
+						Let's say we want to split the curve at some point <code>t = z</code>, forming two new (obviously smaller) Bézier curves. To find the
+						coordinates for these two Bézier curves, we can use the matrix representation and some linear algebra. First, we separate out the actual
+						"point on the curve" information into a new matrix multiplication:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -2006,7 +2128,7 @@ function drawCurve(points[], t):
 						height="55px"
 						loading="lazy"
 					/>
-					<p>ならびに</p>
+					<p>and</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -2027,16 +2149,16 @@ function drawCurve(points[], t):
 						loading="lazy"
 					/>
 					<p>
-						これらの行列をまとめて、仮に**[tの値たち] · [ベジエ行列] ·
-						[列ベクトル]**の形式にできたとしましょう。ただし、先頭2つの行列は変わらずそのままだとします。このとき、右端の列ベクトルは、前半部分すなわち<code
-							>t = 0</code
-						>から<code>t = z</code
-						>を表す、新しいベジエ曲線の座標となります。結論からいうと、線形代数の簡単な規則を使えば、この変形は非常に容易です（そして、導出過程を気にしないのであれば、囲みの末尾まで飛ばして結果に行ってもかまいません！）。
+						If we could compact these matrices back to the form <strong>[t values] · [Bézier matrix] · [column matrix]</strong>, with the first two
+						staying the same, then that column matrix on the right would be the coordinates of a new Bézier curve that describes the first segment,
+						from <code>t = 0</code> to <code>t = z</code>. As it turns out, we can do this quite easily, by exploiting some simple rules of linear
+						algebra (and if you don't care about the derivations, just skip to the end of the box for the results!).
 					</p>
 					<div class="note">
-						<h2>新しい凸包の座標の導出</h2>
+						<h2>Deriving new hull coordinates</h2>
 						<p>
-							曲線を分割して2つの部分を得るためには、いくつかの段階を経る必要があります。曲線の次数が高くなるほど手間がかかるようになりますので、まずは2次の曲線で見てみましょう。
+							Deriving the two segments upon splitting a curve takes a few steps, and the higher the curve order, the more work it is, so let's look
+							at the quadratic curve first:
 						</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -2056,64 +2178,66 @@ function drawCurve(points[], t):
 							loading="lazy"
 						/>
 						<!--
-\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                                                         ┌ P  ┐
-                                                                                                         │  1 │
-                             = ┌      2 ┐  · \undersetこれを…\underbrace\kern 2.25em Z  · M \kern 2.25em  · │ P  │
-                               └ 1 t t  ┘                                                                │  2 │
-                                                                                                         │ P  │
-                                                                                                         └  3 ┘
+                                                                                                              ┌ P  ┐
+                                                                                                              │  1 │
+                       = ┌      2 ┐  · \undersetwe turn this...\underbrace\kern 2.25em Z  · M \kern 2.25em  · │ P  │
+                         └ 1 t t  ┘                                                                           │  2 │
+                                                                                                              │ P  │
+                                                                                                              └  3 ┘
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/63d1337d275abf7b296d500b9b5821fd.svg"
-							width="249px"
+							src="./images/chapters/matrixsplit/7a1e792cd3fa6f3482459e154abf2e7d.svg"
+							width="247px"
 							height="55px"
 							loading="lazy"
 						/>
 						<!--
-\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                                                    ┌ P  ┐
-                                                                                   -1               │  1 │
-                                  = ┌      2 ┐  · \underset…こうして…\underbrace M  · M    · Z  · M   · │ P  │
-                                    └ 1 t t  ┘                                                      │  2 │
-                                                                                                    │ P  │
-                                                                                                    └  3 ┘
+                                                                                                        ┌ P  ┐
+                                                                                       -1               │  1 │
+                             = ┌      2 ┐  · \underset...into this...\underbrace M  · M    · Z  · M   · │ P  │
+                               └ 1 t t  ┘                                                               │  2 │
+                                                                                                        │ P  │
+                                                                                                        └  3 ┘
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/d9d04b9b6c66788d18832a383d6f7ea0.svg"
+							src="./images/chapters/matrixsplit/55b45214ba90c96978cdc9cdfee24fef.svg"
+							width="247px"
+							height="55px"
+							loading="lazy"
+						/>
+						<!--
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                                                                            ┌ P  ┐
+                                                                                                                            │  1 │
+          = ┌      2 ┐  · M \underset...to get this!\underbrace \kern 1.25em  · \kern 1.25em Q \kern 1.25em  · \kern 1.25em │ P  │
+            └ 1 t t  ┘                                                                                                      │  2 │
+                                                                                                                            │ P  │
+                                                                                                                            └  3 ┘
+-->
+						<img
+							class="LaTeX SVG"
+							src="./images/chapters/matrixsplit/598739d23cf8dbcdebe033e4c7f1d28a.svg"
 							width="252px"
 							height="55px"
 							loading="lazy"
 						/>
-						<!--
-\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
- 
-                                                                                                                       ┌ P  ┐
-                                                                                                                       │  1 │
-              = ┌      2 ┐  · M \underset…こうじゃ！\underbrace \kern 1.25em  · \kern 1.25em Q \kern 1.25em  · \kern 1.25em │ P  │
-                └ 1 t t  ┘                                                                                             │  2 │
-                                                                                                                       │ P  │
-                                                                                                                       └  3 ┘
--->
-						<img
-							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/baedd4067516584d425b93331b7ce04f.svg"
-							width="255px"
-							height="55px"
-							loading="lazy"
-						/>
 						<p>
-							[<em>M · M<sup>-1</sup></em
-							>]は単位行列なので、このような操作ができるのです（これは微積分でいえば、なにかにx/xを掛けるようなものです。関数自体はなにも変わりませんが、解きやすいかたちに変形したり、別のかたちに分解したりといったことが可能になります）。この行列を掛けると、式全体としてはなにも変わりませんが、[<em
-								>なにか · M</em
-							>]という行列の並びを[<em>M · なにか</em>]という並びに変えることができます。そして、これが大きな違いを生み出します。[<em
-								>M<sup>-1</sup> · Z · M</em
-							>]の値が分かれば、それを座標に掛け合わせることによって、2次ベジエ曲線の正しい行列表現（すなわち[<em>T · M · P</em>]）と、<em>t = 0</em
-							>から<em>t = z</em>までの曲線を表す座標の組とが得られます。では、計算してみましょう。
+							We can do this because [<em>M · M<sup>-1</sup></em
+							>] is the identity matrix. It's a bit like multiplying something by x/x in calculus: it doesn't do anything to the function, but it does
+							allow you to rewrite it to something that may be easier to work with, or can be broken up differently. In the same way, multiplying our
+							matrix by [<em>M · M<sup>-1</sup></em
+							>] has no effect on the total formula, but it does allow us to change the matrix sequence [<em>something · M</em>] to a sequence [<em
+								>M · something</em
+							>], and that makes a world of difference: if we know what [<em>M<sup>-1</sup> · Z · M</em>] is, we can apply that to our coordinates,
+							and be left with a proper matrix representation of a quadratic Bézier curve (which is [<em>T · M · P</em>]), with a new set of
+							coordinates that represent the curve from <em>t = 0</em> to <em>t = z</em>. So let's get computing:
 						</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -2131,7 +2255,7 @@ function drawCurve(points[], t):
 							height="56px"
 							loading="lazy"
 						/>
-						<p>いいですね！これで、新しい2次ベジエ曲線が得られます。</p>
+						<p>Excellent! Now we can form our new quadratic curve:</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -2185,16 +2309,16 @@ function drawCurve(points[], t):
 							loading="lazy"
 						/>
 						<p>
-							<strong><em>すばらしい</em></strong
-							>。<code>t = 0</code>から<code>t = z</code
-							>の部分曲線を求める場合、始点の座標はそのままになります（もっともです）。制御点は、元々の制御点と始点を、比率zで混ぜ合わせたものになります。そして不思議なことに、新たな終点は2次の<a
-								href="https://ja.wikipedia.org/wiki/%E3%83%90%E3%83%BC%E3%83%B3%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%B3%E5%A4%9A%E9%A0%85%E5%BC%8F"
-								>ベルンシュタイン多項式</a
-							>に似た混ぜ合わせになります。これらの新しい座標は、とても簡単に直接計算ができるのです！
+							<strong><em>Brilliant</em></strong
+							>: if we want a subcurve from <code>t = 0</code> to <code>t = z</code>, we can keep the first coordinate the same (which makes sense),
+							our control point becomes a z-ratio mixture of the original control point and the start point, and the new end point is a mixture that
+							looks oddly similar to a <a href="https://en.wikipedia.org/wiki/Bernstein_polynomial">Bernstein polynomial</a> of degree two. These new
+							coordinates are actually really easy to compute directly!
 						</p>
 						<p>
-							もちろん、これは2曲線のうちの片方にすぎません。<code>t = z</code>から<code>t = 1</code
-							>の部分を得るためには、同様の計算をする必要があります。まず、今さっき行ったのは、一般の区間[0,<code>z</code>]についての計算でした。これは0があるので簡単な形になっていましたが、実際には、次の式を計算していたということがわかります。
+							Of course, that's only one of the two curves. Getting the section from <code>t = z</code> to <code>t = 1</code> requires doing this
+							again. We first observe that in the previous calculation, we actually evaluated the general interval [0,<code>z</code>]. We were able to
+							write it down in a more simple form because of the zero, but what we <em>actually</em> evaluated, making the zero explicit, was:
 						</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -2230,7 +2354,7 @@ function drawCurve(points[], t):
 							height="55px"
 							loading="lazy"
 						/>
-						<p>区間[<em>z</em>,1]を求めたい場合は、かわりに次のような計算になります。</p>
+						<p>If we want the interval [<em>z</em>,1], we will be evaluating this instead:</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -2265,7 +2389,10 @@ function drawCurve(points[], t):
 							height="57px"
 							loading="lazy"
 						/>
-						<p>先ほどと同じ手法を使い、[<em>なにか · M</em>]を[<em>M · なにか</em>]に変えます。</p>
+						<p>
+							We're going to do the same trick of multiplying by the identity matrix, to turn <code>[something · M]</code> into
+							<code>[M · something]</code>:
+						</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -2282,7 +2409,7 @@ function drawCurve(points[], t):
 							height="57px"
 							loading="lazy"
 						/>
-						<p>よって、後半部分の曲線は結局のところ以下のようになります。</p>
+						<p>So, our final second curve looks like:</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -2336,14 +2463,17 @@ function drawCurve(points[], t):
 							loading="lazy"
 						/>
 						<p>
-							<strong><em>おみごと</em></strong
-							>。先ほどと同じようになっていることがわかります。終点の座標はそのままで（もっともです）、制御点は、元々の制御点と終点を比率zで混ぜ合わせたものになります。そして不思議なことに、新たな始点は2次のベルンシュタイン多項式に似た混ぜ合わせになります。ただし、(1-z)の代わりに(z-1)になっています。これらの新しい座標<em>も</em>、とても簡単に直接計算ができるのです！
+							<strong><em>Nice</em></strong
+							>. We see the same thing as before: we can keep the last coordinate the same (which makes sense); our control point becomes a z-ratio
+							mixture of the original control point and the end point, and the new start point is a mixture that looks oddly similar to a bernstein
+							polynomial of degree two, except this time it uses (z-1) rather than (1-z). These new coordinates are <em>also</em> really easy to
+							compute directly!
 						</p>
 					</div>
 
 					<p>
-						というわけで、ド・カステリョのアルゴリズムではなく線形代数の方を使うと、どのような2次ベジエ曲線でもある値<code>t = z</code
-						>で分割すれば2つのベジエ曲線となり、しかもその座標は簡単に求められる、ということがわかりました。
+						So, using linear algebra rather than de Casteljau's algorithm, we have determined that, for any quadratic curve split at some value
+						<code>t = z</code>, we get two subcurves that are described as Bézier curves with simple-to-derive coordinates:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -2363,7 +2493,7 @@ function drawCurve(points[], t):
 						height="55px"
 						loading="lazy"
 					/>
-					<p>および</p>
+					<p>and</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -2383,7 +2513,8 @@ function drawCurve(points[], t):
 						loading="lazy"
 					/>
 					<p>
-						3次の曲線についても同様です。ただし、実際の導出はあなたにとっておきますので（自力で書き下してみてください）、新しい座標の組の結果を示すだけにします。
+						We can do the same for cubic curves. However, I'll spare you the actual derivation (don't let that stop you from writing that out
+						yourself, though) and simply show you the resulting new coordinate sets:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -2406,7 +2537,7 @@ function drawCurve(points[], t):
 						height="75px"
 						loading="lazy"
 					/>
-					<p>および</p>
+					<p>and</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -2429,18 +2560,22 @@ function drawCurve(points[], t):
 						loading="lazy"
 					/>
 					<p>
-						さて、これらの行列を見るに、後半部分の曲線の行列は本当に計算する必要があったのでしょうか？いえ、ありませんでした。片方の行列が得られれば、実はもう一方の行列も暗に得られたことになります。まず、行列*<strong
-							>Q**<em>の各行の値を右側に寄せ、右側にあった0を左側に押しのけます。次に行列を上下に反転させます。これでたちまち</em></strong
-						>Q'***が「計算」できるのです。
+						So, looking at our matrices, did we really need to compute the second segment matrix? No, we didn't. Actually having one segment's matrix
+						means we implicitly have the other: push the values of each row in the matrix <strong><em>Q</em></strong> to the right, with zeroes
+						getting pushed off the right edge and appearing back on the left, and then flip the matrix vertically. Presto, you just "calculated"
+						<strong><em>Q'</em></strong
+						>.
 					</p>
 					<p>
-						この方法で曲線の分割を実装すれば、再帰が少なくて済みます。また、数値のキャッシュを利用した単純な演算になるので、再帰の計算コストが大きいシステムにおいては、コストが抑えられるかもしれません。行列の乗算に適したデバイスで計算を行えば、ド・カステリョのアルゴリズムに比べてかなり速くなるでしょう。
+						Implementing curve splitting this way requires less recursion, and is just straight arithmetic with cached values, so can be cheaper on
+						systems where recursion is expensive. If you're doing computation with devices that are good at matrix multiplication, chopping up a
+						Bézier curve with this method will be a lot faster than applying de Casteljau.
 					</p>
 				</section>
 				<section id="reordering">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#matrixsplit">前</a><a href="ja-JP/index.html#derivatives">次</a></div>
-						<a href="ja-JP/index.html#reordering">Lowering and elevating curve order</a>
+						<div class="nav"><a href="uk-UA/index.html#matrixsplit">попередній</a><a href="uk-UA/index.html#derivatives">наступний</a></div>
+						<a href="uk-UA/index.html#reordering">Lowering and elevating curve order</a>
 					</h1>
 					<p>
 						One interesting property of Bézier curves is that an <em>n<sup>th</sup></em> order curve can always be perfectly represented by an
@@ -2713,11 +2848,11 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 						width="275"
 						height="275"
 						src="./chapters/reordering/reorder.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/reordering/c4874e1205aabe624e5504abe154eae9.png" loading="lazy" />
 							<label>A variable-order Bézier curve</label>
 						</fallback-image>
@@ -2727,8 +2862,8 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 				</section>
 				<section id="derivatives">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#reordering">前</a><a href="ja-JP/index.html#pointvectors">次</a></div>
-						<a href="ja-JP/index.html#derivatives">Derivatives</a>
+						<div class="nav"><a href="uk-UA/index.html#reordering">попередній</a><a href="uk-UA/index.html#pointvectors">наступний</a></div>
+						<a href="uk-UA/index.html#derivatives">Derivatives</a>
 					</h1>
 					<p>
 						There's a number of useful things that you can do with Bézier curves based on their derivative, and one of the more amusing observations
@@ -3046,8 +3181,8 @@ Bézier'(n,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \unders
 				</section>
 				<section id="pointvectors">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#derivatives">前</a><a href="ja-JP/index.html#pointvectors3d">次</a></div>
-						<a href="ja-JP/index.html#pointvectors">Tangents and normals</a>
+						<div class="nav"><a href="uk-UA/index.html#derivatives">попередній</a><a href="uk-UA/index.html#pointvectors3d">наступний</a></div>
+						<a href="uk-UA/index.html#pointvectors">Tangents and normals</a>
 					</h1>
 					<p>
 						If you want to move objects along a curve, or "away from" a curve, the two vectors you're most interested in are the tangent vector and
@@ -3184,11 +3319,11 @@ Bézier'(n,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \unders
 							height="275"
 							src="./chapters/pointvectors/pointvectors.js"
 							data-type="quadratic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/pointvectors/f1b4e81d22f4c44d4618b0f55a1a88c5.png" loading="lazy" />
 								<label>Quadratic Bézier tangents and normals</label>
 							</fallback-image></graphics-element
@@ -3199,11 +3334,11 @@ Bézier'(n,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \unders
 							height="275"
 							src="./chapters/pointvectors/pointvectors.js"
 							data-type="cubic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/pointvectors/5863bd013ad6594f63f8dfa51ff4adc0.png" loading="lazy" />
 								<label>Cubic Bézier tangents and normals</label>
 							</fallback-image></graphics-element
@@ -3212,8 +3347,8 @@ Bézier'(n,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \unders
 				</section>
 				<section id="pointvectors3d">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#pointvectors">前</a><a href="ja-JP/index.html#components">次</a></div>
-						<a href="ja-JP/index.html#pointvectors3d">Working with 3D normals</a>
+						<div class="nav"><a href="uk-UA/index.html#pointvectors">попередній</a><a href="uk-UA/index.html#components">наступний</a></div>
+						<a href="uk-UA/index.html#pointvectors3d">Working with 3D normals</a>
 					</h1>
 					<p>
 						Before we move on to the next section we need to spend a little bit of time on the difference between 2D and 3D. While for many things
@@ -3280,11 +3415,11 @@ Bézier'(n,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \unders
 						width="350"
 						height="300"
 						src="./chapters/pointvectors3d/frenet.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="350px" height="300px" src="./images/chapters/pointvectors3d/11c1da2357004bb51cf0c591fc492115.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -3540,11 +3675,11 @@ generateRMFrames(steps) -> frames:
 						width="350"
 						height="300"
 						src="./chapters/pointvectors3d/rotation-minimizing.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="350px" height="300px" src="./images/chapters/pointvectors3d/f4a2fa1e0204c890b2bff07228ba678d.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -3560,8 +3695,8 @@ generateRMFrames(steps) -> frames:
 				</section>
 				<section id="components">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#pointvectors3d">前</a><a href="ja-JP/index.html#extremities">次</a></div>
-						<a href="ja-JP/index.html#components">Component functions</a>
+						<div class="nav"><a href="uk-UA/index.html#pointvectors3d">попередній</a><a href="uk-UA/index.html#extremities">наступний</a></div>
+						<a href="uk-UA/index.html#components">Component functions</a>
 					</h1>
 					<p>
 						One of the first things people run into when they start using Bézier curves in their own programs is "I know how to draw the curve, but
@@ -3590,11 +3725,11 @@ generateRMFrames(steps) -> frames:
 						height="275"
 						src="./chapters/components/components.js"
 						data-type="quadratic"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="825px" height="275px" src="./images/chapters/components/1e6e38f6403dbe4c8b80295a94fc6748.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -3605,19 +3740,19 @@ generateRMFrames(steps) -> frames:
 						height="275"
 						src="./chapters/components/components.js"
 						data-type="cubic"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="825px" height="275px" src="./images/chapters/components/348694339257428a260144da4bbf80fc.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
 				<section id="extremities">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#components">前</a><a href="ja-JP/index.html#boundingbox">次</a></div>
-						<a href="ja-JP/index.html#extremities">Finding extremities: root finding</a>
+						<div class="nav"><a href="uk-UA/index.html#components">попередній</a><a href="uk-UA/index.html#boundingbox">наступний</a></div>
+						<a href="uk-UA/index.html#extremities">Finding extremities: root finding</a>
 					</h1>
 					<p>
 						Now that we understand (well, superficially anyway) the component functions, we can find the extremities of our Bézier curve by finding
@@ -4236,11 +4371,11 @@ function getCubicRoots(pa, pb, pc, pd) {
 						height="275"
 						src="./chapters/extremities/extremities.js"
 						data-type="quadratic"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="825px" height="275px" src="./images/chapters/extremities/fd68347a917c9b703ff8005287ac6ca4.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -4251,19 +4386,19 @@ function getCubicRoots(pa, pb, pc, pd) {
 						height="275"
 						src="./chapters/extremities/extremities.js"
 						data-type="cubic"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="825px" height="275px" src="./images/chapters/extremities/fbfe9464c9653f5efcd04411e683faf9.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
 				<section id="boundingbox">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#extremities">前</a><a href="ja-JP/index.html#aligning">次</a></div>
-						<a href="ja-JP/index.html#boundingbox">Bounding boxes</a>
+						<div class="nav"><a href="uk-UA/index.html#extremities">попередній</a><a href="uk-UA/index.html#aligning">наступний</a></div>
+						<a href="uk-UA/index.html#boundingbox">Bounding boxes</a>
 					</h1>
 					<p>
 						If we have the extremities, and the start/end points, a simple for-loop that tests for min/max values for x and y means we have the four
@@ -4290,11 +4425,11 @@ function getCubicRoots(pa, pb, pc, pd) {
 							height="275"
 							src="./chapters/boundingbox/bbox.js"
 							data-type="quadratic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/boundingbox/12ec4a5039de2e2cc06611db5e826282.png" loading="lazy" />
 								<label>Quadratic Bézier bounding box</label>
 							</fallback-image></graphics-element
@@ -4305,11 +4440,11 @@ function getCubicRoots(pa, pb, pc, pd) {
 							height="275"
 							src="./chapters/boundingbox/bbox.js"
 							data-type="cubic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/boundingbox/daad01218ba430e2355d151811aa971b.png" loading="lazy" />
 								<label>Cubic Bézier bounding box</label>
 							</fallback-image></graphics-element
@@ -4323,8 +4458,8 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="aligning">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#boundingbox">前</a><a href="ja-JP/index.html#tightbounds">次</a></div>
-						<a href="ja-JP/index.html#aligning">Aligning curves</a>
+						<div class="nav"><a href="uk-UA/index.html#boundingbox">попередній</a><a href="uk-UA/index.html#tightbounds">наступний</a></div>
+						<a href="uk-UA/index.html#aligning">Aligning curves</a>
 					</h1>
 					<p>
 						While there are an incredible number of curves we can define by varying the x- and y-coordinates for the control points, not all curves
@@ -4393,11 +4528,11 @@ function getCubicRoots(pa, pb, pc, pd) {
 						height="275"
 						src="./chapters/aligning/aligning.js"
 						data-type="quadratic"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="550px" height="275px" src="./images/chapters/aligning/28cc0f129fa0c028a1addd702e99f162.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -4408,19 +4543,19 @@ function getCubicRoots(pa, pb, pc, pd) {
 						height="275"
 						src="./chapters/aligning/aligning.js"
 						data-type="cubic"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="550px" height="275px" src="./images/chapters/aligning/9a6755a1e31a990e8f072a6da98f811a.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
 				<section id="tightbounds">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#aligning">前</a><a href="ja-JP/index.html#inflections">次</a></div>
-						<a href="ja-JP/index.html#tightbounds">Tight bounding boxes</a>
+						<div class="nav"><a href="uk-UA/index.html#aligning">попередній</a><a href="uk-UA/index.html#inflections">наступний</a></div>
+						<a href="uk-UA/index.html#tightbounds">Tight bounding boxes</a>
 					</h1>
 					<p>
 						With our knowledge of bounding boxes, and curve alignment, We can now form the "tight" bounding box for curves. We first align our curve,
@@ -4435,11 +4570,11 @@ function getCubicRoots(pa, pb, pc, pd) {
 							height="275"
 							src="./chapters/tightbounds/tightbounds.js"
 							data-type="quadratic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/tightbounds/ed91133976018ec032d9115344debb36.png" loading="lazy" />
 								<label>Aligning a quadratic curve</label>
 							</fallback-image></graphics-element
@@ -4450,11 +4585,11 @@ function getCubicRoots(pa, pb, pc, pd) {
 							height="275"
 							src="./chapters/tightbounds/tightbounds.js"
 							data-type="cubic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/tightbounds/9ee5abc64b3fba71e284c70539279d74.png" loading="lazy" />
 								<label>Aligning a cubic curve</label>
 							</fallback-image></graphics-element
@@ -4469,8 +4604,8 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="inflections">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#tightbounds">前</a><a href="ja-JP/index.html#canonical">次</a></div>
-						<a href="ja-JP/index.html#inflections">Curve inflections</a>
+						<div class="nav"><a href="uk-UA/index.html#tightbounds">попередній</a><a href="uk-UA/index.html#canonical">наступний</a></div>
+						<a href="uk-UA/index.html#inflections">Curve inflections</a>
 					</h1>
 					<p>
 						Now that we know how to align a curve, there's one more thing we can calculate: inflection points. Imagine we have a variable size circle
@@ -4670,11 +4805,11 @@ function getCubicRoots(pa, pb, pc, pd) {
 						width="275"
 						height="275"
 						src="./chapters/inflections/inflection.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/inflections/726ece45630c43be14589c51f1606bd7.png" loading="lazy" />
 							<label>Finding cubic Bézier curve inflections</label>
 						</fallback-image></graphics-element
@@ -4682,8 +4817,8 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="canonical">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#inflections">前</a><a href="ja-JP/index.html#yforx">次</a></div>
-						<a href="ja-JP/index.html#canonical">The canonical form (for cubic curves)</a>
+						<div class="nav"><a href="uk-UA/index.html#inflections">попередній</a><a href="uk-UA/index.html#yforx">наступний</a></div>
+						<a href="uk-UA/index.html#canonical">The canonical form (for cubic curves)</a>
 					</h1>
 					<p>
 						While quadratic curves are relatively simple curves to analyze, the same cannot be said of the cubic curve. As a curvature is controlled
@@ -4711,11 +4846,11 @@ function getCubicRoots(pa, pb, pc, pd) {
 						width="400"
 						height="400"
 						src="./chapters/canonical/canonical.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="400px" height="400px" src="./images/chapters/canonical/c086e72bd8aaeab37436515ab251b2df.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -5042,19 +5177,19 @@ function getCubicRoots(pa, pb, pc, pd) {
 						width="800"
 						height="400"
 						src="./chapters/canonical/interactive.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="800px" height="400px" src="./images/chapters/canonical/83fe2473e20ea68b768765129ee44ae4.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
 				<section id="yforx">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#canonical">前</a><a href="ja-JP/index.html#arclength">次</a></div>
-						<a href="ja-JP/index.html#yforx">Finding Y, given X</a>
+						<div class="nav"><a href="uk-UA/index.html#canonical">попередній</a><a href="uk-UA/index.html#arclength">наступний</a></div>
+						<a href="uk-UA/index.html#yforx">Finding Y, given X</a>
 					</h1>
 					<p>
 						One common task that pops up in things like CSS work, or parametric equalizers, or image leveling, or any other number of applications
@@ -5075,11 +5210,11 @@ function getCubicRoots(pa, pb, pc, pd) {
 						width="550"
 						height="275"
 						src="./chapters/yforx/basics.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="550px" height="275px" src="./images/chapters/yforx/e469af5bf27a2c27d1dd6fc62a78ac27.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -5181,11 +5316,11 @@ y = curve.get(t).y</textarea
 						width="275"
 						height="275"
 						src="./chapters/yforx/yforx.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/yforx/2fc5c57e5d1ed0eaa1655edc31026252.png" loading="lazy" />
 							<label>Finding By(t), by finding t for a given x</label>
 						</fallback-image>
@@ -5194,8 +5329,8 @@ y = curve.get(t).y</textarea
 				</section>
 				<section id="arclength">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#yforx">前</a><a href="ja-JP/index.html#arclengthapprox">次</a></div>
-						<a href="ja-JP/index.html#arclength">Arc length</a>
+						<div class="nav"><a href="uk-UA/index.html#yforx">попередній</a><a href="uk-UA/index.html#arclengthapprox">наступний</a></div>
+						<a href="uk-UA/index.html#arclength">Arc length</a>
 					</h1>
 					<p>
 						How long is a Bézier curve? As it turns out, that's not actually an easy question, because the answer requires maths that —much like root
@@ -5272,11 +5407,11 @@ y = curve.get(t).y</textarea
 							height="275"
 							src="./chapters/arclength/draw-slices.js"
 							data-steps="10"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/arclength/56533f47e73ad9fea08fa9bb3f597d49.png" loading="lazy" />
 								<label>A function's approximated integral</label>
 							</fallback-image></graphics-element
@@ -5287,11 +5422,11 @@ y = curve.get(t).y</textarea
 							height="275"
 							src="./chapters/arclength/draw-slices.js"
 							data-steps="24"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/arclength/5ce02cbdbc47585c588f2656d5161a32.png" loading="lazy" />
 								<label>A better approximation</label>
 							</fallback-image></graphics-element
@@ -5302,11 +5437,11 @@ y = curve.get(t).y</textarea
 							height="275"
 							src="./chapters/arclength/draw-slices.js"
 							data-steps="99"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/arclength/fe2663b205d14c157a5a02bfbbd55987.png" loading="lazy" />
 								<label>An even better approximation</label>
 							</fallback-image></graphics-element
@@ -5422,11 +5557,11 @@ y = curve.get(t).y</textarea
 						width="275"
 						height="275"
 						src="./chapters/arclength/arclength.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/arclength/fa4c587126e8097206b88d9ea51974ca.png" loading="lazy" />
 							<label>Arc length for a Bézier curve</label>
 						</fallback-image></graphics-element
@@ -5434,8 +5569,8 @@ y = curve.get(t).y</textarea
 				</section>
 				<section id="arclengthapprox">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#arclength">前</a><a href="ja-JP/index.html#curvature">次</a></div>
-						<a href="ja-JP/index.html#arclengthapprox">Approximated arc length</a>
+						<div class="nav"><a href="uk-UA/index.html#arclength">попередній</a><a href="uk-UA/index.html#curvature">наступний</a></div>
+						<a href="uk-UA/index.html#arclengthapprox">Approximated arc length</a>
 					</h1>
 					<p>
 						Sometimes, we don't actually need the precision of a true arc length, and we can get away with simply computing the approximate arc length
@@ -5453,11 +5588,11 @@ y = curve.get(t).y</textarea
 							height="275"
 							src="./chapters/arclengthapprox/approximate.js"
 							data-type="quadratic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/arclengthapprox/3fc083ea7bdcc6b021560f2f2491f8aa.png" loading="lazy" />
 								<label>Approximate quadratic curve arc length</label>
 							</fallback-image>
@@ -5469,11 +5604,11 @@ y = curve.get(t).y</textarea
 							height="275"
 							src="./chapters/arclengthapprox/approximate.js"
 							data-type="cubic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/arclengthapprox/537260c4aa9e98ffdea7c8120afbd427.png" loading="lazy" />
 								<label>Approximate cubic curve arc length</label>
 							</fallback-image>
@@ -5489,8 +5624,8 @@ y = curve.get(t).y</textarea
 				</section>
 				<section id="curvature">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#arclengthapprox">前</a><a href="ja-JP/index.html#tracing">次</a></div>
-						<a href="ja-JP/index.html#curvature">Curvature of a curve</a>
+						<div class="nav"><a href="uk-UA/index.html#arclengthapprox">попередній</a><a href="uk-UA/index.html#tracing">наступний</a></div>
+						<a href="uk-UA/index.html#curvature">Curvature of a curve</a>
 					</h1>
 					<p>
 						If we have two curves, and we want to line them in up in a way that "looks right", what would we use as metric to let a computer decide
@@ -5637,11 +5772,11 @@ function kappa(t, B):
 						width="825"
 						height="275"
 						src="./chapters/curvature/curvature.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="825px" height="275px" src="./images/chapters/curvature/4f2647446363ca5d93b11e414fd976df.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -5669,11 +5804,11 @@ function kappa(t, B):
 						height="275"
 						src="./chapters/curvature/curvature.js"
 						data-omni="true"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="825px" height="275px" src="./images/chapters/curvature/392624cedf7c78aed6d4c6065a014b42.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -5682,8 +5817,8 @@ function kappa(t, B):
 				</section>
 				<section id="tracing">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#curvature">前</a><a href="ja-JP/index.html#intersections">次</a></div>
-						<a href="ja-JP/index.html#tracing">Tracing a curve at fixed distance intervals</a>
+						<div class="nav"><a href="uk-UA/index.html#curvature">попередній</a><a href="uk-UA/index.html#intersections">наступний</a></div>
+						<a href="uk-UA/index.html#tracing">Tracing a curve at fixed distance intervals</a>
 					</h1>
 					<p>
 						Say you want to draw a curve with a dashed line, rather than a solid line, or you want to move something along the curve at fixed distance
@@ -5708,11 +5843,11 @@ function kappa(t, B):
 						width="550"
 						height="275"
 						src="./chapters/tracing/distance-function.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="550px" height="275px" src="./images/chapters/tracing/d6239520389637a3c42e76ee44d86c41.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -5733,11 +5868,11 @@ function kappa(t, B):
 						width="825"
 						height="275"
 						src="./chapters/tracing/tracing.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="825px" height="275px" src="./images/chapters/tracing/1cd7304fb8d044835bfbc305ca5e5d10.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -5754,8 +5889,8 @@ function kappa(t, B):
 				</section>
 				<section id="intersections">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#tracing">前</a><a href="ja-JP/index.html#curveintersection">次</a></div>
-						<a href="ja-JP/index.html#intersections">Intersections</a>
+						<div class="nav"><a href="uk-UA/index.html#tracing">попередній</a><a href="uk-UA/index.html#curveintersection">наступний</a></div>
+						<a href="uk-UA/index.html#intersections">Intersections</a>
 					</h1>
 					<p>
 						Let's look at some more things we will want to do with Bézier curves. Almost immediately after figuring out how to get bounding boxes to
@@ -5789,11 +5924,11 @@ function kappa(t, B):
 						width="275"
 						height="275"
 						src="./chapters/intersections/line-line.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/intersections/b3f61036d8dc9888a6a64a1171583dd1.png" loading="lazy" />
 							<label>Line/line intersections</label>
 						</fallback-image></graphics-element
@@ -5897,11 +6032,11 @@ lli = function(line1, line2):
 							height="275"
 							src="./chapters/intersections/curve-line.js"
 							data-type="quadratic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/intersections/9b70fb7b03f082882515e55c0a1eacff.png" loading="lazy" />
 								<label>Quadratic curve/line intersections</label>
 							</fallback-image></graphics-element
@@ -5912,11 +6047,11 @@ lli = function(line1, line2):
 							height="275"
 							src="./chapters/intersections/curve-line.js"
 							data-type="cubic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/intersections/7196d3dec75d53f5df9d9c832ac3c493.png" loading="lazy" />
 								<label>Cubic curve/line intersections</label>
 							</fallback-image></graphics-element
@@ -5931,8 +6066,8 @@ lli = function(line1, line2):
 				</section>
 				<section id="curveintersection">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#intersections">前</a><a href="ja-JP/index.html#abc">次</a></div>
-						<a href="ja-JP/index.html#curveintersection">Curve/curve intersection</a>
+						<div class="nav"><a href="uk-UA/index.html#intersections">попередній</a><a href="uk-UA/index.html#abc">наступний</a></div>
+						<a href="uk-UA/index.html#curveintersection">Curve/curve intersection</a>
 					</h1>
 					<p>
 						Using de Casteljau's algorithm to split the curve we can now implement curve/curve intersection finding using a "divide and conquer"
@@ -5987,11 +6122,11 @@ lli = function(line1, line2):
 						width="825"
 						height="275"
 						src="./chapters/curveintersection/curve-curve.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="825px" height="275px" src="./images/chapters/curveintersection/b155682162a5b6da6d40c7b531164a7e.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -6007,8 +6142,8 @@ lli = function(line1, line2):
 				</section>
 				<section id="abc">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#curveintersection">前</a><a href="ja-JP/index.html#pointcurves">次</a></div>
-						<a href="ja-JP/index.html#abc">The projection identity</a>
+						<div class="nav"><a href="uk-UA/index.html#curveintersection">попередній</a><a href="uk-UA/index.html#pointcurves">наступний</a></div>
+						<a href="uk-UA/index.html#abc">The projection identity</a>
 					</h1>
 					<p>
 						De Casteljau's algorithm is the pivotal algorithm when it comes to Bézier curves. You can use it not just to split curves, but also to
@@ -6037,11 +6172,11 @@ lli = function(line1, line2):
 							height="275"
 							src="./chapters/abc/abc.js"
 							data-type="quadratic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/abc/7a69dd4350ddda5701712e1d3b46b863.png" loading="lazy" />
 								<label>Projections in a quadratic Bézier curve</label>
 							</fallback-image>
@@ -6054,11 +6189,11 @@ lli = function(line1, line2):
 							height="275"
 							src="./chapters/abc/abc.js"
 							data-type="cubic"
-							reset="リセット"
+							reset="скинути"
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 								<img width="275px" height="275px" src="./images/chapters/abc/eeec7cf16fb22c666e0143a3a030731f.png" loading="lazy" />
 								<label>Projections in a cubic Bézier curve</label>
 							</fallback-image>
@@ -6225,8 +6360,8 @@ lli = function(line1, line2):
 				</section>
 				<section id="pointcurves">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#abc">前</a><a href="ja-JP/index.html#projections">次</a></div>
-						<a href="ja-JP/index.html#pointcurves">Creating a curve from three points</a>
+						<div class="nav"><a href="uk-UA/index.html#abc">попередній</a><a href="uk-UA/index.html#projections">наступний</a></div>
+						<a href="uk-UA/index.html#pointcurves">Creating a curve from three points</a>
 					</h1>
 					<p>
 						Given the preceding section, you might be wondering if we can use that knowledge to just "create" curves by placing some points and having
@@ -6266,11 +6401,11 @@ lli = function(line1, line2):
 						width="275"
 						height="275"
 						src="./chapters/pointcurves/quadratic.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/067a3df30e32708fc0d13f8eb78c0b05.png" loading="lazy" />
 							<label>Fitting a quadratic Bézier curve</label>
 						</fallback-image></graphics-element
@@ -6292,11 +6427,11 @@ lli = function(line1, line2):
 						width="275"
 						height="275"
 						src="./chapters/pointcurves/circle.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/43875f6ad588bfd04cdb65b591a62052.png" loading="lazy" />
 							<label>Finding a circle through three points</label>
 						</fallback-image></graphics-element
@@ -6369,11 +6504,11 @@ lli = function(line1, line2):
 						height="275"
 						src="./chapters/pointcurves/circle.js"
 						data-show-curve="true"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/75f7b5b31e98444e13f17e5c3e5b7322.png" loading="lazy" />
 							<label>Finding the cubic e₁ and e₂ given three points </label>
 						</fallback-image></graphics-element
@@ -6390,11 +6525,11 @@ lli = function(line1, line2):
 						width="275"
 						height="275"
 						src="./chapters/pointcurves/cubic.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/eab6ea46fa93030e03ec0ef7deb571dc.png" loading="lazy" />
 							<label>Fitting a quadratic Bézier curve</label>
 						</fallback-image></graphics-element
@@ -6409,8 +6544,8 @@ lli = function(line1, line2):
 				</section>
 				<section id="projections">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#pointcurves">前</a><a href="ja-JP/index.html#molding">次</a></div>
-						<a href="ja-JP/index.html#projections">Projecting a point onto a Bézier curve</a>
+						<div class="nav"><a href="uk-UA/index.html#pointcurves">попередній</a><a href="uk-UA/index.html#molding">наступний</a></div>
+						<a href="uk-UA/index.html#projections">Projecting a point onto a Bézier curve</a>
 					</h1>
 					<p>
 						Before we can move on to actual curve molding, it'll be good if know how to actually be able to find "some point on the curve" that we're
@@ -6496,19 +6631,19 @@ for (coordinate, index) in LUT:
 						width="400"
 						height="400"
 						src="./chapters/projections/project.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="400px" height="400px" src="./images/chapters/projections/3cc334d0ebc01cc5352e23ed47bc5414.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
 				<section id="molding">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#projections">前</a><a href="ja-JP/index.html#curvefitting">次</a></div>
-						<a href="ja-JP/index.html#molding">Molding a curve</a>
+						<div class="nav"><a href="uk-UA/index.html#projections">попередній</a><a href="uk-UA/index.html#curvefitting">наступний</a></div>
+						<a href="uk-UA/index.html#molding">Molding a curve</a>
 					</h1>
 					<p>
 						Armed with knowledge of the "ABC" relation, point-on-curve projection, and guestimating reasonable looking helper values for cubic curve
@@ -6543,11 +6678,11 @@ for (coordinate, index) in LUT:
 						height="275"
 						src="./chapters/molding/molding.js"
 						data-type="quadratic"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="825px" height="275px" src="./images/chapters/molding/2bd215d1db191b52a89a94727b6aa5ce.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -6569,11 +6704,11 @@ for (coordinate, index) in LUT:
 						height="275"
 						src="./chapters/molding/molding.js"
 						data-type="cubic"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="825px" height="275px" src="./images/chapters/molding/a54f990aa49fb9ea8200b59259f955f3.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -6594,11 +6729,11 @@ for (coordinate, index) in LUT:
 						src="./chapters/molding/molding.js"
 						data-type="cubic"
 						data-interpolated="true"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="825px" height="275px" src="./images/chapters/molding/1039d0bb0e49cfb472c2fa37f9010190.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -6619,8 +6754,8 @@ for (coordinate, index) in LUT:
 				</section>
 				<section id="curvefitting">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#molding">前</a><a href="ja-JP/index.html#catmullconv">次</a></div>
-						<a href="ja-JP/index.html#curvefitting">Curve fitting</a>
+						<div class="nav"><a href="uk-UA/index.html#molding">попередній</a><a href="uk-UA/index.html#catmullconv">наступний</a></div>
+						<a href="uk-UA/index.html#curvefitting">Curve fitting</a>
 					</h1>
 					<p>
 						Given the previous section, one question you might have is "what if I don't want to guess <code>t</code> values?". After all, plenty of
@@ -7100,11 +7235,11 @@ for (coordinate, index) in LUT:
 						width="550"
 						height="275"
 						src="./chapters/curvefitting/curve-fitting.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="550px" height="275px" src="./images/chapters/curvefitting/798f3d7151dfb2887c7881a08e65cdd3.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -7120,8 +7255,8 @@ for (coordinate, index) in LUT:
 				</section>
 				<section id="catmullconv">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#curvefitting">前</a><a href="ja-JP/index.html#catmullfitting">次</a></div>
-						<a href="ja-JP/index.html#catmullconv">Bézier curves and Catmull-Rom curves</a>
+						<div class="nav"><a href="uk-UA/index.html#curvefitting">попередній</a><a href="uk-UA/index.html#catmullfitting">наступний</a></div>
+						<a href="uk-UA/index.html#catmullconv">Bézier curves and Catmull-Rom curves</a>
 					</h1>
 					<p>
 						Taking an excursion to different splines, the other common design curve is the
@@ -7138,11 +7273,11 @@ for (coordinate, index) in LUT:
 						width="275"
 						height="275"
 						src="./chapters/catmullconv/catmull-rom.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/catmullconv/aa46749b9469341d9249ca452390d875.png" loading="lazy" />
 							<label>A Catmull-Rom curve</label>
 						</fallback-image>
@@ -7893,8 +8028,8 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="catmullfitting">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#catmullconv">前</a><a href="ja-JP/index.html#polybezier">次</a></div>
-						<a href="ja-JP/index.html#catmullfitting">Creating a Catmull-Rom curve from three points</a>
+						<div class="nav"><a href="uk-UA/index.html#catmullconv">попередній</a><a href="uk-UA/index.html#polybezier">наступний</a></div>
+						<a href="uk-UA/index.html#catmullfitting">Creating a Catmull-Rom curve from three points</a>
 					</h1>
 					<p>
 						Much shorter than the previous section: we saw that Catmull-Rom curves need at least 4 points to draw anything sensible, so how do we
@@ -7908,8 +8043,8 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="polybezier">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#catmullfitting">前</a><a href="ja-JP/index.html#offsetting">次</a></div>
-						<a href="ja-JP/index.html#polybezier">Forming poly-Bézier curves</a>
+						<div class="nav"><a href="uk-UA/index.html#catmullfitting">попередній</a><a href="uk-UA/index.html#offsetting">наступний</a></div>
+						<a href="uk-UA/index.html#polybezier">Forming poly-Bézier curves</a>
 					</h1>
 					<p>
 						Much like lines can be chained together to form polygons, Bézier curves can be chained together to form poly-Béziers, and the only trick
@@ -7932,11 +8067,11 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="quadratic"
 						data-link="coordinate"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/41522a397171423e8a465dc8c74f6e87.png" loading="lazy" />
 							<label>Unlinked quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -7948,11 +8083,11 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="cubic"
 						data-link="coordinate"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/6fb33629373d7a731b6ac3f5365cb9f0.png" loading="lazy" />
 							<label>Unlinked cubic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -7995,11 +8130,11 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="quadratic"
 						data-link="derivative"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/db04f805f42bdc9a1b7ec4d6b401d853.png" loading="lazy" />
 							<label>Connected quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8011,11 +8146,11 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="cubic"
 						data-link="derivative"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/fe41b628f46f7035d151a8210d30111f.png" loading="lazy" />
 							<label>Connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8041,11 +8176,11 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="quadratic"
 						data-link="direction"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/777f3814965c39ec3cdbb13eab0c4eeb.png" loading="lazy" />
 							<label>Angularly connected quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8057,11 +8192,11 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="cubic"
 						data-link="direction"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/f6c55cbc66333b6630939f67fc20e086.png" loading="lazy" />
 							<label>Angularly connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8082,11 +8217,11 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="quadratic"
 						data-link="conventional"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/b3aebf7803f4430187c249a891095062.png" loading="lazy" />
 							<label>Standard connected quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8098,11 +8233,11 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="cubic"
 						data-link="conventional"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/1b94c6ada011bd8e50330e31a851a62e.png" loading="lazy" />
 							<label>Standard connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8121,8 +8256,8 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="offsetting">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#polybezier">前</a><a href="ja-JP/index.html#graduatedoffset">次</a></div>
-						<a href="ja-JP/index.html#offsetting">Curve offsetting</a>
+						<div class="nav"><a href="uk-UA/index.html#polybezier">попередній</a><a href="uk-UA/index.html#graduatedoffset">наступний</a></div>
+						<a href="uk-UA/index.html#offsetting">Curve offsetting</a>
 					</h1>
 					<p>
 						Perhaps you're like me, and you've been writing various small programs that use Bézier curves in some way or another, and at some point
@@ -8290,11 +8425,11 @@ for p = 1 to points.length-3 (inclusive):
 						height="275"
 						src="./chapters/offsetting/offsetting.js"
 						data-type="quadratic"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/offsetting/03b8e0849e7c8ba64d8c076f47fe2ec7.png" loading="lazy" />
 							<label>Offsetting a quadratic Bézier curve</label>
 						</fallback-image>
@@ -8306,11 +8441,11 @@ for p = 1 to points.length-3 (inclusive):
 						height="275"
 						src="./chapters/offsetting/offsetting.js"
 						data-type="cubic"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/offsetting/4c4738b6bf9f83eded12d680a29e337b.png" loading="lazy" />
 							<label>Offsetting a cubic Bézier curve</label>
 						</fallback-image>
@@ -8324,8 +8459,8 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="graduatedoffset">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#offsetting">前</a><a href="ja-JP/index.html#circles">次</a></div>
-						<a href="ja-JP/index.html#graduatedoffset">Graduated curve offsetting</a>
+						<div class="nav"><a href="uk-UA/index.html#offsetting">попередній</a><a href="uk-UA/index.html#circles">наступний</a></div>
+						<a href="uk-UA/index.html#graduatedoffset">Graduated curve offsetting</a>
 					</h1>
 					<p>
 						What if we want to do graduated offsetting, starting at some distance <code>s</code> but ending at some other distance <code>e</code>?
@@ -8359,11 +8494,11 @@ for p = 1 to points.length-3 (inclusive):
 						height="275"
 						src="./chapters/graduatedoffset/offsetting.js"
 						data-type="quadratic"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/graduatedoffset/8cc724d5343c65685d88c92b2d069a2a.png" loading="lazy" />
 							<label>Offsetting a quadratic Bézier curve</label>
 						</fallback-image>
@@ -8375,11 +8510,11 @@ for p = 1 to points.length-3 (inclusive):
 						height="275"
 						src="./chapters/graduatedoffset/offsetting.js"
 						data-type="cubic"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/graduatedoffset/17bf62e05a1fc3387b0c210f2decff45.png" loading="lazy" />
 							<label>Offsetting a cubic Bézier curve</label>
 						</fallback-image>
@@ -8388,8 +8523,8 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="circles">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#graduatedoffset">前</a><a href="ja-JP/index.html#circles_cubic">次</a></div>
-						<a href="ja-JP/index.html#circles">Circles and quadratic Bézier curves</a>
+						<div class="nav"><a href="uk-UA/index.html#graduatedoffset">попередній</a><a href="uk-UA/index.html#circles_cubic">наступний</a></div>
+						<a href="uk-UA/index.html#circles">Circles and quadratic Bézier curves</a>
 					</h1>
 					<p>
 						Circles and Bézier curves are very different beasts, and circles are infinitely easier to work with than Bézier curves. Their formula is
@@ -8420,11 +8555,11 @@ for p = 1 to points.length-3 (inclusive):
 						width="400"
 						height="400"
 						src="./chapters/circles/arc-approximation.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="400px" height="400px" src="./images/chapters/circles/08ca09aacb271735e063e7e8d941a195.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -8626,8 +8761,8 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="circles_cubic">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#circles">前</a><a href="ja-JP/index.html#arcapproximation">次</a></div>
-						<a href="ja-JP/index.html#circles_cubic">Circles and cubic Bézier curves</a>
+						<div class="nav"><a href="uk-UA/index.html#circles">попередній</a><a href="uk-UA/index.html#arcapproximation">наступний</a></div>
+						<a href="uk-UA/index.html#circles_cubic">Circles and cubic Bézier curves</a>
 					</h1>
 					<p>
 						In the previous section we tried to approximate a circular arc with a quadratic curve, and it mostly made us unhappy. Cubic curves are
@@ -8655,11 +8790,11 @@ for p = 1 to points.length-3 (inclusive):
 						width="400"
 						height="400"
 						src="./chapters/circles_cubic/arc-approximation.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="400px" height="400px" src="./images/chapters/circles_cubic/ecacec0eb2bbe72e14b9008d854fbb06.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -9025,19 +9160,19 @@ for p = 1 to points.length-3 (inclusive):
 						width="340"
 						height="300"
 						src="./chapters/circles_cubic/circle.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="340px" height="300px" src="./images/chapters/circles_cubic/63f35fb58d3571200ac6ccea0384b9d7.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
 				<section id="arcapproximation">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#circles_cubic">前</a><a href="ja-JP/index.html#bsplines">次</a></div>
-						<a href="ja-JP/index.html#arcapproximation">Approximating Bézier curves with circular arcs</a>
+						<div class="nav"><a href="uk-UA/index.html#circles_cubic">попередній</a><a href="uk-UA/index.html#bsplines">наступний</a></div>
+						<a href="uk-UA/index.html#arcapproximation">Approximating Bézier curves with circular arcs</a>
 					</h1>
 					<p>
 						Let's look at doing the exact opposite of the previous section: rather than approximating circular arc using Bézier curves, let's
@@ -9111,11 +9246,11 @@ for p = 1 to points.length-3 (inclusive):
 						width="275"
 						height="275"
 						src="./chapters/arcapproximation/arc.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/arcapproximation/7c9cce8142fa3e85bb124520f40645ff.png" loading="lazy" />
 							<label>First arc approximation of a Bézier curve</label>
 						</fallback-image>
@@ -9132,11 +9267,11 @@ for p = 1 to points.length-3 (inclusive):
 						width="275"
 						height="275"
 						src="./chapters/arcapproximation/arcs.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="275px" height="275px" src="./images/chapters/arcapproximation/da76341b841df1af8a39f797e85dfe3c.png" loading="lazy" />
 							<label>Arc approximation of a Bézier curve</label>
 						</fallback-image>
@@ -9156,8 +9291,8 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="bsplines">
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#arcapproximation">前</a><a href="ja-JP/index.html#comments">次</a></div>
-						<a href="ja-JP/index.html#bsplines">B-Splines</a>
+						<div class="nav"><a href="uk-UA/index.html#arcapproximation">попередній</a><a href="uk-UA/index.html#comments">наступний</a></div>
+						<a href="uk-UA/index.html#bsplines">B-Splines</a>
 					</h1>
 					<p>
 						No discussion on Bézier curves is complete without also giving mention of that other beast in the curve design space: B-Splines. Easily
@@ -9183,11 +9318,11 @@ for p = 1 to points.length-3 (inclusive):
 						width="600"
 						height="300"
 						src="./chapters/bsplines/basic.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="600px" height="300px" src="./images/chapters/bsplines/fe3a8ca5706f286d916e36699e237e51.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -9212,11 +9347,11 @@ for p = 1 to points.length-3 (inclusive):
 						height="300"
 						src="./chapters/bsplines/basic.js"
 						data-show-curves="true"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="600px" height="300px" src="./images/chapters/bsplines/41167c64c51386414c6e62f0b45e6295.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -9520,11 +9655,11 @@ for(let L = 1; L <= order; L++) {
 						width="400"
 						height="400"
 						src="./chapters/bsplines/uniform.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/48a30189e74658737b3a8b28bb816f8a.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -9551,11 +9686,11 @@ for(let L = 1; L <= order; L++) {
 						width="400"
 						height="400"
 						src="./chapters/bsplines/reduced.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/ceaef2fbee05a58aa11835925403b4cd.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -9579,11 +9714,11 @@ for(let L = 1; L <= order; L++) {
 						height="400"
 						src="./chapters/bsplines/uniform.js"
 						data-open="true"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/0215dc106e4ad51afe043c0176a595f6.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -9608,11 +9743,11 @@ for(let L = 1; L <= order; L++) {
 						width="400"
 						height="400"
 						src="./chapters/bsplines/rational-uniform.js"
-						reset="リセット"
+						reset="скинути"
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/0d9c2186423466a32bb8fbd187409f82.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -9667,8 +9802,8 @@ for(let L = 1; L <= order; L++) {
 					</script>
 
 					<h1>
-						<div class="nav"><a href="ja-JP/index.html#bsplines">前</a></div>
-						<a href="ja-JP/index.html#comments">Comments and questions</a>
+						<div class="nav"><a href="uk-UA/index.html#bsplines">попередній</a></div>
+						<a href="uk-UA/index.html#comments">Comments and questions</a>
 					</h1>
 					<p>
 						First off, if you enjoyed this book, or you simply found it useful for something you were trying to get done, and you were wondering how

@@ -15,7 +15,8 @@ export default function generateLangSwitcher(localeStrings, langProgress) {
         link = `./${locale}/index.html`;
       }
       let localeName = localeStrings.getLocaleName(locale);
-      return `<li><a href="${link}">${localeName}</a> <span class="localisation-progress">(${langProgress[locale]}%)</span></li>`;
+      let progress = langProgress[locale] !== 100 ? ` <span class="localisation-progress">(${langProgress[locale]}%)</span>` : ` &nbsp;`;
+      return `<li><a href="${link}">${localeName}</a>${progress}</li>`;
     })
     .join(`\n`);
 }

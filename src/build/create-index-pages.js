@@ -20,7 +20,7 @@ async function createIndexPages(locale, localeStrings, chapters, langProgress) {
   const localePrefix = base ? `${locale}/index.html` : ``;
   const preface = `<section id="preface">${chapters[sectionOrder[0]]}</section>`;
   const sections = formSectionData(chapters, sectionOrder, toclist, locale, base);
-  const sectionText = finaliseSections(sections);
+  const sectionText = finaliseSections(sections, localeStrings);
   const changelog = formChangeLog(changelogData);
 
   const renderContext = {
@@ -81,18 +81,18 @@ function formSectionData(chapters, sectionOrder, toclist, locale, base) {
 /**
  * ...docs go here...
  */
-function finaliseSections(sections) {
+function finaliseSections(sections, localeStrings) {
   // Perform crosslinking as part of yielding the section text
 
   return sections.map((section) => {
     let elements = [];
     let previous = sections[section.previous];
     if (previous) {
-      elements.push(`<a href="${previous.link}">previous</a>`);
+      elements.push(`<a href="${previous.link}">${localeStrings.get(`previous`)}</a>`);
     }
     let next = sections[section.next];
     if (next) {
-      elements.push(`<a href="${next.link}">next</a>`);
+      elements.push(`<a href="${next.link}">${localeStrings.get(`next`)}</a>`);
     }
     let nav = `<div class="nav">${elements.join(``)}</div>`;
     return section.content.replace(`<h1><a`, `<h1>${nav}<a`);

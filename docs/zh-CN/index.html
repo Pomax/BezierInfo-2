@@ -41,7 +41,7 @@
 		<meta property="og:locale" content="zh-CN" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2020-10-28T01:54:22+00:00" />
+		<meta property="og:updated_time" content="2020-10-31T03:08:55+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -134,9 +134,10 @@
 			<div>
 				<span>Read this in your own language:</span>
 				<ul class="lang-switcher">
-					<li><a href="./index.html">English</a> <span class="localisation-progress">(100%)</span></li>
+					<li><a href="./index.html">English</a> &nbsp;</li>
 					<li><a href="./ja-JP/index.html">日本語</a> <span class="localisation-progress">(24%)</span></li>
 					<li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(22%)</span></li>
+					<li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
 				</ul>
 				<p>
 					(Don't see your language listed, or want to see it reach 100%?
@@ -153,7 +154,6 @@
 				If this is your first time here: welcome! Let me know if you were looking for anything in particular that the primer doesn't cover over on the
 				<a href="https://github.com/Pomax/BezierInfo-2/issues">issue tracker</a>!
 			</p>
-
 			<p>
 				If this is a resource that you're using for research, or writing your own software, please consider
 				<a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">donating</a> (any amount helps) or
@@ -442,21 +442,35 @@
 			<section id="chapters">
 				<section id="introduction">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#whatis">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#whatis">下</a></div>
 						<a href="zh-CN/index.html#introduction">简单介绍</a>
 					</h1>
 					<p>
 						让我们有个好的开始：当我们在谈论贝塞尔曲线的时候，所指的就是你在如下图像看到的东西。它们从某些起点开始，到终点结束，并且受到一个或多个的“中间”控制点的影响。本页面上的图形都是可交互的，你可以拖动这些点，看看这些形状在你的操作下会怎么变化。
 					</p>
 					<div class="figure">
-						<graphics-element title="二次贝塞尔曲线" width="275" height="275" src="./chapters/introduction/quadratic.js">
+						<graphics-element
+							title="二次贝塞尔曲线"
+							width="275"
+							height="275"
+							src="./chapters/introduction/quadratic.js"
+							reset="重启"
+							viewSource="view source"
+						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/introduction/54e9ec0600ac436b0e6f0c6b5005cf03.png" loading="lazy" />
 								<label>二次贝塞尔曲线</label>
 							</fallback-image></graphics-element
 						>
-						<graphics-element title="三次贝塞尔曲线" width="275" height="275" src="./chapters/introduction/cubic.js">
+						<graphics-element
+							title="三次贝塞尔曲线"
+							width="275"
+							height="275"
+							src="./chapters/introduction/cubic.js"
+							reset="重启"
+							viewSource="view source"
+						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/introduction/8d158a13e9a86969b99c64057644cbc6.png" loading="lazy" />
@@ -472,7 +486,7 @@
 				</section>
 				<section id="whatis">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#introduction">previous</a><a href="zh-CN/index.html#explanation">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#introduction">前</a><a href="zh-CN/index.html#explanation">下</a></div>
 						<a href="zh-CN/index.html#whatis">什么构成了贝塞尔曲线？</a>
 					</h1>
 					<p>
@@ -500,7 +514,14 @@
 					<p>
 						让我们来通过实际操作看一下：下面的图形都是可交互的，因此你可以通过上下键来增加或减少插值距离，来观察图形的变化。我们从三个点构成的两条线段开始。通过对各条线段进行线性插值得到两个点，对点之间的线段再进行线性插值，产生一个新的点。最终这些点——所有的点都可以通过选取不同的距离插值产生——构成了贝塞尔曲线
 						：
-						<graphics-element title="Linear Interpolation leading to Bézier curves" width="825" height="275" src="./chapters/whatis/interpolation.js">
+						<graphics-element
+							title="Linear Interpolation leading to Bézier curves"
+							width="825"
+							height="275"
+							src="./chapters/whatis/interpolation.js"
+							reset="重启"
+							viewSource="view source"
+						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="825px" height="275px" src="./images/chapters/whatis/524dd296e96c0fe2281fb95146f8ea65.png" loading="lazy" />
@@ -518,7 +539,7 @@
 				</section>
 				<section id="explanation">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#whatis">previous</a><a href="zh-CN/index.html#control">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#whatis">前</a><a href="zh-CN/index.html#control">下</a></div>
 						<a href="zh-CN/index.html#explanation">贝塞尔曲线的数学原理</a>
 					</h1>
 					<p>
@@ -573,7 +594,14 @@
 					<p>
 						所以，参数曲线不像一般函数那样，通过<i>x</i>坐标来定义<i>y</i>坐标，而是用一个“控制”变量将它们连接起来。如果改变<i>t</i>的值，每次变化时我们都能得到<strong>两个</strong>值，这可以作为图形中的(<i>x</i>,<i>y</i>)坐标。比如上面的方程组，生成位于一个圆上的点：我们可以使<i>t</i>在正负极值间变化，得到的输出(<i>x</i>,<i>y</i>)都会位于一个以原点(0,0)为中心且半径为1的圆上。如果我们画出<i>t</i>从0到5时的值，将得到如下图像：
 					</p>
-					<graphics-element title="(一部分的)圆: x=sin(t), y=cos(t)" width="275" height="275" src="./chapters/explanation/circle.js">
+					<graphics-element
+						title="(一部分的)圆: x=sin(t), y=cos(t)"
+						width="275"
+						height="275"
+						src="./chapters/explanation/circle.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/explanation/959762e39ae32407e914a687d804ff3a.png" loading="lazy" />
@@ -893,7 +921,7 @@ function Bezier(3,t):
 				</section>
 				<section id="control">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#explanation">previous</a><a href="zh-CN/index.html#weightcontrol">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#explanation">前</a><a href="zh-CN/index.html#weightcontrol">下</a></div>
 						<a href="zh-CN/index.html#control">控制贝塞尔的曲率</a>
 					</h1>
 					<p>
@@ -903,7 +931,15 @@ function Bezier(3,t):
 						下面的图形显示了二次曲线和三次曲线的差值方程，“S”代表了点对贝塞尔方程总和的贡献。点击拖动点来看看在特定的<i>t</i>值时，每个曲线定义的点的插值百分比。
 					</p>
 					<div class="figure">
-						<graphics-element title="二次插值" width="275" height="275" src="./chapters/control/lerp.js" data-degree="3">
+						<graphics-element
+							title="二次插值"
+							width="275"
+							height="275"
+							src="./chapters/control/lerp.js"
+							data-degree="3"
+							reset="重启"
+							viewSource="view source"
+						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/control/f700cd59e6021b0e06b819105ec931da.png" loading="lazy" />
@@ -911,7 +947,15 @@ function Bezier(3,t):
 							</fallback-image>
 							<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
 						</graphics-element>
-						<graphics-element title="三次插值" width="275" height="275" src="./chapters/control/lerp.js" data-degree="4">
+						<graphics-element
+							title="三次插值"
+							width="275"
+							height="275"
+							src="./chapters/control/lerp.js"
+							data-degree="4"
+							reset="重启"
+							viewSource="view source"
+						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/control/4b206c16ccf8a06a0834fe9e5254560c.png" loading="lazy" />
@@ -919,7 +963,15 @@ function Bezier(3,t):
 							</fallback-image>
 							<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
 						</graphics-element>
-						<graphics-element title="15次插值" width="275" height="275" src="./chapters/control/lerp.js" data-degree="15">
+						<graphics-element
+							title="15次插值"
+							width="275"
+							height="275"
+							src="./chapters/control/lerp.js"
+							data-degree="15"
+							reset="重启"
+							viewSource="view source"
+						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/control/be82cd31c4892a8f0582b1b5285231d9.png" loading="lazy" />
@@ -1056,7 +1108,7 @@ function Bezier(3,t,w[]):
 				</section>
 				<section id="weightcontrol">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#control">previous</a><a href="zh-CN/index.html#extended">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#control">前</a><a href="zh-CN/index.html#extended">下</a></div>
 						<a href="zh-CN/index.html#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a>
 					</h1>
 					<p>
@@ -1119,7 +1171,14 @@ function Bezier(3,t,w[]):
 						exerts on the curve (and of course the higher we set them, the more influence they have). Try to change the values and see how it affects
 						what gets drawn:
 					</p>
-					<graphics-element title="Our rational cubic Bézier curve" width="275" height="275" src="./chapters/weightcontrol/rational.js">
+					<graphics-element
+						title="Our rational cubic Bézier curve"
+						width="275"
+						height="275"
+						src="./chapters/weightcontrol/rational.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/weightcontrol/3d71e2b9373684eebcb0dc8563f70b18.png" loading="lazy" />
@@ -1256,7 +1315,7 @@ function RationalBezier(3,t,w[],r[]):
 				</section>
 				<section id="extended">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#weightcontrol">previous</a><a href="zh-CN/index.html#matrix">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#weightcontrol">前</a><a href="zh-CN/index.html#matrix">下</a></div>
 						<a href="zh-CN/index.html#extended">贝塞尔区间[0,1]</a>
 					</h1>
 					<p>
@@ -1293,14 +1352,30 @@ function RationalBezier(3,t,w[],r[]):
 						下面两个图形给你展示了以“普通方式”来渲染的贝塞尔曲线，以及如果我们扩大<code>t</code>值时它们所“位于”的曲线。如你所见，曲线的剩余部分隐藏了很多“形状”，我们可以通过移动曲线的点来建模这部分。
 					</p>
 					<div class="figure">
-						<graphics-element title="二次无限区间贝塞尔曲线" width="275" height="275" src="./chapters/extended/extended.js" data-type="quadratic">
+						<graphics-element
+							title="二次无限区间贝塞尔曲线"
+							width="275"
+							height="275"
+							src="./chapters/extended/extended.js"
+							data-type="quadratic"
+							reset="重启"
+							viewSource="view source"
+						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/extended/37948bde4bf0d25bde85f172bf55b9fb.png" loading="lazy" />
 								<label>二次无限区间贝塞尔曲线</label>
 							</fallback-image></graphics-element
 						>
-						<graphics-element title="三次无限区间贝塞尔曲线" width="275" height="275" src="./chapters/extended/extended.js" data-type="cubic">
+						<graphics-element
+							title="三次无限区间贝塞尔曲线"
+							width="275"
+							height="275"
+							src="./chapters/extended/extended.js"
+							data-type="cubic"
+							reset="重启"
+							viewSource="view source"
+						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/extended/2d17acb381ebdd28f0ff43be00d723c4.png" loading="lazy" />
@@ -1322,7 +1397,7 @@ function RationalBezier(3,t,w[],r[]):
 				</section>
 				<section id="matrix">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#extended">previous</a><a href="zh-CN/index.html#decasteljau">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#extended">前</a><a href="zh-CN/index.html#decasteljau">下</a></div>
 						<a href="zh-CN/index.html#matrix">用矩阵运算来表示贝塞尔曲率</a>
 					</h1>
 					<p>
@@ -1456,7 +1531,7 @@ function RationalBezier(3,t,w[],r[]):
 				</section>
 				<section id="decasteljau">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#matrix">previous</a><a href="zh-CN/index.html#flattening">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#matrix">前</a><a href="zh-CN/index.html#flattening">下</a></div>
 						<a href="zh-CN/index.html#decasteljau">de Casteljau's 算法</a>
 					</h1>
 					<p>
@@ -1478,7 +1553,14 @@ function RationalBezier(3,t,w[],r[]):
 						我们通过实际操作来观察这个过程。在以下的图表中，移动鼠标来改变用de
 						Casteljau算法计算得到的曲线点，左右移动鼠标，可以实时看到曲线是如何生成的。
 					</p>
-					<graphics-element title="用de Casteljau算法来遍历曲线" width="275" height="275" src="./chapters/decasteljau/decasteljau.js">
+					<graphics-element
+						title="用de Casteljau算法来遍历曲线"
+						width="275"
+						height="275"
+						src="./chapters/decasteljau/decasteljau.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/decasteljau/df92f529841f39decf9ad62b0967855a.png" loading="lazy" />
@@ -1586,7 +1668,7 @@ function drawCurve(points[], t):
 				</section>
 				<section id="flattening">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#decasteljau">previous</a><a href="zh-CN/index.html#splitting">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#decasteljau">前</a><a href="zh-CN/index.html#splitting">下</a></div>
 						<a href="zh-CN/index.html#flattening">简化绘图</a>
 					</h1>
 					<p>
@@ -1596,7 +1678,15 @@ function drawCurve(points[], t):
 						我们可以先确定“想要X个分段”，然后在间隔的地方采样曲线，得到一定数量的分段。这种方法的优点是速度很快：比起遍历100甚至1000个曲线坐标，我们可以采样比较少的点，仍然得到看起来足够好的曲线。这么做的缺点是，我们失去了“真正的曲线”的精度，因此不能用此方法来做真实的相交检测或曲率对齐。
 					</p>
 					<div class="figure">
-						<graphics-element title="拉平一条二次曲线" width="275" height="275" src="./chapters/flattening/flatten.js" data-type="quadratic">
+						<graphics-element
+							title="拉平一条二次曲线"
+							width="275"
+							height="275"
+							src="./chapters/flattening/flatten.js"
+							data-type="quadratic"
+							reset="重启"
+							viewSource="view source"
+						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/flattening/6813bfc608aea11df1dda444b9f18123.png" loading="lazy" />
@@ -1604,7 +1694,15 @@ function drawCurve(points[], t):
 							</fallback-image>
 							<input type="range" min="1" max="16" step="1" value="4" class="slide-control" />
 						</graphics-element>
-						<graphics-element title="拉平一条三次曲线" width="275" height="275" src="./chapters/flattening/flatten.js" data-type="cubic">
+						<graphics-element
+							title="拉平一条三次曲线"
+							width="275"
+							height="275"
+							src="./chapters/flattening/flatten.js"
+							data-type="cubic"
+							reset="重启"
+							viewSource="view source"
+						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/flattening/0e0e4a2ee46bd89bcfde9f75cfe43292.png" loading="lazy" />
@@ -1698,7 +1796,7 @@ function drawFlattenedCurve(curve, segmentCount):
 				</section>
 				<section id="splitting">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#flattening">previous</a><a href="zh-CN/index.html#matrixsplit">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#flattening">前</a><a href="zh-CN/index.html#matrixsplit">下</a></div>
 						<a href="zh-CN/index.html#splitting">分割曲线</a>
 					</h1>
 					<p>
@@ -1706,7 +1804,14 @@ function drawFlattenedCurve(curve, segmentCount):
 						Casteljau 算法时，该过程会给到我们在 <code>t</code> 点分割曲线的所有点:
 						一条曲线包含该曲线上点之前的所有点，另一条曲线包含该曲线上点之后的所有点。
 					</p>
-					<graphics-element title="分割一条曲线" width="825" height="275" src="./chapters/splitting/splitting.js">
+					<graphics-element
+						title="分割一条曲线"
+						width="825"
+						height="275"
+						src="./chapters/splitting/splitting.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="825px" height="275px" src="./images/chapters/splitting/fce5eb16dfcd103797c5e17bd77f1437.png" loading="lazy" />
@@ -1797,7 +1902,7 @@ function drawCurve(points[], t):
 				</section>
 				<section id="matrixsplit">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#splitting">previous</a><a href="zh-CN/index.html#reordering">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#splitting">前</a><a href="zh-CN/index.html#reordering">下</a></div>
 						<a href="zh-CN/index.html#matrixsplit">Splitting curves using matrices</a>
 					</h1>
 					<p>
@@ -2310,7 +2415,7 @@ function drawCurve(points[], t):
 				</section>
 				<section id="reordering">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#matrixsplit">previous</a><a href="zh-CN/index.html#derivatives">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#matrixsplit">前</a><a href="zh-CN/index.html#derivatives">下</a></div>
 						<a href="zh-CN/index.html#reordering">Lowering and elevating curve order</a>
 					</h1>
 					<p>
@@ -2579,7 +2684,14 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 						raising and lowering curve order to a (semi) random curve, using the following graphic. Select the sketch, which has movable control
 						points, and press your up and down arrow keys to raise or lower the curve order.
 					</p>
-					<graphics-element title="A variable-order Bézier curve" width="275" height="275" src="./chapters/reordering/reorder.js">
+					<graphics-element
+						title="A variable-order Bézier curve"
+						width="275"
+						height="275"
+						src="./chapters/reordering/reorder.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/reordering/c4874e1205aabe624e5504abe154eae9.png" loading="lazy" />
@@ -2591,7 +2703,7 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 				</section>
 				<section id="derivatives">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#reordering">previous</a><a href="zh-CN/index.html#pointvectors">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#reordering">前</a><a href="zh-CN/index.html#pointvectors">下</a></div>
 						<a href="zh-CN/index.html#derivatives">Derivatives</a>
 					</h1>
 					<p>
@@ -2910,7 +3022,7 @@ Bézier'(n,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \unders
 				</section>
 				<section id="pointvectors">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#derivatives">previous</a><a href="zh-CN/index.html#pointvectors3d">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#derivatives">前</a><a href="zh-CN/index.html#pointvectors3d">下</a></div>
 						<a href="zh-CN/index.html#pointvectors">Tangents and normals</a>
 					</h1>
 					<p>
@@ -3048,6 +3160,8 @@ Bézier'(n,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \unders
 							height="275"
 							src="./chapters/pointvectors/pointvectors.js"
 							data-type="quadratic"
+							reset="重启"
+							viewSource="view source"
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -3061,6 +3175,8 @@ Bézier'(n,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \unders
 							height="275"
 							src="./chapters/pointvectors/pointvectors.js"
 							data-type="cubic"
+							reset="重启"
+							viewSource="view source"
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -3072,7 +3188,7 @@ Bézier'(n,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \unders
 				</section>
 				<section id="pointvectors3d">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#pointvectors">previous</a><a href="zh-CN/index.html#components">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#pointvectors">前</a><a href="zh-CN/index.html#components">下</a></div>
 						<a href="zh-CN/index.html#pointvectors3d">Working with 3D normals</a>
 					</h1>
 					<p>
@@ -3135,7 +3251,14 @@ Bézier'(n,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \unders
 						move your cursor across the graphic from left to right, to show the normal at a point with a t value that is based on your cursor
 						position: all the way on the left is 0, all the way on the right = 1, midway is t=0.5, etc:
 					</p>
-					<graphics-element title="Some known and unknown vectors" width="350" height="300" src="./chapters/pointvectors3d/frenet.js">
+					<graphics-element
+						title="Some known and unknown vectors"
+						width="350"
+						height="300"
+						src="./chapters/pointvectors3d/frenet.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="350px" height="300px" src="./images/chapters/pointvectors3d/11c1da2357004bb51cf0c591fc492115.png" loading="lazy" />
@@ -3388,7 +3511,14 @@ generateRMFrames(steps) -> frames:
 						Speaking of better looking, what does this actually look like? Let's revisit that earlier curve, but this time use rotation minimising
 						frames rather than Frenet frames:
 					</p>
-					<graphics-element title="Some known and unknown vectors" width="350" height="300" src="./chapters/pointvectors3d/rotation-minimizing.js">
+					<graphics-element
+						title="Some known and unknown vectors"
+						width="350"
+						height="300"
+						src="./chapters/pointvectors3d/rotation-minimizing.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="350px" height="300px" src="./images/chapters/pointvectors3d/f4a2fa1e0204c890b2bff07228ba678d.png" loading="lazy" />
@@ -3406,7 +3536,7 @@ generateRMFrames(steps) -> frames:
 				</section>
 				<section id="components">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#pointvectors3d">previous</a><a href="zh-CN/index.html#extremities">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#pointvectors3d">前</a><a href="zh-CN/index.html#extremities">下</a></div>
 						<a href="zh-CN/index.html#components">Component functions</a>
 					</h1>
 					<p>
@@ -3436,6 +3566,8 @@ generateRMFrames(steps) -> frames:
 						height="275"
 						src="./chapters/components/components.js"
 						data-type="quadratic"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -3449,6 +3581,8 @@ generateRMFrames(steps) -> frames:
 						height="275"
 						src="./chapters/components/components.js"
 						data-type="cubic"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -3458,7 +3592,7 @@ generateRMFrames(steps) -> frames:
 				</section>
 				<section id="extremities">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#components">previous</a><a href="zh-CN/index.html#boundingbox">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#components">前</a><a href="zh-CN/index.html#boundingbox">下</a></div>
 						<a href="zh-CN/index.html#extremities">Finding extremities: root finding</a>
 					</h1>
 					<p>
@@ -4078,6 +4212,8 @@ function getCubicRoots(pa, pb, pc, pd) {
 						height="275"
 						src="./chapters/extremities/extremities.js"
 						data-type="quadratic"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -4091,6 +4227,8 @@ function getCubicRoots(pa, pb, pc, pd) {
 						height="275"
 						src="./chapters/extremities/extremities.js"
 						data-type="cubic"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -4100,7 +4238,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="boundingbox">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#extremities">previous</a><a href="zh-CN/index.html#aligning">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#extremities">前</a><a href="zh-CN/index.html#aligning">下</a></div>
 						<a href="zh-CN/index.html#boundingbox">Bounding boxes</a>
 					</h1>
 					<p>
@@ -4128,6 +4266,8 @@ function getCubicRoots(pa, pb, pc, pd) {
 							height="275"
 							src="./chapters/boundingbox/bbox.js"
 							data-type="quadratic"
+							reset="重启"
+							viewSource="view source"
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -4135,7 +4275,15 @@ function getCubicRoots(pa, pb, pc, pd) {
 								<label>Quadratic Bézier bounding box</label>
 							</fallback-image></graphics-element
 						>
-						<graphics-element title="Cubic Bézier bounding box" width="275" height="275" src="./chapters/boundingbox/bbox.js" data-type="cubic">
+						<graphics-element
+							title="Cubic Bézier bounding box"
+							width="275"
+							height="275"
+							src="./chapters/boundingbox/bbox.js"
+							data-type="cubic"
+							reset="重启"
+							viewSource="view source"
+						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/boundingbox/daad01218ba430e2355d151811aa971b.png" loading="lazy" />
@@ -4151,7 +4299,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="aligning">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#boundingbox">previous</a><a href="zh-CN/index.html#tightbounds">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#boundingbox">前</a><a href="zh-CN/index.html#tightbounds">下</a></div>
 						<a href="zh-CN/index.html#aligning">Aligning curves</a>
 					</h1>
 					<p>
@@ -4215,14 +4363,30 @@ function getCubicRoots(pa, pb, pc, pd) {
 						We can see that our original curve definition has been simplified considerably. The following graphics illustrate the result of aligning
 						our example curves to the x-axis, with the cubic case using the coordinates that were just used in the example formulae:
 					</p>
-					<graphics-element title="Aligning a quadratic curve" width="550" height="275" src="./chapters/aligning/aligning.js" data-type="quadratic">
+					<graphics-element
+						title="Aligning a quadratic curve"
+						width="550"
+						height="275"
+						src="./chapters/aligning/aligning.js"
+						data-type="quadratic"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="550px" height="275px" src="./images/chapters/aligning/28cc0f129fa0c028a1addd702e99f162.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 					<p>&nbsp;</p>
-					<graphics-element title="Aligning a cubic curve" width="550" height="275" src="./chapters/aligning/aligning.js" data-type="cubic">
+					<graphics-element
+						title="Aligning a cubic curve"
+						width="550"
+						height="275"
+						src="./chapters/aligning/aligning.js"
+						data-type="cubic"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="550px" height="275px" src="./images/chapters/aligning/9a6755a1e31a990e8f072a6da98f811a.png" loading="lazy" />
@@ -4231,7 +4395,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="tightbounds">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#aligning">previous</a><a href="zh-CN/index.html#inflections">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#aligning">前</a><a href="zh-CN/index.html#inflections">下</a></div>
 						<a href="zh-CN/index.html#tightbounds">Tight bounding boxes</a>
 					</h1>
 					<p>
@@ -4247,6 +4411,8 @@ function getCubicRoots(pa, pb, pc, pd) {
 							height="275"
 							src="./chapters/tightbounds/tightbounds.js"
 							data-type="quadratic"
+							reset="重启"
+							viewSource="view source"
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -4254,7 +4420,15 @@ function getCubicRoots(pa, pb, pc, pd) {
 								<label>Aligning a quadratic curve</label>
 							</fallback-image></graphics-element
 						>
-						<graphics-element title="Aligning a cubic curve" width="275" height="275" src="./chapters/tightbounds/tightbounds.js" data-type="cubic">
+						<graphics-element
+							title="Aligning a cubic curve"
+							width="275"
+							height="275"
+							src="./chapters/tightbounds/tightbounds.js"
+							data-type="cubic"
+							reset="重启"
+							viewSource="view source"
+						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/tightbounds/9ee5abc64b3fba71e284c70539279d74.png" loading="lazy" />
@@ -4271,7 +4445,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="inflections">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#tightbounds">previous</a><a href="zh-CN/index.html#canonical">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#tightbounds">前</a><a href="zh-CN/index.html#canonical">下</a></div>
 						<a href="zh-CN/index.html#inflections">Curve inflections</a>
 					</h1>
 					<p>
@@ -4467,7 +4641,14 @@ function getCubicRoots(pa, pb, pc, pd) {
 						Taking that into account, we compute <em>t</em>, we disregard any <em>t</em> value that isn't in the Bézier interval [0,1], and we now
 						know at which <em>t</em> value(s) our curve will inflect.
 					</p>
-					<graphics-element title="Finding cubic Bézier curve inflections" width="275" height="275" src="./chapters/inflections/inflection.js">
+					<graphics-element
+						title="Finding cubic Bézier curve inflections"
+						width="275"
+						height="275"
+						src="./chapters/inflections/inflection.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/inflections/726ece45630c43be14589c51f1606bd7.png" loading="lazy" />
@@ -4477,7 +4658,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="canonical">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#inflections">previous</a><a href="zh-CN/index.html#yforx">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#inflections">前</a><a href="zh-CN/index.html#yforx">下</a></div>
 						<a href="zh-CN/index.html#canonical">The canonical form (for cubic curves)</a>
 					</h1>
 					<p>
@@ -4501,7 +4682,14 @@ function getCubicRoots(pa, pb, pc, pd) {
 						that transformation, the location of that last point can then tell us what kind of curve we're dealing with. Specifically, we see the
 						following breakdown:
 					</p>
-					<graphics-element title="The canonical curve map" width="400" height="400" src="./chapters/canonical/canonical.js">
+					<graphics-element
+						title="The canonical curve map"
+						width="400"
+						height="400"
+						src="./chapters/canonical/canonical.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="400px" height="400px" src="./images/chapters/canonical/c086e72bd8aaeab37436515ab251b2df.png" loading="lazy" />
@@ -4825,7 +5013,14 @@ function getCubicRoots(pa, pb, pc, pd) {
 						So, let's write up a sketch that'll show us the canonical form for any curve drawn in blue, overlaid on our canonical map, so that we can
 						immediately tell which features our curve must have, based on where the fourth coordinate is located on the map:
 					</p>
-					<graphics-element title="A cubic curve mapped to canonical form" width="800" height="400" src="./chapters/canonical/interactive.js">
+					<graphics-element
+						title="A cubic curve mapped to canonical form"
+						width="800"
+						height="400"
+						src="./chapters/canonical/interactive.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="800px" height="400px" src="./images/chapters/canonical/83fe2473e20ea68b768765129ee44ae4.png" loading="lazy" />
@@ -4834,7 +5029,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="yforx">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#canonical">previous</a><a href="zh-CN/index.html#arclength">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#canonical">前</a><a href="zh-CN/index.html#arclength">下</a></div>
 						<a href="zh-CN/index.html#yforx">Finding Y, given X</a>
 					</h1>
 					<p>
@@ -4856,6 +5051,8 @@ function getCubicRoots(pa, pb, pc, pd) {
 						width="550"
 						height="275"
 						src="./chapters/yforx/basics.js"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -4955,7 +5152,14 @@ y = curve.get(t).y</textarea
 						<em>for</em> that <code>t</code> value, which gives us the curve's {x,y} coordinate, which means we know <code>y</code> for this
 						<code>x</code>. Move the slider for the following graphic to see this in action:
 					</p>
-					<graphics-element title="Finding By(t), by finding t for a given x" width="275" height="275" src="./chapters/yforx/yforx.js">
+					<graphics-element
+						title="Finding By(t), by finding t for a given x"
+						width="275"
+						height="275"
+						src="./chapters/yforx/yforx.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/yforx/2fc5c57e5d1ed0eaa1655edc31026252.png" loading="lazy" />
@@ -4966,7 +5170,7 @@ y = curve.get(t).y</textarea
 				</section>
 				<section id="arclength">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#yforx">previous</a><a href="zh-CN/index.html#arclengthapprox">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#yforx">前</a><a href="zh-CN/index.html#arclengthapprox">下</a></div>
 						<a href="zh-CN/index.html#arclength">Arc length</a>
 					</h1>
 					<p>
@@ -5044,6 +5248,8 @@ y = curve.get(t).y</textarea
 							height="275"
 							src="./chapters/arclength/draw-slices.js"
 							data-steps="10"
+							reset="重启"
+							viewSource="view source"
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -5051,14 +5257,30 @@ y = curve.get(t).y</textarea
 								<label>A function's approximated integral</label>
 							</fallback-image></graphics-element
 						>
-						<graphics-element title="A better approximation" width="275" height="275" src="./chapters/arclength/draw-slices.js" data-steps="24">
+						<graphics-element
+							title="A better approximation"
+							width="275"
+							height="275"
+							src="./chapters/arclength/draw-slices.js"
+							data-steps="24"
+							reset="重启"
+							viewSource="view source"
+						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/arclength/5ce02cbdbc47585c588f2656d5161a32.png" loading="lazy" />
 								<label>A better approximation</label>
 							</fallback-image></graphics-element
 						>
-						<graphics-element title="An even better approximation" width="275" height="275" src="./chapters/arclength/draw-slices.js" data-steps="99">
+						<graphics-element
+							title="An even better approximation"
+							width="275"
+							height="275"
+							src="./chapters/arclength/draw-slices.js"
+							data-steps="99"
+							reset="重启"
+							viewSource="view source"
+						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/arclength/fe2663b205d14c157a5a02bfbbd55987.png" loading="lazy" />
@@ -5171,7 +5393,14 @@ y = curve.get(t).y</textarea
 						a straight line, and see if the length matches what you'd expect. What if you form a line with the control points on the outside, and the
 						start/end points on the inside?
 					</p>
-					<graphics-element title="Arc length for a Bézier curve" width="275" height="275" src="./chapters/arclength/arclength.js">
+					<graphics-element
+						title="Arc length for a Bézier curve"
+						width="275"
+						height="275"
+						src="./chapters/arclength/arclength.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/arclength/fa4c587126e8097206b88d9ea51974ca.png" loading="lazy" />
@@ -5181,7 +5410,7 @@ y = curve.get(t).y</textarea
 				</section>
 				<section id="arclengthapprox">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#arclength">previous</a><a href="zh-CN/index.html#curvature">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#arclength">前</a><a href="zh-CN/index.html#curvature">下</a></div>
 						<a href="zh-CN/index.html#arclengthapprox">Approximated arc length</a>
 					</h1>
 					<p>
@@ -5200,6 +5429,8 @@ y = curve.get(t).y</textarea
 							height="275"
 							src="./chapters/arclengthapprox/approximate.js"
 							data-type="quadratic"
+							reset="重启"
+							viewSource="view source"
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -5214,6 +5445,8 @@ y = curve.get(t).y</textarea
 							height="275"
 							src="./chapters/arclengthapprox/approximate.js"
 							data-type="cubic"
+							reset="重启"
+							viewSource="view source"
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -5232,7 +5465,7 @@ y = curve.get(t).y</textarea
 				</section>
 				<section id="curvature">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#arclengthapprox">previous</a><a href="zh-CN/index.html#tracing">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#arclengthapprox">前</a><a href="zh-CN/index.html#tracing">下</a></div>
 						<a href="zh-CN/index.html#curvature">Curvature of a curve</a>
 					</h1>
 					<p>
@@ -5380,6 +5613,8 @@ function kappa(t, B):
 						width="825"
 						height="275"
 						src="./chapters/curvature/curvature.js"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -5410,6 +5645,8 @@ function kappa(t, B):
 						height="275"
 						src="./chapters/curvature/curvature.js"
 						data-omni="true"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -5421,7 +5658,7 @@ function kappa(t, B):
 				</section>
 				<section id="tracing">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#curvature">previous</a><a href="zh-CN/index.html#intersections">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#curvature">前</a><a href="zh-CN/index.html#intersections">下</a></div>
 						<a href="zh-CN/index.html#tracing">Tracing a curve at fixed distance intervals</a>
 					</h1>
 					<p>
@@ -5442,7 +5679,14 @@ function kappa(t, B):
 						this exercise is a cubic curve, which can switch concave/convex form twice at best, the distance function is our old friend the arc length
 						function, which can have more inflection points.
 					</p>
-					<graphics-element title="The t-for-distance function" width="550" height="275" src="./chapters/tracing/distance-function.js">
+					<graphics-element
+						title="The t-for-distance function"
+						width="550"
+						height="275"
+						src="./chapters/tracing/distance-function.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="550px" height="275px" src="./images/chapters/tracing/d6239520389637a3c42e76ee44d86c41.png" loading="lazy" />
@@ -5460,7 +5704,14 @@ function kappa(t, B):
 						curve in order to get regularly spaced points on the curve. It also shows what using those <code>t</code> values on the real curve looks
 						like, by coloring each section of curve between two distance markers differently:
 					</p>
-					<graphics-element title="Fixed-interval coloring a curve" width="825" height="275" src="./chapters/tracing/tracing.js">
+					<graphics-element
+						title="Fixed-interval coloring a curve"
+						width="825"
+						height="275"
+						src="./chapters/tracing/tracing.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="825px" height="275px" src="./images/chapters/tracing/1cd7304fb8d044835bfbc305ca5e5d10.png" loading="lazy" />
@@ -5479,7 +5730,7 @@ function kappa(t, B):
 				</section>
 				<section id="intersections">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#tracing">previous</a><a href="zh-CN/index.html#curveintersection">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#tracing">前</a><a href="zh-CN/index.html#curveintersection">下</a></div>
 						<a href="zh-CN/index.html#intersections">Intersections</a>
 					</h1>
 					<p>
@@ -5509,7 +5760,14 @@ function kappa(t, B):
 						(thus being a virtual intersection point), and a green point for an intersection that lies on both segments (being a real intersection
 						point).
 					</p>
-					<graphics-element title="Line/line intersections" width="275" height="275" src="./chapters/intersections/line-line.js">
+					<graphics-element
+						title="Line/line intersections"
+						width="275"
+						height="275"
+						src="./chapters/intersections/line-line.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/intersections/b3f61036d8dc9888a6a64a1171583dd1.png" loading="lazy" />
@@ -5615,6 +5873,8 @@ lli = function(line1, line2):
 							height="275"
 							src="./chapters/intersections/curve-line.js"
 							data-type="quadratic"
+							reset="重启"
+							viewSource="view source"
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -5628,6 +5888,8 @@ lli = function(line1, line2):
 							height="275"
 							src="./chapters/intersections/curve-line.js"
 							data-type="cubic"
+							reset="重启"
+							viewSource="view source"
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -5645,7 +5907,7 @@ lli = function(line1, line2):
 				</section>
 				<section id="curveintersection">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#intersections">previous</a><a href="zh-CN/index.html#abc">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#intersections">前</a><a href="zh-CN/index.html#abc">下</a></div>
 						<a href="zh-CN/index.html#curveintersection">Curve/curve intersection</a>
 					</h1>
 					<p>
@@ -5696,7 +5958,14 @@ lli = function(line1, line2):
 						algorithm, so you can try this with lots of different curves.
 					</p>
 					<p>(can you find the configuration that yields the maximum number of intersections between two cubic curves? Nine intersections!)</p>
-					<graphics-element title="Curve/curve intersections" width="825" height="275" src="./chapters/curveintersection/curve-curve.js">
+					<graphics-element
+						title="Curve/curve intersections"
+						width="825"
+						height="275"
+						src="./chapters/curveintersection/curve-curve.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="825px" height="275px" src="./images/chapters/curveintersection/b155682162a5b6da6d40c7b531164a7e.png" loading="lazy" />
@@ -5714,7 +5983,7 @@ lli = function(line1, line2):
 				</section>
 				<section id="abc">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#curveintersection">previous</a><a href="zh-CN/index.html#pointcurves">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#curveintersection">前</a><a href="zh-CN/index.html#pointcurves">下</a></div>
 						<a href="zh-CN/index.html#abc">The projection identity</a>
 					</h1>
 					<p>
@@ -5744,6 +6013,8 @@ lli = function(line1, line2):
 							height="275"
 							src="./chapters/abc/abc.js"
 							data-type="quadratic"
+							reset="重启"
+							viewSource="view source"
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -5759,6 +6030,8 @@ lli = function(line1, line2):
 							height="275"
 							src="./chapters/abc/abc.js"
 							data-type="cubic"
+							reset="重启"
+							viewSource="view source"
 						>
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -5928,7 +6201,7 @@ lli = function(line1, line2):
 				</section>
 				<section id="pointcurves">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#abc">previous</a><a href="zh-CN/index.html#projections">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#abc">前</a><a href="zh-CN/index.html#projections">下</a></div>
 						<a href="zh-CN/index.html#pointcurves">Creating a curve from three points</a>
 					</h1>
 					<p>
@@ -5964,7 +6237,14 @@ lli = function(line1, line2):
 						With this code in place, creating a quadratic curve from three points is literally just computing the ABC values, and using
 						<code>A</code> as our curve's control point:
 					</p>
-					<graphics-element title="Fitting a quadratic Bézier curve" width="275" height="275" src="./chapters/pointcurves/quadratic.js">
+					<graphics-element
+						title="Fitting a quadratic Bézier curve"
+						width="275"
+						height="275"
+						src="./chapters/pointcurves/quadratic.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/067a3df30e32708fc0d13f8eb78c0b05.png" loading="lazy" />
@@ -5983,7 +6263,14 @@ lli = function(line1, line2):
 						go from those chords through the center of the circle: if we find two of those lines, then their intersection will be our circle's center,
 						and the circle's radius will—by definition!—be the distance from the center to any of our three points:
 					</p>
-					<graphics-element title="Finding a circle through three points" width="275" height="275" src="./chapters/pointcurves/circle.js">
+					<graphics-element
+						title="Finding a circle through three points"
+						width="275"
+						height="275"
+						src="./chapters/pointcurves/circle.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/43875f6ad588bfd04cdb65b591a62052.png" loading="lazy" />
@@ -6058,6 +6345,8 @@ lli = function(line1, line2):
 						height="275"
 						src="./chapters/pointcurves/circle.js"
 						data-show-curve="true"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -6072,7 +6361,14 @@ lli = function(line1, line2):
 						<code>e2</code> points so we can construct a new cubic curve... so now that we have those: let's see what kind of cubic curve that gives
 						us:
 					</p>
-					<graphics-element title="Fitting a quadratic Bézier curve" width="275" height="275" src="./chapters/pointcurves/cubic.js">
+					<graphics-element
+						title="Fitting a quadratic Bézier curve"
+						width="275"
+						height="275"
+						src="./chapters/pointcurves/cubic.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/eab6ea46fa93030e03ec0ef7deb571dc.png" loading="lazy" />
@@ -6089,7 +6385,7 @@ lli = function(line1, line2):
 				</section>
 				<section id="projections">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#pointcurves">previous</a><a href="zh-CN/index.html#molding">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#pointcurves">前</a><a href="zh-CN/index.html#molding">下</a></div>
 						<a href="zh-CN/index.html#projections">Projecting a point onto a Bézier curve</a>
 					</h1>
 					<p>
@@ -6171,7 +6467,14 @@ for (coordinate, index) in LUT:
 						than 0.001, and show you what that means for projecting your mouse cursor or finger tip onto a rather complex Bézier curve (which, of
 						course, you can reshape as you like). Also shown are the original three points that our coarse check finds.
 					</p>
-					<graphics-element title="Projecting a point onto a Bézier curve" width="400" height="400" src="./chapters/projections/project.js">
+					<graphics-element
+						title="Projecting a point onto a Bézier curve"
+						width="400"
+						height="400"
+						src="./chapters/projections/project.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="400px" height="400px" src="./images/chapters/projections/3cc334d0ebc01cc5352e23ed47bc5414.png" loading="lazy" />
@@ -6180,7 +6483,7 @@ for (coordinate, index) in LUT:
 				</section>
 				<section id="molding">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#projections">previous</a><a href="zh-CN/index.html#curvefitting">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#projections">前</a><a href="zh-CN/index.html#curvefitting">下</a></div>
 						<a href="zh-CN/index.html#molding">Molding a curve</a>
 					</h1>
 					<p>
@@ -6216,6 +6519,8 @@ for (coordinate, index) in LUT:
 						height="275"
 						src="./chapters/molding/molding.js"
 						data-type="quadratic"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -6234,7 +6539,15 @@ for (coordinate, index) in LUT:
 						For example, let's see what happens if we just "go with what we get" when we pick a point and start moving it around, preserving its
 						<code>t</code> value and <code>e1</code>/<code>e2</code> coordinates:
 					</p>
-					<graphics-element title="Molding a cubic Bézier curve" width="825" height="275" src="./chapters/molding/molding.js" data-type="cubic">
+					<graphics-element
+						title="Molding a cubic Bézier curve"
+						width="825"
+						height="275"
+						src="./chapters/molding/molding.js"
+						data-type="cubic"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="825px" height="275px" src="./images/chapters/molding/a54f990aa49fb9ea8200b59259f955f3.png" loading="lazy" />
@@ -6257,6 +6570,8 @@ for (coordinate, index) in LUT:
 						src="./chapters/molding/molding.js"
 						data-type="cubic"
 						data-interpolated="true"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -6280,7 +6595,7 @@ for (coordinate, index) in LUT:
 				</section>
 				<section id="curvefitting">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#molding">previous</a><a href="zh-CN/index.html#catmullconv">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#molding">前</a><a href="zh-CN/index.html#catmullconv">下</a></div>
 						<a href="zh-CN/index.html#curvefitting">Curve fitting</a>
 					</h1>
 					<p>
@@ -6756,7 +7071,14 @@ for (coordinate, index) in LUT:
 						<a href="https://en.wikipedia.org/wiki/Round-off_error#Floating-point_number_system">floating point rounding errors</a> to start making a
 						difference (which is around 10~11 points).
 					</p>
-					<graphics-element title="Fitting a Bézier curve" width="550" height="275" src="./chapters/curvefitting/curve-fitting.js">
+					<graphics-element
+						title="Fitting a Bézier curve"
+						width="550"
+						height="275"
+						src="./chapters/curvefitting/curve-fitting.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="550px" height="275px" src="./images/chapters/curvefitting/798f3d7151dfb2887c7881a08e65cdd3.png" loading="lazy" />
@@ -6774,7 +7096,7 @@ for (coordinate, index) in LUT:
 				</section>
 				<section id="catmullconv">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#curvefitting">previous</a><a href="zh-CN/index.html#catmullfitting">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#curvefitting">前</a><a href="zh-CN/index.html#catmullfitting">下</a></div>
 						<a href="zh-CN/index.html#catmullconv">Bézier curves and Catmull-Rom curves</a>
 					</h1>
 					<p>
@@ -6787,7 +7109,14 @@ for (coordinate, index) in LUT:
 						you add points by clicking/tapping the background, as well as let you control "how fast" the curve passes through its point using the
 						tension slider. The tenser the curve, the more the curve tends towards straight lines from one point to the next.
 					</p>
-					<graphics-element title="A Catmull-Rom curve" width="275" height="275" src="./chapters/catmullconv/catmull-rom.js">
+					<graphics-element
+						title="A Catmull-Rom curve"
+						width="275"
+						height="275"
+						src="./chapters/catmullconv/catmull-rom.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/catmullconv/aa46749b9469341d9249ca452390d875.png" loading="lazy" />
@@ -7540,7 +7869,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="catmullfitting">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#catmullconv">previous</a><a href="zh-CN/index.html#polybezier">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#catmullconv">前</a><a href="zh-CN/index.html#polybezier">下</a></div>
 						<a href="zh-CN/index.html#catmullfitting">Creating a Catmull-Rom curve from three points</a>
 					</h1>
 					<p>
@@ -7555,7 +7884,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="polybezier">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#catmullfitting">previous</a><a href="zh-CN/index.html#offsetting">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#catmullfitting">前</a><a href="zh-CN/index.html#offsetting">下</a></div>
 						<a href="zh-CN/index.html#polybezier">Forming poly-Bézier curves</a>
 					</h1>
 					<p>
@@ -7579,6 +7908,8 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="quadratic"
 						data-link="coordinate"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -7593,6 +7924,8 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="cubic"
 						data-link="coordinate"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -7638,6 +7971,8 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="quadratic"
 						data-link="derivative"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -7652,6 +7987,8 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="cubic"
 						data-link="derivative"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -7680,6 +8017,8 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="quadratic"
 						data-link="direction"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -7694,6 +8033,8 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="cubic"
 						data-link="direction"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -7717,6 +8058,8 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="quadratic"
 						data-link="conventional"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -7731,6 +8074,8 @@ for p = 1 to points.length-3 (inclusive):
 						src="./chapters/polybezier/poly.js"
 						data-type="cubic"
 						data-link="conventional"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -7752,7 +8097,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="offsetting">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#polybezier">previous</a><a href="zh-CN/index.html#graduatedoffset">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#polybezier">前</a><a href="zh-CN/index.html#graduatedoffset">下</a></div>
 						<a href="zh-CN/index.html#offsetting">Curve offsetting</a>
 					</h1>
 					<p>
@@ -7921,6 +8266,8 @@ for p = 1 to points.length-3 (inclusive):
 						height="275"
 						src="./chapters/offsetting/offsetting.js"
 						data-type="quadratic"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -7935,6 +8282,8 @@ for p = 1 to points.length-3 (inclusive):
 						height="275"
 						src="./chapters/offsetting/offsetting.js"
 						data-type="cubic"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -7951,7 +8300,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="graduatedoffset">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#offsetting">previous</a><a href="zh-CN/index.html#circles">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#offsetting">前</a><a href="zh-CN/index.html#circles">下</a></div>
 						<a href="zh-CN/index.html#graduatedoffset">Graduated curve offsetting</a>
 					</h1>
 					<p>
@@ -7986,6 +8335,8 @@ for p = 1 to points.length-3 (inclusive):
 						height="275"
 						src="./chapters/graduatedoffset/offsetting.js"
 						data-type="quadratic"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -8000,6 +8351,8 @@ for p = 1 to points.length-3 (inclusive):
 						height="275"
 						src="./chapters/graduatedoffset/offsetting.js"
 						data-type="cubic"
+						reset="重启"
+						viewSource="view source"
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
@@ -8011,7 +8364,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="circles">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#graduatedoffset">previous</a><a href="zh-CN/index.html#circles_cubic">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#graduatedoffset">前</a><a href="zh-CN/index.html#circles_cubic">下</a></div>
 						<a href="zh-CN/index.html#circles">Circles and quadratic Bézier curves</a>
 					</h1>
 					<p>
@@ -8038,7 +8391,14 @@ for p = 1 to points.length-3 (inclusive):
 						First, let's try to fit the quadratic curve onto a circular arc. In the following sketch you can move the mouse around over a unit circle,
 						to see how well, or poorly, a quadratic curve can approximate the arc from (1,0) to where your mouse cursor is:
 					</p>
-					<graphics-element title="Quadratic Bézier arc approximation" width="400" height="400" src="./chapters/circles/arc-approximation.js">
+					<graphics-element
+						title="Quadratic Bézier arc approximation"
+						width="400"
+						height="400"
+						src="./chapters/circles/arc-approximation.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="400px" height="400px" src="./images/chapters/circles/08ca09aacb271735e063e7e8d941a195.png" loading="lazy" />
@@ -8242,7 +8602,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="circles_cubic">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#circles">previous</a><a href="zh-CN/index.html#arcapproximation">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#circles">前</a><a href="zh-CN/index.html#arcapproximation">下</a></div>
 						<a href="zh-CN/index.html#circles_cubic">Circles and cubic Bézier curves</a>
 					</h1>
 					<p>
@@ -8266,7 +8626,14 @@ for p = 1 to points.length-3 (inclusive):
 						So have a graphical look at a "bad" guess versus the true fit, where we'll be using the bad guess and the description in the second
 						paragraph to derive the maths for the true fit:
 					</p>
-					<graphics-element title="Cubic Bézier arc approximation" width="400" height="400" src="./chapters/circles_cubic/arc-approximation.js">
+					<graphics-element
+						title="Cubic Bézier arc approximation"
+						width="400"
+						height="400"
+						src="./chapters/circles_cubic/arc-approximation.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="400px" height="400px" src="./images/chapters/circles_cubic/ecacec0eb2bbe72e14b9008d854fbb06.png" loading="lazy" />
@@ -8629,7 +8996,14 @@ for p = 1 to points.length-3 (inclusive):
 						Of course, this is for a circle with radius 1, so if you have a different radius circle, simply multiply the coordinate by the radius you
 						need. And then finally, forming a full curve is now a simple a matter of mirroring these coordinates about the origin:
 					</p>
-					<graphics-element title="Cubic Bézier circle approximation" width="340" height="300" src="./chapters/circles_cubic/circle.js">
+					<graphics-element
+						title="Cubic Bézier circle approximation"
+						width="340"
+						height="300"
+						src="./chapters/circles_cubic/circle.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="340px" height="300px" src="./images/chapters/circles_cubic/63f35fb58d3571200ac6ccea0384b9d7.png" loading="lazy" />
@@ -8638,7 +9012,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="arcapproximation">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#circles_cubic">previous</a><a href="zh-CN/index.html#bsplines">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#circles_cubic">前</a><a href="zh-CN/index.html#bsplines">下</a></div>
 						<a href="zh-CN/index.html#arcapproximation">Approximating Bézier curves with circular arcs</a>
 					</h1>
 					<p>
@@ -8708,7 +9082,14 @@ for p = 1 to points.length-3 (inclusive):
 						already works really well. Note that the graphic is still interactive, and you can use your up and down arrow keys keys to increase or
 						decrease the error threshold, to see what the effect of a smaller or larger error threshold is.
 					</p>
-					<graphics-element title="First arc approximation of a Bézier curve" width="275" height="275" src="./chapters/arcapproximation/arc.js">
+					<graphics-element
+						title="First arc approximation of a Bézier curve"
+						width="275"
+						height="275"
+						src="./chapters/arcapproximation/arc.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/arcapproximation/7c9cce8142fa3e85bb124520f40645ff.png" loading="lazy" />
@@ -8722,7 +9103,14 @@ for p = 1 to points.length-3 (inclusive):
 						point we are done. Again, the following graphic allows for up and down arrow key input to increase or decrease the error threshold, so you
 						can see how picking a different threshold changes the number of arcs that are necessary to reasonably approximate a curve:
 					</p>
-					<graphics-element title="Arc approximation of a Bézier curve" width="275" height="275" src="./chapters/arcapproximation/arcs.js">
+					<graphics-element
+						title="Arc approximation of a Bézier curve"
+						width="275"
+						height="275"
+						src="./chapters/arcapproximation/arcs.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/arcapproximation/da76341b841df1af8a39f797e85dfe3c.png" loading="lazy" />
@@ -8744,7 +9132,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="bsplines">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#arcapproximation">previous</a><a href="zh-CN/index.html#comments">next</a></div>
+						<div class="nav"><a href="zh-CN/index.html#arcapproximation">前</a><a href="zh-CN/index.html#comments">下</a></div>
 						<a href="zh-CN/index.html#bsplines">B-Splines</a>
 					</h1>
 					<p>
@@ -8766,7 +9154,14 @@ for p = 1 to points.length-3 (inclusive):
 						What do they look like? They look like this! Tap on the graphic to add more points, and move points around to see how they map to the
 						spline curve drawn.
 					</p>
-					<graphics-element title="A B-Spline example" width="600" height="300" src="./chapters/bsplines/basic.js">
+					<graphics-element
+						title="A B-Spline example"
+						width="600"
+						height="300"
+						src="./chapters/bsplines/basic.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="600px" height="300px" src="./images/chapters/bsplines/fe3a8ca5706f286d916e36699e237e51.png" loading="lazy" />
@@ -8787,7 +9182,15 @@ for p = 1 to points.length-3 (inclusive):
 						<li>for B-Splines, the curve is defined as an interpolation of <em>curves</em>.</li>
 					</ul>
 					<p>In fact, let's look at that again, but this time with the base curves shown, too. Each consecutive four points define one curve:</p>
-					<graphics-element title="The components of a B-Spline " width="600" height="300" src="./chapters/bsplines/basic.js" data-show-curves="true">
+					<graphics-element
+						title="The components of a B-Spline "
+						width="600"
+						height="300"
+						src="./chapters/bsplines/basic.js"
+						data-show-curves="true"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="600px" height="300px" src="./images/chapters/bsplines/41167c64c51386414c6e62f0b45e6295.png" loading="lazy" />
@@ -9088,7 +9491,14 @@ for(let L = 1; L <= order; L++) {
 						<em>the same intervals</em>, just scaled by a constant factor, which becomes normalised during interpolation and so does not contribute to
 						the curvature.
 					</p>
-					<graphics-element title="A uniform B-Spline" width="400" height="400" src="./chapters/bsplines/uniform.js">
+					<graphics-element
+						title="A uniform B-Spline"
+						width="400"
+						height="400"
+						src="./chapters/bsplines/uniform.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/48a30189e74658737b3a8b28bb816f8a.png" loading="lazy" />
@@ -9112,7 +9522,14 @@ for(let L = 1; L <= order; L++) {
 						and curve continuity goes down, to the point where collapsing <code>order</code> knots creates a situation where all continuity is lost
 						and the curve "kinks".
 					</p>
-					<graphics-element title="A reduced uniform B-Spline" width="400" height="400" src="./chapters/bsplines/reduced.js">
+					<graphics-element
+						title="A reduced uniform B-Spline"
+						width="400"
+						height="400"
+						src="./chapters/bsplines/reduced.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/ceaef2fbee05a58aa11835925403b4cd.png" loading="lazy" />
@@ -9132,7 +9549,15 @@ for(let L = 1; L <= order; L++) {
 						[0,0,0,0,1,2,3,4,4,4,4], or it might have the "identical" knot vector [0,0,0,0,2,4,6,8,8,8,8], etc. Again, it is the relative differences
 						that determine the curve shape.
 					</p>
-					<graphics-element title="An open, uniform B-Spline" width="400" height="400" src="./chapters/bsplines/uniform.js" data-open="true">
+					<graphics-element
+						title="An open, uniform B-Spline"
+						width="400"
+						height="400"
+						src="./chapters/bsplines/uniform.js"
+						data-open="true"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/0215dc106e4ad51afe043c0176a595f6.png" loading="lazy" />
@@ -9154,7 +9579,14 @@ for(let L = 1; L <= order; L++) {
 						control point carries, the closer to that point the spline curve will lie, a bit like turning up the gravity of a control point, just like
 						for rational Bézier curves.
 					</p>
-					<graphics-element title="A (closed) rational, uniform B-Spline" width="400" height="400" src="./chapters/bsplines/rational-uniform.js">
+					<graphics-element
+						title="A (closed) rational, uniform B-Spline"
+						width="400"
+						height="400"
+						src="./chapters/bsplines/rational-uniform.js"
+						reset="重启"
+						viewSource="view source"
+					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/0d9c2186423466a32bb8fbd187409f82.png" loading="lazy" />
@@ -9211,7 +9643,7 @@ for(let L = 1; L <= order; L++) {
 					</script>
 
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#bsplines">previous</a></div>
+						<div class="nav"><a href="zh-CN/index.html#bsplines">前</a></div>
 						<a href="zh-CN/index.html#comments">Comments and questions</a>
 					</h1>
 					<p>

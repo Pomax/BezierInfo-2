@@ -77,7 +77,12 @@ async function processGraphicsElement(markdown, pathdata, localeStrings) {
         formDataSet(remainder.trim())
       );
 
-      const replacement = `width="${width}" height="${height}" src="${src}" ${remainder}>
+      const reset = localeStrings.get(`reset`);
+      const viewSource = localeStrings.get(`viewSource`);
+      const defaultLocale = localeStrings.getDefaultLocale() === localeStrings.getCurrentLocale();
+      const stringAttributes = defaultLocale ? `` : `reset="${reset}" viewSource="${viewSource}"`;
+
+      const replacement = `width="${width}" height="${height}" src="${src}" ${remainder} ${stringAttributes}>
         <fallback-image>
           <span class="view-source">${translate`disabledMessage`}</span>
           <img width="${width}px" height="${height}px" src="${imgUrl}" loading="lazy">

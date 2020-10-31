@@ -1,4 +1,4 @@
-import LocaleStrings from "./locale-strings.js";
+import LocaleStrings from "./localization.js";
 import { getAllChapterFiles } from "./build/get-all-chapter-files.js";
 import { processLocale } from "./build/process-locale.js";
 import { createIndexPages } from "./build/create-index-pages.js";

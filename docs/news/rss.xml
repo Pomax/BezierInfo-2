@@ -6,7 +6,7 @@
   <atom:link href="https://pomax.github.io/bezierinfo" rel="self"></atom:link>
   <description>News updates for the <a href="https://pomax.github.io/bezierinfo">primer on Bézier Curves</a> by Pomax</description>
   <language>en-GB</language>
-  <lastBuildDate>Tue Oct 27 2020 18:54:22 +00:00</lastBuildDate>
+  <lastBuildDate>Fri Oct 30 2020 20:08:55 +00:00</lastBuildDate>
   <image>
     <url>https://pomax.github.io/bezierinfo/images/og-image.png</url>
     <title>A Primer on Bézier Curves</title>
@@ -32,7 +32,7 @@
 &lt;li&gt;...with that same source code being read in and run by Node.js &lt;em&gt;on a canvas&lt;/em&gt; to generate fallback images so that even without JS, graphics work.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-    &lt;graphics-element title=&quot;An example graphic&quot; width=&quot;275&quot; height=&quot;275&quot; src=&quot;./news/example.js&quot; &gt;
+    &lt;graphics-element title=&quot;An example graphic&quot; width=&quot;275&quot; height=&quot;275&quot; src=&quot;./news/example.js&quot;  &gt;
         &lt;fallback-image&gt;
           &lt;span class=&quot;view-source&quot;&gt;Scripts are disabled. Showing fallback image.&lt;/span&gt;
           &lt;img width=&quot;275px&quot; height=&quot;275px&quot; src=&quot;./images/news/2020-09-18.html/b465a1526a406578c9806a9985e2dbd0.png&quot; loading=&quot;lazy&quot;&gt;
