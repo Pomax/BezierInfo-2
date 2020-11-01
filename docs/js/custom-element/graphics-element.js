@@ -78,7 +78,7 @@ class GraphicsElement extends CustomElement {
       :host([hidden]) { display: none; }
       :host { max-width: calc(2em + ${this.getAttribute(`width`)}px); }
       :host style { display: none; }
-      :host .top-title { display: flex; flex-direction: row; justify-content: space-between; }
+      :host .top-title { display: flex; flex-direction: row-reverse; justify-content: space-between; }
       :host canvas { position: relative; z-index: 1; display: block; margin: auto; border-radius: 0; box-sizing: content-box!important; border: 1px solid lightgrey; }
       :host canvas:focus { border: 1px solid red; }
       :host a.view-source { font-size: 60%; text-decoration: none; }
@@ -204,6 +204,8 @@ class GraphicsElement extends CustomElement {
       return `${main} "${modulebase}${group}"`;
     });
 
+    this.linkableCode = code;
+
     // Then, step 2: split up the code into "global" vs. "class" code.
     const split = splitCodeSections(code);
     const globalCode = split.quasiGlobal;
@@ -328,18 +330,20 @@ class GraphicsElement extends CustomElement {
     const toptitle = document.createElement(`div`);
     toptitle.classList.add(`top-title`);
 
-    const a = document.createElement(`a`);
-    a.classList.add(`view-source`);
-    a.textContent = this.getAttribute(`viewSource`) || `view source`;
-    a.href = this.src;
-    a.target = `_blank`;
-    toptitle.append(a);
-
     const r = document.createElement(`button`);
     r.classList.add(`reset`);
     r.textContent = this.getAttribute(`reset`) || `reset`;
     r.addEventListener(`click`, () => this.reset());
     toptitle.append(r);
+
+    if (this.src) {
+      const a = document.createElement(`a`);
+      a.classList.add(`view-source`);
+      a.textContent = this.getAttribute(`viewSource`) || `view source`;
+      a.href = this.src;
+      a.target = `_blank`;
+      toptitle.append(a);
+    }
 
     if (this.label) slotParent.insertBefore(toptitle, this.canvas);
   }

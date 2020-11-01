@@ -14,7 +14,7 @@ export default function impartSliderLogic(GraphicsAPI) {
       slider.setAttribute(`value`, value);
       slider.setAttribute(`class`, classes);
       this.element.append(slider);
-      this.setSlider(slider, propname, value, transform);
+      return this.setSlider(slider, propname, value, transform);
     }
   };
 

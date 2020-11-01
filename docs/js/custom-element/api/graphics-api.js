@@ -12,6 +12,7 @@ const MOUSE_PRECISION_ZONE = 5;
 const TOUCH_PRECISION_ZONE = 30;
 
 let CURRENT_HUE = 0;
+let CURRENT_CURSOR = `pointer`;
 
 /**
  * Our Graphics API, which is the "public" side of the API.
@@ -277,10 +278,33 @@ class GraphicsAPI extends BaseAPI {
   }
 
   /**
+   * Set a (CSS) margin around the canvas
+   */
+  setMargin(width = 0) {
+    this.canvas.style.marginTop = `${width}px`;
+    this.canvas.style.marginBottom = `${width}px`;
+  }
+
+  /**
+   * Hide the cursor in a way that we can restore later.
+   */
+  hideCursor() {
+    this.canvas.style.cursor = `none`;
+  }
+
+  /**
+   * Rebind the cursor to what it should be.
+   */
+  showCursor() {
+    this.canvas.style.cursor = CURRENT_CURSOR;
+  }
+
+  /**
    * Set the cursor type while the cursor is over the canvas
    */
   setCursor(type) {
-    this.canvas.style.cursor = type;
+    CURRENT_CURSOR = type;
+    this.showCursor();
   }
 
   /**

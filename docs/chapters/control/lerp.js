@@ -33,7 +33,7 @@ setup() {
     // and capturing the resulting Shape object that yields. We'll draw
     // those in the draw() function.
     this.shapes = this.interpolationFunctions.map(f => plot(f, 0, 1, degree*5) );
-
+    noGrid();
     setSlider(`.slide-control`, `position`, 0)
 }
 
