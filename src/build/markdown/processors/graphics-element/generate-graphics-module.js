@@ -1,19 +1,19 @@
 import fs from "fs-extra";
 import path from "path";
 import paths from "../../../../project-paths.js";
-import splitCodeSections from "../../../../../docs/js/custom-element/lib/split-code-sections.js";
-import performCodeSurgery from "../../../../../docs/js/custom-element/lib/perform-code-surgery.js";
+import splitCodeSections from "../../../../../docs/js/graphics-element/lib/split-code-sections.js";
+import performCodeSurgery from "../../../../../docs/js/graphics-element/lib/perform-code-surgery.js";
 import toPosix from "../../../../to-posix.js";
 
 // Get all the values we need to ensure our generated graphics code knows
 // where it lives, and where it can find all its dependencies
 
-const apiSource = fs.readFileSync(path.join(paths.sitejs, `custom-element`, `api`, `graphics-api.js`)).toString(`utf-8`);
+const apiSource = fs.readFileSync(path.join(paths.sitejs, `graphics-element`, `api`, `graphics-api.js`)).toString(`utf-8`);
 
 const API_IMPORTS = apiSource.match(/(export { [^}]+ })/)[0].replace(`export`, `import`);
 
 const GRAPHICS_API_LOCATION = path
-  .join(path.relative(paths.temp, paths.public), `js`, `custom-element`, `api`, `graphics-api.js`)
+  .join(path.relative(paths.temp, paths.public), `js`, `graphics-element`, `api`, `graphics-api.js`)
   .split(path.sep)
   .join(path.posix.sep);
 
