@@ -2,6 +2,8 @@ import marked from "marked";
 
 const CHANGELOG = Object.fromEntries(
   Object.entries({
+    "November 2020": [`Added a section on finding curve/circle intersections`],
+
     "October 2020": [`Added the Ukranian locale! Help out in getting its localization to 100%!`],
 
     "August-September 2020": [

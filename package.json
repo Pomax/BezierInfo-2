@@ -37,7 +37,7 @@
     "lint:tools": "prettier \"./src/**/*.js\" --print-width 150 --write",
     "lint:lib": "prettier \"./docs/js/**/*.js\" --print-width 150 --write",
     "lint:css": "prettier \"./docs/**/*.css\" --print-width 150 --write",
-    "link-checker": "link-checker \"docs/index.html\" --allow-hash-href --url-ignore \"(ja-JP|zh-CN|legendre).*\" --ignore-error-exit",
+    "link-checker": "link-checker \"docs/index.html\" --allow-hash-href --url-ignore \"(ja-JP|zh-CN|uk-UA|legendre|news).*\" --ignore-error-exit",
     "pretty": "prettier \"./docs/{!(legendre-gauss),**/*}.html\" --use-tabs --print-width 150 --write",
     "--------": "--- Server and watch tasks ---",
     "server": "cd docs && http-server -e -p 8000 --cors",
