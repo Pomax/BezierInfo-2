@@ -5,7 +5,7 @@ let curve;
 setup() {
   curve = Bezier.defaultCubic(this);
   setMovable(curve.points);
-  setSlider(`.slide-control`, `radius`, 102);
+  setSlider(`.slide-control`, `radius`, 70);
 }
 
 draw() {
@@ -86,9 +86,18 @@ findClosest(x, y, LUT, pd2, pd1, distanceEpsilon = 5) {
 
 drawProjection(x, y, LUT, i) {
   let B = refineBinary(curve, x, y, LUT, i, this.radius);
-  setColor(`rgba(100,100,255)`);
-  circle(B.x, B.y, 3);
-  line(B.x, B.y, x, y);
+
+  // Our initial guess might actually not be close enough,
+  // so it's possible that after binary refining, it turns
+  // out the local minimum is actually still too far away
+  // to count. In that case B will be undefined, so we need
+  // to make sure to check before we draw it.
+
+  if (B) {
+    setColor(`rgba(100,100,255)`);
+    circle(B.x, B.y, 3);
+    line(B.x, B.y, x, y);
+  }
 }
 
 onMouseMove() {

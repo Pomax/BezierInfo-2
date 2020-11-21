@@ -1,10 +1,5 @@
-function abs(v) {
-  return v<0 ? -v : v;
-}
-
-function dist(x1,y1,x2,y2) {
-    return ((x1-x2)**2 + (y2-y1)**2) ** 0.5;
-}
+const abs = v => v<0 ? -v : v;
+const dist = (x1,y1,x2,y2) => ((x1-x2)**2 + (y2-y1)**2) ** 0.5;
 
 /*
   We already know that LUT[i1] and LUT[i2] are *not* good distances,
@@ -13,7 +8,7 @@ function dist(x1,y1,x2,y2) {
   five points, and then check which three of those five are a new,
   better, interval to check within.
 */
-function refineBinary(curve, x, y, LUT, i, targetDistance=0) {
+function refineBinary(curve, x, y, LUT, i, targetDistance=0, epsilon=1) {
   let q = LUT[i],
     count = 1,
     distance = Number.MAX_SAFE_INTEGER;
@@ -48,6 +43,12 @@ function refineBinary(curve, x, y, LUT, i, targetDistance=0) {
     // never kick in, but something that _will_ terminate is
     // always better than while(true). Never use while(true)
   } while (count++ < 25);
+
+  // If we're trying to hit a target, discard the result if
+  // it is not close enough to the target.
+  if (targetDistance && distance > epsilon) {
+    q = undefined;
+  }
 
   return q;
 }

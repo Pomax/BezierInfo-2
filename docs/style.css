@@ -159,6 +159,7 @@ main {
     top: 0;
     z-index: 2;
     border-bottom: 1px solid black;
+    box-shadow: 0 0 0 0.5em white;
   }
 }
 

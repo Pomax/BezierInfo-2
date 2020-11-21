@@ -41,7 +41,7 @@
 		<meta property="og:locale" content="zh-CN" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2020-11-21T01:19:44+00:00" />
+		<meta property="og:updated_time" content="2020-11-21T19:09:31+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -6415,14 +6415,15 @@ lli = function(line1, line2):
 					<table class="code">
 						<tr>
 							<td>1</td>
-							<td rowspan="7">
-								<textarea disabled rows="7" role="doc-example">
+							<td rowspan="8">
+								<textarea disabled rows="8" role="doc-example">
 p = some point to project onto the curve
 d = some initially huge value
 i = 0
 for (coordinate, index) in LUT:
-  if distance(coordinate, p) < d:
-    d = distance(coordinate, p)
+  q = distance(coordinate, p)
+  if q < d:
+    d = q
     i = index</textarea
 								>
 							</td>
@@ -6444,6 +6445,9 @@ for (coordinate, index) in LUT:
 						</tr>
 						<tr>
 							<td>7</td>
+						</tr>
+						<tr>
+							<td>8</td>
 						</tr>
 					</table>
 
@@ -6523,21 +6527,21 @@ for (coordinate, index) in LUT:
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-      r = dist(B(t), c)                                                                                                               
-           ┌─────────────────────────┐
-           │          2             2
-        =  │(B t - c )  + (B t - c )                                                                                                  
-          ⟍│  x     x       y     y                                                                                                   
-           ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-           │╭         3             2                 2       3      ╮2   ╭         3             2                 2       3      ╮2
-        =  ││ x  (1-t)  + 3 x  (1-t)  t + 2 x  (1-t) t  + x  t  - c  │  + │ y  (1-t)  + 3 y  (1-t)  t + 2 y  (1-t) t  + y  t  - c  │  
-          ⟍│╰  1             2               3             4       x ╯    ╰  1             2               3             4       y ╯
+      r= dist(B(t), c)                                                                                                               
+          ┌─────────────────────────┐
+          │          2             2
+       =  │(B t - c )  + (B t - c )                                                                                                  
+         ⟍│  x     x       y     y                                                                                                   
+          ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+          │╭         3             2                 2       3      ╮2   ╭         3             2                 2       3      ╮2
+       =  ││ x  (1-t)  + 3 x  (1-t)  t + 2 x  (1-t) t  + x  t  - c  │  + │ y  (1-t)  + 3 y  (1-t)  t + 2 y  (1-t) t  + y  t  - c  │  
+         ⟍│╰  1             2               3             4       x ╯    ╰  1             2               3             4       y ╯
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circleintersection/699e6ea5bffbe8fe377af21a2bd28532.svg"
-						width="819px"
-						height="92px"
+						src="./images/chapters/circleintersection/3e0594855ca99fb87dcc65a693e1ad22.svg"
+						width="811px"
+						height="103px"
 						loading="lazy"
 					/>
 					<p>
@@ -6560,7 +6564,7 @@ for (coordinate, index) in LUT:
 							<td>1</td>
 							<td rowspan="9">
 								<textarea disabled rows="9" role="doc-example">
-c = our circle's center point
+p = our circle's center point
 r = our circle's radius
 d = some initially huge value
 i = 0
@@ -6599,25 +6603,27 @@ for (coordinate, index) in LUT:
 					</table>
 
 					<p>
-						This is <em>very</em> similar to the code in the previous section, but adapted so that we home in on points with an exact distance, rather
-						than "the smallest distance". So far so good. However, we also want to make sure we find <em>all</em> the points, not just a single one,
-						so we need a little more code for that:
+						This is <em>very</em> similar to the code in the previous section, with an extra input <code>r</code> for the circle radius, and a minor
+						change in the "distance for this coordinate": rather than just <code>distance(coordinate, p)</code> we want to know the difference between
+						that distance and the circle radius. After all, if that difference is zero, then the distance from the coordinate to the circle center is
+						exactly the radius, so the coordinate lies on both the curve and the circle.
 					</p>
+					<p>So far so good.</p>
+					<p>However, we also want to make sure we find <em>all</em> the points, not just a single one, so we need a little more code for that:</p>
 
 					<table class="code">
 						<tr>
 							<td>1</td>
-							<td rowspan="11">
-								<textarea disabled rows="11" role="doc-example">
-c = our circle's center point
+							<td rowspan="10">
+								<textarea disabled rows="10" role="doc-example">
+p = our circle's center point
 r = our circle's radius
 d = some initially huge value
 start = 0
 values = []
-run:
-    i = findClosest(start, x, y, r, LUT)
-    if (i < start) stop
-    if (i>0 && i === start) stop
+do:
+    i = findClosest(start, p, r, LUT)
+    if i < start, or i>0 but the same as start: stop
     values.add(i);
     start = i + 2;</textarea
 								>
@@ -6650,9 +6656,6 @@ run:
 						<tr>
 							<td>10</td>
 						</tr>
-						<tr>
-							<td>11</td>
-						</tr>
 					</table>
 
 					<p>
@@ -6667,24 +6670,23 @@ run:
 					<table class="code">
 						<tr>
 							<td>1</td>
-							<td rowspan="20">
-								<textarea disabled rows="20" role="doc-example">
-findClosest(start, x, y, r, LUT):
-    D = some very large number
-    pd2 = LUT[start-2], if it exists. Otherwise use D
-    pd1 = LUT[start-1], if it exists. Otherwise use D
+							<td rowspan="19">
+								<textarea disabled rows="19" role="doc-example">
+findClosest(start, p, r, LUT):
+    minimizedDistance = some very large number
+    pd2 = LUT[start-2], if it exists. Otherwise use minimizedDistance
+    pd1 = LUT[start-1], if it exists. Otherwise use minimizedDistance
     slice = LUT.subset(start, LUT.length)
     epsilon = the largest point-to-point distance in our LUT
     i = -1;
 
-    for (point, index) in slice:
-        q = abs(dist(point, (x,y)) - r);
-        if pd1 < epsilon && pd2 > pd1 && pd1 < q:
+    for (coordinate, index) in slice:
+        q = abs(dist(coordinate, p) - r);
+        if pd1 less than all three values epsilon, pd2, and q:
             i = index - 1
             break
 
-        if q < D: D = q
-
+        minimizedDistance = min(q, minimizedDistance)
         pd2 = pd1
         pd1 = q
 
@@ -6746,24 +6748,29 @@ findClosest(start, x, y, r, LUT):
 						<tr>
 							<td>19</td>
 						</tr>
-						<tr>
-							<td>20</td>
-						</tr>
 					</table>
 
 					<p>
-						In words: given a <code>start</code> index, the circles <code>x</code>, <code>y</code>, and <code>r</code> values, and our LUT, we check
-						where, closest to out <code>start</code> index, we can find a local minimum for the difference between the distance to the circle center,
-						and the circle's radius value. We track this over three points, and we know we've found a local minimum if the distances
-						<code>{pd2, pd1, index}</code> show that the middle value (<code>pd1</code>) is lower than the values on either side. When we do, we can
-						set our "best guess related to <code>start</code>" as the index that belongs to that <code>pd1</code>. Of course, since we're not checking
-						values relative to some <code>start</code> value, we might not find another candidate value at all, in which case we return
-						<code>start - 1</code>, so that a simple "is the result less than <code>start</code>?" lets us determine that there are no more
+						In words: given a <code>start</code> index, the circle center and radius, and our LUT, we check where (closest to out
+						<code>start</code> index) we can find a local minimum for the difference between "the distance from the curve to the circle center", and
+						the circle's radius. We track this by looking at three values (associated with the indices <code>index-2</code>, <code>index-1</code>, and
+						<code>index</code>), and we know we've found a local minimum if the three values show that the middle value (<code>pd1</code>) is less
+						than either value beside it. When we do, we can set our "best guess, relative to <code>start</code>" as <code>index-1</code>. Of course,
+						since we're now checking values relative to some <code>start</code> value, we might not find another candidate value at all, in which case
+						we return <code>start - 1</code>, so that a simple "is the result less than <code>start</code>?" lets us determine that there are no more
 						intersections to find.
 					</p>
 					<p>
-						So, the following graphic shows this off for the standard cubic curve (which you can move the coordinates around for, of course) and a
-						circle with a controllable radius centered on the graphic's center, using the code approach described above.
+						Finally, while not necessary for point projection, there is one more step we need to perform when we run the binary refinement function on
+						our candidate LUT indices, because we've so far only been testing using distances "closest to the radius of the circle", and that's
+						actually not good enough... we need distances that <em>are</em> the radius of the circle. So, after running the refinement for each of
+						these indices, we need to discard any final value that isn't the circle radius. And because we're working with floating point numbers,
+						what this really means is that we need to discard any value that's a pixel or more "off". Or, if we want to get really fancy, "some small
+						<code>epsilon</code> value".
+					</p>
+					<p>
+						Based on all of that, the following graphic shows this off for the standard cubic curve (which you can move the coordinates around for, of
+						course) and a circle with a controllable radius centered on the graphic's center, using the code approach described above.
 					</p>
 					<graphics-element
 						title="circle intersection"
@@ -6775,7 +6782,7 @@ findClosest(start, x, y, r, LUT):
 					>
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-							<img width="275px" height="275px" src="./images/chapters/circleintersection/ee119fad4c48f5e17871ff31268cf8cc.png" loading="lazy" />
+							<img width="275px" height="275px" src="./images/chapters/circleintersection/3a3ea30971de247da93034de614a63a4.png" loading="lazy" />
 							<label>circle intersection</label>
 						</fallback-image>
 						<input type="range" min="1" max="150" step="1" value="70" class="slide-control" />

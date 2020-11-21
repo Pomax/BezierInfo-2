@@ -9,8 +9,9 @@ p = some point to project onto the curve
 d = some initially huge value
 i = 0
 for (coordinate, index) in LUT:
-  if distance(coordinate, p) < d:
-    d = distance(coordinate, p)
+  q = distance(coordinate, p)
+  if q < d:
+    d = q
     i = index
 ```
 
