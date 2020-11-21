@@ -1,0 +1,6 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                               ┌─────────────────────────┐
+                                                               │          2             2     
+                                             dist(B(t), c = r  │(B t - c )  + (B t - c )   = r
+                                                              ⟍│  x     x       y     y

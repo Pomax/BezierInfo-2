@@ -47,6 +47,7 @@ export default [
   'abc',
   'pointcurves',
   'projections',
+  'circleintersection',
   'molding',
   'curvefitting',
 
