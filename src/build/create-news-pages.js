@@ -100,7 +100,11 @@ function generateNewsIndex(details) {
 function generateRSSFeed(details) {
   const now = new Date().toString();
   const renderContext = {
-    items: details,
+    items: details.sort((a, b) => {
+      a = a.filename;
+      b = b.filename;
+      return a < b ? 1 : b < a ? -1 : 0;
+    }),
     buildDate: `${now.substring(0, now.indexOf(`GMT`) - 1)} +00:00`,
   };
   const index = nunjucks.render(`rss.template.xml`, renderContext);
