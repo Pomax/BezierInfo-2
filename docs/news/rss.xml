@@ -6,7 +6,7 @@
   <atom:link href="https://pomax.github.io/bezierinfo" rel="self"></atom:link>
   <description>News updates for the <a href="https://pomax.github.io/bezierinfo">primer on Bézier Curves</a> by Pomax</description>
   <language>en-GB</language>
-  <lastBuildDate>Sat Nov 21 2020 11:09:32 +00:00</lastBuildDate>
+  <lastBuildDate>Sun Nov 22 2020 10:06:08 +00:00</lastBuildDate>
   <image>
     <url>https://pomax.github.io/bezierinfo/images/og-image.png</url>
     <title>A Primer on Bézier Curves</title>
@@ -109,6 +109,18 @@ draw() {
     </description>
     <pubDate>Thu Sep 17 2020 17:00:00 +00:00</pubDate>
     <guid>2020-09-18.html</guid>
+  </item><item>
+    <title>Curve-circle intersections</title>
+    <link>https://pomax.github.io/bezierinfo/news/2020-11-22.html</link>
+    <description>
+    
+&lt;p&gt;While the primer covered line/line, line/curve, and curve/curve intersections, there was one other obvious intersection conspicuously missing: circle/curve intersections. You&#39;d think those were just an extension on the maths used for the other three, but unfortunately, this is not the case. Rather than using calculus, the only real way to determine where a polynomial curve intersects it is to sample the curve at a resolution high enough to find you intervals on the curve where there likely is an intersection, then refining that interval until you find actual intersections.&lt;/p&gt;
+&lt;p&gt;It is, in fact, rather similar to &lt;a href=&quot;https://pomax.github.io/bezierinfo/#projections&quot;&gt;projecting a point onto a bezier curve&lt;/a&gt; where the point is the circle&#39;s center, and where the projection distance actually needs to match the circle radius, so: &lt;a href=&quot;https://pomax.github.io/bezierinfo/#circleintersection&quot;&gt;let&#39;s see how to do that&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;— &lt;a href=&quot;https://twitter.com/TheRealPomax&quot;&gt;Pomax&lt;/a&gt;&lt;/p&gt;
+
+    </description>
+    <pubDate>Sat Nov 21 2020 16:00:00 +00:00</pubDate>
+    <guid>2020-11-22.html</guid>
   </item>
 </channel>
 </rss>

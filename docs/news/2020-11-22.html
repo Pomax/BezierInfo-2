@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>A Primer on Bézier Curves - Curve-circle intersections</title>
+
+		<base href=".." />
+
+		<link rel="icon" href="images/favicon.png" type="image/png" />
+
+		<link rel="alternate" type="application/rss+xml" title="RSS" href="news/rss.xml" />
+
+		<!-- page styling -->
+		<link rel="preload" href="images/paper.png" as="image" />
+		<style>
+			:root[lang="en-GB"] {
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+				font-size: 18px;
+			}
+		</style>
+
+		<link rel="stylesheet" href="style.css" />
+
+		<!-- And a slew of SEO related meta elements, because being discoverable is important -->
+		<meta name="description" content="Curve-circle intersections" />
+
+		<!-- opengraph information -->
+		<meta property="og:title" content="Curve-circle intersections" />
+		<meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
+		<meta property="og:type" content="text" />
+		<meta property="og:url" content="https://pomax.github.io/bezierinfo/news/2020-11-22.html" />
+		<meta property="og:description" content="Curve-circle intersections" />
+		<meta property="og:locale" content="en-GB" />
+		<meta property="og:type" content="article" />
+		<meta property="og:published_time" content="Sat Nov 21 2020 16:00:00 +00:00" />
+		<meta property="og:updated_time" content="Sun Nov 22 2020 10:06:08 +00:00" />
+		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
+		<meta property="og:section" content="Bézier Curves" />
+		<meta property="og:tag" content="Bézier Curves" />
+
+		<!-- twitter card information -->
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:site" content="@TheRealPomax" />
+		<meta name="twitter:creator" content="@TheRealPomax" />
+		<meta name="twitter:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
+		<meta name="twitter:url" content="https://pomax.github.io/bezierinfo/news/" />
+		<meta name="twitter:description" content="Curve-circle intersections" />
+
+		<!-- my own referral/page hit tracker, because Google knows enough -->
+		<script src="./js/site/referrer.js" type="module" async></script>
+
+		<!--
+          The part that makes interactive graphics work: an HTML5 <graphics-element> custom element.
+          Note that we're not defering this: we just want it to kick in as soon as possible, and
+          given how much HTML there is, that means this can, and thus should, kick in before the
+          document is done even transferring.
+        -->
+		<script src="./js/graphics-element/graphics-element.js" type="module" async></script>
+		<link rel="stylesheet" href="./js/graphics-element/graphics-element.css" />
+
+		<!-- make images lazy load much earlier  -->
+		<script src="./js/site/better-lazy-loading.js" type="module" async defer></script>
+	</head>
+
+	<body>
+		<div class="dev" style="display: none;">
+			DEV PREVIEW ONLY
+			<script>
+				(function () {
+					var loc = window.location.toString();
+					if (loc.includes("localhost") || loc.includes("BezierInfo-2")) {
+						var e = document.querySelector("div.dev");
+						e.removeAttribute("style");
+					}
+				})();
+			</script>
+		</div>
+
+		<div class="github">
+			<img src="images/ribbon.png" alt="This page on GitHub" style="border: none;" usemap="#githubmap" width="200" height="149" />
+			<map name="githubmap">
+				<area shape="poly" coords="30,0, 200,0, 200,114" href="http://github.com/pomax/BezierInfo-2" alt="This page on GitHub" />
+			</map>
+		</div>
+
+		<header>
+			<h1>Curve-circle intersections</h1>
+			<h5 class="post-date">Sun, 22 Nov 2020</h5>
+		</header>
+
+		<main>
+			<!-- Because people probably want to share this article -->
+			<div class="notforprint scl">
+				<img src="images/icons.gif" usemap="#rhtimap" title="Share this on social media" />
+				<map name="rhtimap">
+					<area
+						class="sclnk-rdt"
+						shape="rect"
+						coords="0, 0, 19, 15"
+						href="https://www.reddit.com/submit?url=https://pomax.github.io/bezierinfo/news/2020-11-22.html&title==A Primer on Bézier Curves - Curve-circle intersections&text=An update about the Primer on Bézier curves."
+						alt="submit to reddit"
+						title="submit to reddit"
+					/>
+					<area
+						class="sclnk-hn"
+						shape="rect"
+						coords="0, 20, 19, 35"
+						href="https://news.ycombinator.com/submitlink?u=https://pomax.github.io/bezierinfo/news/2020-11-22.html&t=A Primer on Bézier Curves - Curve-circle intersections"
+						alt="submit to hacker news"
+						title="submit to hacker news"
+					/>
+					<area
+						class="sclnk-twt"
+						shape="rect"
+						coords="0, 40, 19, 55"
+						href="https://twitter.com/intent/tweet?hashtags=bezier,curves,maths&original_referer=https://pomax.github.io/bezierinfo&text=Reading “Curve-circle intersections” by @TheRealPomax over on https://pomax.github.io/bezierinfo/news/2020-11-22.html"
+						alt="tweet your read"
+						title="tweet your read"
+					/>
+				</map>
+			</div>
+
+			<p>
+				While the primer covered line/line, line/curve, and curve/curve intersections, there was one other obvious intersection conspicuously missing:
+				circle/curve intersections. You'd think those were just an extension on the maths used for the other three, but unfortunately, this is not the
+				case. Rather than using calculus, the only real way to determine where a polynomial curve intersects it is to sample the curve at a resolution
+				high enough to find you intervals on the curve where there likely is an intersection, then refining that interval until you find actual
+				intersections.
+			</p>
+			<p>
+				It is, in fact, rather similar to <a href="https://pomax.github.io/bezierinfo/#projections">projecting a point onto a bezier curve</a> where
+				the point is the circle's center, and where the projection distance actually needs to match the circle radius, so:
+				<a href="https://pomax.github.io/bezierinfo/#circleintersection">let's see how to do that</a>!
+			</p>
+			<p>— <a href="https://twitter.com/TheRealPomax">Pomax</a></p>
+		</main>
+
+		<hr />
+
+		<footer class="copyright">This post is a news entry for the <a href="https://pomax.github.io/bezierinfo/">Primer on Bézier Curves</a></footer>
+	</body>
+</html>
