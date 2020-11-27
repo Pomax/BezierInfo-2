@@ -69,7 +69,7 @@ getQuadraticDerivative(t, points) {
 }
 
 getCubicDerivative(t, points) {
-    let mt = (1 - t), a = mt*mt, b = mt*t, c = t*t, d = [
+    let mt = (1 - t), a = mt*mt, b = 2*mt*t, c = t*t, d = [
         {
             x: 3 * (points[1].x - points[0].x),
             y: 3 * (points[1].y - points[0].y)
