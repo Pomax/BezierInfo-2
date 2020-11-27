@@ -15,7 +15,7 @@ for (coordinate, index) in LUT:
     i = index
 ```
 
-After this runs, we know that `LUT[i]` is the coordinate on the curve _in our LUT_ that is closest to the point we want to project, so that's a pretty good initial guess as to what the best projection onto our curve is. To refine it, we note that LUT[i] is a better guess than both LUT[i-1] and LUT[i+1], but there might be an even better projection _somewhere else_ between those two  values, so that's what we're going to be testing for, using a variation of the binary search.
+After this runs, we know that `LUT[i]` is the coordinate on the curve _in our LUT_ that is closest to the point we want to project, so that's a pretty good initial guess as to what the best projection onto our curve is. To refine it, we note that `LUT[i]` is a better guess than both `LUT[i-1]` and `LUT[i+1]`, but there might be an even better projection _somewhere else_ between those two  values, so that's what we're going to be testing for, using a variation of the binary search.
 
 1. we start with our point `p`, and the `t` values `t1=LUT[i-1].t` and `t2=LUT[i+1].t`, which span an interval `v = t2-t1`.
 2. we test this interval in five spots: the start, middle, and end (which we already have), and the two points in between the middle and start/end points
