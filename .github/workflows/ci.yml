@@ -63,7 +63,7 @@ jobs:
       - name: Running npm build
         run: |
           echo "running build..."
-          npm run deploy:nocopy
+          npm run deploy:ci
 
       - name: Commit changes
         run: |
