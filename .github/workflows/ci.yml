@@ -51,6 +51,10 @@ jobs:
           sh ~/.nvm/nvm.sh install latest
           sh ~/.nvm/nvm.sh use latest
 
+      - name: Installing node-canvas build dependencies
+        run: |
+          sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
       - name: Installing dependencies
         run: |
           npm install
