@@ -39,7 +39,7 @@
 		<meta property="og:locale" content="uk-UA" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2020-11-22T18:19:03+00:00" />
+		<meta property="og:updated_time" content="2020-11-27T19:12:46+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -6612,9 +6612,10 @@ for (coordinate, index) in LUT:
 
 					<p>
 						After this runs, we know that <code>LUT[i]</code> is the coordinate on the curve <em>in our LUT</em> that is closest to the point we want
-						to project, so that's a pretty good initial guess as to what the best projection onto our curve is. To refine it, we note that LUT[i] is a
-						better guess than both LUT[i-1] and LUT[i+1], but there might be an even better projection <em>somewhere else</em> between those two
-						values, so that's what we're going to be testing for, using a variation of the binary search.
+						to project, so that's a pretty good initial guess as to what the best projection onto our curve is. To refine it, we note that
+						<code>LUT[i]</code> is a better guess than both <code>LUT[i-1]</code> and <code>LUT[i+1]</code>, but there might be an even better
+						projection <em>somewhere else</em> between those two values, so that's what we're going to be testing for, using a variation of the binary
+						search.
 					</p>
 					<ol>
 						<li>
@@ -6910,7 +6911,7 @@ findClosest(start, p, r, LUT):
 					</table>
 
 					<p>
-						In words: given a <code>start</code> index, the circle center and radius, and our LUT, we check where (closest to out
+						In words: given a <code>start</code> index, the circle center and radius, and our LUT, we check where (closest to our
 						<code>start</code> index) we can find a local minimum for the difference between "the distance from the curve to the circle center", and
 						the circle's radius. We track this by looking at three values (associated with the indices <code>index-2</code>, <code>index-1</code>, and
 						<code>index</code>), and we know we've found a local minimum if the three values show that the middle value (<code>pd1</code>) is less
