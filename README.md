@@ -40,6 +40,7 @@ To run a single, full build, rather than continuous building, use:
 > npm start
 ```
 
+Note that for dev work, you typically want to run `npm test` for as long as you're working on that code. Once you're ready to form a commit for PR purposes, run `npm start` to do a "real" build rather than a dev build, and then form your commit, so that you're pushing "final" code rather than intermediate dev code.
 
 #### Specialised commands:
 
