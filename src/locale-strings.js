@@ -3,16 +3,19 @@ const localeStringData = {
     "en-GB": `A Primer on Bézier Curves`,
     "ja-JP": `ベジェ曲線入門`,
     "zh-CN": `贝塞尔曲线底漆`,
+    "ru-RU": `Основы кривых Безье`,
     "uk-UA": `Підручник з кривих Безьє`,
   },
 
   subtitle: {
     "en-GB": `A free, online book for when you really need to know how to do Bézier things.`,
+    "ru-RU": `Бесплатное пособие о всем, что вам нужно знать о кривых Безье`,
     "uk-UA": `Безкоштовна онлайн-книга, яка навчить вас всьому необхідному, щоб працювати з кривими Безьє.`,
   },
 
   description: {
     "en-GB": `A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.`,
+    "ru-RU": `Подробное обьяснение кривых Безье, и как делать с ними то, чего так часто нам хочется`,
     "uk-UA": `Детальне пояснення кривих Безьє та можливостей їх застосування.`,
   },
 
@@ -38,6 +41,19 @@ const localeStringData = {
         be helping keep a resource alive and well!
       </p>
     `,
+    "ru-RU": `
+      <p>
+        Приветствуем на Основах кривых Безье. Это бесплатное пособие/страница/электронная книга затрагивает математику и программирование кривых Безье, охватывает большое количество тем касающихся прорисовки и работы с этим типом кривых, который, по всей видимости, выскакивает везде: от кривых в Фотошоп-е до временных функций CSS и начертаний Шрифтов.
+      </p>
+      <p>
+        Если вы здесь впервые: салют! Обязательно напишите мне, если вы ищете что-то конкретное, на что не найдете ответ в тексте. 
+        <a href="https://github.com/Pomax/BezierInfo-2/issues">трекер</a>!
+      </p>
+      <p>
+        Ежели сей ресурс помог вам в ваших исследованиях или в написании собственной программы рассмотрите возможность
+        <a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">задонатить</a> (любая сума годится) или станьте <a href="https://www.patreon.com/bezierinfo">патроном на Patreon</a>. Мне не платят за эту работу, потому, если нашли что-то для себя нужное на этом сайте и вам бы хотелось дабы существование его было долгим и успешным вот вам мысль: на создание этих страниц ушло много кофе, и уйдет еще больше на их совершенствование; если вы можете помочь с кофе — уже это может стать залогом долгой и счастливой жизни этого ресурса.
+      </p>
+    `,
     "uk-UA": `
       <p>
         Ласкаво прошу до Підручника з кривих Безьє. Це безкоштовний вебсайт/електронна книга, що пояснює і математичні, і програмувальні аспекти
@@ -61,6 +77,7 @@ const localeStringData = {
     "en-GB": `Table of Contents`,
     "ja-JP": `目次`,
     "zh-CN": `目录`,
+    "ru-RU": `Оглавление`,
     "uk-UA": `Зміст`,
   },
 
@@ -68,6 +85,7 @@ const localeStringData = {
     "en-GB": `English`,
     "ja-JP": `日本語`,
     "zh-CN": `中文`,
+    "ru-RU": `Русский`,
     "uk-UA": `Українська`,
   },
 
@@ -78,6 +96,7 @@ const localeStringData = {
 
   langHelpLabel: {
     "en-GB": `Don't see your language listed, or want to see it reach 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Help translate this content!</a>`,
+    "ru-RU": `Не нашли своего языка или хотите заставить его доползти до 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Помогите нам с переводом!</a>`,
     "uk-UA": `Не бачите своєї мови у списку або хочете, щоб вона досягла 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Допоможіть перекласти цей контент!</a>`,
   },
 
@@ -88,9 +107,10 @@ const localeStringData = {
 
   reset: {
     "en-GB": `reset`,
-    "uk-UA": `скинути`,
     "ja-JP": `リセット`,
     "zh-CN": `重启`,
+    "ru-RU": `cбросить`,
+    "uk-UA": `скинути`,
   },
 
   viewSource: {
@@ -99,11 +119,13 @@ const localeStringData = {
 
   changelogTitle: {
     "en-GB": `What's new?`,
+    "ru-RU": `Что нового?`,
     "uk-UA": `Що нового?`,
   },
 
   toggleLabel: {
     "en-GB": `Toggle changes`,
+    "ru-RU": `Показать/скрыть изменения`,
     "uk-UA": `Перемкнути зміни`,
   },
 
@@ -111,6 +133,7 @@ const localeStringData = {
     "en-GB": `Preamble`,
     "ja-JP": `前文`,
     "zh-CN": `前言`,
+    "ru-RU": `Преамбула`,
     "uk-UA": `Преамбула`,
   },
 
@@ -118,36 +141,42 @@ const localeStringData = {
     "en-GB": `Preface`,
     "ja-JP": `まえがき`,
     "zh-CN": `序言`,
+    "ru-RU": `Предисловие`,
     "uk-UA": `Передмова`,
   },
 
   mainContentLabel: {
     "en-GB": `Main content`,
+    "ru-RU": `Содержание`,
     "uk-UA": `Основний вміст`,
   },
 
   changelogLabel: {
     "en-GB": `What's new`,
+    "ru-RU": `Что нового`,
     "uk-UA": `Зміни`,
   },
 
   changelogDescription: {
     "en-GB": `This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when, or click through to the <a href="./news">News posts</a> for more detailed updates. (<a href="./news/rss.xml">RSS feed</a> available)`,
+    "ru-RU": `Этот документ живое пособие, в зависимости от даты вашего последего визита, могли быть внесены дополнения. Кликайте <a href="./news">здесь</a> для просмотра лога изменений. (также <a href="./news/rss.xml">RSS</a>)`,
     "uk-UA": `Цей підручник постійно розвививається, тож залежно від того, коли ви востаннє його переглядали, тут можуть бути оновлення. Перейдіть за <a href="./news">цим посиланням</a>, щоб побачити, що було додано. (Також доступний <a href="./news/rss.xml">RSS-канал</a>)`,
   },
 
   previous: {
     "en-GB": `previous`,
-    "uk-UA": `попередній`,
     "ja-JP": `前`,
     "zh-CN": `前`,
+    "ru-RU": `предыдущий`,
+    "uk-UA": `попередній`,
   },
 
   next: {
     "en-GB": `next`,
-    "uk-UA": `наступний`,
     "ja-JP": `次`,
     "zh-CN": `下`,
+    "ru-RU": `следующий`,
+    "uk-UA": `наступний`,
   },
 };
 
