@@ -40,7 +40,7 @@
 <meta property="og:locale" content="ru-RU" />
 <meta property="og:type" content="article" />
 <meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-<meta property="og:updated_time" content="2020-12-23T22:34:09+00:00" />
+<meta property="og:updated_time" content="2020-12-25T20:00:11+00:00" />
 <meta property="og:author" content="Mike 'Pomax' Kamermans" />
 <meta property="og:section" content="Bézier Curves" />
 <meta property="og:tag" content="Bézier Curves" />
@@ -365,7 +365,20 @@
 <p>Играя с позициями точек, вы, возможно, получили общее представление о том, как кривые Безье себя ведут. Но чем же является кривая Безье? Ее можно объяснять двумя способами. Оба эквиваленты, однако один из них затрагивает объемные математические описания, тогда как второй пользуется довольно простой математикой. Итак... давайте начнем с простейшего:</p>
 <p>Кривая Безье есть результатом <a href="https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D0%BD%D0%B5%D0%B9%D0%BD%D0%B0%D1%8F_%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BF%D0%BE%D0%BB%D1%8F%D1%86%D0%B8%D1%8F">линейной интерполяции</a> (*в оригинале текста <a href="https://en.wikipedia.org/wiki/Linear_interpolation">другая ссылка</a>, тут и далее пр. переводчика). Звучит заморочено, но в действительности вы занимались линейной интерполяций с юных лет: каждый раз когда вам приходилось указывать на что либо лежащее между двумя другими "чем либо" — вы применяли линейную интерполяцию. Т.е. попросту "выбор точки лежащей на линии между двумя другими точками".</p>
 <p>Вот, скажем, зная расстояние между двух точек и желая поставить третью на удалении 20ти % этого расстояния до первой и, соответственно, 80ти % до второй, вычислить результат можно следующим образом:</p>
-<script>console.error("LaTeX for e0600b3be5b95f105a1cf2a2c0378b98 failed.");</script>
+<!--
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                             ╭          p = неикая точка        ╮
+                             │           1                      │
+                             │          p = неикая другая точка │
+                             │           2                      │
+                        Дано │  расстояние= (p  - p )           │, наша новая точка = p  + расстояние  · соотношение
+                             │                2    1            │                      1
+                             │              процентаж           │
+                             │ соотношение= ─────────           │
+                             ╰                 100              ╯
+-->
+<img class="LaTeX SVG" src="./images/chapters/whatis/e0600b3be5b95f105a1cf2a2c0378b98.svg" width="203px" height="92px" loading="lazy">
 <p>Что же, посмотрим на это в действии: ниже представлена интерактивная проекция, кликнув на ползунок, можно пользоваться клавишами вниз-вверх для увеличения и уменьшения соотношения интерполяции и наблюдать получаемый результат. Сначала, основываясь на трех точках, задаем два отрезка, затем производим линейную интерполяцию по длине каждого из них, получая еще две точки. Далее мы опять производим линейную интерполяцию уже между полученными точками и в итоге получаем искомую точку. (* на изображении видим 3 проекции соответственно этим трем действиям).  </p>
 <graphics-element title="Линейная интерполяция составляющая кривую Безье" width="825" height="275" src="./chapters/whatis/interpolation.js"  reset="cбросить" viewSource="view source">
         <fallback-image>
@@ -3258,9 +3271,11 @@ lli = function(line1, line2):
 <li>Take two curves <em>C<sub>1</sub></em> and <em>C<sub>2</sub></em>, and treat them as a pair.</li>
 <li>If their bounding boxes overlap, split up each curve into two sub-curves</li>
 <li>With <em>C<sub>1.1</sub></em>, <em>C<sub>1.2</sub></em>, <em>C<sub>2.1</sub></em> and <em>C<sub>2.2</sub></em>, form four new pairs (<em>C<sub>1.1</sub></em>,<em>C<sub>2.1</sub></em>), (<em>C<sub>1.1</sub></em>, <em>C<sub>2.2</sub></em>), (<em>C<sub>1.2</sub></em>,<em>C<sub>2.1</sub></em>), and (<em>C<sub>1.2</sub></em>,<em>C<sub>2.2</sub></em>).</li>
-<li>For each pair, check whether their bounding boxes overlap.</li>
+<li>For each pair, check whether their bounding boxes overlap.<ol>
 <li>If their bounding boxes do not overlap, discard the pair, as there is no intersection between this pair of curves.</li>
 <li>If there <em>is</em> overlap, rerun all steps for this pair.</li>
+</ol>
+</li>
 <li>Once the sub-curves we form are so small that they effectively occupy sub-pixel areas, we consider an intersection found, noting that we might have a cluster of multiple intersections at the sub-pixel level, out of which we pick one to act as "found" <code>t</code> value (we can either throw all but one away, we can average the cluster's <code>t</code> values, or you can do something even more creative).</li>
 </ol>
 <p>This algorithm will start with a single pair, "balloon" until it runs in parallel for a large number of potential sub-pairs, and then taper back down as it homes in on intersection coordinates, ending up with as many pairs as there are intersections.</p>
@@ -5044,13 +5059,11 @@ for p = 1 to points.length-3 (inclusive):
 <p>The result of this is shown in the next graphic: we start at a guaranteed failure: s=0, e=1. That's the entire curve. The midpoint is simply at <code>t=0.5</code>, and then we start performing a <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">binary search</a>.</p>
 <ol>
 <li>We start with <code>low=0</code>, <code>mid=0.5</code> and <code>high=1</code></li>
-<li>That'll fail, so we retry with the interval halved: <code>{0, 0.25, 0.5}</code></li>
-</ol>
-<ul>
+<li>That'll fail, so we retry with the interval halved: <code>{0, 0.25, 0.5}</code><ul>
 <li>If that arc's good, we move back up by half distance: <code>{0, 0.375, 0.75}</code>.</li>
 <li>However, if the arc was still bad, we move <em>down</em> by half the distance: <code>{0, 0.125, 0.25}</code>.</li>
 </ul>
-<ol start="3">
+</li>
 <li>We keep doing this over and over until we have two arcs, in sequence, of which the first arc is good, and the second arc is bad. When we find that pair, we've found the boundary between a good approximation and a bad approximation, and we pick the good arc.</li>
 </ol>
 <p>The following graphic shows the result of this approach, with a default error threshold of 0.5, meaning that if an arc is off by a <em>combined</em> half pixel over both verification points, then we treat the arc as bad. This is an extremely simple error policy, but already works really well. Note that the graphic is still interactive, and you can use your up and down arrow keys keys to increase or decrease the error threshold, to see what the effect of a smaller or larger error threshold is.</p>
