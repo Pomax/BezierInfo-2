@@ -1,0 +1,5 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                   d    __ n-1                                 __ n-1
+      Bézier   (t) ── = ❯      n  · B     (t)  · (w    - w ) = ❯      B     (t)  · \undersetвес производной \underbracen  · (w    - w )
+            n,k    dt   ‾‾ k=0       n-1,k         k+1    k    ‾‾ k=0  n-1,k                                                  k+1    k
