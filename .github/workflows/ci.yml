@@ -1,0 +1,66 @@
+name: CI-CD
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths-ignore:
+      - 'docs/fonts'
+      - 'docs/images'
+      - 'docs/ja-JP'
+      - 'docs/uk-UA'
+      - 'docs/zn-CH'
+      - 'docs/*.{html,php,md,css}'
+      - 'docs/news/*.html'
+      - 'temp'
+      - 'README.md'
+
+jobs:
+  build:
+    name: Building the Primer website
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Installing TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install xzdec libpoppler-glib-dev texlive texlive-xetex texlive-extra-utils -y
+
+      - name: Installing pdf2svg
+        run: |
+          set +e
+          rm -f *.tar.gz
+          set -e
+          wget https://github.com/dawbarton/pdf2svg/archive/v0.2.3.tar.gz
+          tar -zxf v0.2.3.tar.gz
+          cd pdf2svg-0.2.3
+          ./configure
+          make
+          sudo make install
+          cd ..
+          set +e
+          rm -rf pdf2svg-0.2.3
+          rm v0.2.3.tar.gz
+          pdf2svg
+          set -e
+
+      - name: Installing latest Node
+        run: |
+          wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+          sh ~/.nvm/nvm.sh install latest
+          sh ~/.nvm/nvm.sh use latest
+
+      - name: Installing node-canvas build dependencies
+        run: |
+          sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
+      - name: Installing dependencies
+        run: |
+          npm install
+          echo "finished installing dependencies"
+
+      - name: Running npm build
+        run: |
+          echo "running build..."
+          npm run deploy:ci
