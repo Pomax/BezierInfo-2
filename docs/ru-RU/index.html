@@ -34,7 +34,7 @@
 		<meta property="og:locale" content="ru-RU" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2021-01-10T21:31:18+00:00" />
+		<meta property="og:updated_time" content="2021-01-11T19:02:57+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -127,7 +127,7 @@
 					<li><a href="./index.html">English</a> &nbsp;</li>
 					<li><a href="./ja-JP/index.html">日本語</a> <span class="localisation-progress">(24%)</span></li>
 					<li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(22%)</span></li>
-					<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(15%)</span></li>
+					<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(17%)</span></li>
 					<li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
 				</ul>
 				<p>
@@ -192,7 +192,7 @@
 					<li><a href="ru-RU/index.html#weightcontrol">Контроль над кривыми Безье, часть 2: Соотносительные Безье</a></li>
 					<li><a href="ru-RU/index.html#extended">Интервал Безье [0,1]</a></li>
 					<li><a href="ru-RU/index.html#matrix">Bézier curvatures as matrix operations</a></li>
-					<li><a href="ru-RU/index.html#decasteljau">de Casteljau's algorithm</a></li>
+					<li><a href="ru-RU/index.html#decasteljau">Алгоритм де Кастельжо</a></li>
 					<li><a href="ru-RU/index.html#flattening">Simplified drawing</a></li>
 					<li><a href="ru-RU/index.html#splitting">Splitting curves</a></li>
 					<li><a href="ru-RU/index.html#matrixsplit">Splitting curves using matrices</a></li>
@@ -1695,38 +1695,39 @@ function RationalBezier(3,t,w[],r[]):
 				<section id="decasteljau">
 					<h1>
 						<div class="nav"><a href="ru-RU/index.html#matrix">предыдущий</a><a href="ru-RU/index.html#flattening">следующий</a></div>
-						<a href="ru-RU/index.html#decasteljau">de Casteljau's algorithm</a>
+						<a href="ru-RU/index.html#decasteljau">Алгоритм де Кастельжо</a>
 					</h1>
 					<p>
-						If we want to draw Bézier curves, we can run through all values of <code>t</code> from 0 to 1 and then compute the weighted basis function
-						at each value, getting the <code>x/y</code> values we need to plot. Unfortunately, the more complex the curve gets, the more expensive
-						this computation becomes. Instead, we can use <em>de Casteljau's algorithm</em> to draw curves. This is a geometric approach to curve
-						drawing, and it's really easy to implement. So easy, in fact, you can do it by hand with a pencil and ruler.
+						Для зарисовки кривой Безье, мы можем пробежаться по всем значениям <code>t</code> от 0 до 1 и скомпилировать вывод базовой функции с
+						подставленными весами для каждого значения. К сожалению, чем замысловатее кривая, тем дороже обходиться это обчисление. Вместо этого, мы
+						можем воспользоваться <em>Алгоритмом де Кастельжо</em> для прорисовки кривых. Этот алгоритм позволяет прорисовывать кривые базируясь на
+						геометрических вычислениях и довольно прост в применении. На деле, настолько прост, что его можно воплотить при помощи карандаша и
+						линейки.
 					</p>
-					<p>Rather than using our calculus function to find <code>x/y</code> values for <code>t</code>, let's do this instead:</p>
+					<p>
+						Вместо использования функции математического анализа для нахождения значений <code>x/y</code> для <code>t</code>, давайте сделаем
+						следующее:
+					</p>
 					<ul>
-						<li>treat <code>t</code> as a ratio (which it is). t=0 is 0% along a line, t=1 is 100% along a line.</li>
-						<li>Take all lines between the curve's defining points. For an order <code>n</code> curve, that's <code>n</code> lines.</li>
+						<li>Примем <code>t</code> за пропорцию(чем оно и является). t=0 будет 0% вдоль линии, t=1, соответсвенно, 100% вдоль линии.</li>
+						<li>Возьмем все линии между заданными контрольными точками. Для кривой <code>n</code>-го порядка это <code>n</code> линий</li>
 						<li>
-							Place markers along each of these line, at distance <code>t</code>. So if <code>t</code> is 0.2, place the mark at 20% from the start,
-							80% from the end.
+							Разместим маркеры вдоль линий, соответсвенно значению <code>t</code>. Так, если <code>t</code> 0.2, разместим маркер на 20% от начала,
+							и, соответственно, 80% от конца.
 						</li>
-						<li>Now form lines between <code>those</code> points. This gives <code>n-1</code> lines.</li>
-						<li>Place markers along each of these line at distance <code>t</code>.</li>
-						<li>Form lines between <code>those</code> points. This'll be <code>n-2</code> lines.</li>
-						<li>Place markers, form lines, place markers, etc.</li>
+						<li>Теперь соединим полученные точки линиями. Это дает нам <code>n-1</code> линий.</li>
+						<li>Далее разместим маркеры на новых линиях, соответсвенно тому-же значению <code>t</code>.</li>
 						<li>
-							Repeat this until you have only one line left. The point <code>t</code> on that line coincides with the original curve point at
-							<code>t</code>.
+							Продолжим повторять два предыдущих шага, пока на выводе у нас останется всего одна линия. Маркер <code>t</code> на этой линии будет
+							соответствовать точке для <code>t</code> на нашей кривой.
 						</li>
 					</ul>
 					<p>
-						To see this in action, mouse-over the following sketch. Moving the mouse changes which curve point is explicitly evaluated using de
-						Casteljau's algorithm, moving the cursor left-to-right (or, of course, right-to-left), shows you how a curve is generated using this
-						approach.
+						Чтобы проверить это в действии, ведите ползунок под ниже представленным графиком слева направо и наоборот, задавая разные значения
+						<code>t</code> для иллюстрации геометрического построения.
 					</p>
 					<graphics-element
-						title="Traversing a curve using de Casteljau's algorithm"
+						title="Прохождение кривой с использованием алгоритма де Кастельжо"
 						width="275"
 						height="275"
 						src="./chapters/decasteljau/decasteljau.js"
@@ -1736,13 +1737,13 @@ function RationalBezier(3,t,w[],r[]):
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/decasteljau/df92f529841f39decf9ad62b0967855a.png" loading="lazy" />
-							<label>Traversing a curve using de Casteljau's algorithm</label>
+							<label>Прохождение кривой с использованием алгоритма де Кастельжо</label>
 						</fallback-image>
 						<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
 					</graphics-element>
 					<div class="howtocode">
-						<h3>How to implement de Casteljau's algorithm</h3>
-						<p>Let's just use the algorithm we just specified, and implement that:</p>
+						<h3>Имплементация Алгоритма де Кастельжо</h3>
+						<p>Запишем согласно предложенному алгоритму:</p>
 
 						<table class="code">
 							<tr>
@@ -1784,8 +1785,8 @@ function drawCurve(points[], t):
 						</table>
 
 						<p>
-							And done, that's the algorithm implemented. Except usually you don't get the luxury of overloading the "+" operator, so let's also give
-							the code for when you need to work with <code>x</code> and <code>y</code> values:
+							Готово, алгоритм воплощен. Помимо того факта, что зачастую мы не располагаем роскошью перенагрузки оператора "+", так давайте совместим
+							вычисление для значений <code>x</code> и <code>y</code>:
 						</p>
 
 						<table class="code">
@@ -1836,9 +1837,9 @@ function drawCurve(points[], t):
 						</table>
 
 						<p>
-							So what does this do? This draws a point, if the passed list of points is only 1 point long. Otherwise it will create a new list of
-							points that sit at the <i>t</i> ratios (i.e. the "markers" outlined in the above algorithm), and then call the draw function for this
-							new list.
+							И что это делает? Это зарисует точку на график, если длинна вводной points составляет всего одну точку. В противном случае — это создает
+							новый список для вводной, составленный из "маркеров", обчисленых пропорционально значению <i>t</i> между поточного списка точек вводной
+							и вызовет саму себя с новой вводной.
 						</p>
 					</div>
 				</section>
