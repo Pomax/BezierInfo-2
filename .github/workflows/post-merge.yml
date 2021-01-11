@@ -1,7 +1,7 @@
 name: CI-CD
 
 on:
-  pull_request:
+  push:
     branches:
       - master
     paths-ignore:
@@ -64,3 +64,19 @@ jobs:
         run: |
           echo "running build..."
           npm run deploy:ci
+
+      - name: Commit changes
+        run: |
+          echo "forming commit..."
+          git status
+          git config --local user.email "action@github.com"
+          git config --local user.name "Bezierinfo CI"
+          set +e
+          git add -A
+          git commit -m "Automated build"
+          set -e
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}

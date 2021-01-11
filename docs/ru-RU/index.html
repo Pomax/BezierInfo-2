@@ -34,7 +34,7 @@
 		<meta property="og:locale" content="ru-RU" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2020-12-25T20:05:36+00:00" />
+		<meta property="og:updated_time" content="2021-01-10T21:31:18+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -127,7 +127,7 @@
 					<li><a href="./index.html">English</a> &nbsp;</li>
 					<li><a href="./ja-JP/index.html">日本語</a> <span class="localisation-progress">(24%)</span></li>
 					<li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(22%)</span></li>
-					<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(4%)</span></li>
+					<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(15%)</span></li>
 					<li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
 				</ul>
 				<p>
@@ -187,17 +187,17 @@
 				<ol>
 					<li><a href="ru-RU/index.html#introduction">Быстрое введение</a></li>
 					<li><a href="ru-RU/index.html#whatis">Итак, из чего сделаны кривые Безье?</a></li>
-					<li><a href="ru-RU/index.html#explanation">The mathematics of Bézier curves</a></li>
-					<li><a href="ru-RU/index.html#control">Controlling Bézier curvatures</a></li>
-					<li><a href="ru-RU/index.html#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a></li>
-					<li><a href="ru-RU/index.html#extended">The Bézier interval [0,1]</a></li>
+					<li><a href="ru-RU/index.html#explanation">Математика под кривыми Безье</a></li>
+					<li><a href="ru-RU/index.html#control">Контроль кривых Безье</a></li>
+					<li><a href="ru-RU/index.html#weightcontrol">Контроль над кривыми Безье, часть 2: Соотносительные Безье</a></li>
+					<li><a href="ru-RU/index.html#extended">Интервал Безье [0,1]</a></li>
 					<li><a href="ru-RU/index.html#matrix">Bézier curvatures as matrix operations</a></li>
 					<li><a href="ru-RU/index.html#decasteljau">de Casteljau's algorithm</a></li>
 					<li><a href="ru-RU/index.html#flattening">Simplified drawing</a></li>
 					<li><a href="ru-RU/index.html#splitting">Splitting curves</a></li>
 					<li><a href="ru-RU/index.html#matrixsplit">Splitting curves using matrices</a></li>
 					<li><a href="ru-RU/index.html#reordering">Lowering and elevating curve order</a></li>
-					<li><a href="ru-RU/index.html#derivatives">Derivatives</a></li>
+					<li><a href="ru-RU/index.html#derivatives">Производные кривых Безье</a></li>
 					<li><a href="ru-RU/index.html#pointvectors">Tangents and normals</a></li>
 					<li><a href="ru-RU/index.html#pointvectors3d">Working with 3D normals</a></li>
 					<li><a href="ru-RU/index.html#components">Component functions</a></li>
@@ -558,7 +558,7 @@
                              │ соотношение= ─────────           │
                              ╰                 100              ╯
 -->
-					<img class="LaTeX SVG" src="./images/chapters/whatis/e0600b3be5b95f105a1cf2a2c0378b98.svg" width="203px" height="92px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/whatis/e0600b3be5b95f105a1cf2a2c0378b98.svg" width="188px" height="92px" loading="lazy" />
 					<p>
 						Что же, посмотрим на это в действии: ниже представлена интерактивная проекция, кликнув на ползунок, можно пользоваться клавишами
 						вниз-вверх для увеличения и уменьшения соотношения интерполяции и наблюдать получаемый результат. Сначала, основываясь на трех точках,
@@ -597,17 +597,17 @@
 				<section id="explanation">
 					<h1>
 						<div class="nav"><a href="ru-RU/index.html#whatis">предыдущий</a><a href="ru-RU/index.html#control">следующий</a></div>
-						<a href="ru-RU/index.html#explanation">The mathematics of Bézier curves</a>
+						<a href="ru-RU/index.html#explanation">Математика под кривыми Безье</a>
 					</h1>
 					<p>
-						Bézier curves are a form of "parametric" function. Mathematically speaking, parametric functions are cheats: a "function" is actually a
-						well defined term representing a mapping from any number of inputs to a <strong>single</strong> output. Numbers go in, a single number
-						comes out. Change the numbers that go in, and the number that comes out is still a single number.
+						Кривые Безье по своей форме представляют собой параметрические функции. С точки зрения математики, эти функции хитрят, поскольку разнятся
+						с каноническим определением функции. Последнее есть преобразованием любого количества вводных в <strong>единый</strong> результат. Как бы
+						мы не меняли вводные значения переменных, на выходе всегда получим одно значение.
 					</p>
 					<p>
-						Parametric functions cheat. They basically say "alright, well, we want multiple values coming out, so we'll just use more than one
-						function". An illustration: Let's say we have a function that maps some value, let's call it <i>x</i>, to some other value, using some
-						kind of number manipulation:
+						Параметрические функции хитрят, потому как говоря: "что ж, ладно, нам нужно произвести более одного вывода", заключают, попросту: "давайте
+						использовать более одной функции". Проиллюстрируем: представьте что есть функция, которая преобразует вводную, назовем ее <i>x</i>, в
+						другое значение следуя определенной логике
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -616,10 +616,13 @@
 -->
 					<img class="LaTeX SVG" src="./images/chapters/explanation/0cc876c56200446c60114c1b0eeeb2cc.svg" width="96px" height="17px" loading="lazy" />
 					<p>
-						The notation <i>f(x)</i> is the standard way to show that it's a function (by convention called <i>f</i> if we're only listing one) and
-						its output changes based on one variable (in this case, <i>x</i>). Change <i>x</i>, and the output for <i>f(x)</i> changes.
+						Нотация <i>f(x)</i> есть стандартным способом записи функции (по конвенции, <i>f</i>, когда представлена всего одна) и ее вывод меняется в
+						зависимости от значения одной переменной (в данном случае, <i>x</i>). Так, изменив <i>x</i> и получим другой результат <i>f(x)</i>.
 					</p>
-					<p>So far, so good. Now, let's look at parametric functions, and how they cheat. Let's take the following two functions:</p>
+					<p>
+						Пока все логично. Теперь, давайте рассмотрим параметрические функции в действии и разберемся в чем их фокус. И, для начала, примите ко
+						внимаю следующий пример:
+					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -628,9 +631,10 @@
 -->
 					<img class="LaTeX SVG" src="./images/chapters/explanation/a2891980850ddbb27d308ac112d69f74.svg" width="93px" height="36px" loading="lazy" />
 					<p>
-						There's nothing really remarkable about them, they're just a sine and cosine function, but you'll notice the inputs have different names.
-						If we change the value for <i>a</i>, we're not going to change the output value for <i>f(b)</i>, since <i>a</i> isn't used in that
-						function. Parametric functions cheat by changing that. In a parametric function all the different functions share a variable, like this:
+						Итак, нам представлены две функции. Ничего особо выдающегося: просто функции синуса и косинуса. Отметим, что, как вы можете видеть,
+						вводные переменные разные. Затем, меняя значение <i>a</i>, мы не влияем на вывод <i>f(b)</i>, поскольку <i>a</i> никак не задействована в
+						этой функции. Параметрические функции хитрят именно с этим: весь набор функций вывода делит между собой одну или более переменную вводную.
+						Как здесь:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -648,10 +652,9 @@
 						loading="lazy"
 					/>
 					<p>
-						Multiple functions, but only one variable. If we change the value for <i>t</i>, we change the outcome of both <i>f<sub>a</sub>(t)</i> and
-						<i>f<sub>b</sub>(t)</i>. You might wonder how that's useful, and the answer is actually pretty simple: if we change the labels
-						<i>f<sub>a</sub>(t)</i> and <i>f<sub>b</sub>(t)</i> with what we usually mean with them for parametric curves, things might be a lot more
-						obvious:
+						Что же, несколько функций, и всего одна вводная. Меняя значение <i>t</i> — меняем вывод обеих ф-ций, <i>f<sub>a</sub>(t)</i> и
+						<i>f<sub>b</sub>(t)</i>. Возможно вы спросите: "в чем же польза?". Ответ прост и очевиден, если уточнить, что мы имеем ввиду под записью
+						наших функций:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -660,16 +663,17 @@
                                                                  y = sin (t)
 -->
 					<img class="LaTeX SVG" src="./images/chapters/explanation/6914ba615733c387251682db7a3db045.svg" width="77px" height="40px" loading="lazy" />
-					<p>There we go. <i>x</i>/<i>y</i> coordinates, linked through some mystery value <i>t</i>.</p>
+					<p>Так-то. Координаты <i>x</i>/<i>y</i>. Связанные мистическим значением <i>t</i>.</p>
 					<p>
-						So, parametric curves don't define a <i>y</i> coordinate in terms of an <i>x</i> coordinate, like normal functions do, but they instead
-						link the values to a "control" variable. If we vary the value of <i>t</i>, then with every change we get <strong>two</strong> values,
-						which we can use as (<i>x</i>,<i>y</i>) coordinates in a graph. The above set of functions, for instance, generates points on a circle: We
-						can range <i>t</i> from negative to positive infinity, and the resulting (<i>x</i>,<i>y</i>) coordinates will always lie on a circle with
-						radius 1 around the origin (0,0). If we plot it for <i>t</i> from 0 to 5, we get this:
+						Таким образом, мы видим, что параметрические функции не определяют значение <i>y</i> через значение <i>x</i>, как обычные ф-ции, вместо
+						этого они выводят и <i>x</i> и <i>y</i> из мистического значения <i>t</i>. Значит, для каждого значения <i>t</i>, существуют два
+						соответствующих значения <i>x</i> и <i>y</i>, которые мы можем использовать для зарисовки кривой на графике. К примеру, приведенная выше
+						параметрическая функция выводит координаты точки на круге: можно подставить любое значение <i>t</i> (от негативной до позитивной
+						бесконечности), и на выводе мы всегда получим координаты точки на круге с центром в (0,0) и радиусом в 1. Зарисовав точки для <i>t</i> от
+						0 до 5, получаем следующее:
 					</p>
 					<graphics-element
-						title="A (partial) circle: x=sin(t), y=cos(t)"
+						title=" (Часть) круга: x=sin(t), y=cos(t)"
 						width="275"
 						height="275"
 						src="./chapters/explanation/circle.js"
@@ -679,17 +683,17 @@
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/explanation/959762e39ae32407e914a687d804ff3a.png" loading="lazy" />
-							<label>A (partial) circle: x=sin(t), y=cos(t)</label>
+							<label> (Часть) круга: x=sin(t), y=cos(t)</label>
 						</fallback-image>
 						<input type="range" min="0" max="10" step="0.1" value="5" class="slide-control" />
 					</graphics-element>
 					<p>
-						Bézier curves are just one out of the many classes of parametric functions, and are characterised by using the same base function for all
-						of the output values. In the example we saw above, the <i>x</i> and <i>y</i> values were generated by different functions (one uses a
-						sine, the other a cosine); but Bézier curves use the "binomial polynomial" for both the <i>x</i> and <i>y</i> outputs. So what are
-						binomial polynomials?
+						Кривые Безье — всего один из многих классов параметрических функций. Их главной характеристикой есть использование одной и той же базовой
+						функции для генерации всех выводов. До сих пор, в использованном нами примере, мы производили значения <i>x</i> и <i>y</i> с помощью
+						разных функций (ф-цией синуса и ф-цией косинуса); Безье же использует единый "биноминальный полином" для вывода обоих значений. Но что же
+						такое "биноминальный полином"?
 					</p>
-					<p>You may remember polynomials from high school. They're those sums that look like this:</p>
+					<p>Возможно, вы помните полиномы из школьной программы. Они выглядят следующим образом:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -704,101 +708,105 @@
 						loading="lazy"
 					/>
 					<p>
-						If the highest order term they have is <i>x³</i>, they're called "cubic" polynomials; if it's <i>x²</i>, it's a "square" polynomial; if
-						it's just <i>x</i>, it's a line (and if there aren't even any terms with <i>x</i> it's not a polynomial!)
+						Так, если наивысшая степень в уравнении составляет <i>x³</i>, мы называем такой полином кубическим, если <i>x²</i> — квадратным. Если это
+						только <i>x¹</i> — значит это просто линия (когда же <i>x</i> не упоминается вовсе — это не полином!).
 					</p>
 					<p>
-						Bézier curves are polynomials of <i>t</i>, rather than <i>x</i>, with the value for <i>t</i> being fixed between 0 and 1, with
-						coefficients <i>a</i>, <i>b</i> etc. taking the "binomial" form, which sounds fancy but is actually a pretty simple description for mixing
-						values:
-					</p>
-					<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                                         linear= (1-t) + t                                        
-                                                      2                      2
-                                         square= (1-t)  + 2  · (1-t)  · t + t                     
-                                                      3             2                       2    3
-                                          cubic= (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 
--->
-					<img
-						class="LaTeX SVG"
-						src="./images/chapters/explanation/2493468e73b73f43eba8f66f0c189d1a.svg"
-						width="367px"
-						height="64px"
-						loading="lazy"
-					/>
-					<p>
-						I know what you're thinking: that doesn't look too simple! But if we remove <i>t</i> and add in "times one", things suddenly look pretty
-						easy. Check out these binomial terms:
+						Кривые Безье являются полиномом <i>t</i> (вместо <i>x</i>), где значение <i>t</i> — варъируется между 0 и 1, и коэффициентами <i>a</i>,
+						<i>b</i> и т.д. принимающими "биноминальную" форму. Звучит сложно, но на практике выглядит понятнее:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                          linear=  1 + 1           
-                                                          square=  1 + 2 + 1       
-                                                           cubic=  1 + 3 + 3 + 1   
-                                                         quartic= 1 + 4 + 6 + 4 + 1
+                                         линейный= (1-t) + t                                        
+                                                        2                      2
+                                       квадратный= (1-t)  + 2  · (1-t)  · t + t                     
+                                                        3             2                       2    3
+                                       кубический= (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/8986c536df8153b30197c3a5407d233a.svg"
-						width="184px"
-						height="87px"
+						src="./images/chapters/explanation/dc48cdf8f492b44c7602eb64ce2b9986.svg"
+						width="297px"
+						height="67px"
 						loading="lazy"
 					/>
 					<p>
-						Notice that 2 is the same as 1+1, and 3 is 2+1 and 1+2, and 6 is 3+3... As you can see, each time we go up a dimension, we simply start
-						and end with 1, and everything in between is just "the two numbers above it, added together", giving us a simple number sequence known as
-						<a href="https://en.wikipedia.org/wiki/Pascal%27s_triangle">Pascal's triangle</a>. Now <i>that's</i> easy to remember.
+						Я знаю что вы думаете: это не выглядит таким уж простым. Но если мы уберем <i>t</i> и вместо этого поставим *1, внезапно, все становится
+						ясно. Примите ко внимаю такие биномиальные термины:
+					</p>
+					<!--
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                          линийный=  1 + 1           
+                                                         квадратый=  1 + 2 + 1       
+                                                        кубический=  1 + 3 + 3 + 1   
+                                                      квартический= 1 + 4 + 6 + 4 + 1
+-->
+					<img
+						class="LaTeX SVG"
+						src="./images/chapters/explanation/6d58ec36bfb3fcff24248dc46889428a.svg"
+						width="127px"
+						height="83px"
+						loading="lazy"
+					/>
+					<p>
+						Обратите внимание, что 2 это то же, что 1+1, и 3 это 2+1 и 1+2 и 6 это 3+3... Как вы можете видеть, каждый раз поднимаясь на одно
+						разрешение выше, мы начинаем и заканчиваем с единицы, а все промежуточные значения равны суме двух значений над ними в предыдущей строке.
+						Так получаем последовательность цифр, называемой
+						<a
+							href="https://ru.wikipedia.org/wiki/%D0%A2%D1%80%D0%B5%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA_%D0%9F%D0%B0%D1%81%D0%BA%D0%B0%D0%BB%D1%8F"
+							>треугольником Паскаля</a
+						>
+						(*в оригинале <a href="https://en.wikipedia.org/wiki/Pascal%27s_triangle">другая ссылка</a> ).
 					</p>
 					<p>
-						There's an equally simple way to figure out how the polynomial terms work: if we rename <i>(1-t)</i> to <i>a</i> and <i>t</i> to <i>b</i>,
-						and remove the weights for a moment, we get this:
+						Так-же существует простой способ для выяснения подоплотной работы полиноминальных терминов: если мы переименуем <i>(1-t)</i> в <i>a</i> и
+						<i>t</i> в <i>b</i>, убрав "веса", получим следующее:
 					</p>
 					<!--
      \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
       
-linear= \colorbluea + \colorredb                                                                                                                      
-square= \colorbluea  · \colorbluea + \colorbluea  · \colorredb + \colorredb  · \colorredb                                                             
- cubic= \colorbluea  · \colorbluea  · \colorbluea + \colorbluea  · \colorbluea  · \colorredb + \colorbluea  · \colorredb  · \colorredb + \colorredb  ·
-                                                                                       
-                                                                                       
-                                                               \colorredb  · \colorredb
+  линийный= \colorbluea + \colorredb                                                                                                                  
+ квадратый= \colorbluea  · \colorbluea + \colorbluea  · \colorredb + \colorredb  · \colorredb                                                         
+кубический= \colorbluea  · \colorbluea  · \colorbluea + \colorbluea  · \colorbluea  · \colorredb + \colorbluea  · \colorredb  · \colorredb + \colorred
+                                                                                         
+                                                                                         
+                                                            b  · \colorredb  · \colorredb
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/2c47081c2a9c20d2110f13daa482a3ab.svg"
-						width="301px"
+						src="./images/chapters/explanation/05c2d5954eb9dec5ce9f6eb7e89f1e0c.svg"
+						width="256px"
 						height="60px"
 						loading="lazy"
 					/>
 					<p>
-						It's basically just a sum of "every combination of <i>a</i> and <i>b</i>", progressively replacing <i>a</i>'s with <i>b</i>'s after every
-						+ sign. So that's actually pretty simple too. So now you know binomial polynomials, and just for completeness I'm going to show you the
-						generic function for this:
+						В целом это просто сума "каждого сочетания <i>a</i> и <i>b</i>", получаемая прогрессивной заменой <i>a</i> на <i>b</i> по ходу уравнения.
+						Потому, это так-же довольно просто. Итак теперь вы знаете что такое биноминальные полиномы. Для полноты картины, ниже привожу их общую
+						функцию:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                          __ n                                                                                          n-i     i
-            Bézier(n,t) = ❯      \undersetbinomial term\underbrace\binomni  · \ \undersetpolynomial term\underbrace(1-t)     · t 
-                          ‾‾ i=0
+                   __ n                                                                                                        n-i     i
+     Bézier(n,t) = ❯      \undersetбиноминальный термин\underbrace\binomni  · \ \undersetполиноминальный термин\underbrace(1-t)     · t 
+                   ‾‾ i=0
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/f79dd2f2d992e22b8d057fdc641290b0.svg"
-						width="300px"
-						height="55px"
+						src="./images/chapters/explanation/fa3ed9a4ab61d80ec175d29533b5728e.svg"
+						width="243px"
+						height="49px"
 						loading="lazy"
 					/>
 					<p>
-						And that's the full description for Bézier curves. Σ in this function indicates that this is a series of additions (using the variable
-						listed below the Σ, starting at ...=&lt;value&gt; and ending at the value listed on top of the Σ).
+						И теперь, это полное объяснение. Σ в этой функции означает, что это серия сум (с использованием переменной приведенной под Σ, со стартовым
+						значением в ...=&lt;value&gt; и максимальным значением представленным над Σ)
 					</p>
 					<div class="howtocode">
-						<h3>How to implement the basis function</h3>
-						<p>We could naively implement the basis function as a mathematical construct, using the function as our guide, like this:</p>
+						<h3>Имплементация базовых функций</h3>
+						<p>Наивно, мы могли бы воплотить базис этой функции как математическую конструкцию, используя функцию как путеводитель:</p>
 
 						<table class="code">
 							<tr>
@@ -828,14 +836,14 @@ function Bezier(n,t):
 						</table>
 
 						<p>
-							I say we could, because we're not going to: the factorial function is <em>incredibly</em> expensive. And, as we can see from the above
-							explanation, we can actually create Pascal's triangle quite easily without it: just start at [1], then [1,1], then [1,2,1], then
-							[1,3,3,1], and so on, with each next row fitting 1 more number than the previous row, starting and ending with "1", with all the numbers
-							in between being the sum of the previous row's elements on either side "above" the one we're computing.
+							Я говорю "мы могли бы", поскольку это не входит в наши планы: факторные функции <em>невероятно</em> дорого стоят. И, как мы можем понять
+							из выше приведенного текста, треугольник Паскаля можно получить и без таких ухищрений: попросту начнем с [1], далее [1,1], затем
+							[1,2,1], потом [1,3,3,1] и т.д., с каждым новым рядком, записывая на 1 цифру больше, чем в предыдущем, начиная и заканчивая с единицы, а
+							промежуточные цифры определяя суммируя две над ними в предыдущем рядке.
 						</p>
 						<p>
-							We can generate this as a list of lists lightning fast, and then never have to compute the binomial terms because we have a lookup
-							table:
+							Такой ряд можно сгенерировать предельно быстро, и с этим нам не придется компилировать биноминальные термины, поскольку можно
+							пользоваться значениями из таблицы:
 						</p>
 
 						<table class="code">
@@ -918,9 +926,10 @@ function binomial(n,k):
 						</table>
 
 						<p>
-							So what's going on here? First, we declare a lookup table with a size that's reasonably large enough to accommodate most lookups. Then,
-							we declare a function to get us the values we need, and we make sure that if an <i>n/k</i> pair is requested that isn't in the LUT yet,
-							we expand it first. Our basis function now looks like this:
+							Итак, что же здесь происходит? Сначала мы декларируем таблицу достаточного размера для удовлетворения большинства запросов. Далее мы
+							заявляем функцию вывода необходимого значения, вытаскивая его из таблицы, предварительно убедившись, что значения для запрашиваемых
+							<i>n/k</i> присутствуют в наборе и расширяя набор по необходимости (если не присутствуют). Наша базовая функция теперь выглядит типа
+							этого:
 						</p>
 
 						<table class="code">
@@ -951,9 +960,9 @@ function Bezier(n,t):
 						</table>
 
 						<p>
-							Perfect. Of course, we can optimize further. For most computer graphics purposes, we don't need arbitrary curves (although we will also
-							provide code for arbitrary curves in this primer); we need quadratic and cubic curves, and that means we can drastically simplify the
-							code:
+							Отлично. Конечно, мы можем оптимизировать ее и далее. Для большинства задач компьютерной графики нам не потребуются кривые произвольного
+							порядка (хотя мы приводим код для произвольных кривых в этом пособии); зачастую нам нужны квадратные и кубические кривые, а это значит,
+							мы можем значительно упростить весь наш код:
 						</p>
 
 						<table class="code">
@@ -1015,30 +1024,30 @@ function Bezier(3,t):
 							</tr>
 						</table>
 
-						<p>And now we know how to program the basis function. Excellent.</p>
+						<p>И вот теперь мы знаем как программировать базовую функцию. Превосходно.</p>
 					</div>
 
-					<p>So, now we know what the basis function looks like, time to add in the magic that makes Bézier curves so special: control points.</p>
+					<p>Итак, зная как выглядят базовые функции, время добавить магию делающую кривые Безье такими особенными: контрольные точки.</p>
 				</section>
 				<section id="control">
 					<h1>
 						<div class="nav"><a href="ru-RU/index.html#explanation">предыдущий</a><a href="ru-RU/index.html#weightcontrol">следующий</a></div>
-						<a href="ru-RU/index.html#control">Controlling Bézier curvatures</a>
+						<a href="ru-RU/index.html#control">Контроль кривых Безье</a>
 					</h1>
 					<p>
-						Bézier curves are, like all "splines", interpolation functions. This means that they take a set of points, and generate values somewhere
-						"between" those points. (One of the consequences of this is that you'll never be able to generate a point that lies outside the outline
-						for the control points, commonly called the "hull" for the curve. Useful information!). In fact, we can visualize how each point
-						contributes to the value generated by the function, so we can see which points are important, where, in the curve.
+						Кривые Безье, как и все отрезки кривых, являются интерполярными функциями. Это значит, что они имеют заданный набор контрольных точек и
+						генерируют значения где-то "между" ними. (Одним следствием этого есть то, что невозможно сгенерировать точки вне этого "каркаса". Полезная
+						информация!). На практике мы можем проиллюстрировать влияние каждой контрольной точки на течение кривой по отдельности и проследить какие
+						из точек имеют наибольший эффект в тех и иных частях кривой.
 					</p>
 					<p>
-						The following graphs show the interpolation functions for quadratic and cubic curves, with "S" being the strength of a point's
-						contribution to the total sum of the Bézier function. Click-and-drag to see the interpolation percentages for each curve-defining point at
-						a specific <i>t</i> value.
+						Следующие зарисовки демонстрируют интерполяции функций для квадратной и кубической кривых, где "S" представляет степень влияния
+						контрольной точки на положение участка кривой по ходу развития t. Потяните ползунки, чтобы отследить проценты интерполяций каждой
+						контрольной точки на конкретном <i>t</i>.
 					</p>
 					<div class="figure">
 						<graphics-element
-							title="Quadratic interpolations"
+							title="Квадратная интерполяция"
 							width="275"
 							height="275"
 							src="./chapters/control/lerp.js"
@@ -1049,12 +1058,12 @@ function Bezier(3,t):
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/control/8332e5d34b7344bbee2a2e1f4521ce46.png" loading="lazy" />
-								<label>Quadratic interpolations</label>
+								<label>Квадратная интерполяция</label>
 							</fallback-image>
 							<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
 						</graphics-element>
 						<graphics-element
-							title="Cubic interpolations"
+							title="Кубическая интерполяция"
 							width="275"
 							height="275"
 							src="./chapters/control/lerp.js"
@@ -1065,12 +1074,12 @@ function Bezier(3,t):
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/control/1b8c5e574dc67bfb0afc3fb0a8727378.png" loading="lazy" />
-								<label>Cubic interpolations</label>
+								<label>Кубическая интерполяция</label>
 							</fallback-image>
 							<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
 						</graphics-element>
 						<graphics-element
-							title="15th degree interpolations"
+							title="Интерполяция кривой 15-го порядка"
 							width="275"
 							height="275"
 							src="./chapters/control/lerp.js"
@@ -1081,36 +1090,36 @@ function Bezier(3,t):
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/control/c26d2655e8741ef7e2eeb4f6554fc7a5.png" loading="lazy" />
-								<label>15th degree interpolations</label>
+								<label>Интерполяция кривой 15-го порядка</label>
 							</fallback-image>
 							<input type="range" min="0" max="1" step="0.01" value="0" class="slide-control" />
 						</graphics-element>
 					</div>
 
 					<p>
-						Also shown is the interpolation function for a 15<sup>th</sup> order Bézier function. As you can see, the start and end point contribute
-						considerably more to the curve's shape than any other point in the control point set.
+						Также представлена интерполяция кривой Безье 15<sup>го</sup> порядка. Как вы можете видеть, начальная и конечная точки влияют на положение
+						кривой значительно больше, чем любая другая контрольная точка.
 					</p>
 					<p>
-						If we want to change the curve, we need to change the weights of each point, effectively changing the interpolations. The way to do this
-						is about as straightforward as possible: just multiply each point with a value that changes its strength. These values are conventionally
-						called "weights", and we can add them to our original Bézier function:
+						Желая изменить кривую, нам нужно изменить "вес"-а (* коофициенты) для каждой точки, по сути меняя интерполяцию. Имплементация оного
+						предельно логична: нужно просто перемножить каждую точку на значение, меняющее ее 'силу'. Эти значения, по конвенции называют "весом" и мы
+						можем учесть их запись в нашей оригинальной функции Безье:
 					</p>
 					<!--
     \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
      
-              __ n                                                                                          n-i     i
-Bézier(n,t) = ❯      \undersetbinomial term\underbrace\binomni  · \ \undersetpolynomial term\underbrace(1-t)     · t   · \
+              __ n                                                                                                        n-i     i
+Bézier(n,t) = ❯      \undersetбиноминальный термин\underbrace\binomni  · \ \undersetполиноминальный термин\underbrace(1-t)     · t   · \
               ‾‾ i=0
-                                                            \undersetweight\underbracew 
-                                                                                       i
+                                                             \undersetвес\underbracew 
+                                                                                     i
 -->
-					<img class="LaTeX SVG" src="./images/chapters/control/b58fb122c5c8159938182c185f287142.svg" width="352px" height="55px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/control/501494295f07ba5049286489206d98f0.svg" width="273px" height="49px" loading="lazy" />
 					<p>
-						That looks complicated, but as it so happens, the "weights" are actually just the coordinate values we want our curve to have: for an
-						<i>n<sup>th</sup></i> order curve, w<sub>0</sub> is our start coordinate, w<sub>n</sub> is our last coordinate, and everything in between
-						is a controlling coordinate. Say we want a cubic curve that starts at (110,150), is controlled by (25,190) and (210,250) and ends at
-						(210,30), we use this Bézier curve:
+						Хоть и выглядит заморочено, но, так уж получается, в реальности "веса" просто значения координат на графике, к которым мы бы хотели, чтобы
+						наша функция стремилась. Так, для кривой <i>n-го</i> порядка, w<sub>0</sub> есть начальной координатой, w<sub>n</sub> конечной
+						координатой, а все между ними — контрольными координатами. Например, чтобы кубическая кривая начиналась в (110,150), стремилась к точкам
+						(25,190) и (210,250) заканчиваясь на (210,30), мы запишем это следующим образом:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -1121,9 +1130,9 @@ Bézier(n,t) = ❯      \undersetbinomial term\underbrace\binomni  · \ \underse
   ╰ y = \colordarkred150  · (1-t)  + \colordarkgreen190  · 3  · (1-t)   · t + \colordarkblue250  · 3  · (1-t)  · t  + \coloramber30  · t 
 -->
 					<img class="LaTeX SVG" src="./images/chapters/control/20b0be6397fbd726298de6ec70a8544b.svg" width="473px" height="40px" loading="lazy" />
-					<p>Which gives us the curve we saw at the top of the article:</p>
+					<p>Это производит кривую, график которой мы видели в первой главе этой статьи.</p>
 					<graphics-element
-						title="Our cubic Bézier curve"
+						title="Наша кубическая кривая Безье"
 						width="275"
 						height="275"
 						src="./chapters/control/../introduction/cubic.js"
@@ -1133,16 +1142,19 @@ Bézier(n,t) = ❯      \undersetbinomial term\underbrace\binomni  · \ \underse
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/control/8d158a13e9a86969b99c64057644cbc6.png" loading="lazy" />
-							<label>Our cubic Bézier curve</label>
+							<label>Наша кубическая кривая Безье</label>
 						</fallback-image></graphics-element
 					>
 					<p>
-						What else can we do with Bézier curves? Quite a lot, actually. The rest of this article covers a multitude of possible operations and
-						algorithms that we can apply, and the tasks they achieve.
+						Что еще можно сделать с кривой Безье? На самом деле — вполне не мало. Остальная часть статьи описывает множества доступных операций и
+						задач, которые они решают.
 					</p>
 					<div class="howtocode">
-						<h3>How to implement the weighted basis function</h3>
-						<p>Given that we already know how to implement basis function, adding in the control points is remarkably easy:</p>
+						<h3>Имплементация весовых функций.</h3>
+						<p>
+							Отталкиваясь от того, что мы уже знаем как воплотить базис функции, добавление контрольных точек представляет собой удивительно легкую
+							задачу:
+						</p>
 
 						<table class="code">
 							<tr>
@@ -1171,7 +1183,7 @@ function Bezier(n,t,w[]):
 							</tr>
 						</table>
 
-						<p>And now for the optimized versions:</p>
+						<p>И оптимизированная версия:</p>
 
 						<table class="code">
 							<tr>
@@ -1232,19 +1244,19 @@ function Bezier(3,t,w[]):
 							</tr>
 						</table>
 
-						<p>And now we know how to program the weighted basis function.</p>
+						<p>И вот, мы знаем как программировать базис функции с весами.</p>
 					</div>
 				</section>
 				<section id="weightcontrol">
 					<h1>
 						<div class="nav"><a href="ru-RU/index.html#control">предыдущий</a><a href="ru-RU/index.html#extended">следующий</a></div>
-						<a href="ru-RU/index.html#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a>
+						<a href="ru-RU/index.html#weightcontrol">Контроль над кривыми Безье, часть 2: Соотносительные Безье</a>
 					</h1>
 					<p>
-						We can further control Bézier curves by "rationalising" them: that is, adding a "ratio" value in addition to the weight value discussed in
-						the previous section, thereby gaining control over "how strongly" each coordinate influences the curve.
+						Мы можем расширить степень влияния на кривые Безье, "соотнеся" их составляющие: подразумевается добавление в формулу коэффициента
+						соотношений (* в оригинале "ratio" — соотношение) в довесок к уже используемым весам.
 					</p>
-					<p>Adding these ratio values to the regular Bézier curve function is fairly easy. Where the regular function is the following:</p>
+					<p>Как и прочее, воплощение этого коэффициента не должно составить нам особого труда. Тогда как обычная функция:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1259,7 +1271,7 @@ function Bezier(3,t,w[]):
 						height="41px"
 						loading="lazy"
 					/>
-					<p>The function for rational Bézier curves has two more terms:</p>
+					<p>Функция для соотносительных кривых Безье имеет два дополнительных термина:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1279,29 +1291,28 @@ function Bezier(3,t,w[]):
 						loading="lazy"
 					/>
 					<p>
-						In this, the first new term represents an additional weight for each coordinate. For example, if our ratio values are [1, 0.5, 0.5, 1]
-						then <code>ratio<sub>0</sub> = 1</code>, <code>ratio<sub>1</sub> = 0.5</code>, and so on, and is effectively identical as if we were just
-						using different weight. So far, nothing too special.
+						Первый из добавочных терминов, представляет собой дополнительный "вес" для каждой координаты, Например если наши значения соотношений [1,
+						0.5, 0.5, 1], тогда <code>частица<sub>0</sub> = 1</code>, <code>частица<sub>1</sub> = 0.5</code> и т.д., и на практике ничем не отличается
+						от использования дополнительного "вес"-а. Пока ничего особо выдающегося.
 					</p>
 					<p>
-						However, the second new term is what makes the difference: every point on the curve isn't just a "double weighted" point, it is a
-						<em>fraction</em> of the "doubly weighted" value we compute by introducing that ratio. When computing points on the curve, we compute the
-						"normal" Bézier value and then <em>divide</em> that by the Bézier value for the curve that only uses ratios, not weights.
+						Тем не менее, второй из добавленных терминов, составляет всю важность разницы. В процессе компиляции точек на кривой, мы компилируем
+						"нормальные" значения Безье, а далее <em>делим</em> их на значение Безье с учетом только соотношений (частиц), без учета весов.
 					</p>
 					<p>
-						This does something unexpected: it turns our polynomial into something that <em>isn't</em> a polynomial anymore. It is now a kind of curve
-						that is a super class of the polynomials, and can do some really cool things that Bézier curves can't do "on their own", such as perfectly
-						describing circles (which we'll see in a later section is literally impossible using standard Bézier curves).
+						Это создает неожиданный эффект: превращает наш полиноминал во что-то, что полиноминалом более не является. Теперь этот тип кривой есть
+						супер классом полиноминала, что позволяет производить крутые вещи, на которые кривые Безье не способны сами по себе. Например обозначить
+						круг посредством такой кривой (что, как мы убедимся чуть погодя, категорически невозможно используя стандартную кривую Безье).
 					</p>
 					<p>
-						But the best way to show what this does is to do literally that: let's look at the effect of "rationalising" our Bézier curves using an
-						interactive graphic for a rationalised curves. The following graphic shows the Bézier curve from the previous section, "enriched" with
-						ratio factors for each coordinate. The closer to zero we set one or more terms, the less relative influence the associated coordinate
-						exerts on the curve (and of course the higher we set them, the more influence they have). Try to change the values and see how it affects
-						what gets drawn:
+						Но лучшим объяснением, как и всегда, является наглядная демонстрация: давайте посмотрим на эффект "соотносительности" нашей кривой Безье
+						на примере интерактивного графика соотнесительной кривой. Следующий график показывает кривую Безье из предыдущей секции, "обогащенную"
+						факторами соотношений для каждой координаты. Чем ближе к нулю мы выставляем значения этих факторов — тем меньше влияния оказывают
+						соответственные контрольные точки на начертания кривой, и, соответственно, чем выше эти показатели — тем больше влияния контрольная точка
+						оказывает на изгиб кривой. Попробуйте сами:
 					</p>
 					<graphics-element
-						title="Our rational cubic Bézier curve"
+						title="Соотносительная кубическая кривая Безье"
 						width="275"
 						height="275"
 						src="./chapters/weightcontrol/rational.js"
@@ -1311,7 +1322,7 @@ function Bezier(3,t,w[]):
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/weightcontrol/3d71e2b9373684eebcb0dc8563f70b18.png" loading="lazy" />
-							<label>Our rational cubic Bézier curve</label>
+							<label>Соотносительная кубическая кривая Безье</label>
 						</fallback-image>
 						<input type="range" min="0.01" max="2" value="1" step="0.01" class="ratio-1" />
 						<input type="range" min="0.01" max="2" value="1" step="0.01" class="ratio-2" />
@@ -1319,14 +1330,14 @@ function Bezier(3,t,w[]):
 						<input type="range" min="0.01" max="2" value="1" step="0.01" class="ratio-4" />
 					</graphics-element>
 					<p>
-						You can think of the ratio values as each coordinate's "gravity": the higher the gravity, the closer to that coordinate the curve will
-						want to be. You'll also notice that if you simply increase or decrease all the ratios by the same amount, nothing changes... much like
-						with gravity, if the relative strengths stay the same, nothing really changes. The values define each coordinate's influence
-						<em>relative to all other points</em>.
+						Вы можете думать о значениях соотношений, как о показателе силы притяжения соответствующей точки. Чем выше сила притяжения, тем больше
+						наша кривая будет стремится к этой точке. Вы также можете наблюдать, что одинаковое увеличение или уменьшение всех показателей не
+						оказывает никакого эффекта на результат... схоже с гравитацией: если значения остаются одинаковыми относительно друг-друга, на выводе
+						ничего не меняется. Значения соотношений определяют влияние каждой координаты <em>относительно всех остальных координат</em>.
 					</p>
 					<div class="howtocode">
-						<h3>How to implement rational curves</h3>
-						<p>Extending the code of the previous section to include ratios is almost trivial:</p>
+						<h3>Имплементация соотносительных кривых</h3>
+						<p>Дополнение кода из предыдущей секции для учета этой функциональности фактически тривиально:</p>
 
 						<table class="code">
 							<tr>
@@ -1439,21 +1450,21 @@ function RationalBezier(3,t,w[],r[]):
 							</tr>
 						</table>
 
-						<p>And that's all we have to do.</p>
+						<p>Вот и все что требуется.</p>
 					</div>
 				</section>
 				<section id="extended">
 					<h1>
 						<div class="nav"><a href="ru-RU/index.html#weightcontrol">предыдущий</a><a href="ru-RU/index.html#matrix">следующий</a></div>
-						<a href="ru-RU/index.html#extended">The Bézier interval [0,1]</a>
+						<a href="ru-RU/index.html#extended">Интервал Безье [0,1]</a>
 					</h1>
 					<p>
-						Now that we know the mathematics behind Bézier curves, there's one curious thing that you may have noticed: they always run from
-						<code>t=0</code> to <code>t=1</code>. Why that particular interval?
+						В математике кривых Безье, вы могли заметить одну любопытную деталь — кривые Безье всегда считают вдоль одного и того же интервала t,
+						<code>t=0</code> to <code>t=1</code>. Почему же именно этот интервал?
 					</p>
 					<p>
-						It all has to do with how we run from "the start" of our curve to "the end" of our curve. If we have a value that is a mixture of two
-						other values, then the general formula for this is:
+						Последнее обусловленно тем, как мы определяем "начало" и "конец" нашей кривой. Если у нас есть значение, которое представляет собой
+						сочетание двух других значений, тогда общая формула для этого будет:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -1463,12 +1474,12 @@ function RationalBezier(3,t,w[],r[]):
 -->
 					<img class="LaTeX SVG" src="./images/chapters/extended/f56f59f3c0b057c8ec79a477e4e38bec.svg" width="215px" height="16px" loading="lazy" />
 					<p>
-						The obvious start and end values here need to be <code>a=1, b=0</code>, so that the mixed value is 100% value 1, and 0% value 2, and
-						<code>a=0, b=1</code>, so that the mixed value is 0% value 1 and 100% value 2. Additionally, we don't want "a" and "b" to be independent:
-						if they are, then we could just pick whatever values we like, and end up with a mixed value that is, for example, 100% value 1
-						<strong>and</strong> 100% value 2. In principle that's fine, but for Bézier curves we always want mixed values <em>between</em> the start
-						and end point, so we need to make sure we can never set "a" and "b" to some values that lead to a mix value that sums to more than 100%.
-						And that's easy:
+						Очевидно, что начальное и конечное значения <code>a</code> и <code>b</code> должны быть <code>a=1, b=0</code>, чтобы в начале получать
+						вывод 100% первого показателя и 0% второго; и <code>a=0, b=1</code>, чтобы в конце получать 0% value 1 и 100% value 2. В дополнение, мы не
+						хотим чтобы "a" и "b" были независимыми, в коем случае можно было бы присвоить им любые значения и на выводе получить, например, 100%
+						первого показателя <strong>и</strong> 100% второго. В принципе, с последним все ок, но в случае кривых Безье, мы всегда должны получать
+						значение <em>между</em> двух крайностей, потому нельзя присвоить <code>a</code> и <code>b</code> значения, которые бы вместе составляли
+						суму более 100% на выводе, что можно записать как:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -1478,25 +1489,25 @@ function RationalBezier(3,t,w[],r[]):
 -->
 					<img class="LaTeX SVG" src="./images/chapters/extended/e2e71b397009b51af8a3ee848bc727b4.svg" width="215px" height="16px" loading="lazy" />
 					<p>
-						With this we can guarantee that we never sum above 100%. By restricting <code>a</code> to values in the interval [0,1], we will always be
-						somewhere between our two values (inclusively), and we will always sum to a 100% mix.
+						С этим у нас есть гарантия, что мы не получим суму значений пропорций более 100%. Мы ограничиваем значение <code>a</code> интервалом
+						[0,1], потому всегда получаем вывод из пропорционального смешения двух показателей, с сумой смесителей не превышающей 100%.
 					</p>
 					<p>
-						But... what if we use this form, which is based on the assumption that we will only ever use values between 0 and 1, and instead use
-						values outside of that interval? Do things go horribly wrong? Well... not really, but we get to "see more".
+						Но... что если мы воспользуемся этой формой, предполагающей что мы всегда будем использовать значения а между 0 и 1, для подсчета точек
+						лежащих вне стандартного интервала? Наши вычисления пойдут по откосной? Что ж... не то чтобы, мы попросту увидим больше.
 					</p>
 					<p>
-						In the case of Bézier curves, extending the interval simply makes our curve "keep going". Bézier curves are simply segments of some
-						polynomial curve, so if we pick a wider interval we simply get to see more of the curve. So what do they look like?
+						В случае кривой Безье, продление интервала просто продляет развитие кривой. Кривые Безье всего лишь сегменты полиноминальных кривых.
+						Выбирая более широкий отрезок — мы можем проследить дальнейшее развитие кривой. И как же это выглядит?
 					</p>
 					<p>
-						The following two graphics show you Bézier curves rendered "the usual way", as well as the curves they "lie on" if we were to extend the
-						<code>t</code> values much further. As you can see, there's a lot more "shape" hidden in the rest of the curve, and we can model those
-						parts by moving the curve points around.
+						Ниже представлены графики кривых Безье, зарисованных "обычным путем", по верх зарисовки кривых на которых они лежат, полученных путем
+						расширения интервала значений <code>t</code>. Как мы можем наблюдать, кривая Безье есть частью большей формы, скрытой за границами нашего
+						интервала, которую мы так-же можем регулировать путем перемещения контрольных точек.
 					</p>
 					<div class="figure">
 						<graphics-element
-							title="Quadratic infinite interval Bézier curve"
+							title="Квадратный бесконечный интервал кривой Безье"
 							width="275"
 							height="275"
 							src="./chapters/extended/extended.js"
@@ -1507,11 +1518,11 @@ function RationalBezier(3,t,w[],r[]):
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/extended/37948bde4bf0d25bde85f172bf55b9fb.png" loading="lazy" />
-								<label>Quadratic infinite interval Bézier curve</label>
+								<label>Квадратный бесконечный интервал кривой Безье</label>
 							</fallback-image></graphics-element
 						>
 						<graphics-element
-							title="Cubic infinite interval Bézier curve"
+							title="Кубический бесконечный интервал кривой Безье"
 							width="275"
 							height="275"
 							src="./chapters/extended/extended.js"
@@ -1522,18 +1533,20 @@ function RationalBezier(3,t,w[],r[]):
 							<fallback-image>
 								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 								<img width="275px" height="275px" src="./images/chapters/extended/2d17acb381ebdd28f0ff43be00d723c4.png" loading="lazy" />
-								<label>Cubic infinite interval Bézier curve</label>
+								<label>Кубический бесконечный интервал кривой Безье</label>
 							</fallback-image></graphics-element
 						>
 					</div>
 
 					<p>
-						In fact, there are curves used in graphics design and computer modelling that do the opposite of Bézier curves; rather than fixing the
-						interval, and giving you freedom to choose the coordinates, they fix the coordinates, but give you freedom over the interval. A great
-						example of this is the <a href="https://levien.com/phd/phd.html">"Spiro" curve</a>, which is a curve based on part of a
-						<a href="https://en.wikipedia.org/wiki/Euler_spiral">Cornu Spiral, also known as Euler's Spiral</a>. It's a very aesthetically pleasing
-						curve and you'll find it in quite a few graphics packages like <a href="https://fontforge.org/en-US/">FontForge</a> and
-						<a href="https://inkscape.org">Inkscape</a>. It has even been used in font design, for example for the Inconsolata typeface.
+						В области компьютерной графики, существуют множество кривых, которые действуют по противоположному кривым Безье принципу: вместо
+						фиксированного интервала и свободного выбора контрольных точек формирующих развитие искривлений, они фиксируют форму кривой, предоставляя
+						возможность выбора интервала. Отличным примером последней есть <a href="https://levien.com/phd/phd.html">кривая "Spiro"</a>, которая
+						частично базируется на <a href="https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%BE%D1%82%D0%BE%D0%B8%D0%B4%D0%B0">спирали Корню</a>, также
+						известной как <a href="https://ru.qaz.wiki/wiki/Euler_spiral">спираль Эйлера</a> (* в оригинале другая
+						<a href="https://en.wikipedia.org/wiki/Euler_spiral">ссылка на Корню и Эйлера</a> ). Эту эстетически приятную кривую можно встретить в
+						нескольких графических пакетах: <a href="https://fontforge.org/en-US/">FontForge</a> и <a href="https://inkscape.org">Inkscape</a>. Ее
+						даже используют в дизайне шрифтов, например в начертания шрифта Inconsolata.
 					</p>
 				</section>
 				<section id="matrix">
@@ -2876,14 +2889,14 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 				<section id="derivatives">
 					<h1>
 						<div class="nav"><a href="ru-RU/index.html#reordering">предыдущий</a><a href="ru-RU/index.html#pointvectors">следующий</a></div>
-						<a href="ru-RU/index.html#derivatives">Derivatives</a>
+						<a href="ru-RU/index.html#derivatives">Производные кривых Безье</a>
 					</h1>
 					<p>
-						There's a number of useful things that you can do with Bézier curves based on their derivative, and one of the more amusing observations
-						about Bézier curves is that their derivatives are, in fact, also Bézier curves. In fact, the differentiation of a Bézier curve is
-						relatively straightforward, although we do need a bit of math.
+						Есть целый ряд вещей, которые мы можем сотворить с кривыми Безье базируясь на их производных, и одним восхитительным наблюдением на счет
+						первых, является то, что их производные по сути тоже являются кривыми Безье. На практике, дифференциация кривых Безье относительно
+						логична, хотя нам и потребуется немного математики.
 					</p>
-					<p>First, let's look at the derivative rule for Bézier curves, which is:</p>
+					<p>Для начала рассмотрим правило производных для кривых Безье:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -2899,8 +2912,8 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 						loading="lazy"
 					/>
 					<p>
-						which we can also write (observing that <i>b</i> in this formula is the same as our <i>w</i> weights, and that <i>n</i> times a summation
-						is the same as a summation where each term is multiplied by <i>n</i>) as:
+						которое мы так же можем записать (отметив что <i>b</i> в этой формуле, то-же что наш <i>w</i> "вес", а <i>n</i> умноженная на функцию сумы
+						— то-же что функция сумы, с каждой составляющей умноженной на <i>n</i>) как:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -2917,17 +2930,17 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 						loading="lazy"
 					/>
 					<p>
-						Or, in plain text: the derivative of an n<sup>th</sup> degree Bézier curve is an (n-1)<sup>th</sup> degree Bézier curve, with one fewer
-						term, and new weights w'<sub>0</sub>...w'<sub>n-1</sub> derived from the original weights as n(w<sub>i+1</sub> - w<sub>i</sub>). So for a
-						3<sup>rd</sup> degree curve, with four weights, the derivative has three new weights: w'<sub>0</sub> = 3(w<sub>1</sub>-w<sub>0</sub>),
-						w'<sub>1</sub> = 3(w<sub>2</sub>-w<sub>1</sub>) and w'<sub>2</sub> = 3(w<sub>3</sub>-w<sub>2</sub>).
+						Другими словами, производная кривой Безье n<sup>го</sup> порядка равна кривой Безье на порядок ниже (n-1), соответственно имея на один
+						термин составляющих меньше, где новые веса w'<sub>0</sub>...w'<sub>n-1</sub> произведены из оригинальных по принципу n(w<sub>i+1</sub> -
+						w<sub>i</sub>). Так, для кривой 3<sup>го</sup> порядка, с 4мя весами, производная имеет 3 веса: w'<sub>0</sub> =
+						3(w<sub>1</sub>-w<sub>0</sub>), w'<sub>1</sub> = 3(w<sub>2</sub>-w<sub>1</sub>) и w'<sub>2</sub> = 3(w<sub>3</sub>-w<sub>2</sub>).
 					</p>
 					<div class="note">
-						<h3>"Slow down, why is that true?"</h3>
+						<h3>"Погодите, а почему это работает?"</h3>
 						<p>
-							Sometimes just being told "this is the derivative" is nice, but you might want to see why this is indeed the case. As such, let's have a
-							look at the proof for this derivative. First off, the weights are independent of the full Bézier function, so the derivative involves
-							only the derivative of the polynomial basis function. So, let's find that:
+							Порой, когда говорят "вот она производная", наше счастье приходит немедленно и остается неизменным вне зависимости от следующих
+							аргументов. Но, возможно, вам захочется покопаться в доказательствах производной. Если так, то для начала оговоримся: веса независимы от
+							общей формулы функции, потому производная кривой затрагивает только производные полиноминалов базовой функции. Найдем сперва это:
 						</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -2944,8 +2957,10 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 							loading="lazy"
 						/>
 						<p>
-							Applying the <a href="https://en.wikipedia.org/wiki/Product_rule">product</a> and
-							<a href="https://en.wikipedia.org/wiki/Chain_rule">chain</a> rules gives us:
+							Приминение <a href="https://ru.qaz.wiki/wiki/Product_rule">правил продукта</a> и
+							<a href="https://ru.qaz.wiki/wiki/Chain_rule">цепного правила</a> (* в оригинале
+							<a href="https://en.wikipedia.org/wiki/Product_rule">другие</a> <a href="https://en.wikipedia.org/wiki/Chain_rule">ссылки</a>) дает нам
+							следующее:
 						</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -2961,7 +2976,7 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 							height="28px"
 							loading="lazy"
 						/>
-						<p>Which is hard to work with, so let's expand that properly:</p>
+						<p>В таком виде с этой формулой работать сложно, потому раскроем:</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -2977,8 +2992,9 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 							loading="lazy"
 						/>
 						<p>
-							Now, the trick is to turn this expression into something that has binomial coefficients again, so we want to end up with things that
-							look like "x! over y!(x-y)!". If we can do that in a way that involves terms of <i>n-1</i> and <i>k-1</i>, we'll be on the right track.
+							Теперь фокус заключается в трансформации этой функции во что-то, что бы имело биноминальные коэффициенты, потому как мы хотим получить
+							выражение в форме вроде "x! деленное на y!(x-y)!". Если нам удастся сделать это так, чтобы учесть в запись термины <i>n-1</i> и
+							<i>k-1</i> — мы на верном пути.
 						</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -3000,26 +3016,25 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 							height="76px"
 							loading="lazy"
 						/>
-						<p>And that's the first part done: the two components inside the parentheses are actually regular, lower-order Bézier expressions:</p>
+						<p>Первая часть готова: компоненты в скобках на самом то деле обычные выражения кривых Безье на порядок ниже:</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
                                         ╭    x!     y      x-y      x!     k      x-k ╮
-                                ... = n │ ──────── t  (1-t)    - ──────── t  (1-t)    │  , with x=n-1, y=k-1
-                                        ╰ y!(x-y)!               k!(x-k)!             ╯                     
-                                ... = n (B           (t) - B       (t))                                     
+                                ... = n │ ──────── t  (1-t)    - ──────── t  (1-t)    │  , где x=n-1, y=k-1
+                                        ╰ y!(x-y)!               k!(x-k)!             ╯                    
+                                ... = n (B           (t) - B       (t))                                    
                                           (n-1),(k-1)       (n-1),k
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/6a3672344bb571eadb72669f60a93ff4.svg"
-							width="533px"
-							height="48px"
+							src="./images/chapters/derivatives/bec017d11e19b45df562c5a223761a69.svg"
+							width="477px"
+							height="51px"
 							loading="lazy"
 						/>
 						<p>
-							Now to apply this to our weighted Bézier curves. We'll write out the plain curve formula that we saw earlier, and then work our way
-							through to its derivative:
+							Теперь применим это к записям наших формул с "весами". Начнем с формулы кривой Безье приведенной выше и пройдемся по ее производным.
 						</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -3045,8 +3060,8 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 							loading="lazy"
 						/>
 						<p>
-							If we expand this (with some color to show how terms line up), and reorder the terms by increasing values for <i>k</i> we see the
-							following:
+							Раскрыв это (немного раскрасив, чтобы подчеркнуть соотношение терминов), и выстроив термины по возрастанию значений, мы увидим
+							следующее:
 						</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -3071,11 +3086,11 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 							loading="lazy"
 						/>
 						<p>
-							Two of these terms fall way: the first term falls away because there is no -1<sup>st</sup> term in a summation. As such, it always
-							contributes "nothing", so we can safely completely ignore it for the purpose of finding the derivative function. The other term is the
-							very last term in this expansion: one involving <i>B<sub>n-1,n</sub></i
-							>. This term would have a binomial coefficient of [<i>i</i> choose <i>i+1</i>], which is a non-existent binomial coefficient. Again,
-							this term would contribute "nothing", so we can ignore it, too. This means we're left with:
+							Два из приведенных терминов отпадают. Первый — потому что степень <i>-1</i> не присутствует в суме, оттого каждый раз приводя "ничего" в
+							результат. Можем смело игнорировать это значение в нахождении производной функции. Второй — самый последний термин этой записи,
+							затрагивающий <i>B<sub>n-1,n</sub></i
+							>. Этот термин имел-бы биноминальный коэффициент [<i>i</i> указывая на <i>i+1</i>], который не существуюет. И опять — термин ничего не
+							привносит в результат, затем также может быть проигнорирован. Это значит, нам остается:
 						</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -3095,7 +3110,7 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 							height="71px"
 							loading="lazy"
 						/>
-						<p>And that's just a summation of lower order curves:</p>
+						<p>И это по сути формула функции сумы на 1 порядок ниже:</p>
 						<!--
     \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
      
@@ -3111,64 +3126,63 @@ Bézier   (t) ── = n  · B                 (t)  · (w  - w ) + n  · B      
 							height="36px"
 							loading="lazy"
 						/>
-						<p>We can rewrite this as a normal summation, and we're done:</p>
+						<p>Можно переписать по стандартной форме сумы, и готово:</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                 d    __ n-1                                 __ n-1
-    Bézier   (t) ── = ❯      n  · B     (t)  · (w    - w ) = ❯      B     (t)  · \undersetderivative weights \underbracen  · (w    - w )
-          n,k    dt   ‾‾ k=0       n-1,k         k+1    k    ‾‾ k=0  n-1,k                                                     k+1    k
+                   d    __ n-1                                 __ n-1
+      Bézier   (t) ── = ❯      n  · B     (t)  · (w    - w ) = ❯      B     (t)  · \undersetвес производной \underbracen  · (w    - w )
+            n,k    dt   ‾‾ k=0       n-1,k         k+1    k    ‾‾ k=0  n-1,k                                                  k+1    k
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/50616f9c922967c0c9c179af9b091947.svg"
-							width="545px"
-							height="51px"
+							src="./images/chapters/derivatives/d575699ab7d13c62f47d3071c0b00da3.svg"
+							width="515px"
+							height="48px"
 							loading="lazy"
 						/>
 					</div>
 
 					<p>
-						Let's rewrite that in a form similar to our original formula, so we can see the difference. We will first list our original formula for
-						Bézier curves, and then the derivative:
+						Давайте перепишем это по форме схожей с нашей исходной формулой, чтобы легче было разглядеть разницу. Сначала оригинальная формула, за ней
+						производная:
 					</p>
 					<!--
     \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
      
-              __ n                                                                                          n-i     i
-Bézier(n,t) = ❯      \undersetbinomial term\underbrace\binomni  · \ \undersetpolynomial term\underbrace(1-t)     · t   · \
+              __ n                                                                                                        n-i     i
+Bézier(n,t) = ❯      \undersetбиноминальный термин\underbrace\binomni  · \ \undersetполиноминальный термин\underbrace(1-t)     · t   · \
               ‾‾ i=0
-                                                            \undersetweight\underbracew 
-                                                                                       i
+                                                             \undersetвес\underbracew 
+                                                                                     i
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/derivatives/b58fb122c5c8159938182c185f287142.svg"
-						width="352px"
-						height="55px"
+						src="./images/chapters/derivatives/501494295f07ba5049286489206d98f0.svg"
+						width="273px"
+						height="49px"
 						loading="lazy"
 					/>
 					<!--
     \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
      
-               __ k                                                                                          k-i     i
-Bézier'(n,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \undersetpolynomial term\underbrace(1-t)     · t   · \ \undersetderivative 
+               __ k                                                                                                        k-i     i
+Bézier'(n,t) = ❯      \undersetбиноминальный термин\underbrace\binomki  · \ \undersetполиноминальный термин\underbrace(1-t)     · t   · \
                ‾‾ i=0
-                                                 weight\underbracen  · (w    - w )  ,  with  k=n-1
-                                                                         i+1    i
+                                        \undersetвес производной\underbracen  · (w    - w )  ,  with  k=n-1
+                                                                                  i+1    i
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/derivatives/2fc50617b6886534d1ab4638ed8a24ac.svg"
-						width="533px"
-						height="59px"
+						src="./images/chapters/derivatives/8324bf1885267fe157bf316e261d1b30.svg"
+						width="471px"
+						height="52px"
 						loading="lazy"
 					/>
 					<p>
-						What are the differences? In terms of the actual Bézier curve, virtually nothing! We lowered the order (rather than <i>n</i>, it's now
-						<i>n-1</i>), but it's still the same Bézier function. The only real difference is in how the weights change when we derive the curve's
-						function. If we have four points A, B, C, and D, then the derivative will have three points, the second derivative two, and the third
-						derivative one:
+						И в чем же разница? В терминах формулы кривой Безье, по сути, никакой! Мы уменьшили порядок (вместо порядка <i>n</i>, он теперь
+						<i>n-1</i>), но это все та же функция Безье. Единственное отличие в подсчете изменений в "весах" при нахождении производной. К примеру,
+						исходя из 4-х контрольных точек A, B, C и D, первая производная получит 3 точки, вторая — 2, третья — 1:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -3186,10 +3200,10 @@ Bézier'(n,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \unders
 						loading="lazy"
 					/>
 					<p>
-						We can keep performing this trick for as long as we have more than one weight. Once we have one weight left, the next step will see
-						<i>k = 0</i>, and the result of our "Bézier function" summation is zero, because we're not adding anything at all. As such, a quadratic
-						curve has no second derivative, a cubic curve has no third derivative, and generalized: an <i>n<sup>th</sup></i> order curve has
-						<i>n-1</i> (meaningful) derivatives, with any further derivative being zero.
+						Можно продолжать производить этот фокус, до тех пор пока у нас имеется более одного веса. Когда же остается один вес, следующим шагом
+						будет <i>k = 0</i>, и результат сложения "функции сумы Безье" будет равен 0, поскольку мы ничего ни с чем не слагаем. По этому у
+						квадратной функций нету второй производной, у кубической — третей, и, обобщая, кривая Безье <i>n<sup>го</sup></i> порядка, имеет
+						<i>n-1</i> (внятных) производных, с каждой следующей производной равной нулю.
 					</p>
 				</section>
 				<section id="pointvectors">

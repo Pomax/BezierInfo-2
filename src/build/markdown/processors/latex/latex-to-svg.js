@@ -54,6 +54,15 @@ export default async function latexToSVG(latex, pathdata, localeStrings, block) 
       \\setmathfont{TeX Gyre Pagella Math}
     `;
 
+    if (locale === "ru-RU" || locale === "zh-CN") {
+      fonts = `
+        \\usepackage{unicode-math}
+        \\setmainfont[Ligatures=TeX]{Linux Libertine O}
+        \\\setmathfont{XITS Math}
+      `;
+      // For some reason https://tex.stackexchange.com/a/201244/8406 yields xetex errors...
+    }
+
     // For Chinese, we need the xeCJK package because there might be Chinese
     // in maths context, which base XeLaTeX can't quite deal with.
     if (locale === "zh-CN") {
