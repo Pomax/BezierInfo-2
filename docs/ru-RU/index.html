@@ -34,7 +34,7 @@
 		<meta property="og:locale" content="ru-RU" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2021-01-11T19:02:57+00:00" />
+		<meta property="og:updated_time" content="2021-01-18T17:11:41+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -127,7 +127,7 @@
 					<li><a href="./index.html">English</a> &nbsp;</li>
 					<li><a href="./ja-JP/index.html">日本語</a> <span class="localisation-progress">(24%)</span></li>
 					<li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(22%)</span></li>
-					<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(17%)</span></li>
+					<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(20%)</span></li>
 					<li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
 				</ul>
 				<p>
@@ -191,7 +191,7 @@
 					<li><a href="ru-RU/index.html#control">Контроль кривых Безье</a></li>
 					<li><a href="ru-RU/index.html#weightcontrol">Контроль над кривыми Безье, часть 2: Соотносительные Безье</a></li>
 					<li><a href="ru-RU/index.html#extended">Интервал Безье [0,1]</a></li>
-					<li><a href="ru-RU/index.html#matrix">Bézier curvatures as matrix operations</a></li>
+					<li><a href="ru-RU/index.html#matrix">Кривые Безье как матричные уравнения</a></li>
 					<li><a href="ru-RU/index.html#decasteljau">Алгоритм де Кастельжо</a></li>
 					<li><a href="ru-RU/index.html#flattening">Simplified drawing</a></li>
 					<li><a href="ru-RU/index.html#splitting">Splitting curves</a></li>
@@ -1552,12 +1552,12 @@ function RationalBezier(3,t,w[],r[]):
 				<section id="matrix">
 					<h1>
 						<div class="nav"><a href="ru-RU/index.html#extended">предыдущий</a><a href="ru-RU/index.html#decasteljau">следующий</a></div>
-						<a href="ru-RU/index.html#matrix">Bézier curvatures as matrix operations</a>
+						<a href="ru-RU/index.html#matrix">Кривые Безье как матричные уравнения</a>
 					</h1>
 					<p>
-						We can also represent Bézier curves as matrix operations, by expressing the Bézier formula as a polynomial basis function and a
-						coefficients matrix, and the actual coordinates as a matrix. Let's look at what this means for the cubic curve, using P<sub>...</sub> to
-						refer to coordinate values "in one or more dimensions":
+						Мы также можем представить кривые Безье как матричную операцию, выразив формулу Безье как функцию с полиноминальноминальной основой,
+						матрицу коэффициентов и матрицу конкретных координат. Давайте рассмотрим что это значит для уравнений кубических кривых Безье, используя
+						P<sub>...</sub> для обозначения координат в "одном или более пространстве".
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -1567,7 +1567,7 @@ function RationalBezier(3,t,w[],r[]):
                                       1              2                        3                        4
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/9a9a55f5b0323d9ea88f82fc6be58ad3.svg" width="468px" height="20px" loading="lazy" />
-					<p>Disregarding our actual coordinates for a moment, we have:</p>
+					<p>Обобщив, игнорируя конкретные значения, мы получим:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1575,7 +1575,7 @@ function RationalBezier(3,t,w[],r[]):
                                           B(t) = (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/87cfac83cb8a4b0bee68ef006effc611.svg" width="353px" height="19px" loading="lazy" />
-					<p>We can write this as a sum of four expressions:</p>
+					<p>Это, в свою очередь, может быть записано как:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1589,7 +1589,7 @@ function RationalBezier(3,t,w[],r[]):
                                                                +       t  
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/cdd88611833f3b178df91278359a4193.svg" width="140px" height="75px" loading="lazy" />
-					<p>And we can expand these expressions:</p>
+					<p>Последнее мы можем раскрыть, записав как:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1603,7 +1603,7 @@ function RationalBezier(3,t,w[],r[]):
                                             +        t  · t  · t       =            t  
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/ec118f296511c6e9ac8727be3703a7ce.svg" width="397px" height="75px" loading="lazy" />
-					<p>Furthermore, we can make all the 1 and 0 factors explicit:</p>
+					<p>Более того можно записать с коэффициентами 1 и 0, включив нивелированные термины:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1617,7 +1617,7 @@ function RationalBezier(3,t,w[],r[]):
                                                        + +1  · t  + 0  · t  + 0  · t + 0 
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/67a5ea33d6c6558f7d954b18226f4956.svg" width="217px" height="75px" loading="lazy" />
-					<p>And <em>that</em>, we can view as a series of four matrix operations:</p>
+					<p>И уже это можно рассматривать как серию четырех матричных операций:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1627,7 +1627,7 @@ function RationalBezier(3,t,w[],r[]):
                                      └ 1  ┘                    └ 0  ┘                    └ 0  ┘                    └ 0 ┘
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/8ecff6b8a37d60385d287ea2b26876db.svg" width="607px" height="72px" loading="lazy" />
-					<p>If we compact this into a single matrix operation, we get:</p>
+					<p>Скомбинировав в единую матричную операцию, получим:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1638,8 +1638,8 @@ function RationalBezier(3,t,w[],r[]):
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/b9527f7d5a0f5d2d737eac118d69243e.svg" width="227px" height="72px" loading="lazy" />
 					<p>
-						This kind of polynomial basis representation is generally written with the bases in increasing order, which means we need to flip our
-						<code>t</code> matrix horizontally, and our big "mixing" matrix upside down:
+						Такой тип функций полиноминальной основы зачастую записывается с основой в возрастающем порядке, что значит мы должны обернуть нашу
+						<code>t</code> матрицу горизонтально, а нашу "большую" матрицу — вертикально:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -1650,7 +1650,7 @@ function RationalBezier(3,t,w[],r[]):
                                                                        └ -1  3 -3 1 ┘
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/1a64ed455c6dd2f8cacca5e5e12bdcc1.svg" width="227px" height="72px" loading="lazy" />
-					<p>And then finally, we can add in our original coordinates as a single third matrix:</p>
+					<p>Наконец, мы можем добавить оригинальные координаты единой третьей матрицей:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1664,7 +1664,7 @@ function RationalBezier(3,t,w[],r[]):
                                                                                         └  4 ┘
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/b32cae2dfc47d5f36df0bc3defb7dfa8.svg" width="323px" height="73px" loading="lazy" />
-					<p>We can perform the same trick for the quadratic curve, in which case we end up with:</p>
+					<p>Такой же фокус может быть проделан с квадратной кривой, в коем случае мы получаем:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -1677,20 +1677,28 @@ function RationalBezier(3,t,w[],r[]):
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/1bae50fefa43210b3a6259d1984f6cbc.svg" width="263px" height="55px" loading="lazy" />
 					<p>
-						If we plug in a <code>t</code> value, and then multiply the matrices, we will get exactly the same values as when we evaluate the original
-						polynomial function, or as when we evaluate the curve using progressive linear interpolation.
+						Подставив <code>t</code> и перемножив матрицы, мы получим такие-же значения, как при подсчете с использованием исходной полиноминальной
+						функции или графического метода интерполяции.
 					</p>
 					<p>
-						<strong>So: why would we bother with matrices?</strong> Matrix representations allow us to discover things about functions that would
-						otherwise be hard to tell. It turns out that the curves form
-						<a href="https://en.wikipedia.org/wiki/Triangular_matrix">triangular matrices</a>, and they have a determinant equal to the product of the
-						actual coordinates we use for our curve. It's also invertible, which means there's
-						<a href="https://en.wikipedia.org/wiki/Invertible_matrix#The_invertible_matrix_theorem">a ton of properties</a> that are all satisfied. Of
-						course, the main question is "why is this useful to us now?", and the answer to that is that it's not <em>immediately</em> useful, but
-						you'll be seeing some instances where certain curve properties can be either computed via function manipulation, or via clever use of
-						matrices, and sometimes the matrix approach can be (drastically) faster.
+						<strong>Итак: зачем нам возится с матрицами?</strong> Матричное произведение раскрывает свойства функции кривых, которые в противном
+						случае, было бы сложно обнаружить. Например, мы видим, что наша функция принадлежит к типу
+						<a
+							href="https://ru.wikipedia.org/wiki/%D0%A2%D1%80%D0%B5%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0"
+							>треугольных матриц</a
+						>
+						(* в оригинале <a href="https://en.wikipedia.org/wiki/Triangular_matrix">другая ссылка</a>), определенные количеством контрольных
+						координат и обладают всеми соответствующими свойствами. Также, что они могут быть обернуты, что в свою очередь определяет
+						<a
+							href="https://ru.wikipedia.org/wiki/%D0%9E%D0%B1%D1%80%D0%B0%D1%82%D0%BD%D0%B0%D1%8F_%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0#%D0%A1%D0%B2%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%BD%D0%BE%D0%B9_%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86%D1%8B"
+							>тонну других свойств</a
+						>
+						(* в оригинале <a href="https://en.wikipedia.org/wiki/Invertible_matrix#The_invertible_matrix_theorem">другая ссылка</a>), применимых к
+						нашим кривым. Конечно же, основным вопросом остается: "В чем состоит польза?". Тогда как ответ не становится
+						<em>очевидным</em> немедленно, чуть далее мы увидим определенные случаи, где некоторые свойства кривых могут быть исчислены посредством
+						манипуляции функцией, либо остроумным использованием матриц, и иногда последнее намного быстрее.
 					</p>
-					<p>So for now, just remember that we can represent curves this way, and let's move on.</p>
+					<p>Потому пока давайте запомним, что функции могут быть описаны таким образом, и будем двигаться дальше.</p>
 				</section>
 				<section id="decasteljau">
 					<h1>
