@@ -6,7 +6,7 @@ How does that work? Succinctly: we run de Casteljau's algorithm in reverse!
 
 In order to run de Casteljau's algorithm in reverse, we need a few basic things: a start and end point, a point on the curve that we want to be moving around, which has an associated *t* value, and a point we've not explicitly talked about before, and as far as I know has no explicit name, but lives one iteration higher in the de Casteljau process then our on-curve point does. I like to call it "A" for reasons that will become obvious.
 
-So let's use graphics instead of text to see where this "A" is, because text only gets us so far: move the sliders for the following graphics to see what, given a specific `t` value, our `A` coordinate is. As well as some other coordinates, which taken together let us derive a value that the graphics call "ratio": if you move the curve's points around, A, B, and C will move. What happens to that value?
+So let's use graphics instead of text to see where this "A" is, because text only gets us so far: move the sliders for the following graphics to see what, given a specific `t` value, our `A` coordinate is. As well as some other coordinates, which taken together let us derive a value that the graphics call "ratio": if you move the curve's points around, A, B, and C will move, what happens to that value?
 
 <div class="figure">
 
@@ -47,7 +47,7 @@ And
   u(t)_{cubic} = \frac{(1-t)^3}{t^3 + (1-t)^3}
 \]
 
-So, if we know the start and end coordinates and the *t* value, we know C without having to calculate the `A` or even `B` coordinates. In fact, we can do the same for the ratio function. As another function of `t`, we technically don't need to know what `A` or `B` or `C` are. We can express it too as a pure function of `t`.
+So, if we know the start and end coordinates and the *t* value, we know C without having to calculate the `A` or even `B` coordinates. In fact, we can do the same for the ratio function. As another function of `t`, we technically don't need to know what `A` or `B` or `C` are. It, too, can be expressed as a pure function of `t`.
 
 We start by observing that, given `A`, `B`, and `C`, the following always holds:
 
@@ -67,7 +67,7 @@ And
   ratio(t)_{cubic} = \left | \frac{t^3 + (1-t)^3 - 1}{t^3 + (1-t)^3} \right |
 \]
 
-Which now leaves us with some powerful tools: given three points (start, end, and "some point on the curve"), as well as a `t` value, we can _construct_ curves. We can compute `C` using the start and end points and our `u(t)` function. Once we have `C`, we can use our on-curve point (`B`) and the `ratio(t)` function to find `A`:
+Which now leaves us with some powerful tools: given three points (start, end, and "some point on the curve"), as well as a `t` value, we can _construct_ curves. We can compute `C` using the start and end points and our `u(t)` function, and once we have `C`, we can use our on-curve point (`B`) and the `ratio(t)` function to find `A`:
 
 \[
   A = B - \frac{C - B}{ratio(t)} = B + \frac{B - C}{ratio(t)}
