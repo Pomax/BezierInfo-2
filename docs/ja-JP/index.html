@@ -41,7 +41,7 @@
 		<meta property="og:locale" content="ja-JP" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2021-01-18T17:11:41+00:00" />
+		<meta property="og:updated_time" content="2021-02-04T00:46:16+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -6028,14 +6028,14 @@ lli = function(line1, line2):
 					</p>
 					<p>How does that work? Succinctly: we run de Casteljau's algorithm in reverse!</p>
 					<p>
-						In order to run de Casteljau's algorithm in reverse, we need a few basic things: a start and end point, a point on the curve that want to
-						be moving around, which has an associated <em>t</em> value, and a point we've not explicitly talked about before, and as far as I know has
-						no explicit name, but lives one iteration higher in the de Casteljau process then our on-curve point does. I like to call it "A" for
+						In order to run de Casteljau's algorithm in reverse, we need a few basic things: a start and end point, a point on the curve that we want
+						to be moving around, which has an associated <em>t</em> value, and a point we've not explicitly talked about before, and as far as I know
+						has no explicit name, but lives one iteration higher in the de Casteljau process then our on-curve point does. I like to call it "A" for
 						reasons that will become obvious.
 					</p>
 					<p>
 						So let's use graphics instead of text to see where this "A" is, because text only gets us so far: move the sliders for the following
-						graphics to see what, given specific <code>t</code> value, our <code>A</code> coordinate is. As well as some other coordinates, which
+						graphics to see what, given a specific <code>t</code> value, our <code>A</code> coordinate is. As well as some other coordinates, which
 						taken together let us derive a value that the graphics call "ratio": if you move the curve's points around, A, B, and C will move, what
 						happens to that value?
 					</p>
@@ -6101,7 +6101,7 @@ lli = function(line1, line2):
 						and so neither will C, and if you move either start or end point, C will move but its relative position will not change.
 					</p>
 					<p>
-						So, how can we compute <code>C</code>? We start with our observation that <code>C</code> always lies somewhere between the start and ends
+						So, how can we compute <code>C</code>? We start with our observation that <code>C</code> always lies somewhere between the start and end
 						points, so logically <code>C</code> will have a function that interpolates between those two coordinates:
 					</p>
 					<!--
@@ -6113,7 +6113,7 @@ lli = function(line1, line2):
 					<img class="LaTeX SVG" src="./images/chapters/abc/6a65a8327c06bc6f14cc4e0751d8e49e.svg" width="236px" height="16px" loading="lazy" />
 					<p>
 						If we can figure out what the function <code>u(t)</code> looks like, we'll be done. Although we do need to remember that this
-						<code>u(t)</code> will have a different for depending on whether we're working with quadratic or cubic curves.
+						<code>u(t)</code> will have a different form depending on whether we're working with quadratic or cubic curves.
 						<a href="https://mathoverflow.net/questions/122257/finding-the-formula-for-bezier-curve-ratios-hull-point-point-baseline"
 							>Running through the maths</a
 						>
@@ -6141,10 +6141,10 @@ lli = function(line1, line2):
 -->
 					<img class="LaTeX SVG" src="./images/chapters/abc/50543216f39c1b10af7cf4823844dd31.svg" width="167px" height="41px" loading="lazy" />
 					<p>
-						So, if we know the start and end coordinates, and we know the <em>t</em> value, we know C, without having to calculate the
-						<code>A</code> or even <code>B</code> coordinates. In fact, we can do the same for the ratio function: as another function of
-						<code>t</code>, we technically don't need to know what <code>A</code> or <code>B</code> or <code>C</code> are, we can express it was a
-						pure function of <code>t</code>, too.
+						So, if we know the start and end coordinates and the <em>t</em> value, we know C without having to calculate the <code>A</code> or even
+						<code>B</code> coordinates. In fact, we can do the same for the ratio function. As another function of <code>t</code>, we technically
+						don't need to know what <code>A</code> or <code>B</code> or <code>C</code> are. It, too, can be expressed as a pure function of
+						<code>t</code>.
 					</p>
 					<p>We start by observing that, given <code>A</code>, <code>B</code>, and <code>C</code>, the following always holds:</p>
 					<!--
@@ -6178,8 +6178,8 @@ lli = function(line1, line2):
 -->
 					<img class="LaTeX SVG" src="./images/chapters/abc/c018aab3952ea9193848564aab12b241.svg" width="223px" height="41px" loading="lazy" />
 					<p>
-						Which now leaves us with some powerful tools: given thee points (start, end, and "some point on the curve"), as well as a
-						<code>t</code> value, we can <em>construct</em> curves: we can compute <code>C</code> using the start and end points, and our
+						Which now leaves us with some powerful tools: given three points (start, end, and "some point on the curve"), as well as a
+						<code>t</code> value, we can <em>construct</em> curves. We can compute <code>C</code> using the start and end points and our
 						<code>u(t)</code> function, and once we have <code>C</code>, we can use our on-curve point (<code>B</code>) and the
 						<code>ratio(t)</code> function to find <code>A</code>:
 					</p>
@@ -6211,7 +6211,7 @@ lli = function(line1, line2):
                                                             ╰  2          t
 -->
 					<img class="LaTeX SVG" src="./images/chapters/abc/eccc1bdb9423bbfe2d42418fc8a7dd24.svg" width="132px" height="75px" loading="lazy" />
-					<p>And then reverse engineer the curve's control control points:</p>
+					<p>And then reverse engineer the curve's control points:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -6226,10 +6226,10 @@ lli = function(line1, line2):
 -->
 					<img class="LaTeX SVG" src="./images/chapters/abc/c14d8ce6eccca2c8063af40e5ac0bfd4.svg" width="164px" height="73px" loading="lazy" />
 					<p>
-						So: if we have a curve's start and end point, then for any <code>t</code> value we implicitly know all the ABC values, which (combined
+						So: if we have a curve's start and end points, then for any <code>t</code> value we implicitly know all the ABC values, which (combined
 						with an educated guess on appropriate <code>e1</code> and <code>e2</code> coordinates for cubic curves) gives us the necessary information
 						to reconstruct a curve's "de Casteljau skeleton". Which means that we can now do several things: we can "fit" curves using only three
-						points, which means we can also "mold" curves by moving an on-curve point but leaving its start and end point, and then reconstructing the
+						points, which means we can also "mold" curves by moving an on-curve point but leaving its start and end points, and then reconstruct the
 						curve based on where we moved the on-curve point to. These are very useful things, and we'll look at both in the next few sections.
 					</p>
 				</section>
