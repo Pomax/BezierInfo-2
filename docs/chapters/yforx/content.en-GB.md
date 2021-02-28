@@ -13,19 +13,19 @@ Now, if you look more closely at that right graphic, you'll notice something int
 First, let's look at the function for x(t):
 
 \[
-    x(t) = a(1-t)³ + 3b(1-t)²t + 3c(1-t)t² + dt³
+    x(t) = a(1-t)^3 + 3b(1-t)^2t + 3c(1-t)t^2 + dt^3
 \]
 
 We can rewrite this to a plain polynomial form, by just fully writing out the expansion and then collecting the polynomial factors, as:
 
 \[
-    x(t) = (-a + 3b- 3c + d)t³ + (3a - 6b + 3c)t² + (-3a + 3b)t + a
+    x(t) = (-a + 3b- 3c + d)t^3 + (3a - 6b + 3c)t^2 + (-3a + 3b)t + a
 \]
 
 Nothing special here: that's a standard cubic polynomial in "power" form (i.e. all the terms are ordered by their power of `t`). So, given that `a`, `b`, `c`, `d`, *and* `x(t)` are all known constants, we can trivially rewrite this (by moving the `x(t)` across the equal sign) as:
 
 \[
-    (-a + 3b - 3c + d)t³ + (3a - 6b + 3c)t² + (-3a + 3b)t + (a-x) = 0
+    (-a + 3b - 3c + d)t^3 + (3a - 6b + 3c)t^2 + (-3a + 3b)t + (a-x) = 0
 \]
 
 You might be wondering "where did all the other 'minus x' for all the other values a, b, c, and d go?" and the answer there is that they all cancel out, so the only one we actually need to subtract is the one at the end. Handy! So now we just solve this equation using Cardano's algorithm, and we're left with some rather short code:

@@ -57,9 +57,9 @@
 
 \[
 \begin{aligned}
-  linear &= (1-t) + t \\
-  square &= (1-t)^2 + 2 \cdot (1-t) \cdot t + t^2 \\
-  cubic &= (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
+  \textit{linear} &= (1-t) + t \\
+  \textit{square} &= (1-t)^2 + 2 \cdot (1-t) \cdot t + t^2 \\
+  \textit{cubic} &= (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
 \end{aligned}
 \]
 
@@ -67,10 +67,10 @@
 
 \[
 \begin{aligned}
-  linear &= \hspace{2.5em} 1 + 1 \\
-  square &= \hspace{1.7em} 1 + 2 + 1\\
-  cubic &= \hspace{0.85em} 1 + 3 + 3 + 1\\
-  quartic &= 1 + 4 + 6 + 4 + 1
+  \textit{linear} &= \hspace{2.5em} 1 + 1 \\
+  \textit{square} &= \hspace{1.7em} 1 + 2 + 1\\
+  \textit{cubic} &= \hspace{0.85em} 1 + 3 + 3 + 1\\
+  \textit{quartic} &= 1 + 4 + 6 + 4 + 1
 \end{aligned}
 \]
 
@@ -80,19 +80,19 @@
 
 \[
 \begin{aligned}
-  linear &= BLUE[a] + RED[b] \\
-  square &= BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot RED[b] + RED[b] \cdot RED[b] \\
-  cubic &= BLUE[a] \cdot BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot BLUE[a] \cdot RED[b] + BLUE[a] \cdot RED[b] \cdot RED[b] + RED[b] \cdot RED[b] \cdot RED[b]\\
+  \textit{linear} &= BLUE[a] + RED[b] \\
+  \textit{square} &= BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot RED[b] + RED[b] \cdot RED[b] \\
+  \textit{cubic} &= BLUE[a] \cdot BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot BLUE[a] \cdot RED[b] + BLUE[a] \cdot RED[b] \cdot RED[b] + RED[b] \cdot RED[b] \cdot RED[b]\\
 \end{aligned}
 \]
 
 基本上它就是“每个<i>a</i>和<i>b</i>结合项”的和，在每个加号后面逐步的将<i>a</i>换成<i>b</i>。因此这也很简单。现在你已经知道了二次多项式，为了叙述的完整性，我将给出一般方程：
 
 \[
-  Bézier(n,t) = \sum_{i=0}^{n}
-                \underset{binomial~term}{\underbrace{\binom{n}{i}}}
+  \textit{Bézier}(n,t) = \sum_{i=0}^{n}
+                \underset{\textit{binomial term}}{\underbrace{\binom{n}{i}}}
                 \cdot\
-                \underset{polynomial~term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
+                \underset{\textit{polynomial term}}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
 \]
 
 这就是贝塞尔曲线完整的描述。在这个函数中的Σ表示了这是一系列的加法（用Σ下面的变量，从...=<值>开始，直到Σ上面的数字结束）。

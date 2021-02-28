@@ -22,11 +22,11 @@
 
 \[
   Bézier(n,t) = \sum_{i=0}^{n}
-                \underset{binomial~term}{\underbrace{\binom{n}{i}}}
+                \underset{\textit{binomial term}}{\underbrace{\binom{n}{i}}}
                 \cdot\
-                \underset{polynomial~term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
+                \underset{\textit{polynomial term}}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
                 \cdot\
-                \underset{weight}{\underbrace{w_i}}
+                \underset{\textit{weight}}{\underbrace{w_i}}
 \]
 
 看起来很复杂，但实际上“权重”只是我们想让曲线所拥有的坐标值：对于一条n<sup>th</sup>阶曲线，w<sup>0</sup>是起始坐标，w<sup>n</sup>是终点坐标，中间的所有点都是控制点坐标。假设说一条曲线的起点为（110，150），终点为（210，30），并受点（25，190）和点（210，250）的控制，贝塞尔曲线方程就为：

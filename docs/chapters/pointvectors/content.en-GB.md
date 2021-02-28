@@ -4,9 +4,9 @@ If you want to move objects along a curve, or "away from" a curve, the two vecto
 
 \[
 \begin{matrix}
-  tangent_x(t) = B'_x(t) \\
+  \textit{tangent}_x(t) = B'_x(t) \\
   \\
-  tangent_y(t) = B'_y(t)
+  \textit{tangent}_y(t) = B'_y(t)
 \end{matrix}
 \]
 
@@ -14,14 +14,14 @@ This gives us the directional vector we want. We can normalize it to give us uni
 
 \[
 \begin{matrix}
-  d = \left \| tangent(t) \right \| = \sqrt{B'_x(t)^2 + B'_y(t)^2} \\
+  d = \left \| \textit{tangent}(t) \right \| = \sqrt{B'_x(t)^2 + B'_y(t)^2} \\
   \\
-  \hat{x}(t) = \left \| tangent_x(t) \right \|
-             =\frac{tangent_x(t)}{ \left \| tangent(t) \right \| }
+  \hat{x}(t) = \left \| \textit{tangent}_x(t) \right \|
+             =\frac{\textit{tangent}_x(t)}{ \left \| \textit{tangent}(t) \right \| }
              = \frac{B'_x(t)}{d} \\
   \\
-  \hat{y}(t) = \left \| tangent_y(t) \right \|
-             = \frac{tangent_y(t)}{ \left \| tangent(t) \right \| }
+  \hat{y}(t) = \left \| \textit{tangent}_y(t) \right \|
+             = \frac{\textit{tangent}_y(t)}{ \left \| \textit{tangent}(t) \right \| }
              = \frac{B'_y(t)}{d}
 \end{matrix}
 \]
@@ -30,9 +30,9 @@ The tangent is very useful for moving along a line, but what if we want to move 
 
 \[
 \begin{array}{l}
-  normal_x(t) = \hat{x}(t) \cdot \cos{\frac{\pi}{2}} - \hat{y}(t) \cdot \sin{\frac{\pi}{2}} = - \hat{y}(t) \\
+  \textit{normal}_x(t) = \hat{x}(t) \cdot \cos{\frac{\pi}{2}} - \hat{y}(t) \cdot \sin{\frac{\pi}{2}} = - \hat{y}(t) \\
   \\
-  normal_y(t) = \underset{quarter~circle~rotation} {\underbrace{ \hat{x}(t) \cdot \sin{\frac{\pi}{2}} + \hat{y}(t) \cdot \cos{\frac{\pi}{2}} }} = \hat{x}(t)
+  \textit{normal}_y(t) = \underset{\textit{quarter circle rotation}} {\underbrace{ \hat{x}(t) \cdot \sin{\frac{\pi}{2}} + \hat{y}(t) \cdot \cos{\frac{\pi}{2}} }} = \hat{x}(t)
 \end{array}
 \]
 

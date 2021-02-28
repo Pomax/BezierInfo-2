@@ -68,7 +68,7 @@ If we look at the triangle that is formed between our starting point, or initial
 The distance from our guessed point to the start point is exactly the same as the projection distance we looked at earlier. Using <i>t=0.5</i> as our point "B" in the "A,B,C" projection, then we know the length of the line segment {C,A}, since it's d<sub>1</sub> = {A,B} + d<sub>2</sub> = {B,C}:
 
 \[
-  ||{A,C}|| = d_2 + d_1 = d_2 + d_2 \cdot ratio_3 \left(\frac{1}{2}\right) = d_2 + \frac{1}{3}d_2 = \frac{4}{3}d_2
+  ||{A,C}|| = d_2 + d_1 = d_2 + d_2 \cdot \textit{ratio}_3 \left(\frac{1}{2}\right) = d_2 + \frac{1}{3}d_2 = \frac{4}{3}d_2
 \]
 
 So that just leaves us to find the distance from <i>t=0.5</i> to the baseline for an arbitrary angle φ, which is the distance from the centre of the circle to our <i>t=0.5</i> point, minus the distance from the centre to the line that runs from start point to end point. The first is the same as the point P we found for the quadratic curve:
@@ -146,7 +146,7 @@ So, to recap, given an angle φ, the new control coordinates are:
   C_1 = \left [ \begin{matrix}
     1 \\
     f
-  \end{matrix} \right ],~with~f = \frac{4}{3} tan \left( \frac{φ}{4} \right)
+  \end{matrix} \right ]~,~\textit{with}~f = \frac{4}{3} tan \left( \frac{φ}{4} \right)
 \]
 
 and
@@ -155,7 +155,7 @@ and
   C_2 = \left [ \begin{matrix}
     cos(φ) + f \cdot sin(φ) \\
     sin(φ) - f \cdot cos(φ)
-  \end{matrix} \right ],~with~f = \frac{4}{3} tan \left( \frac{φ}{4} \right)
+  \end{matrix} \right ]~,~\textit{with}~f = \frac{4}{3} tan \left( \frac{φ}{4} \right)
 \]
 
 And, because the "quarter curve" special case comes up so incredibly often, let's look at what these new control points mean for the curve coordinates of a quarter curve, by simply filling in φ = π/2:

@@ -1,0 +1,11 @@
+\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
+ 
+                                               ╭  p =  一方の点     ╮
+                                               │   1            │
+                                               │  p =  もう一方の点   │
+                                               │   2            │
+                                               │  距離= (p  - p ) │  のとき、新しい点 = p  +  距離  ·  比率
+                                               │        2    1  │              1
+                                               │       百分率      │
+                                               │  比率= ────      │
+                                               ╰      100       ╯

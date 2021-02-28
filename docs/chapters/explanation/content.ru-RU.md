@@ -59,9 +59,9 @@
 
 \[
 \begin{aligned}
-  линейный &= (1-t) + t \\
-  квадратный &= (1-t)^2 + 2 \cdot (1-t) \cdot t + t^2 \\
-  кубический &= (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
+  \textit{линийный} &= (1-t) + t \\
+  \textit{квадратый} &= (1-t)^2 + 2 \cdot (1-t) \cdot t + t^2 \\
+  \textit{кубический} &= (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
 \end{aligned}
 \]
 
@@ -69,10 +69,10 @@
 
 \[
 \begin{aligned}
-  линийный &= \hspace{2.5em} 1 + 1 \\
-  квадратый &= \hspace{1.7em} 1 + 2 + 1\\
-  кубический &= \hspace{0.85em} 1 + 3 + 3 + 1\\
-  квартический &= 1 + 4 + 6 + 4 + 1
+  \textit{линийный} &= \hspace{2.5em} 1 + 1 \\
+  \textit{квадратый} &= \hspace{1.7em} 1 + 2 + 1\\
+  \textit{кубический} &= \hspace{0.85em} 1 + 3 + 3 + 1\\
+  \textit{квартический} &= 1 + 4 + 6 + 4 + 1
 \end{aligned}
 \]
 
@@ -82,19 +82,19 @@
 
 \[
 \begin{aligned}
-  линийный &= BLUE[a] + RED[b] \\
-  квадратый &= BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot RED[b] + RED[b] \cdot RED[b] \\
-  кубический &= BLUE[a] \cdot BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot BLUE[a] \cdot RED[b] + BLUE[a] \cdot RED[b] \cdot RED[b] + RED[b] \cdot RED[b] \cdot RED[b]\\
+  \textit{линийный} &= BLUE[a] + RED[b] \\
+  \textit{квадратый} &= BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot RED[b] + RED[b] \cdot RED[b] \\
+  \textit{кубический} &= BLUE[a] \cdot BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot BLUE[a] \cdot RED[b] + BLUE[a] \cdot RED[b] \cdot RED[b] + RED[b] \cdot RED[b] \cdot RED[b]\\
 \end{aligned}
 \]
 
 В целом это просто сума "каждого сочетания <i>a</i> и <i>b</i>", получаемая прогрессивной заменой <i>a</i> на <i>b</i> по ходу уравнения. Потому, это так-же довольно просто. Итак теперь вы знаете что такое биноминальные полиномы. Для полноты картины, ниже привожу их общую функцию:
 
 \[
-  Bézier(n,t) = \sum_{i=0}^{n}
-                \underset{биноминальный~термин}{\underbrace{\binom{n}{i}}}
+  \textit{Bézier}(n,t) = \sum_{i=0}^{n}
+                \underset{\textit{биноминальный термин}}{\underbrace{\binom{n}{i}}}
                 \cdot\
-                \underset{полиноминальный~термин}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
+                \underset{\textit{полиноминальный термин}}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
 \]
 
 И теперь, это полное объяснение. Σ в этой функции означает, что это серия сум (с использованием переменной приведенной под Σ, со стартовым значением в ...=&lt;value&gt; и максимальным значением представленным над Σ)

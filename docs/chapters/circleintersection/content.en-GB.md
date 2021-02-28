@@ -5,14 +5,14 @@ It might seem odd to cover this subject so much later than the line/line, line/c
 First, we observe that "finding intersections" in this case means that, given a circle defined by a center point `c = (x,y)` and a radius `r`, we want to find all points on the Bezier curve for which the distance to the circle's center point is equal to the circle radius, which by definition means those points lie on the circle, and so count as intersections. In maths, that means we're trying to solve:
 
 \[
-  dist(B(t), c) = r
+  \textit{dist}(B(t), c) = r
 \]
 
 Which seems simple enough. Unfortunately, when we expand that `dist` function, things get a lot more problematic:
 
 \[
   \begin{aligned}
-    r &= dist(B(t), c) \\
+    r &= \textit{dist}(B(t), c) \\
     &= \sqrt{ \left ( B_x{t} - c_x \right )^2 + \left ( B_y{t} - c_y \right )^2} \\
     &= \sqrt{ \left (
       x_1 (1-t)^3 + 3 x_2 (1-t)^2 t + 2 x_3 (1-t) t^2 + x_4 t^3 - c_x

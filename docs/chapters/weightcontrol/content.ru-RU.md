@@ -5,13 +5,13 @@
 Как и прочее, воплощение этого коэффициента не должно составить нам особого труда. Тогда как обычная функция:
 
 \[
-  Bézier(n,t) = \sum_{i=0}^{n} \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i} \cdot w_i
+  \textit{Bézier}(n,t) = \sum_{i=0}^{n} \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i} \cdot w_i
 \]
 
 Функция для соотносительных кривых Безье имеет два дополнительных термина:
 
 \[
-  Rational~Bézier(n,t) = \frac{ \sum_{i=0}^{n} \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i} \cdot w_i \cdot BLUE[ratio_i] }{ BLUE[ \sum_{i=0}^{n} \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i} \cdot ratio_i ] }
+  \textit{Rational Bézier}(n,t) = \frac{ \sum_{i=0}^{n} \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i} \cdot w_i \cdot BLUE[ratio_i] }{ BLUE[ \sum_{i=0}^{n} \binom{n}{i} \cdot (1-t)^{n-i} \cdot t^{i} \cdot ratio_i ] }
 \]
 
 Первый из добавочных терминов, представляет собой дополнительный "вес" для каждой координаты, Например если наши значения соотношений [1, 0.5, 0.5, 1], тогда <code>частица<sub>0</sub> = 1</code>, <code>частица<sub>1</sub> = 0.5</code> и т.д., и на практике ничем не отличается от использования дополнительного "вес"-а. Пока ничего особо выдающегося.

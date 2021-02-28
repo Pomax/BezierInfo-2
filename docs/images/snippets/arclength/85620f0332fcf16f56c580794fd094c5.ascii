@@ -1,0 +1,6 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                  ┌─────────────────┐
+                                                              ╭ z │       2        2
+                                                    length =  |  ⟍│(dx/dt) +(dy/dt)   dt
+                                                              ╯ 0

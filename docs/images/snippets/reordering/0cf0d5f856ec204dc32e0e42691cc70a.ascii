@@ -1,0 +1,6 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                           Bézier(n,t)= (1-t) B(n,t) + t B(n,t)                    
+                                                        __ n               n      __ n         n   
+                                                      = ❯      w  (1 - t) B (t) + ❯      w  t B (t)
+                                                        ‾‾ i=0  i          i      ‾‾ i=0  i    i

@@ -13,7 +13,7 @@ What we need to do is solve a simple equation:
 What we're saying here is that given the curvature function *C(t)*, we want to know for which values of *t* this function is zero, meaning there is no "curvature", which will be exactly at the point between our circle being on one side of the curve, and our circle being on the other side of the curve. So what does *C(t)* look like? Actually something that seems not too hard:
 
 \[
-  C(t) = Bézier_x\prime(t) \cdot Bézier_y{\prime\prime}(t) - Bézier_y\prime(t) \cdot Bézier_x{\prime\prime}(t)
+  C(t) = \textit{Bézier}_x\prime(t) \cdot \textit{Bézier}_y{\prime\prime}(t) - \textit{Bézier}_y\prime(t) \cdot \textit{Bézier}_x{\prime\prime}(t)
 \]
 
 The function *C(t)* is the cross product between the first and second derivative functions for the parametric dimensions of our curve. And, as already shown, derivatives of Bézier curves are just simpler Bézier curves, with very easy to compute new coefficients, so this should be pretty easy.
@@ -28,9 +28,9 @@ Of course, before we do our aligned check, let's see what happens if we compute 
 
 \[
 \begin{aligned}
-  & Bézier(t) = x_1(1-t)^3 + 3x_2(1-t)^2t + 3x_3(1-t)t^2 + x_4t^3 \\
-  & Bézier^\prime(t) = a(1-t)^2 + 2b(1-t)t + ct^2~ \left\{ a=3(x_2-x_1),b=3(x_3-x_2),c=3(x_4-x_3) \right\} \\
-  & Bézier^{\prime\prime}(t) = u(1-t) + vt~\left\{ u=2(b-a),v=2(c-b) \right\}\
+  & \textit{Bézier}(t) = x_1(1-t)^3 + 3x_2(1-t)^2t + 3x_3(1-t)t^2 + x_4t^3 \\
+  & \textit{Bézier}^\prime(t) = a(1-t)^2 + 2b(1-t)t + ct^2~ \left\{ a=3(x_2-x_1),b=3(x_3-x_2),c=3(x_4-x_3) \right\} \\
+  & \textit{Bézier}^{\prime\prime}(t) = u(1-t) + vt~\left\{ u=2(b-a),v=2(c-b) \right\}\
 \end{aligned}
 \]
 
@@ -38,9 +38,9 @@ And of course the same functions for *y*:
 
 \[
 \begin{aligned}
-  & Bézier(t) = y_1(1-t)^3 + 3y_2(1-t)^2t + 3y_3(1-t)t^2 + y_4t^3 \\
-  & Bézier^\prime(t) = d(1-t)^2 + 2e(1-t)t + ft^2\\
-  & Bézier^{\prime\prime}(t) = w(1-t) + zt
+  & \textit{Bézier}(t) = y_1(1-t)^3 + 3y_2(1-t)^2t + 3y_3(1-t)t^2 + y_4t^3 \\
+  & \textit{Bézier}^\prime(t) = d(1-t)^2 + 2e(1-t)t + ft^2\\
+  & \textit{Bézier}^{\prime\prime}(t) = w(1-t) + zt
 \end{aligned}
 \]
 

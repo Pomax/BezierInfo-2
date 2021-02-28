@@ -59,9 +59,9 @@ Bézier curves are polynomials of <i>t</i>, rather than <i>x</i>, with the value
 
 \[
 \begin{aligned}
-  linear &= (1-t) + t \\
-  square &= (1-t)^2 + 2 \cdot (1-t) \cdot t + t^2 \\
-  cubic &= (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
+  \textit{linear} &= (1-t) + t \\
+  \textit{square} &= (1-t)^2 + 2 \cdot (1-t) \cdot t + t^2 \\
+  \textit{cubic} &= (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
 \end{aligned}
 \]
 
@@ -69,10 +69,10 @@ I know what you're thinking: that doesn't look too simple! But if we remove <i>t
 
 \[
 \begin{aligned}
-  linear &= \hspace{2.5em} 1 + 1 \\
-  square &= \hspace{1.7em} 1 + 2 + 1\\
-  cubic &= \hspace{0.85em} 1 + 3 + 3 + 1\\
-  quartic &= 1 + 4 + 6 + 4 + 1
+  \textit{linear} &= \hspace{2.5em} 1 + 1 \\
+  \textit{square} &= \hspace{1.7em} 1 + 2 + 1\\
+  \textit{cubic} &= \hspace{0.85em} 1 + 3 + 3 + 1\\
+  \textit{quartic} &= 1 + 4 + 6 + 4 + 1
 \end{aligned}
 \]
 
@@ -82,19 +82,19 @@ There's an equally simple way to figure out how the polynomial terms work: if we
 
 \[
 \begin{aligned}
-  linear &= BLUE[a] + RED[b] \\
-  square &= BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot RED[b] + RED[b] \cdot RED[b] \\
-  cubic &= BLUE[a] \cdot BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot BLUE[a] \cdot RED[b] + BLUE[a] \cdot RED[b] \cdot RED[b] + RED[b] \cdot RED[b] \cdot RED[b]\\
+  \textit{linear} &= BLUE[a] + RED[b] \\
+  \textit{square} &= BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot RED[b] + RED[b] \cdot RED[b] \\
+  \textit{cubic} &= BLUE[a] \cdot BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot BLUE[a] \cdot RED[b] + BLUE[a] \cdot RED[b] \cdot RED[b] + RED[b] \cdot RED[b] \cdot RED[b]\\
 \end{aligned}
 \]
 
 It's basically just a sum of "every combination of <i>a</i> and <i>b</i>", progressively replacing <i>a</i>'s with <i>b</i>'s after every + sign. So that's actually pretty simple too. So now you know binomial polynomials, and just for completeness I'm going to show you the generic function for this:
 
 \[
-  Bézier(n,t) = \sum_{i=0}^{n}
-                \underset{binomial~term}{\underbrace{\binom{n}{i}}}
+  \textit{Bézier}(n,t) = \sum_{i=0}^{n}
+                \underset{\textit{binomial term}}{\underbrace{\binom{n}{i}}}
                 \cdot\
-                \underset{polynomial~term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
+                \underset{\textit{polynomial term}}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
 \]
 
 And that's the full description for Bézier curves. Σ in this function indicates that this is a series of additions (using the variable listed below the Σ, starting at ...=&lt;value&gt; and ending at the value listed on top of the Σ).

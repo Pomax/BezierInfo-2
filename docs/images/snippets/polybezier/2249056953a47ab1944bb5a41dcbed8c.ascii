@@ -1,0 +1,6 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                           ┌ B  + (B  - A ) ┐   ┌ 2B  - A  ┐
+                                                Mirrored = │  x     x    x  │ = │   x    x │
+                                                           │ B  + (B  - A ) │   │ 2B  - A  │
+                                                           └  y     y    y  ┘   └   y    y ┘

@@ -34,7 +34,7 @@
 		<meta property="og:locale" content="ru-RU" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2021-02-04T00:46:16+00:00" />
+		<meta property="og:updated_time" content="2021-02-28T20:18:43+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -546,19 +546,19 @@
 						80ти % до второй, вычислить результат можно следующим образом:
 					</p>
 					<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+\usepackageunicode-math \setmainfont[Ligatures=TeX]Linux Libertine O \setmathfontXITS Math
  
-                             ╭          p = неикая точка        ╮
-                             │           1                      │
-                             │          p = неикая другая точка │
-                             │           2                      │
-                        Дано │  расстояние= (p  - p )           │, наша новая точка = p  + расстояние  · соотношение
-                             │                2    1            │                      1
-                             │              процентаж           │
-                             │ соотношение= ─────────           │
-                             ╰                 100              ╯
+                           ╭           p =  неикая точка        ╮
+                           │            1                       │
+                           │           p =  неикая другая точка │
+                           │            2                       │
+                      Дано │   расстояние= (p  - p )            │,  наша новая точка = p  +  расстояние  ·  соотношение
+                           │                 2    1             │                       1
+                           │                процентаж           │
+                           │  соотношение= ──────────           │
+                           ╰                  100               ╯
 -->
-					<img class="LaTeX SVG" src="./images/chapters/whatis/e0600b3be5b95f105a1cf2a2c0378b98.svg" width="188px" height="92px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/whatis/35964d0485747082c0a8bedc0a16822b.svg" width="671px" height="100px" loading="lazy" />
 					<p>
 						Что же, посмотрим на это в действии: ниже представлена интерактивная проекция, кликнув на ползунок, можно пользоваться клавишами
 						вниз-вверх для увеличения и уменьшения соотношения интерполяции и наблюдать получаемый результат. Сначала, основываясь на трех точках,
@@ -716,18 +716,18 @@
 						<i>b</i> и т.д. принимающими "биноминальную" форму. Звучит сложно, но на практике выглядит понятнее:
 					</p>
 					<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+\usepackageunicode-math \setmainfont[Ligatures=TeX]Linux Libertine O \setmathfontXITS Math
  
-                                         линейный= (1-t) + t                                        
-                                                        2                      2
-                                       квадратный= (1-t)  + 2  · (1-t)  · t + t                     
-                                                        3             2                       2    3
-                                       кубический= (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 
+                                          линийный= (1-t) + t                                        
+                                                         2                      2
+                                         квадратый= (1-t)  + 2  · (1-t)  · t + t                     
+                                                         3             2                       2    3
+                                        кубический= (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/dc48cdf8f492b44c7602eb64ce2b9986.svg"
-						width="297px"
+						src="./images/chapters/explanation/39330ef5591cf0f3205564ad47255d4f.svg"
+						width="377px"
 						height="67px"
 						loading="lazy"
 					/>
@@ -736,18 +736,18 @@
 						ясно. Примите ко внимаю такие биномиальные термины:
 					</p>
 					<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+\usepackageunicode-math \setmainfont[Ligatures=TeX]Linux Libertine O \setmathfontXITS Math
  
-                                                          линийный=  1 + 1           
-                                                         квадратый=  1 + 2 + 1       
-                                                        кубический=  1 + 3 + 3 + 1   
-                                                      квартический= 1 + 4 + 6 + 4 + 1
+                                                           линийный=  1 + 1           
+                                                          квадратый=  1 + 2 + 1       
+                                                         кубический=  1 + 3 + 3 + 1   
+                                                       квартический= 1 + 4 + 6 + 4 + 1
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/6d58ec36bfb3fcff24248dc46889428a.svg"
-						width="127px"
-						height="83px"
+						src="./images/chapters/explanation/9734aff037ac23a73504ff7cc846eab7.svg"
+						width="225px"
+						height="85px"
 						loading="lazy"
 					/>
 					<p>
@@ -765,20 +765,20 @@
 						<i>t</i> в <i>b</i>, убрав "веса", получим следующее:
 					</p>
 					<!--
-     \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
-      
-  линийный= \colorbluea + \colorredb                                                                                                                  
- квадратый= \colorbluea  · \colorbluea + \colorbluea  · \colorredb + \colorredb  · \colorredb                                                         
-кубический= \colorbluea  · \colorbluea  · \colorbluea + \colorbluea  · \colorbluea  · \colorredb + \colorbluea  · \colorredb  · \colorredb + \colorred
+    \usepackageunicode-math \setmainfont[Ligatures=TeX]Linux Libertine O \setmathfontXITS Math
+     
+  линийный= \colorbluea + \colorredb                                                                                                                 
+ квадратый= \colorbluea  · \colorbluea + \colorbluea  · \colorredb + \colorredb  · \colorredb                                                        
+кубический= \colorbluea  · \colorbluea  · \colorbluea + \colorbluea  · \colorbluea  · \colorredb + \colorbluea  · \colorredb  · \colorredb + \colorre
                                                                                          
                                                                                          
-                                                            b  · \colorredb  · \colorredb
+                                                           db  · \colorredb  · \colorredb
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/05c2d5954eb9dec5ce9f6eb7e89f1e0c.svg"
-						width="256px"
-						height="60px"
+						src="./images/chapters/explanation/7a44f3eaa167a5022e2281c62e90fff8.svg"
+						width="336px"
+						height="63px"
 						loading="lazy"
 					/>
 					<p>
@@ -787,17 +787,17 @@
 						функцию:
 					</p>
 					<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+\usepackageunicode-math \setmainfont[Ligatures=TeX]Linux Libertine O \setmathfontXITS Math
  
-                   __ n                                                                                                        n-i     i
-     Bézier(n,t) = ❯      \undersetбиноминальный термин\underbrace\binomni  · \ \undersetполиноминальный термин\underbrace(1-t)     · t 
-                   ‾‾ i=0
+                  __ n                                                                                                          n-i     i
+    Bézier(n,t) = ❯      \underset биноминальный термин\underbrace\binomni  · \ \underset полиноминальный термин\underbrace(1-t)     · t 
+                  ‾‾ i=0
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/fa3ed9a4ab61d80ec175d29533b5728e.svg"
-						width="243px"
-						height="49px"
+						src="./images/chapters/explanation/668d140df9db486e5ff2d7c127eaa9d4.svg"
+						width="389px"
+						height="63px"
 						loading="lazy"
 					/>
 					<p>
@@ -1106,15 +1106,15 @@ function Bezier(3,t):
 						можем учесть их запись в нашей оригинальной функции Безье:
 					</p>
 					<!--
-    \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+    \usepackageunicode-math \setmainfont[Ligatures=TeX]Linux Libertine O \setmathfontXITS Math
      
-              __ n                                                                                                        n-i     i
-Bézier(n,t) = ❯      \undersetбиноминальный термин\underbrace\binomni  · \ \undersetполиноминальный термин\underbrace(1-t)     · t   · \
+              __ n                                                                                                          n-i     i
+Bézier(n,t) = ❯      \underset биноминальный термин\underbrace\binomni  · \ \underset полиноминальный термин\underbrace(1-t)     · t   · \ \underset 
               ‾‾ i=0
-                                                             \undersetвес\underbracew 
-                                                                                     i
+                                                                  вес\underbracew 
+                                                                                 i
 -->
-					<img class="LaTeX SVG" src="./images/chapters/control/501494295f07ba5049286489206d98f0.svg" width="273px" height="49px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/control/a337e3f97387b52d387fc01605314497.svg" width="421px" height="63px" loading="lazy" />
 					<p>
 						Хоть и выглядит заморочено, но, так уж получается, в реальности "веса" просто значения координат на графике, к которым мы бы хотели, чтобы
 						наша функция стремилась. Так, для кривой <i>n-го</i> порядка, w<sub>0</sub> есть начальной координатой, w<sub>n</sub> конечной
@@ -1266,7 +1266,7 @@ function Bezier(3,t,w[]):
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/weightcontrol/85d526fb17f9e859dcd7d40d22192e37.svg"
+						src="./images/chapters/weightcontrol/ceac4259d2aed0767c7765d2237ca1a3.svg"
 						width="276px"
 						height="41px"
 						loading="lazy"
@@ -1275,18 +1275,18 @@ function Bezier(3,t,w[]):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                    __ n                    n-i     i
-                                                    ❯      \binomni  · (1-t)     · t   · w   · \colorblueratio 
-                                                    ‾‾ i=0                                i                   i
-                            Rational  Bézier(n,t) = ───────────────────────────────────────────────────────────
-                                                                __ n                     n-i      i
-                                                    \colorblue  ❯      \binomni  ·  (1-t)     ·  t   ·  ratio  
-                                                                ‾‾ i=0                                       i
+                                                     __ n                    n-i     i
+                                                     ❯      \binomni  · (1-t)     · t   · w   · \colorblueratio 
+                                                     ‾‾ i=0                                i                   i
+                             Rational  Bézier(n,t) = ───────────────────────────────────────────────────────────
+                                                                 __ n                     n-i      i
+                                                     \colorblue  ❯      \binomni  ·  (1-t)     ·  t   ·  ratio  
+                                                                 ‾‾ i=0                                       i
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/weightcontrol/2ec04091c55fe31bf85ac28c5b6d95cb.svg"
-						width="409px"
+						src="./images/chapters/weightcontrol/55f079880a77c126c70106e62ff941d9.svg"
+						width="408px"
 						height="48px"
 						loading="lazy"
 					/>
@@ -1469,10 +1469,10 @@ function RationalBezier(3,t,w[],r[]):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                    mixture = a  · value  + b  · value 
-                                                                        1             2
+                                                    mixture = a  ·  value  + b  ·  value 
+                                                                         1              2
 -->
-					<img class="LaTeX SVG" src="./images/chapters/extended/f56f59f3c0b057c8ec79a477e4e38bec.svg" width="215px" height="16px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/extended/dfd6ded3f0addcf43e0a1581627a2220.svg" width="212px" height="16px" loading="lazy" />
 					<p>
 						Очевидно, что начальное и конечное значения <code>a</code> и <code>b</code> должны быть <code>a=1, b=0</code>, чтобы в начале получать
 						вывод 100% первого показателя и 0% второго; и <code>a=0, b=1</code>, чтобы в конце получать 0% value 1 и 100% value 2. В дополнение, мы не
@@ -1484,10 +1484,10 @@ function RationalBezier(3,t,w[],r[]):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                    m = a  · value  + (1 - a)  · value 
-                                                                  1                   2
+                                                   m = a  ·  value  + (1 - a)  ·  value 
+                                                                  1                    2
 -->
-					<img class="LaTeX SVG" src="./images/chapters/extended/e2e71b397009b51af8a3ee848bc727b4.svg" width="215px" height="16px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/extended/4e0fa763b173e3a683587acf83733353.svg" width="213px" height="16px" loading="lazy" />
 					<p>
 						С этим у нас есть гарантия, что мы не получим суму значений пропорций более 100%. Мы ограничиваем значение <code>a</code> интервалом
 						[0,1], потому всегда получаем вывод из пропорционального смешения двух показателей, с сумой смесителей не превышающей 100%.
@@ -2215,16 +2215,16 @@ function drawCurve(points[], t):
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                                                              ┌ P  ┐
-                                                                                                              │  1 │
-                       = ┌      2 ┐  · \undersetwe turn this...\underbrace\kern 2.25em Z  · M \kern 2.25em  · │ P  │
-                         └ 1 t t  ┘                                                                           │  2 │
-                                                                                                              │ P  │
-                                                                                                              └  3 ┘
+                                                                                                               ┌ P  ┐
+                                                                                                               │  1 │
+                       = ┌      2 ┐  · \underset we turn this...\underbrace\kern 2.25em Z  · M \kern 2.25em  · │ P  │
+                         └ 1 t t  ┘                                                                            │  2 │
+                                                                                                               │ P  │
+                                                                                                               └  3 ┘
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/7a1e792cd3fa6f3482459e154abf2e7d.svg"
+							src="./images/chapters/matrixsplit/aa17f7e82cf50498f90deb6a21a2489a.svg"
 							width="247px"
 							height="55px"
 							loading="lazy"
@@ -2232,16 +2232,16 @@ function drawCurve(points[], t):
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                                                        ┌ P  ┐
-                                                                                       -1               │  1 │
-                             = ┌      2 ┐  · \underset...into this...\underbrace M  · M    · Z  · M   · │ P  │
-                               └ 1 t t  ┘                                                               │  2 │
-                                                                                                        │ P  │
-                                                                                                        └  3 ┘
+                                                                                                       ┌ P  ┐
+                                                                                      -1               │  1 │
+                              = ┌      2 ┐  · \underset into this...\underbrace M  · M    · Z  · M   · │ P  │
+                                └ 1 t t  ┘                                                             │  2 │
+                                                                                                       │ P  │
+                                                                                                       └  3 ┘
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/55b45214ba90c96978cdc9cdfee24fef.svg"
+							src="./images/chapters/matrixsplit/4549b95450db3c73479e8902e4939427.svg"
 							width="247px"
 							height="55px"
 							loading="lazy"
@@ -2251,14 +2251,14 @@ function drawCurve(points[], t):
  
                                                                                                                             ┌ P  ┐
                                                                                                                             │  1 │
-          = ┌      2 ┐  · M \underset...to get this!\underbrace \kern 1.25em  · \kern 1.25em Q \kern 1.25em  · \kern 1.25em │ P  │
-            └ 1 t t  ┘                                                                                                      │  2 │
+         = ┌      2 ┐  · M \underset ...to get this!\underbrace \kern 1.25em  · \kern 1.25em Q \kern 1.25em  · \kern 1.25em │ P  │
+           └ 1 t t  ┘                                                                                                       │  2 │
                                                                                                                             │ P  │
                                                                                                                             └  3 ┘
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/matrixsplit/598739d23cf8dbcdebe033e4c7f1d28a.svg"
+							src="./images/chapters/matrixsplit/266b71339b55ad3a312a9f41e6bcf988.svg"
 							width="252px"
 							height="55px"
 							loading="lazy"
@@ -2627,17 +2627,17 @@ function drawCurve(points[], t):
 						that the start and end weights are the same as the start and end weights for the old curve):
 					</p>
 					<!--
-    \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
-     
-              __ k                                                                                          k-i     i
-Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \undersetpolynomial term\underbrace(1-t)     · t    · \ \undersetnew 
+   \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+    
+              __ k                                                                                            k-i     i
+Bézier(k,t) = ❯      \underset binomial term\underbrace\binomki  · \ \underset polynomial term\underbrace(1-t)     · t    · \ \underset new
               ‾‾ i=0
-                                                  ╭ (k-i)  · w  + i  · w    ╮
-                                                  │           i         i-1 │
-                                weights\underbrace│ ─────────────────────── │  , with k = n+1 and w   =0 when i = 0
-                                                  ╰            k            ╯                      i-1
+                                                ╭ (k-i)  · w  + i  · w    ╮
+                                                │           i         i-1 │
+                              weights\underbrace│ ─────────────────────── │  ,  with k = n+1  and w   =0 when i = 0
+                                                ╰            k            ╯                        i-1
 -->
-					<img class="LaTeX SVG" src="./images/chapters/reordering/e9fc9c715bb55a702db68b2bb6da0a68.svg" width="768px" height="61px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/reordering/74e038deabd9e240606fa3f07ba98269.svg" width="755px" height="61px" loading="lazy" />
 					<p>
 						However, this rule also has as direct consequence that you <strong>cannot</strong> generally safely lower a curve from
 						<em>n<sup>th</sup></em> order to <em>(n-1)<sup>th</sup></em> order, because the control points cannot be "pulled apart" cleanly. We can
@@ -2654,11 +2654,11 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                               __ n       n               n                       n-i     i
-                                 Bézier(n,t) = ❯      w  B (t)  , where  B (t) = \binomni  · (1-t)     · t 
-                                               ‾‾ i=0  i  i               i
+                                                __ n       n               n                       n-i     i
+                                  Bézier(n,t) = ❯      w  B (t)  , where  B (t) = \binomni  · (1-t)     · t 
+                                                ‾‾ i=0  i  i               i
 -->
-					<img class="LaTeX SVG" src="./images/chapters/reordering/8090b63b005bf3edb916b97bda317a0e.svg" width="408px" height="41px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/reordering/9fc4ecc087d389dd0111bcba165cd5d0.svg" width="408px" height="41px" loading="lazy" />
 					<p>
 						Then, we apply one of those silly (actually, super useful) calculus tricks: since our <code>t</code> value is always between zero and one
 						(inclusive), we know that <code>(1-t)</code> plus <code>t</code> always sums to 1. As such, we can express any value as a sum of
@@ -2677,12 +2677,12 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                          Bézier(n,t)= (1-t) B(n,t) + t B(n,t)                    
-                                                       __ n               n      __ n         n   
-                                                     = ❯      w  (1 - t) B (t) + ❯      w  t B (t)
-                                                       ‾‾ i=0  i          i      ‾‾ i=0  i    i
+                                           Bézier(n,t)= (1-t) B(n,t) + t B(n,t)                    
+                                                        __ n               n      __ n         n   
+                                                      = ❯      w  (1 - t) B (t) + ❯      w  t B (t)
+                                                        ‾‾ i=0  i          i      ‾‾ i=0  i    i
 -->
-					<img class="LaTeX SVG" src="./images/chapters/reordering/56130afc4cb313e0e74cf670d34590f6.svg" width="316px" height="67px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/reordering/0cf0d5f856ec204dc32e0e42691cc70a.svg" width="316px" height="67px" loading="lazy" />
 					<p>
 						So far so good. Now, to see why we did this, let's write out the <code>(1-t)</code> and <code>t</code> parts, and see what that gives us.
 						I promise, it's about to make sense. We start with <code>(1-t)</code>:
@@ -2910,12 +2910,12 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
                                                                __ n-1
-                                           Bézier'(n,t) = n  · ❯      (b   -b )  ·  Bézier(n-1,t) 
-                                                               ‾‾ i=0   i+1  i                   i
+                                           Bézier'(n,t) = n  · ❯      (b   -b )  ·   Bézier(n-1,t) 
+                                                               ‾‾ i=0   i+1  i                    i
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/derivatives/f67d2d379ba6dfaa7f7686a7d1eae367.svg"
+						src="./images/chapters/derivatives/a7b79877822a8f60e45552dcafc0815d.svg"
 						width="333px"
 						height="44px"
 						loading="lazy"
@@ -2928,12 +2928,12 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
                                                           __ n-1
-                                           Bézier'(n,t) = ❯       Bézier(n-1,t)   · n  · (w   -w )
-                                                          ‾‾ i=0               i           i+1  i
+                                           Bézier'(n,t) = ❯        Bézier(n-1,t)   · n  · (w   -w )
+                                                          ‾‾ i=0                i           i+1  i
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/derivatives/67ca2710769505572e097ffb40de099f.svg"
+						src="./images/chapters/derivatives/8f78fdb9ef54b1bc4dbc00f07263cc97.svg"
 						width="343px"
 						height="44px"
 						loading="lazy"
@@ -3063,7 +3063,7 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/897cfd8648720dc21463a9358cc65ab4.svg"
+							src="./images/chapters/derivatives/02cecadc92b8ff681edc8edb0ace53ce.svg"
 							width="527px"
 							height="112px"
 							loading="lazy"
@@ -3121,33 +3121,33 @@ Bézier(k,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \underse
 						/>
 						<p>И это по сути формула функции сумы на 1 порядок ниже:</p>
 						<!--
-    \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
-     
+   \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+    
              d
 Bézier   (t) ── = n  · B                 (t)  · (w  - w ) + n  · B                (t)  · (w  - w ) + n  · B                    (t)  · (w  - w )  +  
       n,k    dt         (n-1),\colorblue0         1    0          (n-1),\colorred1         2    1          (n-1),\colormagenta2         3    2
-                                                                        ...
+                                                                       ...
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/a7c61e0e8b42010df6dab641c92ef13d.svg"
+							src="./images/chapters/derivatives/5d7af72e00fb0390af5281d918d77055.svg"
 							width="716px"
 							height="36px"
 							loading="lazy"
 						/>
 						<p>Можно переписать по стандартной форме сумы, и готово:</p>
 						<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+\usepackageunicode-math \setmainfont[Ligatures=TeX]Linux Libertine O \setmathfontXITS Math
  
                    d    __ n-1                                 __ n-1
-      Bézier   (t) ── = ❯      n  · B     (t)  · (w    - w ) = ❯      B     (t)  · \undersetвес производной \underbracen  · (w    - w )
-            n,k    dt   ‾‾ k=0       n-1,k         k+1    k    ‾‾ k=0  n-1,k                                                  k+1    k
+      Bézier   (t) ── = ❯      n  · B     (t)  · (w    - w ) = ❯      B     (t)  · \underset вес производной \underbracen  · (w    - w )
+            n,k    dt   ‾‾ k=0       n-1,k         k+1    k    ‾‾ k=0  n-1,k                                                   k+1    k
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/derivatives/d575699ab7d13c62f47d3071c0b00da3.svg"
+							src="./images/chapters/derivatives/171357d936dee742b43b9ffb7600c742.svg"
 							width="515px"
-							height="48px"
+							height="61px"
 							loading="lazy"
 						/>
 					</div>
@@ -3157,35 +3157,35 @@ Bézier   (t) ── = n  · B                 (t)  · (w  - w ) + n  · B      
 						производная:
 					</p>
 					<!--
-    \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
-     
-              __ n                                                                                                        n-i     i
-Bézier(n,t) = ❯      \undersetбиноминальный термин\underbrace\binomni  · \ \undersetполиноминальный термин\underbrace(1-t)     · t   · \
+   \usepackageunicode-math \setmainfont[Ligatures=TeX]Linux Libertine O \setmathfontXITS Math
+    
+              __ n                                                                                                          n-i     i
+Bézier(n,t) = ❯      \underset биноминальный термин\underbrace\binomni  · \ \underset полиноминальный термин\underbrace(1-t)     · t   · \ \underset 
               ‾‾ i=0
-                                                             \undersetвес\underbracew 
-                                                                                     i
+                                                                 вес\underbracew 
+                                                                                i
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/derivatives/501494295f07ba5049286489206d98f0.svg"
-						width="273px"
-						height="49px"
+						src="./images/chapters/derivatives/3cd7b36839a248eb35f0b678d7bf5508.svg"
+						width="421px"
+						height="63px"
 						loading="lazy"
 					/>
 					<!--
-    \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
-     
-               __ k                                                                                                        k-i     i
-Bézier'(n,t) = ❯      \undersetбиноминальный термин\underbrace\binomki  · \ \undersetполиноминальный термин\underbrace(1-t)     · t   · \
+   \usepackageunicode-math \setmainfont[Ligatures=TeX]Linux Libertine O \setmathfontXITS Math
+    
+               __ k                                                                                                          k-i     i
+Bézier'(n,t) = ❯      \underset биноминальный термин\underbrace\binomki  · \ \underset полиноминальный термин\underbrace(1-t)     · t   · \
                ‾‾ i=0
-                                        \undersetвес производной\underbracen  · (w    - w )  ,  with  k=n-1
-                                                                                  i+1    i
+                                      \underset вес производной\underbracen  · (w    - w )  ,   with  k=n-1
+                                                                                 i+1    i
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/derivatives/8324bf1885267fe157bf316e261d1b30.svg"
-						width="471px"
-						height="52px"
+						src="./images/chapters/derivatives/869b60a8e6b992e6f62bc6a50b36deeb.svg"
+						width="615px"
+						height="65px"
 						loading="lazy"
 					/>
 					<p>
@@ -3236,9 +3236,9 @@ Bézier'(n,t) = ❯      \undersetбиноминальный термин\underb
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/pointvectors/8b15a314beca97071b0ccb22c969355d.svg"
+						src="./images/chapters/pointvectors/da069c7d6cbdb516c5454371dae84e7f.svg"
 						width="132px"
-						height="59px"
+						height="61px"
 						loading="lazy"
 					/>
 					<p>
@@ -3246,27 +3246,27 @@ Bézier'(n,t) = ❯      \undersetбиноминальный термин\underb
 						point, and then do whatever it is we want to do based on those directions:
 					</p>
 					<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
  
-                                                                       ┌─────────────────┐
-                                                                       │      2         2
-                                                 d = \|tangent(t)\| =  │B' (t)  + B' (t)  
-                                                                      ⟍│  x         y
-                                              
-                                                                       tangent (t)     B' (t)
-                                              ^                               x          x    
-                                              x(t) = \|tangent (t)\| =────────────── = ──────
-                                                              x       \|tangent(t)\|     d
-                                              
+                                                                        ┌─────────────────┐
+                                                                        │      2         2
+                                                 d = \| tangent(t)\| =  │B' (t)  + B' (t)  
+                                                                       ⟍│  x         y
+                                             
                                                                         tangent (t)     B' (t)
-                                              ^                                y          y
-                                              y(t) = \|tangent (t)\| = ────────────── = ──────
-                                                              y        \|tangent(t)\|     d
+                                             ^                                 x          x    
+                                             x(t) = \| tangent (t)\| =─────────────── = ──────
+                                                              x       \| tangent(t)\|     d
+                                             
+                                                                         tangent (t)     B' (t)
+                                             ^                                  y          y
+                                             y(t) = \| tangent (t)\| = ─────────────── = ──────
+                                                              y        \| tangent(t)\|     d
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/pointvectors/b60cdba673c2c9fc84c800f07fd18145.svg"
-						width="279px"
+						src="./images/chapters/pointvectors/33afd1a141ec444989c393b3e51ec9ca.svg"
+						width="273px"
 						height="121px"
 						loading="lazy"
 					/>
@@ -3279,16 +3279,16 @@ Bézier'(n,t) = ❯      \undersetбиноминальный термин\underb
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
                                  ^           \pi   ^           \pi     ^
-                    normal (t) = x(t)  · cos ─── - y(t)  · sin ─── = - y(t)                                            
+                    normal (t) = x(t)  · cos ─── - y(t)  · sin ─── = - y(t)                                             
                           x                   2                 2
-                                                                                                                       
-                                                                              ^           \pi   ^           \pi    ^
-                    normal (t) = \undersetquarter circle rotation \underbrace x(t)  · sin ─── + y(t)  · cos ───  = x(t)
-                          y                                                                2                 2
+                                                                                                                        
+                                                                               ^           \pi   ^           \pi    ^
+                    normal (t) = \underset quarter circle rotation \underbrace x(t)  · sin ─── + y(t)  · cos ───  = x(t)
+                          y                                                                 2                 2
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/pointvectors/58b19accb8a68c665ff5cbed610eea4e.svg"
+						src="./images/chapters/pointvectors/c3d5f3506b763b718e567f90dbb78324.svg"
 						width="324px"
 						height="79px"
 						loading="lazy"
@@ -3848,16 +3848,16 @@ generateRMFrames(steps) -> frames:
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                                         ┌────────┐
-                                                                                         │ 2
-                                                        2                           -b ±⟍│b  - 4ac
-                                         Given f(t) = at  + bt + c, f(t)=0 when t = ───────────────
-                                                                                          2a
+                                                                                           ┌────────┐
+                                                                                           │ 2
+                                                       2                              -b ±⟍│b  - 4ac
+                                        Given f(t) = at  + bt + c, f(t)=0   when  t = ───────────────
+                                                                                            2a
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/extremities/2c398b492aadc90eb4e4853fc20b23e9.svg"
-						width="411px"
+						src="./images/chapters/extremities/3125ab785fb039994582552790a2674b.svg"
+						width="409px"
 						height="40px"
 						loading="lazy"
 					/>
@@ -3874,14 +3874,14 @@ generateRMFrames(steps) -> frames:
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                 B(t) uses { p ,p ,p ,p  }                                                 
-                                              1  2  3  4                                                   
-                                 B'(t) uses { v ,v ,v  }, where v  = 3(p -p ), v  = 3(p -p ), v  = 3(p -p )
-                                               1  2  3           1      2  1    2      3  2    3      4  3
+                                B(t)  uses { p ,p ,p ,p  }                                                  
+                                              1  2  3  4                                                    
+                                B'(t)  uses { v ,v ,v  },  where v  = 3(p -p ), v  = 3(p -p ), v  = 3(p -p )
+                                               1  2  3            1      2  1    2      3  2    3      4  3
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/extremities/c4858be225d004441b2aefedacda89a3.svg"
+						src="./images/chapters/extremities/bf0ad4611c47f8548396e40595c02b55.svg"
 						width="537px"
 						height="36px"
 						loading="lazy"
@@ -4671,12 +4671,12 @@ function getCubicRoots(pa, pb, pc, pd) {
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                     C(t) =  Bézier \prime(t)  ·  Bézier \prime\prime(t) -  Bézier \prime(t)  ·  Bézier \prime\prime(t)
-                                   x                    y                         y                    x
+                   C(t) =   Bézier \prime(t)  ·   Bézier \prime\prime(t) -   Bézier \prime(t)  ·   Bézier \prime\prime(t)
+                                  x                     y                          y                     x
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/inflections/a283e01df17f3d763ec89621f2af6c5c.svg"
+						src="./images/chapters/inflections/852f0346f025c671b8a1ce6b628028aa.svg"
 						width="385px"
 						height="21px"
 						loading="lazy"
@@ -4701,18 +4701,18 @@ function getCubicRoots(pa, pb, pc, pd) {
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                 3           2             2      3
-                              Bézier(t) = x (1-t)  + 3x (1-t) t + 3x (1-t)t  + x t                            
-                                           1           2            3           4
-                                    \prime            2                2                                      
-                              Bézier      (t) = a(1-t)  + 2b(1-t)t + ct   { a=3(x -x ),b=3(x -x ),c=3(x -x ) }
-                                                                                 2  1       3  2       4  3   
-                                    \prime\prime
-                              Bézier            (t) = u(1-t) + vt {u=2(b-a),v=2(c-b)}\                        
+                                                  3           2             2      3
+                               Bézier(t) = x (1-t)  + 3x (1-t) t + 3x (1-t)t  + x t                            
+                                            1           2            3           4
+                                     \prime            2                2                                      
+                               Bézier      (t) = a(1-t)  + 2b(1-t)t + ct   { a=3(x -x ),b=3(x -x ),c=3(x -x ) }
+                                                                                  2  1       3  2       4  3   
+                                     \prime\prime
+                               Bézier            (t) = u(1-t) + vt {u=2(b-a),v=2(c-b)}\                        
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/inflections/f9f2258e59b038659087a5e87ba2e0af.svg"
+							src="./images/chapters/inflections/35299f4eb8e0bed76b68c7beb2038031.svg"
 							width="601px"
 							height="71px"
 							loading="lazy"
@@ -4731,7 +4731,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/inflections/be9e409d619ecd735b0fbc219bec6d07.svg"
+							src="./images/chapters/inflections/8278b9bec92ae49927283396692b51d5.svg"
 							width="399px"
 							height="69px"
 							loading="lazy"
@@ -5117,30 +5117,30 @@ function getCubicRoots(pa, pb, pc, pd) {
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                               ╭                           (-x +x )(-y +y )                ╮
-                                               │                              1  2    1  4                 │
-                                               │                -x  + x  - ────────────────                │
-                                               │                  1    4        -y +y                      │
-                                               │                                  1  2                     │
-                                               │                ───────────────────────────                │
-                                               │                         (-x +x )(-y +y )                  │
-                                               │                            1  2    1  3                   │
-                                               │                  -x +x -────────────────                  │
-                                               │                    1  3      -y +y                        │
-                               mapped  = (x) = │                                1  2                       │
-                                     4    y    │            ╭     -y +y  ╮ ╭            (-x +x )(-y +y ) ╮ │
-                                               │            │       1  3 │ │               1  2    1  4  │ │
-                                               │            │ 1 - ────── │ │ -x  + x  - ──────────────── │ │
-                                               │ (-y +y )   │     -y +y  │ │   1    4        -y +y       │ │
-                                               │    1  4    ╰       1  2 ╯ ╰                   1  2      ╯ │
-                                               │ ──────── + ────────────────────────────────────────────── │
-                                               │  -y +y                       (-x +x )(-y +y )             │
-                                               │    1  2                         1  2    1  3              │
-                                               │                       -x +x -────────────────             │
-                                               │                         1  3      -y +y                   │
-                                               ╰                                     1  2                  ╯
+                                                ╭                           (-x +x )(-y +y )                ╮
+                                                │                              1  2    1  4                 │
+                                                │                -x  + x  - ────────────────                │
+                                                │                  1    4        -y +y                      │
+                                                │                                  1  2                     │
+                                                │                ───────────────────────────                │
+                                                │                         (-x +x )(-y +y )                  │
+                                                │                            1  2    1  3                   │
+                                                │                  -x +x -────────────────                  │
+                                                │                    1  3      -y +y                        │
+                                mapped  = (x) = │                                1  2                       │
+                                      4    y    │            ╭     -y +y  ╮ ╭            (-x +x )(-y +y ) ╮ │
+                                                │            │       1  3 │ │               1  2    1  4  │ │
+                                                │            │ 1 - ────── │ │ -x  + x  - ──────────────── │ │
+                                                │ (-y +y )   │     -y +y  │ │   1    4        -y +y       │ │
+                                                │    1  4    ╰       1  2 ╯ ╰                   1  2      ╯ │
+                                                │ ──────── + ────────────────────────────────────────────── │
+                                                │  -y +y                       (-x +x )(-y +y )             │
+                                                │    1  2                         1  2    1  3              │
+                                                │                       -x +x -────────────────             │
+                                                │                         1  3      -y +y                   │
+                                                ╰                                     1  2                  ╯
 -->
-					<img class="LaTeX SVG" src="./images/chapters/canonical/e61fd49e554a0ffc7d64893c75cd376d.svg" width="455px" height="91px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/canonical/fff37fa4275e43302f71cf052417a19f.svg" width="455px" height="91px" loading="lazy" />
 					<p>
 						Okay, well, that looks plain ridiculous, but: notice that every coordinate value is being offset by the initial translation, and also
 						notice that <em>a lot</em> of terms in that expression are repeated. Even though the maths looks crazy as a single expression, we can just
@@ -5266,18 +5266,20 @@ function getCubicRoots(pa, pb, pc, pd) {
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                x(t) = a(1-t)³ + 3b(1-t)²t + 3c(1-t)t² + dt³
+                                                             3          2            2     3
+                                                x(t) = a(1-t)  + 3b(1-t) t + 3c(1-t)t  + dt 
 -->
-					<img class="LaTeX SVG" src="./images/chapters/yforx/316e7fae61e10014000d770209779ab6.svg" width="335px" height="19px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/yforx/378d0fd8cefa688d530ac38930d66844.svg" width="335px" height="19px" loading="lazy" />
 					<p>
 						We can rewrite this to a plain polynomial form, by just fully writing out the expansion and then collecting the polynomial factors, as:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                      x(t) = (-a + 3b- 3c + d)t³ + (3a - 6b + 3c)t² + (-3a + 3b)t + a
+                                                               3                  2
+                                      x(t) = (-a + 3b- 3c + d)t  + (3a - 6b + 3c)t  + (-3a + 3b)t + a
 -->
-					<img class="LaTeX SVG" src="./images/chapters/yforx/4d23ee228c5b1cbc40e380496c2184d1.svg" width="445px" height="19px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/yforx/021718d3b46893b271f90083ccdceaf8.svg" width="445px" height="19px" loading="lazy" />
 					<p>
 						Nothing special here: that's a standard cubic polynomial in "power" form (i.e. all the terms are ordered by their power of
 						<code>t</code>). So, given that <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code>, <em>and</em> <code>x(t)</code> are all
@@ -5286,9 +5288,10 @@ function getCubicRoots(pa, pb, pc, pd) {
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                     (-a + 3b - 3c + d)t³ + (3a - 6b + 3c)t² + (-3a + 3b)t + (a-x) = 0
+                                                        3                  2
+                                     (-a + 3b - 3c + d)t  + (3a - 6b + 3c)t  + (-3a + 3b)t + (a-x) = 0
 -->
-					<img class="LaTeX SVG" src="./images/chapters/yforx/699459d89ca6622c90c1e42e4aa03f32.svg" width="465px" height="19px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/yforx/058a76e3e7d67c03f733e075829a6252.svg" width="465px" height="19px" loading="lazy" />
 					<p>
 						You might be wondering "where did all the other 'minus x' for all the other values a, b, c, and d go?" and the answer there is that they
 						all cancel out, so the only one we actually need to subtract is the one at the end. Handy! So now we just solve this equation using
@@ -5392,7 +5395,7 @@ y = curve.get(t).y</textarea
                                                     length =  |  ⟍│(dx/dt) +(dy/dt)   dt
                                                               ╯ 0
 -->
-					<img class="LaTeX SVG" src="./images/chapters/arclength/2f80643c66d8f1448b13537a7b24eb45.svg" width="245px" height="35px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/arclength/85620f0332fcf16f56c580794fd094c5.svg" width="245px" height="35px" loading="lazy" />
 					<p>
 						This formula says that the length of a parametric curve is in fact equal to the <strong>area</strong> underneath a function that looks a
 						remarkable amount like Pythagoras' rule for computing the diagonal of a straight angled triangle. This sounds pretty simple, right? Sadly,
@@ -5423,13 +5426,13 @@ y = curve.get(t).y</textarea
      
      ┌─────────────────┐
 ╭ 1  │       2        2        ╭ 1
-|   ⟍│(dx/dt) +(dy/dt)   dt =  |   f(t) dt  ≃ ┌ \undersetstrip 1 \underbrace C   · f(t )   + ...  + \undersetstrip n \underbrace C   · f(t )  ┐ =
-╯ -1                           ╯ -1           └                               1       1                                           n       n   ┘
-                                                                                   __ n
-                                           \undersetstrips 1 through n \underbrace ❯      C   · f(t )   
-                                                                                   ‾‾ i=1  i       i
+|   ⟍│(dx/dt) +(dy/dt)   dt =  |   f(t) dt  ≃ ┌ \underset strip 1 \underbrace C   · f(t )   + ...  + \underset strip n \underbrace C   · f(t )  ┐ =
+╯ -1                           ╯ -1           └                                1       1                                            n       n   ┘
+                                                                                    __ n
+                                           \underset strips 1 through n \underbrace ❯      C   · f(t )   
+                                                                                    ‾‾ i=1  i       i
 -->
-					<img class="LaTeX SVG" src="./images/chapters/arclength/f251e86158649c0e57f7a772ebff83b4.svg" width="636px" height="71px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/arclength/b76753476ad6ecfe4b8f39bcf9432980.svg" width="623px" height="71px" loading="lazy" />
 					<p>
 						In plain text: an integral function can always be treated as the sum of an (infinite) number of (infinitely thin) rectangular strips
 						sitting "under" the function's plotted graph. To illustrate this idea, the following graph shows the integral for a sinusoid function. The
@@ -6268,10 +6271,10 @@ lli = function(line1, line2):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                   C = u(t)  · P      + (1-u(t))  · P   
-                                                                start                end
+                                                  C = u(t)  · P       + (1-u(t))  · P    
+                                                                start                 end
 -->
-					<img class="LaTeX SVG" src="./images/chapters/abc/6a65a8327c06bc6f14cc4e0751d8e49e.svg" width="236px" height="16px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/8c6662f605722fb2ff6cd7f65243a126.svg" width="229px" height="16px" loading="lazy" />
 					<p>
 						If we can figure out what the function <code>u(t)</code> looks like, we'll be done. Although we do need to remember that this
 						<code>u(t)</code> will have a different form depending on whether we're working with quadratic or cubic curves.
@@ -6283,24 +6286,24 @@ lli = function(line1, line2):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                               2
-                                                                          (1-t) 
-                                                        u(t)          = ───────────
-                                                            quadratic    2        2
-                                                                        t  + (1-t) 
+                                                                                2
+                                                                           (1-t) 
+                                                        u(t)           = ───────────
+                                                             quadratic    2        2
+                                                                         t  + (1-t) 
 -->
-					<img class="LaTeX SVG" src="./images/chapters/abc/c10cf18edeffed67dc94d250310db475.svg" width="188px" height="41px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/8e7cfee39c98f2ddf9b635a914066cf6.svg" width="183px" height="41px" loading="lazy" />
 					<p>And</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                             3
-                                                                        (1-t) 
-                                                          u(t)      = ───────────
-                                                              cubic    3        3
-                                                                      t  + (1-t) 
+                                                                              3
+                                                                         (1-t) 
+                                                          u(t)       = ───────────
+                                                               cubic    3        3
+                                                                       t  + (1-t) 
 -->
-					<img class="LaTeX SVG" src="./images/chapters/abc/50543216f39c1b10af7cf4823844dd31.svg" width="167px" height="41px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/a0b99054cc82ca1fb147f077e175ef10.svg" width="161px" height="41px" loading="lazy" />
 					<p>
 						So, if we know the start and end coordinates and the <em>t</em> value, we know C without having to calculate the <code>A</code> or even
 						<code>B</code> coordinates. In fact, we can do the same for the ratio function. As another function of <code>t</code>, we technically
@@ -6311,33 +6314,33 @@ lli = function(line1, line2):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                               distance(B,C)
-                                                    ratio(t) = ───────────── = Constant
-                                                               distance(A,B)
+                                                                distance(B,C)
+                                                    ratio(t) = ────────────── =  Constant
+                                                                distance(A,B)
 -->
-					<img class="LaTeX SVG" src="./images/chapters/abc/b9854fbcb1096f736607d292dbe48371.svg" width="251px" height="39px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/131454dcbac04e567f322979f4af80c6.svg" width="245px" height="39px" loading="lazy" />
 					<p>Working out the maths for this, we see the following two formulae for quadratic and cubic curves:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                         2        2
-                                                                        t  + (1-t)  - 1
-                                                   ratio(t)          = |───────────────|
-                                                           quadratic       2        2
-                                                                          t  + (1-t) 
+                                                                          2        2
+                                                                         t  + (1-t)  - 1
+                                                   ratio(t)           = |───────────────|
+                                                            quadratic       2        2
+                                                                           t  + (1-t) 
 -->
-					<img class="LaTeX SVG" src="./images/chapters/abc/f78ce50f725f208f25090abc7fd741b7.svg" width="245px" height="41px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/5924e162b50272c40c842fad14b8fa48.svg" width="239px" height="41px" loading="lazy" />
 					<p>And</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                       3        3
-                                                                      t  + (1-t)  - 1
-                                                     ratio(t)      = |───────────────|
-                                                             cubic       3        3
-                                                                        t  + (1-t) 
+                                                                        3        3
+                                                                       t  + (1-t)  - 1
+                                                     ratio(t)       = |───────────────|
+                                                              cubic       3        3
+                                                                         t  + (1-t) 
 -->
-					<img class="LaTeX SVG" src="./images/chapters/abc/c018aab3952ea9193848564aab12b241.svg" width="223px" height="41px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/8cd992c1ceaae2e67695285beef23a24.svg" width="219px" height="41px" loading="lazy" />
 					<p>
 						Which now leaves us with some powerful tools: given three points (start, end, and "some point on the curve"), as well as a
 						<code>t</code> value, we can <em>construct</em> curves. We can compute <code>C</code> using the start and end points and our
@@ -6347,11 +6350,11 @@ lli = function(line1, line2):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                               C - B          B - C
-                                                      A = B - ──────── = B + ────────
-                                                              ratio(t)       ratio(t)
+                                                               C - B           B - C
+                                                     A = B - ───────── = B + ─────────
+                                                              ratio(t)        ratio(t)
 -->
-					<img class="LaTeX SVG" src="./images/chapters/abc/bb8674f5f36b054b7734e34b91ed924f.svg" width="217px" height="37px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/51a9d0588be822a5c80ea38f7d348641.svg" width="215px" height="37px" loading="lazy" />
 					<p>
 						With <code>A</code> found, finding <code>e1</code> and <code>e2</code> for quadratic curves is a matter of running the linear
 						interpolation with <code>t</code> between start and <code>A</code> to yield <code>e1</code>, and between <code>A</code> and end to yield
@@ -6376,16 +6379,16 @@ lli = function(line1, line2):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                         ╭              v  - start
-                                                         │               1
-                                                         │ C '= start + ──────────
-                                                         ╡  1               t      
-                                                         │            v  - end
-                                                         │             2
-                                                         │ C '= end + ────────    
-                                                         ╰  2          1 - t
+                                                        ╭               v  -  start
+                                                        │                1
+                                                        │ C '=  start + ───────────
+                                                        ╡  1                 t      
+                                                        │             v  -  end
+                                                        │              2
+                                                        │ C '=  end + ─────────    
+                                                        ╰  2            1 - t
 -->
-					<img class="LaTeX SVG" src="./images/chapters/abc/c14d8ce6eccca2c8063af40e5ac0bfd4.svg" width="164px" height="73px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/634d373310711268cc188f45e5699d8d.svg" width="163px" height="73px" loading="lazy" />
 					<p>
 						So: if we have a curve's start and end points, then for any <code>t</code> value we implicitly know all the ABC values, which (combined
 						with an educated guess on appropriate <code>e1</code> and <code>e2</code> coordinates for cubic curves) gives us the necessary information
@@ -6701,12 +6704,12 @@ for (coordinate, index) in LUT:
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                             dist(B(t), c) = r
+                                                              dist(B(t), c) = r
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circleintersection/674c42035da16a426ef7fe23277eea11.svg"
-						width="108px"
+						src="./images/chapters/circleintersection/373248ec6a579bacf6c6a317e6db597a.svg"
+						width="107px"
 						height="16px"
 						loading="lazy"
 					/>
@@ -6714,7 +6717,7 @@ for (coordinate, index) in LUT:
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-      r= dist(B(t), c)                                                                                                               
+      r=  dist(B(t), c)                                                                                                              
           ┌─────────────────────────┐
           │          2             2
        =  │(B t - c )  + (B t - c )                                                                                                  
@@ -6726,7 +6729,7 @@ for (coordinate, index) in LUT:
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circleintersection/3e0594855ca99fb87dcc65a693e1ad22.svg"
+						src="./images/chapters/circleintersection/2f42c862a0a9d0764727d42b16cf68a0.svg"
 						width="811px"
 						height="103px"
 						loading="lazy"
@@ -6993,20 +6996,20 @@ findClosest(start, p, r, LUT):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                   C = u(t)   · Start + (1-u(t) )  · End
-                                                           q                   q
+                                                  C = u(t)   ·  Start + (1-u(t) )  ·  End
+                                                          q                    q
 -->
-					<img class="LaTeX SVG" src="./images/chapters/molding/70262c533569a7da06cc1b950e932d6f.svg" width="248px" height="24px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/molding/48887d68a861a0acdf8313e23fb19880.svg" width="247px" height="24px" loading="lazy" />
 					<p>And then the associated <code>A</code>:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                               C - B           B - C
-                                                     A = B - ───────── = B + ─────────
-                                                             ratio(t)        ratio(t) 
-                                                                     q               q
+                                                              C - B            B - C
+                                                    A = B - ────────── = B + ──────────
+                                                             ratio(t)         ratio(t) 
+                                                                     q                q
 -->
-					<img class="LaTeX SVG" src="./images/chapters/molding/6f12fcc00f4106bbc920d7451398d3b2.svg" width="231px" height="41px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/molding/2e65bc9c934380c2de6a24bcd5c1c7b7.svg" width="228px" height="41px" loading="lazy" />
 					<p>And we're done, because that's our new quadratic control point!</p>
 					<graphics-element
 						title="Molding a quadratic Bézier curve"
@@ -7143,15 +7146,15 @@ findClosest(start, p, r, LUT):
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
                                                                    2                    2
-                                                B         = a (1-t)  + 2 b (1-t) t + c t    
+                                               B          = a (1-t)  + 2 b (1-t) t + c t    
                                                  quadratic                                  
                                                                         2            2     2
                                                           = a - 2at + at  + 2bt - 2bt  + ct 
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/31d659cbc72bf304abf4c9a75b6b81de.svg"
-							width="295px"
+							src="./images/chapters/curvefitting/dd303afb51d580fb2bf1b914c010f83d.svg"
+							width="287px"
 							height="43px"
 							loading="lazy"
 						/>
@@ -7159,16 +7162,16 @@ findClosest(start, p, r, LUT):
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                        B         =a               
-                                                         quadratic
-                                                                   - 2at+ 2bt      
-                                                                       2     2    2
-                                                                   + at - 2bt + ct 
+                                                        B          =a               
+                                                          quadratic
+                                                                    - 2at+ 2bt      
+                                                                        2     2    2
+                                                                    + at - 2bt + ct 
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/a6faaf6083c818431988fef49421cc47.svg"
-							width="216px"
+							src="./images/chapters/curvefitting/ff701138fd7a6e35700a2e1ee3e9c020.svg"
+							width="209px"
 							height="64px"
 							loading="lazy"
 						/>
@@ -7182,13 +7185,13 @@ findClosest(start, p, r, LUT):
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
                                                                  ┌  a   0  0 ┐                 ┌  1  0 0 ┐    ┌ a ┐
-                         B         = T  · M  · C = ┌      2 ┐  · │ -2a  2b 0 │ = ┌      2 ┐  · │ -2  2 0 │  · │ b │
+                        B          = T  · M  · C = ┌      2 ┐  · │ -2a  2b 0 │ = ┌      2 ┐  · │ -2  2 0 │  · │ b │
                           quadratic                └ 1 t t  ┘    └  a  -2b c ┘   └ 1 t t  ┘    └  1 -2 1 ┘    └ c ┘
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/505ab1ada6a187e9ba392d19739ac2c5.svg"
-							width="572px"
+							src="./images/chapters/curvefitting/134baa1043d0849f31a1943d6d5bc607.svg"
+							width="565px"
 							height="53px"
 							loading="lazy"
 						/>
@@ -7196,14 +7199,14 @@ findClosest(start, p, r, LUT):
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                            3          2             2     3
-                                               B     =a(1-t)  + 3b(1-t)  t + 3c(1-t)t  + dt 
-                                                cubic
+                                                             3          2             2     3
+                                               B      =a(1-t)  + 3b(1-t)  t + 3c(1-t)t  + dt 
+                                                 cubic
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/06605e008956609e8844ef95697c9096.svg"
-							width="355px"
+							src="./images/chapters/curvefitting/17d5fbeffcdcceca98cdba537295d258.svg"
+							width="351px"
 							height="19px"
 							loading="lazy"
 						/>
@@ -7211,18 +7214,18 @@ findClosest(start, p, r, LUT):
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                       B     =a                     
-                                                        cubic
-                                                              - 3at + 3bt           
-                                                                   2     2    2     
-                                                              + 3at - 6bt +3ct      
-                                                                  3      3    3    3
-                                                              - at  + 3bt -3ct + dt 
+                                                       B      =a                     
+                                                         cubic
+                                                               - 3at + 3bt           
+                                                                    2     2    2     
+                                                               + 3at - 6bt +3ct      
+                                                                   3      3    3    3
+                                                               - at  + 3bt -3ct + dt 
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/7c6b50cee5dc685515943a199d7a65fc.svg"
-							width="248px"
+							src="./images/chapters/curvefitting/8928f757abd1376abdc4069e1aa774f2.svg"
+							width="244px"
 							height="87px"
 							loading="lazy"
 						/>
@@ -7231,14 +7234,14 @@ findClosest(start, p, r, LUT):
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
                                                                               ┌  1  0  0 0 ┐    ┌ a ┐
-                                       B     = T  · M  · C = ┌      2  3 ┐  · │ -3  3  0 0 │  · │ b │
+                                      B      = T  · M  · C = ┌      2  3 ┐  · │ -3  3  0 0 │  · │ b │
                                         cubic                └ 1 t t  t  ┘    │  3 -6  3 0 │    │ c │
                                                                               └ -1  3 -3 1 ┘    └ d ┘
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/9651a687e1522b00bcba063881230902.svg"
-							width="404px"
+							src="./images/chapters/curvefitting/4e6e20c823c8cc72e0cc00e4ab5b7556.svg"
+							width="401px"
 							height="72px"
 							loading="lazy"
 						/>
@@ -7248,14 +7251,14 @@ findClosest(start, p, r, LUT):
  
                                                                               ┌  1  0   0   0 0 ┐    ┌ a ┐
                                                                               │ -4  4   0   0 0 │    │ b │
-                                  B       = T  · M  · C = ┌      2  3  4 ┐  · │  6 -12  6   0 0 │  · │ c │
+                                 B        = T  · M  · C = ┌      2  3  4 ┐  · │  6 -12  6   0 0 │  · │ c │
                                    quartic                └ 1 t t  t  t  ┘    │ -4  12 -12  4 0 │    │ d │
                                                                               └  1  -4  6  -4 1 ┘    └ e ┘
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/409d10c3005b0c93489d72a5dba692d7.svg"
-							width="491px"
+							src="./images/chapters/curvefitting/8a66af7570bac674966f6316820ea31b.svg"
+							width="485px"
 							height="92px"
 							loading="lazy"
 						/>
@@ -7358,13 +7361,13 @@ findClosest(start, p, r, LUT):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                                  2
-                                                        E(C)  = (p  -  Bézier(s )) 
-                                                            i     i            i
+                                                                                   2
+                                                        E(C)  = (p  -   Bézier(s )) 
+                                                            i     i             i
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/curvefitting/464dbfb5adb6233108053dfac6fa4fe5.svg"
+						src="./images/chapters/curvefitting/d39ca235454ced9681b523be056864d2.svg"
 						width="177px"
 						height="23px"
 						loading="lazy"
@@ -7376,13 +7379,13 @@ findClosest(start, p, r, LUT):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                            __ n                     2
-                                                     E(C) = ❯      (p  -  Bézier(s )) 
-                                                            ‾‾ i=1   i            i
+                                                            __ n                      2
+                                                     E(C) = ❯      (p  -   Bézier(s )) 
+                                                            ‾‾ i=1   i             i
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/curvefitting/940455f4016ab1be6d46c6f176fd2f76.svg"
+						src="./images/chapters/curvefitting/097aa1948b6cdbf9dc7579643a7af246.svg"
 						width="195px"
 						height="41px"
 						loading="lazy"
@@ -7636,8 +7639,8 @@ findClosest(start, p, r, LUT):
                                                ┌ P  ┐         │  V  = P       │
                                                │  1 │         │   2    3      │
                                                │ P  │         │       P  - P  │
-                                               │  2 │       = │        3    1 │             
-                                               │ P  │points   │ V'  = ─────── │point-tangent
+                                               │  2 │       = │        3    1 │              
+                                               │ P  │points   │ V'  = ─────── │ point-tangent
                                                │  3 │         │   1      2    │
                                                │ P  │         │       P  - P  │
                                                └  4 ┘         │        4    2 │
@@ -7646,8 +7649,8 @@ findClosest(start, p, r, LUT):
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/catmullconv/00357d2a2168fe313cd0b38d95a1a681.svg"
-						width="287px"
+						src="./images/chapters/catmullconv/639ca0b74a805c3aebac79b181eac908.svg"
+						width="272px"
 						height="88px"
 						loading="lazy"
 					/>
@@ -7771,18 +7774,18 @@ for p = 1 to points.length-3 (inclusive):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                                            ┌ V   ┐
-                                                                                            │  1  │
-                                                                         ┌  1  0  0 0  ┐    │ V   │
-                                        CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
-                                                        └ 1 t t  t  ┘    │ -3  3 -2 -1 │    │ V'  │
-                                                                         └  2 -2  1 1  ┘    │   1 │
-                                                                                            │ V'  │
-                                                                                            └   2 ┘
+                                                                                             ┌ V   ┐
+                                                                                             │  1  │
+                                                                          ┌  1  0  0 0  ┐    │ V   │
+                                         CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
+                                                         └ 1 t t  t  ┘    │ -3  3 -2 -1 │    │ V'  │
+                                                                          └  2 -2  1 1  ┘    │   1 │
+                                                                                             │ V'  │
+                                                                                             └   2 ┘
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/catmullconv/8d3a5ca7188f53b914229133b3dbe5fe.svg"
+						src="./images/chapters/catmullconv/98ddf6415bd9827a6d899b21d0a5f736.svg"
 						width="409px"
 						height="75px"
 						loading="lazy"
@@ -7914,18 +7917,18 @@ for p = 1 to points.length-3 (inclusive):
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                                            ┌ V   ┐
-                                                                                            │  1  │
-                                                                         ┌  1  0  0 0  ┐    │ V   │
-                                        CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
-                                                        └ 1 t t  t  ┘    │ -3  3 -2 -1 │    │ V'  │
-                                                                         └  2 -2  1 1  ┘    │   1 │
-                                                                                            │ V'  │
-                                                                                            └   2 ┘
+                                                                                             ┌ V   ┐
+                                                                                             │  1  │
+                                                                          ┌  1  0  0 0  ┐    │ V   │
+                                         CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
+                                                         └ 1 t t  t  ┘    │ -3  3 -2 -1 │    │ V'  │
+                                                                          └  2 -2  1 1  ┘    │   1 │
+                                                                                             │ V'  │
+                                                                                             └   2 ┘
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/1f9fc156aeed9eb092573cd7446593d9.svg"
+							src="./images/chapters/catmullconv/902c290a790b4d44d10236f4a1456cdc.svg"
 							width="409px"
 							height="75px"
 							loading="lazy"
@@ -7934,18 +7937,18 @@ for p = 1 to points.length-3 (inclusive):
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                                   ┌  0  1  0 0  ┐    ┌ P  ┐
-                                                                                   │  0  0  1 0  │    │  1 │
-                                                                ┌  1  0  0 0  ┐    │ -1    1     │    │ P  │
-                               CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │ ──  0 ── 0  │  · │  2 │
-                                               └ 1 t t  t  ┘    │ -3  3 -2 -1 │    │ 2τ    2τ    │    │ P  │
-                                                                └  2 -2  1 1  ┘    │    -1    1  │    │  3 │
-                                                                                   │  0 ──  0 ── │    │ P  │
-                                                                                   └    2τ    2τ ┘    └  4 ┘
+                                                                                    ┌  0  1  0 0  ┐    ┌ P  ┐
+                                                                                    │  0  0  1 0  │    │  1 │
+                                                                 ┌  1  0  0 0  ┐    │ -1    1     │    │ P  │
+                                CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │ ──  0 ── 0  │  · │  2 │
+                                                └ 1 t t  t  ┘    │ -3  3 -2 -1 │    │ 2τ    2τ    │    │ P  │
+                                                                 └  2 -2  1 1  ┘    │    -1    1  │    │  3 │
+                                                                                    │  0 ──  0 ── │    │ P  │
+                                                                                    └    2τ    2τ ┘    └  4 ┘
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/defc6fa4b51fa3c1945d15449f0f392d.svg"
+							src="./images/chapters/catmullconv/032409c03915a6ba75864e1dceae416d.svg"
 							width="549px"
 							height="81px"
 							loading="lazy"
@@ -7967,7 +7970,7 @@ for p = 1 to points.length-3 (inclusive):
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/8a2a00812363fe1a6cfa7f81b48d31d1.svg"
+							src="./images/chapters/catmullconv/e653724c11600cbf682f1c809c8c6508.svg"
 							width="455px"
 							height="84px"
 							loading="lazy"
@@ -7987,7 +7990,7 @@ for p = 1 to points.length-3 (inclusive):
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/c1f8861583b4176a9b607aa6a05f9356.svg"
+							src="./images/chapters/catmullconv/389a1ea8c9e92df9a2b38718e34bae7b.svg"
 							width="353px"
 							height="73px"
 							loading="lazy"
@@ -8152,18 +8155,18 @@ for p = 1 to points.length-3 (inclusive):
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                                            ┌ V   ┐
-                                                                                            │  1  │
-                                                                         ┌  1  0  0 0  ┐    │ V   │
-                                        CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
-                                                        └ 1 t t  t  ┘    │ -3  3 -2 -1 │    │ V'  │
-                                                                         └  2 -2  1 1  ┘    │   1 │
-                                                                                            │ V'  │
-                                                                                            └   2 ┘
+                                                                                             ┌ V   ┐
+                                                                                             │  1  │
+                                                                          ┌  1  0  0 0  ┐    │ V   │
+                                         CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
+                                                         └ 1 t t  t  ┘    │ -3  3 -2 -1 │    │ V'  │
+                                                                          └  2 -2  1 1  ┘    │   1 │
+                                                                                             │ V'  │
+                                                                                             └   2 ┘
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/catmullconv/1f9fc156aeed9eb092573cd7446593d9.svg"
+							src="./images/chapters/catmullconv/902c290a790b4d44d10236f4a1456cdc.svg"
 							width="409px"
 							height="75px"
 							loading="lazy"
@@ -8300,21 +8303,21 @@ for p = 1 to points.length-3 (inclusive):
  
                                                                          ┌     P       ┐
                                                                          │      2      │
-                                            ┌ P  ┐                       │      P -P   │
-                                            │  1 │                       │       3  1  │
-                                            │ P  │                       │ P  + ────── │
-                                            │  2 │           \Rightarrow │  2   6  · τ │       
-                                            │ P  │CatmullRom             │      P -P   │ Bézier
-                                            │  3 │                       │       4  2  │
-                                            │ P  │                       │ P  - ────── │
-                                            └  4 ┘                       │  3   6  · τ │
+                                           ┌ P  ┐                        │      P -P   │
+                                           │  1 │                        │       3  1  │
+                                           │ P  │                        │ P  + ────── │
+                                           │  2 │            \Rightarrow │  2   6  · τ │        
+                                           │ P  │ CatmullRom             │      P -P   │  Bézier
+                                           │  3 │                        │       4  2  │
+                                           │ P  │                        │ P  - ────── │
+                                           └  4 ┘                        │  3   6  · τ │
                                                                          │     P       │
                                                                          └      3      ┘
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/catmullconv/c0e30b49fbfce6f6b3c81eaa6ca5154f.svg"
-						width="249px"
+						src="./images/chapters/catmullconv/a323848e706c473833cda0b02bc220ef.svg"
+						width="241px"
 						height="85px"
 						loading="lazy"
 					/>
@@ -8325,19 +8328,19 @@ for p = 1 to points.length-3 (inclusive):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                          ┌ P  ┐                    ┌       P         ┐
-                                          │  1 │                    │        1        │
-                                          │ P  │                    │       P         │
-                                          │  2 │        \Rightarrow │        4        │          
-                                          │ P  │ Bézier             │ P  + 3(P  - P ) │CatmullRom
-                                          │  3 │                    │  4      1    2  │
-                                          │ P  │                    │ P  + 3(P  - P ) │
-                                          └  4 ┘                    └  1      4    3  ┘
+                                         ┌ P  ┐                     ┌       P         ┐
+                                         │  1 │                     │        1        │
+                                         │ P  │                     │       P         │
+                                         │  2 │         \Rightarrow │        4        │           
+                                         │ P  │  Bézier             │ P  + 3(P  - P ) │ CatmullRom
+                                         │  3 │                     │  4      1    2  │
+                                         │ P  │                     │ P  + 3(P  - P ) │
+                                         └  4 ┘                     └  1      4    3  ┘
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/catmullconv/d09e7466c267614c89ead28d6a900ba1.svg"
-						width="284px"
+						src="./images/chapters/catmullconv/9ae99b090883023a485be7be098858e9.svg"
+						width="276px"
 						height="77px"
 						loading="lazy"
 					/>
@@ -8345,19 +8348,19 @@ for p = 1 to points.length-3 (inclusive):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                          ┌ P  ┐                    ┌ P  + 6(P  - P ) ┐
-                                          │  1 │                    │  4      1    2  │
-                                          │ P  │                    │       P         │
-                                          │  2 │        \Rightarrow │        1        │          
-                                          │ P  │ Bézier             │       P         │CatmullRom
-                                          │  3 │                    │        4        │
-                                          │ P  │                    │ P  + 6(P  - P ) │
-                                          └  4 ┘                    └  1      4    3  ┘
+                                         ┌ P  ┐                     ┌ P  + 6(P  - P ) ┐
+                                         │  1 │                     │  4      1    2  │
+                                         │ P  │                     │       P         │
+                                         │  2 │         \Rightarrow │        1        │           
+                                         │ P  │  Bézier             │       P         │ CatmullRom
+                                         │  3 │                     │        4        │
+                                         │ P  │                     │ P  + 6(P  - P ) │
+                                         └  4 ┘                     └  1      4    3  ┘
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/catmullconv/9593c057c84ebf9beb70fd57a11c7e12.svg"
-						width="284px"
+						src="./images/chapters/catmullconv/012a8ab7a4de935c1c8d61dcd14fc62c.svg"
+						width="276px"
 						height="77px"
 						loading="lazy"
 					/>
@@ -8454,7 +8457,7 @@ for p = 1 to points.length-3 (inclusive):
                                                            │ B  + (B  - A ) │   │ 2B  - A  │
                                                            └  y     y    y  ┘   └   y    y ┘
 -->
-					<img class="LaTeX SVG" src="./images/chapters/polybezier/ec93d3c42f0ae52a05d0aff9739675e5.svg" width="304px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/polybezier/2249056953a47ab1944bb5a41dcbed8c.svg" width="301px" height="40px" loading="lazy" />
 					<p>
 						So let's implement that and see what it gets us. The following two graphics show a quadratic and a cubic poly-Bézier curve again, but this
 						time moving the control points around moves others, too. However, you might see something unexpected going on for quadratic curves...
@@ -9274,13 +9277,13 @@ for p = 1 to points.length-3 (inclusive):
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
                                                                               ╭ 1 ╮        1     4
-                                        ||A,C|| = d  + d  = d  + d   · ratio  │ ─ │ = d  + ─d  = ─d 
-                                                   2    1    2    2         3 ╰ 2 ╯    2   3 2   3 2
+                                       ||A,C|| = d  + d  = d  + d   ·  ratio  │ ─ │ = d  + ─d  = ─d 
+                                                  2    1    2    2          3 ╰ 2 ╯    2   3 2   3 2
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/750e2c874fb58237608ebade1589fccc.svg"
-							width="397px"
+							src="./images/chapters/circles_cubic/c509dc6fecd7992cb45a0b4d8f1bd001.svg"
+							width="396px"
 							height="40px"
 							loading="lazy"
 						/>
@@ -9428,14 +9431,14 @@ for p = 1 to points.length-3 (inclusive):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                           4     ╭ φ ╮
-                                                      C  = ┌ 1 ┐, with f = ─ tan │ ─ │
-                                                       1   └ f ┘           3     ╰ 4 ╯
+                                                                            4     ╭ φ ╮
+                                                     C  = ┌ 1 ┐ ,  with f = ─ tan │ ─ │
+                                                      1   └ f ┘             3     ╰ 4 ╯
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/38b58b3c759b9bf340a3cf3de8bc599e.svg"
-						width="205px"
+						src="./images/chapters/circles_cubic/496c0ee8945080a32bc02f78bc83ad43.svg"
+						width="209px"
 						height="40px"
 						loading="lazy"
 					/>
@@ -9443,14 +9446,14 @@ for p = 1 to points.length-3 (inclusive):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                                    4     ╭ φ ╮
-                                            C  = ┌ cos(φ) + f  · sin(φ) ┐, with f = ─ tan │ ─ │
-                                             2   └ sin(φ) - f  · cos(φ) ┘           3     ╰ 4 ╯
+                                                                                     4     ╭ φ ╮
+                                           C  = ┌ cos(φ) + f  · sin(φ) ┐ ,  with f = ─ tan │ ─ │
+                                            2   └ sin(φ) - f  · cos(φ) ┘             3     ╰ 4 ╯
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/329dc34299d2fdb3c5f17828e3a23da0.svg"
-						width="321px"
+						src="./images/chapters/circles_cubic/065efe85cac2f359ea4d5d4bae94da97.svg"
+						width="325px"
 						height="40px"
 						loading="lazy"
 					/>
@@ -9729,13 +9732,13 @@ for p = 1 to points.length-3 (inclusive):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                   ╭       t-knot        ╮                ╭      knot     -t      ╮
-                                   │             i       │                │          (i+k)        │
-                         N   (t) = │ ─────────────────── │  · N     (t) + │ ───────────────────── │  · N       (t)
-                          i,k      │ knot        - knot  │     i,k-1      │ knot      - knot      │     i+1,k-1
-                                   ╰     (i+k-1)       i ╯                ╰     (i+k)       (i+1) ╯
+                                 ╭       t- knot         ╮                ╭       knot     -t       ╮
+                                 │              i        │                │           (i+k)         │
+                       N   (t) = │ ───────────────────── │  · N     (t) + │ ─────────────────────── │  · N       (t)
+                        i,k      │  knot        -  knot  │     i,k-1      │  knot      -  knot      │     i+1,k-1
+                                 ╰      (i+k-1)        i ╯                ╰      (i+k)        (i+1) ╯
 -->
-					<img class="LaTeX SVG" src="./images/chapters/bsplines/cbdf5a61de10eeb6f23be077cf047ab5.svg" width="559px" height="43px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/bsplines/2421f47aa4fe1c0d830d53b2e6563c04.svg" width="556px" height="43px" loading="lazy" />
 					<p>
 						So this is where we see the interpolation: N(t) for an <code>(i,k)</code> pair (that is, for a step in the above summation, on a specific
 						knot interval) is a mix between N(t) for <code>(i,k-1)</code> and N(t) for <code>(i+1,k-1)</code>, so we see that this is a recursive
@@ -9745,11 +9748,11 @@ for p = 1 to points.length-3 (inclusive):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                             ╭ 1 if  t ∈[knot ,knot   )
-                                                   N   (t) = ╡               i     i+1  
-                                                    i,1      ╰ 0       otherwise
+                                                            ╭ 1  if  t ∈[ knot , knot   )
+                                                  N   (t) = ╡                 i      i+1  
+                                                   i,1      ╰ 0         otherwise
 -->
-					<img class="LaTeX SVG" src="./images/chapters/bsplines/ee203de6e554936588eb93adead0a3e5.svg" width="240px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/bsplines/2514e1aa0565840e33fde0b146e3efe2.svg" width="237px" height="40px" loading="lazy" />
 					<p>
 						And this function finally has a straight up evaluation: if a <code>t</code> value lies within a knot-specific interval once we reach a
 						<code>k=1</code> value, it "counts", otherwise it doesn't. We did cheat a little, though, because for all these values we need to scale
@@ -9781,11 +9784,11 @@ for p = 1 to points.length-3 (inclusive):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                   t - knots[i]
-                                                      α    = ─────────────────────────
-                                                       i,k   knots[i+1+n-k] - knots[i]
+                                                                   t -  knots[i]
+                                                     α    = ───────────────────────────
+                                                      i,k    knots[i+1+n-k] -  knots[i]
 -->
-					<img class="LaTeX SVG" src="./images/chapters/bsplines/c7af721e5e201fc3742bce67ff6cd560.svg" width="255px" height="39px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/bsplines/e62558cdfd8abaf22511e8e68c7afb4a.svg" width="252px" height="39px" loading="lazy" />
 					<p>
 						That looks complicated, but it's not. Computing alpha is just a fraction involving known, plain numbers. And, once we have our alpha
 						value, we also have <code>(1-alpha)</code> because it's a trivial subtraction. Computing the <code>d()</code> function is thus mostly a
@@ -9796,11 +9799,11 @@ for p = 1 to points.length-3 (inclusive):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                          k           0                ╭ 1 if  t ∈[knot ,knot   )
-                                         d (t) = 0,  d (t) = N   (t) = ╡               i     i+1  
-                                          0           i       i,1      ╰ 0       otherwise
+                                         k           0                ╭ 1  if  t ∈[ knot , knot   )
+                                        d (t) = 0,  d (t) = N   (t) = ╡                 i      i+1  
+                                         0           i       i,1      ╰ 0         otherwise
 -->
-					<img class="LaTeX SVG" src="./images/chapters/bsplines/a88566be442b67fb71f727de6bdb66df.svg" width="368px" height="40px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/bsplines/49af474c33ce0ee0733626ea3d988570.svg" width="367px" height="40px" loading="lazy" />
 					<p>
 						So, we actually see two stopping conditions: either <code>i</code> becomes 0, in which case <code>d()</code> is zero, or
 						<code>k</code> becomes zero, in which case we get the same "either 1 or 0" that we saw in the N() function above.

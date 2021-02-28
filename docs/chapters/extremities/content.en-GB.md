@@ -33,7 +33,7 @@ Although with the [caveat](https://en.wikipedia.org/wiki/Caveat_emptor#Caveat_le
 The derivative of a cubic Bézier curve is a quadratic Bézier curve, and finding the roots for a quadratic polynomial means we can apply the [Quadratic formula](https://en.wikipedia.org/wiki/Quadratic_formula). If you've seen it before, you'll remember it, and if you haven't, it looks like this:
 
 \[
-  Given~f(t) = at^2 + bt + c,~f(t)=0~when~t = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+  \textit{Given}~f(t) = at^2 + bt + c,~f(t)=0 ~\textit{when}~ t = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 \]
 
 So, if we can rewrite the Bézier component function as a plain polynomial, we're done: we just plug in the values into the quadratic formula, check if that square root is negative or not (if it is, there are no roots) and then just compute the two values that come out (because of that plus/minus sign we get two). Any value between 0 and 1 is a root that matters for Bézier curves, anything below or above that is irrelevant (because Bézier curves are only defined over the interval [0,1]). So, how do we convert?
@@ -42,8 +42,8 @@ First we turn our cubic Bézier function into a quadratic one, by following the 
 
 \[
 \begin{array}{l}
-  B(t)~uses~\{ p_1,p_2,p_3,p_4 \} \\
-  B'(t)~uses~\{ v_1,v_2,v_3 \},~where~v_1 = 3(p_2-p_1),~v_2 = 3(p_3-p_2),~v_3 = 3(p_4-p_3)
+  B(t)~\textit{uses}~\{ p_1,p_2,p_3,p_4 \} \\
+  B'(t)~\textit{uses}~\{ v_1,v_2,v_3 \},~\textit{where}~v_1 = 3(p_2-p_1),~v_2 = 3(p_3-p_2),~v_3 = 3(p_4-p_3)
 \end{array}
 \]
 

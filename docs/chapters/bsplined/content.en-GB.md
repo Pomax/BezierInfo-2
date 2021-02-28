@@ -16,7 +16,7 @@ Thankfully, much like as was the case for Bézier curves, the derivative of a B-
 where
 
 \[
-  P_i \prime = \frac{d}{knot_{i+d+1} - knot_{i+1}} (P_{i+1} - P_i)
+  P_i \prime = \frac{d}{\textit{knot}_{i+d+1} - \textit{knot}_{i+1}} (P_{i+1} - P_i)
 \]
 
 
@@ -28,7 +28,7 @@ As a concrete example, let's look at cubic (=degree 3) B-Spline with five coordi
   \begin{array}{l}
     d = 3, \\
     P = {(50,240), (185,30), (320,135), (455,25), (560,255)}, \\
-    knots = {0,1,2,3,4,5,6,7,8}
+    \textit{knots} = {0,1,2,3,4,5,6,7,8}
   \end{array}
 \]
 
@@ -38,20 +38,20 @@ Applying the above knowledge, we end up with a new B-Spline of degree <em>d-1</e
 
 \[
   \begin{array}{l}
-    P_0 \prime = \frac{d}{knot_{i+d+1} - knot_{i+1}} (P_{i+1} - P_i)
-    = \frac{3}{knot_{4} - knot_{1}} (P_1 - P_0)
+    P_0 \prime = \frac{d}{\textit{knot}_{i+d+1} - \textit{knot}_{i+1}} (P_{i+1} - P_i)
+    = \frac{3}{\textit{knot}_{4} - \textit{knot}_{1}} (P_1 - P_0)
     = \frac{3}{3} (P_1 - P_0)
     = (135, -210) \\
-    P_1 \prime = \frac{d}{knot_{i+d+1} - knot_{i+1}} (P_{i+1} - P_i)
-    = \frac{3}{knot_{5} - knot_{2}} (P_2 - P_1)
+    P_1 \prime = \frac{d}{\textit{knot}_{i+d+1} - \textit{knot}_{i+1}} (P_{i+1} - P_i)
+    = \frac{3}{\textit{knot}_{5} - \textit{knot}_{2}} (P_2 - P_1)
     = \frac{3}{3} (P_2 - P_1)
     = (135, 105) \\
-    P_2 \prime = \frac{d}{knot_{i+d+1} - knot_{i+1}} (P_{i+1} - P_i)
-    = \frac{3}{knot_{6} - knot_{3}} (P_3 - P_2)
+    P_2 \prime = \frac{d}{\textit{knot}_{i+d+1} - \textit{knot}_{i+1}} (P_{i+1} - P_i)
+    = \frac{3}{\textit{knot}_{6} - \textit{knot}_{3}} (P_3 - P_2)
     = \frac{3}{3} (P_3 - P_2)
     = (135, -110) \\
-    P_3 \prime = \frac{d}{knot_{i+d+1} - knot_{i+1}} (P_{i+1} - P_i)
-    = \frac{3}{knot_{7} - knot_{4}} (P_4 - P_3)
+    P_3 \prime = \frac{d}{\textit{knot}_{i+d+1} - \textit{knot}_{i+1}} (P_{i+1} - P_i)
+    = \frac{3}{\textit{knot}_{7} - \textit{knot}_{4}} (P_4 - P_3)
     = \frac{3}{3} (P_4 - P_3)
     = (105, 230) \\
   \end{array}
@@ -63,7 +63,7 @@ So, we end up with a derivative that has as parameters:
   \begin{array}{l}
     d = 3, \\
     P = {(50,240), (185,30), (320,135), (455,25), (560,255)}, \\
-    knots = {0,1,2,3,4,5,6,7,8}
+    \textit{knots} = {0,1,2,3,4,5,6,7,8}
   \end{array}
 \]
 

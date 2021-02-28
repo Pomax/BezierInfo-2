@@ -1,0 +1,5 @@
+\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
+ 
+                                __ n                                                                               n-i     i
+                  Bézier(n,t) = ❯      \underset 二項係数部分の項\underbrace\binomni  · \ \underset 多項式部分の項\underbrace(1-t)     · t 
+                                ‾‾ i=0

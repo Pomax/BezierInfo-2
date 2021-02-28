@@ -5,13 +5,13 @@ Now that we know the mathematics behind Bézier curves, there's one curious thin
 It all has to do with how we run from "the start" of our curve to "the end" of our curve. If we have a value that is a mixture of two other values, then the general formula for this is:
 
 \[
-  mixture = a \cdot value_1 + b \cdot value_2
+  \textit{mixture} = a \cdot \textit{value}_1 + b \cdot \textit{value}_2
 \]
 
 The obvious start and end values here need to be `a=1, b=0`, so that the mixed value is 100% value 1, and 0% value 2, and `a=0, b=1`, so that the mixed value is 0% value 1 and 100% value 2. Additionally, we don't want "a" and "b" to be independent: if they are, then we could just pick whatever values we like, and end up with a mixed value that is, for example, 100% value 1 **and** 100% value 2. In principle that's fine, but for Bézier curves we always want mixed values *between* the start and end point, so we need to make sure we can never set "a" and "b" to some values that lead to a mix value that sums to more than 100%. And that's easy:
 
 \[
-  m = a \cdot value_1 + (1 - a) \cdot value_2
+  m = a \cdot \textit{value}_1 + (1 - a) \cdot \textit{value}_2
 \]
 
 With this we can guarantee that we never sum above 100%. By restricting `a` to values in the interval [0,1], we will always be somewhere between our two values (inclusively), and we will always sum to a 100% mix.

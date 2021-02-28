@@ -40,15 +40,21 @@ Doing so for a degree `d` B-Spline with `n` control point gives us `d + n + 1` k
 Then the N() function itself. What does it look like?
 
 \[
-  N_{i,k}(t) = \left ( \frac{t-knot_i}{knot_{(i+k-1)} - knot_i}\right ) \cdot N_{i,k-1}(t) + \left ( \frac{knot_{(i+k)}-t}{knot_{(i+k)} - knot_{(i+1)}} \right ) \cdot N_{i+1,k-1}(t)
+  N_{i,k}(t) =
+    \left ( \frac{t-\textit{knot}_i}{\textit{knot}_{(i+k-1)} - \textit{knot}_i}\right )
+    \cdot
+    N_{i,k-1}(t) +
+    \left ( \frac{\textit{knot}_{(i+k)}-t}{\textit{knot}_{(i+k)} - \textit{knot}_{(i+1)}} \right )
+    \cdot
+    N_{i+1,k-1}(t)
 \]
 
 So this is where we see the interpolation: N(t) for an `(i,k)` pair (that is, for a step in the above summation, on a specific knot interval) is a mix between N(t) for `(i,k-1)` and N(t) for `(i+1,k-1)`, so we see that this is a recursive iteration where `i` goes up, and `k` goes down, so it seem reasonable to expect that this recursion has to stop at some point; obviously, it does, and specifically it does so for the following `i`/`k` values:
 
 \[
   N_{i,1}(t) = \left\{\begin{matrix}
-               1& \text{if } t \in [knot_i,knot_{i+1}) \\
-               0& \text{otherwise}
+               1 & \textit{if } t \in [\textit{knot}_i,\textit{knot}_{i+1}) \\
+               0 & \textit{otherwise}
                \end{matrix}\right.
 \]
 
@@ -68,7 +74,7 @@ People far smarter than us have looked at this work, and two in particular — [
 This is another recursive function, with *k* values decreasing from the curve order to 1, and the value *α* (alpha) defined by:
 
 \[
-  \alpha_{i,k} = \frac{t - knots[i]}{knots[i+1+n-k] - knots[i]}
+  \alpha_{i,k} = \frac{t - \textit{knots}[i]}{\textit{knots}[i+1+n-k] - \textit{knots}[i]}
 \]
 
 That looks complicated, but it's not. Computing alpha is just a fraction involving known, plain numbers. And, once we have our alpha value, we also have `(1-alpha)` because it's a trivial subtraction. Computing the `d()` function is thus mostly a matter of computing pretty simple arithmetical statements, with some caching of results so we can refer to them as we recurve. While the recursion might see computationally expensive, the total algorithm is cheap, as each step only involves very simple maths.
@@ -78,8 +84,8 @@ Of course, the recursion does need a stop condition:
 \[
   d^k_0(t) = 0, ~d^0_i(t) = N_{i,1}(t) =
   \left\{\begin{matrix}
-    1& \text{if } t \in [knot_i,knot_{i+1}) \\
-    0& \text{otherwise}
+    1 & \textit{if } t \in [\textit{knot}_i,\textit{knot}_{i+1}) \\
+    0 & \textit{otherwise}
   \end{matrix}\right.
 \]
 

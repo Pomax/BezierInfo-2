@@ -203,7 +203,7 @@ T_4 =
 And this generates our final set of four coordinates. Of these, we already know that points 1 through 3 are (0,0), (0,1) and (1,1), and only the last coordinate is "free". In fact, given any four starting coordinates, the resulting "transformation mapped" coordinate will be:
 
 \[
-mapped_4 = \left (
+\textit{mapped}_4 = \left (
   \begin{matrix}
   x \\
   y

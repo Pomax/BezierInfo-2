@@ -1,0 +1,7 @@
+\usepackageunicode-math \setmainfont[Ligatures=TeX]Linux Libertine O \setmathfontXITS Math
+ 
+                                          линийный= (1-t) + t                                        
+                                                         2                      2
+                                         квадратый= (1-t)  + 2  · (1-t)  · t + t                     
+                                                         3             2                       2    3
+                                        кубический= (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 

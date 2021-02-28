@@ -5,13 +5,13 @@ There's a number of useful things that you can do with Bézier curves based on t
 First, let's look at the derivative rule for Bézier curves, which is:
 
 \[
-  Bézier'(n,t) = n \cdot \sum_{i=0}^{n-1} (b_{i+1}-b_i) \cdot Bézier(n-1,t)_i
+  \textit{Bézier}'(n,t) = n \cdot \sum_{i=0}^{n-1} (b_{i+1}-b_i) \cdot \textit{Bézier}(n-1,t)_i
 \]
 
 which we can also write (observing that <i>b</i> in this formula is the same as our <i>w</i> weights, and that <i>n</i> times a summation is the same as a summation where each term is multiplied by <i>n</i>) as:
 
 \[
-  Bézier'(n,t) = \sum_{i=0}^{n-1} Bézier(n-1,t)_i \cdot n \cdot (w_{i+1}-w_i)
+  \textit{Bézier}'(n,t) = \sum_{i=0}^{n-1} \textit{Bézier}(n-1,t)_i \cdot n \cdot (w_{i+1}-w_i)
 \]
 
 Or, in plain text: the derivative of an n<sup>th</sup> degree Bézier curve is an (n-1)<sup>th</sup> degree Bézier curve, with one fewer term, and new weights w'<sub>0</sub>...w'<sub>n-1</sub> derived from the original weights as n(w<sub>i+1</sub> - w<sub>i</sub>). So for a 3<sup>rd</sup> degree curve, with four weights, the derivative has three new weights: w'<sub>0</sub> = 3(w<sub>1</sub>-w<sub>0</sub>), w'<sub>1</sub> = 3(w<sub>2</sub>-w<sub>1</sub>) and w'<sub>2</sub> = 3(w<sub>3</sub>-w<sub>2</sub>).
@@ -75,8 +75,8 @@ And that's the first part done: the two components inside the parentheses are ac
 Now to apply this to our weighted Bézier curves. We'll write out the plain curve formula that we saw earlier, and then work our way through to its derivative:
 
 \[\begin{array}{lcl}
-  Bézier_{n,k}(t) &=& B_{n,0}(t) \cdot w_0 + B_{n,1}(t) \cdot w_1 + B_{n,2}(t) \cdot w_2 + B_{n,3}(t) \cdot w_3 + ... \\
-  Bézier_{n,k}(t) \frac{d}{dt} &=& n \cdot (B_{n-1,-1}(t) - B_{n-1,0}(t)) \cdot w_0 + \\
+  \textit{Bézier}_{n,k}(t) &=& B_{n,0}(t) \cdot w_0 + B_{n,1}(t) \cdot w_1 + B_{n,2}(t) \cdot w_2 + B_{n,3}(t) \cdot w_3 + ... \\
+  \textit{Bézier}_{n,k}(t) \frac{d}{dt} &=& n \cdot (B_{n-1,-1}(t) - B_{n-1,0}(t)) \cdot w_0 + \\
                                & & n \cdot (B_{n-1,0}(t) - B_{n-1,1}(t)) \cdot w_1 + \\
                                & & n \cdot (B_{n-1,1}(t) - B_{n-1,2}(t)) \cdot w_2 + \\
                                & & n \cdot (B_{n-1,2}(t) - B_{n-1,3}(t)) \cdot w_3 + \\
@@ -106,7 +106,7 @@ Two of these terms fall way: the first term falls away because there is no -1<su
 And that's just a summation of lower order curves:
 
 \[
-  Bézier_{n,k}(t) \frac{d}{dt} = n \cdot B_{(n-1),BLUE[0]}(t) \cdot (w_1 - w_0)
+  \textit{Bézier}_{n,k}(t) \frac{d}{dt} = n \cdot B_{(n-1),BLUE[0]}(t) \cdot (w_1 - w_0)
                             + n \cdot B_{(n-1),RED[1]}(t) \cdot (w_2 - w_1)
                             + n \cdot B_{(n-1),MAGENTA[2]}(t) \cdot (w_3 - w_2)
                             ~+ ~...
@@ -115,8 +115,8 @@ And that's just a summation of lower order curves:
 We can rewrite this as a normal summation, and we're done:
 
 \[
-  Bézier_{n,k}(t) \frac{d}{dt} = \sum_{k=0}^{n-1} n \cdot B_{n-1,k}(t) \cdot (w_{k+1} - w_k)
-                               = \sum_{k=0}^{n-1} B_{n-1,k}(t) \cdot \underset{derivative~weights}
+  \textit{Bézier}_{n,k}(t) \frac{d}{dt} = \sum_{k=0}^{n-1} n \cdot B_{n-1,k}(t) \cdot (w_{k+1} - w_k)
+                               = \sum_{k=0}^{n-1} B_{n-1,k}(t) \cdot \underset{\textit{derivative weights}}
                                  {\underbrace{n \cdot (w_{k+1} - w_k)}}
 \]
 
@@ -125,22 +125,22 @@ We can rewrite this as a normal summation, and we're done:
 Let's rewrite that in a form similar to our original formula, so we can see the difference. We will first list our original formula for Bézier curves, and then the derivative:
 
 \[
-  Bézier(n,t) = \sum_{i=0}^{n}
-                \underset{binomial~term}{\underbrace{\binom{n}{i}}}
+  \textit{Bézier}(n,t) = \sum_{i=0}^{n}
+                \underset{\textit{binomial term}}{\underbrace{\binom{n}{i}}}
                 \cdot\
-                \underset{polynomial~term}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
+                \underset{\textit{polynomial term}}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
                 \cdot\
-                \underset{weight}{\underbrace{w_i}}
+                \underset{\textit{weight}}{\underbrace{w_i}}
 \]
 
 \[
-  Bézier'(n,t) = \sum_{i=0}^{k}
-                \underset{binomial~term}{\underbrace{\binom{k}{i}}}
+  \textit{Bézier}'(n,t) = \sum_{i=0}^{k}
+                \underset{\textit{binomial term}}{\underbrace{\binom{k}{i}}}
                 \cdot\
-                \underset{polynomial~term}{\underbrace{(1-t)^{k-i} \cdot t^{i}}}
+                \underset{\textit{polynomial term}}{\underbrace{(1-t)^{k-i} \cdot t^{i}}}
                 \cdot\
-                \underset{derivative~weight}{\underbrace{n \cdot (w_{i+1} - w_i)}}
-                {~, ~with ~k=n-1}
+                \underset{\textit{derivative weight}}{\underbrace{n \cdot (w_{i+1} - w_i)}}
+                ~,~\textit{with } k=n-1
 \]
 
 

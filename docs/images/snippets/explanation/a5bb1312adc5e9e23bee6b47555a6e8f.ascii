@@ -1,0 +1,8 @@
+    \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+     
+linear= \colorbluea + \colorredb                                                                                                                     
+square= \colorbluea  · \colorbluea + \colorbluea  · \colorredb + \colorredb  · \colorredb                                                            
+ cubic= \colorbluea  · \colorbluea  · \colorbluea + \colorbluea  · \colorbluea  · \colorredb + \colorbluea  · \colorredb  · \colorredb + \colorredb  
+                                                                                       
+                                                                                       
+                                                             · \colorredb  · \colorredb

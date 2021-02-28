@@ -5,13 +5,13 @@ Armed with knowledge of the "ABC" relation, point-on-curve projection, and guest
 For quadratic curve, this is a really simple trick: we project our cursor onto the curve, which gives us a `t` value and initial `B` coordinate. We don't even need the latter: with our `t` value and "wherever the cursor is" as target `B`, we can compute the associated `C`:
 
 \[
-  C = u(t)_{q} \cdot Start + \left ( 1-u(t)_{q} \right ) \cdot End
+  C = u(t)_{q} \cdot \textit{Start} + \left ( 1-u(t)_{q} \right ) \cdot \textit{End}
 \]
 
 And then the associated `A`:
 
 \[
-  A = B - \frac{C - B}{ratio(t)_{q}} = B + \frac{B - C}{ratio(t)_{q}}
+  A = B - \frac{C - B}{\textit{ratio}(t)_{q}} = B + \frac{B - C}{\textit{ratio}(t)_{q}}
 \]
 
 And we're done, because that's our new quadratic control point!

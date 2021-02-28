@@ -7,13 +7,13 @@ If we have a curve with three points, then we can create a curve with four point
 The general rule for raising an *n<sup>th</sup>* order curve to an *(n+1)<sup>th</sup>* order curve is as follows (observing that the start and end weights are the same as the start and end weights for the old curve):
 
 \[
-  Bézier(k,t) = \sum_{i=0}^{k}
-                \underset{binomial~term}{\underbrace{\binom{k}{i}}}
+  \textit{Bézier}(k,t) = \sum_{i=0}^{k}
+                \underset{\textit{binomial term}}{\underbrace{\binom{k}{i}}}
                 \cdot\
-                \underset{polynomial~term}{\underbrace{(1-t)^{k-i} \cdot t^{i}}}
+                \underset{\textit{polynomial term}}{\underbrace{(1-t)^{k-i} \cdot t^{i}}}
                 ~\cdot \
-                \underset{new~weights}{\underbrace{\left ( \frac{(k-i) \cdot w_i + i \cdot w_{i-1}}{k} \right )}}
-  ~,~with~k = n+1~and~w_{i-1}=0~when~i = 0
+                \underset{\textit{new weights}}{\underbrace{\left ( \frac{(k-i) \cdot w_i + i \cdot w_{i-1}}{k} \right )}}
+  ~,~\textit{with}~k = n+1~\textit{and}~w_{i-1}=0~when~i = 0
 \]
 
 However, this rule also has as direct consequence that you **cannot** generally safely lower a curve from *n<sup>th</sup>* order to *(n-1)<sup>th</sup>* order, because the control points cannot be "pulled apart" cleanly. We can try to, but the resulting curve will not be identical to the original, and may in fact look completely different.
@@ -23,7 +23,7 @@ However, there is a surprisingly good way to ensure that a lower order curve loo
 We start by taking the standard Bézier function, and condensing it a little:
 
 \[
-  Bézier(n,t)
+  \textit{Bézier}(n,t)
   =
   \sum_{i=0}^{n} w_i B^n_i(t)
   \textit{, where }
@@ -42,7 +42,7 @@ So, with that seemingly trivial observation, we rewrite that Bézier function by
 
 \[
   \begin{aligned}
-    Bézier(n,t) &= (1-t) B(n,t) + t B(n,t) \\
+    \textit{Bézier}(n,t) &= (1-t) B(n,t) + t B(n,t) \\
                 &= \sum_{i=0}^{n} w_i (1 - t) B^n_i(t) + \sum_{i=0}^{n} w_i t B^n_i(t)
   \end{aligned}
 \]

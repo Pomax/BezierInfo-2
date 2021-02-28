@@ -20,7 +20,7 @@ Rewriting Bézier functions to matrix form is fairly easy, if you first expand t
 
 \[
   \begin{aligned}
-    B_{quadratic} & = a (1-t)^2 + 2 b (1-t) t + c t^2 \\
+    B_{\textit{quadratic}} & = a (1-t)^2 + 2 b (1-t) t + c t^2 \\
                   & = a - 2at + at^2 + 2bt - 2bt^2 + ct^2
   \end{aligned}
 \]
@@ -29,7 +29,7 @@ And then we (trivially) rearrange the terms across multiple lines:
 
 \[
   \begin{aligned}
-    B_{quadratic} &=& a      &         &     \\
+    B_{\textit{quadratic}} &=& a      &         &     \\
                   & & - 2at  & + 2bt   &     \\
                   & & + at^2 & - 2bt^2 & + ct^2
   \end{aligned}
@@ -41,7 +41,7 @@ With that arrangement, we can easily decompose this as a matrix multiplication:
 
 \[
   \begin{aligned}
-    B_{quadratic} &= T \cdot M \cdot C
+    B_{\textit{quadratic}} &= T \cdot M \cdot C
       =
       \begin{bmatrix}1 & t & t^2 \end{bmatrix}
       \cdot
@@ -67,7 +67,7 @@ We can do the same for the cubic curve, of course. We know the base function for
 
 \[
   \begin{aligned}
-    B_{cubic} & = & a(1-t)^3 + 3b(1-t)^2 t + 3c(1-t)t^2 + dt^3
+    B_{\textit{cubic}} & = & a(1-t)^3 + 3b(1-t)^2 t + 3c(1-t)t^2 + dt^3
   \end{aligned}
 \]
 
@@ -75,7 +75,7 @@ So we write out the expansion and rearrange:
 
 \[
   \begin{aligned}
-    B_{cubic} & = & a        &          &          &   \\
+    B_{\textit{cubic}} & = & a        &          &          &   \\
               &   & - 3at    & + 3bt    &          &   \\
               &   & + 3at^2  & - 6bt^2  & +3ct^2   &   \\
               &   & - at^3   & + 3bt^3  & -3ct^3   & + dt^3
@@ -86,7 +86,7 @@ Which we can then decompose:
 
 \[
   \begin{aligned}
-    B_{cubic} &= T \cdot M \cdot C =
+    B_{\textit{cubic}} &= T \cdot M \cdot C =
       \begin{bmatrix}1 & t & t^2 & t^3 \end{bmatrix}
       \cdot
       \begin{bmatrix}
@@ -104,7 +104,7 @@ And, of course, we can do this for quartic curves too (skipping the expansion st
 
 \[
   \begin{aligned}
-    B_{quartic} &= T \cdot M \cdot C =
+    B_{\textit{quartic}} &= T \cdot M \cdot C =
       \begin{bmatrix}1 & t & t^2 & t^3 & t^4 \end{bmatrix}
       \cdot
       \begin{bmatrix}
@@ -170,13 +170,13 @@ And now we can move on to the actual "curve fitting" part: what we want is a fun
 As mentioned before, this function is really just "the distance between the actual coordinate, and the coordinate that the curve evaluates to for the associated `t` value", which we'll square to get rid of any pesky negative signs:
 
 \[
-  E(C)_i = \left ( p_i - Bézier(s_i) \right )^2
+  E(C)_i = \left ( p_i - \textit{Bézier}(s_i) \right )^2
 \]
 
 Since this function only deals with individual coordinates, we'll need to sum over all coordinates in order to get the full error function. So, we literally just do that; the total error function is simply the sum of all these individual errors:
 
 \[
-  E(C) = \sum^n_{i=1} \left ( p_i - Bézier(s_i) \right )^2
+  E(C) = \sum^n_{i=1} \left ( p_i - \textit{Bézier}(s_i) \right )^2
 \]
 
 And here's the trick that justifies using matrices: while we can work with individual values using calculus, with matrices we can compute as many values as we make our matrices big, all at the "same time", We can replace the individual terms p<sub>i</sub> with the full **P** coordinate matrix, and we can replace Bézier(s<sub>i</sub>) with the matrix representation **T x M x C** we talked about before, which gives us:

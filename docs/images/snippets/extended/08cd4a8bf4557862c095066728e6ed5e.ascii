@@ -1,0 +1,4 @@
+\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
+ 
+                                                    混ぜ合わさった値 = a  ·  値  + (1 - a)  ·  値 
+                                                                      1                2

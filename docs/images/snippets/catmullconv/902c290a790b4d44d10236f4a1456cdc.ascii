@@ -1,0 +1,10 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                                             ┌ V   ┐
+                                                                                             │  1  │
+                                                                          ┌  1  0  0 0  ┐    │ V   │
+                                         CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
+                                                         └ 1 t t  t  ┘    │ -3  3 -2 -1 │    │ V'  │
+                                                                          └  2 -2  1 1  ┘    │   1 │
+                                                                                             │ V'  │
+                                                                                             └   2 ┘

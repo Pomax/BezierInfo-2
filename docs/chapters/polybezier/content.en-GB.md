@@ -21,7 +21,7 @@ Dragging the control points around only affects the curve segments that the cont
 We can effect this quite easily, because we know that the vector from a curve's last control point to its last on-curve point is equal to the derivative vector. If we want to ensure that the first control point of the next curve matches that, all we have to do is mirror that last control point through the last on-curve point. And mirroring any point A through any point B is really simple:
 
 \[
-  Mirrored = \left [
+  \textit{Mirrored} = \left [
     \begin{matrix} B_x + (B_x - A_x) \\  B_y + (B_y - A_y) \end{matrix}
   \right ] = \left [
     \begin{matrix} 2B_x - A_x \\  2B_y - A_y \end{matrix}

@@ -1,0 +1,11 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                    ╭        p =  some point       ╮
+                                    │         1                    │
+                                    │        p =  some other point │
+                                    │         2                    │
+                              Given │  distance= (p  - p )         │,  our new point = p  +  distance  ·  ratio
+                                    │              2    1          │                    1
+                                    │             percentage       │
+                                    │     ratio= ───────────       │
+                                    ╰                100           ╯

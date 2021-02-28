@@ -57,9 +57,9 @@
 
 \[
 \begin{aligned}
-  1次 &= (1-t) + t \\
-  2次 &= (1-t)^2 + 2 \cdot (1-t) \cdot t + t^2 \\
-  3次 &= (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
+  \textit{1次} &= (1-t) + t \\
+  \textit{2次} &= (1-t)^2 + 2 \cdot (1-t) \cdot t + t^2 \\
+  \textit{3次} &= (1-t)^3 + 3 \cdot (1-t)^2 \cdot t + 3 \cdot (1-t) \cdot t^2 + t^3
 \end{aligned}
 \]
 
@@ -67,10 +67,10 @@
 
 \[
 \begin{aligned}
-  1次 &= \hspace{2.5em} 1 + 1 \\
-  2次 &= \hspace{1.7em} 1 + 2 + 1\\
-  3次 &= \hspace{0.85em} 1 + 3 + 3 + 1\\
-  4次 &= 1 + 4 + 6 + 4 + 1
+  \textit{1次} &= \hspace{2.5em} 1 + 1 \\
+  \textit{2次} &= \hspace{1.7em} 1 + 2 + 1\\
+  \textit{3次} &= \hspace{0.85em} 1 + 3 + 3 + 1\\
+  \textit{4次} &= 1 + 4 + 6 + 4 + 1
 \end{aligned}
 \]
 
@@ -80,19 +80,19 @@
 
 \[
 \begin{aligned}
-  1次 &= BLUE[a] + RED[b] \\
-  2次 &= BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot RED[b] + RED[b] \cdot RED[b] \\
-  3次 &= BLUE[a] \cdot BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot BLUE[a] \cdot RED[b] + BLUE[a] \cdot RED[b] \cdot RED[b] + RED[b] \cdot RED[b] \cdot RED[b]\\
+  \textit{1次} &= BLUE[a] + RED[b] \\
+  \textit{2次} &= BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot RED[b] + RED[b] \cdot RED[b] \\
+  \textit{3次} &= BLUE[a] \cdot BLUE[a] \cdot BLUE[a] + BLUE[a] \cdot BLUE[a] \cdot RED[b] + BLUE[a] \cdot RED[b] \cdot RED[b] + RED[b] \cdot RED[b] \cdot RED[b]\\
 \end{aligned}
 \]
 
 これは要するに、「<i>a</i>と<i>b</i>のすべての組み合わせ」の単なる和です。プラスが出てくるたびに、<i>a</i>を<i>b</i>へと1つずつ置き換えていけばよいのです。こちらも本当に単純です。さて、これで「二項係数多項式」がわかりました。完璧を期するため、この関数の一般の形を示しておきます。
 
 \[
-  Bézier(n,t) = \sum_{i=0}^{n}
-                \underset{二項係数部分の項}{\underbrace{\binom{n}{i}}}
+  \textit{Bézier}(n,t) = \sum_{i=0}^{n}
+                \underset{\textit{二項係数部分の項}}{\underbrace{\binom{n}{i}}}
                 \cdot\
-                \underset{多項式部分の項}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
+                \underset{\textit{多項式部分の項}}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
 \]
 
 そして、これがベジエ曲線の完全な表現です。この関数中のΣは、加算の繰り返し（Σの下にある変数を使って、...=<値>から始めてΣの下にある値まで）を表します。

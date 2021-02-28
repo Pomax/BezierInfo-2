@@ -1,0 +1,9 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                     __ n                    n-i     i
+                                                     ❯      \binomni  · (1-t)     · t   · w   · \colorblueratio 
+                                                     ‾‾ i=0                                i                   i
+                             Rational  Bézier(n,t) = ───────────────────────────────────────────────────────────
+                                                                 __ n                     n-i      i
+                                                     \colorblue  ❯      \binomni  ·  (1-t)     ·  t   ·  ratio  
+                                                                 ‾‾ i=0                                       i

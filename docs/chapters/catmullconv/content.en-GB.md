@@ -25,7 +25,7 @@ Now, it may look like Catmull-Rom curves are very different from Bézier curves,
       V'_1 &= \frac{P_3 - P_1}{2} \\
       V'_2 &= \frac{P_4 - P_2}{2}
     \end{array}
-  \right ]_{point-tangent}
+  \right ]_{\textit{point-tangent}}
 \]
 
 One downside of this is that—as you may have noticed from the graphic—the first and last point of the overall curve don't actually join up with the rest of the curve: they don't have a previous/next point respectively, and so there is no way to calculate what their tangent should be. Which also makes it rather tricky to fit a Catmull-Rom curve to three points like we were able to do for Bézier curves. More on that in [the next section](#catmullfitting).
@@ -64,7 +64,7 @@ The main difference between Catmull-Rom curves and Bézier curves is "what the p
 Those are _very_ similar, so let's see exactly _how_ similar they are. We've already see the matrix form for Bézier curves, so how different is the matrix form for Catmull-Rom curves?:
 
 \[
-  CatmullRom(t) =
+  \textit{CatmullRom}(t) =
   \begin{bmatrix}
   1 & t & t^2 & t^3
   \end{bmatrix}
@@ -178,7 +178,7 @@ However, we're not <em>quite</em> done, because Catmull-Rom curves have that "te
 With the mapping matrix properly done, let's rewrite the "point + tangent" Catmull-Rom matrix form to a matrix form in terms of four coordinates, and see what we end up with:
 
 \[
-  CatmullRom(t)
+  \textit{CatmullRom}(t)
   =
   \begin{bmatrix}
   1 & t & t^2 & t^3
@@ -199,7 +199,7 @@ With the mapping matrix properly done, let's rewrite the "point + tangent" Catmu
 Replace point/tangent vector with the expression for all-coordinates:
 
 \[
-  CatmullRom(t)
+  \textit{CatmullRom}(t)
   =
   \begin{bmatrix}
   1 & t & t^2 & t^3
@@ -227,7 +227,7 @@ Replace point/tangent vector with the expression for all-coordinates:
 and merge the matrices:
 
 \[
-  CatmullRom(t)
+  \textit{CatmullRom}(t)
   =
   \begin{bmatrix}
   1 & t & t^2 & t^3
@@ -248,7 +248,7 @@ and merge the matrices:
 This looks a lot like the Bézier matrix form, which as we saw in the chapter on Bézier curves, should look like this:
 
 \[
-  Bézier(t)
+  \textit{Bézier}(t)
   =
   \begin{bmatrix}
   1 & t & t^2 & t^3
@@ -422,7 +422,7 @@ We now have the final piece of our function puzzle. Let's run through each step.
 1. Start with the Catmull-Rom function:
 
 \[
-  CatmullRom(t)
+  \textit{CatmullRom}(t)
   =
   \begin{bmatrix}
   1 & t & t^2 & t^3
@@ -569,14 +569,14 @@ If we have a Catmull-Rom curve defined by four coordinates P<sub>1</sub> through
   P_2 \\
   P_3 \\
   P_4
-  \end{bmatrix}_{CatmullRom}
+  \end{bmatrix}_{\textit{CatmullRom}}
   \Rightarrow
   \begin{bmatrix}
   P_2 \\
   P_2 + \frac{P_3-P_1}{6 \cdot τ} \\
   P_3 - \frac{P_4-P_2}{6 \cdot τ} \\
   P_3
-  \end{bmatrix}_{Bézier}
+  \end{bmatrix}_{\textit{Bézier}}
 \]
 
 Similarly, if we have a Bézier curve defined by four coordinates P<sub>1</sub> through P<sub>4</sub>, we can draw that using a standard tension Catmull-Rom curve with the following coordinate values:
@@ -587,14 +587,14 @@ Similarly, if we have a Bézier curve defined by four coordinates P<sub>1</sub> 
   P_2 \\
   P_3 \\
   P_4
-  \end{bmatrix}_{Bézier}
+  \end{bmatrix}_{\textit{Bézier}}
   \Rightarrow
   \begin{bmatrix}
   P_1 \\
   P_4 \\
   P_4 + 3(P_1 - P_2) \\
   P_1 + 3(P_4 - P_3)
-  \end{bmatrix}_{CatmullRom}
+  \end{bmatrix}_{\textit{CatmullRom}}
 \]
 
 Or, if your API allows you to specify Catmull-Rom curves using plain coordinates:
@@ -605,12 +605,12 @@ Or, if your API allows you to specify Catmull-Rom curves using plain coordinates
   P_2 \\
   P_3 \\
   P_4
-  \end{bmatrix}_{Bézier}
+  \end{bmatrix}_{\textit{Bézier}}
   \Rightarrow
   \begin{bmatrix}
   P_4 + 6(P_1 - P_2) \\
   P_1 \\
   P_4 \\
   P_1 + 6(P_4 - P_3)
-  \end{bmatrix}_{CatmullRom}
+  \end{bmatrix}_{\textit{CatmullRom}}
 \]

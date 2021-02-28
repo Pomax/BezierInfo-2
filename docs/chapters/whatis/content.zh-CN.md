@@ -7,14 +7,14 @@
 如果我们知道两点之间的距离，并想找出离第一个点20%间距的一个新的点(也就是离第二个点80%的间距)，我们可以通过简单的计算来得到：
 
 \[
-Given \left (
+\textit{Given} \left (
   \begin{aligned}
-    p_1 &= some~point \\
-    p_2 &= some~other~point \\
-    distance &= (p_2 - p_1) \\
-    ratio &= \frac{percentage}{100} \\
+    p_1 &= \textit{some point} \\
+    p_2 &= \textit{some other point} \\
+    \textit{distance} &= (p_2 - p_1) \\
+    \textit{ratio} &= \frac{\textit{percentage}}{100} \\
   \end{aligned}
-\right ),~our~new~point = p_1 + distance \cdot ratio
+\right ),~\textit{our new point} = p_1 + \textit{distance} \cdot \textit{ratio}
 \]
 
 让我们来通过实际操作看一下：下面的图形都是可交互的，因此你可以通过上下键来增加或减少插值距离，来观察图形的变化。我们从三个点构成的两条线段开始。通过对各条线段进行线性插值得到两个点，对点之间的线段再进行线性插值，产生一个新的点。最终这些点——所有的点都可以通过选取不同的距离插值产生——构成了贝塞尔曲线

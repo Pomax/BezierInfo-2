@@ -9,7 +9,7 @@ How long is a Bézier curve? As it turns out, that's not actually an easy questi
 or, more commonly written using Leibnitz notation as:
 
 \[
-  length = \int_{0}^{z}\sqrt{ \left (dx/dt \right )^2+\left (dy/dt \right )^2} dt
+  \textit{length} = \int_{0}^{z}\sqrt{ \left (dx/dt \right )^2+\left (dy/dt \right )^2} dt
 \]
 
 This formula says that the length of a parametric curve is in fact equal to the **area** underneath a function that looks a remarkable amount like Pythagoras' rule for computing the diagonal of a straight angled triangle. This sounds pretty simple, right? Sadly, it's far from simple... cutting straight to after the chase is over: for quadratic curves, this formula generates an [unwieldy computation](https://www.wolframalpha.com/input/?i=antiderivative+for+sqrt((2*(1-t)*t*B+%2B+t%5E2*C)%27%5E2+%2B+(2*(1-t)*t*E)%27%5E2)&incParTime=true), and we're simply not going to implement things that way. For cubic Bézier curves, things get even more fun, because there is no "closed form" solution, meaning that due to the way calculus works, there is no generic formula that allows you to calculate the arc length. Let me just repeat this, because it's fairly crucial: ***for cubic and higher Bézier curves, there is no way to solve this function if you want to use it "for all possible coordinates"***.
@@ -24,12 +24,12 @@ So we turn to numerical approaches again. The method we'll look at here is the [
   \int_{-1}^{1}f(t) dt
   \simeq
   \left [
-    \underset{strip~1}{ \underbrace{ C_1 \cdot f\left(t_1\right) }}
+    \underset{\textit{strip 1}}{ \underbrace{ C_1 \cdot f\left(t_1\right) }}
     ~+~...
-    ~+~\underset{strip~n}{ \underbrace{ C_n \cdot f\left(t_n\right) }}
+    ~+~\underset{\textit{strip n}}{ \underbrace{ C_n \cdot f\left(t_n\right) }}
   \right ]
   =
-  \underset{strips~1~through~n}{
+  \underset{\textit{strips 1 through n}}{
     \underbrace{
       \sum_{i=1}^{n}{
         C_i \cdot f\left(t_i\right)

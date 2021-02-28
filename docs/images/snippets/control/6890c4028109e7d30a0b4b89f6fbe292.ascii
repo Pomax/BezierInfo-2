@@ -1,0 +1,7 @@
+    \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+     
+              __ n                                                                                            n-i     i
+Bézier(n,t) = ❯      \underset binomial term\underbrace\binomni  · \ \underset polynomial term\underbrace(1-t)     · t   · \
+              ‾‾ i=0
+                                                            \undersetweight\underbracew 
+                                                                                       i

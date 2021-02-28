@@ -22,11 +22,11 @@
 
 \[
   Bézier(n,t) = \sum_{i=0}^{n}
-                \underset{二項係数部分の項}{\underbrace{\binom{n}{i}}}
+                \underset{\textit{二項係数部分の項}}{\underbrace{\binom{n}{i}}}
                 \cdot\
-                \underset{多項式部分の項}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
+                \underset{\textit{多項式部分の項}}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
                 \cdot\
-                \underset{重み}{\underbrace{w_i}}
+                \underset{\textit{重み}}{\underbrace{w_i}}
 \]
 
 複雑そうに見えますが、運がいいことに「重み」というのは実はただの座標値です。というのは<i>n</i>次の曲線の場合、w<sub>0</sub>が始点の座標、w<sub>n</sub>が終点の座標となり、その間はどれも制御点の座標になります。例えば、始点が(120,160)、制御点が(35,200)と(220,260)、終点が(220,40)となる3次ベジエ曲線は、次のようになります。

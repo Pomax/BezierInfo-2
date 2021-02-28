@@ -1,0 +1,7 @@
+   \usepackageunicode-math \setmainfont[Ligatures=TeX]Linux Libertine O \setmathfontXITS Math
+    
+               __ k                                                                                                          k-i     i
+Bézier'(n,t) = ❯      \underset биноминальный термин\underbrace\binomki  · \ \underset полиноминальный термин\underbrace(1-t)     · t   · \
+               ‾‾ i=0
+                                      \underset вес производной\underbracen  · (w    - w )  ,   with  k=n-1
+                                                                                 i+1    i

@@ -32,19 +32,19 @@ These three values A, B, and C allow us to derive an important identity formula 
 So, how can we compute `C`? We start with our observation that `C` always lies somewhere between the start and end points, so logically `C` will have a function that interpolates between those two coordinates:
 
 \[
-  C = u(t) \cdot P_{start} + (1-u(t)) \cdot P_{end}
+  C = u(t) \cdot P_{\textit{start}} + (1-u(t)) \cdot P_{\textit{end}}
 \]
 
 If we can figure out what the function `u(t)` looks like, we'll be done. Although we do need to remember that this `u(t)` will have a different form depending on whether we're working with quadratic or cubic curves. [Running through the maths](https://mathoverflow.net/questions/122257/finding-the-formula-for-bezier-curve-ratios-hull-point-point-baseline) (with thanks to Boris Zbarsky) shows us the following two formulae:
 
 \[
-  u(t)_{quadratic} = \frac{(1-t)^2}{t^2 + (1-t)^2}
+  u(t)_{\textit{quadratic}} = \frac{(1-t)^2}{t^2 + (1-t)^2}
 \]
 
 And
 
 \[
-  u(t)_{cubic} = \frac{(1-t)^3}{t^3 + (1-t)^3}
+  u(t)_{\textit{cubic}} = \frac{(1-t)^3}{t^3 + (1-t)^3}
 \]
 
 So, if we know the start and end coordinates and the *t* value, we know C without having to calculate the `A` or even `B` coordinates. In fact, we can do the same for the ratio function. As another function of `t`, we technically don't need to know what `A` or `B` or `C` are. It, too, can be expressed as a pure function of `t`.
@@ -52,25 +52,25 @@ So, if we know the start and end coordinates and the *t* value, we know C withou
 We start by observing that, given `A`, `B`, and `C`, the following always holds:
 
 \[
-  ratio(t) = \frac{distance(B,C)}{distance(A,B)} = Constant
+  \textit{ratio}(t) = \frac{\textit{distance}(B,C)}{\textit{distance}(A,B)} = \textit{Constant}
 \]
 
 Working out the maths for this, we see the following two formulae for quadratic and cubic curves:
 
 \[
-  ratio(t)_{quadratic} = \left | \frac{t^2 + (1-t)^2 - 1}{t^2 + (1-t)^2} \right |
+  ratio(t)_{\textit{quadratic}} = \left | \frac{t^2 + (1-t)^2 - 1}{t^2 + (1-t)^2} \right |
 \]
 
 And
 
 \[
-  ratio(t)_{cubic} = \left | \frac{t^3 + (1-t)^3 - 1}{t^3 + (1-t)^3} \right |
+  ratio(t)_{\textit{cubic}} = \left | \frac{t^3 + (1-t)^3 - 1}{t^3 + (1-t)^3} \right |
 \]
 
 Which now leaves us with some powerful tools: given three points (start, end, and "some point on the curve"), as well as a `t` value, we can _construct_ curves. We can compute `C` using the start and end points and our `u(t)` function, and once we have `C`, we can use our on-curve point (`B`) and the `ratio(t)` function to find `A`:
 
 \[
-  A = B - \frac{C - B}{ratio(t)} = B + \frac{B - C}{ratio(t)}
+  A = B - \frac{C - B}{\textit{ratio}(t)} = B + \frac{B - C}{\textit{ratio}(t)}
 \]
 
 With `A` found, finding `e1` and `e2` for quadratic curves is a matter of running the linear interpolation with `t` between start and `A` to yield `e1`, and between `A` and end to yield `e2`. For cubic curves, there is no single pair of points that can act as `e1` and `e2`: as long as the distance ratio between  `e1` to `B` and `B` to `e2` is the Bézier ratio `(1-t):t`, we can reverse engineer `v1` and `v2`:
@@ -86,8 +86,8 @@ And then reverse engineer the curve's control points:
 
 \[
     \left \{ \begin{aligned}
-    C_1' &= start + \frac{v_1 - start}{t} \\
-    C_2' &= end + \frac{v_2 - end}{1 - t}
+    C_1' &= \textit{start} + \frac{v_1 - \textit{start}}{t} \\
+    C_2' &= \textit{end} + \frac{v_2 - \textit{end}}{1 - t}
     \end{aligned} \right .
 \]
 

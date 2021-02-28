@@ -155,7 +155,7 @@
   1 & t & t^2
   \end{bmatrix}
   \cdot
-  \underset{これを…}{\underbrace{\kern 2.25em Z \cdot M \kern 2.25em}}
+  \underset{\textit{これを…}}{\underbrace{\kern 2.25em Z \cdot M \kern 2.25em}}
   \cdot
   \begin{bmatrix}
   P_1 \\ P_2 \\ P_3
@@ -168,7 +168,7 @@
   1 & t & t^2
   \end{bmatrix}
   \cdot
-  \underset{…こうして…}{\underbrace{ M \cdot M^{-1} \cdot Z \cdot M }}
+  \underset{\textit{…こうして…}}{\underbrace{ M \cdot M^{-1} \cdot Z \cdot M }}
   \cdot
   \begin{bmatrix}
   P_1 \\ P_2 \\ P_3
@@ -182,7 +182,7 @@
   \end{bmatrix}
   \cdot
   M
-  \underset{…こうじゃ！}{\underbrace{ \kern 1.25em \cdot \kern 1.25em Q \kern 1.25em \cdot \kern 1.25em}}
+  \underset{\textit{…こうじゃ！}}{\underbrace{ \kern 1.25em \cdot \kern 1.25em Q \kern 1.25em \cdot \kern 1.25em}}
   \begin{bmatrix}
   P_1 \\ P_2 \\ P_3
   \end{bmatrix}

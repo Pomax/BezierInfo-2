@@ -5,13 +5,13 @@
 Для начала рассмотрим правило производных для кривых Безье:
 
 \[
-  Bézier'(n,t) = n \cdot \sum_{i=0}^{n-1} (b_{i+1}-b_i) \cdot Bézier(n-1,t)_i
+  \textit{Bézier}'(n,t) = n \cdot \sum_{i=0}^{n-1} (b_{i+1}-b_i) \cdot \textit{Bézier}(n-1,t)_i
 \]
 
 которое мы так же можем записать (отметив что <i>b</i> в этой формуле, то-же что наш <i>w</i> "вес", а <i>n</i> умноженная на функцию сумы — то-же что функция сумы, с каждой составляющей умноженной на <i>n</i>) как:
 
 \[
-  Bézier'(n,t) = \sum_{i=0}^{n-1} Bézier(n-1,t)_i \cdot n \cdot (w_{i+1}-w_i)
+  \textit{Bézier}'(n,t) = \sum_{i=0}^{n-1} \textit{Bézier}(n-1,t)_i \cdot n \cdot (w_{i+1}-w_i)
 \]
 
 Другими словами, производная кривой Безье n<sup>го</sup> порядка равна кривой Безье на порядок ниже (n-1), соответственно имея на один термин составляющих меньше, где новые веса w'<sub>0</sub>...w'<sub>n-1</sub> произведены из оригинальных по принципу n(w<sub>i+1</sub> - w<sub>i</sub>). Так, для кривой 3<sup>го</sup> порядка, с 4мя весами, производная имеет 3 веса: w'<sub>0</sub> = 3(w<sub>1</sub>-w<sub>0</sub>), w'<sub>1</sub> = 3(w<sub>2</sub>-w<sub>1</sub>) и w'<sub>2</sub> = 3(w<sub>3</sub>-w<sub>2</sub>).
@@ -75,8 +75,8 @@
 Теперь применим это к записям наших формул с "весами". Начнем с формулы кривой Безье приведенной выше и пройдемся по ее производным.
 
 \[\begin{array}{lcl}
-  Bézier_{n,k}(t) &=& B_{n,0}(t) \cdot w_0 + B_{n,1}(t) \cdot w_1 + B_{n,2}(t) \cdot w_2 + B_{n,3}(t) \cdot w_3 + ... \\
-  Bézier_{n,k}(t) \frac{d}{dt} &=& n \cdot (B_{n-1,-1}(t) - B_{n-1,0}(t)) \cdot w_0 + \\
+  \textit{Bézier}_{n,k}(t) &=& B_{n,0}(t) \cdot w_0 + B_{n,1}(t) \cdot w_1 + B_{n,2}(t) \cdot w_2 + B_{n,3}(t) \cdot w_3 + ... \\
+  \textit{Bézier}_{n,k}(t) \frac{d}{dt} &=& n \cdot (B_{n-1,-1}(t) - B_{n-1,0}(t)) \cdot w_0 + \\
                                & & n \cdot (B_{n-1,0}(t) - B_{n-1,1}(t)) \cdot w_1 + \\
                                & & n \cdot (B_{n-1,1}(t) - B_{n-1,2}(t)) \cdot w_2 + \\
                                & & n \cdot (B_{n-1,2}(t) - B_{n-1,3}(t)) \cdot w_3 + \\
@@ -106,7 +106,7 @@
 И это по сути формула функции сумы на 1 порядок ниже:
 
 \[
-  Bézier_{n,k}(t) \frac{d}{dt} = n \cdot B_{(n-1),BLUE[0]}(t) \cdot (w_1 - w_0)
+  \textit{Bézier}_{n,k}(t) \frac{d}{dt} = n \cdot B_{(n-1),BLUE[0]}(t) \cdot (w_1 - w_0)
                             + n \cdot B_{(n-1),RED[1]}(t) \cdot (w_2 - w_1)
                             + n \cdot B_{(n-1),MAGENTA[2]}(t) \cdot (w_3 - w_2)
                             ~+ ~...
@@ -116,8 +116,8 @@
 
 
 \[
-  Bézier_{n,k}(t) \frac{d}{dt} = \sum_{k=0}^{n-1} n \cdot B_{n-1,k}(t) \cdot (w_{k+1} - w_k)
-                               = \sum_{k=0}^{n-1} B_{n-1,k}(t) \cdot \underset{вес~производной}
+  \textit{Bézier}_{n,k}(t) \frac{d}{dt} = \sum_{k=0}^{n-1} n \cdot B_{n-1,k}(t) \cdot (w_{k+1} - w_k)
+                               = \sum_{k=0}^{n-1} B_{n-1,k}(t) \cdot \underset{\textit{вес производной}}
                                  {\underbrace{n \cdot (w_{k+1} - w_k)}}
 \]
 
@@ -126,22 +126,22 @@
 Давайте перепишем это по форме схожей с нашей исходной формулой, чтобы легче было разглядеть разницу. Сначала оригинальная формула, за ней производная:
 
 \[
-  Bézier(n,t) = \sum_{i=0}^{n}
-                \underset{биноминальный~термин}{\underbrace{\binom{n}{i}}}
+  \textit{Bézier}(n,t) = \sum_{i=0}^{n}
+                \underset{\textit{биноминальный термин}}{\underbrace{\binom{n}{i}}}
                 \cdot\
-                \underset{полиноминальный~термин}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
+                \underset{\textit{полиноминальный термин}}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
                 \cdot\
-                \underset{вес}{\underbrace{w_i}}
+                \underset{\textit{вес}}{\underbrace{w_i}}
 \]
 
 \[
-  Bézier'(n,t) = \sum_{i=0}^{k}
-                \underset{биноминальный~термин}{\underbrace{\binom{k}{i}}}
+  \textit{Bézier}'(n,t) = \sum_{i=0}^{k}
+                \underset{\textit{биноминальный термин}}{\underbrace{\binom{k}{i}}}
                 \cdot\
-                \underset{полиноминальный~термин}{\underbrace{(1-t)^{k-i} \cdot t^{i}}}
+                \underset{\textit{полиноминальный термин}}{\underbrace{(1-t)^{k-i} \cdot t^{i}}}
                 \cdot\
-                \underset{вес~производной}{\underbrace{n \cdot (w_{i+1} - w_i)}}
-                {~, ~with ~k=n-1}
+                \underset{\textit{вес производной}}{\underbrace{n \cdot (w_{i+1} - w_i)}}
+                ~,~ \textit{with } k=n-1
 \]
 
 И в чем же разница? В терминах формулы кривой Безье, по сути, никакой! Мы уменьшили порядок (вместо порядка <i>n</i>, он теперь <i>n-1</i>), но это все та же функция Безье. Единственное отличие в подсчете изменений в "весах" при нахождении производной. К примеру, исходя из 4-х контрольных точек A, B, C и D, первая производная получит 3 точки, вторая — 2, третья — 1:
