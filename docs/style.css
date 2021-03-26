@@ -484,3 +484,15 @@ a.rss-link {
 }
 
 /* --------------------- */
+
+a.btcqr {
+  float: right;
+  margin-left: 1em;
+}
+
+a.btclk {
+  font-family: courier;
+  font-size: 100%;
+  font-weight: 600;
+  text-decoration: none;
+}
