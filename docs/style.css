@@ -485,9 +485,24 @@ a.rss-link {
 
 /* --------------------- */
 
-a.btcqr {
-  float: right;
-  margin-left: 1em;
+div.btcfh {
+  display: flex;
+  flex-direction: row;
+}
+
+div.btcqr {
+  flex: 0 0 auto;
+  margin-top: 1em;
+  align-self: center;
+}
+
+div.btcqr a {
+  text-decoration: none;
+  padding-left: 0.5em;
+}
+
+div.btcqr img {
+  width: 50%;
 }
 
 a.btclk {
