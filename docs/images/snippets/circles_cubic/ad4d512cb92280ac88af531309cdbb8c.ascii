@@ -1,0 +1,8 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                            start= (r, 0)           
+                                                        control  = (r, 0.55228  · r)
+                                                                1                   
+                                                        control  = (0.55228  · r, r)
+                                                                2
+                                                              end= (0, r)           

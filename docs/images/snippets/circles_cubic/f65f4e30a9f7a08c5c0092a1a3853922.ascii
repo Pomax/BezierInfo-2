@@ -1,0 +1,18 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                ╭ θ ╮
+                                                            2sin│ ─ │ - sin(θ)
+                                                       4        ╰ 2 ╯
+                                                    k= ─  · ──────────────────         
+                                                       3        1 - cos(θ)
+                                                            ╭     ╭ θ ╮               ╮
+                                                            │ 2sin│ ─ │               │
+                                                       4    │     ╰ 2 ╯      sin(θ)   │
+                                                    k= ─  · │ ────────── - ────────── │
+                                                       3    ╰ 1 - cos(θ)   1 - cos(θ) ╯
+                                                       4    ╭    ╭ θ ╮      ╭ θ ╮ ╮
+                                                    k= ─  · │ csc│ ─ │ - cot│ ─ │ │    
+                                                       3    ╰    ╰ 2 ╯      ╰ 2 ╯ ╯
+                                                       4       ╭ θ ╮
+                                                    k= ─  · tan│ ─ │                   
+                                                       3       ╰ 4 ╯

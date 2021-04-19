@@ -1,0 +1,8 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                             start= (r, 0)                                          
+                                         control  = (r, k)                                          
+                                                 1                                                  
+                                         control  = r · (cos(θ) + k  · sin(θ), sin(θ) - k  · cos(θ))
+                                                 2
+                                               end= r  · (cos(θ), sin(θ))                           

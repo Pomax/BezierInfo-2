@@ -39,7 +39,7 @@
 		<meta property="og:locale" content="uk-UA" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2021-04-09T16:39:33+00:00" />
+		<meta property="og:updated_time" content="2021-04-19T18:35:47+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -255,7 +255,7 @@
 					<li><a href="uk-UA/index.html#offsetting">Curve offsetting</a></li>
 					<li><a href="uk-UA/index.html#graduatedoffset">Graduated curve offsetting</a></li>
 					<li><a href="uk-UA/index.html#circles">Circles and quadratic Bézier curves</a></li>
-					<li><a href="uk-UA/index.html#circles_cubic">Circles and cubic Bézier curves</a></li>
+					<li><a href="uk-UA/index.html#circles_cubic">Circular arcs and cubic Béziers</a></li>
 					<li><a href="uk-UA/index.html#arcapproximation">Approximating Bézier curves with circular arcs</a></li>
 					<li><a href="uk-UA/index.html#bsplines">B-Splines</a></li>
 					<li><a href="uk-UA/index.html#comments">Comments and questions</a></li>
@@ -6131,9 +6131,13 @@ lli = function(line1, line2):
 							>,<em>C<sub>2.2</sub></em
 							>).
 						</li>
-						<li>For each pair, check whether their bounding boxes overlap.</li>
-						<li>If their bounding boxes do not overlap, discard the pair, as there is no intersection between this pair of curves.</li>
-						<li>If there <em>is</em> overlap, rerun all steps for this pair.</li>
+						<li>
+							For each pair, check whether their bounding boxes overlap.
+							<ol>
+								<li>If their bounding boxes do not overlap, discard the pair, as there is no intersection between this pair of curves.</li>
+								<li>If there <em>is</em> overlap, rerun all steps for this pair.</li>
+							</ol>
+						</li>
 						<li>
 							Once the sub-curves we form are so small that they effectively occupy sub-pixel areas, we consider an intersection found, noting that we
 							might have a cluster of multiple intersections at the sub-pixel level, out of which we pick one to act as "found" <code>t</code> value
@@ -9096,29 +9100,9 @@ for p = 1 to points.length-3 (inclusive):
 				<section id="circles_cubic">
 					<h1>
 						<div class="nav"><a href="uk-UA/index.html#circles">попередній</a><a href="uk-UA/index.html#arcapproximation">наступний</a></div>
-						<a href="uk-UA/index.html#circles_cubic">Circles and cubic Bézier curves</a>
+						<a href="uk-UA/index.html#circles_cubic">Circular arcs and cubic Béziers</a>
 					</h1>
-					<p>
-						In the previous section we tried to approximate a circular arc with a quadratic curve, and it mostly made us unhappy. Cubic curves are
-						much better suited to this task, so what do we need to do?
-					</p>
-					<p>
-						For cubic curves, we basically want the curve to pass through three points on the circle: the start point, the mid point at "angle/2", and
-						the end point at "angle". We then also need to make sure the control points are such that the start and end tangent lines line up with the
-						circle's tangent lines at the start and end point.
-					</p>
-					<p>
-						The first thing we can do is "guess" what the curve should look like, based on the previously outlined curve-through-three-points
-						procedure. This will give use a curve with correct start, mid and end points, but possibly incorrect derivatives at the start and end,
-						because the control points might not be in the right spot. We can then slide the control points along the lines that connect them to their
-						respective end point, until they effect the corrected derivative at the start and end points. However, if you look back at the section on
-						fitting curves through three points, the rules used were such that they optimized for a near perfect hemisphere, so using the same guess
-						won't be all that useful: guessing the solution based on knowing the solution is not really guessing.
-					</p>
-					<p>
-						So have a graphical look at a "bad" guess versus the true fit, where we'll be using the bad guess and the description in the second
-						paragraph to derive the maths for the true fit:
-					</p>
+					<p>Let's look at approximating circles and circular arcs using cubic Béziers. How much better is that?</p>
 					<graphics-element
 						title="Cubic Bézier arc approximation"
 						width="400"
@@ -9129,379 +9113,764 @@ for p = 1 to points.length-3 (inclusive):
 					>
 						<fallback-image>
 							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
-							<img width="400px" height="400px" src="./images/chapters/circles_cubic/ecacec0eb2bbe72e14b9008d854fbb06.png" loading="lazy" />
+							<img width="400px" height="400px" src="./images/chapters/circles_cubic/891d50a946936c9701adc855de12623d.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
-						<input type="range" min="-3.1415" max="3.1415" step="0.01" value="-0.7854" class="slide-control" />
+						<input type="range" min="-3.1415" max="3.1415" step="0.01" value="1.4" class="slide-control" />
 					</graphics-element>
+					<p>At cursory glance, a fair bit better, but let's find out <em>how much</em> better by looking at how to construct the Bézier curve.</p>
 					<p>
-						We see two curves here; in blue, our "guessed" curve and its control points, and in grey/black, the true curve fit, with proper control
-						points that were shifted in, along line between our guessed control points, such that the derivatives at the start and end points are
-						correct.
+						<img
+							src="images/chapter-assets/circles/image-20210417165543902.png"
+							alt="A construction diagram for a cubic approximation of a circular arc"
+						/>
 					</p>
 					<p>
-						We can already see that cubic curves are a lot better than quadratic curves, and don't look all that wrong until we go well past a quarter
-						circle; ⅜th starts to hint at problems, and half a circle has an obvious "gap" between the real circle and the cubic approximation.
-						Anything past that just looks plain ridiculous... but quarter curves actually look pretty okay!
+						The start and end points are trivial, but the mid point requires a bit of work, but it's mostly basic trigonometry once we know the angle
+						θ for our circular arc: if we scale our circular arc to a unit circle, we can always start our arc, with radius 1, at (1,0) and then given
+						our arc angle θ, we also know that the circular arc has length θ (because unit circles are nice that way). We also know our end point,
+						because that's just (cos(θ), sin(θ)), and so the challenge is to figure out what control points we need in order for the curve at
+						<em>t</em>=0.5 to exactly touch the circular arc at the angle θ/2:
 					</p>
-					<p>So, maths time again: how okay is "okay"? Let's apply some more maths to find out.</p>
-					<p>
-						Unlike for the quadratic curve, we can't use <i>t=0.5</i> as our reference point because by its very nature it's one of the three points
-						that are actually guaranteed to lie on the circular curve. Instead, we need a different <i>t</i> value. If we run some analysis on the
-						curve we find that the actual <i>t</i> value at which the curve is furthest from what it should be is 0.211325 (rounded), but we don't
-						know "why", since finding this value involves root-finding, and is nearly impossible to do symbolically without pages and pages of math
-						just to express one of the possible solutions.
-					</p>
-					<p>
-						So instead of walking you through the derivation for that value, let's simply take that <i>t</i> value and see what the error is for
-						circular arcs with an angle ranging from 0 to 2π:
-					</p>
-					<table>
-						<tbody>
-							<tr>
-								<td>
-									<img src="images/arc-c-2pi.gif" height="187" />
-									plotted for 0 ≤ φ ≤ 2π:
-								</td>
-								<td>
-									<img src="images/arc-c-pi.gif" height="187" />
-									plotted for 0 ≤ φ ≤ π:
-								</td>
-								<td>
-									<img src="images/arc-c-pi2.gif" height="187" />
-									plotted for 0 ≤ φ ≤ ½π:
-								</td>
-							</tr>
-						</tbody>
-					</table>
-
-					<p>
-						We see that cubic Bézier curves are much better when it comes to approximating circular arcs, with an error of less than 0.027 at the two
-						"bulge" points for a quarter circle (which had an error of 0.06 for quadratic curves at the mid point), and an error near 0.001 for an
-						eighth of a circle, so we're getting less than half the error for a quarter circle, or: at a slightly lower error, we're getting twice the
-						arc. This makes cubic curves quite useful!
-					</p>
-					<p>
-						In fact, the precision of a cubic curve at a quarter circle is considered "good enough" by so many people that it's generally considered
-						"just fine" to use four cubic Bézier curves to fake a full circle when no circle primitives are available; generally, people won't notice
-						that it's not a real circle unless you also happen to overlay an actual circle, so that the difference becomes obvious.
-					</p>
-					<p>
-						So with the error analysis out of the way, how do we actually compute the coordinates needed to get that "true fit" cubic curve? The first
-						observation is that we already know the start and end points, because they're the same as for the quadratic attempt:
-					</p>
+					<p>So let's again formally describe this:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                           S = \begin{pmatrix} 1
-                                              0 \end{pmatrix}  ,  \ E = \begin{pmatrix} cos(φ)
-                                                            sin(φ) \end{pmatrix}
--->
-					<img
-						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/eeff3b36af960053cb4eb692abe36cd8.svg"
-						width="175px"
-						height="40px"
-						loading="lazy"
-					/>
-					<p>
-						But we now need to find two control points, rather than one. If we want the derivatives at the start and end point to match the circle,
-						then the first control point can only lie somewhere on the vertical line through S, and the second control point can only lie somewhere on
-						the line tangent to point E, which means:
-					</p>
-					<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                                                      C  = S + a  · \begin{pmatrix} 0
+                                                      P = (1, 0)                     
                                                        1
-                                                              1 \end{pmatrix}
+                                                      P = (1, c)                     
+                                                       2                             
+                                                      P = P  + k  · (sin(θ), -cos(θ))
+                                                       3   4
+                                                      P = (cos(θ), sin(θ))           
+                                                       4
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/0b4c1e8f1f7a9c1292787f127ddb1624.svg"
-						width="113px"
-						height="40px"
+						src="./images/chapters/circles_cubic/fe6cc524978eaa4f35d8de32c3b9ad94.svg"
+						width="208px"
+						height="85px"
 						loading="lazy"
 					/>
-					<p>where "a" is some scaling factor we'll need to find the expression for, and:</p>
+					<p>
+						Only P<sub>3</sub> isn't quite straight-forward here, and its description is based on the fact that the triangle (origin, P<sub>4</sub>,
+						P<sub>3</sub>) is a right angled triangle, with the distance between the origin and P<sub>4</sub> being 1 (because we're working with a
+						unit circle), and the distance between P<sub>4</sub> and P<sub>3</sub> being _c , so that we can represent P<sub>3</sub> as "The point
+						P<sub>4</sub> plus the vector from the origin to P<sub>4</sub> but then rotated a quarter circle, counter-clockwise, and scaled by
+						<em>c</em>".
+					</p>
+					<p>
+						With that, we can determine the <em>y</em>-coordinates for A, B, e<sub>1</sub>, and e<sub>2</sub>, after which we have all the information
+						we need to determine what the value of <em>k</em> is. We can find these values by using (no surprise here) linear interpolation between
+						known points, as A is midway between P<sub>2</sub> and P<sub>3</sub>, e<sub>1</sub> is between A and "midway between P<sub>1</sub> and
+						P<sub>2</sub>" (which is "half height" P<sub>2</sub>), and so forth:
+					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                    C  = E + a  · \begin{pmatrix} sin(φ)
-                                                     2
-                                                            cos(φ) \end{pmatrix}
+                                      P   + P  
+                                       2     3 
+                                        y     y   k + sin(θ) - k  · cos(θ)
+                                  A = ───────── = ────────────────────────                                 
+                                   y      2                  2
+                                           1
+                                      A  + ─P     k + sin(θ) - k  · cos(θ)   
+                                       y   2 2    ──────────────────────── + ─
+                                              y              2               2   2k + sin(θ) + k  · cos(θ)
+                                 e  = ───────── = ──────────────────────────── = ───────────────────────── 
+                                  1       2                    2                             4
+                                   y                                                                       
+                                                                        k
+                                      A  +  mid(P , P )   A  + sin(θ) - ─ cos(θ)
+                                       y         4   3     y            2          k + 3sin(θ) 2k  · cos(θ)
+                                 e  = ───────────────── = ────────────────────── = ────────────────────────
+                                  2           2                     2                         4
+                                   y
+                                      e   + e  
+                                       1     2 
+                                        y     y   3k + 4sin(θ) - 3k  · cos(θ)
+                                  B = ───────── = ───────────────────────────                              
+                                   y      2                    8
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/d28eb43a1b34befb7659dcdfb3a9e718.svg"
-						width="151px"
-						height="40px"
+						src="./images/chapters/circles_cubic/e0d46f5fd4bf01e72f23495757f64448.svg"
+						width="505px"
+						height="173px"
 						loading="lazy"
 					/>
-					<p>using the same scaling factor, because circular arcs are symmetrical, so our approximation will need to be symmetrical, too.</p>
 					<p>
-						Starting with this information, we slowly maths our way to success, but I won't lie: the maths for this is pretty trig-heavy, and it's
-						easy to get lost if you remember (or know!) some of the core trigonometric identities, so if you just want to see the final result just
-						skip past the next section!
+						Which now gives us two identities for B, because in addition to determining B through linear interpolation, we also know that B's
+						<em>y</em> coordinate is just <em>sin(θ/2)</em>: we started this exercise by saying we were going to approximate the circular arc using a
+						Bézier curve that had its midpoint, which is point B, touching the unit circle at the arc's half-angle, by definition making B the point
+						at (cos(θ/2), sin(θ/2)).
 					</p>
+					<p>This means we can equate the two identities we now have for B<sub>y</sub> and solve for <em>k</em>.</p>
 					<div class="note">
-						<h2>Let's do this thing.</h2>
+						<h2>Deriving <em>k</em></h2>
 						<p>
-							Unlike for the quadratic case, we need some more information in order to compute <i>a</i> and <i>b</i>, since they're no longer
-							dependent variables. First, we observe that the curve is symmetrical, so whatever values we end up finding for C<sub>1</sub> will apply
-							to C<sub>2</sub> as well (rotated along its tangent), so we'll focus on finding the location of C<sub>1</sub> only. So here's where we
-							do something that you might not expect: we're going to ignore for a moment, because we're going to have a much easier time if we just
-							solve this problem with geometry first, then move to calculus to solve a much simpler problem.
-						</p>
-						<p>
-							If we look at the triangle that is formed between our starting point, or initial guess C<sub>1</sub> and our real C<sub>1</sub>, there's
-							something funny going on: if we treat the line {start,guess} as our opposite side, the line {guess,real} as our adjacent side, with
-							{start,real} our hypotenuse, then the angle for the corner hypotenuse/adjacent is half that of the arc we're covering. Try it: if you
-							place the end point at a quarter circle (pi/2, or 90 degrees), the angle in our triangle is half a quarter (pi/4, or 45 degrees). With
-							that knowledge, and a knowledge of what the length of any of our lines segments are (as a function), we can determine where our control
-							points are, and thus have everything we need to find the error distance function. Of the three lines, the one we can easiest determine
-							is {start,guess}, so let's find out what the guessed control point is. Again geometrically, because we have the benefit of an on-curve
-							<i>t=0.5</i> value.
-						</p>
-						<p>
-							The distance from our guessed point to the start point is exactly the same as the projection distance we looked at earlier. Using
-							<i>t=0.5</i> as our point "B" in the "A,B,C" projection, then we know the length of the line segment {C,A}, since it's d<sub>1</sub> =
-							{A,B} + d<sub>2</sub> = {B,C}:
+							Solving for <em>k</em> is fairly straight forward, but it's a fair few steps, and if you just the immediate result: using a tool like
+							<a href="https://www.wolframalpha.com/">Wolfram Alpha</a> is definitely the way to go. That said, let's get going:
 						</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                              ╭ 1 ╮        1     4
-                                       ||A,C|| = d  + d  = d  + d   ·  ratio  │ ─ │ = d  + ─d  = ─d 
-                                                  2    1    2    2          3 ╰ 2 ╯    2   3 2   3 2
+                                           3c + 4sin(θ)) - 3k  · cos(θ)      θ
+                                           ────────────────────────────= sin(─)                  
+                                                        8                    2
+                                                                             ╭ θ ╮
+                                           3k + 4sin(θ)) - 3k  · cos(θ)= 8sin│ ─ │               
+                                                                             ╰ 2 ╯
+                                                                             ╭ θ ╮
+                                                      3k - 3k  · cos(θ)= 8sin│ ─ │ - 4sin(θ)     
+                                                                             ╰ 2 ╯
+                                                                           ╭     ╭ θ ╮          ╮
+                                                        3k (1 - cos(θ))= 4 │ 2sin│ ─ │ - sin(θ) │
+                                                                           ╰     ╰ 2 ╯          ╯
+                                                                                   θ
+                                                                              2sin(─) - sin(θ)
+                                                                                   2
+                                                                     3k= 4  · ────────────────   
+                                                                                 1 - cos(θ)
+                                                                                  ╭ θ ╮
+                                                                              2sin│ ─ │ - sin(θ)
+                                                                         4        ╰ 2 ╯
+                                                                      k= ─  · ────────────────── 
+                                                                         3        1 - cos(θ)
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/c509dc6fecd7992cb45a0b4d8f1bd001.svg"
-							width="396px"
-							height="40px"
+							src="./images/chapters/circles_cubic/b985384d01cb32d422f5d1123707ebc8.svg"
+							width="356px"
+							height="263px"
 							loading="lazy"
 						/>
 						<p>
-							So that just leaves us to find the distance from <i>t=0.5</i> to the baseline for an arbitrary angle φ, which is the distance from the
-							centre of the circle to our <i>t=0.5</i> point, minus the distance from the centre to the line that runs from start point to end point.
-							The first is the same as the point P we found for the quadratic curve:
+							And finally, we can take further advantage of several trigonometric identities to <em>drastically</em> simplify our formula for
+							<em>k</em>:
 						</p>
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                φ                 φ
-                                                       P  = cos(─)  ,  \ P  = sin(─)
-                                                        x       2         y       2
+                                                                ╭ θ ╮
+                                                            2sin│ ─ │ - sin(θ)
+                                                       4        ╰ 2 ╯
+                                                    k= ─  · ──────────────────         
+                                                       3        1 - cos(θ)
+                                                            ╭     ╭ θ ╮               ╮
+                                                            │ 2sin│ ─ │               │
+                                                       4    │     ╰ 2 ╯      sin(θ)   │
+                                                    k= ─  · │ ────────── - ────────── │
+                                                       3    ╰ 1 - cos(θ)   1 - cos(θ) ╯
+                                                       4    ╭    ╭ θ ╮      ╭ θ ╮ ╮
+                                                    k= ─  · │ csc│ ─ │ - cot│ ─ │ │    
+                                                       3    ╰    ╰ 2 ╯      ╰ 2 ╯ ╯
+                                                       4       ╭ θ ╮
+                                                    k= ─  · tan│ ─ │                   
+                                                       3       ╰ 4 ╯
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/8b4e1d0a62380ed011f27c645ed13b28.svg"
-							width="188px"
-							height="32px"
+							src="./images/chapters/circles_cubic/f65f4e30a9f7a08c5c0092a1a3853922.svg"
+							width="235px"
+							height="188px"
 							loading="lazy"
 						/>
-						<p>
-							And the distance from the origin to the line start/end is another application of angles, since the triangle {origin,start,C} has known
-							angles, and two known sides. We can find the length of the line {origin,C}, which lets us trivially compute the coordinate for C:
-						</p>
-						<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                                                       φ
-                                               l = cos(─)  ,                                
-                                                       2
-                                               ╭              ╭ φ ╮      2╭ φ ╮
-                                               │ C  = l  · cos│ ─ │ = cos │ ─ │ ,           
-                                               ╡  x           ╰ 2 ╯       ╰ 2 ╯             
-                                               │              ╭ φ ╮       φ        ╭ φ ╮
-                                               │ C  = l  · sin│ ─ │ = cos(─)  · sin│ ─ │ , 
-                                               ╰  y           ╰ 2 ╯       2        ╰ 2 ╯
--->
-						<img
-							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/bc884416145a846cebddc8c5d13f147f.svg"
-							width="261px"
-							height="67px"
-							loading="lazy"
-						/>
-						<p>
-							With the coordinate C, and knowledge of coordinate B, we can determine coordinate A, and get a vector that is identical to the vector
-							{start,guess}:
-						</p>
-						<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                                       ╭              ╭ φ ╮      2╭ φ ╮
-                                       │ B  - C  = cos│ ─ │ - cos │ ─ │                             
-                                       ╡  x    x      ╰ 2 ╯       ╰ 2 ╯                              
-                                       │              ╭ φ ╮       φ        ╭ φ ╮      ╭ φ ╮   sin(φ)
-                                       │ B  - C  = sin│ ─ │ - cos(─)  · sin│ ─ │ = sin│ ─ │ - ──────
-                                       ╰  y    y      ╰ 2 ╯       2        ╰ 2 ╯      ╰ 2 ╯     2
--->
-						<img
-							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/2ba4e0e2dbbdf3ea7dbd9cff3e049d0d.svg"
-							width="397px"
-							height="48px"
-							loading="lazy"
-						/>
-						<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                                                    ╭                   4
-                                                    │ \vecv  = {C,A}  = ─  · (B  - C )
-                                                    ╡      x        x   3      x    x  
-                                                    │                   4
-                                                    │ \vecv  = {C,A}  = ─  · (B  - C )
-                                                    ╰      y        y   3      y    y
--->
-						<img
-							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/046e0bec7cc3d8a502b2f76b4722be2d.svg"
-							width="211px"
-							height="47px"
-							loading="lazy"
-						/>
-						<p>
-							Which means we can now determine the distance {start,guessed}, which is the same as the distance {C,A}, and use that to determine the
-							vertical distance from our start point to our C<sub>1</sub>:
-						</p>
-						<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                                            ╭ C   = 1                                          
-                                            │  1x
-                                            │                   ┌───────────────┐
-                                            │                   │     2        2
-                                            ╡                   │\vecv  + \vecv                 
-                                            │          d       ⟍│     x        y    4     ╭ φ ╮
-                                            │ C   = ──────── = ────────────────── = ─ tan │ ─ │
-                                            │  1y      ╭ φ ╮           ╭ φ ╮        3     ╰ 4 ╯
-                                            │       sin│ ─ │        sin│ ─ │
-                                            ╰          ╰ 2 ╯           ╰ 2 ╯
--->
-						<img
-							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/fa5d308b0b50400fbae1411f390bc7ce.svg"
-							width="252px"
-							height="56px"
-							loading="lazy"
-						/>
-						<p>
-							And after this tedious detour to find the coordinate for C<sub>1</sub>, we can find C<sub>2</sub> fairly simply, since it's lies at
-							distance -C<sub>1y</sub> along the end point's tangent:
-						</p>
-						<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                           E'  = -sin(φ)  ,                                                                     
-                             x
-                           E'  = cos(φ)  ,                                                                      
-                             y
-                                     ┌────────────────────┐
-                                     │         2      2
-                           ||E'|| = ⟍│(-sin(φ))  + cos (φ)  = 1  ,                                              
-                                                                                                                
-                           ╭                    E '
-                           │                     x                                        4     ╭ φ ╮
-                           │ C x = E  - C    · ────── = cos(φ) + C    · sin(φ) = cos(φ) + ─ tan │ ─ │  · sin(φ)
-                           ╡  2     x    1y    ||E'||             1y                      3     ╰ 4 ╯           
-                           │                    E '
-                           │                     y                                        4     ╭ φ ╮
-                           │ C y = E  - C    · ────── = sin(φ) - C    · cos(φ) = sin(φ) - ─ tan │ ─ │  · cos(φ)
-                           ╰  2     y    1y    ||E'||             1y                      3     ╰ 4 ╯
--->
-						<img
-							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/459c037fb92685566d624f81a298e9c8.svg"
-							width="524px"
-							height="137px"
-							loading="lazy"
-						/>
-						<p>And that's it, we have all four points now for an approximation of an arbitrary circular arc with angle φ.</p>
+						<p>And we're done.</p>
 					</div>
 
-					<p>So, to recap, given an angle φ, the new control coordinates are:</p>
+					<p>
+						So, the distance of our control points to the start/end points can be expressed as a number that we get from an almost trivial expression
+						involving the circular arc's angle:
+					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                            4     ╭ φ ╮
-                                                     C  = ┌ 1 ┐ ,  with f = ─ tan │ ─ │
-                                                      1   └ f ┘             3     ╰ 4 ╯
+                                                                      4    ╭ θ ╮
+                                                           k = f(θ) = ─ tan│ ─ │
+                                                                      3    ╰ 4 ╯
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/496c0ee8945080a32bc02f78bc83ad43.svg"
+						src="./images/chapters/circles_cubic/f47561c3870425499e31c7527c38dc94.svg"
+						width="145px"
+						height="40px"
+						loading="lazy"
+					/>
+					<p>
+						Which means that for any circular arc with angle θ and radius <em>r</em>, our Bézier approximation based on three points of incidence is:
+					</p>
+					<!--
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                             start= (r, 0)                                          
+                                         control  = (r, k)                                          
+                                                 1                                                  
+                                         control  = r · (cos(θ) + k  · sin(θ), sin(θ) - k  · cos(θ))
+                                                 2
+                                               end= r  · (cos(θ), sin(θ))                           
+-->
+					<img
+						class="LaTeX SVG"
+						src="./images/chapters/circles_cubic/d880c4a1b3d7b651b054b008e952b493.svg"
+						width="359px"
+						height="85px"
+						loading="lazy"
+					/>
+					<p>Which also gives us the commonly found value of 0.55228 for quarter circles, based on them having an angle of half π:</p>
+					<!--
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                         ╭ \pi ╮   4       ╭ \pi ╮   4  ┌─┐
+                                        f│ ─── │ = ─  · tan│ ─── │ = ─(⟍│2 -1) ≅ 0.55228474983[...]
+                                         ╰  2  ╯   3       ╰  8  ╯   3
+-->
+					<img
+						class="LaTeX SVG"
+						src="./images/chapters/circles_cubic/acbde4be3cde3838b99b0ffc933f1f89.svg"
+						width="387px"
+						height="36px"
+						loading="lazy"
+					/>
+					<p>And thus giving us the following Bézier coordinates for a quarter circle of radius <em>r</em>:</p>
+					<!--
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                            start= (r, 0)           
+                                                        control  = (r, 0.55228  · r)
+                                                                1                   
+                                                        control  = (0.55228  · r, r)
+                                                                2
+                                                              end= (0, r)           
+-->
+					<img
+						class="LaTeX SVG"
+						src="./images/chapters/circles_cubic/ad4d512cb92280ac88af531309cdbb8c.svg"
+						width="177px"
+						height="85px"
+						loading="lazy"
+					/>
+					<div class="note">
+						<h2>So, how accurate is this?</h2>
+						<p>
+							Unlike for the quadratic curve, we can't use <i>t=0.5</i> as our reference point because by its very nature it's one of the three points
+							that are actually guaranteed to be on the circular arc itself. Instead, we need a different <i>t</i> value that will give us the maximum
+							deflection - there are two possible choices (as our curve is still strictly "overshoots" the circular arc, and it's symmetrical) but
+							rather than trying to use calculus to find the perfect <em>t</em> value—which we could! the maths is perfectly reasonable as long as we
+							get to use computers—we can also just perform a binary search for the biggest deflection and not bother with all this maths stuff.
+						</p>
+						<p>
+							So let's do that instead: we can run a maximum deflection check that just runs through <em>t</em> from 0 to 1 at some coarse interval,
+							finds a <em>t</em> value that has "the highest deflection of the bunch", then reruns the same check with a much smaller interval around
+							that <em>t</em> value, repeating as many times as necessary to get us an arbitrarily precise value of <em>t</em>:
+						</p>
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="13">
+									<textarea disabled rows="13" role="doc-example">
+getMostWrongT(radius, bezier, start, end, epsilon=1e-15):
+  if end-start < epsilon:
+    return (start+end)/2
+  worst_t = 0
+  max = 0
+  stepsize = (end-start)/10
+  for t=start to end, using stepsize:
+    p = bezier.get(t)
+    diff = p.magnitude() - radius
+    if diff > max:
+      worst_t = t
+      max = diff
+  return getMostWrongT(radius, bezier, worst_t - stepsize, worst_t + stepsize)</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>8</td>
+							</tr>
+							<tr>
+								<td>9</td>
+							</tr>
+							<tr>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>11</td>
+							</tr>
+							<tr>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td>13</td>
+							</tr>
+						</table>
+
+						<p>Plus, how often do you get to write a function with that name?</p>
+						<p>
+							Using this code, we find that our <em>t</em> values are approximately 0.211325 and 0.788675, so let's pick the lower of the two and see
+							what the maximum deflection is across our domain of angles, with the original quadratic error show in green (rocketing off to infinity
+							first, and then coming back down as we approach 2π)
+						</p>
+						<table>
+							<tbody>
+								<tr>
+									<td>
+										<img src="images/chapter-assets/circles/image-20210417173811587.png" width="95%" />
+									</td>
+									<td>
+										<img src="images/chapter-assets/circles/image-20210417174019035.png" width="95%" />
+									</td>
+									<td>
+										<img src="images/chapter-assets/circles/image-20210417174100036.png" width="95%" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										error plotted for 0 ≤ φ ≤ 2π
+									</td>
+									<td>
+										error plotted for 0 ≤ φ ≤ π
+									</td>
+									<td>
+										error plotted for 0 ≤ φ ≤ ½π
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<p>
+							That last image is probably not quite clear enough: the cubic approximation of a quarter circle is so incredibly much better that we
+							can't even really see it at the same scale of our quadratic curve. Let's scale the y-axis a little, and try that again:
+						</p>
+						<p style="text-align: center;"><img src="images/chapter-assets/circles/image-20210417174215876.png" height="350px" /></p>
+
+						<p>
+							Yeah... the error of a cubic approximation for a quarter circle turns out to be <em>two orders of magnitude</em> better. At
+							approximately 0.00027 (or: just shy of being 2.7 pixels off for a circle with a radius of 10,000 pixels) the increase in precision over
+							quadratic curves is quite spectacular - certainly good enough that no one in their right mind should ever use quadratic curves.
+						</p>
+					</div>
+
+					<p>So that's it, kappa is <em>4/3 · tan(θ/4)</em> , we're done! ...or are we?</p>
+					<h2>Can we do better?</h2>
+					<p>
+						Technically: yes, we can. But I'm going to prefix this section with "we can, and we should investigate that possibility, but let me warn
+						you up front that the result is <em>only</em> better if we're going to hard-code the values". We're about to get into the weeds and the
+						standard three-points-of-incidence value is so good already that for most applications, trying to do better won't make any sense at all.
+					</p>
+					<p>
+						So with that said: what we calculated above is an <em>upper bound</em> for a best fit Bézier curve for a circular arc: anywhere we don't
+						touch the circular arc in our approximation, we've "overshot" the arc. What if we dropped our value for <em>k</em> just a little, so that
+						the curve starts out as an over-estimation, but then crosses the circular arc, yielding an region of underestimation, and then crosses the
+						circular arc again, with another region of overestimation. This might give us a lower overall error, so let's see what we can do.
+					</p>
+					<p>First, let's express the total error (given circular arc angle θ, and some <em>k</em>) using standard calculus notation:</p>
+					<!--
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                ┌───────────────────────┐
+                                                          ╭ 1   │         2            2
+                                            erf (θ, k) =  |  \| │B (t,θ,k)  + B (t,θ,k)   - r\|dt
+                                                          ╯ 0  ⟍│ x            y
+-->
+					<img
+						class="LaTeX SVG"
+						src="./images/chapters/circles_cubic/85c3dc0187f786b37f5fa5a7cc74d642.svg"
+						width="331px"
+						height="36px"
+						loading="lazy"
+					/>
+					<p>
+						This says that the error function for a given angle and value of <em>k</em> is equal to the "infinite" sum of differences between our
+						curve and the circular arc, as we run <em>t</em> from 0 to 1, using an infinitely small step size. between subsequent <em>t</em> values.
+					</p>
+					<p>
+						Now, since we want to find the minimal error, that means we want to know where along this function things go from "error is getting
+						progressively less" to "error is increasing again", which means we want to know where its derivative is zero, which as mathematical
+						expression looks like:
+					</p>
+					<!--
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                    ╭        ┌───────┐         ╮
+                                                    │  ╭ 1   │ 2    2          │ d
+                                                    │  |  \| │B  + B   - r\|dt │ ── = 0
+                                                    ╰  ╯ 0  ⟍│ x    y          ╯ dt
+-->
+					<img
+						class="LaTeX SVG"
+						src="./images/chapters/circles_cubic/a7dc2e51b90e89ec62e4a328d2b24635.svg"
 						width="209px"
 						height="40px"
 						loading="lazy"
 					/>
-					<p>and</p>
-					<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                                                                                     4     ╭ φ ╮
-                                           C  = ┌ cos(φ) + f  · sin(φ) ┐ ,  with f = ─ tan │ ─ │
-                                            2   └ sin(φ) - f  · cos(φ) ┘             3     ╰ 4 ╯
--->
-					<img
-						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/065efe85cac2f359ea4d5d4bae94da97.svg"
-						width="325px"
-						height="40px"
-						loading="lazy"
-					/>
 					<p>
-						And, because the "quarter curve" special case comes up so incredibly often, let's look at what these new control points mean for the curve
-						coordinates of a quarter curve, by simply filling in φ = π/2:
+						And here we have the most direct application of the
+						<a href="https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus">Fundamental Theorem of Calculus</a>: the derivative and integral
+						are each other's inverse operations, so they cancel out, leaving us with our original function:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                   ╭       ┌─┐   ╮           ╭    ┌─┐       ╮
-                                                   │      ⟍│2 -1 │           │   ⟍│2 -1     │                
-                              S = (1, 0)  , \ C  = │ 1, 4 ────── │  , \ C  = │ 4 ────── , 1 │  , \ E = (0, 1)
-                                               1   ╰        3    ╯       2   ╰     3        ╯
+                                                       ┌───────┐
+                                                       │ 2    2
+                                                    \| │B  + B   - r\| = 0,    t ∈[0,1]
+                                                      ⟍│ x    y
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/6a14e5a71dd9e0cefe158640eabb8696.svg"
-						width="412px"
-						height="33px"
+						src="./images/chapters/circles_cubic/b996b7c1af4c9187004af7d04b3740a5.svg"
+						width="207px"
+						height="27px"
 						loading="lazy"
 					/>
-					<p>Which, in decimal values, rounded to six significant digits, is:</p>
+					<p>And now we just solve for that... oh wait. We've seen this before. In order to solve this, we'd end up needing to solve this:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                 S = (1, 0)  , \ C  = (1, 0.55228)  , \ C  = (0.55228 , 1)  , \ E = (0, 1)
-                                                  1                      2
+                                                                 2    2
+                                                                B  + B  = r
+                                                                 x    y
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/2d9df7ddd2aa223a951016b93d9620c2.svg"
-						width="412px"
-						height="16px"
+						src="./images/chapters/circles_cubic/610a69d8be6f86744ffb88d12eda701b.svg"
+						width="81px"
+						height="23px"
 						loading="lazy"
 					/>
 					<p>
-						Of course, this is for a circle with radius 1, so if you have a different radius circle, simply multiply the coordinate by the radius you
-						need. And then finally, forming a full curve is now a simple a matter of mirroring these coordinates about the origin:
+						And both of those terms on the left of the equal sign are 6<sup>th</sup> degree polynomials, which means—as we've covered in the section
+						on arc lengths—<a href="https://en.wikipedia.org/wiki/Abel%E2%80%93Ruffini_theorem">there is no symbolic solution for this equasion</a>.
+						Instead, we'll have to use a numerical approach to find the solutions here, so... to the computer!
 					</p>
-					<graphics-element
-						title="Cubic Bézier circle approximation"
-						width="340"
-						height="300"
-						src="./chapters/circles_cubic/circle.js"
-						reset="скинути"
-						viewSource="view source"
-					>
-						<fallback-image>
-							<span class="view-source">Скрипти вимкнено. показує резервний.</span>
-							<img width="340px" height="300px" src="./images/chapters/circles_cubic/63f35fb58d3571200ac6ccea0384b9d7.png" loading="lazy" />
-							<label></label> </fallback-image
-					></graphics-element>
+					<div class="note">
+						<h2>Iterating on a solution</h2>
+						<p>
+							By which I really mean "to the binary search algorithm", because we're dealing with a reasonably well behaved function: depending on the
+							value for <em>k</em> , we're either going to end up with a Bézier curve that's on average "not at distance <em>r</em> from the arc's
+							center", "exactly distance <em>r</em> from the arc's center", or "more than distance <em>r</em> from the arc's center", so we can just
+							binary search our way to the most accurate value for <em>c</em> that gets us that middle case.
+						</p>
+						<p>First our setup, where we determine our upper and lower bounds, before entering our binary search:</p>
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="4">
+									<textarea disabled rows="4" role="doc-example">
+findBest(radius, angle, points[]):
+  lowerBound = 0
+  upperBound = 4.0/3.0 * Math.tan(abs(angle) / 4)
+  return binarySearch(radius, angle, points, lowerBound, upperBound)</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+						</table>
+
+						<p>
+							And then the binary search algorithm, which can be found in pretty much any CS textbook, as well as more online articles, tutorials, and
+							blog posts than you can ever read in a life time:
+						</p>
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="19">
+									<textarea disabled rows="19" role="doc-example">
+binarySearch(radius, angle, points[], lowerBound, upperBound, epsilon=1e-15):
+  value = (upperBound + lowerBound)/2
+
+  if (upperBound - lowerBound < epsilon) return value
+
+  // recompute the control points, based on our current "value"
+  d = (points[3].y < 0 ? -1 : 1) * value * radius
+  points[1] = new Point(radius, d)
+  points[2] = new Point(
+    points[3].x + d * sin(angle)
+    points[3].y - d * cos(angle)
+  )
+
+  if radialError(radius, points) > 0:
+    // our bezier curve is longer than we want it to be: reduce the upper bound
+    return binarySearch(radius, angle, points, lowerBound, value)
+  else:
+    // our bezier curve is shorter than we want it to be: increase the lower bound
+    return binarySearch(radius, angle, points, value, upperBound)</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+							<tr>
+								<td>8</td>
+							</tr>
+							<tr>
+								<td>9</td>
+							</tr>
+							<tr>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>11</td>
+							</tr>
+							<tr>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td>13</td>
+							</tr>
+							<tr>
+								<td>14</td>
+							</tr>
+							<tr>
+								<td>15</td>
+							</tr>
+							<tr>
+								<td>16</td>
+							</tr>
+							<tr>
+								<td>17</td>
+							</tr>
+							<tr>
+								<td>18</td>
+							</tr>
+							<tr>
+								<td>19</td>
+							</tr>
+						</table>
+
+						<p>
+							Using the following <code>radialError</code> function, which samples the curve's approximation of the circular arc over several points
+							(although the first and last point will never contribute anything, so we skip them):
+						</p>
+
+						<table class="code">
+							<tr>
+								<td>1</td>
+								<td rowspan="7">
+									<textarea disabled rows="7" role="doc-example">
+radialError(radius, points[]):
+  err = 0
+  steps = 5.0
+  for (int i=1; i<steps; i++):
+    Point p = getOnCurvePoint(points, i/steps)
+    err += p.magnitude()/radius - 1
+  return err</textarea
+									>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+							</tr>
+							<tr>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>7</td>
+							</tr>
+						</table>
+
+						<p>
+							In this, <code>getOnCurvePoint</code> is just the standard Bézier evaluation function, yielding a point. Treating that point as a
+							vector, we can get its length to the origin using a <code>magnitude</code> call.
+						</p>
+						<h2>Examining the result</h2>
+						<p>
+							Running the above code we can get a list of <em>k</em> values associated with a list of angles θ from 0 to π, and we can use that to,
+							for each angle, plot what the difference between the circular arc and the Bézier approximation looks like:
+						</p>
+						<p><img src="images/chapter-assets/circles/image-20210419085430711.png" alt="image-20210419085430711" /></p>
+						<p>
+							Here we see the difference between an arc and its Bézier approximation plotted as we run <em>t</em> from 0 to 1. Just by looking at the
+							plot we can tell that there is maximum deflection at <em>t</em> = 0.5, so let's plot the maximum deflection "function", for angles from
+							0 to θ:
+						</p>
+						<p>In fact, let's plot the maximum deflections for both approaches as a functions over θ:</p>
+						<table>
+							<tbody>
+								<tr>
+									<td>
+										<img src="images/chapter-assets/circles/image-20210418111929371.png" width="95%" />
+									</td>
+									<td>
+										<img src="images/chapter-assets/circles/image-20210418112008676.png" width="95%" />
+									</td>
+									<td>
+										<img src="images/chapter-assets/circles/image-20210418112038613.png" width="95%" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										max deflection using unit scale
+									</td>
+									<td>
+										max deflection at 10x scale
+									</td>
+									<td>
+										max deflection at 100x scale
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<p>That doesn't actually appear to be all that much better, so let's look at some numbers, to see what the improvement actually is:</p>
+						<table>
+							<thead>
+								<tr>
+									<th>angle</th>
+									<th>"improved" deflection</th>
+									<th>"upper bound" deflection</th>
+									<th>difference</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1/8 π</td>
+									<td>6.202833502388927E-8</td>
+									<td>6.657161222278773E-8</td>
+									<td>4.5432771988984655E-9</td>
+								</tr>
+								<tr>
+									<td>1/4 π</td>
+									<td>3.978021202111215E-6</td>
+									<td>4.246252911066506E-6</td>
+									<td>2.68231708955291E-7</td>
+								</tr>
+								<tr>
+									<td>3/8 π</td>
+									<td>4.547652269037972E-5</td>
+									<td>4.8397483513262785E-5</td>
+									<td>2.9209608228830675E-6</td>
+								</tr>
+								<tr>
+									<td>1/2 π</td>
+									<td>2.569196199214696E-4</td>
+									<td>2.7251652752280364E-4</td>
+									<td>1.559690760133403E-5</td>
+								</tr>
+								<tr>
+									<td>5/8 π</td>
+									<td>9.877526288810667E-4</td>
+									<td>0.0010444175859711802</td>
+									<td>5.666495709011343E-5</td>
+								</tr>
+								<tr>
+									<td>3/4 π</td>
+									<td>0.00298164978679627</td>
+									<td>0.0031455628414580605</td>
+									<td>1.6391305466179062E-4</td>
+								</tr>
+								<tr>
+									<td>7/8 π</td>
+									<td>0.0076323182807019885</td>
+									<td>0.008047777909948373</td>
+									<td>4.1545962924638413E-4</td>
+								</tr>
+								<tr>
+									<td>π</td>
+									<td>0.017362185964043708</td>
+									<td>0.018349016519545902</td>
+									<td>9.86830555502194E-4</td>
+								</tr>
+							</tbody>
+						</table>
+						<p>
+							As we can see, the increase in precision is not particularly big: for a quarter circle (π/2) the traditional <em>k</em> will be off by
+							2.75 pixels on a circle with radius 10,000 pixels, whereas this "better" fit will be off by 2.56 pixels. And while that's certainly an
+							almost 10% improvement, it's also nowhere near enough of an improvement to make a discernible difference.
+						</p>
+					</div>
+
+					<p>
+						At this point it should be clear that while, yes, there are improvement to be had, they're essentially insignificant while also being
+						<em>much</em> more computationally expensive.
+					</p>
+					<h2>TL;DR: just tell me which value I should be using</h2>
+					<p>
+						It depends on what we need to do. If we just want the best value for quarter circles, and we're going to hard code the value for
+						<em>k</em>, then there is no reason to hard-code the constant <code>k=4/3*tan(pi/8)</code> when you can just as easily hard-code the
+						constant as <code>k=0.551784777779014</code> instead.
+					</p>
+					<p><strong>If you need "the" value for quarter circles, use 0.551785 instead of 0.55228</strong></p>
+					<p>
+						However, for dynamic arc approximation, in code that tries to fit circular paths using Bézier paths instead, it should be fairly obvious
+						that the simple function involving a tangent computation, two divisions, and one multiplication, is vastly more performant than running
+						all the code we ended writing just to get a 25% lower error value, and most certainly worth preferring over getting the "more accurate"
+						value.
+					</p>
+					<p>
+						<strong>If you need to fit Béziers to circular arcs on the fly, use <code>4/3 * tan(θ/4)</code></strong>
+					</p>
+					<p>
+						However, always remember that if you're writing for humans, you can typically use the best of both worlds: as the user interacts with
+						their curves, you should draw <em>their curves</em> instead of drawing approximations of them. If they need to draw circles or circular
+						arcs, draw those, and only approximate them with a Bézier curve when the data needs to be exported to a format that doesn't support those.
+						Ideally with a preview mechanism that highlights where the errors will be, and how large they will be.
+					</p>
+					<p><strong>If you're writing code for graphics design by humans, use circular arcs for circular arcs</strong></p>
+					<p>
+						And that's it. We have pretty well exhausted this subject. There are different metrics we could use to find "different best
+						<em>k</em> values", like trying to match arc length (e.g. when we're optimizing for material cost), or minimizing the area between the
+						circular arc and the Bézier curve (e.g. when we're optimizing for inking), or minimizing the rate of change of the Bézier's curvature
+						(e.g. when we're optimizing for curve traversal) and they all yield values that are so similar that it's almost certainly not worth it.
+						(For instance, for quarter circle approximations those values are 0.551777, 0.5533344, and 0.552184 respectively. Much like the 0.551785
+						we get from minimizing the maximum deflection, none of these values are significantly better enough to prefer them over the upper bound
+						value).
+					</p>
 				</section>
 				<section id="arcapproximation">
 					<h1>
@@ -9557,13 +9926,13 @@ for p = 1 to points.length-3 (inclusive):
 					</p>
 					<ol>
 						<li>We start with <code>low=0</code>, <code>mid=0.5</code> and <code>high=1</code></li>
-						<li>That'll fail, so we retry with the interval halved: <code>{0, 0.25, 0.5}</code></li>
-					</ol>
-					<ul>
-						<li>If that arc's good, we move back up by half distance: <code>{0, 0.375, 0.75}</code>.</li>
-						<li>However, if the arc was still bad, we move <em>down</em> by half the distance: <code>{0, 0.125, 0.25}</code>.</li>
-					</ul>
-					<ol start="3">
+						<li>
+							That'll fail, so we retry with the interval halved: <code>{0, 0.25, 0.5}</code>
+							<ul>
+								<li>If that arc's good, we move back up by half distance: <code>{0, 0.375, 0.75}</code>.</li>
+								<li>However, if the arc was still bad, we move <em>down</em> by half the distance: <code>{0, 0.125, 0.25}</code>.</li>
+							</ul>
+						</li>
 						<li>
 							We keep doing this over and over until we have two arcs, in sequence, of which the first arc is good, and the second arc is bad. When we
 							find that pair, we've found the boundary between a good approximation and a bad approximation, and we pick the good arc.
