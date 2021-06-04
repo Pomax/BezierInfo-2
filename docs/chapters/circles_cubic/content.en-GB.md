@@ -17,13 +17,13 @@ So let's again formally describe this:
 \[
 \begin{aligned}
   P_1 &= (1, 0) \\
-  P_2 &= (1, c) \\
+  P_2 &= (1, k) \\
   P_3 &= P_4 + k \cdot (sin(θ), -cos(θ)) \\
   P_4 &= (cos(θ), sin(θ))
 \end{aligned}
 \]
 
-Only P<sub>3</sub> isn't quite straight-forward here, and its description is based on the fact that the triangle (origin, P<sub>4</sub>, P<sub>3</sub>) is a right angled triangle, with the distance between the origin and P<sub>4</sub> being 1 (because we're working with a unit circle), and the distance between P<sub>4</sub> and P<sub>3</sub> being _c , so that we can represent P<sub>3</sub> as "The point P<sub>4</sub> plus the vector from the origin to P<sub>4</sub> but then rotated a quarter circle, counter-clockwise, and scaled by _c_".
+Only P<sub>3</sub> isn't quite straight-forward here, and its description is based on the fact that the triangle (origin, P<sub>4</sub>, P<sub>3</sub>) is a right angled triangle, with the distance between the origin and P<sub>4</sub> being 1 (because we're working with a unit circle), and the distance between P<sub>4</sub> and P<sub>3</sub> being _k_, so that we can represent P<sub>3</sub> as "The point P<sub>4</sub> plus the vector from the origin to P<sub>4</sub> but then rotated a quarter circle, counter-clockwise, and scaled by _k_".
 
 With that, we can determine the _y_-coordinates for A, B, e<sub>1</sub>, and e<sub>2</sub>, after which we have all the information we need to determine what the value of _k_ is. We can find these values by using (no surprise here) linear interpolation between known points, as A is midway between P<sub>2</sub> and P<sub>3</sub>, e<sub>1</sub> is between A and "midway between P<sub>1</sub> and P<sub>2</sub>" (which is "half height" P<sub>2</sub>), and so forth:
 
@@ -48,7 +48,7 @@ Solving for _k_ is fairly straight forward, but it's a fair few steps, and if yo
 
 \[
 \begin{aligned}
-\frac{3c + 4sin(θ)) - 3k \cdot cos(θ)}{8} &= sin(\frac{θ}{2}) \\
+\frac{3k + 4sin(θ)) - 3k \cdot cos(θ)}{8} &= sin(\frac{θ}{2}) \\
 3k + 4sin(θ)) - 3k \cdot cos(θ)  &= 8sin\left(\frac{θ}{2}\right) \\
 3k - 3k \cdot cos(θ) &= 8sin\left(\frac{θ}{2}\right) - 4sin(θ) \\
 3k (1 - cos(θ)) &= 4 \left ( 2sin\left(\frac{θ}{2} \right) - sin(θ) \right ) \\
