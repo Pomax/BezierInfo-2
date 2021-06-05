@@ -41,7 +41,7 @@
 		<meta property="og:locale" content="zh-CN" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2021-04-19T18:35:47+00:00" />
+		<meta property="og:updated_time" content="2021-06-05T23:23:15+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -8983,7 +8983,7 @@ for p = 1 to points.length-3 (inclusive):
  
                                                       P = (1, 0)                     
                                                        1
-                                                      P = (1, c)                     
+                                                      P = (1, k)                     
                                                        2                             
                                                       P = P  + k  · (sin(θ), -cos(θ))
                                                        3   4
@@ -8992,7 +8992,7 @@ for p = 1 to points.length-3 (inclusive):
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/circles_cubic/fe6cc524978eaa4f35d8de32c3b9ad94.svg"
+						src="./images/chapters/circles_cubic/9054528132317434ae2c0be27572d86b.svg"
 						width="208px"
 						height="85px"
 						loading="lazy"
@@ -9000,9 +9000,9 @@ for p = 1 to points.length-3 (inclusive):
 					<p>
 						Only P<sub>3</sub> isn't quite straight-forward here, and its description is based on the fact that the triangle (origin, P<sub>4</sub>,
 						P<sub>3</sub>) is a right angled triangle, with the distance between the origin and P<sub>4</sub> being 1 (because we're working with a
-						unit circle), and the distance between P<sub>4</sub> and P<sub>3</sub> being _c , so that we can represent P<sub>3</sub> as "The point
-						P<sub>4</sub> plus the vector from the origin to P<sub>4</sub> but then rotated a quarter circle, counter-clockwise, and scaled by
-						<em>c</em>".
+						unit circle), and the distance between P<sub>4</sub> and P<sub>3</sub> being <em>k</em>, so that we can represent P<sub>3</sub> as "The
+						point P<sub>4</sub> plus the vector from the origin to P<sub>4</sub> but then rotated a quarter circle, counter-clockwise, and scaled by
+						<em>k</em>".
 					</p>
 					<p>
 						With that, we can determine the <em>y</em>-coordinates for A, B, e<sub>1</sub>, and e<sub>2</sub>, after which we have all the information
@@ -9060,7 +9060,7 @@ for p = 1 to points.length-3 (inclusive):
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                           3c + 4sin(θ)) - 3k  · cos(θ)      θ
+                                           3k + 4sin(θ)) - 3k  · cos(θ)      θ
                                            ────────────────────────────= sin(─)                  
                                                         8                    2
                                                                              ╭ θ ╮
@@ -9085,8 +9085,8 @@ for p = 1 to points.length-3 (inclusive):
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/circles_cubic/b985384d01cb32d422f5d1123707ebc8.svg"
-							width="356px"
+							src="./images/chapters/circles_cubic/cb6686f1aff26d9f47ed4c695109fd5f.svg"
+							width="357px"
 							height="263px"
 							loading="lazy"
 						/>
