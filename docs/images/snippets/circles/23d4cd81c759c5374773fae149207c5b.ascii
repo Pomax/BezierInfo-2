@@ -1,0 +1,8 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                  ╭ 1   2   cos(θ)  ╮   ╭     3   1           ╮
+                                                  │ ─ + ─ + ──────  │   │     ─ + ─cos(θ)     │
+                                            B   = │ 4   4     4     │ = │     4   4           │
+                                               1  │ 0   2k   sin(θ) │   │ 1   ╭ θ ╮   1       │
+                                             t=─  │ ─ + ── + ────── │   │ ─tan│ ─ │ + ─sin(θ) │
+                                               2  ╰ 4   4      4    ╯   ╰ 2   ╰ 2 ╯   4       ╯

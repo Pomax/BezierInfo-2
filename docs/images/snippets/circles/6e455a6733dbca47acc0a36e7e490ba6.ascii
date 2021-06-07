@@ -1,0 +1,9 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                                     ╭  ┌────────────────┐ ╮
+                                                                     │  │         ┌─────┐  │
+                                                                     │  │         │    2   │
+                                                                  -1 │ ⟍│2 + ε - ⟍│2ε+ε    │
+                                               θ = f(ε) = 4  · cos   │ ─────────────────── │
+                                                                     │         ┌─┐         │
+                                                                     ╰        ⟍│2          ╯

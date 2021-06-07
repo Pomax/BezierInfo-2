@@ -1,0 +1,10 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                      cos(θ) + k  · sin(θ)= 1         
+                                                               k  · sin(θ)= 1 - cos(θ)
+                                                                            1 - cos(θ)
+                                                                         k= ──────────
+                                                                              sin(θ)
+                                                                               ╭ θ ╮
+                                                                         k= tan│ ─ │  
+                                                                               ╰ 2 ╯

@@ -1,5 +1,0 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                                                                                     4     ╭ φ ╮
-                                           C  = ┌ cos(φ) + f  · sin(φ) ┐ ,  with f = ─ tan │ ─ │
-                                            2   └ sin(φ) - f  · cos(φ) ┘             3     ╰ 4 ╯
