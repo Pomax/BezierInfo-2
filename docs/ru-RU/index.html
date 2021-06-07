@@ -34,7 +34,7 @@
 		<meta property="og:locale" content="ru-RU" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2021-06-07T15:09:41+00:00" />
+		<meta property="og:updated_time" content="2021-06-07T15:25:25+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -6158,9 +6158,13 @@ lli = function(line1, line2):
 							>,<em>C<sub>2.2</sub></em
 							>).
 						</li>
-						<li>For each pair, check whether their bounding boxes overlap.</li>
-						<li>If their bounding boxes do not overlap, discard the pair, as there is no intersection between this pair of curves.</li>
-						<li>If there <em>is</em> overlap, rerun all steps for this pair.</li>
+						<li>
+							For each pair, check whether their bounding boxes overlap.
+							<ol>
+								<li>If their bounding boxes do not overlap, discard the pair, as there is no intersection between this pair of curves.</li>
+								<li>If there <em>is</em> overlap, rerun all steps for this pair.</li>
+							</ol>
+						</li>
 						<li>
 							Once the sub-curves we form are so small that they effectively occupy sub-pixel areas, we consider an intersection found, noting that we
 							might have a cluster of multiple intersections at the sub-pixel level, out of which we pick one to act as "found" <code>t</code> value
@@ -9949,13 +9953,13 @@ radialError(radius, points[]):
 					</p>
 					<ol>
 						<li>We start with <code>low=0</code>, <code>mid=0.5</code> and <code>high=1</code></li>
-						<li>That'll fail, so we retry with the interval halved: <code>{0, 0.25, 0.5}</code></li>
-					</ol>
-					<ul>
-						<li>If that arc's good, we move back up by half distance: <code>{0, 0.375, 0.75}</code>.</li>
-						<li>However, if the arc was still bad, we move <em>down</em> by half the distance: <code>{0, 0.125, 0.25}</code>.</li>
-					</ul>
-					<ol start="3">
+						<li>
+							That'll fail, so we retry with the interval halved: <code>{0, 0.25, 0.5}</code>
+							<ul>
+								<li>If that arc's good, we move back up by half distance: <code>{0, 0.375, 0.75}</code>.</li>
+								<li>However, if the arc was still bad, we move <em>down</em> by half the distance: <code>{0, 0.125, 0.25}</code>.</li>
+							</ul>
+						</li>
 						<li>
 							We keep doing this over and over until we have two arcs, in sequence, of which the first arc is good, and the second arc is bad. When we
 							find that pair, we've found the boundary between a good approximation and a bad approximation, and we pick the good arc.
