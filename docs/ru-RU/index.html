@@ -23,18 +23,18 @@
 		<link rel="stylesheet" href="style.css" />
 
 		<!-- And a slew of SEO related meta elements, because being discoverable is important -->
-		<meta name="description" content="Подробное обьяснение кривых Безье, и как делать с ними то, чего так часто нам хочется" />
+		<meta name="description" content="Подробное обьяснение кривых Безье и возможностей их применения" />
 
 		<!-- opengraph information -->
 		<meta property="og:title" content="Основы кривых Безье" />
 		<meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
 		<meta property="og:type" content="text" />
 		<meta property="og:url" content="https://pomax.github.io/bezierinfo/ru-RU" />
-		<meta property="og:description" content="Подробное обьяснение кривых Безье, и как делать с ними то, чего так часто нам хочется" />
+		<meta property="og:description" content="Подробное обьяснение кривых Безье и возможностей их применения" />
 		<meta property="og:locale" content="ru-RU" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2021-06-08T16:16:36+00:00" />
+		<meta property="og:updated_time" content="2021-06-28T06:43:17+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -45,7 +45,7 @@
 		<meta name="twitter:creator" content="@TheRealPomax" />
 		<meta name="twitter:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
 		<meta name="twitter:url" content="https://pomax.github.io/bezierinfo/ru-RU" />
-		<meta name="twitter:description" content="Подробное обьяснение кривых Безье, и как делать с ними то, чего так часто нам хочется" />
+		<meta name="twitter:description" content="Подробное обьяснение кривых Безье и возможностей их применения" />
 
 		<!-- my own referral/page hit tracker, because Google knows enough -->
 		<script src="./js/site/referrer.js" type="module" async></script>
@@ -120,9 +120,9 @@
 			<h1>
 				Основы кривых Безье<a class="rss-link" href="news/rss.xml"><img src="images/rss.png" /></a>
 			</h1>
-			<h2>Бесплатное пособие о всем, что вам нужно знать о кривых Безье</h2>
+			<h2>Бесплатная онлайн-книга для тех, кому действительно важно знать, как работают кривые Безье</h2>
 			<div>
-				<span>Read this in your own language:</span>
+				<span>Читайте на своём языке:</span>
 				<ul class="lang-switcher">
 					<li><a href="./index.html">English</a> &nbsp;</li>
 					<li><a href="./ja-JP/index.html">日本語</a> <span class="localisation-progress">(24%)</span></li>
@@ -131,42 +131,47 @@
 					<li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
 				</ul>
 				<p>
-					(Не нашли своего языка или хотите заставить его доползти до 100%?
+					(Не нашли свой язык или хотите, чтобы он достиг до 100%?
 					<a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Помогите нам с переводом!</a>)
 				</p>
 			</div>
 
 			<p>
-				Приветствуем на Основах кривых Безье. Это бесплатное пособие/страница/электронная книга затрагивает математику и программирование кривых
-				Безье, охватывает большое количество тем касающихся прорисовки и работы с этим типом кривых, который, по всей видимости, выскакивает везде: от
-				кривых в Фотошоп-е до временных функций CSS и начертаний Шрифтов.
+				Приветствуем на Основах кривых Безье. Это бесплатная веб-страница/электронная книга, посвященная как математическим, так и программным
+				аспектам кривых Безье, охватывает широкий спектр тем касающихся рисования и работы с кривой, которая, кажется, появляется повсюду: от кривых в
+				Photoshop до функций плавности (easing functions) CSS и начертания шрифтов.
 			</p>
 			<p>
-				Если вы здесь впервые: салют! Обязательно напишите мне, если вы ищете что-то конкретное, на что не найдете ответ в тексте.
-				<a href="https://github.com/Pomax/BezierInfo-2/issues">трекер</a>!
+				Если вы здесь впервые: Добро пожаловать! Обязательно <a href="https://github.com/Pomax/BezierInfo-2/issues">напишите мне</a>, если вы ищете
+				что-то конкретное, но не нашли ответ в тексте.
 			</p>
 
-			<h2>Donations and sponsorship</h2>
+			<h2>Пожертвования и спонсорство</h2>
 
 			<p>
-				Ежели сей ресурс помог вам в ваших исследованиях или в написании собственной программы рассмотрите возможность
+				Если вы используете этот источник для исследований, в качестве справочника по работе, или даже для написания собственного программного
+				обеспечения рассмотрите возможность
 				<a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">задонатить</a>
-				(любая сума годится) или станьте <a href="https://www.patreon.com/bezierinfo">патроном на Patreon</a>. Мне не платят за эту работу, потому,
-				если нашли что-то для себя нужное на этом сайте и вам бы хотелось дабы существование его было долгим и успешным вот вам мысль: на создание
-				этих страниц ушло много кофе, и уйдет еще больше на их совершенствование; если вы можете помочь с кофе — уже это может стать залогом долгой и
-				счастливой жизни этого ресурса.
+				(любая сумма годится) или станьте <a href="https://www.patreon.com/bezierinfo">патроном на Patreon</a>. Мне не платят за эту работу, так что,
+				если вы нашли что-то полезное для себя и хотите, чтобы он оставался с нами надолго, то вот вам мысль: на создание этих страниц ушло много
+				кофе, и уйдет ещё больше на их совершенствование; если вы можете помочь с кофе, то поможете долгой и счастливой жизни этого ресурса.
+			</p>
+			<p>
+				Кроме того, если вы являетесь компанией и ваши сотрудники используют эту книгу в качестве источника, или вы используете её в качестве
+				вспомогательного ресурса, пожалуйста: подумайте о финансировании сайта! Я более чем счастлив, работая с вашим финансовым отделом над
+				выставлением счетов и признанием спонсорства.
 			</p>
 
 			<!--
 <div class="btcfh">
     <div>
         <h3>
-            Bitcoin donations:
+            Пожертвования в биткойнах:
         </h3>
         <p>
-        If you prefer to donate via Bitcoin, you can donate either directly to
+        Если вы предпочитаете делать пожертвования через биткойн, вы можете сделать пожертвование либо напрямую на
         <a class="btclk" href="bitcoin:3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu?label=Primer%20on%20Bezier%20Curves">3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu</a>
-        or use the QR code on the right, if that's the kind of convenience you prefer =)
+        либо используя QR-код справа, если вы предпочитаете такой вид =)
       </p>
     
     </div>
@@ -352,8 +357,8 @@
 			<section id="changelog">
 				<h1>Что нового?</h1>
 				<p>
-					Этот документ живое пособие, в зависимости от даты вашего последего визита, могли быть внесены дополнения. Кликайте
-					<a href="./news">здесь</a> для просмотра лога изменений. (также <a href="./news/rss.xml">RSS</a>)
+					Этот документ живое пособие, в зависимости от даты вашего последнего посещения, может появиться новый материал. Кликайте
+					<a href="./news">здесь</a> для просмотра лога изменений. (также доступен <a href="./news/rss.xml">RSS-канал</a>)
 				</p>
 				<!-- non-JS content reveals are nice -->
 				<label for="changelogtoggle">Показать/скрыть изменения</label>
@@ -518,7 +523,7 @@
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/introduction/54e9ec0600ac436b0e6f0c6b5005cf03.png" loading="lazy" />
 								<label>Квадратная кривая безье</label>
 							</fallback-image></graphics-element
@@ -532,7 +537,7 @@
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/introduction/8d158a13e9a86969b99c64057644cbc6.png" loading="lazy" />
 								<label>Кубическая кривая безье</label>
 							</fallback-image></graphics-element
@@ -601,7 +606,7 @@
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="825px" height="275px" src="./images/chapters/whatis/524dd296e96c0fe2281fb95146f8ea65.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -707,7 +712,7 @@
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/explanation/959762e39ae32407e914a687d804ff3a.png" loading="lazy" />
 							<label> (Часть) круга: x=sin(t), y=cos(t)</label>
 						</fallback-image>
@@ -1082,7 +1087,7 @@ function Bezier(3,t):
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/control/8332e5d34b7344bbee2a2e1f4521ce46.png" loading="lazy" />
 								<label>Квадратная интерполяция</label>
 							</fallback-image>
@@ -1098,7 +1103,7 @@ function Bezier(3,t):
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/control/1b8c5e574dc67bfb0afc3fb0a8727378.png" loading="lazy" />
 								<label>Кубическая интерполяция</label>
 							</fallback-image>
@@ -1114,7 +1119,7 @@ function Bezier(3,t):
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/control/c26d2655e8741ef7e2eeb4f6554fc7a5.png" loading="lazy" />
 								<label>Интерполяция кривой 15-го порядка</label>
 							</fallback-image>
@@ -1166,7 +1171,7 @@ Bézier(n,t) = ❯      \underset биноминальный термин\underb
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/control/8d158a13e9a86969b99c64057644cbc6.png" loading="lazy" />
 							<label>Наша кубическая кривая Безье</label>
 						</fallback-image></graphics-element
@@ -1346,7 +1351,7 @@ function Bezier(3,t,w[]):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/weightcontrol/3d71e2b9373684eebcb0dc8563f70b18.png" loading="lazy" />
 							<label>Соотносительная кубическая кривая Безье</label>
 						</fallback-image>
@@ -1542,7 +1547,7 @@ function RationalBezier(3,t,w[],r[]):
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/extended/37948bde4bf0d25bde85f172bf55b9fb.png" loading="lazy" />
 								<label>Квадратный бесконечный интервал кривой Безье</label>
 							</fallback-image></graphics-element
@@ -1557,7 +1562,7 @@ function RationalBezier(3,t,w[],r[]):
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/extended/2d17acb381ebdd28f0ff43be00d723c4.png" loading="lazy" />
 								<label>Кубический бесконечный интервал кривой Безье</label>
 							</fallback-image></graphics-element
@@ -1769,7 +1774,7 @@ function RationalBezier(3,t,w[],r[]):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/decasteljau/df92f529841f39decf9ad62b0967855a.png" loading="lazy" />
 							<label>Прохождение кривой с использованием алгоритма де Кастельжо</label>
 						</fallback-image>
@@ -1904,7 +1909,7 @@ function drawCurve(points[], t):
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/flattening/6813bfc608aea11df1dda444b9f18123.png" loading="lazy" />
 								<label>Flattening a quadratic curve</label>
 							</fallback-image>
@@ -1920,7 +1925,7 @@ function drawCurve(points[], t):
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/flattening/0e0e4a2ee46bd89bcfde9f75cfe43292.png" loading="lazy" />
 								<label>Flattening a cubic curve</label>
 							</fallback-image>
@@ -2032,7 +2037,7 @@ function drawFlattenedCurve(curve, segmentCount):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="825px" height="275px" src="./images/chapters/splitting/fce5eb16dfcd103797c5e17bd77f1437.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -2913,7 +2918,7 @@ Bézier(k,t) = ❯      \underset binomial term\underbrace\binomki  · \ \unders
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/reordering/c4874e1205aabe624e5504abe154eae9.png" loading="lazy" />
 							<label>A variable-order Bézier curve</label>
 						</fallback-image>
@@ -3385,7 +3390,7 @@ Bézier'(n,t) = ❯      \underset биноминальный термин\under
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/pointvectors/d0b09bb338bd42d4164ced871d1f77ba.png" loading="lazy" />
 								<label>Quadratic Bézier tangents and normals</label>
 							</fallback-image></graphics-element
@@ -3400,7 +3405,7 @@ Bézier'(n,t) = ❯      \underset биноминальный термин\under
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/pointvectors/b8285282b8a0ce28fc2cc0392e9b607a.png" loading="lazy" />
 								<label>Cubic Bézier tangents and normals</label>
 							</fallback-image></graphics-element
@@ -3481,7 +3486,7 @@ Bézier'(n,t) = ❯      \underset биноминальный термин\under
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="350px" height="300px" src="./images/chapters/pointvectors3d/11c1da2357004bb51cf0c591fc492115.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -3741,7 +3746,7 @@ generateRMFrames(steps) -> frames:
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="350px" height="300px" src="./images/chapters/pointvectors3d/f4a2fa1e0204c890b2bff07228ba678d.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -3791,7 +3796,7 @@ generateRMFrames(steps) -> frames:
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="825px" height="275px" src="./images/chapters/components/1e6e38f6403dbe4c8b80295a94fc6748.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -3806,7 +3811,7 @@ generateRMFrames(steps) -> frames:
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="825px" height="275px" src="./images/chapters/components/348694339257428a260144da4bbf80fc.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -4437,7 +4442,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="825px" height="275px" src="./images/chapters/extremities/fd68347a917c9b703ff8005287ac6ca4.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -4452,7 +4457,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="825px" height="275px" src="./images/chapters/extremities/fbfe9464c9653f5efcd04411e683faf9.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -4491,7 +4496,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/boundingbox/12ec4a5039de2e2cc06611db5e826282.png" loading="lazy" />
 								<label>Quadratic Bézier bounding box</label>
 							</fallback-image></graphics-element
@@ -4506,7 +4511,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/boundingbox/daad01218ba430e2355d151811aa971b.png" loading="lazy" />
 								<label>Cubic Bézier bounding box</label>
 							</fallback-image></graphics-element
@@ -4594,7 +4599,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="550px" height="275px" src="./images/chapters/aligning/28cc0f129fa0c028a1addd702e99f162.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -4609,7 +4614,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="550px" height="275px" src="./images/chapters/aligning/9a6755a1e31a990e8f072a6da98f811a.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -4636,7 +4641,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/tightbounds/ed91133976018ec032d9115344debb36.png" loading="lazy" />
 								<label>Aligning a quadratic curve</label>
 							</fallback-image></graphics-element
@@ -4651,7 +4656,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/tightbounds/9ee5abc64b3fba71e284c70539279d74.png" loading="lazy" />
 								<label>Aligning a cubic curve</label>
 							</fallback-image></graphics-element
@@ -4871,7 +4876,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/inflections/726ece45630c43be14589c51f1606bd7.png" loading="lazy" />
 							<label>Finding cubic Bézier curve inflections</label>
 						</fallback-image></graphics-element
@@ -4912,7 +4917,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="400px" height="400px" src="./images/chapters/canonical/c086e72bd8aaeab37436515ab251b2df.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -5243,7 +5248,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="800px" height="400px" src="./images/chapters/canonical/83fe2473e20ea68b768765129ee44ae4.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -5276,7 +5281,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="550px" height="275px" src="./images/chapters/yforx/e469af5bf27a2c27d1dd6fc62a78ac27.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -5385,7 +5390,7 @@ y = curve.get(t).y</textarea
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/yforx/2fc5c57e5d1ed0eaa1655edc31026252.png" loading="lazy" />
 							<label>Finding By(t), by finding t for a given x</label>
 						</fallback-image>
@@ -5476,7 +5481,7 @@ y = curve.get(t).y</textarea
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/arclength/56533f47e73ad9fea08fa9bb3f597d49.png" loading="lazy" />
 								<label>A function's approximated integral</label>
 							</fallback-image></graphics-element
@@ -5491,7 +5496,7 @@ y = curve.get(t).y</textarea
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/arclength/5ce02cbdbc47585c588f2656d5161a32.png" loading="lazy" />
 								<label>A better approximation</label>
 							</fallback-image></graphics-element
@@ -5506,7 +5511,7 @@ y = curve.get(t).y</textarea
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/arclength/fe2663b205d14c157a5a02bfbbd55987.png" loading="lazy" />
 								<label>An even better approximation</label>
 							</fallback-image></graphics-element
@@ -5626,7 +5631,7 @@ y = curve.get(t).y</textarea
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/arclength/fa4c587126e8097206b88d9ea51974ca.png" loading="lazy" />
 							<label>Arc length for a Bézier curve</label>
 						</fallback-image></graphics-element
@@ -5657,7 +5662,7 @@ y = curve.get(t).y</textarea
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/arclengthapprox/3fc083ea7bdcc6b021560f2f2491f8aa.png" loading="lazy" />
 								<label>Approximate quadratic curve arc length</label>
 							</fallback-image>
@@ -5673,7 +5678,7 @@ y = curve.get(t).y</textarea
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/arclengthapprox/537260c4aa9e98ffdea7c8120afbd427.png" loading="lazy" />
 								<label>Approximate cubic curve arc length</label>
 							</fallback-image>
@@ -5841,7 +5846,7 @@ function kappa(t, B):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="825px" height="275px" src="./images/chapters/curvature/4f2647446363ca5d93b11e414fd976df.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -5873,7 +5878,7 @@ function kappa(t, B):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="825px" height="275px" src="./images/chapters/curvature/392624cedf7c78aed6d4c6065a014b42.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -5912,7 +5917,7 @@ function kappa(t, B):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="550px" height="275px" src="./images/chapters/tracing/d6239520389637a3c42e76ee44d86c41.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -5937,7 +5942,7 @@ function kappa(t, B):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="825px" height="275px" src="./images/chapters/tracing/1cd7304fb8d044835bfbc305ca5e5d10.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -5993,7 +5998,7 @@ function kappa(t, B):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/intersections/b3f61036d8dc9888a6a64a1171583dd1.png" loading="lazy" />
 							<label>Line/line intersections</label>
 						</fallback-image></graphics-element
@@ -6101,7 +6106,7 @@ lli = function(line1, line2):
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/intersections/9b70fb7b03f082882515e55c0a1eacff.png" loading="lazy" />
 								<label>Quadratic curve/line intersections</label>
 							</fallback-image></graphics-element
@@ -6116,7 +6121,7 @@ lli = function(line1, line2):
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/intersections/7196d3dec75d53f5df9d9c832ac3c493.png" loading="lazy" />
 								<label>Cubic curve/line intersections</label>
 							</fallback-image></graphics-element
@@ -6191,7 +6196,7 @@ lli = function(line1, line2):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="825px" height="275px" src="./images/chapters/curveintersection/b155682162a5b6da6d40c7b531164a7e.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -6241,7 +6246,7 @@ lli = function(line1, line2):
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/abc/7a69dd4350ddda5701712e1d3b46b863.png" loading="lazy" />
 								<label>Projections in a quadratic Bézier curve</label>
 							</fallback-image>
@@ -6258,7 +6263,7 @@ lli = function(line1, line2):
 							viewSource="view source"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 								<img width="275px" height="275px" src="./images/chapters/abc/eeec7cf16fb22c666e0143a3a030731f.png" loading="lazy" />
 								<label>Projections in a cubic Bézier curve</label>
 							</fallback-image>
@@ -6470,7 +6475,7 @@ lli = function(line1, line2):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/067a3df30e32708fc0d13f8eb78c0b05.png" loading="lazy" />
 							<label>Fitting a quadratic Bézier curve</label>
 						</fallback-image></graphics-element
@@ -6496,7 +6501,7 @@ lli = function(line1, line2):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/43875f6ad588bfd04cdb65b591a62052.png" loading="lazy" />
 							<label>Finding a circle through three points</label>
 						</fallback-image></graphics-element
@@ -6573,7 +6578,7 @@ lli = function(line1, line2):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/75f7b5b31e98444e13f17e5c3e5b7322.png" loading="lazy" />
 							<label>Finding the cubic e₁ and e₂ given three points </label>
 						</fallback-image></graphics-element
@@ -6594,7 +6599,7 @@ lli = function(line1, line2):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/eab6ea46fa93030e03ec0ef7deb571dc.png" loading="lazy" />
 							<label>Fitting a quadratic Bézier curve</label>
 						</fallback-image></graphics-element
@@ -6705,7 +6710,7 @@ for (coordinate, index) in LUT:
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="400px" height="400px" src="./images/chapters/projections/536a94885dc1637c066d0ef4f6e4e650.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -6997,7 +7002,7 @@ findClosest(start, p, r, LUT):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/circleintersection/3a3ea30971de247da93034de614a63a4.png" loading="lazy" />
 							<label>circle intersection</label>
 						</fallback-image>
@@ -7047,7 +7052,7 @@ findClosest(start, p, r, LUT):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="825px" height="275px" src="./images/chapters/molding/2bd215d1db191b52a89a94727b6aa5ce.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -7073,7 +7078,7 @@ findClosest(start, p, r, LUT):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="825px" height="275px" src="./images/chapters/molding/a54f990aa49fb9ea8200b59259f955f3.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -7098,7 +7103,7 @@ findClosest(start, p, r, LUT):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="825px" height="275px" src="./images/chapters/molding/1039d0bb0e49cfb472c2fa37f9010190.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -7604,7 +7609,7 @@ findClosest(start, p, r, LUT):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="550px" height="275px" src="./images/chapters/curvefitting/798f3d7151dfb2887c7881a08e65cdd3.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -7642,7 +7647,7 @@ findClosest(start, p, r, LUT):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/catmullconv/aa46749b9469341d9249ca452390d875.png" loading="lazy" />
 							<label>A Catmull-Rom curve</label>
 						</fallback-image>
@@ -8436,7 +8441,7 @@ for p = 1 to points.length-3 (inclusive):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/41522a397171423e8a465dc8c74f6e87.png" loading="lazy" />
 							<label>Unlinked quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8452,7 +8457,7 @@ for p = 1 to points.length-3 (inclusive):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/6fb33629373d7a731b6ac3f5365cb9f0.png" loading="lazy" />
 							<label>Unlinked cubic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8499,7 +8504,7 @@ for p = 1 to points.length-3 (inclusive):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/db04f805f42bdc9a1b7ec4d6b401d853.png" loading="lazy" />
 							<label>Connected quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8515,7 +8520,7 @@ for p = 1 to points.length-3 (inclusive):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/fe41b628f46f7035d151a8210d30111f.png" loading="lazy" />
 							<label>Connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8545,7 +8550,7 @@ for p = 1 to points.length-3 (inclusive):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/777f3814965c39ec3cdbb13eab0c4eeb.png" loading="lazy" />
 							<label>Angularly connected quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8561,7 +8566,7 @@ for p = 1 to points.length-3 (inclusive):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/f6c55cbc66333b6630939f67fc20e086.png" loading="lazy" />
 							<label>Angularly connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8586,7 +8591,7 @@ for p = 1 to points.length-3 (inclusive):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/b3aebf7803f4430187c249a891095062.png" loading="lazy" />
 							<label>Standard connected quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8602,7 +8607,7 @@ for p = 1 to points.length-3 (inclusive):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/1b94c6ada011bd8e50330e31a851a62e.png" loading="lazy" />
 							<label>Standard connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8794,7 +8799,7 @@ for p = 1 to points.length-3 (inclusive):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/offsetting/03b8e0849e7c8ba64d8c076f47fe2ec7.png" loading="lazy" />
 							<label>Offsetting a quadratic Bézier curve</label>
 						</fallback-image>
@@ -8810,7 +8815,7 @@ for p = 1 to points.length-3 (inclusive):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/offsetting/4c4738b6bf9f83eded12d680a29e337b.png" loading="lazy" />
 							<label>Offsetting a cubic Bézier curve</label>
 						</fallback-image>
@@ -8863,7 +8868,7 @@ for p = 1 to points.length-3 (inclusive):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/graduatedoffset/8cc724d5343c65685d88c92b2d069a2a.png" loading="lazy" />
 							<label>Offsetting a quadratic Bézier curve</label>
 						</fallback-image>
@@ -8879,7 +8884,7 @@ for p = 1 to points.length-3 (inclusive):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/graduatedoffset/17bf62e05a1fc3387b0c210f2decff45.png" loading="lazy" />
 							<label>Offsetting a cubic Bézier curve</label>
 						</fallback-image>
@@ -8924,7 +8929,7 @@ for p = 1 to points.length-3 (inclusive):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="400px" height="400px" src="./images/chapters/circles/08ca09aacb271735e063e7e8d941a195.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -9139,7 +9144,7 @@ for p = 1 to points.length-3 (inclusive):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="400px" height="400px" src="./images/chapters/circles_cubic/891d50a946936c9701adc855de12623d.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -9980,7 +9985,7 @@ radialError(radius, points[]):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/arcapproximation/7c9cce8142fa3e85bb124520f40645ff.png" loading="lazy" />
 							<label>First arc approximation of a Bézier curve</label>
 						</fallback-image>
@@ -10001,7 +10006,7 @@ radialError(radius, points[]):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="275px" height="275px" src="./images/chapters/arcapproximation/da76341b841df1af8a39f797e85dfe3c.png" loading="lazy" />
 							<label>Arc approximation of a Bézier curve</label>
 						</fallback-image>
@@ -10052,7 +10057,7 @@ radialError(radius, points[]):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="600px" height="300px" src="./images/chapters/bsplines/fe3a8ca5706f286d916e36699e237e51.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -10081,7 +10086,7 @@ radialError(radius, points[]):
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="600px" height="300px" src="./images/chapters/bsplines/41167c64c51386414c6e62f0b45e6295.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -10389,7 +10394,7 @@ for(let L = 1; L <= order; L++) {
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/48a30189e74658737b3a8b28bb816f8a.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -10420,7 +10425,7 @@ for(let L = 1; L <= order; L++) {
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/ceaef2fbee05a58aa11835925403b4cd.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -10448,7 +10453,7 @@ for(let L = 1; L <= order; L++) {
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/0215dc106e4ad51afe043c0176a595f6.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -10477,7 +10482,7 @@ for(let L = 1; L <= order; L++) {
 						viewSource="view source"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">Скрипты отключены. Показываем резервное изображение.</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/0d9c2186423466a32bb8fbd187409f82.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
