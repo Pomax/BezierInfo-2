@@ -9,13 +9,13 @@ const localeStringData = {
 
   subtitle: {
     "en-GB": `A free, online book for when you really need to know how to do Bézier things.`,
-    "ru-RU": `Бесплатное пособие о всем, что вам нужно знать о кривых Безье`,
+    "ru-RU": `Бесплатная онлайн-книга для тех, кому действительно важно знать, как работают кривые Безье`,
     "uk-UA": `Безкоштовна онлайн-книга, яка навчить вас всьому необхідному, щоб працювати з кривими Безьє.`,
   },
 
   description: {
     "en-GB": `A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.`,
-    "ru-RU": `Подробное обьяснение кривых Безье, и как делать с ними то, чего так часто нам хочется`,
+    "ru-RU": `Подробное обьяснение кривых Безье и возможностей их применения`,
     "uk-UA": `Детальне пояснення кривих Безьє та можливостей їх застосування.`,
   },
 
@@ -34,13 +34,13 @@ const localeStringData = {
     `,
     "ru-RU": `
       <p>
-        Приветствуем на Основах кривых Безье. Это бесплатное пособие/страница/электронная книга затрагивает математику и
-        программирование кривых Безье, охватывает большое количество тем касающихся прорисовки и работы с этим типом кривых,
-        который, по всей видимости, выскакивает везде: от кривых в Фотошоп-е до временных функций CSS и начертаний Шрифтов.
+        Приветствуем на Основах кривых Безье. Это бесплатная веб-страница/электронная книга, посвященная как математическим,
+        так и программным аспектам кривых Безье, охватывает широкий спектр тем касающихся рисования и работы с кривой,
+        которая, кажется, появляется повсюду: от кривых в Photoshop до функций плавности (easing functions) CSS и начертания шрифтов.
       </p>
       <p>
-        Если вы здесь впервые: салют! Обязательно напишите мне, если вы ищете что-то конкретное, на что не найдете ответ в
-        тексте. <a href="https://github.com/Pomax/BezierInfo-2/issues">трекер</a>!
+        Если вы здесь впервые: Добро пожаловать! Обязательно <a href="https://github.com/Pomax/BezierInfo-2/issues">напишите мне</a>, 
+        если вы ищете что-то конкретное, но не нашли ответ в тексте.
       </p>
     `,
     "uk-UA": `
@@ -59,6 +59,7 @@ const localeStringData = {
 
   donationsHeading: {
     "en-GB": `Donations and sponsorship`,
+    "ru-RU": `Пожертвования и спонсорство`,
   },
 
   donationCTA: {
@@ -79,12 +80,18 @@ const localeStringData = {
     `,
     "ru-RU": `
       <p>
-        Ежели сей ресурс помог вам в ваших исследованиях или в написании собственной программы рассмотрите возможность
+        Если вы используете этот источник для исследований, в качестве справочника по работе, или даже для написания
+        собственного программного обеспечения рассмотрите возможность
         <a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">задонатить</a>
-        (любая сума годится) или станьте <a href="https://www.patreon.com/bezierinfo">патроном на Patreon</a>. Мне не
-        платят за эту работу, потому, если нашли что-то для себя нужное на этом сайте и вам бы хотелось дабы существование
-        его было долгим и успешным вот вам мысль: на создание этих страниц ушло много кофе, и уйдет еще больше на их
-        совершенствование; если вы можете помочь с кофе — уже это может стать залогом долгой и счастливой жизни этого ресурса.
+        (любая сумма годится) или станьте <a href="https://www.patreon.com/bezierinfo">патроном на Patreon</a>. Мне не
+        платят за эту работу, так что, если вы нашли что-то полезное для себя и хотите, чтобы он оставался с нами надолго,
+        то вот вам мысль: на создание этих страниц ушло много кофе, и уйдет ещё больше на их совершенствование;
+        если вы можете помочь с кофе, то поможете долгой и счастливой жизни этого ресурса.
+      </p>
+      <p>
+        Кроме того, если вы являетесь компанией и ваши сотрудники используют эту книгу в качестве источника, или вы используете
+        её в качестве вспомогательного ресурса, пожалуйста: подумайте о финансировании сайта! Я более чем счастлив, работая
+        с вашим финансовым отделом над выставлением счетов и признанием спонсорства.
       </p>
     `,
     "uk-UA": `
@@ -101,6 +108,7 @@ const localeStringData = {
 
   bitcoinHeading: {
     "en-GB": `Bitcoin donations:`,
+    "ru-RU": `Пожертвования в биткойнах:`,
   },
 
   bitcoinCTA: {
@@ -108,6 +116,12 @@ const localeStringData = {
         If you prefer to donate via Bitcoin, you can donate either directly to
         <a class="btclk" href="bitcoin:3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu?label=Primer%20on%20Bezier%20Curves">3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu</a>
         or use the QR code on the right, if that's the kind of convenience you prefer =)
+      </p>
+    `,
+    "ru-RU": `<p>
+        Если вы предпочитаете делать пожертвования через биткойн, вы можете сделать пожертвование либо напрямую на
+        <a class="btclk" href="bitcoin:3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu?label=Primer%20on%20Bezier%20Curves">3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu</a>
+        либо используя QR-код справа, если вы предпочитаете такой вид =)
       </p>
     `,
   },
@@ -130,17 +144,19 @@ const localeStringData = {
 
   langSwitchLabel: {
     "en-GB": `Read this in your own language:`,
+    "ru-RU": `Читайте на своём языке:`,
     "uk-UA": `Читати рідною мовою:`,
   },
 
   langHelpLabel: {
     "en-GB": `Don't see your language listed, or want to see it reach 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Help translate this content!</a>`,
-    "ru-RU": `Не нашли своего языка или хотите заставить его доползти до 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Помогите нам с переводом!</a>`,
+    "ru-RU": `Не нашли свой язык или хотите, чтобы он достиг до 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Помогите нам с переводом!</a>`,
     "uk-UA": `Не бачите своєї мови у списку або хочете, щоб вона досягла 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Допоможіть перекласти цей контент!</a>`,
   },
 
   disabledMessage: {
     "en-GB": `Scripts are disabled. Showing fallback image.`,
+    "ru-RU": `Скрипты отключены. Показываем резервное изображение.`,
     "uk-UA": `Скрипти вимкнено. показує резервний.`,
   },
 
@@ -198,7 +214,7 @@ const localeStringData = {
 
   changelogDescription: {
     "en-GB": `This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when, or click through to the <a href="./news">News posts</a> for more detailed updates. (<a href="./news/rss.xml">RSS feed</a> available)`,
-    "ru-RU": `Этот документ живое пособие, в зависимости от даты вашего последего визита, могли быть внесены дополнения. Кликайте <a href="./news">здесь</a> для просмотра лога изменений. (также <a href="./news/rss.xml">RSS</a>)`,
+    "ru-RU": `Этот документ живое пособие, в зависимости от даты вашего последнего посещения, может появиться новый материал. Кликайте <a href="./news">здесь</a> для просмотра лога изменений. (также доступен <a href="./news/rss.xml">RSS-канал</a>)`,
     "uk-UA": `Цей підручник постійно розвививається, тож залежно від того, коли ви востаннє його переглядали, тут можуть бути оновлення. Перейдіть за <a href="./news">цим посиланням</a>, щоб побачити, що було додано. (Також доступний <a href="./news/rss.xml">RSS-канал</a>)`,
   },
 
