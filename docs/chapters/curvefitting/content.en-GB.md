@@ -46,9 +46,9 @@ With that arrangement, we can easily decompose this as a matrix multiplication:
       \begin{bmatrix}1 & t & t^2 \end{bmatrix}
       \cdot
       \begin{bmatrix}
-         a &  0 & 0 \\
-       -2a & 2b & 0 \\
-         a &-2b & c
+         a &+&  0 &+& 0 \\
+       -2a &+& 2b &+& 0 \\
+         a &+&-2b &+& c
       \end{bmatrix}
       =
       \begin{bmatrix}1 & t & t^2 \end{bmatrix}
