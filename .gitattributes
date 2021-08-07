@@ -1,3 +1,5 @@
+# Linguist overrides. See https://github.com/github/linguist/blob/master/docs/overrides.md for more details.
+
 # Github's insistence that only the "docs" dir or root can be web roots is idiotic
 docs/*.* -linguist-documentation
 *.md linguist-detectable
