@@ -10,4 +10,5 @@ docs/*.php linguist-vendored
 *.pl linguist-vendored
 
 # And let's make sure that markdown is called that.
-*.md linguist-language=Markdown
+*.md linguist-detectable
+*.md linguist-language=markdown
