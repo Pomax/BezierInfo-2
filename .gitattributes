@@ -2,10 +2,12 @@
 
 # Github's insistence that only the "docs" dir or root can be web roots is idiotic
 docs/*.* -linguist-documentation
-*.md linguist-detectable
 
 # Except for the legacy PHP files, consider those "vender" files to be excluded from the stats
 docs/*.php linguist-vendored
 
 # This is the Perl file from https://github.com/Pomax/tex2utf
 *.pl linguist-vendored
+
+# And let's make sure that markdown is called that.
+*.md linguist-language=Markdown
