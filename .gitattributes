@@ -1,0 +1,6 @@
+# Github's insistence that only the "docs" dir or root can be web roots is idiotic
+docs/*.* -linguist-documentation
+*.md linguist-detectable
+
+# This is the Perl file from https://github.com/Pomax/tex2utf
+*.pl linguist-vendored
