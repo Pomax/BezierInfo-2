@@ -23,23 +23,23 @@ To see this in action, move the slider for the following sketch to changes which
 
 ### How to implement de Casteljau's algorithm
 
-Let's just use the algorithm we just specified, and implement that:
+Let's just use the algorithm we just specified, and implement that as a function that can take a list of curve-defining points, and a `t` value, and draws the associated point on the curve for that `t` value:
 
 ```
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     draw(points[0])
   else:
     newpoints=array(points.size-1)
     for(i=0; i<newpoints.length; i++):
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
-    drawCurve(newpoints, t)
+    drawCurvePoint(newpoints, t)
 ```
 
-And done, that's the algorithm implemented. Except usually you don't get the luxury of overloading the "+" operator, so let's also give the code for when you need to work with `x` and `y` values:
+And done, that's the algorithm implemented. Although: usually you don't get the luxury of overloading the "+" operator, so let's also give the code for when you need to work with `x` and `y` values separately:
 
 ```
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     draw(points[0])
   else:
@@ -48,7 +48,7 @@ function drawCurve(points[], t):
       x = (1-t) * points[i].x + t * points[i+1].x
       y = (1-t) * points[i].y + t * points[i+1].y
       newpoints[i] = new point(x,y)
-    drawCurve(newpoints, t)
+    drawCurvePoint(newpoints, t)
 ```
 
 So what does this do? This draws a point, if the passed list of points is only 1 point long. Otherwise it will create a new list of points that sit at the <i>t</i> ratios (i.e. the "markers" outlined in the above algorithm), and then call the draw function for this new list.
