@@ -52,7 +52,7 @@ The result of this approach looks as follows:
 
 It is important to remember that even though we're using a circular arc to come up with decent `e1` and `e2` terms, we're _not_ trying to perfectly create a circular arc with a cubic curve (which is good, because we can't; [more on that later](#arcapproximation)), we're _only_ trying to come up with some reasonable `e1` and `e2` points so we can construct a new cubic curve... so now that we have those: let's see what kind of cubic curve that gives us:
 
-<graphics-element title="Fitting a quadratic Bézier curve" src="./cubic.js"></graphics-element>
+<graphics-element title="Fitting a cubic Bézier curve" src="./cubic.js"></graphics-element>
 
 That looks perfectly serviceable!
 
