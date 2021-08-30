@@ -15,7 +15,7 @@
 ```
 left=[]
 right=[]
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     left.add(points[0])
     right.add(points[0])
@@ -28,7 +28,7 @@ function drawCurve(points[], t):
       if(i==newpoints.length-1):
         right.add(points[i+1])
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
-    drawCurve(newpoints, t)
+    drawCurvePoint(newpoints, t)
 ```
 
 对某个给定 `t` 值，该函数执行后，数组 `left` 和 `right` 将包含两条曲线的所有点的坐标 -- 一条是`t`值左侧的曲线，一条是`t`值右侧的曲线， 与原始曲线同序且完全重合。

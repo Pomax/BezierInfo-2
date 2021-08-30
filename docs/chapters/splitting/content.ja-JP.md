@@ -15,7 +15,7 @@
 ```
 left=[]
 right=[]
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     left.add(points[0])
     right.add(points[0])
@@ -28,7 +28,7 @@ function drawCurve(points[], t):
       if(i==newpoints.length-1):
         right.add(points[i+1])
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
-    drawCurve(newpoints, t)
+    drawCurvePoint(newpoints, t)
 ```
 
 ある値`t`に対してこの関数を実行すると、`left`と`right`に新しい2曲線の座標が入ります。一方は`t`の「左」側、もう一方は「右」側の曲線です。この2曲線は元の曲線と同じ次数になり、また元の曲線とぴったり重なります。
