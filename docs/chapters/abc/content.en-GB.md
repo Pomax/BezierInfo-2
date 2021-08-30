@@ -77,8 +77,8 @@ With `A` found, finding `e1` and `e2` for quadratic curves is a matter of runnin
 
 \[
     \left \{ \begin{aligned}
-    v_1 &= A' - \frac{A' - e_1}{1 - t} \\
-    v_2 &= A' - \frac{A' - e_2}{t}
+    v_1 &= A - \frac{A - e_1}{1 - t} \\
+    v_2 &= A - \frac{A - e_2}{t}
     \end{aligned} \right .
 \]
 
@@ -86,8 +86,8 @@ And then reverse engineer the curve's control points:
 
 \[
     \left \{ \begin{aligned}
-    C_1' &= \textit{start} + \frac{v_1 - \textit{start}}{t} \\
-    C_2' &= \textit{end} + \frac{v_2 - \textit{end}}{1 - t}
+    C_1 &= \textit{start} + \frac{v_1 - \textit{start}}{t} \\
+    C_2 &= \textit{end} + \frac{v_2 - \textit{end}}{1 - t}
     \end{aligned} \right .
 \]
 
