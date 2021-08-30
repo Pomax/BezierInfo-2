@@ -38,7 +38,7 @@
 		<meta property="og:locale" content="en-GB" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2021-08-30T21:59:19+00:00" />
+		<meta property="og:updated_time" content="2021-08-30T22:10:17+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -6120,28 +6120,28 @@ lli = function(line1, line2):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                               ╭     e  - t  · A
-                                                                               │      1
-                                       ╭ e = (1-t)  · v  + t  · A              │ v = ───────────    
-                                       ╡  1            1           \Rightarrow ╡  1      1-t         
-                                       │ e = (1-t)  · A + t  · v               │     e  - (1-t)  · A
-                                       ╰  2                     2              │      2
-                                                                               │ v = ───────────────
-                                                                               ╰  2         t
+                                                                           ╭     e  - t  · A
+                                                                           │      1
+                                          ╭ e = (1-t)  · v  + t  · A       │ v = ───────────    
+                                          ╡  1            1            ==> ╡  1      1-t         
+                                          │ e = (1-t)  · A + t  · v        │     e  - (1-t)  · A
+                                          ╰  2                     2       │      2
+                                                                           │ v = ───────────────
+                                                                           ╰  2         t
 -->
 					<img class="LaTeX SVG" src="./images/chapters/abc/3166afa345aec1abda432c39b68d39a0.svg" width="339px" height="73px" loading="lazy" />
 					<p>And then reverse engineer the curve's control points:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                               ╭     v  - (1-t)  ·  start
-                                                                               │      1
-                                  ╭ v = (1-t)  ·  start + t  · C               │ C = ────────────────────
-                                  ╡  1                          1  \Rightarrow ╡  1           t           
-                                  │ v = (1-t)  · C  + t  ·  end                │     v  - t  ·  end
-                                  ╰  2            2                            │      2
-                                                                               │ C = ──────────────      
-                                                                               ╰  2       1-t
+                                                                           ╭     v  - (1-t)  ·  start
+                                                                           │      1
+                                     ╭ v = (1-t)  ·  start + t  · C        │ C = ────────────────────
+                                     ╡  1                          1   ==> ╡  1           t           
+                                     │ v = (1-t)  · C  + t  ·  end         │     v  - t  ·  end
+                                     ╰  2            2                     │      2
+                                                                           │ C = ──────────────      
+                                                                           ╰  2       1-t
 -->
 					<img class="LaTeX SVG" src="./images/chapters/abc/8bd3e6fed5bf8d871d30221ae400fd93.svg" width="383px" height="75px" loading="lazy" />
 					<p>
