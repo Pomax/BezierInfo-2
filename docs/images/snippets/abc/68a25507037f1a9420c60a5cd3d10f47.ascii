@@ -1,0 +1,10 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                                             ╭         A - e 
+                                                             │              1
+                                                             │ v = A - ──────
+                                                             ╡  1      1 - t  
+                                                             │         A - e 
+                                                             │              2
+                                                             │ v = A - ──────
+                                                             ╰  2        t

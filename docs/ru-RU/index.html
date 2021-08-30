@@ -34,7 +34,7 @@
 		<meta property="og:locale" content="ru-RU" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2021-08-30T14:51:35+00:00" />
+		<meta property="og:updated_time" content="2021-08-30T15:00:31+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -6391,30 +6391,30 @@ lli = function(line1, line2):
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                            ╭          A' - e 
-                                                            │                1
-                                                            │ v = A' - ───────
-                                                            ╡  1        1 - t  
-                                                            │          A' - e 
-                                                            │                2
-                                                            │ v = A' - ───────
-                                                            ╰  2          t
+                                                             ╭         A - e 
+                                                             │              1
+                                                             │ v = A - ──────
+                                                             ╡  1      1 - t  
+                                                             │         A - e 
+                                                             │              2
+                                                             │ v = A - ──────
+                                                             ╰  2        t
 -->
-					<img class="LaTeX SVG" src="./images/chapters/abc/eccc1bdb9423bbfe2d42418fc8a7dd24.svg" width="132px" height="75px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/68a25507037f1a9420c60a5cd3d10f47.svg" width="121px" height="73px" loading="lazy" />
 					<p>And then reverse engineer the curve's control points:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                        ╭               v  -  start
-                                                        │                1
-                                                        │ C '=  start + ───────────
-                                                        ╡  1                 t      
-                                                        │             v  -  end
-                                                        │              2
-                                                        │ C '=  end + ─────────    
-                                                        ╰  2            1 - t
+                                                        ╭              v  -  start
+                                                        │               1
+                                                        │ C =  start + ───────────
+                                                        ╡  1                t      
+                                                        │            v  -  end
+                                                        │             2
+                                                        │ C =  end + ─────────    
+                                                        ╰  2           1 - t
 -->
-					<img class="LaTeX SVG" src="./images/chapters/abc/634d373310711268cc188f45e5699d8d.svg" width="163px" height="73px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/2184aa2a897df864b3a67984be18ef27.svg" width="163px" height="73px" loading="lazy" />
 					<p>
 						So: if we have a curve's start and end points, then for any <code>t</code> value we implicitly know all the ABC values, which (combined
 						with an educated guess on appropriate <code>e1</code> and <code>e2</code> coordinates for cubic curves) gives us the necessary information
