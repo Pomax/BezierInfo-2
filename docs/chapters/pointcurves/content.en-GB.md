@@ -18,7 +18,7 @@ With this code in place, creating a quadratic curve from three points is literal
 
 For cubic curves we need to do a little more work, but really only just a little. We're first going to assume that a decent curve through the three points should approximate a circular arc, which first requires knowing how to fit a circle to three points. You may remember (if you ever learned it!) that a line between two points on a circle is called a [chord](https://en.wikipedia.org/wiki/Chord_%28geometry%29), and that one property of chords is that the line from the center of any chord, perpendicular to that chord, passes through the center of the circle.
 
-That means that if we have have three points on a circle, we have three (different) chords, and consequently, three (different) lines that go from those chords through the center of the circle: if we find two of those lines, then their intersection will be our circle's center, and the circle's radius will—by definition!—be the distance from the center to any of our three points:
+That means that if we have three points on a circle, we have three (different) chords, and consequently, three (different) lines that go from those chords through the center of the circle: if we find two of those lines, then their intersection will be our circle's center, and the circle's radius will—by definition!—be the distance from the center to any of our three points:
 
 <graphics-element title="Finding a circle through three points" src="./circle.js"></graphics-element>
 
