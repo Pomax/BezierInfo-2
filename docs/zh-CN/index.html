@@ -41,7 +41,7 @@
 		<meta property="og:locale" content="zh-CN" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2021-08-31T22:19:11+00:00" />
+		<meta property="og:updated_time" content="2021-09-01T16:39:16+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -6348,8 +6348,8 @@ lli = function(line1, line2):
 						are again all kinds of approaches we can take, and a simple-but-effective one is to set the length of that segment to "one third the
 						length of the baseline". This forces <code>e1</code> and <code>e2</code> to always be the "linear curve" distance apart, which means if we
 						place our three points on a line, it will actually <em>look</em> like a line. Nice! The last thing we'll need to do is make sure to flip
-						the sign of <code>d</code> depending on which side of the baseline our <code>B</code> is located, so we don't up creating a funky curve
-						with a loop in it. To do this, we can use the <a href="https://en.wikipedia.org/wiki/Atan2">atan2</a> function:
+						the sign of <code>d</code> depending on which side of the baseline our <code>B</code> is located, so we don't end up creating a funky
+						curve with a loop in it. To do this, we can use the <a href="https://en.wikipedia.org/wiki/Atan2">atan2</a> function:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
