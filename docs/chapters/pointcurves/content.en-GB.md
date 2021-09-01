@@ -31,7 +31,7 @@ With that covered, we now also know the tangent line to our point `B`, because t
   \end{aligned} \right .
 \]
 
-Where `d` is the total length of the line segment from `e1` to `e2`. So how long do we make that? There are again all kinds of approaches we can take, and a simple-but-effective one is to set the length of that segment to "one third the length of the baseline". This forces `e1` and `e2` to always be the "linear curve" distance apart, which means if we place our three points on a line, it will actually _look_ like a line. Nice! The last thing we'll need to do is make sure to flip the sign of `d` depending on which side of the baseline our `B` is located, so we don't up creating a funky curve with a loop in it. To do this, we can use the [atan2](https://en.wikipedia.org/wiki/Atan2) function:
+Where `d` is the total length of the line segment from `e1` to `e2`. So how long do we make that? There are again all kinds of approaches we can take, and a simple-but-effective one is to set the length of that segment to "one third the length of the baseline". This forces `e1` and `e2` to always be the "linear curve" distance apart, which means if we place our three points on a line, it will actually _look_ like a line. Nice! The last thing we'll need to do is make sure to flip the sign of `d` depending on which side of the baseline our `B` is located, so we don't end up creating a funky curve with a loop in it. To do this, we can use the [atan2](https://en.wikipedia.org/wiki/Atan2) function:
 
 \[
   \phi = \left ( atan2(E_y-S_y, E_x-S_x) - atan2(B_y-S_y, B_x-S_x) + 2 \pi \right ) \textit{ mod } 2 \pi
