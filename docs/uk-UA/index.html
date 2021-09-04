@@ -39,7 +39,7 @@
 		<meta property="og:locale" content="uk-UA" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2021-09-04T16:51:17+00:00" />
+		<meta property="og:updated_time" content="2021-09-04T16:56:44+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -6451,11 +6451,12 @@ lli = function(line1, line2):
 -->
 					<img class="LaTeX SVG" src="./images/chapters/abc/8bd3e6fed5bf8d871d30221ae400fd93.svg" width="383px" height="75px" loading="lazy" />
 					<p>
-						So: if we have a curve's start and end points, then for any <code>t</code> value we implicitly know all the ABC values, which (combined
-						with an educated guess on appropriate <code>e1</code> and <code>e2</code> coordinates for cubic curves) gives us the necessary information
-						to reconstruct a curve's "de Casteljau skeleton". Which means that we can now do several things: we can "fit" curves using only three
-						points, which means we can also "mold" curves by moving an on-curve point but leaving its start and end points, and then reconstruct the
-						curve based on where we moved the on-curve point to. These are very useful things, and we'll look at both in the next few sections.
+						So: if we have a curve's start and end points, as well as some third point B that we want the curve to pass through, then for any
+						<code>t</code> value we implicitly know all the ABC values, which (combined with an educated guess on appropriate <code>e1</code> and
+						<code>e2</code> coordinates for cubic curves) gives us the necessary information to reconstruct a curve's "de Casteljau skeleton". Which
+						means that we can now do several things: we can "fit" curves using only three points, which means we can also "mold" curves by moving an
+						on-curve point but leaving its start and end points, and then reconstruct the curve based on where we moved the on-curve point to. These
+						are very useful things, and we'll look at both in the next few sections.
 					</p>
 				</section>
 				<section id="pointcurves">
