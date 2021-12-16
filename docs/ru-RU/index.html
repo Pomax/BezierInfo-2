@@ -34,7 +34,7 @@
 		<meta property="og:locale" content="ru-RU" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2021-12-16T18:08:32+00:00" />
+		<meta property="og:updated_time" content="2021-12-16T18:23:42+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -127,7 +127,7 @@
 					<li><a href="./index.html">English</a> &nbsp;</li>
 					<li><a href="./ja-JP/index.html">日本語</a> <span class="localisation-progress">(24%)</span></li>
 					<li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(22%)</span></li>
-					<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(20%)</span></li>
+					<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(22%)</span></li>
 					<li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
 				</ul>
 				<p>
@@ -229,7 +229,7 @@
 					<li><a href="ru-RU/index.html#components">Component functions</a></li>
 					<li><a href="ru-RU/index.html#extremities">Finding extremities: root finding</a></li>
 					<li><a href="ru-RU/index.html#boundingbox">Bounding boxes</a></li>
-					<li><a href="ru-RU/index.html#aligning">Aligning curves</a></li>
+					<li><a href="ru-RU/index.html#aligning">Выравнивание (пересчет) кривых</a></li>
 					<li><a href="ru-RU/index.html#tightbounds">Tight bounding boxes</a></li>
 					<li><a href="ru-RU/index.html#inflections">Curve inflections</a></li>
 					<li><a href="ru-RU/index.html#canonical">The canonical form (for cubic curves)</a></li>
@@ -4559,19 +4559,20 @@ function getCubicRoots(pa, pb, pc, pd) {
 						<div class="nav">
 							<a href="ru-RU/index.html#boundingbox">предыдущий</a><a href="#toc">оглавление</a><a href="ru-RU/index.html#tightbounds">следующий</a>
 						</div>
-						<a href="ru-RU/index.html#aligning">Aligning curves</a>
+						<a href="ru-RU/index.html#aligning">Выравнивание (пересчет) кривых</a>
 					</h1>
 					<p>
-						While there are an incredible number of curves we can define by varying the x- and y-coordinates for the control points, not all curves
-						are actually distinct. For instance, if we define a curve, and then rotate it 90 degrees, it's still the same curve, and we'll find its
-						extremities in the same spots, just at different draw coordinates. As such, one way to make sure we're working with a "unique" curve is to
-						"axis-align" it.
+						В то время как есть бесконечное множество кривых мы можем задать перемещая x и y кооординаты контрольных точек, не все кривые являются
+						различными между собой. К примеру, если мы зададим кривую, затем повернем ее на 90 градусов, это будет все та же кривая, и все свойста,
+						как, к примеру, точки экстримов, будут на тех же ее участках, только зарисованы на полотне координат в другой точке. Таким образом, одним
+						из способов убедится, что мы работаем с "уникальными" кривыми, является выравнивание их с осями координат.
 					</p>
 					<p>
-						Aligning also simplifies a curve's functions. We can translate (move) the curve so that the first point lies on (0,0), which turns our
-						<em>n</em> term polynomial functions into <em>n-1</em> term functions. The order stays the same, but we have less terms. Then, we can
-						rotate the curves so that the last point always lies on the x-axis, too, making its coordinate (...,0). This further simplifies the
-						function for the y-component to an <em>n-2</em> term function. For instance, if we have a cubic curve such as this:
+						Выравнивание так же упрощает уравнение кривой. Мы можем транслитерировать (переместить) кривую таким образом, что первая ее точка будет
+						лежать на точке начала координат (0,0), что, в свою очередь, переведет наш полиноминальную функцию <em>n</em> порядка, на порядок ниже,
+						<em>(n-1)</em>. Последовательность останется такой же, но у нас будет меньше условий. Далее мы развернем кривую так, чтобы последняя точка
+						тоже лежала на оси координат, переводя ее значение в (..., 0). Это далее упрощает ф-цию для ее формулы по Y переводя ее еще на порядок
+						ниже. Так, если у нас была кубическая ф-ция:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -4582,33 +4583,15 @@ function getCubicRoots(pa, pb, pc, pd) {
        ╰ y = \colorblue160  · (1-t)  \colorblue + 200  · 3  · (1-t)   · t \colorblue + 260  · 3  · (1-t)  · t  \colorblue + 40  · t 
 -->
 					<img class="LaTeX SVG" src="./images/chapters/aligning/00480d8ea1d0b86eb66939bced85e14b.svg" width="497px" height="40px" loading="lazy" />
-					<p>
-						Then translating it so that the first coordinate lies on (0,0), moving all <em>x</em> coordinates by -120, and all <em>y</em> coordinates
-						by -160, gives us:
-					</p>
-					<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-        ╭                         3                              2                                         2                      3
-        ╡ x = \colorblue0  · (1-t)  \colorblue - 85  · 3  · (1-t)   · t \colorblue + 100  · 3  · (1-t)  · t  \colorblue + 100  · t  
-        │                         3                              2                                         2                      3
-        ╰ y = \colorblue0  · (1-t)  \colorblue + 40  · 3  · (1-t)   · t \colorblue + 100  · 3  · (1-t)  · t  \colorblue - 120  · t 
--->
-					<img class="LaTeX SVG" src="./images/chapters/aligning/6acf1a1e496f47c11e079a1d13f0a368.svg" width="481px" height="40px" loading="lazy" />
-					<p>
-						If we then rotate the curve so that its end point lies on the x-axis, the coordinates (integer-rounded for illustrative purposes here)
-						become:
-					</p>
-					<!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-        ╭                         3                              2                                        2                      3
-        ╡ x = \colorblue0  · (1-t)  \colorblue - 85  · 3  · (1-t)   · t \colorblue - 12  · 3  · (1-t)  · t  \colorblue + 156  · t  
-        │                         3                              2                                         2                    3
-        ╰ y = \colorblue0  · (1-t)  \colorblue - 40  · 3  · (1-t)   · t \colorblue + 140  · 3  · (1-t)  · t  \colorblue + 0  · t 
--->
-					<img class="LaTeX SVG" src="./images/chapters/aligning/f6767b16ff8e04646f45fb9a1f3e4024.svg" width="473px" height="40px" loading="lazy" />
-					<p>If we drop all the zero-terms, this gives us:</p>
+					<p>Мы переместим первую точку в начало координат, смещая все значания x на -120 и y на -160:</p>
+					<script>
+						console.error("LaTeX for d19694f7017998ab27b93d9367e2a8ac failed.");
+					</script>
+					<p>Затем, повернем кривую до оси X (новые значания x и y округлены в иллюстративных целях):</p>
+					<script>
+						console.error("LaTeX for 5077b45755c4c5074f04144c0325ecc8 failed.");
+					</script>
+					<p>Итак, опуская все нулевые значения, получаем</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
@@ -4619,8 +4602,8 @@ function getCubicRoots(pa, pb, pc, pd) {
 -->
 					<img class="LaTeX SVG" src="./images/chapters/aligning/a75137c250be63877a30f4bda8d801f8.svg" width="408px" height="40px" loading="lazy" />
 					<p>
-						We can see that our original curve definition has been simplified considerably. The following graphics illustrate the result of aligning
-						our example curves to the x-axis, with the cubic case using the coordinates that were just used in the example formulae:
+						Как мы видим, наше изначальное определение кривой было существенно упрощено. Следущие зарисовки демострируют результат выравнивание кривой
+						с осью X. первый рисунок соотвествует приведеному выше примеру кривой.
 					</p>
 					<graphics-element
 						title="Aligning a quadratic curve"
