@@ -32,6 +32,18 @@
         font-size: 17.4px;
     }
 
+{% elif locale == "ko-KR" %}
+
+    @font-face {
+        font-family: "Noto Sans Korean";
+        src: url(./fonts/NotoSans-Regular.woff) format("WOFF");
+    }
+
+    :root[lang="{{ locale }}"] {
+        font-family: "Noto Sans Korean", "맑은 고딕", Helvetica, Arial, sans-serif;
+        font-size: 17.2px;
+    }
+
 {% else %}
 
     :root {
