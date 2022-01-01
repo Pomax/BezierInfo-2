@@ -45,7 +45,7 @@
 <meta property="og:locale" content="ko-KR" />
 <meta property="og:type" content="article" />
 <meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-<meta property="og:updated_time" content="2021-12-27T19:21:32+00:00" />
+<meta property="og:updated_time" content="2022-01-01T19:08:50+00:00" />
 <meta property="og:author" content="Mike 'Pomax' Kamermans" />
 <meta property="og:section" content="Bézier Curves" />
 <meta property="og:tag" content="Bézier Curves" />
@@ -127,7 +127,7 @@
 <li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(22%)</span></li>
 <li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(20%)</span></li>
 <li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
-<li><a href="./ko-KR/index.html">한국어</a> <span class="localisation-progress">(2%)</span></li></ul>
+<li><a href="./ko-KR/index.html">한국어</a> <span class="localisation-progress">(4%)</span></li></ul>
       <p>(원하는 언어가 없거나, 100%까지 올리고 싶다면 <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">내용 번역을 도와주세요!</a>)</p>
     </div>
     
@@ -219,7 +219,7 @@
         <li><a href="ko-KR/index.html#changelog">업데이트 내역</a></li>
     </ol>
     <h4>본문</h4>
-    <ol><li><a href="ko-KR/index.html#introduction">A lightning introduction</a></li>
+    <ol><li><a href="ko-KR/index.html#introduction">초고속 소개</a></li>
 <li><a href="ko-KR/index.html#whatis">So what makes a Bézier Curve?</a></li>
 <li><a href="ko-KR/index.html#explanation">The mathematics of Bézier curves</a></li>
 <li><a href="ko-KR/index.html#control">Controlling Bézier curvatures</a></li>
@@ -385,24 +385,24 @@
 </li></ul></section>
     </section>
     <section id="chapters"><section id="introduction">
-          <h1><div class="nav"><a href="#toc">목차</a><a href="ko-KR/index.html#whatis">다음</a></div><a href="ko-KR/index.html#introduction">A lightning introduction</a></h1>
-<p>Let's start with the good stuff: when we're talking about Bézier curves, we're talking about the things that you can see in the following graphics. They run from some start point to some end point, with their curvature influenced by one or more "intermediate" control points. Now, because all the graphics on this page are interactive, go manipulate those curves a bit: click-drag the points, and see how their shape changes based on what you do.</p>
+          <h1><div class="nav"><a href="#toc">목차</a><a href="ko-KR/index.html#whatis">다음</a></div><a href="ko-KR/index.html#introduction">초고속 소개</a></h1>
+<p>간단하게 시작해 봅시다. "베지에 곡선"이라고 하면 아래 그림에서 볼 수 있는 형태의 것들을 말하는 것입니다. 어떤 시작점에서 시작해서 끝점에서 끝나고, 하나 이상의 "중간" 조절점이 그 사이의 모양에 관여합니다. 이 페이지에 있는 모든 그림은 인터랙티브이니 아래 곡선을 마음 가는 대로 바꿔 보세요! 조절점을 끌어 옮기면서 이에 따라 곡선의 모양이 어떻게 변하는지 살펴보세요.</p>
 <div class="figure">
-  <graphics-element title="A quadratic Bézier curve" width="275" height="275" src="./chapters/introduction/quadratic.js"  reset="초기화" viewSource="소스 보기">
+  <graphics-element title="2차 베지에 곡선" width="275" height="275" src="./chapters/introduction/quadratic.js"  reset="초기화" viewSource="소스 보기">
         <fallback-image>
           <span class="view-source">스크립트가 꺼져 있어 대체 이미지를 대신 표시합니다.</span>
           <img width="275px" height="275px" src="./images/chapters/introduction/54e9ec0600ac436b0e6f0c6b5005cf03.png" loading="lazy">
-          <label>A quadratic Bézier curve</label>
+          <label>2차 베지에 곡선</label>
         </fallback-image></graphics-element>
-  <graphics-element title="A cubic Bézier curve" width="275" height="275" src="./chapters/introduction/cubic.js"  reset="초기화" viewSource="소스 보기">
+  <graphics-element title="3차 베지에 곡선" width="275" height="275" src="./chapters/introduction/cubic.js"  reset="초기화" viewSource="소스 보기">
         <fallback-image>
           <span class="view-source">스크립트가 꺼져 있어 대체 이미지를 대신 표시합니다.</span>
           <img width="275px" height="275px" src="./images/chapters/introduction/8d158a13e9a86969b99c64057644cbc6.png" loading="lazy">
-          <label>A cubic Bézier curve</label>
+          <label>3차 베지에 곡선</label>
         </fallback-image></graphics-element>
 </div>
 
-<p>These curves are used a lot in computer aided design and computer aided manufacturing (CAD/CAM) applications, as well as in graphic design programs like Adobe Illustrator and Photoshop, Inkscape, GIMP, etc. and in graphic technologies like scalable vector graphics (SVG) and OpenType fonts (TTF/OTF). A lot of things use Bézier curves, so if you want to learn more about them... prepare to get your learn on!</p>
+<p>이런 곡선은 컴퓨터 지원 설계 및 제조(CAD/CAM) 분야뿐만 아니라 어도비 일러스트레이터, 어도비 포토샵, 잉크스케이프, GIMP 등의 그래픽 디자인 프로그램과 SVG, 오픈타입 글꼴(TTF/OTF) 등의 그래픽 기술에서도 자주 사용하고 있습니다. 정말 많은 곳에서 베지에 곡선을 쓰고 있으니, 베지에 곡선을 더 자세히 알아보고 싶다면... 이 책을 마저 읽어 봅시다!</p>
 
           </section>
 <section id="whatis">
