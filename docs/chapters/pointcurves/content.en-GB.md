@@ -18,7 +18,7 @@ With this code in place, creating a quadratic curve from three points is literal
 
 For cubic curves we need to do a little more work, but really only just a little. We're first going to assume that a decent curve through the three points should approximate a circular arc, which first requires knowing how to fit a circle to three points. You may remember (if you ever learned it!) that a line between two points on a circle is called a [chord](https://en.wikipedia.org/wiki/Chord_%28geometry%29), and that one property of chords is that the line from the center of any chord, perpendicular to that chord, passes through the center of the circle.
 
-That means that if we have have three points on a circle, we have three (different) chords, and consequently, three (different) lines that go from those chords through the center of the circle: if we find two of those lines, then their intersection will be our circle's center, and the circle's radius will—by definition!—be the distance from the center to any of our three points:
+That means that if we have three points on a circle, we have three (different) chords, and consequently, three (different) lines that go from those chords through the center of the circle: if we find two of those lines, then their intersection will be our circle's center, and the circle's radius will—by definition!—be the distance from the center to any of our three points:
 
 <graphics-element title="Finding a circle through three points" src="./circle.js"></graphics-element>
 
@@ -31,7 +31,7 @@ With that covered, we now also know the tangent line to our point `B`, because t
   \end{aligned} \right .
 \]
 
-Where `d` is the total length of the line segment from `e1` to `e2`. So how long do we make that? There are again all kinds of approaches we can take, and a simple-but-effective one is to set the length of that segment to "one third the length of the baseline". This forces `e1` and `e2` to always be the "linear curve" distance apart, which means if we place our three points on a line, it will actually _look_ like a line. Nice! The last thing we'll need to do is make sure to flip the sign of `d` depending on which side of the baseline our `B` is located, so we don't up creating a funky curve with a loop in it. To do this, we can use the [atan2](https://en.wikipedia.org/wiki/Atan2) function:
+Where `d` is the total length of the line segment from `e1` to `e2`. So how long do we make that? There are again all kinds of approaches we can take, and a simple-but-effective one is to set the length of that segment to "one third the length of the baseline". This forces `e1` and `e2` to always be the "linear curve" distance apart, which means if we place our three points on a line, it will actually _look_ like a line. Nice! The last thing we'll need to do is make sure to flip the sign of `d` depending on which side of the baseline our `B` is located, so we don't end up creating a funky curve with a loop in it. To do this, we can use the [atan2](https://en.wikipedia.org/wiki/Atan2) function:
 
 \[
   \phi = \left ( atan2(E_y-S_y, E_x-S_x) - atan2(B_y-S_y, B_x-S_x) + 2 \pi \right ) \textit{ mod } 2 \pi
@@ -52,7 +52,7 @@ The result of this approach looks as follows:
 
 It is important to remember that even though we're using a circular arc to come up with decent `e1` and `e2` terms, we're _not_ trying to perfectly create a circular arc with a cubic curve (which is good, because we can't; [more on that later](#arcapproximation)), we're _only_ trying to come up with some reasonable `e1` and `e2` points so we can construct a new cubic curve... so now that we have those: let's see what kind of cubic curve that gives us:
 
-<graphics-element title="Fitting a quadratic Bézier curve" src="./cubic.js"></graphics-element>
+<graphics-element title="Fitting a cubic Bézier curve" src="./cubic.js"></graphics-element>
 
 That looks perfectly serviceable!
 

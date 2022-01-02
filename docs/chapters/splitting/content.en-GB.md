@@ -15,7 +15,7 @@ We can implement curve splitting by bolting some extra logging onto the de Caste
 ```
 left=[]
 right=[]
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     left.add(points[0])
     right.add(points[0])
@@ -28,7 +28,7 @@ function drawCurve(points[], t):
       if(i==newpoints.length-1):
         right.add(points[i+1])
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
-    drawCurve(newpoints, t)
+    drawCurvePoint(newpoints, t)
 ```
 
 After running this function for some value `t`, the `left` and `right` arrays will contain all the coordinates for two new curves - one to the "left" of our `t` value, the other on the "right". These new curves will have the same order as the original curve, and can be overlaid exactly on the original curve.

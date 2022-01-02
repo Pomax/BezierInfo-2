@@ -482,7 +482,7 @@
 			<section id="chapters">
 				<section id="introduction">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#whatis">下</a></div>
+						<div class="nav"><a href="#toc">目录</a><a href="zh-CN/index.html#whatis">下</a></div>
 						<a href="zh-CN/index.html#introduction">简单介绍</a>
 					</h1>
 					<p>
@@ -526,7 +526,7 @@
 				</section>
 				<section id="whatis">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#introduction">前</a><a href="zh-CN/index.html#explanation">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#introduction">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#explanation">下</a></div>
 						<a href="zh-CN/index.html#whatis">什么构成了贝塞尔曲线？</a>
 					</h1>
 					<p>
@@ -579,7 +579,7 @@
 				</section>
 				<section id="explanation">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#whatis">前</a><a href="zh-CN/index.html#control">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#whatis">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#control">下</a></div>
 						<a href="zh-CN/index.html#explanation">贝塞尔曲线的数学原理</a>
 					</h1>
 					<p>
@@ -961,7 +961,7 @@ function Bezier(3,t):
 				</section>
 				<section id="control">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#explanation">前</a><a href="zh-CN/index.html#weightcontrol">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#explanation">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#weightcontrol">下</a></div>
 						<a href="zh-CN/index.html#control">控制贝塞尔的曲率</a>
 					</h1>
 					<p>
@@ -1148,7 +1148,7 @@ function Bezier(3,t,w[]):
 				</section>
 				<section id="weightcontrol">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#control">前</a><a href="zh-CN/index.html#extended">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#control">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#extended">下</a></div>
 						<a href="zh-CN/index.html#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a>
 					</h1>
 					<p>
@@ -1355,7 +1355,7 @@ function RationalBezier(3,t,w[],r[]):
 				</section>
 				<section id="extended">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#weightcontrol">前</a><a href="zh-CN/index.html#matrix">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#weightcontrol">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#matrix">下</a></div>
 						<a href="zh-CN/index.html#extended">贝塞尔区间[0,1]</a>
 					</h1>
 					<p>
@@ -1437,7 +1437,7 @@ function RationalBezier(3,t,w[],r[]):
 				</section>
 				<section id="matrix">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#extended">前</a><a href="zh-CN/index.html#decasteljau">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#extended">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#decasteljau">下</a></div>
 						<a href="zh-CN/index.html#matrix">用矩阵运算来表示贝塞尔曲率</a>
 					</h1>
 					<p>
@@ -1571,7 +1571,7 @@ function RationalBezier(3,t,w[],r[]):
 				</section>
 				<section id="decasteljau">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#matrix">前</a><a href="zh-CN/index.html#flattening">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#matrix">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#flattening">下</a></div>
 						<a href="zh-CN/index.html#decasteljau">de Casteljau's 算法</a>
 					</h1>
 					<p>
@@ -1617,14 +1617,14 @@ function RationalBezier(3,t,w[],r[]):
 								<td>1</td>
 								<td rowspan="8">
 									<textarea disabled rows="8" role="doc-example">
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     draw(points[0])
   else:
     newpoints=array(points.size-1)
     for(i=0; i<newpoints.length; i++):
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
-    drawCurve(newpoints, t)</textarea
+    drawCurvePoint(newpoints, t)</textarea
 									>
 								</td>
 							</tr>
@@ -1658,7 +1658,7 @@ function drawCurve(points[], t):
 								<td>1</td>
 								<td rowspan="10">
 									<textarea disabled rows="10" role="doc-example">
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     draw(points[0])
   else:
@@ -1667,7 +1667,7 @@ function drawCurve(points[], t):
       x = (1-t) * points[i].x + t * points[i+1].x
       y = (1-t) * points[i].y + t * points[i+1].y
       newpoints[i] = new point(x,y)
-    drawCurve(newpoints, t)</textarea
+    drawCurvePoint(newpoints, t)</textarea
 									>
 								</td>
 							</tr>
@@ -1708,7 +1708,7 @@ function drawCurve(points[], t):
 				</section>
 				<section id="flattening">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#decasteljau">前</a><a href="zh-CN/index.html#splitting">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#decasteljau">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#splitting">下</a></div>
 						<a href="zh-CN/index.html#flattening">简化绘图</a>
 					</h1>
 					<p>
@@ -1836,7 +1836,7 @@ function drawFlattenedCurve(curve, segmentCount):
 				</section>
 				<section id="splitting">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#flattening">前</a><a href="zh-CN/index.html#matrixsplit">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#flattening">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#matrixsplit">下</a></div>
 						<a href="zh-CN/index.html#splitting">分割曲线</a>
 					</h1>
 					<p>
@@ -1870,7 +1870,7 @@ function drawFlattenedCurve(curve, segmentCount):
 									<textarea disabled rows="16" role="doc-example">
 left=[]
 right=[]
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     left.add(points[0])
     right.add(points[0])
@@ -1883,7 +1883,7 @@ function drawCurve(points[], t):
       if(i==newpoints.length-1):
         right.add(points[i+1])
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
-    drawCurve(newpoints, t)</textarea
+    drawCurvePoint(newpoints, t)</textarea
 									>
 								</td>
 							</tr>
@@ -1942,7 +1942,7 @@ function drawCurve(points[], t):
 				</section>
 				<section id="matrixsplit">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#splitting">前</a><a href="zh-CN/index.html#reordering">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#splitting">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#reordering">下</a></div>
 						<a href="zh-CN/index.html#matrixsplit">Splitting curves using matrices</a>
 					</h1>
 					<p>
@@ -2455,7 +2455,7 @@ function drawCurve(points[], t):
 				</section>
 				<section id="reordering">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#matrixsplit">前</a><a href="zh-CN/index.html#derivatives">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#matrixsplit">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#derivatives">下</a></div>
 						<a href="zh-CN/index.html#reordering">Lowering and elevating curve order</a>
 					</h1>
 					<p>
@@ -2743,7 +2743,7 @@ Bézier(k,t) = ❯      \underset binomial term\underbrace\binomki  · \ \unders
 				</section>
 				<section id="derivatives">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#reordering">前</a><a href="zh-CN/index.html#pointvectors">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#reordering">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#pointvectors">下</a></div>
 						<a href="zh-CN/index.html#derivatives">Derivatives</a>
 					</h1>
 					<p>
@@ -3062,7 +3062,9 @@ Bézier'(n,t) = ❯      \underset binomial term\underbrace\binomki  · \ \under
 				</section>
 				<section id="pointvectors">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#derivatives">前</a><a href="zh-CN/index.html#pointvectors3d">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#derivatives">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#pointvectors3d">下</a>
+						</div>
 						<a href="zh-CN/index.html#pointvectors">Tangents and normals</a>
 					</h1>
 					<p>
@@ -3228,7 +3230,7 @@ Bézier'(n,t) = ❯      \underset binomial term\underbrace\binomki  · \ \under
 				</section>
 				<section id="pointvectors3d">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#pointvectors">前</a><a href="zh-CN/index.html#components">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#pointvectors">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#components">下</a></div>
 						<a href="zh-CN/index.html#pointvectors3d">Working with 3D normals</a>
 					</h1>
 					<p>
@@ -3576,7 +3578,9 @@ generateRMFrames(steps) -> frames:
 				</section>
 				<section id="components">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#pointvectors3d">前</a><a href="zh-CN/index.html#extremities">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#pointvectors3d">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#extremities">下</a>
+						</div>
 						<a href="zh-CN/index.html#components">Component functions</a>
 					</h1>
 					<p>
@@ -3632,7 +3636,7 @@ generateRMFrames(steps) -> frames:
 				</section>
 				<section id="extremities">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#components">前</a><a href="zh-CN/index.html#boundingbox">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#components">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#boundingbox">下</a></div>
 						<a href="zh-CN/index.html#extremities">Finding extremities: root finding</a>
 					</h1>
 					<p>
@@ -3645,7 +3649,7 @@ generateRMFrames(steps) -> frames:
 					<p>
 						The derivative of a quadratic Bézier curve is a linear Bézier curve, interpolating between just two terms, which means finding the
 						solution for "where is this line 0" is effectively trivial by rewriting it to a function of <code>t</code> and solving. First we turn our
-						cubic Bézier function into a quadratic one, by following the rule mentioned at the end of the
+						quadratic Bézier function into a linear one, by following the rule mentioned at the end of the
 						<a href="#derivatives">derivatives section</a>:
 					</p>
 					<!--
@@ -4278,7 +4282,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="boundingbox">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#extremities">前</a><a href="zh-CN/index.html#aligning">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#extremities">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#aligning">下</a></div>
 						<a href="zh-CN/index.html#boundingbox">Bounding boxes</a>
 					</h1>
 					<p>
@@ -4339,7 +4343,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="aligning">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#boundingbox">前</a><a href="zh-CN/index.html#tightbounds">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#boundingbox">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#tightbounds">下</a></div>
 						<a href="zh-CN/index.html#aligning">Aligning curves</a>
 					</h1>
 					<p>
@@ -4435,7 +4439,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="tightbounds">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#aligning">前</a><a href="zh-CN/index.html#inflections">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#aligning">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#inflections">下</a></div>
 						<a href="zh-CN/index.html#tightbounds">Tight bounding boxes</a>
 					</h1>
 					<p>
@@ -4485,7 +4489,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="inflections">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#tightbounds">前</a><a href="zh-CN/index.html#canonical">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#tightbounds">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#canonical">下</a></div>
 						<a href="zh-CN/index.html#inflections">Curve inflections</a>
 					</h1>
 					<p>
@@ -4698,7 +4702,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="canonical">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#inflections">前</a><a href="zh-CN/index.html#yforx">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#inflections">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#yforx">下</a></div>
 						<a href="zh-CN/index.html#canonical">The canonical form (for cubic curves)</a>
 					</h1>
 					<p>
@@ -4743,8 +4747,8 @@ function getCubicRoots(pa, pb, pc, pd) {
 					<ol>
 						<li>
 							<p>
-								...anywhere inside the red zone, but not on its boundaries, the curve will either be self-intersecting (yielding a loop). We won't
-								know <em>where</em> it self-intersects (in terms of <em>t</em> values), but we are guaranteed that it does.
+								...anywhere inside the red zone, but not on its boundaries, the curve will be self-intersecting (yielding a loop). We won't know
+								<em>where</em> it self-intersects (in terms of <em>t</em> values), but we are guaranteed that it does.
 							</p>
 						</li>
 						<li>
@@ -5069,7 +5073,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="yforx">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#canonical">前</a><a href="zh-CN/index.html#arclength">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#canonical">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#arclength">下</a></div>
 						<a href="zh-CN/index.html#yforx">Finding Y, given X</a>
 					</h1>
 					<p>
@@ -5213,7 +5217,7 @@ y = curve.get(t).y</textarea
 				</section>
 				<section id="arclength">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#yforx">前</a><a href="zh-CN/index.html#arclengthapprox">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#yforx">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#arclengthapprox">下</a></div>
 						<a href="zh-CN/index.html#arclength">Arc length</a>
 					</h1>
 					<p>
@@ -5453,7 +5457,7 @@ y = curve.get(t).y</textarea
 				</section>
 				<section id="arclengthapprox">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#arclength">前</a><a href="zh-CN/index.html#curvature">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#arclength">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#curvature">下</a></div>
 						<a href="zh-CN/index.html#arclengthapprox">Approximated arc length</a>
 					</h1>
 					<p>
@@ -5508,7 +5512,7 @@ y = curve.get(t).y</textarea
 				</section>
 				<section id="curvature">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#arclengthapprox">前</a><a href="zh-CN/index.html#tracing">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#arclengthapprox">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#tracing">下</a></div>
 						<a href="zh-CN/index.html#curvature">Curvature of a curve</a>
 					</h1>
 					<p>
@@ -5701,7 +5705,7 @@ function kappa(t, B):
 				</section>
 				<section id="tracing">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#curvature">前</a><a href="zh-CN/index.html#intersections">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#curvature">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#intersections">下</a></div>
 						<a href="zh-CN/index.html#tracing">Tracing a curve at fixed distance intervals</a>
 					</h1>
 					<p>
@@ -5773,7 +5777,7 @@ function kappa(t, B):
 				</section>
 				<section id="intersections">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#tracing">前</a><a href="zh-CN/index.html#curveintersection">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#tracing">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#curveintersection">下</a></div>
 						<a href="zh-CN/index.html#intersections">Intersections</a>
 					</h1>
 					<p>
@@ -5950,7 +5954,7 @@ lli = function(line1, line2):
 				</section>
 				<section id="curveintersection">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#intersections">前</a><a href="zh-CN/index.html#abc">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#intersections">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#abc">下</a></div>
 						<a href="zh-CN/index.html#curveintersection">Curve/curve intersection</a>
 					</h1>
 					<p>
@@ -6026,7 +6030,9 @@ lli = function(line1, line2):
 				</section>
 				<section id="abc">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#curveintersection">前</a><a href="zh-CN/index.html#pointcurves">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#curveintersection">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#pointcurves">下</a>
+						</div>
 						<a href="zh-CN/index.html#abc">The projection identity</a>
 					</h1>
 					<p>
@@ -6203,48 +6209,50 @@ lli = function(line1, line2):
 					<p>
 						With <code>A</code> found, finding <code>e1</code> and <code>e2</code> for quadratic curves is a matter of running the linear
 						interpolation with <code>t</code> between start and <code>A</code> to yield <code>e1</code>, and between <code>A</code> and end to yield
-						<code>e2</code>. For cubic curves, there is no single pair of points that can act as <code>e1</code> and <code>e2</code>: as long as the
-						distance ratio between <code>e1</code> to <code>B</code> and <code>B</code> to <code>e2</code> is the Bézier ratio <code>(1-t):t</code>,
-						we can reverse engineer <code>v1</code> and <code>v2</code>:
+						<code>e2</code>. For cubic curves, there is no single pair of points that can act as <code>e1</code> and <code>e2</code> (there are
+						infinitely many, because the tangent at B is a free parameter for cubic curves) so as long as the distance ratio between
+						<code>e1</code> to <code>B</code> and <code>B</code> to <code>e2</code> is the Bézier ratio <code>(1-t):t</code>, we are free to pick any
+						pair, after which we can reverse engineer <code>v1</code> and <code>v2</code>:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                            ╭          A' - e 
-                                                            │                1
-                                                            │ v = A' - ───────
-                                                            ╡  1        1 - t  
-                                                            │          A' - e 
-                                                            │                2
-                                                            │ v = A' - ───────
-                                                            ╰  2          t
+                                                                           ╭     e  - t  · A
+                                                                           │      1
+                                          ╭ e = (1-t)  · v  + t  · A       │ v = ───────────    
+                                          ╡  1            1            ==> ╡  1      1-t         
+                                          │ e = (1-t)  · A + t  · v        │     e  - (1-t)  · A
+                                          ╰  2                     2       │      2
+                                                                           │ v = ───────────────
+                                                                           ╰  2         t
 -->
-					<img class="LaTeX SVG" src="./images/chapters/abc/eccc1bdb9423bbfe2d42418fc8a7dd24.svg" width="132px" height="75px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/3166afa345aec1abda432c39b68d39a0.svg" width="339px" height="73px" loading="lazy" />
 					<p>And then reverse engineer the curve's control points:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                        ╭               v  -  start
-                                                        │                1
-                                                        │ C '=  start + ───────────
-                                                        ╡  1                 t      
-                                                        │             v  -  end
-                                                        │              2
-                                                        │ C '=  end + ─────────    
-                                                        ╰  2            1 - t
+                                                                           ╭     v  - (1-t)  ·  start
+                                                                           │      1
+                                     ╭ v = (1-t)  ·  start + t  · C        │ C = ────────────────────
+                                     ╡  1                          1   ==> ╡  1           t           
+                                     │ v = (1-t)  · C  + t  ·  end         │     v  - t  ·  end
+                                     ╰  2            2                     │      2
+                                                                           │ C = ──────────────      
+                                                                           ╰  2       1-t
 -->
-					<img class="LaTeX SVG" src="./images/chapters/abc/634d373310711268cc188f45e5699d8d.svg" width="163px" height="73px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/8bd3e6fed5bf8d871d30221ae400fd93.svg" width="383px" height="75px" loading="lazy" />
 					<p>
-						So: if we have a curve's start and end points, then for any <code>t</code> value we implicitly know all the ABC values, which (combined
-						with an educated guess on appropriate <code>e1</code> and <code>e2</code> coordinates for cubic curves) gives us the necessary information
-						to reconstruct a curve's "de Casteljau skeleton". Which means that we can now do several things: we can "fit" curves using only three
-						points, which means we can also "mold" curves by moving an on-curve point but leaving its start and end points, and then reconstruct the
-						curve based on where we moved the on-curve point to. These are very useful things, and we'll look at both in the next few sections.
+						So: if we have a curve's start and end points, as well as some third point B that we want the curve to pass through, then for any
+						<code>t</code> value we implicitly know all the ABC values, which (combined with an educated guess on appropriate <code>e1</code> and
+						<code>e2</code> coordinates for cubic curves) gives us the necessary information to reconstruct a curve's "de Casteljau skeleton". Which
+						means that we can now do several things: we can "fit" curves using only three points, which means we can also "mold" curves by moving an
+						on-curve point but leaving its start and end points, and then reconstruct the curve based on where we moved the on-curve point to. These
+						are very useful things, and we'll look at both in the next few sections.
 					</p>
 				</section>
 				<section id="pointcurves">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#abc">前</a><a href="zh-CN/index.html#projections">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#abc">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#projections">下</a></div>
 						<a href="zh-CN/index.html#pointcurves">Creating a curve from three points</a>
 					</h1>
 					<p>
@@ -6302,8 +6310,8 @@ lli = function(line1, line2):
 						of any chord, perpendicular to that chord, passes through the center of the circle.
 					</p>
 					<p>
-						That means that if we have have three points on a circle, we have three (different) chords, and consequently, three (different) lines that
-						go from those chords through the center of the circle: if we find two of those lines, then their intersection will be our circle's center,
+						That means that if we have three points on a circle, we have three (different) chords, and consequently, three (different) lines that go
+						from those chords through the center of the circle: if we find two of those lines, then their intersection will be our circle's center,
 						and the circle's radius will—by definition!—be the distance from the center to any of our three points:
 					</p>
 					<graphics-element
@@ -6347,8 +6355,8 @@ lli = function(line1, line2):
 						are again all kinds of approaches we can take, and a simple-but-effective one is to set the length of that segment to "one third the
 						length of the baseline". This forces <code>e1</code> and <code>e2</code> to always be the "linear curve" distance apart, which means if we
 						place our three points on a line, it will actually <em>look</em> like a line. Nice! The last thing we'll need to do is make sure to flip
-						the sign of <code>d</code> depending on which side of the baseline our <code>B</code> is located, so we don't up creating a funky curve
-						with a loop in it. To do this, we can use the <a href="https://en.wikipedia.org/wiki/Atan2">atan2</a> function:
+						the sign of <code>d</code> depending on which side of the baseline our <code>B</code> is located, so we don't end up creating a funky
+						curve with a loop in it. To do this, we can use the <a href="https://en.wikipedia.org/wiki/Atan2">atan2</a> function:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -6405,7 +6413,7 @@ lli = function(line1, line2):
 						us:
 					</p>
 					<graphics-element
-						title="Fitting a quadratic Bézier curve"
+						title="Fitting a cubic Bézier curve"
 						width="275"
 						height="275"
 						src="./chapters/pointcurves/cubic.js"
@@ -6415,7 +6423,7 @@ lli = function(line1, line2):
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/eab6ea46fa93030e03ec0ef7deb571dc.png" loading="lazy" />
-							<label>Fitting a quadratic Bézier curve</label>
+							<label>Fitting a cubic Bézier curve</label>
 						</fallback-image></graphics-element
 					>
 					<p>That looks perfectly serviceable!</p>
@@ -6428,7 +6436,9 @@ lli = function(line1, line2):
 				</section>
 				<section id="projections">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#pointcurves">前</a><a href="zh-CN/index.html#circleintersection">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#pointcurves">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#circleintersection">下</a>
+						</div>
 						<a href="zh-CN/index.html#projections">Projecting a point onto a Bézier curve</a>
 					</h1>
 					<p>
@@ -6531,7 +6541,7 @@ for (coordinate, index) in LUT:
 				</section>
 				<section id="circleintersection">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#projections">前</a><a href="zh-CN/index.html#molding">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#projections">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#molding">下</a></div>
 						<a href="zh-CN/index.html#circleintersection">Intersections with a circle</a>
 					</h1>
 					<p>
@@ -6826,7 +6836,9 @@ findClosest(start, p, r, LUT):
 				</section>
 				<section id="molding">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#circleintersection">前</a><a href="zh-CN/index.html#curvefitting">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#circleintersection">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#curvefitting">下</a>
+						</div>
 						<a href="zh-CN/index.html#molding">Molding a curve</a>
 					</h1>
 					<p>
@@ -6938,7 +6950,7 @@ findClosest(start, p, r, LUT):
 				</section>
 				<section id="curvefitting">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#molding">前</a><a href="zh-CN/index.html#catmullconv">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#molding">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#catmullconv">下</a></div>
 						<a href="zh-CN/index.html#curvefitting">Curve fitting</a>
 					</h1>
 					<p>
@@ -7029,14 +7041,14 @@ findClosest(start, p, r, LUT):
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                 ┌  a   0  0 ┐                 ┌  1  0 0 ┐    ┌ a ┐
-                        B          = T  · M  · C = ┌      2 ┐  · │ -2a  2b 0 │ = ┌      2 ┐  · │ -2  2 0 │  · │ b │
-                          quadratic                └ 1 t t  ┘    └  a  -2b c ┘   └ 1 t t  ┘    └  1 -2 1 ┘    └ c ┘
+                                                               ┌  a  +  0  + 0 ┐                 ┌  1  0 0 ┐    ┌ a ┐
+                      B          = T  · M  · C = ┌      2 ┐  · │ -2a +  2b + 0 │ = ┌      2 ┐  · │ -2  2 0 │  · │ b │
+                        quadratic                └ 1 t t  ┘    └  a  + -2b + c ┘   └ 1 t t  ┘    └  1 -2 1 ┘    └ c ┘
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/134baa1043d0849f31a1943d6d5bc607.svg"
-							width="565px"
+							src="./images/chapters/curvefitting/db85a7a46b869c892662c26b6aea15a1.svg"
+							width="616px"
 							height="53px"
 							loading="lazy"
 						/>
@@ -7439,7 +7451,9 @@ findClosest(start, p, r, LUT):
 				</section>
 				<section id="catmullconv">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#curvefitting">前</a><a href="zh-CN/index.html#catmullfitting">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#curvefitting">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#catmullfitting">下</a>
+						</div>
 						<a href="zh-CN/index.html#catmullconv">Bézier curves and Catmull-Rom curves</a>
 					</h1>
 					<p>
@@ -8212,7 +8226,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="catmullfitting">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#catmullconv">前</a><a href="zh-CN/index.html#polybezier">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#catmullconv">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#polybezier">下</a></div>
 						<a href="zh-CN/index.html#catmullfitting">Creating a Catmull-Rom curve from three points</a>
 					</h1>
 					<p>
@@ -8227,7 +8241,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="polybezier">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#catmullfitting">前</a><a href="zh-CN/index.html#offsetting">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#catmullfitting">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#offsetting">下</a></div>
 						<a href="zh-CN/index.html#polybezier">Forming poly-Bézier curves</a>
 					</h1>
 					<p>
@@ -8440,7 +8454,9 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="offsetting">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#polybezier">前</a><a href="zh-CN/index.html#graduatedoffset">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#polybezier">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#graduatedoffset">下</a>
+						</div>
 						<a href="zh-CN/index.html#offsetting">Curve offsetting</a>
 					</h1>
 					<p>
@@ -8643,7 +8659,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="graduatedoffset">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#offsetting">前</a><a href="zh-CN/index.html#circles">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#offsetting">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#circles">下</a></div>
 						<a href="zh-CN/index.html#graduatedoffset">Graduated curve offsetting</a>
 					</h1>
 					<p>
@@ -8707,7 +8723,9 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="circles">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#graduatedoffset">前</a><a href="zh-CN/index.html#circles_cubic">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#graduatedoffset">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#circles_cubic">下</a>
+						</div>
 						<a href="zh-CN/index.html#circles">Circles and quadratic Bézier curves</a>
 					</h1>
 					<p>
@@ -8945,7 +8963,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="circles_cubic">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#circles">前</a><a href="zh-CN/index.html#arcapproximation">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#circles">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#arcapproximation">下</a></div>
 						<a href="zh-CN/index.html#circles_cubic">Circular arcs and cubic Béziers</a>
 					</h1>
 					<p>Let's look at approximating circles and circular arcs using cubic Béziers. How much better is that?</p>
@@ -9720,7 +9738,7 @@ radialError(radius, points[]):
 				</section>
 				<section id="arcapproximation">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#circles_cubic">前</a><a href="zh-CN/index.html#bsplines">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#circles_cubic">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#bsplines">下</a></div>
 						<a href="zh-CN/index.html#arcapproximation">Approximating Bézier curves with circular arcs</a>
 					</h1>
 					<p>
@@ -9840,7 +9858,7 @@ radialError(radius, points[]):
 				</section>
 				<section id="bsplines">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#arcapproximation">前</a><a href="zh-CN/index.html#comments">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#arcapproximation">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#comments">下</a></div>
 						<a href="zh-CN/index.html#bsplines">B-Splines</a>
 					</h1>
 					<p>
@@ -10351,7 +10369,7 @@ for(let L = 1; L <= order; L++) {
 					</script>
 
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#bsplines">前</a></div>
+						<div class="nav"><a href="zh-CN/index.html#bsplines">前</a><a href="#toc">目录</a></div>
 						<a href="zh-CN/index.html#comments">Comments and questions</a>
 					</h1>
 					<p>

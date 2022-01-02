@@ -2134,6 +2134,12 @@ $contents{"\\rightarrow"}=" ──> ";
 $type{"\\leftarrow"}="string";
 $contents{"\\leftarrow"}=" <── ";
 
+$type{"\\Rightarrow"}="string";
+$contents{"\\Rightarrow"}=" ==> ";
+
+$type{"\\Leftarrow"}="string";
+$contents{"\\Leftarrow"}=" <== ";
+
 $type{"\\mapsto"}="string";
 $contents{"\\mapsto"}=" ├──> ";
 

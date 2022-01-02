@@ -26,20 +26,20 @@
 いま説明したアルゴリズムを実装すると、以下のようになります。
 
 ```
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     draw(points[0])
   else:
     newpoints=array(points.size-1)
     for(i=0; i<newpoints.length; i++):
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
-    drawCurve(newpoints, t)
+    drawCurvePoint(newpoints, t)
 ```
 
 これで実装完了です。ただし、+演算子のオーバーロードなどという贅沢品はたいてい無いでしょうから、`x`や`y`の値を直接扱う場合のコードも示しておきます。
 
 ```
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     draw(points[0])
   else:
@@ -48,7 +48,7 @@ function drawCurve(points[], t):
       x = (1-t) * points[i].x + t * points[i+1].x
       y = (1-t) * points[i].y + t * points[i+1].y
       newpoints[i] = new point(x,y)
-    drawCurve(newpoints, t)
+    drawCurvePoint(newpoints, t)
 ```
 
 さて、これは何をしているのでしょう？関数に渡す点のリストが長さ1であれば、点を1つ描きます。それ以外であれば、比率<i>t</i>の位置の点（すなわち、さきほどの説明に出てきた「印」）のリストを作り、そしてこの新しいリストを引数にして関数を呼び出します。

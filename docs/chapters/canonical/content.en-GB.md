@@ -12,7 +12,7 @@ This is a fairly funky image, so let's see what the various parts of it mean...
 
 We see the three fixed points at (0,0), (0,1) and (1,1). The various regions and boundaries indicate what property the original curve will have, if the fourth point is in/on that region or boundary. Specifically, if the fourth point is...
 
-1. ...anywhere inside the red zone, but not on its boundaries, the curve will either be self-intersecting (yielding a loop). We won't know *where* it self-intersects (in terms of *t* values), but we are guaranteed that it does.
+1. ...anywhere inside the red zone, but not on its boundaries, the curve will be self-intersecting (yielding a loop). We won't know *where* it self-intersects (in terms of *t* values), but we are guaranteed that it does.
 
 2. ...on the left (red) edge of the red zone, the curve will have a cusp. We again don't know _where_, but we know there is one. This edge is described by the function:
 

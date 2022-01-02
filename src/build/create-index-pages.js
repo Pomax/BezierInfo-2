@@ -83,6 +83,7 @@ function formSectionData(chapters, sectionOrder, toclist, locale, base) {
  */
 function finaliseSections(sections, localeStrings) {
   // Perform crosslinking as part of yielding the section text
+  const ToC = `<a href="#toc">${localeStrings.get(`tocLabel`).toLowerCase()}</a>`;
 
   return sections.map((section) => {
     let elements = [];
@@ -90,6 +91,7 @@ function finaliseSections(sections, localeStrings) {
     if (previous) {
       elements.push(`<a href="${previous.link}">${localeStrings.get(`previous`)}</a>`);
     }
+    elements.push(ToC);
     let next = sections[section.next];
     if (next) {
       elements.push(`<a href="${next.link}">${localeStrings.get(`next`)}</a>`);
