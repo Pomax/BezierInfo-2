@@ -26,20 +26,20 @@
 让我们使用刚才描述过的算法，并实现它：
 
 ```
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     draw(points[0])
   else:
     newpoints=array(points.size-1)
     for(i=0; i<newpoints.length; i++):
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
-    drawCurve(newpoints, t)
+    drawCurvePoint(newpoints, t)
 ```
 
 好了，这就是算法的实现。一般来说你不能随意重载“+”操作符，因此我们给出计算`x`和`y`坐标的实现：
 
 ```
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     draw(points[0])
   else:
@@ -48,7 +48,7 @@ function drawCurve(points[], t):
       x = (1-t) * points[i].x + t * points[i+1].x
       y = (1-t) * points[i].y + t * points[i+1].y
       newpoints[i] = new point(x,y)
-    drawCurve(newpoints, t)
+    drawCurvePoint(newpoints, t)
 ```
 
 以上算法做了什么？如果参数points列表只有一个点， 就画出一个点。如果有多个点，就生成以<i>t</i>为比例的一系列点（例如，以上算法中的"标记点"），然后为新的点列表调用绘制函数。

@@ -8,7 +8,7 @@ Work is still underway on this new version, see https://github.com/Pomax/BezierI
 
 ## Building everything
 
-Use the active Node LTS (currently v14) or higher, with all the project dependencies installed via `npm install`. Note that [node-canvas](https://github.com/Automattic/node-canva) will need you to [install some Cairo libs/headers](https://github.com/Automattic/node-canvas#compiling) using your OS's package manager, with [special instructions for Windows users](https://github.com/Automattic/node-canvas/wiki/Installation:-Windows) because Windows doesn't the same kind of package management that Unixy systems do. To successfully compile, GTK is _required_, but JPEG support is not (this repo's code only generates PNG images).
+Use the active Node LTS (currently v14) or higher, with all the project dependencies installed via `npm install`. Note that [node-canvas](https://github.com/Automattic/node-canva) will need you to [install some Cairo libs/headers](https://github.com/Automattic/node-canvas#compiling) using your OS's package manager, with [special instructions for Windows users](https://github.com/Automattic/node-canvas/wiki/Installation:-Windows) because Windows doesn't come with the same kind of package management that Unixy systems do. To successfully compile, GTK is _required_, but JPEG support is not (this repo's code only generates PNG images).
 
 Also note that you will need a TeX installation with several dependencies: on Windows, install [MiKTeX](https://miktex.org/download) and set it up so that it automatically installs things as needed. On Linux/Unix/etc, you'll need to install the following packages:
 
@@ -18,7 +18,7 @@ Also note that you will need a TeX installation with several dependencies: on Wi
 - texlive-xetex
 - texlive-extra-utils
 
-You'll also need [pdf2svg](https://github.com/dawbarton/pdf2svg/), which on linux can be installed just like everything else, but on Windows means that you'll need t run the build yourself, after which you'll need to put the .exe file somewhere sensible (like `C:\Program Files (x86)\pdf2svg`) add then add that dir to your PATH, so that `pdf2svg` can be invoked like any other CLI command.
+You'll also need [pdf2svg](https://github.com/dawbarton/pdf2svg/), which on linux can be installed just like everything else, but on Windows means that you'll need to run the build yourself, after which you'll need to put the .exe file somewhere sensible (like `C:\Program Files (x86)\pdf2svg`) add then add that dir to your PATH, so that `pdf2svg` can be invoked like any other CLI command.
 
 To make life easier, if your distro uses apt-get, just run this:
 

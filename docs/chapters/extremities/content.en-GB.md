@@ -4,7 +4,7 @@ Now that we understand (well, superficially anyway) the component functions, we 
 
 ### Quadratic curves: linear derivatives.
 
-The derivative of a quadratic Bézier curve is a linear Bézier curve, interpolating between just two terms, which means finding the solution for "where is this line 0" is effectively trivial by rewriting it to a function of `t` and solving. First we turn our cubic Bézier function into a quadratic one, by following the rule mentioned at the end of the [derivatives section](#derivatives):
+The derivative of a quadratic Bézier curve is a linear Bézier curve, interpolating between just two terms, which means finding the solution for "where is this line 0" is effectively trivial by rewriting it to a function of `t` and solving. First we turn our quadratic Bézier function into a linear one, by following the rule mentioned at the end of the [derivatives section](#derivatives):
 
 \[
 \begin{aligned}

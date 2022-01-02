@@ -73,22 +73,36 @@ Which now leaves us with some powerful tools: given three points (start, end, an
   A = B - \frac{C - B}{\textit{ratio}(t)} = B + \frac{B - C}{\textit{ratio}(t)}
 \]
 
-With `A` found, finding `e1` and `e2` for quadratic curves is a matter of running the linear interpolation with `t` between start and `A` to yield `e1`, and between `A` and end to yield `e2`. For cubic curves, there is no single pair of points that can act as `e1` and `e2`: as long as the distance ratio between  `e1` to `B` and `B` to `e2` is the Bézier ratio `(1-t):t`, we can reverse engineer `v1` and `v2`:
+With `A` found, finding `e1` and `e2` for quadratic curves is a matter of running the linear interpolation with `t` between start and `A` to yield `e1`, and between `A` and end to yield `e2`. For cubic curves, there is no single pair of points that can act as `e1` and `e2` (there are infinitely many, because the tangent at B is a free parameter for cubic curves) so as long as the distance ratio between  `e1` to `B` and `B` to `e2` is the Bézier ratio `(1-t):t`, we are free to pick any pair, after which we can reverse engineer `v1` and `v2`:
 
 \[
-    \left \{ \begin{aligned}
-    v_1 &= A' - \frac{A' - e_1}{1 - t} \\
-    v_2 &= A' - \frac{A' - e_2}{t}
-    \end{aligned} \right .
+  \left \{ \begin{aligned}
+    e_1 &= (1-t) \cdot v_1 + t \cdot A \\
+    e_2 &= (1-t) \cdot A + t \cdot v_2
+  \end{aligned} \right .
+
+  \Rightarrow
+
+  \left \{  \begin{aligned}
+    v_1 &= \frac{e_1 - t \cdot A}{1-t} \\
+    v_2 &= \frac{e_2 - (1-t) \cdot A}{t}
+  \end{aligned} \right .
 \]
 
 And then reverse engineer the curve's control points:
 
 \[
-    \left \{ \begin{aligned}
-    C_1' &= \textit{start} + \frac{v_1 - \textit{start}}{t} \\
-    C_2' &= \textit{end} + \frac{v_2 - \textit{end}}{1 - t}
-    \end{aligned} \right .
+  \left \{ \begin{aligned}
+    v_1 &= (1-t) \cdot \textit{start} + t \cdot C_1 \\
+    v_2 &= (1-t) \cdot C_2 + t \cdot \textit{end}
+  \end{aligned} \right .
+
+  \Rightarrow
+
+  \left \{  \begin{aligned}
+    C_1 &= \frac{v_1 - (1-t) \cdot \textit{start}}{t} \\
+    C_2 &= \frac{v_2 - t \cdot \textit{end}}{1-t}
+  \end{aligned} \right .
 \]
 
-So: if we have a curve's start and end points, then for any `t` value we implicitly know all the ABC values, which  (combined with an educated guess on appropriate `e1` and `e2` coordinates for cubic curves) gives us the necessary information to reconstruct a curve's "de Casteljau skeleton". Which means that we can now do several things: we can "fit" curves using only three points, which means we can also "mold" curves by moving an on-curve point but leaving its start and end points, and then reconstruct the curve based on where we moved the on-curve point to. These are very useful things, and we'll look at both in the next few sections.
+So: if we have a curve's start and end points, as well as some third point B that we want the curve to pass through, then for any `t` value we implicitly know all the ABC values, which (combined with an educated guess on appropriate `e1` and `e2` coordinates for cubic curves) gives us the necessary information to reconstruct a curve's "de Casteljau skeleton". Which means that we can now do several things: we can "fit" curves using only three points, which means we can also "mold" curves by moving an on-curve point but leaving its start and end points, and then reconstruct the curve based on where we moved the on-curve point to. These are very useful things, and we'll look at both in the next few sections.

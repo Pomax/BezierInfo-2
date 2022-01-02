@@ -134,7 +134,7 @@
 					<li><a href="./index.html">English</a> &nbsp;</li>
 					<li><a href="./ja-JP/index.html">日本語</a> <span class="localisation-progress">(24%)</span></li>
 					<li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(22%)</span></li>
-					<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(20%)</span></li>
+					<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(22%)</span></li>
 					<li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
 				</ul>
 				<p>
@@ -513,7 +513,7 @@
 			<section id="chapters">
 				<section id="introduction">
 					<h1>
-						<div class="nav"><a href="#whatis">next</a></div>
+						<div class="nav"><a href="#toc">table of contents</a><a href="#whatis">next</a></div>
 						<a href="#introduction">A lightning introduction</a>
 					</h1>
 					<p>
@@ -547,7 +547,7 @@
 				</section>
 				<section id="whatis">
 					<h1>
-						<div class="nav"><a href="#introduction">previous</a><a href="#explanation">next</a></div>
+						<div class="nav"><a href="#introduction">previous</a><a href="#toc">table of contents</a><a href="#explanation">next</a></div>
 						<a href="#whatis">So what makes a Bézier Curve?</a>
 					</h1>
 					<p>
@@ -607,7 +607,7 @@
 				</section>
 				<section id="explanation">
 					<h1>
-						<div class="nav"><a href="#whatis">previous</a><a href="#control">next</a></div>
+						<div class="nav"><a href="#whatis">previous</a><a href="#toc">table of contents</a><a href="#control">next</a></div>
 						<a href="#explanation">The mathematics of Bézier curves</a>
 					</h1>
 					<p>
@@ -1026,7 +1026,7 @@ function Bezier(3,t):
 				</section>
 				<section id="control">
 					<h1>
-						<div class="nav"><a href="#explanation">previous</a><a href="#weightcontrol">next</a></div>
+						<div class="nav"><a href="#explanation">previous</a><a href="#toc">table of contents</a><a href="#weightcontrol">next</a></div>
 						<a href="#control">Controlling Bézier curvatures</a>
 					</h1>
 					<p>
@@ -1210,7 +1210,7 @@ function Bezier(3,t,w[]):
 				</section>
 				<section id="weightcontrol">
 					<h1>
-						<div class="nav"><a href="#control">previous</a><a href="#extended">next</a></div>
+						<div class="nav"><a href="#control">previous</a><a href="#toc">table of contents</a><a href="#extended">next</a></div>
 						<a href="#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a>
 					</h1>
 					<p>
@@ -1410,7 +1410,7 @@ function RationalBezier(3,t,w[],r[]):
 				</section>
 				<section id="extended">
 					<h1>
-						<div class="nav"><a href="#weightcontrol">previous</a><a href="#matrix">next</a></div>
+						<div class="nav"><a href="#weightcontrol">previous</a><a href="#toc">table of contents</a><a href="#matrix">next</a></div>
 						<a href="#extended">The Bézier interval [0,1]</a>
 					</h1>
 					<p>
@@ -1500,7 +1500,7 @@ function RationalBezier(3,t,w[],r[]):
 				</section>
 				<section id="matrix">
 					<h1>
-						<div class="nav"><a href="#extended">previous</a><a href="#decasteljau">next</a></div>
+						<div class="nav"><a href="#extended">previous</a><a href="#toc">table of contents</a><a href="#decasteljau">next</a></div>
 						<a href="#matrix">Bézier curvatures as matrix operations</a>
 					</h1>
 					<p>
@@ -1643,7 +1643,7 @@ function RationalBezier(3,t,w[],r[]):
 				</section>
 				<section id="decasteljau">
 					<h1>
-						<div class="nav"><a href="#matrix">previous</a><a href="#flattening">next</a></div>
+						<div class="nav"><a href="#matrix">previous</a><a href="#toc">table of contents</a><a href="#flattening">next</a></div>
 						<a href="#decasteljau">de Casteljau's algorithm</a>
 					</h1>
 					<p>
@@ -1670,9 +1670,8 @@ function RationalBezier(3,t,w[],r[]):
 						</li>
 					</ul>
 					<p>
-						To see this in action, mouse-over the following sketch. Moving the mouse changes which curve point is explicitly evaluated using de
-						Casteljau's algorithm, moving the cursor left-to-right (or, of course, right-to-left), shows you how a curve is generated using this
-						approach.
+						To see this in action, move the slider for the following sketch to changes which curve point is explicitly evaluated using de Casteljau's
+						algorithm.
 					</p>
 					<graphics-element
 						title="Traversing a curve using de Casteljau's algorithm"
@@ -1689,21 +1688,24 @@ function RationalBezier(3,t,w[],r[]):
 					</graphics-element>
 					<div class="howtocode">
 						<h3>How to implement de Casteljau's algorithm</h3>
-						<p>Let's just use the algorithm we just specified, and implement that:</p>
+						<p>
+							Let's just use the algorithm we just specified, and implement that as a function that can take a list of curve-defining points, and a
+							<code>t</code> value, and draws the associated point on the curve for that <code>t</code> value:
+						</p>
 
 						<table class="code">
 							<tr>
 								<td>1</td>
 								<td rowspan="8">
 									<textarea disabled rows="8" role="doc-example">
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     draw(points[0])
   else:
     newpoints=array(points.size-1)
     for(i=0; i<newpoints.length; i++):
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
-    drawCurve(newpoints, t)</textarea
+    drawCurvePoint(newpoints, t)</textarea
 									>
 								</td>
 							</tr>
@@ -1731,8 +1733,8 @@ function drawCurve(points[], t):
 						</table>
 
 						<p>
-							And done, that's the algorithm implemented. Except usually you don't get the luxury of overloading the "+" operator, so let's also give
-							the code for when you need to work with <code>x</code> and <code>y</code> values:
+							And done, that's the algorithm implemented. Although: usually you don't get the luxury of overloading the "+" operator, so let's also
+							give the code for when you need to work with <code>x</code> and <code>y</code> values separately:
 						</p>
 
 						<table class="code">
@@ -1740,7 +1742,7 @@ function drawCurve(points[], t):
 								<td>1</td>
 								<td rowspan="10">
 									<textarea disabled rows="10" role="doc-example">
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     draw(points[0])
   else:
@@ -1749,7 +1751,7 @@ function drawCurve(points[], t):
       x = (1-t) * points[i].x + t * points[i+1].x
       y = (1-t) * points[i].y + t * points[i+1].y
       newpoints[i] = new point(x,y)
-    drawCurve(newpoints, t)</textarea
+    drawCurvePoint(newpoints, t)</textarea
 									>
 								</td>
 							</tr>
@@ -1791,7 +1793,7 @@ function drawCurve(points[], t):
 				</section>
 				<section id="flattening">
 					<h1>
-						<div class="nav"><a href="#decasteljau">previous</a><a href="#splitting">next</a></div>
+						<div class="nav"><a href="#decasteljau">previous</a><a href="#toc">table of contents</a><a href="#splitting">next</a></div>
 						<a href="#flattening">Simplified drawing</a>
 					</h1>
 					<p>
@@ -1916,7 +1918,7 @@ function drawFlattenedCurve(curve, segmentCount):
 				</section>
 				<section id="splitting">
 					<h1>
-						<div class="nav"><a href="#flattening">previous</a><a href="#matrixsplit">next</a></div>
+						<div class="nav"><a href="#flattening">previous</a><a href="#toc">table of contents</a><a href="#matrixsplit">next</a></div>
 						<a href="#splitting">Splitting curves</a>
 					</h1>
 					<p>
@@ -1944,7 +1946,7 @@ function drawFlattenedCurve(curve, segmentCount):
 									<textarea disabled rows="16" role="doc-example">
 left=[]
 right=[]
-function drawCurve(points[], t):
+function drawCurvePoint(points[], t):
   if(points.length==1):
     left.add(points[0])
     right.add(points[0])
@@ -1957,7 +1959,7 @@ function drawCurve(points[], t):
       if(i==newpoints.length-1):
         right.add(points[i+1])
       newpoints[i] = (1-t) * points[i] + t * points[i+1]
-    drawCurve(newpoints, t)</textarea
+    drawCurvePoint(newpoints, t)</textarea
 									>
 								</td>
 							</tr>
@@ -2017,7 +2019,7 @@ function drawCurve(points[], t):
 				</section>
 				<section id="matrixsplit">
 					<h1>
-						<div class="nav"><a href="#splitting">previous</a><a href="#reordering">next</a></div>
+						<div class="nav"><a href="#splitting">previous</a><a href="#toc">table of contents</a><a href="#reordering">next</a></div>
 						<a href="#matrixsplit">Splitting curves using matrices</a>
 					</h1>
 					<p>
@@ -2530,7 +2532,7 @@ function drawCurve(points[], t):
 				</section>
 				<section id="reordering">
 					<h1>
-						<div class="nav"><a href="#matrixsplit">previous</a><a href="#derivatives">next</a></div>
+						<div class="nav"><a href="#matrixsplit">previous</a><a href="#toc">table of contents</a><a href="#derivatives">next</a></div>
 						<a href="#reordering">Lowering and elevating curve order</a>
 					</h1>
 					<p>
@@ -2811,7 +2813,7 @@ Bézier(k,t) = ❯      \underset binomial term\underbrace\binomki  · \ \unders
 				</section>
 				<section id="derivatives">
 					<h1>
-						<div class="nav"><a href="#reordering">previous</a><a href="#pointvectors">next</a></div>
+						<div class="nav"><a href="#reordering">previous</a><a href="#toc">table of contents</a><a href="#pointvectors">next</a></div>
 						<a href="#derivatives">Derivatives</a>
 					</h1>
 					<p>
@@ -3130,7 +3132,7 @@ Bézier'(n,t) = ❯      \underset binomial term\underbrace\binomki  · \ \under
 				</section>
 				<section id="pointvectors">
 					<h1>
-						<div class="nav"><a href="#derivatives">previous</a><a href="#pointvectors3d">next</a></div>
+						<div class="nav"><a href="#derivatives">previous</a><a href="#toc">table of contents</a><a href="#pointvectors3d">next</a></div>
 						<a href="#pointvectors">Tangents and normals</a>
 					</h1>
 					<p>
@@ -3292,7 +3294,7 @@ Bézier'(n,t) = ❯      \underset binomial term\underbrace\binomki  · \ \under
 				</section>
 				<section id="pointvectors3d">
 					<h1>
-						<div class="nav"><a href="#pointvectors">previous</a><a href="#components">next</a></div>
+						<div class="nav"><a href="#pointvectors">previous</a><a href="#toc">table of contents</a><a href="#components">next</a></div>
 						<a href="#pointvectors3d">Working with 3D normals</a>
 					</h1>
 					<p>
@@ -3626,7 +3628,7 @@ generateRMFrames(steps) -> frames:
 				</section>
 				<section id="components">
 					<h1>
-						<div class="nav"><a href="#pointvectors3d">previous</a><a href="#extremities">next</a></div>
+						<div class="nav"><a href="#pointvectors3d">previous</a><a href="#toc">table of contents</a><a href="#extremities">next</a></div>
 						<a href="#components">Component functions</a>
 					</h1>
 					<p>
@@ -3678,7 +3680,7 @@ generateRMFrames(steps) -> frames:
 				</section>
 				<section id="extremities">
 					<h1>
-						<div class="nav"><a href="#components">previous</a><a href="#boundingbox">next</a></div>
+						<div class="nav"><a href="#components">previous</a><a href="#toc">table of contents</a><a href="#boundingbox">next</a></div>
 						<a href="#extremities">Finding extremities: root finding</a>
 					</h1>
 					<p>
@@ -3691,7 +3693,7 @@ generateRMFrames(steps) -> frames:
 					<p>
 						The derivative of a quadratic Bézier curve is a linear Bézier curve, interpolating between just two terms, which means finding the
 						solution for "where is this line 0" is effectively trivial by rewriting it to a function of <code>t</code> and solving. First we turn our
-						cubic Bézier function into a quadratic one, by following the rule mentioned at the end of the
+						quadratic Bézier function into a linear one, by following the rule mentioned at the end of the
 						<a href="#derivatives">derivatives section</a>:
 					</p>
 					<!--
@@ -4320,7 +4322,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="boundingbox">
 					<h1>
-						<div class="nav"><a href="#extremities">previous</a><a href="#aligning">next</a></div>
+						<div class="nav"><a href="#extremities">previous</a><a href="#toc">table of contents</a><a href="#aligning">next</a></div>
 						<a href="#boundingbox">Bounding boxes</a>
 					</h1>
 					<p>
@@ -4371,7 +4373,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="aligning">
 					<h1>
-						<div class="nav"><a href="#boundingbox">previous</a><a href="#tightbounds">next</a></div>
+						<div class="nav"><a href="#boundingbox">previous</a><a href="#toc">table of contents</a><a href="#tightbounds">next</a></div>
 						<a href="#aligning">Aligning curves</a>
 					</h1>
 					<p>
@@ -4451,7 +4453,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="tightbounds">
 					<h1>
-						<div class="nav"><a href="#aligning">previous</a><a href="#inflections">next</a></div>
+						<div class="nav"><a href="#aligning">previous</a><a href="#toc">table of contents</a><a href="#inflections">next</a></div>
 						<a href="#tightbounds">Tight bounding boxes</a>
 					</h1>
 					<p>
@@ -4491,7 +4493,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="inflections">
 					<h1>
-						<div class="nav"><a href="#tightbounds">previous</a><a href="#canonical">next</a></div>
+						<div class="nav"><a href="#tightbounds">previous</a><a href="#toc">table of contents</a><a href="#canonical">next</a></div>
 						<a href="#inflections">Curve inflections</a>
 					</h1>
 					<p>
@@ -4697,7 +4699,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="canonical">
 					<h1>
-						<div class="nav"><a href="#inflections">previous</a><a href="#yforx">next</a></div>
+						<div class="nav"><a href="#inflections">previous</a><a href="#toc">table of contents</a><a href="#yforx">next</a></div>
 						<a href="#canonical">The canonical form (for cubic curves)</a>
 					</h1>
 					<p>
@@ -4735,8 +4737,8 @@ function getCubicRoots(pa, pb, pc, pd) {
 					<ol>
 						<li>
 							<p>
-								...anywhere inside the red zone, but not on its boundaries, the curve will either be self-intersecting (yielding a loop). We won't
-								know <em>where</em> it self-intersects (in terms of <em>t</em> values), but we are guaranteed that it does.
+								...anywhere inside the red zone, but not on its boundaries, the curve will be self-intersecting (yielding a loop). We won't know
+								<em>where</em> it self-intersects (in terms of <em>t</em> values), but we are guaranteed that it does.
 							</p>
 						</li>
 						<li>
@@ -5054,7 +5056,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 				</section>
 				<section id="yforx">
 					<h1>
-						<div class="nav"><a href="#canonical">previous</a><a href="#arclength">next</a></div>
+						<div class="nav"><a href="#canonical">previous</a><a href="#toc">table of contents</a><a href="#arclength">next</a></div>
 						<a href="#yforx">Finding Y, given X</a>
 					</h1>
 					<p>
@@ -5189,7 +5191,7 @@ y = curve.get(t).y</textarea
 				</section>
 				<section id="arclength">
 					<h1>
-						<div class="nav"><a href="#yforx">previous</a><a href="#arclengthapprox">next</a></div>
+						<div class="nav"><a href="#yforx">previous</a><a href="#toc">table of contents</a><a href="#arclengthapprox">next</a></div>
 						<a href="#arclength">Arc length</a>
 					</h1>
 					<p>
@@ -5404,7 +5406,7 @@ y = curve.get(t).y</textarea
 				</section>
 				<section id="arclengthapprox">
 					<h1>
-						<div class="nav"><a href="#arclength">previous</a><a href="#curvature">next</a></div>
+						<div class="nav"><a href="#arclength">previous</a><a href="#toc">table of contents</a><a href="#curvature">next</a></div>
 						<a href="#arclengthapprox">Approximated arc length</a>
 					</h1>
 					<p>
@@ -5455,7 +5457,7 @@ y = curve.get(t).y</textarea
 				</section>
 				<section id="curvature">
 					<h1>
-						<div class="nav"><a href="#arclengthapprox">previous</a><a href="#tracing">next</a></div>
+						<div class="nav"><a href="#arclengthapprox">previous</a><a href="#toc">table of contents</a><a href="#tracing">next</a></div>
 						<a href="#curvature">Curvature of a curve</a>
 					</h1>
 					<p>
@@ -5644,7 +5646,7 @@ function kappa(t, B):
 				</section>
 				<section id="tracing">
 					<h1>
-						<div class="nav"><a href="#curvature">previous</a><a href="#intersections">next</a></div>
+						<div class="nav"><a href="#curvature">previous</a><a href="#toc">table of contents</a><a href="#intersections">next</a></div>
 						<a href="#tracing">Tracing a curve at fixed distance intervals</a>
 					</h1>
 					<p>
@@ -5702,7 +5704,7 @@ function kappa(t, B):
 				</section>
 				<section id="intersections">
 					<h1>
-						<div class="nav"><a href="#tracing">previous</a><a href="#curveintersection">next</a></div>
+						<div class="nav"><a href="#tracing">previous</a><a href="#toc">table of contents</a><a href="#curveintersection">next</a></div>
 						<a href="#intersections">Intersections</a>
 					</h1>
 					<p>
@@ -5868,7 +5870,7 @@ lli = function(line1, line2):
 				</section>
 				<section id="curveintersection">
 					<h1>
-						<div class="nav"><a href="#intersections">previous</a><a href="#abc">next</a></div>
+						<div class="nav"><a href="#intersections">previous</a><a href="#toc">table of contents</a><a href="#abc">next</a></div>
 						<a href="#curveintersection">Curve/curve intersection</a>
 					</h1>
 					<p>
@@ -5937,7 +5939,7 @@ lli = function(line1, line2):
 				</section>
 				<section id="abc">
 					<h1>
-						<div class="nav"><a href="#curveintersection">previous</a><a href="#pointcurves">next</a></div>
+						<div class="nav"><a href="#curveintersection">previous</a><a href="#toc">table of contents</a><a href="#pointcurves">next</a></div>
 						<a href="#abc">The projection identity</a>
 					</h1>
 					<p>
@@ -6110,48 +6112,50 @@ lli = function(line1, line2):
 					<p>
 						With <code>A</code> found, finding <code>e1</code> and <code>e2</code> for quadratic curves is a matter of running the linear
 						interpolation with <code>t</code> between start and <code>A</code> to yield <code>e1</code>, and between <code>A</code> and end to yield
-						<code>e2</code>. For cubic curves, there is no single pair of points that can act as <code>e1</code> and <code>e2</code>: as long as the
-						distance ratio between <code>e1</code> to <code>B</code> and <code>B</code> to <code>e2</code> is the Bézier ratio <code>(1-t):t</code>,
-						we can reverse engineer <code>v1</code> and <code>v2</code>:
+						<code>e2</code>. For cubic curves, there is no single pair of points that can act as <code>e1</code> and <code>e2</code> (there are
+						infinitely many, because the tangent at B is a free parameter for cubic curves) so as long as the distance ratio between
+						<code>e1</code> to <code>B</code> and <code>B</code> to <code>e2</code> is the Bézier ratio <code>(1-t):t</code>, we are free to pick any
+						pair, after which we can reverse engineer <code>v1</code> and <code>v2</code>:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                            ╭          A' - e 
-                                                            │                1
-                                                            │ v = A' - ───────
-                                                            ╡  1        1 - t  
-                                                            │          A' - e 
-                                                            │                2
-                                                            │ v = A' - ───────
-                                                            ╰  2          t
+                                                                           ╭     e  - t  · A
+                                                                           │      1
+                                          ╭ e = (1-t)  · v  + t  · A       │ v = ───────────    
+                                          ╡  1            1            ==> ╡  1      1-t         
+                                          │ e = (1-t)  · A + t  · v        │     e  - (1-t)  · A
+                                          ╰  2                     2       │      2
+                                                                           │ v = ───────────────
+                                                                           ╰  2         t
 -->
-					<img class="LaTeX SVG" src="./images/chapters/abc/eccc1bdb9423bbfe2d42418fc8a7dd24.svg" width="132px" height="75px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/3166afa345aec1abda432c39b68d39a0.svg" width="339px" height="73px" loading="lazy" />
 					<p>And then reverse engineer the curve's control points:</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                        ╭               v  -  start
-                                                        │                1
-                                                        │ C '=  start + ───────────
-                                                        ╡  1                 t      
-                                                        │             v  -  end
-                                                        │              2
-                                                        │ C '=  end + ─────────    
-                                                        ╰  2            1 - t
+                                                                           ╭     v  - (1-t)  ·  start
+                                                                           │      1
+                                     ╭ v = (1-t)  ·  start + t  · C        │ C = ────────────────────
+                                     ╡  1                          1   ==> ╡  1           t           
+                                     │ v = (1-t)  · C  + t  ·  end         │     v  - t  ·  end
+                                     ╰  2            2                     │      2
+                                                                           │ C = ──────────────      
+                                                                           ╰  2       1-t
 -->
-					<img class="LaTeX SVG" src="./images/chapters/abc/634d373310711268cc188f45e5699d8d.svg" width="163px" height="73px" loading="lazy" />
+					<img class="LaTeX SVG" src="./images/chapters/abc/8bd3e6fed5bf8d871d30221ae400fd93.svg" width="383px" height="75px" loading="lazy" />
 					<p>
-						So: if we have a curve's start and end points, then for any <code>t</code> value we implicitly know all the ABC values, which (combined
-						with an educated guess on appropriate <code>e1</code> and <code>e2</code> coordinates for cubic curves) gives us the necessary information
-						to reconstruct a curve's "de Casteljau skeleton". Which means that we can now do several things: we can "fit" curves using only three
-						points, which means we can also "mold" curves by moving an on-curve point but leaving its start and end points, and then reconstruct the
-						curve based on where we moved the on-curve point to. These are very useful things, and we'll look at both in the next few sections.
+						So: if we have a curve's start and end points, as well as some third point B that we want the curve to pass through, then for any
+						<code>t</code> value we implicitly know all the ABC values, which (combined with an educated guess on appropriate <code>e1</code> and
+						<code>e2</code> coordinates for cubic curves) gives us the necessary information to reconstruct a curve's "de Casteljau skeleton". Which
+						means that we can now do several things: we can "fit" curves using only three points, which means we can also "mold" curves by moving an
+						on-curve point but leaving its start and end points, and then reconstruct the curve based on where we moved the on-curve point to. These
+						are very useful things, and we'll look at both in the next few sections.
 					</p>
 				</section>
 				<section id="pointcurves">
 					<h1>
-						<div class="nav"><a href="#abc">previous</a><a href="#projections">next</a></div>
+						<div class="nav"><a href="#abc">previous</a><a href="#toc">table of contents</a><a href="#projections">next</a></div>
 						<a href="#pointcurves">Creating a curve from three points</a>
 					</h1>
 					<p>
@@ -6202,8 +6206,8 @@ lli = function(line1, line2):
 						of any chord, perpendicular to that chord, passes through the center of the circle.
 					</p>
 					<p>
-						That means that if we have have three points on a circle, we have three (different) chords, and consequently, three (different) lines that
-						go from those chords through the center of the circle: if we find two of those lines, then their intersection will be our circle's center,
+						That means that if we have three points on a circle, we have three (different) chords, and consequently, three (different) lines that go
+						from those chords through the center of the circle: if we find two of those lines, then their intersection will be our circle's center,
 						and the circle's radius will—by definition!—be the distance from the center to any of our three points:
 					</p>
 					<graphics-element title="Finding a circle through three points" width="275" height="275" src="./chapters/pointcurves/circle.js">
@@ -6240,8 +6244,8 @@ lli = function(line1, line2):
 						are again all kinds of approaches we can take, and a simple-but-effective one is to set the length of that segment to "one third the
 						length of the baseline". This forces <code>e1</code> and <code>e2</code> to always be the "linear curve" distance apart, which means if we
 						place our three points on a line, it will actually <em>look</em> like a line. Nice! The last thing we'll need to do is make sure to flip
-						the sign of <code>d</code> depending on which side of the baseline our <code>B</code> is located, so we don't up creating a funky curve
-						with a loop in it. To do this, we can use the <a href="https://en.wikipedia.org/wiki/Atan2">atan2</a> function:
+						the sign of <code>d</code> depending on which side of the baseline our <code>B</code> is located, so we don't end up creating a funky
+						curve with a loop in it. To do this, we can use the <a href="https://en.wikipedia.org/wiki/Atan2">atan2</a> function:
 					</p>
 					<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
@@ -6295,11 +6299,11 @@ lli = function(line1, line2):
 						<code>e2</code> points so we can construct a new cubic curve... so now that we have those: let's see what kind of cubic curve that gives
 						us:
 					</p>
-					<graphics-element title="Fitting a quadratic Bézier curve" width="275" height="275" src="./chapters/pointcurves/cubic.js">
+					<graphics-element title="Fitting a cubic Bézier curve" width="275" height="275" src="./chapters/pointcurves/cubic.js">
 						<fallback-image>
 							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/eab6ea46fa93030e03ec0ef7deb571dc.png" loading="lazy" />
-							<label>Fitting a quadratic Bézier curve</label>
+							<label>Fitting a cubic Bézier curve</label>
 						</fallback-image></graphics-element
 					>
 					<p>That looks perfectly serviceable!</p>
@@ -6312,7 +6316,7 @@ lli = function(line1, line2):
 				</section>
 				<section id="projections">
 					<h1>
-						<div class="nav"><a href="#pointcurves">previous</a><a href="#circleintersection">next</a></div>
+						<div class="nav"><a href="#pointcurves">previous</a><a href="#toc">table of contents</a><a href="#circleintersection">next</a></div>
 						<a href="#projections">Projecting a point onto a Bézier curve</a>
 					</h1>
 					<p>
@@ -6408,7 +6412,7 @@ for (coordinate, index) in LUT:
 				</section>
 				<section id="circleintersection">
 					<h1>
-						<div class="nav"><a href="#projections">previous</a><a href="#molding">next</a></div>
+						<div class="nav"><a href="#projections">previous</a><a href="#toc">table of contents</a><a href="#molding">next</a></div>
 						<a href="#circleintersection">Intersections with a circle</a>
 					</h1>
 					<p>
@@ -6696,7 +6700,7 @@ findClosest(start, p, r, LUT):
 				</section>
 				<section id="molding">
 					<h1>
-						<div class="nav"><a href="#circleintersection">previous</a><a href="#curvefitting">next</a></div>
+						<div class="nav"><a href="#circleintersection">previous</a><a href="#toc">table of contents</a><a href="#curvefitting">next</a></div>
 						<a href="#molding">Molding a curve</a>
 					</h1>
 					<p>
@@ -6796,7 +6800,7 @@ findClosest(start, p, r, LUT):
 				</section>
 				<section id="curvefitting">
 					<h1>
-						<div class="nav"><a href="#molding">previous</a><a href="#catmullconv">next</a></div>
+						<div class="nav"><a href="#molding">previous</a><a href="#toc">table of contents</a><a href="#catmullconv">next</a></div>
 						<a href="#curvefitting">Curve fitting</a>
 					</h1>
 					<p>
@@ -6887,14 +6891,14 @@ findClosest(start, p, r, LUT):
 						<!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                 ┌  a   0  0 ┐                 ┌  1  0 0 ┐    ┌ a ┐
-                        B          = T  · M  · C = ┌      2 ┐  · │ -2a  2b 0 │ = ┌      2 ┐  · │ -2  2 0 │  · │ b │
-                          quadratic                └ 1 t t  ┘    └  a  -2b c ┘   └ 1 t t  ┘    └  1 -2 1 ┘    └ c ┘
+                                                               ┌  a  +  0  + 0 ┐                 ┌  1  0 0 ┐    ┌ a ┐
+                      B          = T  · M  · C = ┌      2 ┐  · │ -2a +  2b + 0 │ = ┌      2 ┐  · │ -2  2 0 │  · │ b │
+                        quadratic                └ 1 t t  ┘    └  a  + -2b + c ┘   └ 1 t t  ┘    └  1 -2 1 ┘    └ c ┘
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/curvefitting/134baa1043d0849f31a1943d6d5bc607.svg"
-							width="565px"
+							src="./images/chapters/curvefitting/db85a7a46b869c892662c26b6aea15a1.svg"
+							width="616px"
 							height="53px"
 							loading="lazy"
 						/>
@@ -7290,7 +7294,7 @@ findClosest(start, p, r, LUT):
 				</section>
 				<section id="catmullconv">
 					<h1>
-						<div class="nav"><a href="#curvefitting">previous</a><a href="#catmullfitting">next</a></div>
+						<div class="nav"><a href="#curvefitting">previous</a><a href="#toc">table of contents</a><a href="#catmullfitting">next</a></div>
 						<a href="#catmullconv">Bézier curves and Catmull-Rom curves</a>
 					</h1>
 					<p>
@@ -8056,7 +8060,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="catmullfitting">
 					<h1>
-						<div class="nav"><a href="#catmullconv">previous</a><a href="#polybezier">next</a></div>
+						<div class="nav"><a href="#catmullconv">previous</a><a href="#toc">table of contents</a><a href="#polybezier">next</a></div>
 						<a href="#catmullfitting">Creating a Catmull-Rom curve from three points</a>
 					</h1>
 					<p>
@@ -8071,7 +8075,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="polybezier">
 					<h1>
-						<div class="nav"><a href="#catmullfitting">previous</a><a href="#offsetting">next</a></div>
+						<div class="nav"><a href="#catmullfitting">previous</a><a href="#toc">table of contents</a><a href="#offsetting">next</a></div>
 						<a href="#polybezier">Forming poly-Bézier curves</a>
 					</h1>
 					<p>
@@ -8268,7 +8272,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="offsetting">
 					<h1>
-						<div class="nav"><a href="#polybezier">previous</a><a href="#graduatedoffset">next</a></div>
+						<div class="nav"><a href="#polybezier">previous</a><a href="#toc">table of contents</a><a href="#graduatedoffset">next</a></div>
 						<a href="#offsetting">Curve offsetting</a>
 					</h1>
 					<p>
@@ -8467,7 +8471,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="graduatedoffset">
 					<h1>
-						<div class="nav"><a href="#offsetting">previous</a><a href="#circles">next</a></div>
+						<div class="nav"><a href="#offsetting">previous</a><a href="#toc">table of contents</a><a href="#circles">next</a></div>
 						<a href="#graduatedoffset">Graduated curve offsetting</a>
 					</h1>
 					<p>
@@ -8527,7 +8531,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="circles">
 					<h1>
-						<div class="nav"><a href="#graduatedoffset">previous</a><a href="#circles_cubic">next</a></div>
+						<div class="nav"><a href="#graduatedoffset">previous</a><a href="#toc">table of contents</a><a href="#circles_cubic">next</a></div>
 						<a href="#circles">Circles and quadratic Bézier curves</a>
 					</h1>
 					<p>
@@ -8758,7 +8762,7 @@ for p = 1 to points.length-3 (inclusive):
 				</section>
 				<section id="circles_cubic">
 					<h1>
-						<div class="nav"><a href="#circles">previous</a><a href="#arcapproximation">next</a></div>
+						<div class="nav"><a href="#circles">previous</a><a href="#toc">table of contents</a><a href="#arcapproximation">next</a></div>
 						<a href="#circles_cubic">Circular arcs and cubic Béziers</a>
 					</h1>
 					<p>Let's look at approximating circles and circular arcs using cubic Béziers. How much better is that?</p>
@@ -9526,7 +9530,7 @@ radialError(radius, points[]):
 				</section>
 				<section id="arcapproximation">
 					<h1>
-						<div class="nav"><a href="#circles_cubic">previous</a><a href="#bsplines">next</a></div>
+						<div class="nav"><a href="#circles_cubic">previous</a><a href="#toc">table of contents</a><a href="#bsplines">next</a></div>
 						<a href="#arcapproximation">Approximating Bézier curves with circular arcs</a>
 					</h1>
 					<p>
@@ -9632,7 +9636,7 @@ radialError(radius, points[]):
 				</section>
 				<section id="bsplines">
 					<h1>
-						<div class="nav"><a href="#arcapproximation">previous</a><a href="#comments">next</a></div>
+						<div class="nav"><a href="#arcapproximation">previous</a><a href="#toc">table of contents</a><a href="#comments">next</a></div>
 						<a href="#bsplines">B-Splines</a>
 					</h1>
 					<p>
@@ -10099,7 +10103,7 @@ for(let L = 1; L <= order; L++) {
 					</script>
 
 					<h1>
-						<div class="nav"><a href="#bsplines">previous</a></div>
+						<div class="nav"><a href="#bsplines">previous</a><a href="#toc">table of contents</a></div>
 						<a href="#comments">Comments and questions</a>
 					</h1>
 					<p>
