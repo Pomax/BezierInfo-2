@@ -34,7 +34,7 @@
 		<meta property="og:locale" content="ru-RU" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2022-01-02T16:29:57+00:00" />
+		<meta property="og:updated_time" content="2021-06-29T08:09:34+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -267,90 +267,100 @@
 
 		<main>
 			<section id="preface">
-				<h1>Preface</h1>
+				<h1>Предисловие</h1>
 				<p>
-					In order to draw things in 2D, we usually rely on lines, which typically get classified into two categories: straight lines, and curves. The
-					first of these are as easy to draw as they are easy to make a computer draw. Give a computer the first and last point in the line, and BAM!
-					straight line. No questions asked.
+					Чтобы рисовать объекты в 2D, мы обычно полагаемся на линии, которые обычно подразделяются на две категории: прямые линии и кривые. Первые из
+					них так же легко нарисовать, как их легко нарисовать на компьютере. Дайте компьютеру первую и последнюю точку в строке, и БАЦ! Прямая линия.
+					Никаких сложностей не должно возникнуть.
 				</p>
 				<p>
-					Curves, however, are a much bigger problem. While we can draw curves with ridiculous ease freehand, computers are a bit handicapped in that
-					they can't draw curves unless there is a mathematical function that describes how it should be drawn. In fact, they even need this for
-					straight lines, but the function is ridiculously easy, so we tend to ignore that as far as computers are concerned; all lines are
-					"functions", regardless of whether they're straight or curves. However, that does mean that we need to come up with fast-to-compute
-					functions that lead to nice looking curves on a computer. There are a number of these, and in this article we'll focus on a particular
-					function that has received quite a bit of attention and is used in pretty much anything that can draw curves: Bézier curves.
+					Кривые, однако, представляют собой гораздо большую проблему. В то время как мы можем рисовать кривые с невероятной легкостью от руки,
+					компьютеры немного ограничены в том, что они не могут рисовать кривые, если нет математической функции, описывающей, как они должны быть
+					нарисованы. На самом деле, они также нуждаются в этом и для прямых линий, но функция до смешного проста, поэтому мы склонны игнорировать это
+					в том, что касается компьютеров; все линии являются "функциями", независимо от того, прямые они или кривые. Однако это означает, что нам
+					нужно придумать быстрые в вычислении функции, которые приводят к красивым кривым на компьютере. Их существует несколько, и в этой статье мы
+					сосредоточимся на конкретной функции, которая получила довольно много внимания и используется практически во всем, что может рисовать
+					кривые: кривые Безье.
 				</p>
 				<p>
-					They're named after <a href="https://en.wikipedia.org/wiki/Pierre_B%C3%A9zier">Pierre Bézier</a>, who is principally responsible for making
-					them known to the world as a curve well-suited for design work (publishing his investigations in 1962 while working for Renault), although
-					he was not the first, or only one, to "invent" these type of curves. One might be tempted to say that the mathematician
-					<a href="https://en.wikipedia.org/wiki/Paul_de_Casteljau">Paul de Casteljau</a> was first, as he began investigating the nature of these
-					curves in 1959 while working at Citroën, and came up with a really elegant way of figuring out how to draw them. However, de Casteljau did
-					not publish his work, making the question "who was first" hard to answer in any absolute sense. Or is it? Bézier curves are, at their core,
-					"Bernstein polynomials", a family of mathematical functions investigated by
-					<a href="https://en.wikipedia.org/wiki/Sergei_Natanovich_Bernstein">Sergei Natanovich Bernstein</a>, whose publications on them date back at
-					least as far as 1912.
+					Они названы в честь <a href="https://ru.wikipedia.org/wiki/%D0%91%D0%B5%D0%B7%D1%8C%D0%B5,_%D0%9F%D1%8C%D0%B5%D1%80">Пьера Безье</a>,
+					который сделал так, чтобы они стали известны миру как кривая, хорошо подходящая для проектных работ (опубликовал свои исследования в 1962
+					году, работая в Renault), хотя он не был первым или единственным, кто "изобрел" эти типы кривых. Может возникнуть соблазн сказать, что
+					математик
+					<a href="https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D1%81%D1%82%D0%B5%D0%BB%D1%8C%D0%B6%D0%BE,_%D0%9F%D0%BE%D0%BB%D1%8C_%D0%B4%D0%B5"
+						>Поль де Кастельжо</a
+					>
+					был первым, поскольку он начал исследовать природу этих кривых в 1959 году, работая в Citroën, и открыл действительно элегантный способ, как
+					их нарисовать. Однако, Поль де Кастельжо не опубликовал свою работу, поэтому на вопрос, «кто был первым», трудно ответить в каком-либо
+					абсолютном смысле. Либо это? Кривые Безье – это, по сути, «полиномы Бернштейна», семейство математических функций, исследованных
+					<a
+						href="https://ru.wikipedia.org/wiki/%D0%91%D0%B5%D1%80%D0%BD%D1%88%D1%82%D0%B5%D0%B9%D0%BD,_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9_%D0%9D%D0%B0%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8%D1%87"
+						>Сергеем Натановичем Бернштейном</a
+					>, чьи публикации о них датируются, по крайней мере, до 1912 года.
 				</p>
 				<p>
-					Anyway, that's mostly trivia, what you are more likely to care about is that these curves are handy: you can link up multiple Bézier curves
-					so that the combination looks like a single curve. If you've ever drawn Photoshop "paths" or worked with vector drawing programs like Flash,
-					Illustrator or Inkscape, those curves you've been drawing are Bézier curves.
+					В любом случае это в основном мелочи, вас, скорее всего, будет волновать то, что эти кривые удобны: вы можете связать несколько кривых
+					Безье, чтобы комбинация выглядела как одна кривая. Если вы когда-либо рисовали "Путь" (Path – прим. пер.) в Photoshop или работали с
+					программами векторного рисования, такими как Flash, Illustrator или Inkscape, эти кривые, которые вы рисовали, являются кривыми Безье.
 				</p>
 				<p>
-					But what if you need to program them yourself? What are the pitfalls? How do you draw them? What are the bounding boxes, how do you
-					determine intersections, how can you extrude a curve, in short: how do you do everything that you might want to do with these curves? That's
-					what this page is for. Prepare to be mathed!
+					Но что, если вам нужно будет запрограммировать их самостоятельно? В чем заключаются подводные камни? Как вы их рисуете? Что такое
+					ограничительные рамки, как определяются пересечения, как можно вытянуть кривую, короче говоря: какие возможности они предоставляют и что
+					можно сделать с этими кривыми? Вот для чего предназначена эта страница. Приготовьтесь к матчу!
 				</p>
 				<div class="note">
-					<h2>Virtually all Bézier graphics are interactive.</h2>
+					<h2>Практически вся графика Безье интерактивная.</h2>
 					<p>
-						This page uses interactive examples, relying heavily on <a href="https://pomax.github.io/bezierjs/">Bezier.js</a>, as well as maths
-						formulae which are typeset into SVG using the <a href="https://ctan.org/pkg/xetex">XeLaTeX</a> typesetting system and
-						<a href="https://github.com/dawbarton/pdf2svg">pdf2svg</a> by <a href="https://cityinthesky.co.uk/">David Barton</a>.
+						На этой странице используются интерактивные примеры, в значительной степени опирающиеся на
+						<a href="https://pomax.github.io/bezierjs/">Bezier.js</a>, а также математические формулы, которые набираются в SVG с помощью
+						<a href="https://ctan.org/pkg/xetex">XeLaTeX</a> система набора текста и <a href="https://github.com/dawbarton/pdf2svg">pdf2svg</a>
+						<a href="https://cityinthesky.co.uk/">Дэвид Бартон</a>.
 					</p>
-					<h2>This book is open source.</h2>
+					<h2>Эта книга с открытым исходным кодом.</h2>
 					<p>
-						This book is an open source software project, and lives on two github repositories. The first is
-						<a href="https://github.com/pomax/bezierinfo">https://github.com/pomax/bezierinfo</a> and is the purely-for-presentation version you are
-						viewing right now. The other repository is <a href="https://github.com/pomax/BezierInfo-2">https://github.com/pomax/BezierInfo-2</a>,
-						which is the development version, housing all the code that gets turned <em>into</em> the web version, and is also where you should file
-						issues if you find bugs or have ideas on what to change or add to the primer.
+						Эта книга представляет собой проект с открытым исходным кодом и хранится в двух репозиториях github. Во-первых, это
+						<a href="https://github.com/pomax/bezierinfo">https://github.com/pomax/bezierinfo</a> и является версией исключительно для презентаций,
+						которую вы просматриваете прямо сейчас. Другим хранилищем является
+						<a href="https://github.com/pomax/BezierInfo-2">https://github.com/pomax/BezierInfo-2</a> – это версия для разработки, в которой
+						содержится весь код, и он превращается в веб-версию. Также в нём вы можете сообщать о проблемах, если обнаружите ошибки или у вас есть
+						идеи, что улучшить или добавить в учебник.
 					</p>
-					<h2>How complicated is the maths going to be?</h2>
+					<h2>Насколько сложной будет математика?</h2>
 					<p>
-						Most of the mathematics in this Primer are early high school maths. If you understand basic arithmetic, and you know how to read English,
-						you should be able to get by just fine. There will at times be <em>far</em> more complicated maths, but if you don't feel like digesting
-						them, you can safely skip over them by either skipping over the "detail boxes" in section or by just jumping to the end of a section with
-						maths that looks too involving. The end of sections typically simply list the conclusions so you can just work with those values directly.
+						Большая часть математики в этом учебнике – это математика для начальной школы. Если вы разбираетесь в элементарной арифметике и умеете
+						читать, у вас все должно получиться просто отлично. Иногда будут <em>гораздо</em> более сложные математические задачи, но если вам не
+						хочется их переваривать, вы можете спокойно пропустить их, либо пропустив "подробные поля" в разделе, либо просто перейдя к концу раздела
+						с математикой, которая выглядит слишком увлекательной. В конце разделов обычно просто перечисляются выводы, чтобы вы могли просто работать
+						непосредственно с этими знаниями.
 					</p>
-					<h2>What language is all this example code in?</h2>
+					<h2>На каком языке написаны все примеры кода?</h2>
 					<p>
-						There are way too many programming languages to favour one of all others, soo all the example code in this Primer uses a form of
-						pseudo-code that uses a syntax that's close enough to, but not actually, modern scripting languages like JS, Python, etc. That means you
-						won't be able to copy-paste any of it without giving it any thought, but that's intentional: if you're reading this primer, presumably you
-						want to <em>learn</em>, and you don't learn by copy-pasting. You learn by doing things yourself, <em>making mistakes</em>, and then fixing
-						those mistakes. Now, of course, I didn't intentionally add errors in the example code just to trick you into making mistakes (that would
-						be horrible!) but I <em>did</em> intentionally keep the code from favouring one programming language over another. Don't worry though, if
-						you know even a single procedural programming language, you should be able to read the examples without any difficulties.
+						Существует слишком много языков программирования, чтобы отдать предпочтение одному из них, поэтому во всех примерах в этом учебнике
+						используется форма псевдокода, которая использует синтаксис, достаточно близкий к современным скриптовым языкам, таким как JS, Python и т.
+						д., но на самом деле это не они. Поэтому вы не сможете копировать-вставить что-либо, не задумываясь, это сделано намеренно: если читаете
+						этот учебник, предположительно, вы хотите <em>учиться</em>, но вы не учитесь путем копирования-вставки. Вы учитесь, делая что-то
+						самостоятельно, совершая ошибки, а затем исправляя эти ошибки. Конечно, я намеренно не добавлял ошибки в пример кода только для того,
+						чтобы заставить вас ошибаться (это было бы ужасно!), Но я намеренно не позволял примерам кода отдавать предпочтение одному языку
+						программирования перед другим. Не волнуйтесь, если вы знаете хотя бы один процедурный язык программирования, вы сможете прочитать примеры
+						без каких-либо трудностей.
 					</p>
-					<h2>Questions, comments:</h2>
+					<h2>Вопросы, комментарии:</h2>
 					<p>
-						If you have suggestions for new sections, hit up the <a href="https://github.com/pomax/BezierInfo-2/issues">Github issue tracker</a> (also
-						reachable from the repo linked to in the upper right). If you have questions about the material, there's currently no comment section
-						while I'm doing the rewrite, but you can use the issue tracker for that as well. Once the rewrite is done, I'll add a general comment
-						section back in, and maybe a more topical "select this section of text and hit the 'question' button to ask a question about it" system.
-						We'll see.
+						Если у вас есть предложения по новым разделам, перейдите по ссылке
+						<a href="https://github.com/pomax/BezierInfo-2/issues">на Github</a> (также доступно из репозитория, ссылка в правом верхнем углу). Если у
+						вас есть вопросы по материалу, в настоящее время нет раздела комментариев, пока я его переписываю, но вы также можете использовать github
+						для этого. Как только переписывание будет закончено, я снова добавлю раздел общих комментариев и, возможно, более актуальную систему
+						"выберите этот раздел текста и нажмите кнопку "вопрос", чтобы задать вопрос об этом". Посмотрим.
 					</p>
-					<h2>Help support the book!</h2>
+					<h2>Помогите поддержать книгу!</h2>
 					<p>
-						If you enjoyed this book, or you simply found it useful for something you were trying to get done, and you were wondering how to let me
-						know you appreciated this book, you have two options: you can either head on over to the
-						<a href="https://www.patreon.com/bezierinfo">Patreon page</a> for this book, or if you prefer to make a one-time donation, head on over to
-						the <a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">buy Pomax a coffee</a> page. This
-						work has grown from a small primer to a 100-plus print-page-equivalent reader on the subject of Bézier curves over the years, and a lot of
-						coffee went into the making of it. I don't regret a minute I spent on writing it, but I can always do with some more coffee to keep on
-						writing!
+						Если вам понравилась эта книга или просто сочли её полезной, сообщите об этом, чтобы оценить эту книгу, есть два варианта: можете либо
+						перейти на страницу <a href="https://www.patreon.com/bezierinfo">Patreon</a> или, если вы предпочитаете сделать единовременное
+						пожертвование, зайдите на страницу
+						<a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">купить кофе Pomax</a>. За эти годы
+						эта работа из небольшого букваря превратилась в пособие, эквивалентное 100 с лишним печатным страницам, посвященное кривым Безье, и в его
+						создание было вложено много кофе. Я не жалею ни минуты, потраченной на его написание, но мне всегда не помешает еще немного кофе, чтобы
+						продолжать писать!
 					</p>
 				</div>
 			</section>
