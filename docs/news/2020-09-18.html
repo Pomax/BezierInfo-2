@@ -9,9 +9,9 @@
   <base href="..">
 
   <link rel="icon" href="images/favicon.png" type="image/png" />
-  
+
   <link rel="alternate" type="application/rss+xml" title="RSS" href="news/rss.xml">
-  
+
 
   <!-- page styling -->
   <link rel="preload" href="images/paper.png" as="image" />
@@ -40,7 +40,7 @@
 <meta property="og:locale" content="en-GB" />
 <meta property="og:type" content="article" />
 <meta property="og:published_time" content="Fri Sep 18 2020 09:00:00 +00:00" />
-<meta property="og:updated_time" content="Mon Jan 03 2022 19:46:21 +00:00" />
+<meta property="og:updated_time" content="Tue Jan 04 2022 03:29:08 +00:00" />
 <meta property="og:author" content="Mike 'Pomax' Kamermans" />
 <meta property="og:section" content="Bézier Curves" />
 <meta property="og:tag" content="Bézier Curves" />
@@ -54,7 +54,7 @@
 <meta name="twitter:description" content="Rewriting the tech stack" />
 
 
-  
+
   <!-- my own referral/page hit tracker, because Google knows enough -->
   <script src="./js/site/referrer.js" type="module" async></script>
 
@@ -69,7 +69,7 @@
 
   <!-- make images lazy load much earlier  -->
   <script src="./js/site/better-lazy-loading.js" type="module" async defer></script>
-  
+
 </head>
 
 <body>
@@ -93,17 +93,17 @@
     </map>
 </div>
 
-  
+
 
   <header>
-    
+
   <h1>Rewriting the tech stack</h1>
   <h5 class="post-date">Fri, 18 Sep 2020</h5>
 
   </header>
 
   <main>
-    
+
   <!-- Because people probably want to share this article -->
 <div class="notforprint scl">
     <img src="images/icons.gif" usemap="#rhtimap" title="Share this on social media" />
@@ -120,7 +120,7 @@
     </map>
 </div>
 
-  
+
 <p>Once upon a time, I needed to draw some Bezier curves because I was trying to create a Japanese kanji composition system that turned strokes into outlines, and that required knowing how to offset Bezier curves and... at the time (2011, time flies) there was no good single source of information for Bezier curves on the web. So I made one. Sure it started small, but it turns out that if you just keep adding bits to something, several years later you have quite the monster, and a single HTML file becomes intractible.</p>
 <p>So, in 2016, when <a href="https://reactjs.org/">React.js</a> exploded onto the scene, I rewrote the primer as a React app, and it became a lot easier to maintain. Like, <em>a lot</em> a lot. However, there was a downside: no JS meant no content. Sure, server-side rendering sort of existed, but not really, and because the Primer is hosted through github, there was no "server" to run. Plus, trying to rehydrate an app the size of the Primer from a giant HTML file had truly <em>dire</em> performance.</p>
 <p>So I left it a regular React app, and every time I thought "wouldn't it be nice if it was just... a web page again?" the browser landscape just hadn't caught up. Finally, in 2020, things are different: with a global pandemic, and some vacation time, and something random causing me to look up the state of HTML custom elements, everything was pointing at it being time to finally, <em>finally</em>, turn the Primer back into a normal web page.</p>
@@ -149,15 +149,15 @@
 <blockquote>
 <!--
 \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
+
                                                      __ n=3                  n-k k
-                                          B(t)     = ❯     \ P  \binomnk(1-t)   t                
-                                              cubic  ‾‾ k=0    
+                                          B(t)     = ❯     \ P  \binomnk(1-t)   t
+                                              cubic  ‾‾ k=0
                                                               k
-                                                                                                 
+
                                                              3            2             2       3
-                                                   = P  (1-t)  + 3 P (1-t) t + 3P (1-t)t  + P  t 
-                                                                                              
+                                                   = P  (1-t)  + 3 P (1-t) t + 3P (1-t)t  + P  t
+
                                                       0             1            2           3
 -->
 <img class="LaTeX SVG" src="./images/news/2020-09-18.html/15225da473048d8c7b5b473b89de0b66.svg" width="401px" height="97px" loading="lazy">
@@ -197,7 +197,7 @@ draw() {
 <tr><td>11</td></tr>
 <tr><td>12</td></tr>
 <tr><td>13</td></tr></table>
-  
+
 <ul>
 <li>Responsive CSS, so the content intelligently reflows where possible.</li>
 <li>A "Live build" setup for working on the content and code.</li>
@@ -215,12 +215,12 @@ draw() {
   <hr>
 
   <footer class="copyright">
-    
+
   This post is a news entry for the <a href="https://pomax.github.io/bezierinfo/">Primer on Bézier Curves</a>
 
   </footer>
 
-  
+
 </body>
 
 </html>
