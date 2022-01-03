@@ -5,18 +5,21 @@ const localeStringData = {
     "zh-CN": `贝塞尔曲线底漆`,
     "ru-RU": `Основы кривых Безье`,
     "uk-UA": `Підручник з кривих Безьє`,
+    "ko-KR": `베지에 곡선 입문`,
   },
 
   subtitle: {
     "en-GB": `A free, online book for when you really need to know how to do Bézier things.`,
     "ru-RU": `Бесплатная онлайн-книга для тех, кому действительно важно знать, как работают кривые Безье`,
     "uk-UA": `Безкоштовна онлайн-книга, яка навчить вас всьому необхідному, щоб працювати з кривими Безьє.`,
+    "ko-KR": `베지에 곡선이 꼭 필요할 때 읽기 좋은 무료 온라인 서적.`,
   },
 
   description: {
     "en-GB": `A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.`,
     "ru-RU": `Подробное обьяснение кривых Безье и возможностей их применения`,
     "uk-UA": `Детальне пояснення кривих Безьє та можливостей їх застосування.`,
+    "ko-KR": `베지에 곡선에 대한 자세한 설명과 베지에 곡선으로 할 만한 여러 가지 것들을 어떻게 할 수 있는지를 다룹니다.`,
   },
 
   longDescription: {
@@ -39,7 +42,7 @@ const localeStringData = {
         которая, кажется, появляется повсюду: от кривых в Photoshop до функций плавности (easing functions) CSS и начертания шрифтов.
       </p>
       <p>
-        Если вы здесь впервые: Добро пожаловать! Обязательно <a href="https://github.com/Pomax/BezierInfo-2/issues">напишите мне</a>, 
+        Если вы здесь впервые: Добро пожаловать! Обязательно <a href="https://github.com/Pomax/BezierInfo-2/issues">напишите мне</a>,
         если вы ищете что-то конкретное, но не нашли ответ в тексте.
       </p>
     `,
@@ -55,11 +58,23 @@ const localeStringData = {
         якщо вас цікавить щось, пов'язане з кривими Безьє, чого немає у підручнику.
       </p>
       `,
+    "ko-KR": `
+        <p>
+          베지에 곡선 입문서에 오신 것을 환영합니다. 이곳은 베지에 곡선의 수학과 프로그래밍을
+          모두 다루는 무료 웹사이트/eBook으로, 포토샵 패스부터 CSS easing 함수와 글꼴 테두리까지
+          어느 곳에서든 튀어나오는 바로 그 곡선을 다루고 그리는 데 대한 다양한 주제를 다룹니다.
+        </p>
+        <p>
+          이 책은 처음인가요? 어서 오세요! 이 입문서에 없는 것 중 꼭 다루었으면 좋겠는 것이 있다면
+          <a href="https://github.com/Pomax/BezierInfo-2/issues">이슈 트래커</a>로 의견을 나누어 주세요!
+        </p>
+      `,
   },
 
   donationsHeading: {
     "en-GB": `Donations and sponsorship`,
     "ru-RU": `Пожертвования и спонсорство`,
+    "ko-KR": `기부와 후원`,
   },
 
   donationCTA: {
@@ -132,6 +147,7 @@ const localeStringData = {
     "zh-CN": `目录`,
     "ru-RU": `Оглавление`,
     "uk-UA": `Зміст`,
+    "ko-KR": `목차`,
   },
 
   localeName: {
@@ -140,24 +156,28 @@ const localeStringData = {
     "zh-CN": `中文`,
     "ru-RU": `Русский`,
     "uk-UA": `Українська`,
+    "ko-KR": `한국어`,
   },
 
   langSwitchLabel: {
     "en-GB": `Read this in your own language:`,
     "ru-RU": `Читайте на своём языке:`,
     "uk-UA": `Читати рідною мовою:`,
+    "ko-KR": `다른 언어로 읽기:`,
   },
 
   langHelpLabel: {
     "en-GB": `Don't see your language listed, or want to see it reach 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Help translate this content!</a>`,
     "ru-RU": `Не нашли свой язык или хотите, чтобы он достиг до 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Помогите нам с переводом!</a>`,
     "uk-UA": `Не бачите своєї мови у списку або хочете, щоб вона досягла 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Допоможіть перекласти цей контент!</a>`,
+    "ko-KR": `원하는 언어가 없거나, 100%까지 올리고 싶다면 <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">내용 번역을 도와주세요!</a>`,
   },
 
   disabledMessage: {
     "en-GB": `Scripts are disabled. Showing fallback image.`,
     "ru-RU": `Скрипты отключены. Показываем резервное изображение.`,
     "uk-UA": `Скрипти вимкнено. показує резервний.`,
+    "ko-KR": `스크립트가 꺼져 있어 대체 이미지를 대신 표시합니다.`,
   },
 
   reset: {
@@ -166,22 +186,26 @@ const localeStringData = {
     "zh-CN": `重启`,
     "ru-RU": `cбросить`,
     "uk-UA": `скинути`,
+    "ko-KR": `초기화`,
   },
 
   viewSource: {
     "en-GB": `view source`,
+    "ko-KR": `소스 보기`,
   },
 
   changelogTitle: {
     "en-GB": `What's new?`,
     "ru-RU": `Что нового?`,
     "uk-UA": `Що нового?`,
+    "ko-KR": `업데이트 내역`,
   },
 
   toggleLabel: {
     "en-GB": `Toggle changes`,
     "ru-RU": `Показать/скрыть изменения`,
     "uk-UA": `Перемкнути зміни`,
+    "ko-KR": `수정사항 확인`,
   },
 
   preambleLabel: {
@@ -190,6 +214,7 @@ const localeStringData = {
     "zh-CN": `前言`,
     "ru-RU": `Преамбула`,
     "uk-UA": `Преамбула`,
+    "ko-KR": `서문`,
   },
 
   prefaceLabel: {
@@ -198,24 +223,28 @@ const localeStringData = {
     "zh-CN": `序言`,
     "ru-RU": `Предисловие`,
     "uk-UA": `Передмова`,
+    "ko-KR": `머리말`,
   },
 
   mainContentLabel: {
     "en-GB": `Main content`,
     "ru-RU": `Содержание`,
     "uk-UA": `Основний вміст`,
+    "ko-KR": `본문`,
   },
 
   changelogLabel: {
     "en-GB": `What's new`,
     "ru-RU": `Что нового`,
     "uk-UA": `Зміни`,
+    "ko-KR": `업데이트 내역`,
   },
 
   changelogDescription: {
     "en-GB": `This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when, or click through to the <a href="./news">News posts</a> for more detailed updates. (<a href="./news/rss.xml">RSS feed</a> available)`,
     "ru-RU": `Этот документ живое пособие, в зависимости от даты вашего последнего посещения, может появиться новый материал. Кликайте <a href="./news">здесь</a> для просмотра лога изменений. (также доступен <a href="./news/rss.xml">RSS-канал</a>)`,
     "uk-UA": `Цей підручник постійно розвививається, тож залежно від того, коли ви востаннє його переглядали, тут можуть бути оновлення. Перейдіть за <a href="./news">цим посиланням</a>, щоб побачити, що було додано. (Також доступний <a href="./news/rss.xml">RSS-канал</a>)`,
+    "ko-KR": `이 입문서는 "살아 숨쉬는" 문서로, 오랜만에 다시 찾아왔다면 새로운 내용이 추가되었을 수도 있습니다. 아래 링크를 눌러서 무엇이 언제 추가되었는지 확인할 수도 있고, <a href="./news">뉴스 포스트</a>(영문, <a href="./news/rss.xml">RSS 피드</a>도 있습니다)에서 자세한 내역을 확인할 수도 있습니다.`,
   },
 
   previous: {
@@ -224,6 +253,7 @@ const localeStringData = {
     "zh-CN": `前`,
     "ru-RU": `предыдущий`,
     "uk-UA": `попередній`,
+    "ko-KR": `이전`,
   },
 
   next: {
@@ -232,6 +262,7 @@ const localeStringData = {
     "zh-CN": `下`,
     "ru-RU": `следующий`,
     "uk-UA": `наступний`,
+    "ko-KR": `다음`,
   },
 };
 
