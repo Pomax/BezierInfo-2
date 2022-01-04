@@ -1,161 +1,169 @@
 <!DOCTYPE html>
 <html lang="ru-RU">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Основы кривых Безье</title>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Основы кривых Безье</title>
+		<base href=".." />
 
-  <base href="..">
+		<link rel="icon" href="images/favicon.png" type="image/png" />
 
-  <link rel="icon" href="images/favicon.png" type="image/png" />
+		<link rel="alternate" type="application/rss+xml" title="RSS" href="news/rss.xml" />
 
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="news/rss.xml">
+		<!-- page styling -->
+		<link rel="preload" href="images/paper.png" as="image" />
+		<style>
+			:root {
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+				font-size: 18px;
+			}
+		</style>
 
+		<link rel="stylesheet" href="style.css" />
 
-  <!-- page styling -->
-  <link rel="preload" href="images/paper.png" as="image" />
-  <style>
+		<!-- And a slew of SEO related meta elements, because being discoverable is important -->
+		<meta name="description" content="Подробное обьяснение кривых Безье и возможностей их применения" />
 
+		<!-- opengraph information -->
+		<meta property="og:title" content="Основы кривых Безье" />
+		<meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
+		<meta property="og:type" content="text" />
+		<meta property="og:url" content="https://pomax.github.io/bezierinfo/ru-RU" />
+		<meta property="og:description" content="Подробное обьяснение кривых Безье и возможностей их применения" />
+		<meta property="og:locale" content="ru-RU" />
+		<meta property="og:type" content="article" />
+		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
+		<meta property="og:updated_time" content="2022-01-03T23:34:00+00:00" />
+		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
+		<meta property="og:section" content="Bézier Curves" />
+		<meta property="og:tag" content="Bézier Curves" />
 
-    :root {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 18px;
-    }
+		<!-- twitter card information -->
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:site" content="@TheRealPomax" />
+		<meta name="twitter:creator" content="@TheRealPomax" />
+		<meta name="twitter:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
+		<meta name="twitter:url" content="https://pomax.github.io/bezierinfo/ru-RU" />
+		<meta name="twitter:description" content="Подробное обьяснение кривых Безье и возможностей их применения" />
 
+		<!-- my own referral/page hit tracker, because Google knows enough -->
+		<script src="./js/site/referrer.js" type="module" async></script>
 
-</style>
-
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- And a slew of SEO related meta elements, because being discoverable is important -->
-<meta name="description" content="Подробное обьяснение кривых Безье и возможностей их применения" />
-
-<!-- opengraph information -->
-<meta property="og:title" content="Основы кривых Безье" />
-<meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
-<meta property="og:type" content="text" />
-<meta property="og:url" content="https://pomax.github.io/bezierinfo/ru-RU" />
-<meta property="og:description" content="Подробное обьяснение кривых Безье и возможностей их применения" />
-<meta property="og:locale" content="ru-RU" />
-<meta property="og:type" content="article" />
-<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-<meta property="og:updated_time" content="2022-01-03T18:29:08+00:00" />
-<meta property="og:author" content="Mike 'Pomax' Kamermans" />
-<meta property="og:section" content="Bézier Curves" />
-<meta property="og:tag" content="Bézier Curves" />
-
-<!-- twitter card information -->
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@TheRealPomax" />
-<meta name="twitter:creator" content="@TheRealPomax" />
-<meta name="twitter:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
-<meta name="twitter:url" content="https://pomax.github.io/bezierinfo/ru-RU" />
-<meta name="twitter:description" content="Подробное обьяснение кривых Безье и возможностей их применения" />
-
-
-
-  <!-- my own referral/page hit tracker, because Google knows enough -->
-  <script src="./js/site/referrer.js" type="module" async></script>
-
-  <!--
+		<!--
           The part that makes interactive graphics work: an HTML5 <graphics-element> custom element.
           Note that we're not defering this: we just want it to kick in as soon as possible, and
           given how much HTML there is, that means this can, and thus should, kick in before the
           document is done even transferring.
         -->
-  <script src="./js/graphics-element/graphics-element.js" type="module" async></script>
-  <link rel="stylesheet" href="./js/graphics-element/graphics-element.css" />
+		<script src="./js/graphics-element/graphics-element.js" type="module" async></script>
+		<link rel="stylesheet" href="./js/graphics-element/graphics-element.css" />
 
-  <!-- make images lazy load much earlier  -->
-  <script src="./js/site/better-lazy-loading.js" type="module" async defer></script>
+		<!-- make images lazy load much earlier  -->
+		<script src="./js/site/better-lazy-loading.js" type="module" async defer></script>
+	</head>
 
-</head>
+	<body>
+		<div class="dev" style="display: none;">
+			DEV PREVIEW ONLY
+			<script>
+				(function () {
+					var loc = window.location.toString();
+					if (loc.includes("localhost") || loc.includes("BezierInfo-2")) {
+						var e = document.querySelector("div.dev");
+						e.removeAttribute("style");
+					}
+				})();
+			</script>
+		</div>
 
-<body>
-  <div class="dev" style="display:none;">
-    DEV PREVIEW ONLY
-    <script>
-        (function () {
-            var loc = window.location.toString();
-            if (loc.includes('localhost') || loc.includes('BezierInfo-2')) {
-                var e = document.querySelector('div.dev');
-                e.removeAttribute("style");
-            }
-        }());
-    </script>
-</div>
+		<div class="github">
+			<img src="images/ribbon.png" alt="This page on GitHub" style="border: none;" usemap="#githubmap" width="200" height="149" />
+			<map name="githubmap">
+				<area shape="poly" coords="30,0, 200,0, 200,114" href="http://github.com/pomax/BezierInfo-2" alt="This page on GitHub" />
+			</map>
+		</div>
 
-  <div class="github">
-    <img src="images/ribbon.png" alt="This page on GitHub" style="border:none;" useMap="#githubmap" width="200" height="149" />
-    <map name="githubmap">
-        <area shape="poly" coords="30,0, 200,0, 200,114" href="http://github.com/pomax/BezierInfo-2" alt="This page on GitHub" />
-    </map>
-</div>
+		<div class="notforprint scl">
+			<img src="images/icons.gif" usemap="#rhtimap" title="Share this on social media" />
+			<map name="rhtimap">
+				<area
+					class="sclnk-rdt"
+					shape="rect"
+					coords="0, 0, 19, 15"
+					href="https://www.reddit.com/submit?url=https://pomax.github.io/bezierinfo&title=A Primer on Bézier Curves&text=A free, online book for when you really need to know how to do Bézier things."
+					alt="submit to reddit"
+					title="submit to reddit"
+				/>
+				<area
+					class="sclnk-hn"
+					shape="rect"
+					coords="0, 20, 19, 35"
+					href="https://news.ycombinator.com/submitlink?u=https://pomax.github.io/bezierinfo&t=A Primer on Bézier Curves"
+					alt="submit to hacker news"
+					title="submit to hacker news"
+				/>
+				<area
+					class="sclnk-twt"
+					shape="rect"
+					coords="0, 40, 19, 55"
+					href="https://twitter.com/intent/tweet?hashtags=bezier,curves,maths&original_referer=https://pomax.github.io/bezierinfo&text=Reading “A Primer on Bezier Curves” by @TheRealPomax over on https://pomax.github.io/bezierinfo"
+					alt="tweet your read"
+					title="tweet your read"
+				/>
+			</map>
+		</div>
 
-  <div class="notforprint scl">
-    <img src="images/icons.gif" usemap="#rhtimap" title="Share this on social media" />
-    <map name="rhtimap">
-        <area class="sclnk-rdt" shape="rect" coords="0, 0, 19, 15"
-            href="https://www.reddit.com/submit?url=https://pomax.github.io/bezierinfo&title=A Primer on Bézier Curves&text=A free, online book for when you really need to know how to do Bézier things."
-            alt="submit to reddit" title="submit to reddit">
-        <area class="sclnk-hn" shape="rect" coords="0, 20, 19, 35"
-            href="https://news.ycombinator.com/submitlink?u=https://pomax.github.io/bezierinfo&t=A Primer on Bézier Curves"
-            alt="submit to hacker news" title="submit to hacker news">
-        <area class="sclnk-twt" shape="rect" coords="0, 40, 19, 55"
-            href="https://twitter.com/intent/tweet?hashtags=bezier,curves,maths&original_referer=https://pomax.github.io/bezierinfo&text=Reading “A Primer on Bezier Curves” by @TheRealPomax over on https://pomax.github.io/bezierinfo"
-            alt="tweet your read" title="tweet your read">
-    </map>
-</div>
+		<script src="./js/site/social-updater.js" async defer></script>
 
-<script src="./js/site/social-updater.js" async defer></script>
+		<header>
+			<h1>
+				Основы кривых Безье<a class="rss-link" href="news/rss.xml"><img src="images/rss.png" /></a>
+			</h1>
+			<h2>Бесплатная онлайн-книга для тех, кому действительно важно знать, как работают кривые Безье</h2>
+			<div>
+				<span>Читайте на своём языке:</span>
+				<ul class="lang-switcher">
+					<li><a href="./index.html">English</a> &nbsp;</li>
+					<li><a href="./ja-JP/index.html">日本語</a> <span class="localisation-progress">(24%)</span></li>
+					<li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(22%)</span></li>
+					<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(24%)</span></li>
+					<li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
+					<li><a href="./ko-KR/index.html">한국어</a> <span class="localisation-progress">(2%)</span></li>
+				</ul>
+				<p>
+					(Не нашли свой язык или хотите, чтобы он достиг до 100%?
+					<a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Помогите нам с переводом!</a>)
+				</p>
+			</div>
 
+			<p>
+				Приветствуем на Основах кривых Безье. Это бесплатная веб-страница/электронная книга, посвященная как математическим, так и программным
+				аспектам кривых Безье, охватывает широкий спектр тем касающихся рисования и работы с кривой, которая, кажется, появляется повсюду: от кривых в
+				Photoshop до функций плавности (easing functions) CSS и начертания шрифтов.
+			</p>
+			<p>
+				Если вы здесь впервые: Добро пожаловать! Обязательно <a href="https://github.com/Pomax/BezierInfo-2/issues">напишите мне</a>, если вы ищете
+				что-то конкретное, но не нашли ответ в тексте.
+			</p>
 
-  <header>
+			<h2>Пожертвования и спонсорство</h2>
 
-    <h1>Основы кривых Безье<a class="rss-link" href="news/rss.xml"><img src="images/rss.png"></a></h1>
-    <h2>Бесплатная онлайн-книга для тех, кому действительно важно знать, как работают кривые Безье</h2>
-    <div>
-      <span>Читайте на своём языке:</span>
-      <ul class="lang-switcher"><li><a href="./index.html">English</a> &nbsp;</li>
-<li><a href="./ja-JP/index.html">日本語</a> <span class="localisation-progress">(24%)</span></li>
-<li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(22%)</span></li>
-<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(24%)</span></li>
-<li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
-<li><a href="./ko-KR/index.html">한국어</a> <span class="localisation-progress">(2%)</span></li></ul>
-      <p>(Не нашли свой язык или хотите, чтобы он достиг до 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Помогите нам с переводом!</a>)</p>
-    </div>
+			<p>
+				Если вы используете этот источник для исследований, в качестве справочника по работе, или даже для написания собственного программного
+				обеспечения рассмотрите возможность
+				<a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">задонатить</a>
+				(любая сумма годится) или станьте <a href="https://www.patreon.com/bezierinfo">патроном на Patreon</a>. Мне не платят за эту работу, так что,
+				если вы нашли что-то полезное для себя и хотите, чтобы он оставался с нами надолго, то вот вам мысль: на создание этих страниц ушло много
+				кофе, и уйдет ещё больше на их совершенствование; если вы можете помочь с кофе, то поможете долгой и счастливой жизни этого ресурса.
+			</p>
+			<p>
+				Кроме того, если вы являетесь компанией и ваши сотрудники используют эту книгу в качестве источника, или вы используете её в качестве
+				вспомогательного ресурса, пожалуйста: подумайте о финансировании сайта! Я более чем счастлив, работая с вашим финансовым отделом над
+				выставлением счетов и признанием спонсорства.
+			</p>
 
-      <p>
-        Приветствуем на Основах кривых Безье. Это бесплатная веб-страница/электронная книга, посвященная как математическим,
-        так и программным аспектам кривых Безье, охватывает широкий спектр тем касающихся рисования и работы с кривой,
-        которая, кажется, появляется повсюду: от кривых в Photoshop до функций плавности (easing functions) CSS и начертания шрифтов.
-      </p>
-      <p>
-        Если вы здесь впервые: Добро пожаловать! Обязательно <a href="https://github.com/Pomax/BezierInfo-2/issues">напишите мне</a>,
-        если вы ищете что-то конкретное, но не нашли ответ в тексте.
-      </p>
-
-    <h2>Пожертвования и спонсорство </h2>
-
-
-      <p>
-        Если вы используете этот источник для исследований, в качестве справочника по работе, или даже для написания
-        собственного программного обеспечения рассмотрите возможность
-        <a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">задонатить</a>
-        (любая сумма годится) или станьте <a href="https://www.patreon.com/bezierinfo">патроном на Patreon</a>. Мне не
-        платят за эту работу, так что, если вы нашли что-то полезное для себя и хотите, чтобы он оставался с нами надолго,
-        то вот вам мысль: на создание этих страниц ушло много кофе, и уйдет ещё больше на их совершенствование;
-        если вы можете помочь с кофе, то поможете долгой и счастливой жизни этого ресурса.
-      </p>
-      <p>
-        Кроме того, если вы являетесь компанией и ваши сотрудники используют эту книгу в качестве источника, или вы используете
-        её в качестве вспомогательного ресурса, пожалуйста: подумайте о финансировании сайта! Я более чем счастлив, работая
-        с вашим финансовым отделом над выставлением счетов и признанием спонсорства.
-      </p>
-
-
-<!--
+			<!--
 <div class="btcfh">
     <div>
         <h3>
