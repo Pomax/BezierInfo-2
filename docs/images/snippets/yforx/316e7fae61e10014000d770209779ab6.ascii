@@ -1,3 +1,0 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                                                x(t) = a(1-t)³ + 3b(1-t)²t + 3c(1-t)t² + dt³

@@ -1,5 +1,4 @@
- \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
-  
+ 
       ╭                 x   · y       x   · y              ╮
       │                  2     4       2     3             │
       │            x  - ──────── / x -────────             │   ╭         x           ╮

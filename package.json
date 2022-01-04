@@ -63,7 +63,7 @@
   ],
   "------": "There are a number of personal forks here, as they include patches not landed upstream yet",
   "devDependencies": {
-    "canvas": "git://github.com/Pomax/node-canvas#master",
+    "canvas": "^2.8.0",
     "chokidar-cli": "^2.1.0",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",

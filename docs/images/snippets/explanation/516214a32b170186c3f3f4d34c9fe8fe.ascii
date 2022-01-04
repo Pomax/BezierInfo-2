@@ -1,0 +1,7 @@
+
+  линийный= \colorblue a + \colorred b                                                                                                               
+ квадратый= \colorblue a  · \colorblue a + \colorblue a  · \colorred b + \colorred b  · \colorred b                                                  
+кубический= \colorblue a  · \colorblue a  · \colorblue a + \colorblue a  · \colorblue a  · \colorred b + \colorblue a  · \colorred b  · \colorred b +
+                                                                                               
+                                                                                               
+                                                      \colorred b  · \colorred b  · \colorred b

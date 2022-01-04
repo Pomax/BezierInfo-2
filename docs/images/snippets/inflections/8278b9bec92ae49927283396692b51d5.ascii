@@ -1,9 +1,8 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                               3           2             2      3
-                                            Bézier(t) = y (1-t)  + 3y (1-t) t + 3y (1-t)t  + y t 
-                                                         1           2            3           4
-                                                  \prime            2                2           
-                                            Bézier      (t) = d(1-t)  + 2e(1-t)t + ft            
-                                                  \prime\prime
-                                            Bézier            (t) = w(1-t) + zt                  
+                   3           2             2      3
+Bézier(t) = y (1-t)  + 3y (1-t) t + 3y (1-t)t  + y t 
+             1           2            3           4
+      \prime            2                2           
+Bézier      (t) = d(1-t)  + 2e(1-t)t + ft            
+      \prime\prime
+Bézier            (t) = w(1-t) + zt                  

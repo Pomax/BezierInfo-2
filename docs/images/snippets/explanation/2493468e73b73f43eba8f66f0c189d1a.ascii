@@ -1,7 +1,0 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                                         linear= (1-t) + t                                        
-                                                      2                      2
-                                         square= (1-t)  + 2  · (1-t)  · t + t                     
-                                                      3             2                       2    3
-                                          cubic= (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 

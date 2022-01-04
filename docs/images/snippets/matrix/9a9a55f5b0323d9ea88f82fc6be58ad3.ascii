@@ -1,5 +1,4 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                3                   2                             2          3
-                              B(t) = P   · (1-t)  + P   · 3  · (1-t)   · t + P   · 3  · (1-t)  · t  + P   · t 
-                                      1              2                        3                        4
+                  3                   2                             2          3
+B(t) = P   · (1-t)  + P   · 3  · (1-t)   · t + P   · 3  · (1-t)  · t  + P   · t 
+        1              2                        3                        4

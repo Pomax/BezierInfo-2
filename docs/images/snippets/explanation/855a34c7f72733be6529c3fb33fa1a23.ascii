@@ -1,4 +1,3 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                3         2
-                                                   f(x) = a  · x  + b  · x  + c  · x + d
+             3         2
+f(x) = a  · x  + b  · x  + c  · x + d

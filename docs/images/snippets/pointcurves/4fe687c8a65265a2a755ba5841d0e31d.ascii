@@ -1,4 +1,3 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                  d = {  d  if  0 ≤\phi ≤\pi             
-                                                        -d  if  \phi < 0 \lor \phi > \pi
+d = {  d  if  0 ≤\phi ≤\pi             
+      -d  if  \phi < 0 \lor \phi > \pi
