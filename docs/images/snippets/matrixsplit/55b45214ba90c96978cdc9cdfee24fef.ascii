@@ -1,8 +1,0 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                                                                                                        ┌ P  ┐
-                                                                                       -1               │  1 │
-                             = ┌      2 ┐  · \underset...into this...\underbrace M  · M    · Z  · M   · │ P  │
-                               └ 1 t t  ┘                                                               │  2 │
-                                                                                                        │ P  │
-                                                                                                        └  3 ┘

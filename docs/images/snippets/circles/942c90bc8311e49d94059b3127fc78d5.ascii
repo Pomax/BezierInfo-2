@@ -1,15 +1,14 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                           1                   φ        4╭ φ ╮
-                                          d (φ)= T  - P  = ─(3 + cos(φ)) - cos(─) = 2sin │ ─ │  ,
-                                           x      x    x   4                   2         ╰ 4 ╯
-                                                           1╭     ╭ φ ╮          ╮       φ
-                                          d (φ)= T  - P  = ─│ 2tan│ ─ │ + sin(φ) │ - sin(─)  ,   
-                                           y      y    y   4╰     ╰ 2 ╯          ╯       2
-                                               ⇓                                                 
-                                                  ┌───────┐                     ┌───────┐
-                                                  │ 2    2                 4 φ  │   1
-                                           d(φ)=  │d  + d   =  ...   = 2sin (─) │───────         
-                                                 ⟍│ x    y                   4  │   2 φ
-                                                                                │cos (─)
-                                                                               ⟍│     2
+                 1                   φ        4╭ φ ╮
+d (φ)= T  - P  = ─(3 + cos(φ)) - cos(─) = 2sin │ ─ │  ,
+ x      x    x   4                   2         ╰ 4 ╯
+                 1╭     ╭ φ ╮          ╮       φ
+d (φ)= T  - P  = ─│ 2tan│ ─ │ + sin(φ) │ - sin(─)  ,   
+ y      y    y   4╰     ╰ 2 ╯          ╯       2
+     ⇓                                                 
+        ┌───────┐                     ┌───────┐
+        │ 2    2                 4 φ  │   1
+ d(φ)=  │d  + d   =  ...   = 2sin (─) │───────         
+       ⟍│ x    y                   4  │   2 φ
+                                      │cos (─)
+                                     ⟍│     2

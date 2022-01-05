@@ -1,8 +1,0 @@
-     \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
-      
-  линийный= \colorbluea + \colorredb                                                                                                                  
- квадратый= \colorbluea  · \colorbluea + \colorbluea  · \colorredb + \colorredb  · \colorredb                                                         
-кубический= \colorbluea  · \colorbluea  · \colorbluea + \colorbluea  · \colorbluea  · \colorredb + \colorbluea  · \colorredb  · \colorredb + \colorred
-                                                                                         
-                                                                                         
-                                                            b  · \colorredb  · \colorredb

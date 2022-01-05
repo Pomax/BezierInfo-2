@@ -1,7 +1,0 @@
-    \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
-     
-               __ k                                                                                          k-i     i
-Bézier'(n,t) = ❯      \undersetbinomial term\underbrace\binomki  · \ \undersetpolynomial term\underbrace(1-t)     · t   · \ \undersetderivative 
-               ‾‾ i=0
-                                                 weight\underbracen  · (w    - w )  ,  with  k=n-1
-                                                                         i+1    i

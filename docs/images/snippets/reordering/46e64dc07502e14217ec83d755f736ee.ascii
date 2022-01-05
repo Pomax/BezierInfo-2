@@ -1,16 +1,15 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                   M B = B             
-                                                                      n   k
-                                                                T         T
-                                                              (M  M) B = M  B          
-                                                                      n      k
-                                                       T   -1   T          T   -1  T
-                                                     (M  M)   (M  M) B = (M  M)   M  B 
-                                                                      n               k
-                                                                           T   -1  T
-                                                                   I B = (M  M)   M  B 
-                                                                      n               k
-                                                                           T   -1  T
-                                                                     B = (M  M)   M  B 
-                                                                      n               k
+              M B = B             
+                 n   k
+           T         T
+         (M  M) B = M  B          
+                 n      k
+  T   -1   T          T   -1  T
+(M  M)   (M  M) B = (M  M)   M  B 
+                 n               k
+                      T   -1  T
+              I B = (M  M)   M  B 
+                 n               k
+                      T   -1  T
+                B = (M  M)   M  B 
+                 n               k

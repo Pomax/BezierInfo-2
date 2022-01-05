@@ -1,7 +1,6 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                             ╭         x           ╮                 ╭ x  - x   · y   ╮           y                y 
-                             │          43         │                 │  4    2     42 │            4                3
-                       ... = │                     │,   where  x   = │ ────────────── │,    y   = ──,   and  y   = ──
-                             │ y   + x   (1 - y  ) │            43   │ x  - x   · y   │      42   y           32   y 
-                             ╰  42    43       32  ╯                 ╰  3    2     32 ╯            2                2
+      ╭         x           ╮                 ╭ x  - x   · y   ╮           y                y 
+      │          43         │                 │  4    2     42 │            4                3
+... = │                     │,   where  x   = │ ────────────── │,    y   = ──,   and  y   = ──
+      │ y   + x   (1 - y  ) │            43   │ x  - x   · y   │      42   y           32   y 
+      ╰  42    43       32  ╯                 ╰  3    2     32 ╯            2                2

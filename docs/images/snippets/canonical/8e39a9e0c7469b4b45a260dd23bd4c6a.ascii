@@ -1,11 +1,10 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                  ┌  1        ┐
-                                                                  │ ───  0  0 │
-                                                                  │ V         │
-                                                                  │  3x       │
-                                                             T  = │      1    │
-                                                              3   │  0  ─── 0 │
-                                                                  │     V     │
-                                                                  │      2y   │
-                                                                  └  0   0  1 ┘
+     ┌  1        ┐
+     │ ───  0  0 │
+     │ V         │
+     │  3x       │
+T  = │      1    │
+ 3   │  0  ─── 0 │
+     │     V     │
+     │      2y   │
+     └  0   0  1 ┘

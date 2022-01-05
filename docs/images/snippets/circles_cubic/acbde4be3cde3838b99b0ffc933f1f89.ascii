@@ -1,5 +1,4 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                         ╭ \pi ╮   4       ╭ \pi ╮   4  ┌─┐
-                                        f│ ─── │ = ─  · tan│ ─── │ = ─(⟍│2 -1) ≅ 0.55228474983[...]
-                                         ╰  2  ╯   3       ╰  8  ╯   3
+ ╭ \pi ╮   4       ╭ \pi ╮   4  ┌─┐
+f│ ─── │ = ─  · tan│ ─── │ = ─(⟍│2 -1) ≅ 0.55228474983[...]
+ ╰  2  ╯   3       ╰  8  ╯   3

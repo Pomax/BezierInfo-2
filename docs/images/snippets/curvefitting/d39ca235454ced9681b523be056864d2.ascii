@@ -1,5 +1,4 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                                   2
-                                                        E(C)  = (p  -   Bézier(s )) 
-                                                            i     i             i
+                           2
+E(C)  = (p  -   Bézier(s )) 
+    i     i             i

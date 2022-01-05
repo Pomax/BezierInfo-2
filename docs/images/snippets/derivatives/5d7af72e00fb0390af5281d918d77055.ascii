@@ -1,6 +1,0 @@
-   \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
-    
-             d
-Bézier   (t) ── = n  · B                 (t)  · (w  - w ) + n  · B                (t)  · (w  - w ) + n  · B                    (t)  · (w  - w )  +  
-      n,k    dt         (n-1),\colorblue0         1    0          (n-1),\colorred1         2    1          (n-1),\colormagenta2         3    2
-                                                                       ...

@@ -1,6 +1,5 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                         ┌───────────┐
-                                                                    ╭ b  │   2      2
-                                                     || f(x,y)|| =  |    │f '  + f '  
-                                                                    ╯ a ⟍│ x      y
+                    ┌───────────┐
+               ╭ b  │   2      2
+|| f(x,y)|| =  |    │f '  + f '  
+               ╯ a ⟍│ x      y

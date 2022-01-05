@@ -1,9 +1,0 @@
-    \setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
-     
-     ┌─────────────────┐
-╭ 1  │       2        2        ╭ 1
-|   ⟍│(dx/dt) +(dy/dt)   dt =  |   f(t) dt  ≃ ┌ \undersetstrip 1 \underbrace C   · f(t )   + ...  + \undersetstrip n \underbrace C   · f(t )  ┐ =
-╯ -1                           ╯ -1           └                               1       1                                           n       n   ┘
-                                                                                   __ n
-                                           \undersetstrips 1 through n \underbrace ❯      C   · f(t )   
-                                                                                   ‾‾ i=1  i       i

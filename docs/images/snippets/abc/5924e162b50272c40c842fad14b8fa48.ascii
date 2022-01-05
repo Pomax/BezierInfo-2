@@ -1,7 +1,6 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                          2        2
-                                                                         t  + (1-t)  - 1
-                                                   ratio(t)           = |───────────────|
-                                                            quadratic       2        2
-                                                                           t  + (1-t) 
+                       2        2
+                      t  + (1-t)  - 1
+ratio(t)           = |───────────────|
+         quadratic       2        2
+                        t  + (1-t) 

@@ -1,17 +1,16 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                              __ n+1             n      __ n+1       n
-                                 Bézier(n,t)= ❯      w  (1 - t) B (t) + ❯      w  t B (t)                   
-                                              ‾‾ i=0  i          i      ‾‾ i=0  i    i
-                                              __ n+1    k-i  k      __ n+1    i+1  k
-                                            = ❯      w  ─── B (t) + ❯      w  ─── B   (t),  where  k = n + 1
-                                              ‾‾ i=0  i  k   i      ‾‾ i=0  i  k   i+1
-                                              __ n+1    k-i  k      __ n+1      i  k
-                                            = ❯      w  ─── B (t) + ❯      p    ─ B (t)                     
-                                              ‾‾ i=0  i  k   i      ‾‾ i=0  i-1 k  i
-                                              __ n+1 ╭    k-i        i ╮  k
-                                            = ❯      │ w  ─── + p    ─ │ B (t)                              
-                                              ‾‾ i=0 ╰  i  k     i-1 k ╯  i
-                                              __ n+1                      k                 i
-                                            = ❯      (w  (1-s) + p    s) B (t),  where  s = ─               
-                                              ‾‾ i=0   i          i-1     i                 k
+             __ n+1             n      __ n+1       n
+Bézier(n,t)= ❯      w  (1 - t) B (t) + ❯      w  t B (t)                   
+             ‾‾ i=0  i          i      ‾‾ i=0  i    i
+             __ n+1    k-i  k      __ n+1    i+1  k
+           = ❯      w  ─── B (t) + ❯      w  ─── B   (t),  where  k = n + 1
+             ‾‾ i=0  i  k   i      ‾‾ i=0  i  k   i+1
+             __ n+1    k-i  k      __ n+1      i  k
+           = ❯      w  ─── B (t) + ❯      p    ─ B (t)                     
+             ‾‾ i=0  i  k   i      ‾‾ i=0  i-1 k  i
+             __ n+1 ╭    k-i        i ╮  k
+           = ❯      │ w  ─── + p    ─ │ B (t)                              
+             ‾‾ i=0 ╰  i  k     i-1 k ╯  i
+             __ n+1                      k                 i
+           = ❯      (w  (1-s) + p    s) B (t),  where  s = ─               
+             ‾‾ i=0   i          i-1     i                 k

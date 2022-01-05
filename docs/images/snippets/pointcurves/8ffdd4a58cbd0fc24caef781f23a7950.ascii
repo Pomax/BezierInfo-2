@@ -1,6 +1,5 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                           ╭ e = B + t  · d    
-                                                           ╡  1                 
-                                                           │ e = B - (1-t)  · d
-                                                           ╰  2
+╭ e = B + t  · d    
+╡  1                 
+│ e = B - (1-t)  · d
+╰  2
