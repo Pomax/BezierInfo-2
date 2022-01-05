@@ -1,4 +1,3 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                   C(t) =   Bézier \prime(t)  ·   Bézier \prime\prime(t) -   Bézier \prime(t)  ·   Bézier \prime\prime(t)
-                                  x                     y                          y                     x
+C(t) =   Bézier \prime(t)  ·   Bézier \prime\prime(t) -   Bézier \prime(t)  ·   Bézier \prime\prime(t)
+               x                     y                          y                     x

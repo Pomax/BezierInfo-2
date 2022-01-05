@@ -1,16 +1,15 @@
-\usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
  
-                                                                        ┌─────────────────┐
-                                                                        │      2         2
-                                                 d = \| tangent(t)\| =  │B' (t)  + B' (t)  
-                                                                       ⟍│  x         y
-                                             
-                                                                        tangent (t)     B' (t)
-                                             ^                                 x          x    
-                                             x(t) = \| tangent (t)\| =─────────────── = ──────
-                                                              x       \| tangent(t)\|     d
-                                             
-                                                                         tangent (t)     B' (t)
-                                             ^                                  y          y
-                                             y(t) = \| tangent (t)\| = ─────────────── = ──────
-                                                              y        \| tangent(t)\|     d
+                           ┌─────────────────┐
+                           │      2         2
+    d = \| tangent(t)\| =  │B' (t)  + B' (t)  
+                          ⟍│  x         y
+
+                           tangent (t)     B' (t)
+^                                 x          x    
+x(t) = \| tangent (t)\| =─────────────── = ──────
+                 x       \| tangent(t)\|     d
+
+                            tangent (t)     B' (t)
+^                                  y          y
+y(t) = \| tangent (t)\| = ─────────────── = ──────
+                 y        \| tangent(t)\|     d

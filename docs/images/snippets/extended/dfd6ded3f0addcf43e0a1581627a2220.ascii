@@ -1,4 +1,3 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                    mixture = a  ·  value  + b  ·  value 
-                                                                         1              2
+mixture = a  ·  value  + b  ·  value 
+                     1              2

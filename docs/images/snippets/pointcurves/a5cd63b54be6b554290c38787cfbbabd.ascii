@@ -1,4 +1,3 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                  \phi = (atan2(E -S , E -S ) - atan2(B -S , B -S ) + 2 \pi)   mod  2 \pi
-                                                 y  y   x  x           y  y   x  x
+\phi = (atan2(E -S , E -S ) - atan2(B -S , B -S ) + 2 \pi)   mod  2 \pi
+               y  y   x  x           y  y   x  x

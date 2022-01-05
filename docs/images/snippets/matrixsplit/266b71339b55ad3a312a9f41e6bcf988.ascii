@@ -1,8 +1,7 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                                                                            ┌ P  ┐
-                                                                                                                            │  1 │
-         = ┌      2 ┐  · M \underset ...to get this!\underbrace \kern 1.25em  · \kern 1.25em Q \kern 1.25em  · \kern 1.25em │ P  │
-           └ 1 t t  ┘                                                                                                       │  2 │
-                                                                                                                            │ P  │
-                                                                                                                            └  3 ┘
+                                                                                                                   ┌ P  ┐
+                                                                                                                   │  1 │
+= ┌      2 ┐  · M \underset ...to get this!\underbrace \kern 1.25em  · \kern 1.25em Q \kern 1.25em  · \kern 1.25em │ P  │
+  └ 1 t t  ┘                                                                                                       │  2 │
+                                                                                                                   │ P  │
+                                                                                                                   └  3 ┘

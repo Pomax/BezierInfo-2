@@ -1,8 +1,0 @@
-     \usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontipaexm.ttf
-      
-1次= \colorbluea + \colorredb                                                                                                                          
-2次= \colorbluea  · \colorbluea + \colorbluea  · \colorredb + \colorredb  · \colorredb                                                                 
-3次= \colorbluea  · \colorbluea  · \colorbluea + \colorbluea  · \colorbluea  · \colorredb + \colorbluea  · \colorredb  · \colorredb + \colorredb  · \co
-                                                                                     
-                                                                                     
-                                                                lorredb  · \colorredb

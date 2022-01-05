@@ -1,7 +1,0 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                                   ╭       t-knot        ╮                ╭      knot     -t      ╮
-                                   │             i       │                │          (i+k)        │
-                         N   (t) = │ ─────────────────── │  · N     (t) + │ ───────────────────── │  · N       (t)
-                          i,k      │ knot        - knot  │     i,k-1      │ knot      - knot      │     i+1,k-1
-                                   ╰     (i+k-1)       i ╯                ╰     (i+k)       (i+1) ╯

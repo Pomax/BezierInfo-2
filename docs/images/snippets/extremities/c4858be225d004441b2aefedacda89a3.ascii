@@ -1,6 +1,0 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                                 B(t) uses { p ,p ,p ,p  }                                                 
-                                              1  2  3  4                                                   
-                                 B'(t) uses { v ,v ,v  }, where v  = 3(p -p ), v  = 3(p -p ), v  = 3(p -p )
-                                               1  2  3           1      2  1    2      3  2    3      4  3

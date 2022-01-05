@@ -1,12 +1,13 @@
 #!/usr/local/bin/perl
 
-# $Id: tex2utf.pl, v 1.0 2020/10/16 16:09:00 Pomax $
+# $Id: tex2utf.pl, v 1.1 2022/01/04 11:37:00 Pomax $
 #
 # UTF8-massaged version of https://ctan.org/pkg/tex2mail
 #
-# Updated October 2020 by pomax@nihongoressources.com,
+# Rewritten October 2020 by pomax@nihongoressources.com,
 # original header immediately follows this comment block,
 # with spacing updated to something that looks uniform. 
+# See the end of this file for the change log.
 
 # $Id: tex2mail.in,v 1.1 2000/10/27 19:13:53 karim Exp $
 #
@@ -88,7 +89,7 @@ sub debug_print_record {
     local($lead) = ($i++ == $b) ? 'b [' : '  [';
     print STDERR "$lead$_]\n";
   }
-  while ($i < $h) {		# Empty lines may skipped
+  while ($i < $h) { # Empty lines may skipped
     local($lead) = ($i++ == $b) ? 'b' : '';
     print STDERR "$lead\n";
   }
@@ -150,8 +151,7 @@ sub join {
   @str[$b-$b1 .. $b-$b1+$h1-1]=split(/\n/,$str1,$h1);
   @str2[0..$h2-1]=split(/\n/,$str2,$h2);
   unless (length($str2[$b2])) {
-    $str2[$b2] = ' ' x $l2;	# Needed for length=0 "color" strings
-                                # in the baseline.
+    $str2[$b2] = ' ' x $l2; # Needed for length=0 "color" strings in the baseline.
   }
   if ($debug & $debug_record && (grep(/\n/,@str) || grep(/\n/,@str2))) {
     warn "\\n found in \@str or \@str2";
@@ -360,11 +360,11 @@ sub prepare_cut {
         $out[$#out-$_]=$p[0];
         @p=($p[1],@out[$#out-$_+1..$#out]);
         @out=@out[0..$#out-$_];
-warn "\@p is !", join('!', @p), "!\n\@out is !", join('!', @out), "!\n"
-            if $debug & $debug_flow;
+        warn "\@p is !", join('!', @p), "!\n\@out is !", join('!', @out), "!\n"
+          if $debug & $debug_flow;
         &print();
-	warn "did reach that\n"
-	  if $debug & $debug_length;
+        warn "did reach that\n"
+          if $debug & $debug_length;
         @out=@p;
         $good=1;
         $curlength=0;
@@ -372,7 +372,7 @@ warn "\@p is !", join('!', @p), "!\n\@out is !", join('!', @out), "!\n"
         last;
       }
       warn "did reach wow-this\n"
-	if $debug & $debug_length;
+      if $debug & $debug_length;
     }
     warn "did reach this\n"
       if $debug & $debug_length;
@@ -789,7 +789,7 @@ sub center {
 # +--+
 #\|12
 #EOF
-<<EOF;				# To hide HERE-DOC start above  from old CPerl
+<<EOF; # To hide HERE-DOC start above  from old CPerl
 EOF
 
 # Takes the last record, returns a record that contains it and forms
@@ -898,10 +898,14 @@ sub puts {
 # ===========================================
 sub paragraph {
   local($par);
-  $par=<>;
+  $par=<>; # load stdio input into $par
   return 0 unless defined $par;
-  return 1 unless $par =~ /\S/;			# whitespace only
-  print "\n" if $secondtime++ && !$opt_by_par;
+  return 1 unless $par =~ /\S/; # whitespace only
+
+  # TEX2UTF Edit: remove everything before "\begin{document}"
+  $par =~ s/^[\w\W]*(\\begin{document})/\1/g;
+
+  print "\n" if $secondtime++ && !$opt_by_par;  
   #$par =~ s/(^|[^\\])%.*\n[ \t]*/\1/g;
   $par =~ s/((^|[^\\])(\\\\)*)(%.*\n[ \t]*)+/\1/g;
   $par =~ s/\n\s*\n/\\par /g;
@@ -909,7 +913,9 @@ sub paragraph {
   $par =~ s/\s+$//;
   $par =~ s/(\$\$)\s+/\1/g;
   $par =~ s/\\par\s*$//;
+
   local($defcount,$piece,$pure,$type,$sub,@t,$arg)=(0);
+
   &commit("1,5,0,0,     ")
     unless $opt_noindent || ($par =~ s/^\s*\\noindent\s*([^a-zA-Z\s]|$)/\1/);
   while ($tokenByToken[$#level] ?
@@ -924,22 +930,20 @@ sub paragraph {
       ($pure = $piece) =~ s/\s+$//;
       if (defined ($type=$type{$pure})) {
         if ($type eq "def") {
-    warn "To many def expansions in a paragraph" if $defcount++==$maxdef;
-    last if $defcount>$maxdef;
-    @t=(0);
-    for (1..$args{$pure}) {
-      push(@t,&get_balanced());
-    }
-    warn "Defined token `$pure' found with $args{$pure} arguments @t[1..$#t]\n"
-    if $debug & $debug_parsing;
-    $sub=$def{$pure};
-    $sub =~ s/(^|[^\\#])#(\d)/$1 . $t[$2]/ge if $args{$pure};
-    $par=$sub . $par;
+          warn "To many def expansions in a paragraph" if $defcount++==$maxdef;
+          last if $defcount>$maxdef;
+          @t=(0);
+          for (1..$args{$pure}) {
+            push(@t,&get_balanced());
+          }
+          warn "Defined token `$pure' found with $args{$pure} arguments @t[1..$#t]\n"
+          if $debug & $debug_parsing;
+          $sub=$def{$pure};
+          $sub =~ s/(^|[^\\#])#(\d)/$1 . $t[$2]/ge if $args{$pure};
+          $par=$sub . $par;
         } elsif ($type eq "sub") {
-	  $sub=$contents{$pure};
-	  index($sub,";")>=0?
-	    (($sub,$arg)=split(";",$sub,2), &$sub($pure,$arg)):
-	      &$sub($pure);
+          $sub=$contents{$pure};
+          index($sub,";")>=0 ? (($sub,$arg)=split(";",$sub,2), &$sub($pure,$arg)) : &$sub($pure);
         } elsif ($type =~ /^sub(\d+)$/) {
           &start($1,"f_$contents{$pure}");
           $tokenByToken[$#level]=1;
@@ -955,14 +959,14 @@ sub paragraph {
         } elsif ($type eq "self") {
           &puts(substr($pure,1) . ($pure =~ /^\\[a-zA-Z]/ ? " ": ""));
         } elsif ($type eq "par_self") {
-	  &finishBuffer;
-	  &commit("1,5,0,0,     ");
+          &finishBuffer;
+          &commit("1,5,0,0,     ");
           &puts($pure . ($pure =~ /^\\[a-zA-Z]/ ? " ": ""));
         } elsif ($type eq "self_par") {
           &puts($pure . ($pure =~ /^\\[a-zA-Z]/ ? " ": ""));
-	  &finishBuffer;
-	  &commit("1,5,0,0,     ")
-	    unless $par =~ s/^\s*\\noindent(\s+|([^a-zA-Z\s])|$)/\2/;
+          &finishBuffer;
+          &commit("1,5,0,0,     ")
+          unless $par =~ s/^\s*\\noindent(\s+|([^a-zA-Z\s])|$)/\2/;
         } elsif ($type eq "string") {
           &puts($contents{$pure},1);
         } elsif ($type eq "nothing") {
@@ -1294,7 +1298,7 @@ sub bbackslash {
     &ddollar();
     &ddollar();
   } elsif ($wait[$#level] eq 'endCell') {
-    return if $par =~ /^\s*\\end/;		# Ignore the last one
+    return if $par =~ /^\s*\\end/; # Ignore the last one
     &finish('endCell', 1);
     &trim(1);
     &collapse(1);
@@ -1343,11 +1347,12 @@ sub endmatrixArg {
 # and truncates the rest
 
 # I'm trying to add parameters:
-#	length to insert between columns
-#	Array of centering options one for a column (last one repeated if needed)
-#		Currently supported:	c for center
-#					r for right
-#					l for left
+# length to insert between columns
+# Array of centering options one for a column (last one repeated if needed)
+# Currently supported:
+#   c for center
+#   r for right
+#   l for left
 
 sub halign {
   local($explength)=(shift);
@@ -1734,7 +1739,7 @@ sub makecompound {
 sub arg2stack {push(@argStack,&get_balanced());}
 
 sub par {&finishBuffer;&commit("1,5,0,0,     ")
-	   unless $par =~ s/^\s*\\noindent\s*(\s+|([^a-zA-Z\s])|$)/\2/;}
+  unless $par =~ s/^\s*\\noindent\s*(\s+|([^a-zA-Z\s])|$)/\2/;}
 
 $type{"\\sum"}="record";
 $contents{"\\sum"}="3,3,1,0," . <<'EOF';
@@ -2239,32 +2244,40 @@ $debug_matrix=16;
 #   is nothing left to parse.
 # =============================
 
-
 $/ = $opt_by_par ? "\n\n" : ''; # whole paragraph mode
 while (&paragraph()) { }
 &finishBuffer;
 
 __END__
 
-# History: Jul 98: \choose added, fixed RE for \noindent, \eqalign and \cr.
-#			\proclaim and better \noindent added.
+# History:
+# Jul 98: \choose added, fixed RE for \noindent, \eqalign and \cr.
+#         \proclaim and better \noindent added.
 # Sep 98: last was used inside an if block, was leaking out.
 # Jan 00: \sb \sp
 # Feb 00: remove extraneous second EOF needed at end.
-	  remove an empty line at end of output
-	  New option -by_par to support per-paragraph processing
-	  New option -TeX which support a different \pmatrix
-	  New option -ragged to not insert whitespace to align right margin.
-	  New option -noindent to not insert whitespace at beginning.
-	  Ignore \\ and \cr if followed by \end{whatever}.
-	  Ignore \noindent if not important.
-	  Ignore whitespace paragraphs.
+          remove an empty line at end of output
+          New option -by_par to support per-paragraph processing
+          New option -TeX which support a different \pmatrix
+          New option -ragged to not insert whitespace to align right margin.
+          New option -noindent to not insert whitespace at beginning.
+          Ignore \\ and \cr if followed by \end{whatever}.
+          Ignore \noindent if not important.
+          Ignore whitespace paragraphs.
 # Apr 00: Finishing a level 1 would not merge things into one chunk.
 # May 00: Additional argument to finish() to distinguish finishing
-	  things which cannot be broken between lines.
+          things which cannot be broken between lines.
 # Sep 00: Add support for new macro for strings with screen escapes sequences:
-	  \LITERALnoLENGTH{escapeseq}.
+          \LITERALnoLENGTH{escapeseq}.
 # Oct 00: \LITERALnoLENGTH can have a chance to work in the baseline only;
-	   in fact the previous version did not work even there...
-	  If the added record is longer than line length, do not try to
-	  break the line before it...
+          in fact the previous version did not work even there...
+          If the added record is longer than line length, do not try to
+          break the line before it...
+
+# --------------------- switchover from tex2mail to tex2utf --------------------
+
+# Oct 20: rewrote parts of the script to yield a better text form by using
+          modern unicode characters instead of ASCII art.
+# Jan 22: added a &paragraph preprocess step to remove everything before
+          the \begin{document} command, as it doesn't get consulted anyway,
+          but will happily pollute the output.

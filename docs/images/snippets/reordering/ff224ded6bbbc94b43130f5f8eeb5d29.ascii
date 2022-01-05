@@ -1,3 +1,2 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                          x = 1 x = ((1-t) + t) x = (1-t) x + t x = x (1-t) + x t
+x = 1 x = ((1-t) + t) x = (1-t) x + t x = x (1-t) + x t

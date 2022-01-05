@@ -1,4 +1,3 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                  C = u(t)  · P       + (1-u(t))  · P    
-                                                                start                 end
+C = u(t)  · P       + (1-u(t))  · P    
+              start                 end

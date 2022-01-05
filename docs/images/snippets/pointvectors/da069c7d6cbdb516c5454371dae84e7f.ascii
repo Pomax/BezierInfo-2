@@ -1,7 +1,6 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                            tangent (t) = B' (t)
-                                                                   x        x
-                                                                                
-                                                            tangent (t) = B' (t)
-                                                                   y        y
+tangent (t) = B' (t)
+       x        x
+                    
+tangent (t) = B' (t)
+       y        y

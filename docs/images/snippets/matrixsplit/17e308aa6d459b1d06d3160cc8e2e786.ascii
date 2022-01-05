@@ -1,9 +1,8 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                  ┌  2                                      2       ┐
-                                                         ┌ P  ┐   │ z   · P  - 2  · z  · (z-1)  · P  + (z-1)   · P  │
-                       ┌      2                   2 ┐    │  1 │   │        3                       2              1 │
-                       │ (z-1)  -2  · z  · (z-1) z  │  · │ P  │ = │              z  · P  - (z-1)  · P               │
-                       │    0        -(z-1)      z  │    │  2 │   │                    3             2              │
-                       └    0           0        1  ┘    │ P  │   │                       P                         │
-                                                         └  3 ┘   └                        3                        ┘
+                                           ┌  2                                      2       ┐
+                                  ┌ P  ┐   │ z   · P  - 2  · z  · (z-1)  · P  + (z-1)   · P  │
+┌      2                   2 ┐    │  1 │   │        3                       2              1 │
+│ (z-1)  -2  · z  · (z-1) z  │  · │ P  │ = │              z  · P  - (z-1)  · P               │
+│    0        -(z-1)      z  │    │  2 │   │                    3             2              │
+└    0           0        1  ┘    │ P  │   │                       P                         │
+                                  └  3 ┘   └                        3                        ┘

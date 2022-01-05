@@ -1,7 +1,6 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                        ╭    x!     y      x-y      x!     k      x-k ╮
-                                ... = n │ ──────── t  (1-t)    - ──────── t  (1-t)    │  , with x=n-1, y=k-1
-                                        ╰ y!(x-y)!               k!(x-k)!             ╯                     
-                                ... = n (B           (t) - B       (t))                                     
-                                          (n-1),(k-1)       (n-1),k
+        ╭    x!     y      x-y      x!     k      x-k ╮
+... = n │ ──────── t  (1-t)    - ──────── t  (1-t)    │  , with x=n-1, y=k-1
+        ╰ y!(x-y)!               k!(x-k)!             ╯                     
+... = n (B           (t) - B       (t))                                     
+          (n-1),(k-1)       (n-1),k

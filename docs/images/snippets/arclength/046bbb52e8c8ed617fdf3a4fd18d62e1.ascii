@@ -1,7 +1,6 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                    ┌─────────────────┐
-                                ╭ z │       2        2       z    ┌  ╭ z     -1    z ╮    ╭ z     1     z ╮ ┐
-                                |  ⟍│(dx/dt) +(dy/dt)   dt ≃ ─  · │ f│ ─  · ──── + ─ │ + f│ ─  · ──── + ─ │ │
-                                ╯ 0                          2    │  │ 2     ┌─┐   2 │    │ 2     ┌─┐   2 │ │
-                                                                  └  ╰      ⟍│3      ╯    ╰      ⟍│3      ╯ ┘
+    ┌─────────────────┐
+╭ z │       2        2       z    ┌  ╭ z     -1    z ╮    ╭ z     1     z ╮ ┐
+|  ⟍│(dx/dt) +(dy/dt)   dt ≃ ─  · │ f│ ─  · ──── + ─ │ + f│ ─  · ──── + ─ │ │
+╯ 0                          2    │  │ 2     ┌─┐   2 │    │ 2     ┌─┐   2 │ │
+                                  └  ╰      ⟍│3      ╯    ╰      ⟍│3      ╯ ┘

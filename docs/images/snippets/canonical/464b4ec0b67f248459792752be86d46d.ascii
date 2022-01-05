@@ -1,6 +1,5 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                 2
-                                                               -x  + 3x
-                                                           y = ────────, { x ≤0 }
-                                                                  3
+      2
+    -x  + 3x
+y = ────────, { x ≤0 }
+       3
