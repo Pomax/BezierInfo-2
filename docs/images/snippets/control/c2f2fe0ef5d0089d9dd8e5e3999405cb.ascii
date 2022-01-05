@@ -1,5 +1,4 @@
-    \usepackagexeCJK \xeCJKsetupCJKmath=true \setCJKmainfontgbsn00lp.ttf
-     
+
               __ n                                                                                            n-i     i
 Bézier(n,t) = ❯      \underset binomial term\underbrace\binomni  · \ \underset polynomial term\underbrace(1-t)     · t   · \ \underset 
               ‾‾ i=0

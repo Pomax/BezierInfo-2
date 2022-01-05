@@ -1,6 +1,5 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                ┌───────────────────────┐
-                                                          ╭ 1   │         2            2
-                                            erf (θ, k) =  |  \| │B (t,θ,k)  + B (t,θ,k)   - r\|dt
-                                                          ╯ 0  ⟍│ x            y
+                    ┌───────────────────────┐
+              ╭ 1   │         2            2
+erf (θ, k) =  |  \| │B (t,θ,k)  + B (t,θ,k)   - r\|dt
+              ╯ 0  ⟍│ x            y

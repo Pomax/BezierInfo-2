@@ -1,7 +1,6 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                        B          =a               
-                                                          quadratic
-                                                                    - 2at+ 2bt      
-                                                                        2     2    2
-                                                                    + at - 2bt + ct 
+B          =a               
+  quadratic
+            - 2at+ 2bt      
+                2     2    2
+            + at - 2bt + ct 

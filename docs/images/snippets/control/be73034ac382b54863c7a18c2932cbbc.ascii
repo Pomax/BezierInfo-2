@@ -1,0 +1,5 @@
+ 
+╭                               3                                   2                                             2                       3
+╡ x = \colordarkred 110  · (1-t)  + \colordarkgreen 25  · 3  · (1-t)   · t + \colordarkblue 210  · 3  · (1-t)  · t  + \coloramber 210  · t  
+│                               3                                    2                                             2                      3
+╰ y = \colordarkred 150  · (1-t)  + \colordarkgreen 190  · 3  · (1-t)   · t + \colordarkblue 250  · 3  · (1-t)  · t  + \coloramber 30  · t 

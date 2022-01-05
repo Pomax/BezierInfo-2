@@ -10,14 +10,14 @@ const localeStringData = {
 
   subtitle: {
     "en-GB": `A free, online book for when you really need to know how to do Bézier things.`,
-    "ru-RU": `Бесплатное пособие о всем, что вам нужно знать о кривых Безье`,
+    "ru-RU": `Бесплатная онлайн-книга для тех, кому действительно важно знать, как работают кривые Безье`,
     "uk-UA": `Безкоштовна онлайн-книга, яка навчить вас всьому необхідному, щоб працювати з кривими Безьє.`,
     "ko-KR": `베지에 곡선이 꼭 필요할 때 읽기 좋은 무료 온라인 서적.`,
   },
 
   description: {
     "en-GB": `A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.`,
-    "ru-RU": `Подробное обьяснение кривых Безье, и как делать с ними то, чего так часто нам хочется`,
+    "ru-RU": `Подробное обьяснение кривых Безье и возможностей их применения`,
     "uk-UA": `Детальне пояснення кривих Безьє та можливостей їх застосування.`,
     "ko-KR": `베지에 곡선에 대한 자세한 설명과 베지에 곡선으로 할 만한 여러 가지 것들을 어떻게 할 수 있는지를 다룹니다.`,
   },
@@ -37,13 +37,13 @@ const localeStringData = {
     `,
     "ru-RU": `
       <p>
-        Приветствуем на Основах кривых Безье. Это бесплатное пособие/страница/электронная книга затрагивает математику и
-        программирование кривых Безье, охватывает большое количество тем касающихся прорисовки и работы с этим типом кривых,
-        который, по всей видимости, выскакивает везде: от кривых в Фотошоп-е до временных функций CSS и начертаний Шрифтов.
+        Приветствуем на Основах кривых Безье. Это бесплатная веб-страница/электронная книга, посвященная как математическим,
+        так и программным аспектам кривых Безье, охватывает широкий спектр тем касающихся рисования и работы с кривой,
+        которая, кажется, появляется повсюду: от кривых в Photoshop до функций плавности (easing functions) CSS и начертания шрифтов.
       </p>
       <p>
-        Если вы здесь впервые: салют! Обязательно напишите мне, если вы ищете что-то конкретное, на что не найдете ответ в
-        тексте. <a href="https://github.com/Pomax/BezierInfo-2/issues">трекер</a>!
+        Если вы здесь впервые: Добро пожаловать! Обязательно <a href="https://github.com/Pomax/BezierInfo-2/issues">напишите мне</a>,
+        если вы ищете что-то конкретное, но не нашли ответ в тексте.
       </p>
     `,
     "uk-UA": `
@@ -73,6 +73,7 @@ const localeStringData = {
 
   donationsHeading: {
     "en-GB": `Donations and sponsorship`,
+    "ru-RU": `Пожертвования и спонсорство`,
     "ko-KR": `기부와 후원`,
   },
 
@@ -94,12 +95,18 @@ const localeStringData = {
     `,
     "ru-RU": `
       <p>
-        Ежели сей ресурс помог вам в ваших исследованиях или в написании собственной программы рассмотрите возможность
+        Если вы используете этот источник для исследований, в качестве справочника по работе, или даже для написания
+        собственного программного обеспечения рассмотрите возможность
         <a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">задонатить</a>
-        (любая сума годится) или станьте <a href="https://www.patreon.com/bezierinfo">патроном на Patreon</a>. Мне не
-        платят за эту работу, потому, если нашли что-то для себя нужное на этом сайте и вам бы хотелось дабы существование
-        его было долгим и успешным вот вам мысль: на создание этих страниц ушло много кофе, и уйдет еще больше на их
-        совершенствование; если вы можете помочь с кофе — уже это может стать залогом долгой и счастливой жизни этого ресурса.
+        (любая сумма годится) или станьте <a href="https://www.patreon.com/bezierinfo">патроном на Patreon</a>. Мне не
+        платят за эту работу, так что, если вы нашли что-то полезное для себя и хотите, чтобы он оставался с нами надолго,
+        то вот вам мысль: на создание этих страниц ушло много кофе, и уйдет ещё больше на их совершенствование;
+        если вы можете помочь с кофе, то поможете долгой и счастливой жизни этого ресурса.
+      </p>
+      <p>
+        Кроме того, если вы являетесь компанией и ваши сотрудники используют эту книгу в качестве источника, или вы используете
+        её в качестве вспомогательного ресурса, пожалуйста: подумайте о финансировании сайта! Я более чем счастлив, работая
+        с вашим финансовым отделом над выставлением счетов и признанием спонсорства.
       </p>
     `,
     "uk-UA": `
@@ -112,10 +119,24 @@ const localeStringData = {
         з кавою, то можете бути впевнені, що цей ресурс буде підтримуватися ще довго!
       </p>
     `,
+    "ko-KR": `<p>
+        이 책을 연구나 작업 목적, 혹은 직접 소프트웨어를 작성하는 데 참고하고 계시다면,
+        <a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">일회성 기부</a>
+        (소액 기부도 괜찮습니다)나 <a href="https://www.patreon.com/bezierinfo">Patreon에서 후원자 등록</a>을 고려해 주세요.
+        저는 이 책을 유료료 집필하고 있지 않으니, 혹여나 이 사이트에서 도움을 받았고 오랫동안 유지되기를 원하신다면
+        지금까지 몇 년 동안 수백 잔의 커피를 마셨고 앞으로도 더 많은 커피가 필요하다는 것만 기억해 주세요.
+        커피 한 잔을 사주시는 것만으로도 이 자료를 보존하는 데 도움을 주실 수 있습니다.
+      </p>
+      <p>
+        특히 기업에서 이 책을 업무용이나 온보딩 참고서로 사용하고 계신다면, 부디 이 사이트에 후원을 부탁드립니다!
+        재무부에서 후원 문의를 해주신다면 기쁘게 수락하겠습니다.
+      </p>
+    `,
   },
 
   bitcoinHeading: {
     "en-GB": `Bitcoin donations:`,
+    "ru-RU": `Пожертвования в биткойнах:`,
   },
 
   bitcoinCTA: {
@@ -123,6 +144,12 @@ const localeStringData = {
         If you prefer to donate via Bitcoin, you can donate either directly to
         <a class="btclk" href="bitcoin:3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu?label=Primer%20on%20Bezier%20Curves">3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu</a>
         or use the QR code on the right, if that's the kind of convenience you prefer =)
+      </p>
+    `,
+    "ru-RU": `<p>
+        Если вы предпочитаете делать пожертвования через биткойн, вы можете сделать пожертвование либо напрямую на
+        <a class="btclk" href="bitcoin:3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu?label=Primer%20on%20Bezier%20Curves">3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu</a>
+        либо используя QR-код справа, если вы предпочитаете такой вид =)
       </p>
     `,
   },
@@ -147,19 +174,21 @@ const localeStringData = {
 
   langSwitchLabel: {
     "en-GB": `Read this in your own language:`,
+    "ru-RU": `Читайте на своём языке:`,
     "uk-UA": `Читати рідною мовою:`,
     "ko-KR": `다른 언어로 읽기:`,
   },
 
   langHelpLabel: {
     "en-GB": `Don't see your language listed, or want to see it reach 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Help translate this content!</a>`,
-    "ru-RU": `Не нашли своего языка или хотите заставить его доползти до 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Помогите нам с переводом!</a>`,
+    "ru-RU": `Не нашли свой язык или хотите, чтобы он достиг до 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Помогите нам с переводом!</a>`,
     "uk-UA": `Не бачите своєї мови у списку або хочете, щоб вона досягла 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Допоможіть перекласти цей контент!</a>`,
     "ko-KR": `원하는 언어가 없거나, 100%까지 올리고 싶다면 <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">내용 번역을 도와주세요!</a>`,
   },
 
   disabledMessage: {
     "en-GB": `Scripts are disabled. Showing fallback image.`,
+    "ru-RU": `Скрипты отключены. Показываем резервное изображение.`,
     "uk-UA": `Скрипти вимкнено. показує резервний.`,
     "ko-KR": `스크립트가 꺼져 있어 대체 이미지를 대신 표시합니다.`,
   },
@@ -226,7 +255,7 @@ const localeStringData = {
 
   changelogDescription: {
     "en-GB": `This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand this section to have a look at what got added, when, or click through to the <a href="./news">News posts</a> for more detailed updates. (<a href="./news/rss.xml">RSS feed</a> available)`,
-    "ru-RU": `Этот документ живое пособие, в зависимости от даты вашего последего визита, могли быть внесены дополнения. Кликайте <a href="./news">здесь</a> для просмотра лога изменений. (также <a href="./news/rss.xml">RSS</a>)`,
+    "ru-RU": `Этот документ живое пособие, в зависимости от даты вашего последнего посещения, может появиться новый материал. Кликайте <a href="./news">здесь</a> для просмотра лога изменений. (также доступен <a href="./news/rss.xml">RSS-канал</a>)`,
     "uk-UA": `Цей підручник постійно розвививається, тож залежно від того, коли ви востаннє його переглядали, тут можуть бути оновлення. Перейдіть за <a href="./news">цим посиланням</a>, щоб побачити, що було додано. (Також доступний <a href="./news/rss.xml">RSS-канал</a>)`,
     "ko-KR": `이 입문서는 "살아 숨쉬는" 문서로, 오랜만에 다시 찾아왔다면 새로운 내용이 추가되었을 수도 있습니다. 아래 링크를 눌러서 무엇이 언제 추가되었는지 확인할 수도 있고, <a href="./news">뉴스 포스트</a>(영문, <a href="./news/rss.xml">RSS 피드</a>도 있습니다)에서 자세한 내역을 확인할 수도 있습니다.`,
   },

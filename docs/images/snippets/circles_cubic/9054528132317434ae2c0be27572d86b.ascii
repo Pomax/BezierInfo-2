@@ -1,10 +1,9 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                      P = (1, 0)                     
-                                                       1
-                                                      P = (1, k)                     
-                                                       2                             
-                                                      P = P  + k  · (sin(θ), -cos(θ))
-                                                       3   4
-                                                      P = (cos(θ), sin(θ))           
-                                                       4
+P = (1, 0)                     
+ 1
+P = (1, k)                     
+ 2                             
+P = P  + k  · (sin(θ), -cos(θ))
+ 3   4
+P = (cos(θ), sin(θ))           
+ 4

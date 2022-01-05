@@ -1,6 +1,5 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                      3     2
-                                                   very hard: solve at  + bt  + ct + d = 0
-                                                                     3
-                                                      easier: solve t  + pt + q = 0       
+                   3     2
+very hard: solve at  + bt  + ct + d = 0
+                  3
+   easier: solve t  + pt + q = 0       

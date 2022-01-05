@@ -1,8 +1,7 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                              ╭    s  = 0
-                                                                              │     1
-                                               S = ┌ s  s  ... s  ┐,   where  ╡ s  = d  / d  
-                                                   └  1  2      n ┘           │  i    i    n
-                                                                              │    s  = 1
-                                                                              ╰     n
+                               ╭    s  = 0
+                               │     1
+S = ┌ s  s  ... s  ┐,   where  ╡ s  = d  / d  
+    └  1  2      n ┘           │  i    i    n
+                               │    s  = 1
+                               ╰     n
