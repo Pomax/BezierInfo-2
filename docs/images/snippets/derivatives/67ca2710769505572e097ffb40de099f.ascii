@@ -1,5 +1,0 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
- 
-                                                          __ n-1
-                                           Bézier'(n,t) = ❯       Bézier(n-1,t)   · n  · (w   -w )
-                                                          ‾‾ i=0               i           i+1  i

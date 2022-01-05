@@ -1,7 +1,6 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                              (b-a)t + a= 0, 
-                                                                  (b-a)t= -a,
-                                                                          -a 
-                                                                       t= ───
-                                                                          b-a
+(b-a)t + a= 0, 
+    (b-a)t= -a,
+            -a 
+         t= ───
+            b-a

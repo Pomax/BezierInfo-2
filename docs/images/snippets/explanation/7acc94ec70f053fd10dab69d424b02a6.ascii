@@ -1,6 +1,5 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                             ╭ f (t) = cos (t)
-                                                             ╡  a              
-                                                             │ f (t) = sin (t)
-                                                             ╰  b
+╭ f (t) = cos (t)
+╡  a              
+│ f (t) = sin (t)
+╰  b

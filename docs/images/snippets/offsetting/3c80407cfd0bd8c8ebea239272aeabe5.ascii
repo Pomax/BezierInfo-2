@@ -1,3 +1,2 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                              O(t) = B(t) + d
+O(t) = B(t) + d

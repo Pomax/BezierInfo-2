@@ -1,17 +1,16 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                      a= sin(φ) + b  · cos(φ)          
-                                                                  -1 + cos(φ)
-                                                     ..= sin(φ) + ───────────  · cos(φ)
-                                                                    sin(φ)
-                                                                               2
-                                                                  -cos(φ) + cos (φ)
-                                                     ..= sin(φ) + ─────────────────    
-                                                                       sin(φ)          
-                                                            2         2
-                                                         sin (φ) + cos (φ) - cos(φ)
-                                                     ..= ──────────────────────────    
-                                                                   sin(φ)
-                                                         1 - cos(φ)
-                                                      a= ──────────                    
-                                                           sin(φ)
+ a= sin(φ) + b  · cos(φ)          
+             -1 + cos(φ)
+..= sin(φ) + ───────────  · cos(φ)
+               sin(φ)
+                          2
+             -cos(φ) + cos (φ)
+..= sin(φ) + ─────────────────    
+                  sin(φ)          
+       2         2
+    sin (φ) + cos (φ) - cos(φ)
+..= ──────────────────────────    
+              sin(φ)
+    1 - cos(φ)
+ a= ──────────                    
+      sin(φ)

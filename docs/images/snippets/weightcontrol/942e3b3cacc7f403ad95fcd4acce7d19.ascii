@@ -1,0 +1,8 @@
+ 
+                        __ n                    n-i     i
+                        ❯      \binomni  · (1-t)     · t   · w   · \colorblue ratio 
+                        ‾‾ i=0                                i                    i
+Rational  Bézier(n,t) = ────────────────────────────────────────────────────────────
+                                     __ n                     n-i      i
+                        \colorblue   ❯      \binomni  ·  (1-t)     ·  t   ·  ratio  
+                                     ‾‾ i=0                                       i

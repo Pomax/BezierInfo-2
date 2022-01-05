@@ -6,7 +6,7 @@
   <atom:link href="https://pomax.github.io/bezierinfo" rel="self"></atom:link>
   <description>News updates for the <a href="https://pomax.github.io/bezierinfo">primer on Bézier Curves</a> by Pomax</description>
   <language>en-GB</language>
-  <lastBuildDate>Wed Jan 05 2022 03:08:29 +00:00</lastBuildDate>
+  <lastBuildDate>Wed Jan 05 2022 16:45:23 +00:00</lastBuildDate>
   <image>
     <url>https://pomax.github.io/bezierinfo/images/og-image.png</url>
     <title>A Primer on Bézier Curves</title>
@@ -57,17 +57,16 @@
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
 
-                                                     __ n=3                  n-k k
-                                          B(t)     = ❯     \ P  \binomnk(1-t)   t
-                                              cubic  ‾‾ k=0
-                                                              k
+           __ n=3                  n-k k
+B(t)     = ❯     \ P  \binomnk(1-t)   t
+    cubic  ‾‾ k=0
+                    k
 
-                                                             3            2             2       3
-                                                   = P  (1-t)  + 3 P (1-t) t + 3P (1-t)t  + P  t
+                   3            2             2       3
+         = P  (1-t)  + 3 P (1-t) t + 3P (1-t)t  + P  t
 
-                                                      0             1            2           3
+            0             1            2           3
 --&gt;
 &lt;img class=&quot;LaTeX SVG&quot; src=&quot;./images/news/2020-09-18.html/15225da473048d8c7b5b473b89de0b66.svg&quot; width=&quot;401px&quot; height=&quot;97px&quot; loading=&quot;lazy&quot;&gt;
 &lt;/blockquote&gt;

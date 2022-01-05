@@ -1,5 +1,4 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                    ╭   B'(t)    ╮
-                                                          N(t) \bot │ ────────── │
-                                                                    ╰ || B'(t)|| ╯
+          ╭   B'(t)    ╮
+N(t) \bot │ ────────── │
+          ╰ || B'(t)|| ╯

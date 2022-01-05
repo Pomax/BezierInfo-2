@@ -1,5 +1,4 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                         B'(t) = a(1-t) + b(t)= 0,
-                                                                   a - at + bt= 0,
-                                                                    (b-a)t + a= 0 
+B'(t) = a(1-t) + b(t)= 0,
+          a - at + bt= 0,
+           (b-a)t + a= 0 

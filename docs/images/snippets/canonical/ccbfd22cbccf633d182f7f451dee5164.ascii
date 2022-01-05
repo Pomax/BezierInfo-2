@@ -1,9 +1,8 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                  ┌    U     ┐
-                                                                  │     2x   │
-                                                                  │ 1 -─── 0 │
-                                                             T  = │    U     │
-                                                              2   │     2y   │
-                                                                  │ 0   1  0 │
-                                                                  └ 0   0  1 ┘
+     ┌    U     ┐
+     │     2x   │
+     │ 1 -─── 0 │
+T  = │    U     │
+ 2   │     2y   │
+     │ 0   1  0 │
+     └ 0   0  1 ┘

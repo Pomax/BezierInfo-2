@@ -58,7 +58,7 @@ export default async function latexToSVG(latex, pathdata, localeStrings, block) 
       fonts = `
         \\usepackage{unicode-math}
         \\setmainfont[Ligatures=TeX]{Linux Libertine O}
-        \\\setmathfont{XITS Math}
+        \\setmathfont{XITS Math}
       `;
       // For some reason https://tex.stackexchange.com/a/201244/8406 yields xetex errors...
     }
@@ -201,16 +201,15 @@ function runCmd(cmd, thenRunThis) {
 
 // Remove latex preamble and superfluous indents from "ASCII" graphics.
 function cleanASCII(filename) {
-  let data = fs.readFileSync(filename).toString(`utf8`);
-  let lines = data.split(`\n`).slice(3);
-  let indent = lines.reduce((t, e) => {
+  const lines = fs.readFileSync(filename).toString(`utf8`).split(`\n`);
+  const indent = lines.reduce((t, e) => {
     if (!e.trim()) return t;
-    let m = e.match(/^\s+/);
-    let len = m ? m[0].length : 0;
+    let m = e.match(/^ +/);
+    let len = m ? m[0].length : t;
     return len < t ? len : t;
   }, 1000);
-  let re = new RegExp(`^${" ".repeat(indent)}`);
-  data = lines.map((l) => l.replace(re, ``)).join(`\n`);
+  let re = new RegExp(`^ {${indent}}`);
+  const data = lines.map((l) => l.replace(re, ``)).join(`\n`);
   fs.writeFileSync(filename, data);
   return data;
 }
@@ -222,7 +221,7 @@ function colorPreProcess(input) {
     if (content.indexOf(` `) !== -1) {
       content = ` ${content}`;
     }
-    return `{\\color{${color.toLowerCase()}}${content.replace(/ /g, "~")}}`;
+    return `{\\color{${color.toLowerCase()}} ${content.replace(/ /g, "~")}}`;
   });
   return output;
 }

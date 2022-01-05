@@ -1,5 +1,4 @@
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                                                distance(B,C)
-                                                    ratio(t) = ────────────── =  Constant
-                                                                distance(A,B)
+            distance(B,C)
+ratio(t) = ────────────── =  Constant
+            distance(A,B)
