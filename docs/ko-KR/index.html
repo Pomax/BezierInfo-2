@@ -45,7 +45,7 @@
 <meta property="og:locale" content="ko-KR" />
 <meta property="og:type" content="article" />
 <meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-<meta property="og:updated_time" content="2022-01-05T16:19:36+00:00" />
+<meta property="og:updated_time" content="2022-01-07T12:04:59+00:00" />
 <meta property="og:author" content="Mike 'Pomax' Kamermans" />
 <meta property="og:section" content="Bézier Curves" />
 <meta property="og:tag" content="Bézier Curves" />
@@ -408,22 +408,19 @@
 <p>곡선의 점들을 이리저리 옮겨보고 나면 베지에 곡선이 어떤 모양을 하는지 어느 정도 감이 올 것입니다. 그런데 베지에 곡선이라는 게 정말 <em>무엇</em>일까요? 베지에 곡선의 정체는 두 가지 방법으로 설명할 수 있고, 알고 보면 둘 다 완전히 동일하지만, 하나는 복잡한 수식을 쓰고 다른 하나는 정말 쉬운 수식을 씁니다. 그러니까... 일단 쉬운 설명부터 들어 봅시다.</p>
 <p>베지에 곡선은 <a href="https://ko.wikipedia.org/wiki/%EC%84%A0%ED%98%95_%EB%B3%B4%EA%B0%84%EB%B2%95">선형 보간</a>의 결과물입니다. 말로만 들으면 어려워 보이지만 사실은 독자 여러분도 어릴 때부터 선형 보간을 한 적이 있을 것입니다. 무언가 둘 사이에 있는 것을 가리킬 때 했던 것이 바로 선형 보간, 즉 "두 점 사이에 점을 하나 찍는 것"입니다.</p>
 <p>이 두 점 사이의 거리를 알고 있고, 예를 들어서 새로운 점을 한 점에서 20% 거리에(즉, 다른 점에서 80% 거리에) 찍으려고 한다면 이 점의 위치는 정말 쉽게 계산할 수 있습니다.</p>
-<!-- TODO: hangul not supported -->
-
 <!--
-\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-                                           ╭  p =  한 점      ╮
-                                           │   1            │
-                                           │  p =  다른 점     │
-                                           │   2            │
-                                           │  거리= (p  - p ) │  이라 할 때,  새 점의 위치 = p  +  거리  ·  비율
-                                           │        2    1  │                      1
-                                           │       퍼센트      │
-                                           │  비율= ────      │
-                                           ╰      100       ╯
+╭  p =  한\ 점     ╮
+│   1            │
+│  p =  다른\ 점    │
+│   2            │
+│  거리= (p  - p ) │  이라\ 할\ 때,  새\ 점의\ 위치 = p  +  거리  ·  비율
+│        2    1  │                          1
+│       퍼센트      │
+│  비율= ────      │
+╰      100       ╯
 -->
-<img class="LaTeX SVG" src="./images/chapters/whatis/00a671609da73ff60d06f4a0e1989b15.svg" width="320px" height="99px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/whatis/86c7c162fe3cf698a2b77a376190e843.svg" width="451px" height="105px" loading="lazy">
 <p>눈으로도 직접 확인해 봅시다. 아래 그림은 상하 방향키로 보간 비율을 늘리거나 줄이면서 어떻게 바뀌는지 확인할 수 있는 인터랙티브 그래픽입니다. 우선 세 점으로 시작해서 선분을 두 개 그립니다. 이 두 선분에 선형 보간을 해서 두 점을 얻을 수 있고, 이 두 점 사이에 다시 선형 보간을 하면 한 점이 됩니다. 바로 이 점(과 모든 비율에 대해 같은 방법으로 취한 모든 점)이 베지에 곡선이 됩니다.</p>
 <graphics-element title="선형 보간으로 베지에 곡선을 얻는 과정" width="825" height="275" src="./chapters/whatis/interpolation.js"  reset="초기화" viewSource="소스 보기">
         <fallback-image>

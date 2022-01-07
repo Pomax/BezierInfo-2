@@ -83,6 +83,15 @@ export default async function latexToSVG(latex, pathdata, localeStrings, block) 
       `;
     }
 
+    // ...and also for Korean
+    if (locale === "ko-KR") {
+      fonts = `
+        \\usepackage{xeCJK}
+        \\xeCJKsetup{CJKmath=true}
+        \\setCJKmainfont{UnBatang.ttf}
+      `;
+    }
+
     fs.writeFileSync(
       TeXfilename,
       `
