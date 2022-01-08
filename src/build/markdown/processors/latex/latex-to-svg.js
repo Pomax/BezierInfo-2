@@ -89,6 +89,7 @@ export default async function latexToSVG(latex, pathdata, localeStrings, block) 
         \\usepackage{xeCJK}
         \\xeCJKsetup{CJKmath=true}
         \\setCJKmainfont{UnBatang.ttf}
+        \\CJKspace
       `;
     }
 
