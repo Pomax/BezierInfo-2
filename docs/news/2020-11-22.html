@@ -9,9 +9,9 @@
   <base href="..">
 
   <link rel="icon" href="images/favicon.png" type="image/png" />
-  
+
   <link rel="alternate" type="application/rss+xml" title="RSS" href="news/rss.xml">
-  
+
 
   <!-- page styling -->
   <link rel="preload" href="images/paper.png" as="image" />
@@ -40,7 +40,7 @@
 <meta property="og:locale" content="en-GB" />
 <meta property="og:type" content="article" />
 <meta property="og:published_time" content="Sun Nov 22 2020 09:00:00 +00:00" />
-<meta property="og:updated_time" content="Fri Jan 07 2022 21:04:59 +00:00" />
+<meta property="og:updated_time" content="Sat Jan 08 2022 17:56:02 +00:00" />
 <meta property="og:author" content="Mike 'Pomax' Kamermans" />
 <meta property="og:section" content="Bézier Curves" />
 <meta property="og:tag" content="Bézier Curves" />
@@ -54,7 +54,7 @@
 <meta name="twitter:description" content="Curve-circle intersections" />
 
 
-  
+
   <!-- my own referral/page hit tracker, because Google knows enough -->
   <script src="./js/site/referrer.js" type="module" async></script>
 
@@ -69,7 +69,7 @@
 
   <!-- make images lazy load much earlier  -->
   <script src="./js/site/better-lazy-loading.js" type="module" async defer></script>
-  
+
 </head>
 
 <body>
@@ -93,17 +93,17 @@
     </map>
 </div>
 
-  
+
 
   <header>
-    
+
   <h1>Curve-circle intersections</h1>
   <h5 class="post-date">Sun, 22 Nov 2020</h5>
 
   </header>
 
   <main>
-    
+
   <!-- Because people probably want to share this article -->
 <div class="notforprint scl">
     <img src="images/icons.gif" usemap="#rhtimap" title="Share this on social media" />
@@ -120,7 +120,7 @@
     </map>
 </div>
 
-  
+
 <p>While the primer covered line/line, line/curve, and curve/curve intersections, there was one other obvious intersection conspicuously missing: circle/curve intersections. You'd think those were just an extension on the maths used for the other three, but unfortunately, this is not the case. Rather than using calculus, the only real way to determine where a polynomial curve intersects it is to sample the curve at a resolution high enough to find you intervals on the curve where there likely is an intersection, then refining that interval until you find actual intersections.</p>
 <p>It is, in fact, rather similar to <a href="https://pomax.github.io/bezierinfo/#projections">projecting a point onto a bezier curve</a> where the point is the circle's center, and where the projection distance actually needs to match the circle radius, so: <a href="https://pomax.github.io/bezierinfo/#circleintersection">let's see how to do that</a>!</p>
 <p>— <a href="https://twitter.com/TheRealPomax">Pomax</a></p>
@@ -131,12 +131,12 @@
   <hr>
 
   <footer class="copyright">
-    
+
   This post is a news entry for the <a href="https://pomax.github.io/bezierinfo/">Primer on Bézier Curves</a>
 
   </footer>
 
-  
+
 </body>
 
 </html>
