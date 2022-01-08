@@ -1,0 +1,11 @@
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
+ 
+                                           ╭  p =  한 점      ╮
+                                           │   1            │
+                                           │  p =  다른 점     │
+                                           │   2            │
+                                           │  거리= (p  - p ) │  이라 할 때,  새 점의 위치 = p  +  거리  ·  비율
+                                           │        2    1  │                      1
+                                           │       퍼센트      │
+                                           │  비율= ────      │
+                                           ╰      100       ╯
