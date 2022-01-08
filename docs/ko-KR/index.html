@@ -45,7 +45,7 @@
 <meta property="og:locale" content="ko-KR" />
 <meta property="og:type" content="article" />
 <meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-<meta property="og:updated_time" content="2022-01-08T08:54:24+00:00" />
+<meta property="og:updated_time" content="2022-01-08T18:04:47+00:00" />
 <meta property="og:author" content="Mike 'Pomax' Kamermans" />
 <meta property="og:section" content="Bézier Curves" />
 <meta property="og:tag" content="Bézier Curves" />
@@ -127,7 +127,7 @@
 <li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(22%)</span></li>
 <li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(24%)</span></li>
 <li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
-<li><a href="./ko-KR/index.html">한국어</a> <span class="localisation-progress">(4%)</span></li></ul>
+<li><a href="./ko-KR/index.html">한국어</a> <span class="localisation-progress">(9%)</span></li></ul>
       <p>(원하는 언어가 없거나, 100%까지 올리고 싶다면 <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">내용 번역을 도와주세요!</a>)</p>
     </div>
     
@@ -218,10 +218,10 @@
     </ol>
     <h4>본문</h4>
     <ol><li><a href="ko-KR/index.html#introduction">초고속 소개</a></li>
-<li><a href="ko-KR/index.html#whatis">So what makes a Bézier Curve?</a></li>
+<li><a href="ko-KR/index.html#whatis">베지에 곡선은 어떻게 만드나요?</a></li>
 <li><a href="ko-KR/index.html#explanation">The mathematics of Bézier curves</a></li>
 <li><a href="ko-KR/index.html#control">Controlling Bézier curvatures</a></li>
-<li><a href="ko-KR/index.html#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a></li>
+<li><a href="ko-KR/index.html#weightcontrol">곡선의 모양 조절하기 2탄: 유리[rational] 베지에 곡선</a></li>
 <li><a href="ko-KR/index.html#extended">The Bézier interval [0,1]</a></li>
 <li><a href="ko-KR/index.html#matrix">Bézier curvatures as matrix operations</a></li>
 <li><a href="ko-KR/index.html#decasteljau">de Casteljau's algorithm</a></li>
@@ -404,25 +404,26 @@
 
           </section>
 <section id="whatis">
-          <h1><div class="nav"><a href="ko-KR/index.html#introduction">이전</a><a href="#toc">목차</a><a href="ko-KR/index.html#explanation">다음</a></div><a href="ko-KR/index.html#whatis">So what makes a Bézier Curve?</a></h1>
-<p>Playing with the points for curves may have given you a feel for how Bézier curves behave, but what <em>are</em> Bézier curves, really? There are two ways to explain what a Bézier curve is, and they turn out to be the entirely equivalent, but one of them uses complicated maths, and the other uses really simple maths. So... let's start with the simple explanation:</p>
-<p>Bézier curves are the result of <a href="https://en.wikipedia.org/wiki/Linear_interpolation">linear interpolations</a>. That sounds complicated but you've been doing linear interpolation since you were very young: any time you had to point at something between two other things, you've been applying linear interpolation. It's simply "picking a point between two points".</p>
-<p>If we know the distance between those two points, and we want a new point that is, say, 20% the distance away from the first point (and thus 80% the distance away from the second point) then we can compute that really easily:</p>
+          <h1><div class="nav"><a href="ko-KR/index.html#introduction">이전</a><a href="#toc">목차</a><a href="ko-KR/index.html#explanation">다음</a></div><a href="ko-KR/index.html#whatis">베지에 곡선은 어떻게 만드나요?</a></h1>
+<p>곡선의 점들을 이리저리 옮겨보고 나면 베지에 곡선이 어떤 모양을 하는지 어느 정도 감이 올 것입니다. 그런데 베지에 곡선이라는 게 정말 <em>무엇</em>일까요? 베지에 곡선의 정체는 두 가지 방법으로 설명할 수 있고, 알고 보면 둘 다 완전히 동일하지만, 하나는 복잡한 수식을 쓰고 다른 하나는 정말 쉬운 수식을 씁니다. 그러니까... 일단 쉬운 설명부터 들어 봅시다.</p>
+<p>베지에 곡선은 <a href="https://ko.wikipedia.org/wiki/%EC%84%A0%ED%98%95_%EB%B3%B4%EA%B0%84%EB%B2%95">선형 보간</a>의 결과물입니다. 말로만 들으면 어려워 보이지만 사실은 독자 여러분도 어릴 때부터 선형 보간을 한 적이 있을 것입니다. 무언가 둘 사이에 있는 것을 가리킬 때 했던 것이 바로 선형 보간, 즉 "두 점 사이에 점을 하나 찍는 것"입니다.</p>
+<p>이 두 점 사이의 거리를 알고 있고, 예를 들어서 새로운 점을 한 점에서 20% 거리에(즉, 다른 점에서 80% 거리에) 찍으려고 한다면 이 점의 위치는 정말 쉽게 계산할 수 있습니다.</p>
 <!--
+\setmainfont[Ligatures=TeX]TeX Gyre Pagella \setmathfontTeX Gyre Pagella Math
  
-      ╭        p =  some point       ╮
-      │         1                    │
-      │        p =  some other point │
-      │         2                    │
-Given │  distance= (p  - p )         │,  our new point = p  +  distance  ·  ratio
-      │              2    1          │                    1
-      │             percentage       │
-      │     ratio= ───────────       │
-      ╰                100           ╯
+                                           ╭  p =  한 점      ╮
+                                           │   1            │
+                                           │  p =  다른 점     │
+                                           │   2            │
+                                           │  거리= (p  - p ) │  이라 할 때,  새 점의 위치 = p  +  거리  ·  비율
+                                           │        2    1  │                      1
+                                           │       퍼센트      │
+                                           │  비율= ────      │
+                                           ╰      100       ╯
 -->
-<img class="LaTeX SVG" src="./images/chapters/whatis/c7f8cdd755d744412476b87230d0400d.svg" width="493px" height="103px" loading="lazy">
-<p>So let's look at that in action: the following graphic is interactive in that you can use your up and down arrow keys to increase or decrease the interpolation ratio, to see what happens. We start with three points, which gives us two lines. Linear interpolation over those lines gives us two points, between which we can again perform linear interpolation, yielding a single point. And that point —and all points we can form in this way for all ratios taken together— form our Bézier curve:</p>
-<graphics-element title="Linear Interpolation leading to Bézier curves" width="825" height="275" src="./chapters/whatis/interpolation.js"  reset="초기화" viewSource="소스 보기">
+<img class="LaTeX SVG" src="./images/chapters/whatis/00a671609da73ff60d06f4a0e1989b15.svg" width="451px" height="105px" loading="lazy">
+<p>눈으로도 직접 확인해 봅시다. 아래 그림은 상하 방향키로 보간 비율을 늘리거나 줄이면서 어떻게 바뀌는지 확인할 수 있는 인터랙티브 그래픽입니다. 우선 세 점으로 시작해서 선분을 두 개 그립니다. 이 두 선분에 선형 보간을 해서 두 점을 얻을 수 있고, 이 두 점 사이에 다시 선형 보간을 하면 한 점이 됩니다. 바로 이 점(과 모든 비율에 대해 같은 방법으로 취한 모든 점)이 베지에 곡선이 됩니다.</p>
+<graphics-element title="선형 보간으로 베지에 곡선을 얻는 과정" width="825" height="275" src="./chapters/whatis/interpolation.js"  reset="초기화" viewSource="소스 보기">
         <fallback-image>
           <span class="view-source">스크립트가 꺼져 있어 대체 이미지를 대신 표시합니다.</span>
           <img width="825px" height="275px" src="./images/chapters/whatis/524dd296e96c0fe2281fb95146f8ea65.png" loading="lazy">
@@ -430,9 +431,9 @@ Given │  distance= (p  - p )         │,  our new point = p  +  distance  · 
         </fallback-image>
   <input type="range" min="10" max="90" step="1" value="25" class="slide-control">
 </graphics-element>
-<p>And that brings us to the complicated maths: calculus.</p>
-<p>While it doesn't look like that's what we've just done, we actually just drew a quadratic curve, in steps, rather than in a single go. One of the fascinating parts about Bézier curves is that they can both be described in terms of polynomial functions, as well as in terms of very simple interpolations of interpolations of [...]. That, in turn, means we can look at what these curves can do based on both "real maths" (by examining the functions, their derivatives, and all that stuff), as well as by looking at the "mechanical" composition (which tells us, for instance, that a curve will never extend beyond the points we used to construct it).</p>
-<p>So let's start looking at Bézier curves a bit more in depth: their mathematical expressions, the properties we can derive from them, and the various things we can do to, and with, Bézier curves.</p>
+<p>바로 여기서 복잡한 수학... 미적분이 등장합니다.</p>
+<p>전혀 그렇게 느껴지지는 않겠지만, 우리가 여기서 한 것이 바로 이차곡선을 (한 획이 아니라 여러 단계에 걸쳐) 그리는 작업입니다. 베지에 곡선의 신기한 점 중 하나가 같은 대상을 다항함수로도, 혹은 간단하게 보간의 보간의 ... 보간으로도 나타낼 수 있다는 것입니다. 다시 말하자면, 우리는 이 곡선의 성질을 "진짜 수학"을 통해서든(곡선의 함수와 도함수 따위를 이용해서), "기계적" 구성을 통해서든(예를 들어, 베지에 곡선은 곡선을 그리는 데 사용한 점 밖으로 빠져나가지 않음을 알 수 있습니다) 탐구할 수 있습니다.</p>
+<p>이제부터는 베지에 곡선을 조금 더 자세히 ― 수식으로 어떻게 표현하는지, 어떤 성질을 가지고 있는지, 어떻게 변형하고 어떻게 쓸 수 있는지 ― 알아보도록 하겠습니다.</p>
 
           </section>
 <section id="explanation">
@@ -746,9 +747,9 @@ function Bezier(3,t,w[]):
 
           </section>
 <section id="weightcontrol">
-          <h1><div class="nav"><a href="ko-KR/index.html#control">이전</a><a href="#toc">목차</a><a href="ko-KR/index.html#extended">다음</a></div><a href="ko-KR/index.html#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a></h1>
-<p>We can further control Bézier curves by "rationalising" them: that is, adding a "ratio" value in addition to the weight value discussed in the previous section, thereby gaining control over "how strongly" each coordinate influences the curve.</p>
-<p>Adding these ratio values to the regular Bézier curve function is fairly easy. Where the regular function is the following:</p>
+          <h1><div class="nav"><a href="ko-KR/index.html#control">이전</a><a href="#toc">목차</a><a href="ko-KR/index.html#extended">다음</a></div><a href="ko-KR/index.html#weightcontrol">곡선의 모양 조절하기 2탄: 유리[rational] 베지에 곡선</a></h1>
+<p>베지에 곡선의 모양을 더 자유롭게 조절하고 싶다면, 곡선을 "유리화"[rationalizing]하는 방법이 있습니다. 즉, 이전 장에서 언급한 가중치 이외에도 각 점에 "비율"[ratio] 값을 추가해서 각 좌표가 곡선의 모양에 얼마나 "강하게" 영향을 미치는지도 조절할 수 있습니다.</p>
+<p>보통의 베지에 곡선 함수에 비율 값을 넣는 것도 어렵지 않습니다. 일반적인 베지에 함수가 아래와 같다고 하면...</p>
 <!--
  
               __ n                    n-i     i
@@ -756,7 +757,7 @@ Bézier(n,t) = ❯      \binomni  · (1-t)     · t   · w
               ‾‾ i=0                                i
 -->
 <img class="LaTeX SVG" src="./images/chapters/weightcontrol/ceac4259d2aed0767c7765d2237ca1a3.svg" width="276px" height="41px" loading="lazy">
-<p>The function for rational Bézier curves has two more terms:</p>
+<p>유리 베지에 곡선의 함수에는 두 항이 추가로 들어갑니다.</p>
 <!--
  
                         __ n                    n-i     i
@@ -768,15 +769,15 @@ Rational  Bézier(n,t) = ──────────────────�
                                      ‾‾ i=0                                       i
 -->
 <img class="LaTeX SVG" src="./images/chapters/weightcontrol/942e3b3cacc7f403ad95fcd4acce7d19.svg" width="408px" height="48px" loading="lazy">
-<p>In this, the first new term represents an additional weight for each coordinate. For example, if our ratio values are [1, 0.5, 0.5, 1] then <code>ratio<sub>0</sub> = 1</code>, <code>ratio<sub>1</sub> = 0.5</code>, and so on, and is effectively identical as if we were just using different weight. So far, nothing too special.</p>
-<p>However, the second new term is what makes the difference: every point on the curve isn't just a "double weighted" point, it is a <em>fraction</em> of the "doubly weighted" value we compute by introducing that ratio. When computing points on the curve, we compute the "normal" Bézier value and then <em>divide</em> that by the Bézier value for the curve that only uses ratios, not weights.</p>
-<p>This does something unexpected: it turns our polynomial into something that <em>isn't</em> a polynomial anymore. It is now a kind of curve that is a super class of the polynomials, and can do some really cool things that Bézier curves can't do "on their own", such as perfectly describing circles (which we'll see in a later section is literally impossible using standard Bézier curves).</p>
-<p>But the best way to show what this does is to do literally that: let's look at the effect of "rationalising" our Bézier curves using an interactive graphic for a rationalised curves. The following graphic shows the Bézier curve from the previous section, "enriched" with ratio factors for each coordinate. The closer to zero we set one or more terms, the less relative influence the associated coordinate exerts on the curve (and of course the higher we set them, the more influence they have). Try to change the values and see how it affects what gets drawn:</p>
-<graphics-element title="Our rational cubic Bézier curve" width="275" height="275" src="./chapters/weightcontrol/rational.js"  reset="초기화" viewSource="소스 보기">
+<p>이 식에서 새로 추가된 첫 번째 항은 각 좌표마다 새로 추가된 가중치를 나타냅니다. 예를 들어 비율 값이 [1, 0.5, 0.5, 1]이라면, <code>ratio<sub>0</sub> = 1</code>, <code>ratio<sub>1</sub> = 0.5</code> 등과 같고, 사실상 가중치를 조금 다르게 주는 것과 다르지 않습니다. 여기까지는 딱히 특별할 것이 없습니다.</p>
+<p>그런데, 새로 추가된 다른 항이 결정적인 차이를 만들어냅니다. 곡선의 모든 점은 그냥 "2번 가중된" 점이 아니라 비율 값을 넣음으로써 비로소 계산할 수 있는, "2번 가중된" 값이 전체에서 차지하는 <em>비율</em>입니다. 이 곡선 위의 점을 구할 때는 일단 "보통" 베지에 값을 구한 뒤, 가중치 없이 비율 값만 사용하는 베지에 값으로 <em>나눕니다</em>.</p>
+<p>여기서 우리가 예측하지 못했던 변화가 생겨납니다. 다항식이었던 베지에 함수가 이제 다항식이 <em>아니게</em> 된 것입니다. 이 곡선은 다항식을 포괄하는 더 넓은 범주에 속하고, 완벽한 원을 그리는 것 등(나중에 확인하겠지만 표준 베지에 곡선만으로는 문자 그대로 불가능합니다) 베지에 곡선"만으로는" 할 수 없는 것들을 할 수 있습니다.</p>
+<p>하지만 이런 차이를 확인하는 가장 좋은 방법은 진짜로 눈으로 확인하는 것이겠죠. 아래의 유리 곡선 인터랙티브 그래픽에서 베지에 곡선을 "유리화"하는 효과를 살펴봅시다. 아래의 그래픽에서는 이전 장과 동일한 베지에 곡선에 각 점마다 비율 값을 추가한 곡선을 그릴 수 있습니다. 하나 이상의 비율 값을 0에 가깝게 놓으면 그 좌표가 곡선에 미치는 기여도가 줄어듭니다(비율 값을 늘리면 당연히 기여도가 늘어납니다). 비율 값을 이리저리 바꿔 보고 곡선의 모양이 어떻게 바뀌는지 실험해 보세요.</p>
+<graphics-element title="삼차 유리 베지에 곡선" width="275" height="275" src="./chapters/weightcontrol/rational.js"  reset="초기화" viewSource="소스 보기">
         <fallback-image>
           <span class="view-source">스크립트가 꺼져 있어 대체 이미지를 대신 표시합니다.</span>
           <img width="275px" height="275px" src="./images/chapters/weightcontrol/3d71e2b9373684eebcb0dc8563f70b18.png" loading="lazy">
-          <label>Our rational cubic Bézier curve</label>
+          <label>삼차 유리 베지에 곡선</label>
         </fallback-image>
   <input type="range" min="0.01" max="2" value="1" step="0.01" class="ratio-1">
   <input type="range" min="0.01" max="2" value="1" step="0.01" class="ratio-2">
