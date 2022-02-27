@@ -1,208 +1,176 @@
 <!DOCTYPE html>
 <html lang="en-GB">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>A Primer on Bézier Curves - Rewriting the tech stack</title>
 
-		<base href=".." />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A Primer on Bézier Curves - Rewriting the tech stack</title>
 
-		<link rel="icon" href="images/favicon.png" type="image/png" />
+  <base href="..">
 
-		<link rel="alternate" type="application/rss+xml" title="RSS" href="news/rss.xml" />
+  <link rel="icon" href="images/favicon.png" type="image/png" />
 
-		<!-- page styling -->
-		<link rel="preload" href="images/paper.png" as="image" />
-		<style>
-			:root[lang="en-GB"] {
-				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-				font-size: 18px;
-			}
-		</style>
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="news/rss.xml">
 
-		<link rel="stylesheet" href="style.css" />
 
-		<!-- And a slew of SEO related meta elements, because being discoverable is important -->
-		<meta name="description" content="Rewriting the tech stack" />
+  <!-- page styling -->
+  <link rel="preload" href="images/paper.png" as="image" />
+  <style>
 
-		<!-- opengraph information -->
-		<meta property="og:title" content="Rewriting the tech stack" />
-		<meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
-		<meta property="og:type" content="text" />
-		<meta property="og:url" content="https://pomax.github.io/bezierinfo/news/2020-09-18.html" />
-		<meta property="og:description" content="Rewriting the tech stack" />
-		<meta property="og:locale" content="en-GB" />
-		<meta property="og:type" content="article" />
-		<meta property="og:published_time" content="Fri Sep 18 2020 00:00:00 +00:00" />
-		<meta property="og:updated_time" content="Sat Jan 08 2022 18:19:49 +00:00" />
-		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
-		<meta property="og:section" content="Bézier Curves" />
-		<meta property="og:tag" content="Bézier Curves" />
 
-		<!-- twitter card information -->
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:site" content="@TheRealPomax" />
-		<meta name="twitter:creator" content="@TheRealPomax" />
-		<meta name="twitter:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
-		<meta name="twitter:url" content="https://pomax.github.io/bezierinfo/news/" />
-		<meta name="twitter:description" content="Rewriting the tech stack" />
+    :root[lang="en-GB"] {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 18px;
+    }
 
-		<!-- my own referral/page hit tracker, because Google knows enough -->
-		<script src="./js/site/referrer.js" type="module" async></script>
 
-		<!--
+</style>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- And a slew of SEO related meta elements, because being discoverable is important -->
+<meta name="description" content="Rewriting the tech stack" />
+
+<!-- opengraph information -->
+<meta property="og:title" content="Rewriting the tech stack" />
+<meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
+<meta property="og:type" content="text" />
+<meta property="og:url" content="https://pomax.github.io/bezierinfo/news/2020-09-18.html" />
+<meta property="og:description" content="Rewriting the tech stack" />
+<meta property="og:locale" content="en-GB" />
+<meta property="og:type" content="article" />
+<meta property="og:published_time" content="Fri Sep 18 2020 09:00:00 +00:00" />
+<meta property="og:updated_time" content="Sun Jan 09 2022 03:27:20 +00:00" />
+<meta property="og:author" content="Mike 'Pomax' Kamermans" />
+<meta property="og:section" content="Bézier Curves" />
+<meta property="og:tag" content="Bézier Curves" />
+
+<!-- twitter card information -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@TheRealPomax" />
+<meta name="twitter:creator" content="@TheRealPomax" />
+<meta name="twitter:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
+<meta name="twitter:url" content="https://pomax.github.io/bezierinfo/news/" />
+<meta name="twitter:description" content="Rewriting the tech stack" />
+
+
+
+  <!-- my own referral/page hit tracker, because Google knows enough -->
+  <script src="./js/site/referrer.js" type="module" async></script>
+
+  <!--
           The part that makes interactive graphics work: an HTML5 <graphics-element> custom element.
           Note that we're not defering this: we just want it to kick in as soon as possible, and
           given how much HTML there is, that means this can, and thus should, kick in before the
           document is done even transferring.
         -->
-		<script src="./js/graphics-element/graphics-element.js" type="module" async></script>
-		<link rel="stylesheet" href="./js/graphics-element/graphics-element.css" />
+  <script src="./js/graphics-element/graphics-element.js" type="module" async></script>
+  <link rel="stylesheet" href="./js/graphics-element/graphics-element.css" />
 
-		<!-- make images lazy load much earlier  -->
-		<script src="./js/site/better-lazy-loading.js" type="module" async defer></script>
-	</head>
+  <!-- make images lazy load much earlier  -->
+  <script src="./js/site/better-lazy-loading.js" type="module" async defer></script>
 
-	<body>
-		<div class="dev" style="display: none;">
-			DEV PREVIEW ONLY
-			<script>
-				(function () {
-					var loc = window.location.toString();
-					if (loc.includes("localhost") || loc.includes("BezierInfo-2")) {
-						var e = document.querySelector("div.dev");
-						e.removeAttribute("style");
-					}
-				})();
-			</script>
-		</div>
+</head>
 
-		<div class="github">
-			<img src="images/ribbon.png" alt="This page on GitHub" style="border: none;" usemap="#githubmap" width="200" height="149" />
-			<map name="githubmap">
-				<area shape="poly" coords="30,0, 200,0, 200,114" href="http://github.com/pomax/BezierInfo-2" alt="This page on GitHub" />
-			</map>
-		</div>
+<body>
+  <div class="dev" style="display:none;">
+    DEV PREVIEW ONLY
+    <script>
+        (function () {
+            var loc = window.location.toString();
+            if (loc.includes('localhost') || loc.includes('BezierInfo-2')) {
+                var e = document.querySelector('div.dev');
+                e.removeAttribute("style");
+            }
+        }());
+    </script>
+</div>
 
-		<header>
-			<h1>Rewriting the tech stack</h1>
-			<h5 class="post-date">Fri, 18 Sep 2020</h5>
-		</header>
+  <div class="github">
+    <img src="images/ribbon.png" alt="This page on GitHub" style="border:none;" useMap="#githubmap" width="200" height="149" />
+    <map name="githubmap">
+        <area shape="poly" coords="30,0, 200,0, 200,114" href="http://github.com/pomax/BezierInfo-2" alt="This page on GitHub" />
+    </map>
+</div>
 
-		<main>
-			<!-- Because people probably want to share this article -->
-			<div class="notforprint scl">
-				<img src="images/icons.gif" usemap="#rhtimap" title="Share this on social media" />
-				<map name="rhtimap">
-					<area
-						class="sclnk-rdt"
-						shape="rect"
-						coords="0, 0, 19, 15"
-						href="https://www.reddit.com/submit?url=https://pomax.github.io/bezierinfo/news/2020-09-18.html&title==A Primer on Bézier Curves - Rewriting the tech stack&text=An update about the Primer on Bézier curves."
-						alt="submit to reddit"
-						title="submit to reddit"
-					/>
-					<area
-						class="sclnk-hn"
-						shape="rect"
-						coords="0, 20, 19, 35"
-						href="https://news.ycombinator.com/submitlink?u=https://pomax.github.io/bezierinfo/news/2020-09-18.html&t=A Primer on Bézier Curves - Rewriting the tech stack"
-						alt="submit to hacker news"
-						title="submit to hacker news"
-					/>
-					<area
-						class="sclnk-twt"
-						shape="rect"
-						coords="0, 40, 19, 55"
-						href="https://twitter.com/intent/tweet?hashtags=bezier,curves,maths&original_referer=https://pomax.github.io/bezierinfo&text=Reading “Rewriting the tech stack” by @TheRealPomax over on https://pomax.github.io/bezierinfo/news/2020-09-18.html"
-						alt="tweet your read"
-						title="tweet your read"
-					/>
-				</map>
-			</div>
 
-			<p>
-				Once upon a time, I needed to draw some Bezier curves because I was trying to create a Japanese kanji composition system that turned strokes
-				into outlines, and that required knowing how to offset Bezier curves and... at the time (2011, time flies) there was no good single source of
-				information for Bezier curves on the web. So I made one. Sure it started small, but it turns out that if you just keep adding bits to
-				something, several years later you have quite the monster, and a single HTML file becomes intractible.
-			</p>
-			<p>
-				So, in 2016, when <a href="https://reactjs.org/">React.js</a> exploded onto the scene, I rewrote the primer as a React app, and it became a
-				lot easier to maintain. Like, <em>a lot</em> a lot. However, there was a downside: no JS meant no content. Sure, server-side rendering sort of
-				existed, but not really, and because the Primer is hosted through github, there was no "server" to run. Plus, trying to rehydrate an app the
-				size of the Primer from a giant HTML file had truly <em>dire</em> performance.
-			</p>
-			<p>
-				So I left it a regular React app, and every time I thought "wouldn't it be nice if it was just... a web page again?" the browser landscape
-				just hadn't caught up. Finally, in 2020, things are different: with a global pandemic, and some vacation time, and something random causing me
-				to look up the state of HTML custom elements, everything was pointing at it being time to finally, <em>finally</em>, turn the Primer back into
-				a normal web page.
-			</p>
-			<p>
-				The new tech stack is, frankly, pretty amazing. It does some things that weren't possible even half a year before I started the rewrite, let
-				alone being possible in 2016, and so because so much has changed, this post will be the first in a series of posts on how the new tech stack
-				works.
-			</p>
-			<p>To give a bit of a teaser, some of the things I'll be writing about:</p>
-			<ul>
-				<li>Essentially reinventing (a limited form of) Processing.js</li>
-				<li>Writing a custom build system, because I'm exhausted with Webpack and hope to never use it again.</li>
-				<li>Using modern ES module code that runs in both the browser and Node.js.</li>
-				<li>
-					Chapter content written as easy to read and write markdown format: <a href="./news/2020-09-18.md">view this blog post's source file</a>.
-				</li>
-				<li>A custom <code>&lt;graphics-element&gt;</code> element that turns a <code>src="blah.js"</code> into an interactive canvas graphic...</li>
-				<li>
-					...with that same source code being read in and run by Node.js <em>on a canvas</em> to generate fallback images so that even without JS,
-					graphics work.
-				</li>
-			</ul>
-			<blockquote>
-				<graphics-element title="An example graphic" width="275" height="275" src="./news/example.js">
-					<fallback-image>
-						<span class="view-source">Scripts are disabled. Showing fallback image.</span>
-						<img width="275px" height="275px" src="./images/news/2020-09-18.html/b465a1526a406578c9806a9985e2dbd0.png" loading="lazy" />
-						<label>An example graphic</label>
-					</fallback-image></graphics-element
-				>
-			</blockquote>
 
-			<ul>
-				<li>
-					Real LaTeX code, that gets saved as <code>.tex</code> file, so it can be compiled into optimized SVG using <code>xelatex</code>,
-					<code>pdfcrop</code>, <code>pdf2svg</code>, and <code>svgo</code>:
-				</li>
-			</ul>
-			<blockquote>
-				<!--
- 
+  <header>
+
+  <h1>Rewriting the tech stack</h1>
+  <h5 class="post-date">Fri, 18 Sep 2020</h5>
+
+  </header>
+
+  <main>
+
+  <!-- Because people probably want to share this article -->
+<div class="notforprint scl">
+    <img src="images/icons.gif" usemap="#rhtimap" title="Share this on social media" />
+    <map name="rhtimap">
+        <area class="sclnk-rdt" shape="rect" coords="0, 0, 19, 15"
+            href="https://www.reddit.com/submit?url=https://pomax.github.io/bezierinfo/news/2020-09-18.html&title==A Primer on Bézier Curves - Rewriting the tech stack&text=An update about the Primer on Bézier curves."
+            alt="submit to reddit" title="submit to reddit">
+        <area class="sclnk-hn" shape="rect" coords="0, 20, 19, 35"
+            href="https://news.ycombinator.com/submitlink?u=https://pomax.github.io/bezierinfo/news/2020-09-18.html&t=A Primer on Bézier Curves - Rewriting the tech stack"
+            alt="submit to hacker news" title="submit to hacker news">
+        <area class="sclnk-twt" shape="rect" coords="0, 40, 19, 55"
+            href="https://twitter.com/intent/tweet?hashtags=bezier,curves,maths&original_referer=https://pomax.github.io/bezierinfo&text=Reading “Rewriting the tech stack” by @TheRealPomax over on https://pomax.github.io/bezierinfo/news/2020-09-18.html"
+            alt="tweet your read" title="tweet your read">
+    </map>
+</div>
+
+
+<p>Once upon a time, I needed to draw some Bezier curves because I was trying to create a Japanese kanji composition system that turned strokes into outlines, and that required knowing how to offset Bezier curves and... at the time (2011, time flies) there was no good single source of information for Bezier curves on the web. So I made one. Sure it started small, but it turns out that if you just keep adding bits to something, several years later you have quite the monster, and a single HTML file becomes intractible.</p>
+<p>So, in 2016, when <a href="https://reactjs.org/">React.js</a> exploded onto the scene, I rewrote the primer as a React app, and it became a lot easier to maintain. Like, <em>a lot</em> a lot. However, there was a downside: no JS meant no content. Sure, server-side rendering sort of existed, but not really, and because the Primer is hosted through github, there was no "server" to run. Plus, trying to rehydrate an app the size of the Primer from a giant HTML file had truly <em>dire</em> performance.</p>
+<p>So I left it a regular React app, and every time I thought "wouldn't it be nice if it was just... a web page again?" the browser landscape just hadn't caught up. Finally, in 2020, things are different: with a global pandemic, and some vacation time, and something random causing me to look up the state of HTML custom elements, everything was pointing at it being time to finally, <em>finally</em>, turn the Primer back into a normal web page.</p>
+<p>The new tech stack is, frankly, pretty amazing. It does some things that weren't possible even half a year before I started the rewrite, let alone being possible in 2016, and so because so much has changed, this post will be the first in a series of posts on how the new tech stack works.</p>
+<p>To give a bit of a teaser, some of the things I'll be writing about:</p>
+<ul>
+<li>Essentially reinventing (a limited form of) Processing.js</li>
+<li>Writing a custom build system, because I'm exhausted with Webpack and hope to never use it again.</li>
+<li>Using modern ES module code that runs in both the browser and Node.js.</li>
+<li>Chapter content written as easy to read and write markdown format: <a href="./news/2020-09-18.md">view this blog post's source file</a>.</li>
+<li>A custom <code>&lt;graphics-element&gt;</code> element that turns a <code>src="blah.js"</code> into an interactive canvas graphic...</li>
+<li>...with that same source code being read in and run by Node.js <em>on a canvas</em> to generate fallback images so that even without JS, graphics work.</li>
+</ul>
+<blockquote>
+    <graphics-element title="An example graphic" width="275" height="275" src="./news/example.js"  >
+        <fallback-image>
+          <span class="view-source">Scripts are disabled. Showing fallback image.</span>
+          <img width="275px" height="275px" src="./images/news/2020-09-18.html/b465a1526a406578c9806a9985e2dbd0.png" loading="lazy">
+          <label>An example graphic</label>
+        </fallback-image></graphics-element>
+</blockquote>
+
+<ul>
+<li>Real LaTeX code, that gets saved as <code>.tex</code> file, so it can be compiled into optimized SVG using <code>xelatex</code>, <code>pdfcrop</code>, <code>pdf2svg</code>, and <code>svgo</code>:</li>
+</ul>
+<blockquote>
+<!--
+
            __ n=3                  n-k k
-B(t)     = ❯     \ P  \binomnk(1-t)   t                
-    cubic  ‾‾ k=0    
+B(t)     = ❯     \ P  \binomnk(1-t)   t
+    cubic  ‾‾ k=0
                     k
-                                                       
+
                    3            2             2       3
-         = P  (1-t)  + 3 P (1-t) t + 3P (1-t)t  + P  t 
-                                                    
+         = P  (1-t)  + 3 P (1-t) t + 3P (1-t)t  + P  t
+
             0             1            2           3
 -->
-				<img class="LaTeX SVG" src="./images/news/2020-09-18.html/15225da473048d8c7b5b473b89de0b66.svg" width="401px" height="97px" loading="lazy" />
-			</blockquote>
+<img class="LaTeX SVG" src="./images/news/2020-09-18.html/15225da473048d8c7b5b473b89de0b66.svg" width="401px" height="97px" loading="lazy">
+</blockquote>
 
-			<ul>
-				<li>"Lazy loaded everything", so that you get what you need, only when or even just before you need it.</li>
-				<li>Localized content based on a simple filenaming scheme.</li>
-				<li>Nicely formatted HTML, CSS, and JS thanks to <code>prettier</code>.</li>
-				<li>with some code formatting so that there are line numbers without needing JS:</li>
-			</ul>
+<ul>
+<li>"Lazy loaded everything", so that you get what you need, only when or even just before you need it.</li>
+<li>Localized content based on a simple filenaming scheme.</li>
+<li>Nicely formatted HTML, CSS, and JS thanks to <code>prettier</code>.</li>
+<li>with some code formatting so that there are line numbers without needing JS:</li>
+</ul>
 
-			<table class="code">
-				<tr>
-					<td>1</td>
-					<td rowspan="13">
-						<textarea disabled rows="13" role="doc-example">
-let curve;
+    <table class="code"><tr><td>1</td><td rowspan="13">
+          <textarea disabled rows="13" role="doc-example">let curve;
 
 setup() {
     curve = Bezier.defaultCubic();
@@ -214,68 +182,44 @@ draw() {
     clear(`lightblue`);
     curve.drawCurve();
     curve.drawPoints();
-}</textarea
-						>
-					</td>
-				</tr>
-				<tr>
-					<td>2</td>
-				</tr>
-				<tr>
-					<td>3</td>
-				</tr>
-				<tr>
-					<td>4</td>
-				</tr>
-				<tr>
-					<td>5</td>
-				</tr>
-				<tr>
-					<td>6</td>
-				</tr>
-				<tr>
-					<td>7</td>
-				</tr>
-				<tr>
-					<td>8</td>
-				</tr>
-				<tr>
-					<td>9</td>
-				</tr>
-				<tr>
-					<td>10</td>
-				</tr>
-				<tr>
-					<td>11</td>
-				</tr>
-				<tr>
-					<td>12</td>
-				</tr>
-				<tr>
-					<td>13</td>
-				</tr>
-			</table>
+}</textarea>
+        </td></tr>
+<tr><td>2</td></tr>
+<tr><td>3</td></tr>
+<tr><td>4</td></tr>
+<tr><td>5</td></tr>
+<tr><td>6</td></tr>
+<tr><td>7</td></tr>
+<tr><td>8</td></tr>
+<tr><td>9</td></tr>
+<tr><td>10</td></tr>
+<tr><td>11</td></tr>
+<tr><td>12</td></tr>
+<tr><td>13</td></tr></table>
 
-			<ul>
-				<li>Responsive CSS, so the content intelligently reflows where possible.</li>
-				<li>A "Live build" setup for working on the content and code.</li>
-				<li>Automatic link-checking to make sure none of the links in the Primer lead you to a 404.</li>
-				<li>This "news" section, so that I can write posts to go along with new sections getting added, or notable changes being made.</li>
-			</ul>
-			<p>
-				It's going to take me a while to detail the entire tech stack, but ultimately what matters is that you get a Primer that is a normal "vanilla"
-				HTML, CSS, and JS page again, that "just works" even with JS disabled.
-			</p>
-			<p>
-				Enjoy <a href="https://pomax.github.io/bezierinfo">The new Primer on Bézier Curves</a>, and if you find any problems,
-				<a href="https://github.com/Pomax/BezierInfo-2/issues">you know where to go</a>.
-			</p>
-			<p>See you in the next post!</p>
-			<p>— <a href="https://twitter.com/TheRealPomax">Pomax</a></p>
-		</main>
+<ul>
+<li>Responsive CSS, so the content intelligently reflows where possible.</li>
+<li>A "Live build" setup for working on the content and code.</li>
+<li>Automatic link-checking to make sure none of the links in the Primer lead you to a 404.</li>
+<li>This "news" section, so that I can write posts to go along with new sections getting added, or notable changes being made.</li>
+</ul>
+<p>It's going to take me a while to detail the entire tech stack, but ultimately what matters is that you get a Primer that is a normal "vanilla" HTML, CSS, and JS page again, that "just works" even with JS disabled.</p>
+<p>Enjoy <a href="https://pomax.github.io/bezierinfo">The new Primer on Bézier Curves</a>, and if you find any problems, <a href="https://github.com/Pomax/BezierInfo-2/issues">you know where to go</a>.</p>
+<p>See you in the next post!</p>
+<p>— <a href="https://twitter.com/TheRealPomax">Pomax</a></p>
 
-		<hr />
 
-		<footer class="copyright">This post is a news entry for the <a href="https://pomax.github.io/bezierinfo/">Primer on Bézier Curves</a></footer>
-	</body>
+  </main>
+
+  <hr>
+
+  <footer class="copyright">
+
+  This post is a news entry for the <a href="https://pomax.github.io/bezierinfo/">Primer on Bézier Curves</a>
+
+  </footer>
+
+
+</body>
+
 </html>
