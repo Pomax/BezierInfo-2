@@ -1,0 +1,4 @@
+ 
+              __ n                                                                            n-i     i
+Bézier(n,t) = ❯      \underset 이항계수 부분\underbrace\binomni  · \ \underset 문자 부분\underbrace(1-t)     · t 
+              ‾‾ i=0

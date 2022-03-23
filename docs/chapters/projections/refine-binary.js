@@ -19,7 +19,7 @@ function refineBinary(curve, x, y, LUT, i, targetDistance=0, epsilon=1) {
         t1 = LUT[i1].t,
         t2 = LUT[i2].t,
         lut = [],
-        step = (t2 - t1) / 5;
+        step = (t2 - t1) / 4;
 
     if (step < 0.001) break;
 
