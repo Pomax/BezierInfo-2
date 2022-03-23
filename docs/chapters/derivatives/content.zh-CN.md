@@ -26,7 +26,7 @@
   \frac{\mathrm{d}}{\mathrm{d}t} B_{n,k}(t) = \frac{\mathrm{d}}{\mathrm{d}t} \left( \mathrm{C}_n^k t^k (1-t)^{n-k} \right)
 \]
 
-使用[乘积求导法则](https://mathworld.wolfram.com/ProductRule.html)和[复合函数求导法则](https://mathworld.wolfram.com/ChainRule.html)得到：
+使用[乘积求导法则](https://en.wikipedia.org/wiki/Product_rule)和[复合函数求导法则](https://en.wikipedia.org/wiki/Chain_rule)得到：
 
 \[
   \cdots = \mathrm{C}_n^k \left (
