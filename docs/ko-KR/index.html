@@ -43,7 +43,7 @@
 		<meta property="og:locale" content="ko-KR" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2022-01-08T18:19:49+00:00" />
+		<meta property="og:updated_time" content="2022-02-27T20:11:11+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -141,7 +141,7 @@
 					<li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(22%)</span></li>
 					<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(24%)</span></li>
 					<li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
-					<li><a href="./ko-KR/index.html">한국어</a> <span class="localisation-progress">(7%)</span></li>
+					<li><a href="./ko-KR/index.html">한국어</a> <span class="localisation-progress">(9%)</span></li>
 				</ul>
 				<p>
 					(원하는 언어가 없거나, 100%까지 올리고 싶다면
@@ -228,7 +228,7 @@
 				<ol>
 					<li><a href="ko-KR/index.html#introduction">초고속 소개</a></li>
 					<li><a href="ko-KR/index.html#whatis">베지에 곡선은 어떻게 만드나요?</a></li>
-					<li><a href="ko-KR/index.html#explanation">The mathematics of Bézier curves</a></li>
+					<li><a href="ko-KR/index.html#explanation">베지에 곡선을 이루는 수학</a></li>
 					<li><a href="ko-KR/index.html#control">Controlling Bézier curvatures</a></li>
 					<li><a href="ko-KR/index.html#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a></li>
 					<li><a href="ko-KR/index.html#extended">The Bézier interval [0,1]</a></li>
@@ -624,17 +624,16 @@
 				<section id="explanation">
 					<h1>
 						<div class="nav"><a href="ko-KR/index.html#whatis">이전</a><a href="#toc">목차</a><a href="ko-KR/index.html#control">다음</a></div>
-						<a href="ko-KR/index.html#explanation">The mathematics of Bézier curves</a>
+						<a href="ko-KR/index.html#explanation">베지에 곡선을 이루는 수학</a>
 					</h1>
 					<p>
-						Bézier curves are a form of "parametric" function. Mathematically speaking, parametric functions are cheats: a "function" is actually a
-						well defined term representing a mapping from any number of inputs to a <strong>single</strong> output. Numbers go in, a single number
-						comes out. Change the numbers that go in, and the number that comes out is still a single number.
+						베지에 곡선은 "매개변수" 함수의 일종입니다. 수학적으로 말하자면 매개변수 함수는 꼼수입니다. "함수"란 임의의 개수의 입력에서
+						<strong>하나의</strong> 출력으로 가는 대응을 의미하는, 엄연한 정의가 있는 용어입니다. 수를/수들을 넣으면 하나의 값이 나옵니다. 다른 수를
+						넣어도 값이 하나만 나오는 점은 변하지 않습니다.
 					</p>
 					<p>
-						Parametric functions cheat. They basically say "alright, well, we want multiple values coming out, so we'll just use more than one
-						function". An illustration: Let's say we have a function that maps some value, let's call it <i>x</i>, to some other value, using some
-						kind of number manipulation:
+						매개변수 함수는 꼼수입니다. "저는 여러 값이 나오는 함수가 필요한데 그냥 함수를 여러 개 쓰면 안 돼요?"인 것이죠. 예컨대 어떤
+						값(<i>x</i>라고 합시다)을 어떤 연산을 통해 다른 값과 대응시키는 함수가 있다고 합시다.
 					</p>
 					<!--
  
@@ -642,10 +641,10 @@ f(x) = cos (x)
 -->
 					<img class="LaTeX SVG" src="./images/chapters/explanation/0cc876c56200446c60114c1b0eeeb2cc.svg" width="96px" height="17px" loading="lazy" />
 					<p>
-						The notation <i>f(x)</i> is the standard way to show that it's a function (by convention called <i>f</i> if we're only listing one) and
-						its output changes based on one variable (in this case, <i>x</i>). Change <i>x</i>, and the output for <i>f(x)</i> changes.
+						<i>f(x)</i>라는 표기는 <i>f</i>(함수가 하나만 있을 때는 관습적으로 <i>f</i>를 씁니다)가 함수이며, 그 값이 하나의 변수(여기서는 <i>x</i>)에
+						따라 바뀜을 나타내는 표준적인 방법입니다. <i>x</i>를 바꾸면 <i>f(x)</i>의 값도 바뀝니다.
 					</p>
-					<p>So far, so good. Now, let's look at parametric functions, and how they cheat. Let's take the following two functions:</p>
+					<p>여기까지는 좋습니다. 이제 매개변수 함수를 보고, 어떤 꼼수를 쓰는지 확인해 봅시다. 아래의 두 함수를 생각해 봅시다.</p>
 					<!--
  
 f(a) = cos (a)
@@ -653,9 +652,9 @@ f(b) = sin (b)
 -->
 					<img class="LaTeX SVG" src="./images/chapters/explanation/a2891980850ddbb27d308ac112d69f74.svg" width="93px" height="36px" loading="lazy" />
 					<p>
-						There's nothing really remarkable about them, they're just a sine and cosine function, but you'll notice the inputs have different names.
-						If we change the value for <i>a</i>, we're not going to change the output value for <i>f(b)</i>, since <i>a</i> isn't used in that
-						function. Parametric functions cheat by changing that. In a parametric function all the different functions share a variable, like this:
+						별 특이할 점이 없는 사인과 코사인 함수인데, 자세히 보면 두 입력이 다른 이름을 가지는 것을 확인할 수 있습니다. <i>a</i>의 값을 바꾸더라도
+						<i>f(b)</i>에서는 <i>a</i>를 쓰지 않으므로 <i>f(b)</i>의 값이 바뀌지는 않습니다. 바로 이 부분을 조금 고치는 것이 매개변수 함수의
+						꼼수입니다. 매개변수 함수에서는 아래와 같이 여러 가지 함수가 같은 변수를 공유합니다.
 					</p>
 					<!--
  
@@ -672,10 +671,9 @@ f(b) = sin (b)
 						loading="lazy"
 					/>
 					<p>
-						Multiple functions, but only one variable. If we change the value for <i>t</i>, we change the outcome of both <i>f<sub>a</sub>(t)</i> and
-						<i>f<sub>b</sub>(t)</i>. You might wonder how that's useful, and the answer is actually pretty simple: if we change the labels
-						<i>f<sub>a</sub>(t)</i> and <i>f<sub>b</sub>(t)</i> with what we usually mean with them for parametric curves, things might be a lot more
-						obvious:
+						함수는 여러 개인데 변수는 하나뿐이네요. <i>t</i>의 값을 바꾸면 <i>f<sub>a</sub>(t)</i>와 <i>f<sub>b</sub>(t)</i>의 값이 모두 바뀝니다.
+						이게 어딜 봐서 유용한지 궁금해하는 독자가 있다면, 답은 의외로 간단합니다. <i>f<sub>a</sub>(t)</i>와 <i>f<sub>b</sub>(t)</i>라는 이름표를
+						매개변수 곡선을 만들 때 보통 의미하는 바를 나타내도록 바꾸면 이 식이 눈에 더 잘 들어올지도 모르겠습니다.
 					</p>
 					<!--
  
@@ -683,16 +681,16 @@ f(b) = sin (b)
   y = sin (t)
 -->
 					<img class="LaTeX SVG" src="./images/chapters/explanation/6914ba615733c387251682db7a3db045.svg" width="77px" height="40px" loading="lazy" />
-					<p>There we go. <i>x</i>/<i>y</i> coordinates, linked through some mystery value <i>t</i>.</p>
+					<p>짜잔! <i>x</i>/<i>y</i>좌표가 어떤 미지의 값 <i>t</i>를 통해 이어져 있었습니다.</p>
 					<p>
-						So, parametric curves don't define a <i>y</i> coordinate in terms of an <i>x</i> coordinate, like normal functions do, but they instead
-						link the values to a "control" variable. If we vary the value of <i>t</i>, then with every change we get <strong>two</strong> values,
-						which we can use as (<i>x</i>,<i>y</i>) coordinates in a graph. The above set of functions, for instance, generates points on a circle: We
-						can range <i>t</i> from negative to positive infinity, and the resulting (<i>x</i>,<i>y</i>) coordinates will always lie on a circle with
-						radius 1 around the origin (0,0). If we plot it for <i>t</i> from 0 to 5, we get this:
+						정리하자면, 매개변수 곡선은 보통의 함수처럼 <i>y</i>좌표를 <i>x</i>좌표값에 대해 정의하는 대신 두 값을 어떤 "조절" 변수로 연결합니다.
+						<i>t</i>의 값을 바꿀 때마다 매개변수 함수에서 <strong>두</strong> 값을 얻을 수 있고, 이 값을 그래프에 (<i>x</i>,<i>y</i>) 좌표로 나타낼 수
+						있습니다. 예를 들어 위에서 소개한 매개변수 함수는 원 위의 점을 생성합니다. <i>t</i>의 값을 음의 무한대에서 양의 무한대까지 잡을 수 있고,
+						여기서 나오는 (<i>x</i>,<i>y</i>) 좌표는 항상 중심이 원점 (0,0)이고 반지름이 1인 원 위에 있습니다. <i>t</i>의 값 0부터 5까지에 대해
+						그래프를 그리면 다음과 같습니다.
 					</p>
 					<graphics-element
-						title="A (partial) circle: x=sin(t), y=cos(t)"
+						title="원(의 일부): x=sin(t), y=cos(t)"
 						width="275"
 						height="275"
 						src="./chapters/explanation/circle.js"
@@ -702,17 +700,16 @@ f(b) = sin (b)
 						<fallback-image>
 							<span class="view-source">스크립트가 꺼져 있어 대체 이미지를 대신 표시합니다.</span>
 							<img width="275px" height="275px" src="./images/chapters/explanation/959762e39ae32407e914a687d804ff3a.png" loading="lazy" />
-							<label>A (partial) circle: x=sin(t), y=cos(t)</label>
+							<label>원(의 일부): x=sin(t), y=cos(t)</label>
 						</fallback-image>
 						<input type="range" min="0" max="10" step="0.1" value="5" class="slide-control" />
 					</graphics-element>
 					<p>
-						Bézier curves are just one out of the many classes of parametric functions, and are characterised by using the same base function for all
-						of the output values. In the example we saw above, the <i>x</i> and <i>y</i> values were generated by different functions (one uses a
-						sine, the other a cosine); but Bézier curves use the "binomial polynomial" for both the <i>x</i> and <i>y</i> outputs. So what are
-						binomial polynomials?
+						베지에 곡선은 여러 종류의 매개변수 함수 중 한 종류이고, 모든 출력값을 같은 기초 함수로 구합니다. 위에서 살펴본 예제에서는 <i>x</i>와
+						<i>y</i> 값을 다른 함수로 구했지만(하나는 사인, 다른 하나는 코사인), 베지에 곡선은 <i>x</i>, <i>y</i> 값을 모두 "이항 다항식"으로
+						구합니다. 이항 다항식은 또 뭘까요?
 					</p>
-					<p>You may remember polynomials from high school. They're those sums that look like this:</p>
+					<p>중·고등학교에서 다항식을 배운 기억이 나시나요? 이렇게 생긴 합을 다항식이라고 합니다.</p>
 					<!--
  
              3         2
@@ -726,97 +723,96 @@ f(x) = a  · x  + b  · x  + c  · x + d
 						loading="lazy"
 					/>
 					<p>
-						If the highest order term they have is <i>x³</i>, they're called "cubic" polynomials; if it's <i>x²</i>, it's a "square" polynomial; if
-						it's just <i>x</i>, it's a line (and if there aren't even any terms with <i>x</i> it's not a polynomial!)
+						여기서 가장 높은 차수의 항이 <i>x³</i>이면 3차( 다항)식, <i>x²</i>이면 2차식이라 하고, <i>x</i>라면 1차식, 즉 직선이 됩니다. (혹시
+						<i>x</i>가 있는 항이 하나도 없다면 그건 애초에 다항식이 아니죠!)
 					</p>
 					<p>
-						Bézier curves are polynomials of <i>t</i>, rather than <i>x</i>, with the value for <i>t</i> being fixed between 0 and 1, with
-						coefficients <i>a</i>, <i>b</i> etc. taking the "binomial" form, which sounds fancy but is actually a pretty simple description for mixing
-						values:
+						베지에 곡선은 <i>x</i>가 아니라 <i>t</i>에 대한 다항식이고, <i>t</i>의 값이 0과 1 사이로 고정되며 <i>a</i>, <i>b</i> 등의 계수가
+						"이항계수"의 형태를 띱니다. 이항계수라고 하면 어려워 보이지만 사실은 두 값을 섞는 것을 간단하게 나타낸 것입니다.
 					</p>
 					<!--
  
-linear= (1-t) + t                                        
-             2                      2
-square= (1-t)  + 2  · (1-t)  · t + t                     
-             3             2                       2    3
- cubic= (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 
+1차= (1-t) + t                                        
+         2                      2
+2차= (1-t)  + 2  · (1-t)  · t + t                     
+         3             2                       2    3
+3차= (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/7f74178029422a35267fd033b392fe4c.svg"
-						width="367px"
+						src="./images/chapters/explanation/28d5dfe5c9275ee236560041d9107938.svg"
+						width="340px"
 						height="64px"
 						loading="lazy"
 					/>
 					<p>
-						I know what you're thinking: that doesn't look too simple! But if we remove <i>t</i> and add in "times one", things suddenly look pretty
-						easy. Check out these binomial terms:
+						제가 한 말이긴 하지만 저 식이 딱히 간단해 보이지는 않죠! 그런데 여기서 <i>t</i>를 없애고 대신 "곱하기 1"을 넣으면, 복잡한 수식이 갑자기
+						간단하게 바뀝니다. 밑에 늘어놓은 이항계수를 보세요.
 					</p>
 					<!--
  
- linear=  1 + 1           
- square=  1 + 2 + 1       
-  cubic=  1 + 3 + 3 + 1   
-quartic= 1 + 4 + 6 + 4 + 1
+1차=  1 + 1           
+2차=  1 + 2 + 1       
+3차=  1 + 3 + 3 + 1   
+4차= 1 + 4 + 6 + 4 + 1
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/af40980136c291814e8970dc2a3d8e63.svg"
-						width="183px"
-						height="87px"
+						src="./images/chapters/explanation/085719517aacb7e37072113fd63040b0.svg"
+						width="153px"
+						height="83px"
 						loading="lazy"
 					/>
 					<p>
-						Notice that 2 is the same as 1+1, and 3 is 2+1 and 1+2, and 6 is 3+3... As you can see, each time we go up a dimension, we simply start
-						and end with 1, and everything in between is just "the two numbers above it, added together", giving us a simple number sequence known as
-						<a href="https://en.wikipedia.org/wiki/Pascal%27s_triangle">Pascal's triangle</a>. Now <i>that's</i> easy to remember.
+						식을 잘 보면 2는 1+1과 같고, 3은 2+1과 1+2이고, 6은 3+3...이라는 것을 알 수 있습니다. 보신 바와 같이 한 차수가 높아질 때마다 양 끝은
+						1이고, 그 사이의 모든 수는 "윗줄에 있는 두 수를 더한 것"과 같으며, 이렇게 만들어진 모양을
+						<a href="https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%8A%A4%EC%B9%BC%EC%9D%98_%EC%82%BC%EA%B0%81%ED%98%95">파스칼의 삼각형</a>이라고 합니다.
+						<i>이건</i> 기억하기 쉽죠?
 					</p>
 					<p>
-						There's an equally simple way to figure out how the polynomial terms work: if we rename <i>(1-t)</i> to <i>a</i> and <i>t</i> to <i>b</i>,
-						and remove the weights for a moment, we get this:
+						다항식의 문자 부분도 쉽게 외울 수 있는 방법이 있습니다. <i>(1-t)</i>를 <i>a</i>로, <i>t</i>를 <i>b</i>로 바꾸고 계수를 잠깐 지우면 아래의
+						식을 얻습니다.
 					</p>
 					<!--
 
-linear= \colorblue a + \colorred b                                                                                                                   
-square= \colorblue a  · \colorblue a + \colorblue a  · \colorred b + \colorred b  · \colorred b                                                      
- cubic= \colorblue a  · \colorblue a  · \colorblue a + \colorblue a  · \colorblue a  · \colorred b + \colorblue a  · \colorred b  · \colorred b + \co
-                                                                                             
-                                                                                             
-                                                       lorred b  · \colorred b  · \colorred b
+1차= \colorblue a + \colorred b                                                                                                                       
+2차= \colorblue a  · \colorblue a + \colorblue a  · \colorred b + \colorred b  · \colorred b                                                          
+3차= \colorblue a  · \colorblue a  · \colorblue a + \colorblue a  · \colorblue a  · \colorred b + \colorblue a  · \colorred b  · \colorred b + \colorr
+                                                                                           
+                                                                                           
+                                                         ed b  · \colorred b  · \colorred b
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/4319b2e361960c842a4308a610a35048.svg"
-						width="300px"
+						src="./images/chapters/explanation/43ec2ac2931d7c620736b56afa69d37b.svg"
+						width="275px"
 						height="60px"
 						loading="lazy"
 					/>
 					<p>
-						It's basically just a sum of "every combination of <i>a</i> and <i>b</i>", progressively replacing <i>a</i>'s with <i>b</i>'s after every
-						+ sign. So that's actually pretty simple too. So now you know binomial polynomials, and just for completeness I'm going to show you the
-						generic function for this:
+						이제 이 식은 "<i>a</i>와 <i>b</i>의 모든 조합의 합"인데, + 부호가 나올 때마다 <i>a</i>가 하나씩 <i>b</i>로 바뀌는 것으로 외울 수 있습니다.
+						이쪽도 그렇게 어렵지 않았네요. 이것으로 이항 다항식을 모두 배웠고, 혹시 필요할 경우를 위해 아래에 일반항의 식을 추가합니다.
 					</p>
 					<!--
  
-              __ n                                                                                            n-i     i
-Bézier(n,t) = ❯      \underset binomial term\underbrace\binomni  · \ \underset polynomial term\underbrace(1-t)     · t 
+              __ n                                                                            n-i     i
+Bézier(n,t) = ❯      \underset 이항계수 부분\underbrace\binomni  · \ \underset 문자 부분\underbrace(1-t)     · t 
               ‾‾ i=0
 -->
 					<img
 						class="LaTeX SVG"
-						src="./images/chapters/explanation/39d33ea94e7527ed221a809ca6054174.svg"
-						width="289px"
-						height="55px"
+						src="./images/chapters/explanation/0a5182969272e9b5c229bdd6e8ce7e6f.svg"
+						width="261px"
+						height="52px"
 						loading="lazy"
 					/>
 					<p>
-						And that's the full description for Bézier curves. Σ in this function indicates that this is a series of additions (using the variable
-						listed below the Σ, starting at ...=&lt;value&gt; and ending at the value listed on top of the Σ).
+						위 식으로 베지에 곡선을 완전히 기술할 수 있습니다. 이때 위 함수에서 Σ(시그마) 기호는 여러 개의 값을 더한다는 의미입니다(Σ 기호 밑에 적힌
+						문자를 ...=&lt;값&gt;에서 시작해서 Σ 위에 적힌 값까지 바꿔가면서 더합니다).
 					</p>
 					<div class="howtocode">
-						<h3>How to implement the basis function</h3>
-						<p>We could naively implement the basis function as a mathematical construct, using the function as our guide, like this:</p>
+						<h3>기저 함수를 구현하는 방법</h3>
+						<p>기저 함수를 구현할 때, 아래와 같이 위에서 본 수식을 그대로 함수로 옮겨서 구현할 수는 있습니다.</p>
 
 						<table class="code">
 							<tr>
@@ -846,15 +842,11 @@ function Bezier(n,t):
 						</table>
 
 						<p>
-							I say we could, because we're not going to: the factorial function is <em>incredibly</em> expensive. And, as we can see from the above
-							explanation, we can actually create Pascal's triangle quite easily without it: just start at [1], then [1,1], then [1,2,1], then
-							[1,3,3,1], and so on, with each next row fitting 1 more number than the previous row, starting and ending with "1", with all the numbers
-							in between being the sum of the previous row's elements on either side "above" the one we're computing.
+							구현할 "수는" 있다고 한 것은 이렇게 구현하지 않을 것이기 때문입니다. 계승 함수는 <em>매우</em> 무겁고, 위에서 배운 것과 같이 계승을 쓰지
+							않고도 파스칼의 삼각형은 쉽게 만들 수 있습니다. [1]부터 시작하고, 그 다음에는 [1,1], [1,2,1], [1,3,3,1]과 같은 식으로, 줄이 바뀔 때마다
+							수 하나를 더 넣고 양쪽 끝은 1로, 그 사이의 모든 수는 지금 계산하고 있는 줄 바로 위의 양쪽 원소의 합으로 채우면 됩니다.
 						</p>
-						<p>
-							We can generate this as a list of lists lightning fast, and then never have to compute the binomial terms because we have a lookup
-							table:
-						</p>
+						<p>위의 삼각형은 리스트의 리스트로 눈 깜짝할 새 구현할 수 있고, 이제 룩업 테이블을 만들었으니 이항계수는 다시 구할 필요도 없습니다.</p>
 
 						<table class="code">
 							<tr>
@@ -936,9 +928,9 @@ function binomial(n,k):
 						</table>
 
 						<p>
-							So what's going on here? First, we declare a lookup table with a size that's reasonably large enough to accommodate most lookups. Then,
-							we declare a function to get us the values we need, and we make sure that if an <i>n/k</i> pair is requested that isn't in the LUT yet,
-							we expand it first. Our basis function now looks like this:
+							코드를 해석해 볼까요? 우선 웬만한 <i>n/k</i> 값을 모두 다룰 수 있는 적당한 크기로 룩업 테이블을 선언합니다. 그 다음에는 필요한 값을
+							읽어오는 함수를 선언하고, 인자로 전달된 <i>n/k</i> 값이 테이블에 없으면 우선 테이블을 키우도록 합니다. 이제 기저 함수를 아래와 같이
+							구현할 수 있습니다.
 						</p>
 
 						<table class="code">
@@ -969,9 +961,9 @@ function Bezier(n,t):
 						</table>
 
 						<p>
-							Perfect. Of course, we can optimize further. For most computer graphics purposes, we don't need arbitrary curves (although we will also
-							provide code for arbitrary curves in this primer); we need quadratic and cubic curves, and that means we can drastically simplify the
-							code:
+							좋습니다. 물론 여기에서도 최적화의 여지가 남아 있습니다. 대부분의 컴퓨터 그래픽 용도로는 임의 차수의 곡선이 필요 없습니다(물론
+							입문서에서는 임의 차수 곡선을 다루는 코드를 제공할 예정입니다). 보통 2차와 3차 곡선만 사용하기 때문에, 아래와 같이 훨씬 간단한 코드로
+							고칠 수 있습니다.
 						</p>
 
 						<table class="code">
@@ -1033,10 +1025,10 @@ function Bezier(3,t):
 							</tr>
 						</table>
 
-						<p>And now we know how to program the basis function. Excellent.</p>
+						<p>이제 기저 함수를 프로그래밍하는 법을 모두 배웠습니다. 와!</p>
 					</div>
 
-					<p>So, now we know what the basis function looks like, time to add in the magic that makes Bézier curves so special: control points.</p>
+					<p>지금까지 베지에 곡선의 기저 함수를 살펴보았습니다. 이제 베지에 곡선을 그토록 특별하게 만드는 것, 조절점을 살펴볼 시간입니다.</p>
 				</section>
 				<section id="control">
 					<h1>

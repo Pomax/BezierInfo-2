@@ -74,7 +74,7 @@
     "nunjucks": "^3.2.2",
     "open-cli": "^6.0.1",
     "prettier": "^2.0.5",
-    "svgo": "git://github.com/Pomax/svgo#dereferenceUses-plugin"
+    "svgo": "^2.8.0"
   },
   "dependencies": {
     "write-good": "^1.0.3"
