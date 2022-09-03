@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>贝塞尔曲线底漆</title>
+		<title>贝塞尔曲线入门</title>
 
 		<base href=".." />
 
@@ -24,24 +24,18 @@
 		<link rel="stylesheet" href="style.css" />
 
 		<!-- And a slew of SEO related meta elements, because being discoverable is important -->
-		<meta
-			name="description"
-			content="A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them."
-		/>
+		<meta name="description" content="关于贝塞尔曲线的详细解释，以及如何用它做许多我们经常要做的事情。" />
 
 		<!-- opengraph information -->
-		<meta property="og:title" content="贝塞尔曲线底漆" />
+		<meta property="og:title" content="贝塞尔曲线入门" />
 		<meta property="og:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
 		<meta property="og:type" content="text" />
 		<meta property="og:url" content="https://pomax.github.io/bezierinfo/zh-CN" />
-		<meta
-			property="og:description"
-			content="A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them."
-		/>
+		<meta property="og:description" content="关于贝塞尔曲线的详细解释，以及如何用它做许多我们经常要做的事情。" />
 		<meta property="og:locale" content="zh-CN" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2022-08-23T18:24:20+00:00" />
+		<meta property="og:updated_time" content="2022-09-03T16:32:04+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -52,10 +46,7 @@
 		<meta name="twitter:creator" content="@TheRealPomax" />
 		<meta name="twitter:image" content="https://pomax.github.io/bezierinfo/images/og-image.png" />
 		<meta name="twitter:url" content="https://pomax.github.io/bezierinfo/zh-CN" />
-		<meta
-			name="twitter:description"
-			content="A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them."
-		/>
+		<meta name="twitter:description" content="关于贝塞尔曲线的详细解释，以及如何用它做许多我们经常要做的事情。" />
 
 		<!-- my own referral/page hit tracker, because Google knows enough -->
 		<script src="./js/site/referrer.js" type="module" async></script>
@@ -128,11 +119,11 @@
 
 		<header>
 			<h1>
-				贝塞尔曲线底漆<a class="rss-link" href="news/rss.xml"><img src="images/rss.png" /></a>
+				贝塞尔曲线入门<a class="rss-link" href="news/rss.xml"><img src="images/rss.png" /></a>
 			</h1>
-			<h2>A free, online book for when you really need to know how to do Bézier things.</h2>
+			<h2>一本免费的在线书籍，供你在非常需要了解如何处理贝塞尔相关的事情。</h2>
 			<div>
-				<span>Read this in your own language:</span>
+				<span>用母语阅读该资源：</span>
 				<ul class="lang-switcher">
 					<li><a href="./index.html">English</a> &nbsp;</li>
 					<li><a href="./ja-JP/index.html">日本語</a> <span class="localisation-progress">(24%)</span></li>
@@ -142,45 +133,44 @@
 					<li><a href="./ko-KR/index.html">한국어</a> <span class="localisation-progress">(9%)</span></li>
 				</ul>
 				<p>
-					(Don't see your language listed, or want to see it reach 100%?
-					<a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Help translate this content!</a>)
+					(没有看到你的语言被列出，或者想看到它达到100%翻译？
+					<a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">帮助翻译本资源！</a>)
 				</p>
 			</div>
 
 			<p>
-				Welcome to the Primer on Bezier Curves. This is a free website/ebook dealing with both the maths and programming aspects of Bezier Curves,
-				covering a wide range of topics relating to drawing and working with that curve that seems to pop up everywhere, from Photoshop paths to CSS
-				easing functions to Font outline descriptions.
+				欢迎来到贝塞尔曲线入门。这是一个免费的网站/电子书，涉及贝塞尔曲线的数学和编程的的部分，涵盖的
+				主题很多，包括绘制和处理那条似乎无处不在的曲线，从 Photoshop 的路径到 CSS 缓动函数，再到字体 轮廓描述。
 			</p>
 			<p>
-				If this is your first time here: welcome! Let me know if you were looking for anything in particular that the primer doesn't cover over on the
-				<a href="https://github.com/Pomax/BezierInfo-2/issues">issue tracker</a>!
+				如果这是你第一次来到这里，那么欢迎你！告诉我任何你想要在这里找到但却没有涵盖的内容，请通过
+				<a href="https://github.com/Pomax/BezierInfo-2/issues">issue tracker</a> 反馈!
 			</p>
 
-			<h2>Donations and sponsorship</h2>
+			<h2>捐款和赞助</h2>
 
 			<p>
-				If this is a resource that you're using for research, as work reference, or even writing your own software, please consider
-				<a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">donating</a> (any amount helps) or
-				signing up as <a href="https://www.patreon.com/bezierinfo">a patron on Patreon</a>. I don't get paid to work on this, so if you find this site
-				valuable, and you'd like it to stick around for a long time to come, a lot of coffee went into writing this over the years, and a lot more
-				coffee will need to go into it yet: if you can spare a coffee, you'd be helping keep a resource alive and well.
+				如果将此资源用于你的研究，作为工作参考，甚至是你编写的软件，可以考虑
+				<a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">捐款</a> （任何数额都可）或注册成为
+				<a href="https://www.patreon.com/bezierinfo">Patreon 上的资助人</a>。
+				我在这方面的工作是没有报酬的，所以如果你觉得这个网站有价值，并且希望它能长期存在下去，那么在过去的几年
+				里，我喝了大量的咖啡来编写这个网站。如果你能捐助出一杯咖啡，你就在帮助保持这个资源的生存下去并良好发展。
 			</p>
 			<p>
-				Also, if you are a company and your staff uses this book as a resource, or you use it as an onboarding resource, then please: consider
-				sponsoring the site! I am more than happy to work with your finance department on sponsorship invoicing and recognition.
+				此外，如果你是一家公司，你的员工使用这本书作为资源，或者你把它作为一个入职培训资源，那么请：考虑赞助此网站！
+				我很高兴与您合作。我非常乐意和财务部门合作，提供赞助发票和表彰。
 			</p>
 
 			<!--
 <div class="btcfh">
     <div>
         <h3>
-            Bitcoin donations:
+            捐赠比特币：
         </h3>
         <p>
-        If you prefer to donate via Bitcoin, you can donate either directly to
+        如果你想通过比特币捐赠，你可以直接捐赠给
         <a class="btclk" href="bitcoin:3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu?label=Primer%20on%20Bezier%20Curves">3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu</a>
-        or use the QR code on the right, if that's the kind of convenience you prefer =)
+        或者使用右边的二维码，如果你倾向于这种便利的方式 =)
       </p>
     
     </div>
@@ -221,9 +211,9 @@
 				<h4>前言</h4>
 				<ol class="preamble">
 					<li><a href="zh-CN/index.html#preface">序言 </a></li>
-					<li><a href="zh-CN/index.html#changelog">What's new</a></li>
+					<li><a href="zh-CN/index.html#changelog">变更日志</a></li>
 				</ol>
-				<h4>Main content</h4>
+				<h4>目录</h4>
 				<ol>
 					<li><a href="zh-CN/index.html#introduction">简单介绍</a></li>
 					<li><a href="zh-CN/index.html#whatis">什么构成了贝塞尔曲线？</a></li>
@@ -330,17 +320,13 @@
 				</div>
 			</section>
 			<section id="changelog">
-				<h1>What's new?</h1>
+				<h1>变更日志</h1>
 				<p>
-					This primer is a living document, and so depending on when you last look at it, there may be new content. Click the following link to expand
-					this section to have a look at what got added, when, or click through to the <a href="./news">News posts</a> for more detailed updates. (<a
-						href="./news/rss.xml"
-						>RSS feed</a
-					>
-					available)
+					本入门是一份活动文档，因此它可能会有新的内容，这取决于你上次查看的时间。单击以下链接以展开，查看添加的内容、时间，或点击浏览
+					<a href="./news">News posts</a> 获取更多更新信息。 (<a href="./news/rss.xml">RSS feed</a> 可用)
 				</p>
 				<!-- non-JS content reveals are nice -->
-				<label for="changelogtoggle">Toggle changes</label>
+				<label for="changelogtoggle">隐藏/显示变更日志</label>
 				<input type="checkbox" id="changelogtoggle" />
 				<section>
 					<h2>November 2020</h2>
@@ -483,7 +469,7 @@
 			<section id="chapters">
 				<section id="introduction">
 					<h1>
-						<div class="nav"><a href="#toc">目录</a><a href="zh-CN/index.html#whatis">下</a></div>
+						<div class="nav"><a href="#toc">目录</a><a href="zh-CN/index.html#whatis">下一节</a></div>
 						<a href="zh-CN/index.html#introduction">简单介绍</a>
 					</h1>
 					<p>
@@ -495,11 +481,11 @@
 							width="275"
 							height="275"
 							src="./chapters/introduction/quadratic.js"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/introduction/54e9ec0600ac436b0e6f0c6b5005cf03.png" loading="lazy" />
 								<label>二次贝塞尔曲线</label>
 							</fallback-image></graphics-element
@@ -509,11 +495,11 @@
 							width="275"
 							height="275"
 							src="./chapters/introduction/cubic.js"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/introduction/8d158a13e9a86969b99c64057644cbc6.png" loading="lazy" />
 								<label>三次贝塞尔曲线</label>
 							</fallback-image></graphics-element
@@ -527,7 +513,9 @@
 				</section>
 				<section id="whatis">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#introduction">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#explanation">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#introduction">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#explanation">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#whatis">什么构成了贝塞尔曲线？</a>
 					</h1>
 					<p>
@@ -559,11 +547,11 @@ Given │  distance= (p  - p )         │,  our new point = p  +  distance  · 
 							width="825"
 							height="275"
 							src="./chapters/whatis/interpolation.js"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="825px" height="275px" src="./images/chapters/whatis/524dd296e96c0fe2281fb95146f8ea65.png" loading="lazy" />
 								<label></label>
 							</fallback-image>
@@ -579,7 +567,7 @@ Given │  distance= (p  - p )         │,  our new point = p  +  distance  · 
 				</section>
 				<section id="explanation">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#whatis">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#control">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#whatis">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#control">下一节</a></div>
 						<a href="zh-CN/index.html#explanation">贝塞尔曲线的数学原理</a>
 					</h1>
 					<p>
@@ -635,11 +623,11 @@ f(b) = sin (b)
 						width="275"
 						height="275"
 						src="./chapters/explanation/circle.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/explanation/959762e39ae32407e914a687d804ff3a.png" loading="lazy" />
 							<label>(一部分的)圆: x=sin(t), y=cos(t)</label>
 						</fallback-image>
@@ -952,7 +940,9 @@ function Bezier(3,t):
 				</section>
 				<section id="control">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#explanation">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#weightcontrol">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#explanation">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#weightcontrol">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#control">控制贝塞尔的曲率</a>
 					</h1>
 					<p>
@@ -968,11 +958,11 @@ function Bezier(3,t):
 							height="275"
 							src="./chapters/control/lerp.js"
 							data-degree="3"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/control/8332e5d34b7344bbee2a2e1f4521ce46.png" loading="lazy" />
 								<label>二次插值</label>
 							</fallback-image>
@@ -984,11 +974,11 @@ function Bezier(3,t):
 							height="275"
 							src="./chapters/control/lerp.js"
 							data-degree="4"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/control/1b8c5e574dc67bfb0afc3fb0a8727378.png" loading="lazy" />
 								<label>三次插值</label>
 							</fallback-image>
@@ -1000,11 +990,11 @@ function Bezier(3,t):
 							height="275"
 							src="./chapters/control/lerp.js"
 							data-degree="15"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/control/c26d2655e8741ef7e2eeb4f6554fc7a5.png" loading="lazy" />
 								<label>15次插值</label>
 							</fallback-image>
@@ -1137,7 +1127,7 @@ function Bezier(3,t,w[]):
 				</section>
 				<section id="weightcontrol">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#control">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#extended">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#control">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#extended">下一节</a></div>
 						<a href="zh-CN/index.html#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a>
 					</h1>
 					<p>
@@ -1203,11 +1193,11 @@ Rational  Bézier(n,t) = ──────────────────�
 						width="275"
 						height="275"
 						src="./chapters/weightcontrol/rational.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/weightcontrol/3d71e2b9373684eebcb0dc8563f70b18.png" loading="lazy" />
 							<label>Our rational cubic Bézier curve</label>
 						</fallback-image>
@@ -1342,7 +1332,9 @@ function RationalBezier(3,t,w[],r[]):
 				</section>
 				<section id="extended">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#weightcontrol">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#matrix">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#weightcontrol">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#matrix">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#extended">贝塞尔区间[0,1]</a>
 					</h1>
 					<p>
@@ -1383,11 +1375,11 @@ m = a  ·  value  + (1 - a)  ·  value
 							height="275"
 							src="./chapters/extended/extended.js"
 							data-type="quadratic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/extended/37948bde4bf0d25bde85f172bf55b9fb.png" loading="lazy" />
 								<label>二次无限区间贝塞尔曲线</label>
 							</fallback-image></graphics-element
@@ -1398,11 +1390,11 @@ m = a  ·  value  + (1 - a)  ·  value
 							height="275"
 							src="./chapters/extended/extended.js"
 							data-type="cubic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/extended/2d17acb381ebdd28f0ff43be00d723c4.png" loading="lazy" />
 								<label>三次无限区间贝塞尔曲线</label>
 							</fallback-image></graphics-element
@@ -1422,7 +1414,9 @@ m = a  ·  value  + (1 - a)  ·  value
 				</section>
 				<section id="matrix">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#extended">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#decasteljau">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#extended">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#decasteljau">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#matrix">用矩阵运算来表示贝塞尔曲率</a>
 					</h1>
 					<p>
@@ -1546,7 +1540,7 @@ B(t) = ┌      2 ┐  · │ -2  2 0 │  · │ P  │
 				</section>
 				<section id="decasteljau">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#matrix">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#flattening">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#matrix">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#flattening">下一节</a></div>
 						<a href="zh-CN/index.html#decasteljau">de Casteljau's 算法</a>
 					</h1>
 					<p>
@@ -1573,11 +1567,11 @@ B(t) = ┌      2 ┐  · │ -2  2 0 │  · │ P  │
 						width="275"
 						height="275"
 						src="./chapters/decasteljau/decasteljau.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/decasteljau/df92f529841f39decf9ad62b0967855a.png" loading="lazy" />
 							<label>用de Casteljau算法来遍历曲线</label>
 						</fallback-image>
@@ -1683,7 +1677,9 @@ function drawCurvePoint(points[], t):
 				</section>
 				<section id="flattening">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#decasteljau">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#splitting">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#decasteljau">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#splitting">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#flattening">简化绘图</a>
 					</h1>
 					<p>
@@ -1699,11 +1695,11 @@ function drawCurvePoint(points[], t):
 							height="275"
 							src="./chapters/flattening/flatten.js"
 							data-type="quadratic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/flattening/6813bfc608aea11df1dda444b9f18123.png" loading="lazy" />
 								<label>拉平一条二次曲线</label>
 							</fallback-image>
@@ -1715,11 +1711,11 @@ function drawCurvePoint(points[], t):
 							height="275"
 							src="./chapters/flattening/flatten.js"
 							data-type="cubic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/flattening/0e0e4a2ee46bd89bcfde9f75cfe43292.png" loading="lazy" />
 								<label>拉平一条三次曲线</label>
 							</fallback-image>
@@ -1811,7 +1807,9 @@ function drawFlattenedCurve(curve, segmentCount):
 				</section>
 				<section id="splitting">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#flattening">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#matrixsplit">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#flattening">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#matrixsplit">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#splitting">分割曲线</a>
 					</h1>
 					<p>
@@ -1819,16 +1817,9 @@ function drawFlattenedCurve(curve, segmentCount):
 						Casteljau 算法时，该过程会给到我们在 <code>t</code> 点分割曲线的所有点:
 						一条曲线包含该曲线上点之前的所有点，另一条曲线包含该曲线上点之后的所有点。
 					</p>
-					<graphics-element
-						title="分割一条曲线"
-						width="825"
-						height="275"
-						src="./chapters/splitting/splitting.js"
-						reset="重启"
-						viewSource="view source"
-					>
+					<graphics-element title="分割一条曲线" width="825" height="275" src="./chapters/splitting/splitting.js" reset="重置" viewSource="查看源码">
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="825px" height="275px" src="./images/chapters/splitting/fce5eb16dfcd103797c5e17bd77f1437.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -1917,7 +1908,9 @@ function drawCurvePoint(points[], t):
 				</section>
 				<section id="matrixsplit">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#splitting">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#reordering">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#splitting">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#reordering">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#matrixsplit">Splitting curves using matrices</a>
 					</h1>
 					<p>
@@ -2406,7 +2399,9 @@ B(t) = ┌      2 ┐  · M  · Q  · │ P  │ = ┌      2 ┐  · M  · │ 
 				</section>
 				<section id="reordering">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#matrixsplit">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#derivatives">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#matrixsplit">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#derivatives">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#reordering">Lowering and elevating curve order</a>
 					</h1>
 					<p>
@@ -2670,11 +2665,11 @@ M = │        k   k                    │
 						width="275"
 						height="275"
 						src="./chapters/reordering/reorder.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/reordering/c4874e1205aabe624e5504abe154eae9.png" loading="lazy" />
 							<label>A variable-order Bézier curve</label>
 						</fallback-image>
@@ -2684,7 +2679,9 @@ M = │        k   k                    │
 				</section>
 				<section id="derivatives">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#reordering">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#pointvectors">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#reordering">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#pointvectors">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#derivatives">Derivatives</a>
 					</h1>
 					<p>
@@ -2989,7 +2986,7 @@ B'''(n,t), n = 1, w''' = {A'''}   = {1  · (B''-A'')}
 				<section id="pointvectors">
 					<h1>
 						<div class="nav">
-							<a href="zh-CN/index.html#derivatives">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#pointvectors3d">下</a>
+							<a href="zh-CN/index.html#derivatives">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#pointvectors3d">下一节</a>
 						</div>
 						<a href="zh-CN/index.html#pointvectors">Tangents and normals</a>
 					</h1>
@@ -3123,11 +3120,11 @@ y' = x  · sin (\phi) + y  · cos (\phi)
 							height="275"
 							src="./chapters/pointvectors/pointvectors.js"
 							data-type="quadratic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/pointvectors/d0b09bb338bd42d4164ced871d1f77ba.png" loading="lazy" />
 								<label>Quadratic Bézier tangents and normals</label>
 							</fallback-image></graphics-element
@@ -3138,11 +3135,11 @@ y' = x  · sin (\phi) + y  · cos (\phi)
 							height="275"
 							src="./chapters/pointvectors/pointvectors.js"
 							data-type="cubic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/pointvectors/b8285282b8a0ce28fc2cc0392e9b607a.png" loading="lazy" />
 								<label>Cubic Bézier tangents and normals</label>
 							</fallback-image></graphics-element
@@ -3151,7 +3148,9 @@ y' = x  · sin (\phi) + y  · cos (\phi)
 				</section>
 				<section id="pointvectors3d">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#pointvectors">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#components">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#pointvectors">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#components">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#pointvectors3d">Working with 3D normals</a>
 					</h1>
 					<p>
@@ -3219,11 +3218,11 @@ y' = x  · sin (\phi) + y  · cos (\phi)
 						width="350"
 						height="300"
 						src="./chapters/pointvectors3d/frenet.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="350px" height="300px" src="./images/chapters/pointvectors3d/11c1da2357004bb51cf0c591fc492115.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -3479,11 +3478,11 @@ generateRMFrames(steps) -> frames:
 						width="350"
 						height="300"
 						src="./chapters/pointvectors3d/rotation-minimizing.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="350px" height="300px" src="./images/chapters/pointvectors3d/f4a2fa1e0204c890b2bff07228ba678d.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -3500,7 +3499,7 @@ generateRMFrames(steps) -> frames:
 				<section id="components">
 					<h1>
 						<div class="nav">
-							<a href="zh-CN/index.html#pointvectors3d">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#extremities">下</a>
+							<a href="zh-CN/index.html#pointvectors3d">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#extremities">下一节</a>
 						</div>
 						<a href="zh-CN/index.html#components">Component functions</a>
 					</h1>
@@ -3531,11 +3530,11 @@ generateRMFrames(steps) -> frames:
 						height="275"
 						src="./chapters/components/components.js"
 						data-type="quadratic"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="825px" height="275px" src="./images/chapters/components/1e6e38f6403dbe4c8b80295a94fc6748.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -3546,18 +3545,20 @@ generateRMFrames(steps) -> frames:
 						height="275"
 						src="./chapters/components/components.js"
 						data-type="cubic"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="825px" height="275px" src="./images/chapters/components/348694339257428a260144da4bbf80fc.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
 				<section id="extremities">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#components">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#boundingbox">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#components">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#boundingbox">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#extremities">Finding extremities: root finding</a>
 					</h1>
 					<p>
@@ -4169,11 +4170,11 @@ x    = x  - ───────
 						height="275"
 						src="./chapters/extremities/extremities.js"
 						data-type="quadratic"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="825px" height="275px" src="./images/chapters/extremities/fd68347a917c9b703ff8005287ac6ca4.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -4184,18 +4185,20 @@ x    = x  - ───────
 						height="275"
 						src="./chapters/extremities/extremities.js"
 						data-type="cubic"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="825px" height="275px" src="./images/chapters/extremities/fbfe9464c9653f5efcd04411e683faf9.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
 				<section id="boundingbox">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#extremities">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#aligning">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#extremities">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#aligning">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#boundingbox">Bounding boxes</a>
 					</h1>
 					<p>
@@ -4223,11 +4226,11 @@ x    = x  - ───────
 							height="275"
 							src="./chapters/boundingbox/bbox.js"
 							data-type="quadratic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/boundingbox/12ec4a5039de2e2cc06611db5e826282.png" loading="lazy" />
 								<label>Quadratic Bézier bounding box</label>
 							</fallback-image></graphics-element
@@ -4238,11 +4241,11 @@ x    = x  - ───────
 							height="275"
 							src="./chapters/boundingbox/bbox.js"
 							data-type="cubic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/boundingbox/daad01218ba430e2355d151811aa971b.png" loading="lazy" />
 								<label>Cubic Bézier bounding box</label>
 							</fallback-image></graphics-element
@@ -4256,7 +4259,9 @@ x    = x  - ───────
 				</section>
 				<section id="aligning">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#boundingbox">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#tightbounds">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#boundingbox">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#tightbounds">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#aligning">Aligning curves</a>
 					</h1>
 					<p>
@@ -4322,11 +4327,11 @@ x    = x  - ───────
 						height="275"
 						src="./chapters/aligning/aligning.js"
 						data-type="quadratic"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="550px" height="275px" src="./images/chapters/aligning/28cc0f129fa0c028a1addd702e99f162.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -4337,18 +4342,20 @@ x    = x  - ───────
 						height="275"
 						src="./chapters/aligning/aligning.js"
 						data-type="cubic"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="550px" height="275px" src="./images/chapters/aligning/9a6755a1e31a990e8f072a6da98f811a.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
 				<section id="tightbounds">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#aligning">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#inflections">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#aligning">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#inflections">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#tightbounds">Tight bounding boxes</a>
 					</h1>
 					<p>
@@ -4364,11 +4371,11 @@ x    = x  - ───────
 							height="275"
 							src="./chapters/tightbounds/tightbounds.js"
 							data-type="quadratic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/tightbounds/ed91133976018ec032d9115344debb36.png" loading="lazy" />
 								<label>Aligning a quadratic curve</label>
 							</fallback-image></graphics-element
@@ -4379,11 +4386,11 @@ x    = x  - ───────
 							height="275"
 							src="./chapters/tightbounds/tightbounds.js"
 							data-type="cubic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/tightbounds/9ee5abc64b3fba71e284c70539279d74.png" loading="lazy" />
 								<label>Aligning a cubic curve</label>
 							</fallback-image></graphics-element
@@ -4398,7 +4405,9 @@ x    = x  - ───────
 				</section>
 				<section id="inflections">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#tightbounds">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#canonical">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#tightbounds">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#canonical">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#inflections">Curve inflections</a>
 					</h1>
 					<p>
@@ -4591,11 +4600,11 @@ z =       c - a       ╯                             2x
 						width="275"
 						height="275"
 						src="./chapters/inflections/inflection.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/inflections/726ece45630c43be14589c51f1606bd7.png" loading="lazy" />
 							<label>Finding cubic Bézier curve inflections</label>
 						</fallback-image></graphics-element
@@ -4603,7 +4612,7 @@ z =       c - a       ╯                             2x
 				</section>
 				<section id="canonical">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#inflections">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#yforx">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#inflections">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#yforx">下一节</a></div>
 						<a href="zh-CN/index.html#canonical">The canonical form (for cubic curves)</a>
 					</h1>
 					<p>
@@ -4632,11 +4641,11 @@ z =       c - a       ╯                             2x
 						width="400"
 						height="400"
 						src="./chapters/canonical/canonical.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="400px" height="400px" src="./images/chapters/canonical/c086e72bd8aaeab37436515ab251b2df.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -4951,18 +4960,20 @@ mapped  = (x) = │                                1  2                       �
 						width="800"
 						height="400"
 						src="./chapters/canonical/interactive.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="800px" height="400px" src="./images/chapters/canonical/83fe2473e20ea68b768765129ee44ae4.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
 				<section id="yforx">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#canonical">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#arclength">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#canonical">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#arclength">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#yforx">Finding Y, given X</a>
 					</h1>
 					<p>
@@ -4984,11 +4995,11 @@ mapped  = (x) = │                                1  2                       �
 						width="550"
 						height="275"
 						src="./chapters/yforx/basics.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="550px" height="275px" src="./images/chapters/yforx/e469af5bf27a2c27d1dd6fc62a78ac27.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -5090,11 +5101,11 @@ y = curve.get(t).y</textarea
 						width="275"
 						height="275"
 						src="./chapters/yforx/yforx.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/yforx/2fc5c57e5d1ed0eaa1655edc31026252.png" loading="lazy" />
 							<label>Finding By(t), by finding t for a given x</label>
 						</fallback-image>
@@ -5103,7 +5114,9 @@ y = curve.get(t).y</textarea
 				</section>
 				<section id="arclength">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#yforx">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#arclengthapprox">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#yforx">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#arclengthapprox">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#arclength">Arc length</a>
 					</h1>
 					<p>
@@ -5178,11 +5191,11 @@ length =  |  ⟍│(dx/dt) +(dy/dt)   dt
 							height="275"
 							src="./chapters/arclength/draw-slices.js"
 							data-steps="10"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/arclength/56533f47e73ad9fea08fa9bb3f597d49.png" loading="lazy" />
 								<label>A function's approximated integral</label>
 							</fallback-image></graphics-element
@@ -5193,11 +5206,11 @@ length =  |  ⟍│(dx/dt) +(dy/dt)   dt
 							height="275"
 							src="./chapters/arclength/draw-slices.js"
 							data-steps="24"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/arclength/5ce02cbdbc47585c588f2656d5161a32.png" loading="lazy" />
 								<label>A better approximation</label>
 							</fallback-image></graphics-element
@@ -5208,11 +5221,11 @@ length =  |  ⟍│(dx/dt) +(dy/dt)   dt
 							height="275"
 							src="./chapters/arclength/draw-slices.js"
 							data-steps="99"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/arclength/fe2663b205d14c157a5a02bfbbd55987.png" loading="lazy" />
 								<label>An even better approximation</label>
 							</fallback-image></graphics-element
@@ -5325,11 +5338,11 @@ t  = + ────
 						width="275"
 						height="275"
 						src="./chapters/arclength/arclength.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/arclength/fa4c587126e8097206b88d9ea51974ca.png" loading="lazy" />
 							<label>Arc length for a Bézier curve</label>
 						</fallback-image></graphics-element
@@ -5337,7 +5350,9 @@ t  = + ────
 				</section>
 				<section id="arclengthapprox">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#arclength">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#curvature">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#arclength">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#curvature">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#arclengthapprox">Approximated arc length</a>
 					</h1>
 					<p>
@@ -5356,11 +5371,11 @@ t  = + ────
 							height="275"
 							src="./chapters/arclengthapprox/approximate.js"
 							data-type="quadratic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/arclengthapprox/3fc083ea7bdcc6b021560f2f2491f8aa.png" loading="lazy" />
 								<label>Approximate quadratic curve arc length</label>
 							</fallback-image>
@@ -5372,11 +5387,11 @@ t  = + ────
 							height="275"
 							src="./chapters/arclengthapprox/approximate.js"
 							data-type="cubic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/arclengthapprox/537260c4aa9e98ffdea7c8120afbd427.png" loading="lazy" />
 								<label>Approximate cubic curve arc length</label>
 							</fallback-image>
@@ -5392,7 +5407,9 @@ t  = + ────
 				</section>
 				<section id="curvature">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#arclengthapprox">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#tracing">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#arclengthapprox">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#tracing">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#curvature">Curvature of a curve</a>
 					</h1>
 					<p>
@@ -5538,11 +5555,11 @@ function kappa(t, B):
 						width="825"
 						height="275"
 						src="./chapters/curvature/curvature.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="825px" height="275px" src="./images/chapters/curvature/4f2647446363ca5d93b11e414fd976df.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -5569,11 +5586,11 @@ R(t) = ─────────
 						height="275"
 						src="./chapters/curvature/curvature.js"
 						data-omni="true"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="825px" height="275px" src="./images/chapters/curvature/392624cedf7c78aed6d4c6065a014b42.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -5582,7 +5599,9 @@ R(t) = ─────────
 				</section>
 				<section id="tracing">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#curvature">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#intersections">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#curvature">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#intersections">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#tracing">Tracing a curve at fixed distance intervals</a>
 					</h1>
 					<p>
@@ -5608,11 +5627,11 @@ R(t) = ─────────
 						width="550"
 						height="275"
 						src="./chapters/tracing/distance-function.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="550px" height="275px" src="./images/chapters/tracing/d6239520389637a3c42e76ee44d86c41.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -5633,11 +5652,11 @@ R(t) = ─────────
 						width="825"
 						height="275"
 						src="./chapters/tracing/tracing.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="825px" height="275px" src="./images/chapters/tracing/1cd7304fb8d044835bfbc305ca5e5d10.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -5654,7 +5673,9 @@ R(t) = ─────────
 				</section>
 				<section id="intersections">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#tracing">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#curveintersection">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#tracing">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#curveintersection">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#intersections">Intersections</a>
 					</h1>
 					<p>
@@ -5689,11 +5710,11 @@ R(t) = ─────────
 						width="275"
 						height="275"
 						src="./chapters/intersections/line-line.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/intersections/b3f61036d8dc9888a6a64a1171583dd1.png" loading="lazy" />
 							<label>Line/line intersections</label>
 						</fallback-image></graphics-element
@@ -5797,11 +5818,11 @@ lli = function(line1, line2):
 							height="275"
 							src="./chapters/intersections/curve-line.js"
 							data-type="quadratic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/intersections/9b70fb7b03f082882515e55c0a1eacff.png" loading="lazy" />
 								<label>Quadratic curve/line intersections</label>
 							</fallback-image></graphics-element
@@ -5812,11 +5833,11 @@ lli = function(line1, line2):
 							height="275"
 							src="./chapters/intersections/curve-line.js"
 							data-type="cubic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/intersections/7196d3dec75d53f5df9d9c832ac3c493.png" loading="lazy" />
 								<label>Cubic curve/line intersections</label>
 							</fallback-image></graphics-element
@@ -5831,7 +5852,7 @@ lli = function(line1, line2):
 				</section>
 				<section id="curveintersection">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#intersections">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#abc">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#intersections">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#abc">下一节</a></div>
 						<a href="zh-CN/index.html#curveintersection">Curve/curve intersection</a>
 					</h1>
 					<p>
@@ -5887,11 +5908,11 @@ lli = function(line1, line2):
 						width="825"
 						height="275"
 						src="./chapters/curveintersection/curve-curve.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="825px" height="275px" src="./images/chapters/curveintersection/b155682162a5b6da6d40c7b531164a7e.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -5908,7 +5929,7 @@ lli = function(line1, line2):
 				<section id="abc">
 					<h1>
 						<div class="nav">
-							<a href="zh-CN/index.html#curveintersection">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#pointcurves">下</a>
+							<a href="zh-CN/index.html#curveintersection">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#pointcurves">下一节</a>
 						</div>
 						<a href="zh-CN/index.html#abc">The projection identity</a>
 					</h1>
@@ -5939,11 +5960,11 @@ lli = function(line1, line2):
 							height="275"
 							src="./chapters/abc/abc.js"
 							data-type="quadratic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/abc/7a69dd4350ddda5701712e1d3b46b863.png" loading="lazy" />
 								<label>Projections in a quadratic Bézier curve</label>
 							</fallback-image>
@@ -5956,11 +5977,11 @@ lli = function(line1, line2):
 							height="275"
 							src="./chapters/abc/abc.js"
 							data-type="cubic"
-							reset="重启"
-							viewSource="view source"
+							reset="重置"
+							viewSource="查看源码"
 						>
 							<fallback-image>
-								<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+								<span class="view-source">脚本被禁用。显示备用图片。</span>
 								<img width="275px" height="275px" src="./images/chapters/abc/eeec7cf16fb22c666e0143a3a030731f.png" loading="lazy" />
 								<label>Projections in a cubic Bézier curve</label>
 							</fallback-image>
@@ -6120,7 +6141,7 @@ A = B - ───────── = B + ─────────
 				</section>
 				<section id="pointcurves">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#abc">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#projections">下</a></div>
+						<div class="nav"><a href="zh-CN/index.html#abc">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#projections">下一节</a></div>
 						<a href="zh-CN/index.html#pointcurves">Creating a curve from three points</a>
 					</h1>
 					<p>
@@ -6160,11 +6181,11 @@ A = B - ───────── = B + ─────────
 						width="275"
 						height="275"
 						src="./chapters/pointcurves/quadratic.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/067a3df30e32708fc0d13f8eb78c0b05.png" loading="lazy" />
 							<label>Fitting a quadratic Bézier curve</label>
 						</fallback-image></graphics-element
@@ -6186,11 +6207,11 @@ A = B - ───────── = B + ─────────
 						width="275"
 						height="275"
 						src="./chapters/pointcurves/circle.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/43875f6ad588bfd04cdb65b591a62052.png" loading="lazy" />
 							<label>Finding a circle through three points</label>
 						</fallback-image></graphics-element
@@ -6260,11 +6281,11 @@ d = {  d  if  0 ≤\phi ≤\pi
 						height="275"
 						src="./chapters/pointcurves/circle.js"
 						data-show-curve="true"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/75f7b5b31e98444e13f17e5c3e5b7322.png" loading="lazy" />
 							<label>Finding the cubic e₁ and e₂ given three points </label>
 						</fallback-image></graphics-element
@@ -6281,11 +6302,11 @@ d = {  d  if  0 ≤\phi ≤\pi
 						width="275"
 						height="275"
 						src="./chapters/pointcurves/cubic.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/pointcurves/eab6ea46fa93030e03ec0ef7deb571dc.png" loading="lazy" />
 							<label>Fitting a cubic Bézier curve</label>
 						</fallback-image></graphics-element
@@ -6301,7 +6322,7 @@ d = {  d  if  0 ≤\phi ≤\pi
 				<section id="projections">
 					<h1>
 						<div class="nav">
-							<a href="zh-CN/index.html#pointcurves">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#circleintersection">下</a>
+							<a href="zh-CN/index.html#pointcurves">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#circleintersection">下一节</a>
 						</div>
 						<a href="zh-CN/index.html#projections">Projecting a point onto a Bézier curve</a>
 					</h1>
@@ -6394,18 +6415,20 @@ for (coordinate, index) in LUT:
 						width="400"
 						height="400"
 						src="./chapters/projections/project.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="400px" height="400px" src="./images/chapters/projections/536a94885dc1637c066d0ef4f6e4e650.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
 				</section>
 				<section id="circleintersection">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#projections">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#molding">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#projections">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#molding">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#circleintersection">Intersections with a circle</a>
 					</h1>
 					<p>
@@ -6684,11 +6707,11 @@ findClosest(start, p, r, LUT):
 						width="275"
 						height="275"
 						src="./chapters/circleintersection/circle.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/circleintersection/3a3ea30971de247da93034de614a63a4.png" loading="lazy" />
 							<label>circle intersection</label>
 						</fallback-image>
@@ -6699,7 +6722,7 @@ findClosest(start, p, r, LUT):
 				<section id="molding">
 					<h1>
 						<div class="nav">
-							<a href="zh-CN/index.html#circleintersection">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#curvefitting">下</a>
+							<a href="zh-CN/index.html#circleintersection">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#curvefitting">下一节</a>
 						</div>
 						<a href="zh-CN/index.html#molding">Molding a curve</a>
 					</h1>
@@ -6734,11 +6757,11 @@ A = B - ────────── = B + ──────────
 						height="275"
 						src="./chapters/molding/molding.js"
 						data-type="quadratic"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="825px" height="275px" src="./images/chapters/molding/2bd215d1db191b52a89a94727b6aa5ce.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -6760,11 +6783,11 @@ A = B - ────────── = B + ──────────
 						height="275"
 						src="./chapters/molding/molding.js"
 						data-type="cubic"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="825px" height="275px" src="./images/chapters/molding/a54f990aa49fb9ea8200b59259f955f3.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -6785,11 +6808,11 @@ A = B - ────────── = B + ──────────
 						src="./chapters/molding/molding.js"
 						data-type="cubic"
 						data-interpolated="true"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="825px" height="275px" src="./images/chapters/molding/1039d0bb0e49cfb472c2fa37f9010190.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -6810,7 +6833,9 @@ A = B - ────────── = B + ──────────
 				</section>
 				<section id="curvefitting">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#molding">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#catmullconv">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#molding">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#catmullconv">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#curvefitting">Curve fitting</a>
 					</h1>
 					<p>
@@ -7272,11 +7297,11 @@ C = M   (𝕋  𝕋)   𝕋  P
 						width="550"
 						height="275"
 						src="./chapters/curvefitting/curve-fitting.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="550px" height="275px" src="./images/chapters/curvefitting/798f3d7151dfb2887c7881a08e65cdd3.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -7293,7 +7318,7 @@ C = M   (𝕋  𝕋)   𝕋  P
 				<section id="catmullconv">
 					<h1>
 						<div class="nav">
-							<a href="zh-CN/index.html#curvefitting">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#catmullfitting">下</a>
+							<a href="zh-CN/index.html#curvefitting">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#catmullfitting">下一节</a>
 						</div>
 						<a href="zh-CN/index.html#catmullconv">Bézier curves and Catmull-Rom curves</a>
 					</h1>
@@ -7312,11 +7337,11 @@ C = M   (𝕋  𝕋)   𝕋  P
 						width="275"
 						height="275"
 						src="./chapters/catmullconv/catmull-rom.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/catmullconv/aa46749b9469341d9249ca452390d875.png" loading="lazy" />
 							<label>A Catmull-Rom curve</label>
 						</fallback-image>
@@ -8041,7 +8066,9 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 				</section>
 				<section id="catmullfitting">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#catmullconv">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#polybezier">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#catmullconv">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#polybezier">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#catmullfitting">Creating a Catmull-Rom curve from three points</a>
 					</h1>
 					<p>
@@ -8056,7 +8083,9 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 				</section>
 				<section id="polybezier">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#catmullfitting">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#offsetting">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#catmullfitting">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#offsetting">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#polybezier">Forming poly-Bézier curves</a>
 					</h1>
 					<p>
@@ -8080,11 +8109,11 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 						src="./chapters/polybezier/poly.js"
 						data-type="quadratic"
 						data-link="coordinate"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/41522a397171423e8a465dc8c74f6e87.png" loading="lazy" />
 							<label>Unlinked quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8096,11 +8125,11 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 						src="./chapters/polybezier/poly.js"
 						data-type="cubic"
 						data-link="coordinate"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/6fb33629373d7a731b6ac3f5365cb9f0.png" loading="lazy" />
 							<label>Unlinked cubic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8141,11 +8170,11 @@ Mirrored = │  x     x    x  │ = │   x    x │
 						src="./chapters/polybezier/poly.js"
 						data-type="quadratic"
 						data-link="derivative"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/db04f805f42bdc9a1b7ec4d6b401d853.png" loading="lazy" />
 							<label>Connected quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8157,11 +8186,11 @@ Mirrored = │  x     x    x  │ = │   x    x │
 						src="./chapters/polybezier/poly.js"
 						data-type="cubic"
 						data-link="derivative"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/fe41b628f46f7035d151a8210d30111f.png" loading="lazy" />
 							<label>Connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8187,11 +8216,11 @@ Mirrored = │  x     x    x  │ = │   x    x │
 						src="./chapters/polybezier/poly.js"
 						data-type="quadratic"
 						data-link="direction"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/777f3814965c39ec3cdbb13eab0c4eeb.png" loading="lazy" />
 							<label>Angularly connected quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8203,11 +8232,11 @@ Mirrored = │  x     x    x  │ = │   x    x │
 						src="./chapters/polybezier/poly.js"
 						data-type="cubic"
 						data-link="direction"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/f6c55cbc66333b6630939f67fc20e086.png" loading="lazy" />
 							<label>Angularly connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8228,11 +8257,11 @@ Mirrored = │  x     x    x  │ = │   x    x │
 						src="./chapters/polybezier/poly.js"
 						data-type="quadratic"
 						data-link="conventional"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/b3aebf7803f4430187c249a891095062.png" loading="lazy" />
 							<label>Standard connected quadratic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8244,11 +8273,11 @@ Mirrored = │  x     x    x  │ = │   x    x │
 						src="./chapters/polybezier/poly.js"
 						data-type="cubic"
 						data-link="conventional"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/polybezier/1b94c6ada011bd8e50330e31a851a62e.png" loading="lazy" />
 							<label>Standard connected cubic poly-Bézier</label>
 						</fallback-image></graphics-element
@@ -8268,7 +8297,7 @@ Mirrored = │  x     x    x  │ = │   x    x │
 				<section id="offsetting">
 					<h1>
 						<div class="nav">
-							<a href="zh-CN/index.html#polybezier">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#graduatedoffset">下</a>
+							<a href="zh-CN/index.html#polybezier">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#graduatedoffset">下一节</a>
 						</div>
 						<a href="zh-CN/index.html#offsetting">Curve offsetting</a>
 					</h1>
@@ -8433,11 +8462,11 @@ N(t) \bot │ ────────── │
 						height="275"
 						src="./chapters/offsetting/offsetting.js"
 						data-type="quadratic"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/offsetting/03b8e0849e7c8ba64d8c076f47fe2ec7.png" loading="lazy" />
 							<label>Offsetting a quadratic Bézier curve</label>
 						</fallback-image>
@@ -8449,11 +8478,11 @@ N(t) \bot │ ────────── │
 						height="275"
 						src="./chapters/offsetting/offsetting.js"
 						data-type="cubic"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/offsetting/4c4738b6bf9f83eded12d680a29e337b.png" loading="lazy" />
 							<label>Offsetting a cubic Bézier curve</label>
 						</fallback-image>
@@ -8467,7 +8496,9 @@ N(t) \bot │ ────────── │
 				</section>
 				<section id="graduatedoffset">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#offsetting">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#circles">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#offsetting">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#circles">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#graduatedoffset">Graduated curve offsetting</a>
 					</h1>
 					<p>
@@ -8502,11 +8533,11 @@ N(t) \bot │ ────────── │
 						height="275"
 						src="./chapters/graduatedoffset/offsetting.js"
 						data-type="quadratic"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/graduatedoffset/8cc724d5343c65685d88c92b2d069a2a.png" loading="lazy" />
 							<label>Offsetting a quadratic Bézier curve</label>
 						</fallback-image>
@@ -8518,11 +8549,11 @@ N(t) \bot │ ────────── │
 						height="275"
 						src="./chapters/graduatedoffset/offsetting.js"
 						data-type="cubic"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/graduatedoffset/17bf62e05a1fc3387b0c210f2decff45.png" loading="lazy" />
 							<label>Offsetting a cubic Bézier curve</label>
 						</fallback-image>
@@ -8532,7 +8563,7 @@ N(t) \bot │ ────────── │
 				<section id="circles">
 					<h1>
 						<div class="nav">
-							<a href="zh-CN/index.html#graduatedoffset">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#circles_cubic">下</a>
+							<a href="zh-CN/index.html#graduatedoffset">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#circles_cubic">下一节</a>
 						</div>
 						<a href="zh-CN/index.html#circles">Circles and quadratic Bézier curves</a>
 					</h1>
@@ -8565,11 +8596,11 @@ N(t) \bot │ ────────── │
 						width="400"
 						height="400"
 						src="./chapters/circles/arc-approximation.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="400px" height="400px" src="./images/chapters/circles/08ca09aacb271735e063e7e8d941a195.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -8760,7 +8791,9 @@ d (φ)= T  - P  = ─│ 2tan│ ─ │ + sin(φ) │ - sin(─)  ,
 				</section>
 				<section id="circles_cubic">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#circles">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#arcapproximation">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#circles">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#arcapproximation">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#circles_cubic">Circular arcs and cubic Béziers</a>
 					</h1>
 					<p>Let's look at approximating circles and circular arcs using cubic Béziers. How much better is that?</p>
@@ -8769,11 +8802,11 @@ d (φ)= T  - P  = ─│ 2tan│ ─ │ + sin(φ) │ - sin(─)  ,
 						width="400"
 						height="400"
 						src="./chapters/circles_cubic/arc-approximation.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="400px" height="400px" src="./images/chapters/circles_cubic/891d50a946936c9701adc855de12623d.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -9523,7 +9556,9 @@ radialError(radius, points[]):
 				</section>
 				<section id="arcapproximation">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#circles_cubic">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#bsplines">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#circles_cubic">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#bsplines">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#arcapproximation">Approximating Bézier curves with circular arcs</a>
 					</h1>
 					<p>
@@ -9598,11 +9633,11 @@ radialError(radius, points[]):
 						width="275"
 						height="275"
 						src="./chapters/arcapproximation/arc.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/arcapproximation/7c9cce8142fa3e85bb124520f40645ff.png" loading="lazy" />
 							<label>First arc approximation of a Bézier curve</label>
 						</fallback-image>
@@ -9619,11 +9654,11 @@ radialError(radius, points[]):
 						width="275"
 						height="275"
 						src="./chapters/arcapproximation/arcs.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="275px" height="275px" src="./images/chapters/arcapproximation/da76341b841df1af8a39f797e85dfe3c.png" loading="lazy" />
 							<label>Arc approximation of a Bézier curve</label>
 						</fallback-image>
@@ -9643,7 +9678,9 @@ radialError(radius, points[]):
 				</section>
 				<section id="bsplines">
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#arcapproximation">前</a><a href="#toc">目录</a><a href="zh-CN/index.html#comments">下</a></div>
+						<div class="nav">
+							<a href="zh-CN/index.html#arcapproximation">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#comments">下一节</a>
+						</div>
 						<a href="zh-CN/index.html#bsplines">B-Splines</a>
 					</h1>
 					<p>
@@ -9665,16 +9702,9 @@ radialError(radius, points[]):
 						What do they look like? They look like this! Tap on the graphic to add more points, and move points around to see how they map to the
 						spline curve drawn.
 					</p>
-					<graphics-element
-						title="A B-Spline example"
-						width="600"
-						height="300"
-						src="./chapters/bsplines/basic.js"
-						reset="重启"
-						viewSource="view source"
-					>
+					<graphics-element title="A B-Spline example" width="600" height="300" src="./chapters/bsplines/basic.js" reset="重置" viewSource="查看源码">
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="600px" height="300px" src="./images/chapters/bsplines/fe3a8ca5706f286d916e36699e237e51.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
@@ -9699,11 +9729,11 @@ radialError(radius, points[]):
 						height="300"
 						src="./chapters/bsplines/basic.js"
 						data-show-curves="true"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="600px" height="300px" src="./images/chapters/bsplines/41167c64c51386414c6e62f0b45e6295.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -10000,11 +10030,11 @@ for(let L = 1; L <= order; L++) {
 						width="400"
 						height="400"
 						src="./chapters/bsplines/uniform.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/48a30189e74658737b3a8b28bb816f8a.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -10031,11 +10061,11 @@ for(let L = 1; L <= order; L++) {
 						width="400"
 						height="400"
 						src="./chapters/bsplines/reduced.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/ceaef2fbee05a58aa11835925403b4cd.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -10059,11 +10089,11 @@ for(let L = 1; L <= order; L++) {
 						height="400"
 						src="./chapters/bsplines/uniform.js"
 						data-open="true"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/0215dc106e4ad51afe043c0176a595f6.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -10088,11 +10118,11 @@ for(let L = 1; L <= order; L++) {
 						width="400"
 						height="400"
 						src="./chapters/bsplines/rational-uniform.js"
-						reset="重启"
-						viewSource="view source"
+						reset="重置"
+						viewSource="查看源码"
 					>
 						<fallback-image>
-							<span class="view-source">Scripts are disabled. Showing fallback image.</span>
+							<span class="view-source">脚本被禁用。显示备用图片。</span>
 							<img width="400px" height="400px" src="./images/chapters/bsplines/0d9c2186423466a32bb8fbd187409f82.png" loading="lazy" />
 							<label></label>
 						</fallback-image>
@@ -10147,7 +10177,7 @@ for(let L = 1; L <= order; L++) {
 					</script>
 
 					<h1>
-						<div class="nav"><a href="zh-CN/index.html#bsplines">前</a><a href="#toc">目录</a></div>
+						<div class="nav"><a href="zh-CN/index.html#bsplines">上一节</a><a href="#toc">目录</a></div>
 						<a href="zh-CN/index.html#comments">Comments and questions</a>
 					</h1>
 					<p>

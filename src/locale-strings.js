@@ -107,7 +107,7 @@ const localeStringData = {
         with your finance department on sponsorship invoicing and recognition.
       </p>
     `,
-    "zh-CN":`<p>
+    "zh-CN": `<p>
         如果将此资源用于你的研究，作为工作参考，甚至是你编写的软件，可以考虑 <a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">捐款</a>
         （任何数额都可）或注册成为 <a href="https://www.patreon.com/bezierinfo">Patreon 上的资助人</a>。
         我在这方面的工作是没有报酬的，所以如果你觉得这个网站有价值，并且希望它能长期存在下去，那么在过去的几年
@@ -172,7 +172,7 @@ const localeStringData = {
         or use the QR code on the right, if that's the kind of convenience you prefer =)
       </p>
     `,
-    "zh-CN":`<p>
+    "zh-CN": `<p>
         如果你想通过比特币捐赠，你可以直接捐赠给
         <a class="btclk" href="bitcoin:3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu?label=Primer%20on%20Bezier%20Curves">3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu</a>
         或者使用右边的二维码，如果你倾向于这种便利的方式 =)
