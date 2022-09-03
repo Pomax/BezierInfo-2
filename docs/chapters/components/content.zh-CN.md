@@ -10,6 +10,4 @@
 
 <graphics-element title="二次贝塞尔曲线的分量" width="825" src="./components.js" data-type="quadratic"></graphics-element>
 
-&nbsp;
-
 <graphics-element title="三次贝塞尔曲线的分量" width="825" src="./components.js" data-type="cubic"></graphics-element>
