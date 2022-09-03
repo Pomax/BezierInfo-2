@@ -1,0 +1,4 @@
+ 
+               __ k                      i                             k-i     i
+Bézier'(n,t) = ❯      \underbrace\mathrmC          · \ \underbrace(1-t)     · t        · \ \underbracen  · (w    - w )        ，其中\ k=n-1
+               ‾‾ i=0                    k 二项式系数项                                多项式项                        i+1    i  导数的权重

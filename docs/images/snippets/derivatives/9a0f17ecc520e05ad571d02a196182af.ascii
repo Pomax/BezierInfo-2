@@ -1,0 +1,4 @@
+ 
+                    __ n-1
+Bézier'(n,t) = n  · ❯      (b   -b )  ·   Bézier(n-1,t) 
+                    ‾‾ i=0   i+1  i                    i

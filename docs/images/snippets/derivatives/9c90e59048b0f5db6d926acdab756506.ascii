@@ -1,0 +1,4 @@
+ 
+              __ n                      i                             n-i     i
+Bézier(n,t) = ❯      \underbrace\mathrmC          · \ \underbrace(1-t)     · t        · \ \underbracew    
+              ‾‾ i=0                    n 二项式系数项                                多项式项                  i 权重

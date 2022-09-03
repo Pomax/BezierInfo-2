@@ -1,0 +1,7 @@
+ 
+                                                                                                       ╭ (k-i)  · w  + i  · w    ╮
+              __ k                      i                             k-i     i                        │           i         i-1 │
+Bézier(k,t) = ❯      \underbrace\mathrmC          · \ \underbrace(1-t)     · t       \  · \ \underbrace│ ─────────────────────── │      ，其中\ k=n+1  
+              ‾‾ i=0                    k 二项式系数项                                多项式项                   ╰            k            ╯ 新权重
+                                                                     ， w  =0
+                                                                        -1

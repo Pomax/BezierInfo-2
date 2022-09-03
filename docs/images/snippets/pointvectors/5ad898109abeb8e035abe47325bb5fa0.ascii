@@ -1,0 +1,3 @@
+ 
+x' = x  · cos (\phi) - y  · sin (\phi)
+y' = x  · sin (\phi) + y  · cos (\phi)

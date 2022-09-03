@@ -1,0 +1,9 @@
+ 
+             ^           \pi   ^           \pi     ^
+normal (t) = x(t)  · cos ─── - y(t)  · sin ─── = - y(t)                   
+      x                   2                 2
+                                                                          
+                         ^           \pi   ^           \pi            ^
+normal (t) = \underbrace x(t)  · sin ─── + y(t)  · cos ───          = x(t)
+      y                               2                 2     o 
+                                                           90    旋转

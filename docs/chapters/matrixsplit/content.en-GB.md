@@ -288,7 +288,7 @@ Excellent! Now we can form our new quadratic curve:
   \end{bmatrix}
 \]
 
-***Brilliant***: if we want a subcurve from `t = 0` to `t = z`, we can keep the first coordinate the same (which makes sense), our control point becomes a z-ratio mixture of the original control point and the start point, and the new end point is a mixture that looks oddly similar to a [Bernstein polynomial](https://en.wikipedia.org/wiki/Bernstein_polynomial) of degree two. These new coordinates are actually really easy to compute directly!
+**Brilliant**: if we want a subcurve from `t = 0` to `t = z`, we can keep the first coordinate the same (which makes sense), our control point becomes a z-ratio mixture of the original control point and the start point, and the new end point is a mixture that looks oddly similar to a [Bernstein polynomial](https://en.wikipedia.org/wiki/Bernstein_polynomial) of degree two. These new coordinates are actually really easy to compute directly!
 
 Of course, that's only one of the two curves. Getting the section from `t = z` to `t = 1` requires doing this again. We first observe that in the previous calculation, we actually evaluated the general interval [0,`z`]. We were able to write it down in a more simple form because of the zero, but what we *actually* evaluated, making the zero explicit, was:
 
@@ -562,6 +562,6 @@ and
   \end{bmatrix}
 \]
 
-So, looking at our matrices, did we really need to compute the second segment matrix? No, we didn't. Actually having one segment's matrix means we implicitly have the other: push the values of each row in the matrix ***Q*** to the right, with zeroes getting pushed off the right edge and appearing back on the left, and then flip the matrix vertically. Presto, you just "calculated" ***Q'***.
+So, looking at our matrices, did we really need to compute the second segment matrix? No, we didn't. Actually having one segment's matrix means we implicitly have the other: push the values of each row in the matrix **Q** to the right, with zeroes getting pushed off the right edge and appearing back on the left, and then flip the matrix vertically. Presto, you just "calculated" **Q'**.
 
 Implementing curve splitting this way requires less recursion, and is just straight arithmetic with cached values, so can be cheaper on systems where recursion is expensive. If you're doing computation with devices that are good at matrix multiplication, chopping up a Bézier curve with this method will be a lot faster than applying de Casteljau.
