@@ -35,7 +35,7 @@
 		<meta property="og:locale" content="zh-CN" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2022-09-03T16:32:04+00:00" />
+		<meta property="og:updated_time" content="2022-09-03T16:36:08+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -127,7 +127,7 @@
 				<ul class="lang-switcher">
 					<li><a href="./index.html">English</a> &nbsp;</li>
 					<li><a href="./ja-JP/index.html">日本語</a> <span class="localisation-progress">(24%)</span></li>
-					<li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(22%)</span></li>
+					<li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(24%)</span></li>
 					<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(24%)</span></li>
 					<li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
 					<li><a href="./ko-KR/index.html">한국어</a> <span class="localisation-progress">(9%)</span></li>
@@ -230,7 +230,7 @@
 					<li><a href="zh-CN/index.html#derivatives">Derivatives</a></li>
 					<li><a href="zh-CN/index.html#pointvectors">Tangents and normals</a></li>
 					<li><a href="zh-CN/index.html#pointvectors3d">Working with 3D normals</a></li>
-					<li><a href="zh-CN/index.html#components">Component functions</a></li>
+					<li><a href="zh-CN/index.html#components">分量函数</a></li>
 					<li><a href="zh-CN/index.html#extremities">Finding extremities: root finding</a></li>
 					<li><a href="zh-CN/index.html#boundingbox">Bounding boxes</a></li>
 					<li><a href="zh-CN/index.html#aligning">Aligning curves</a></li>
@@ -3501,31 +3501,18 @@ generateRMFrames(steps) -> frames:
 						<div class="nav">
 							<a href="zh-CN/index.html#pointvectors3d">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#extremities">下一节</a>
 						</div>
-						<a href="zh-CN/index.html#components">Component functions</a>
+						<a href="zh-CN/index.html#components">分量函数</a>
 					</h1>
 					<p>
-						One of the first things people run into when they start using Bézier curves in their own programs is "I know how to draw the curve, but
-						how do I determine the bounding box?". It's actually reasonably straightforward to do so, but it requires having some knowledge on
-						exploiting math to get the values we need. For bounding boxes, we aren't actually interested in the curve itself, but only in its
-						"extremities": the minimum and maximum values the curve has for its x- and y-axis values. If you remember your calculus (provided you ever
-						took calculus, otherwise it's going to be hard to remember) we can determine function extremities using the first derivative of that
-						function, but this poses a problem, since our function is parametric: every axis has its own function.
+						当人们开始在自己的程序中使用贝塞尔曲线时，首先遇到的问题之一是：“我虽然知道怎么画曲线，但是怎么确定包围盒？”其实做法颇为直接，但需要知道如何利用一些数学知识得到所需的值。对于包围盒而言，所需的其实并不是曲线本身，而只是曲线的“极值”——曲线的x轴和y轴分量的最小值和最大值。如果还记得微积分的话（前提是学过微积分，否则更难记），那么函数的极值可以用函数的一阶导数所确定，但由于“曲线函数”有不只一个分量，这就产生了一个问题——每个分量都有自己的函数。
 					</p>
+					<p>解决办法：对每个分量分别计算导数，再按照原来的分量顺序重新拼在一起。</p>
 					<p>
-						The solution: compute the derivative for each axis separately, and then fit them back together in the same way we do for the original.
+						以下演示参数化的贝塞尔曲线如何“分解”为两个正常的函数，一个对应于x轴，一个对应于y轴。注意左侧的图像依然是可交互的曲线，但没有标出坐标轴（坐标显示在图中）；中间和右侧的图像是分量函数，分别对应于指定<em>t</em>值（介于0和1之间，含端点）后求出的x轴和y轴分量。
 					</p>
-					<p>
-						Let's look at how a parametric Bézier curve "splits up" into two normal functions, one for the x-axis and one for the y-axis. Note the
-						leftmost figure is again an interactive curve, without labeled axes (you get coordinates in the graph instead). The center and rightmost
-						figures are the component functions for computing the x-axis value, given a value for <i>t</i> (between 0 and 1 inclusive), and the y-axis
-						value, respectively.
-					</p>
-					<p>
-						If you move points in a curve sideways, you should only see the middle graph change; likewise, moving points vertically should only show a
-						change in the right graph.
-					</p>
+					<p>如果水平移动曲线上的点，那么应当只有中间的图像在变化；同样，如果竖直移动曲线上的点，那么应当只有右侧的图像在变化。</p>
 					<graphics-element
-						title="Quadratic Bézier curve components"
+						title="二次贝塞尔曲线的分量"
 						width="825"
 						height="275"
 						src="./chapters/components/components.js"
@@ -3538,9 +3525,8 @@ generateRMFrames(steps) -> frames:
 							<img width="825px" height="275px" src="./images/chapters/components/1e6e38f6403dbe4c8b80295a94fc6748.png" loading="lazy" />
 							<label></label> </fallback-image
 					></graphics-element>
-					<p>&nbsp;</p>
 					<graphics-element
-						title="Cubic Bézier curve components"
+						title="三次贝塞尔曲线的分量"
 						width="825"
 						height="275"
 						src="./chapters/components/components.js"
