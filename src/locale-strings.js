@@ -2,7 +2,7 @@ const localeStringData = {
   title: {
     "en-GB": `A Primer on Bézier Curves`,
     "ja-JP": `ベジェ曲線入門`,
-    "zh-CN": `贝塞尔曲线底漆`,
+    "zh-CN": `贝塞尔曲线入门`,
     "ru-RU": `Основы кривых Безье`,
     "uk-UA": `Підручник з кривих Безьє`,
     "ko-KR": `베지에 곡선 입문`,
@@ -10,6 +10,7 @@ const localeStringData = {
 
   subtitle: {
     "en-GB": `A free, online book for when you really need to know how to do Bézier things.`,
+    "zh-CN": `一本免费的在线书籍，供你在非常需要了解如何处理贝塞尔相关的事情。`,
     "ru-RU": `Бесплатная онлайн-книга для тех, кому действительно важно знать, как работают кривые Безье`,
     "uk-UA": `Безкоштовна онлайн-книга, яка навчить вас всьому необхідному, щоб працювати з кривими Безьє.`,
     "ko-KR": `베지에 곡선이 꼭 필요할 때 읽기 좋은 무료 온라인 서적.`,
@@ -17,6 +18,7 @@ const localeStringData = {
 
   description: {
     "en-GB": `A detailed explanation of Bézier curves, and how to do the many things that we commonly want to do with them.`,
+    "zh-CN": `关于贝塞尔曲线的详细解释，以及如何用它做许多我们经常要做的事情。`,
     "ru-RU": `Подробное обьяснение кривых Безье и возможностей их применения`,
     "uk-UA": `Детальне пояснення кривих Безьє та можливостей їх застосування.`,
     "ko-KR": `베지에 곡선에 대한 자세한 설명과 베지에 곡선으로 할 만한 여러 가지 것들을 어떻게 할 수 있는지를 다룹니다.`,
@@ -24,6 +26,18 @@ const localeStringData = {
 
   longDescription: {
     "en-GB": `
+      <p>
+        Welcome to the Primer on Bezier Curves. This is a free website/ebook dealing with both
+        the maths and programming aspects of Bezier Curves, covering a wide range of topics
+        relating to drawing and working with that curve that seems to pop up everywhere, from
+        Photoshop paths to CSS easing functions to Font outline descriptions.
+      </p>
+      <p>
+        If this is your first time here: welcome! Let me know if you were looking for anything
+        in particular that the primer doesn't cover over on the <a href="https://github.com/Pomax/BezierInfo-2/issues">issue tracker</a>!
+      </p>
+    `,
+    "zh-CN": `
       <p>
         Welcome to the Primer on Bezier Curves. This is a free website/ebook dealing with both
         the maths and programming aspects of Bezier Curves, covering a wide range of topics
@@ -73,6 +87,7 @@ const localeStringData = {
 
   donationsHeading: {
     "en-GB": `Donations and sponsorship`,
+    "zh-CN": `捐赠和赞助`,
     "ru-RU": `Пожертвования и спонсорство`,
     "ko-KR": `기부와 후원`,
   },
@@ -136,6 +151,7 @@ const localeStringData = {
 
   bitcoinHeading: {
     "en-GB": `Bitcoin donations:`,
+    "zh-CN": `捐赠比特币：`,
     "ru-RU": `Пожертвования в биткойнах:`,
   },
 
@@ -174,6 +190,7 @@ const localeStringData = {
 
   langSwitchLabel: {
     "en-GB": `Read this in your own language:`,
+    "zh-CN": `用你的母语阅读这里：`,
     "ru-RU": `Читайте на своём языке:`,
     "uk-UA": `Читати рідною мовою:`,
     "ko-KR": `다른 언어로 읽기:`,
@@ -204,6 +221,7 @@ const localeStringData = {
 
   viewSource: {
     "en-GB": `view source`,
+    "zh-CN": `查看源码`,
     "ko-KR": `소스 보기`,
   },
 
@@ -263,7 +281,7 @@ const localeStringData = {
   previous: {
     "en-GB": `previous`,
     "ja-JP": `前`,
-    "zh-CN": `前`,
+    "zh-CN": `上一节`,
     "ru-RU": `предыдущий`,
     "uk-UA": `попередній`,
     "ko-KR": `이전`,
@@ -272,7 +290,7 @@ const localeStringData = {
   next: {
     "en-GB": `next`,
     "ja-JP": `次`,
-    "zh-CN": `下`,
+    "zh-CN": `下一节`,
     "ru-RU": `следующий`,
     "uk-UA": `наступний`,
     "ko-KR": `다음`,
