@@ -1,3 +1,16 @@
-All files in this repository are "almost no rights reserved": you may do anything you want with them, except pass them off wholesale as your own. The text, code, and graphics, are all free to use for whatever purpose you see fit. You don't even have to credit me (although if you do, that's always nice), __unless__ you're putting up your own version somewhere (either the whole thing or entire sections start to finish). If you do that, you'll have to credit the source, because your readers should know where the text came from, and if you're charging them to access it, they should be told that the material is available for free online with a clear indication on where they can go to continue reading for free.
+The following license terms apply to this repository and its derivative website and repositories:
 
-- Pomax
+- you may use any illustrative code found in the `docs/chapters` directories without crediting.
+- you may use any illustrative graphics found in the `docs/images` directories without crediting.
+- you may quote up to two paragraphs from the `docs/chapters` markdown documents without crediting.
+- you may quote an entire section from any chapter, as long as it's credited and links back to the chapter that section is in on the official website.
+
+If you wish to quote more than one section of a chapter (such as an entire chapter, or more than one chapter), you may do so only after requesting, and getting, explicit permission. Permission should be sought by filing an issue in this repository, which will act as permanent record of the granted permissions.
+
+Outside of the above permissions, the following prohibitions and copyrights apply:
+
+- You may not put up a clone of the entire work (meaning that if you fork the project, you may not turn on gh-pages to get it automatically hosted by github itself on your own account domain).
+- The code in `docs/js/graphics-element/lib` consists of third party libraries governed by their own licenses.
+
+Any other material not explicitly covered by this license is to be treated as having all rights reserved.
+Please file an issue for license clarification questions.
