@@ -161,7 +161,7 @@ Running all our coordinates through this transformation gives a new set of coord
 \right ]
 \]
 
-So we want some shearing value that, when multiplied by *y*, yields *-x*, so our x coordinate becomes zero. That value is simply *-x/y*, because *-x/y * y = -x*. Done:
+So we want some shearing value that, when multiplied by *y*, yields *-x*, so our x coordinate becomes zero. That value is simply *-x/y*, because *-x/y \* y = -x*. Done:
 
 \[
 T_2 =
