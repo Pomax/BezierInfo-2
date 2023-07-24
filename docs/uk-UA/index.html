@@ -173,7 +173,7 @@
         <a class="btclk" href="bitcoin:3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu?label=Primer%20on%20Bezier%20Curves">3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu</a>
         or use the QR code on the right, if that's the kind of convenience you prefer =)
       </p>
-    
+
     </div>
     <div class="btcqr">
         <a href="bitcoin:3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu?label=Primer%20on%20Bezier%20Curves">
@@ -185,7 +185,7 @@
 
 			<br style="clear: both;" />
 
-			<p>— <a href="https://twitter.com/TheRealPomax">Pomax</a></p>
+			<p>— <a href="https://mastodon.social/@TheRealPomax">Pomax</a></p>
 			<noscript>
 				<div class="note">
 					<header>
@@ -573,7 +573,7 @@
 						thus 80% the distance away from the second point) then we can compute that really easily:
 					</p>
 					<!--
- 
+
       ╭        p =  some point       ╮
       │         1                    │
       │        p =  some other point │
@@ -637,7 +637,7 @@ Given │  distance= (p  - p )         │,  our new point = p  +  distance  · 
 						kind of number manipulation:
 					</p>
 					<!--
- 
+
 f(x) = cos (x)
 -->
 					<img class="LaTeX SVG" src="./images/chapters/explanation/0cc876c56200446c60114c1b0eeeb2cc.svg" width="96px" height="17px" loading="lazy" />
@@ -647,7 +647,7 @@ f(x) = cos (x)
 					</p>
 					<p>So far, so good. Now, let's look at parametric functions, and how they cheat. Let's take the following two functions:</p>
 					<!--
- 
+
 f(a) = cos (a)
 f(b) = sin (b)
 -->
@@ -658,9 +658,9 @@ f(b) = sin (b)
 						function. Parametric functions cheat by changing that. In a parametric function all the different functions share a variable, like this:
 					</p>
 					<!--
- 
+
 ╭ f (t) = cos (t)
-╡  a              
+╡  a
 │ f (t) = sin (t)
 ╰  b
 -->
@@ -678,8 +678,8 @@ f(b) = sin (b)
 						obvious:
 					</p>
 					<!--
- 
-{ x = cos (t) 
+
+{ x = cos (t)
   y = sin (t)
 -->
 					<img class="LaTeX SVG" src="./images/chapters/explanation/6914ba615733c387251682db7a3db045.svg" width="77px" height="40px" loading="lazy" />
@@ -714,7 +714,7 @@ f(b) = sin (b)
 					</p>
 					<p>You may remember polynomials from high school. They're those sums that look like this:</p>
 					<!--
- 
+
              3         2
 f(x) = a  · x  + b  · x  + c  · x + d
 -->
@@ -735,12 +735,12 @@ f(x) = a  · x  + b  · x  + c  · x + d
 						values:
 					</p>
 					<!--
- 
-linear= (1-t) + t                                        
+
+linear= (1-t) + t
              2                      2
-square= (1-t)  + 2  · (1-t)  · t + t                     
+square= (1-t)  + 2  · (1-t)  · t + t
              3             2                       2    3
- cubic= (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 
+ cubic= (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t
 -->
 					<img
 						class="LaTeX SVG"
@@ -754,10 +754,10 @@ square= (1-t)  + 2  · (1-t)  · t + t
 						easy. Check out these binomial terms:
 					</p>
 					<!--
- 
- linear=  1 + 1           
- square=  1 + 2 + 1       
-  cubic=  1 + 3 + 3 + 1   
+
+ linear=  1 + 1
+ square=  1 + 2 + 1
+  cubic=  1 + 3 + 3 + 1
 quartic= 1 + 4 + 6 + 4 + 1
 -->
 					<img
@@ -778,11 +778,11 @@ quartic= 1 + 4 + 6 + 4 + 1
 					</p>
 					<!--
 
-linear= \colorblue a + \colorred b                                                                                                                   
-square= \colorblue a  · \colorblue a + \colorblue a  · \colorred b + \colorred b  · \colorred b                                                      
+linear= \colorblue a + \colorred b
+square= \colorblue a  · \colorblue a + \colorblue a  · \colorred b + \colorred b  · \colorred b
  cubic= \colorblue a  · \colorblue a  · \colorblue a + \colorblue a  · \colorblue a  · \colorred b + \colorblue a  · \colorred b  · \colorred b + \co
-                                                                                             
-                                                                                             
+
+
                                                        lorred b  · \colorred b  · \colorred b
 -->
 					<img
@@ -798,9 +798,9 @@ square= \colorblue a  · \colorblue a + \colorblue a  · \colorred b + \colorred
 						generic function for this:
 					</p>
 					<!--
- 
+
               __ n                                                                                            n-i     i
-Bézier(n,t) = ❯      \underset binomial term\underbrace\binomni  · \ \underset polynomial term\underbrace(1-t)     · t 
+Bézier(n,t) = ❯      \underset binomial term\underbrace\binomni  · \ \underset polynomial term\underbrace(1-t)     · t
               ‾‾ i=0
 -->
 					<img
@@ -1119,9 +1119,9 @@ function Bezier(3,t):
 					<!--
 
               __ n                                                                                            n-i     i
-Bézier(n,t) = ❯      \underset binomial term\underbrace\binomni  · \ \underset polynomial term\underbrace(1-t)     · t   · \ \underset 
+Bézier(n,t) = ❯      \underset binomial term\underbrace\binomni  · \ \underset polynomial term\underbrace(1-t)     · t   · \ \underset
               ‾‾ i=0
-                                                                weight\underbracew 
+                                                                weight\underbracew
                                                                                   i
 -->
 					<img class="LaTeX SVG" src="./images/chapters/control/c2f2fe0ef5d0089d9dd8e5e3999405cb.svg" width="336px" height="55px" loading="lazy" />
@@ -1132,11 +1132,11 @@ Bézier(n,t) = ❯      \underset binomial term\underbrace\binomni  · \ \unders
 						(210,30), we use this Bézier curve:
 					</p>
 					<!--
- 
+
 ╭                               3                                   2                                             2                       3
-╡ x = \colordarkred 110  · (1-t)  + \colordarkgreen 25  · 3  · (1-t)   · t + \colordarkblue 210  · 3  · (1-t)  · t  + \coloramber 210  · t  
+╡ x = \colordarkred 110  · (1-t)  + \colordarkgreen 25  · 3  · (1-t)   · t + \colordarkblue 210  · 3  · (1-t)  · t  + \coloramber 210  · t
 │                               3                                    2                                             2                      3
-╰ y = \colordarkred 150  · (1-t)  + \colordarkgreen 190  · 3  · (1-t)   · t + \colordarkblue 250  · 3  · (1-t)  · t  + \coloramber 30  · t 
+╰ y = \colordarkred 150  · (1-t)  + \colordarkgreen 190  · 3  · (1-t)   · t + \colordarkblue 250  · 3  · (1-t)  · t  + \coloramber 30  · t
 -->
 					<img class="LaTeX SVG" src="./images/chapters/control/be73034ac382b54863c7a18c2932cbbc.svg" width="473px" height="40px" loading="lazy" />
 					<p>Which gives us the curve we saw at the top of the article:</p>
@@ -1266,9 +1266,9 @@ function Bezier(3,t,w[]):
 					</p>
 					<p>Adding these ratio values to the regular Bézier curve function is fairly easy. Where the regular function is the following:</p>
 					<!--
- 
+
               __ n                    n-i     i
-Bézier(n,t) = ❯      \binomni  · (1-t)     · t   · w 
+Bézier(n,t) = ❯      \binomni  · (1-t)     · t   · w
               ‾‾ i=0                                i
 -->
 					<img
@@ -1280,13 +1280,13 @@ Bézier(n,t) = ❯      \binomni  · (1-t)     · t   · w
 					/>
 					<p>The function for rational Bézier curves has two more terms:</p>
 					<!--
- 
+
                         __ n                    n-i     i
-                        ❯      \binomni  · (1-t)     · t   · w   · \colorblue ratio 
+                        ❯      \binomni  · (1-t)     · t   · w   · \colorblue ratio
                         ‾‾ i=0                                i                    i
 Rational  Bézier(n,t) = ────────────────────────────────────────────────────────────
                                      __ n                     n-i      i
-                        \colorblue   ❯      \binomni  ·  (1-t)     ·  t   ·  ratio  
+                        \colorblue   ❯      \binomni  ·  (1-t)     ·  t   ·  ratio
                                      ‾‾ i=0                                       i
 -->
 					<img
@@ -1476,8 +1476,8 @@ function RationalBezier(3,t,w[],r[]):
 						other values, then the general formula for this is:
 					</p>
 					<!--
- 
-mixture = a  ·  value  + b  ·  value 
+
+mixture = a  ·  value  + b  ·  value
                      1              2
 -->
 					<img class="LaTeX SVG" src="./images/chapters/extended/dfd6ded3f0addcf43e0a1581627a2220.svg" width="212px" height="16px" loading="lazy" />
@@ -1490,8 +1490,8 @@ mixture = a  ·  value  + b  ·  value
 						And that's easy:
 					</p>
 					<!--
- 
-m = a  ·  value  + (1 - a)  ·  value 
+
+m = a  ·  value  + (1 - a)  ·  value
                1                    2
 -->
 					<img class="LaTeX SVG" src="./images/chapters/extended/4e0fa763b173e3a683587acf83733353.svg" width="213px" height="16px" loading="lazy" />
@@ -1567,61 +1567,61 @@ m = a  ·  value  + (1 - a)  ·  value
 						refer to coordinate values "in one or more dimensions":
 					</p>
 					<!--
- 
+
                   3                   2                             2          3
-B(t) = P   · (1-t)  + P   · 3  · (1-t)   · t + P   · 3  · (1-t)  · t  + P   · t 
+B(t) = P   · (1-t)  + P   · 3  · (1-t)   · t + P   · 3  · (1-t)  · t  + P   · t
         1              2                        3                        4
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/9a9a55f5b0323d9ea88f82fc6be58ad3.svg" width="468px" height="20px" loading="lazy" />
 					<p>Disregarding our actual coordinates for a moment, we have:</p>
 					<!--
- 
+
             3             2                       2    3
-B(t) = (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t 
+B(t) = (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/87cfac83cb8a4b0bee68ef006effc611.svg" width="353px" height="19px" loading="lazy" />
 					<p>We can write this as a sum of four expressions:</p>
 					<!--
- 
+
                 3
-... =      (1-t) 
+... =      (1-t)
                 2
     + 3  · (1-t)   · t
                      2
-    + 3  · (1-t)  · t 
+    + 3  · (1-t)  · t
              3
-    +       t  
+    +       t
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/cdd88611833f3b178df91278359a4193.svg" width="140px" height="75px" loading="lazy" />
 					<p>And we can expand these expressions:</p>
 					<!--
- 
+
                                    3         2
 ... =  (1-t)  · (1-t)  · (1-t) = -t  + 3  · t  - 3  · t + 1
                                        3         2
     + 3  · (1-t)  · (1-t)  · t = 3  · t  - 6  · t  + 3  · t
                                             3         2
-    +   3  · (1-t)  · t  · t   =     -3  · t  + 3  · t 
+    +   3  · (1-t)  · t  · t   =     -3  · t  + 3  · t
                                              3
-    +        t  · t  · t       =            t  
+    +        t  · t  · t       =            t
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/ec118f296511c6e9ac8727be3703a7ce.svg" width="397px" height="75px" loading="lazy" />
 					<p>Furthermore, we can make all the 1 and 0 factors explicit:</p>
 					<!--
- 
+
              3         2
 ... = -1  · t  + 3  · t  - 3  · t + 1
              3         2
-    + +3  · t  - 6  · t  + 3  · t + 0 
+    + +3  · t  - 6  · t  + 3  · t + 0
              3         2
     + -3  · t  + 3  · t  + 0  · t + 0
              3         2
-    + +1  · t  + 0  · t  + 0  · t + 0 
+    + +1  · t  + 0  · t  + 0  · t + 0
 -->
 					<img class="LaTeX SVG" src="./images/chapters/matrix/67a5ea33d6c6558f7d954b18226f4956.svg" width="217px" height="75px" loading="lazy" />
 					<p>And <em>that</em>, we can view as a series of four matrix operations:</p>
 					<!--
- 
+
                  ┌ -1 ┐                    ┌ 3  ┐                    ┌ -3 ┐                    ┌ 1 ┐
 ┌  3  2     ┐  · │ 3  │ + ┌  3  2     ┐  · │ -6 │ + ┌  3  2     ┐  · │ 3  │ + ┌  3  2     ┐  · │ 0 │
 └ t  t  t 1 ┘    │ -3 │   └ t  t  t 1 ┘    │ 3  │   └ t  t  t 1 ┘    │ 0  │   └ t  t  t 1 ┘    │ 0 │
@@ -1630,7 +1630,7 @@ B(t) = (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t
 					<img class="LaTeX SVG" src="./images/chapters/matrix/8ecff6b8a37d60385d287ea2b26876db.svg" width="607px" height="72px" loading="lazy" />
 					<p>If we compact this into a single matrix operation, we get:</p>
 					<!--
- 
+
                  ┌ -1  3 -3 1 ┐
 ┌  3  2     ┐  · │  3 -6  3 0 │
 └ t  t  t 1 ┘    │ -3  3  0 0 │
@@ -1642,7 +1642,7 @@ B(t) = (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t
 						<code>t</code> matrix horizontally, and our big "mixing" matrix upside down:
 					</p>
 					<!--
- 
+
                  ┌  1  0  0 0 ┐
 ┌      2  3 ┐  · │ -3  3  0 0 │
 └ 1 t t  t  ┘    │  3 -6  3 0 │
@@ -1651,7 +1651,7 @@ B(t) = (1-t)  + 3  · (1-t)   · t + 3  · (1-t)  · t  + t
 					<img class="LaTeX SVG" src="./images/chapters/matrix/1a64ed455c6dd2f8cacca5e5e12bdcc1.svg" width="227px" height="72px" loading="lazy" />
 					<p>And then finally, we can add in our original coordinates as a single third matrix:</p>
 					<!--
- 
+
                                           ┌ P  ┐
                                           │  1 │
                         ┌  1  0  0 0 ┐    │ P  │
@@ -1664,7 +1664,7 @@ B(t) = ┌      2  3 ┐  · │ -3  3  0 0 │  · │  2 │
 					<img class="LaTeX SVG" src="./images/chapters/matrix/b32cae2dfc47d5f36df0bc3defb7dfa8.svg" width="323px" height="73px" loading="lazy" />
 					<p>We can perform the same trick for the quadratic curve, in which case we end up with:</p>
 					<!--
- 
+
                                     ┌ P  ┐
                      ┌  1  0 0 ┐    │  1 │
 B(t) = ┌      2 ┐  · │ -2  2 0 │  · │ P  │
@@ -2103,7 +2103,7 @@ function drawCurvePoint(points[], t):
 						respectively: (we'll reverse the Bézier coefficients vector for legibility)
 					</p>
 					<!--
- 
+
                                     ┌ P  ┐
                      ┌  1  0 0 ┐    │  1 │
 B(t) = ┌      2 ┐  · │ -2  2 0 │  · │ P  │
@@ -2120,7 +2120,7 @@ B(t) = ┌      2 ┐  · │ -2  2 0 │  · │ P  │
 					/>
 					<p>and</p>
 					<!--
- 
+
                                           ┌ P  ┐
                                           │  1 │
                         ┌  1  0  0 0 ┐    │ P  │
@@ -2143,7 +2143,7 @@ B(t) = ┌      2  3 ┐  · │ -3  3  0 0 │  · │  2 │
 						"point on the curve" information into a new matrix multiplication:
 					</p>
 					<!--
- 
+
                                                   ┌ P  ┐                                              ┌ P  ┐
                                    ┌  1  0 0 ┐    │  1 │                 ┌ 1 0 0  ┐    ┌  1  0 0 ┐    │  1 │
 B(t) = ┌                    2 ┐  · │ -2  2 0 │  · │ P  │ = ┌      2 ┐  · │ 0 z 0  │  · │ -2  2 0 │  · │ P  │
@@ -2160,7 +2160,7 @@ B(t) = ┌                    2 ┐  · │ -2  2 0 │  · │ P  │ = ┌    
 					/>
 					<p>and</p>
 					<!--
- 
+
                                                                ┌ P  ┐                                                       ┌ P  ┐
                                                                │  1 │                    ┌ 1 0  0 0  ┐                      │  1 │
                                              ┌  1  0  0 0 ┐    │ P  │                    │ 0 z  0 0  │    ┌  1  0  0 0 ┐    │ P  │
@@ -2190,7 +2190,7 @@ B(t) = ┌                    2         3 ┐  · │ -3  3  0 0 │  · │  2 
 							at the quadratic curve first:
 						</p>
 						<!--
- 
+
                                                   ┌ P  ┐
                      ┌ 1 0 0  ┐    ┌  1  0 0 ┐    │  1 │
 B(t) = ┌      2 ┐  · │ 0 z 0  │  · │ -2  2 0 │  · │ P  │
@@ -2206,7 +2206,7 @@ B(t) = ┌      2 ┐  · │ 0 z 0  │  · │ -2  2 0 │  · │ P  │
 							loading="lazy"
 						/>
 						<!--
- 
+
                                                                                         ┌ P  ┐
                                                                                         │  1 │
 = ┌      2 ┐  · \underset we turn this...\underbrace\kern 2.25em Z  · M \kern 2.25em  · │ P  │
@@ -2222,7 +2222,7 @@ B(t) = ┌      2 ┐  · │ 0 z 0  │  · │ -2  2 0 │  · │ P  │
 							loading="lazy"
 						/>
 						<!--
- 
+
                                                                          ┌ P  ┐
                                                         -1               │  1 │
 = ┌      2 ┐  · \underset into this...\underbrace M  · M    · Z  · M   · │ P  │
@@ -2238,7 +2238,7 @@ B(t) = ┌      2 ┐  · │ 0 z 0  │  · │ -2  2 0 │  · │ P  │
 							loading="lazy"
 						/>
 						<!--
- 
+
                                                                                                                    ┌ P  ┐
                                                                                                                    │  1 │
 = ┌      2 ┐  · M \underset ...to get this!\underbrace \kern 1.25em  · \kern 1.25em Q \kern 1.25em  · \kern 1.25em │ P  │
@@ -2265,7 +2265,7 @@ B(t) = ┌      2 ┐  · │ 0 z 0  │  · │ -2  2 0 │  · │ P  │
 							coordinates that represent the curve from <em>t = 0</em> to <em>t = z</em>. So let's get computing:
 						</p>
 						<!--
- 
+
                     ┌ 1 0 0 ┐
      -1             │   1   │    ┌ 1 0 0  ┐    ┌  1  0 0 ┐   ┌     1            0        0  ┐
 Q = M    · Z  · M = │ 1 ─ 0 │  · │ 0 z 0  │  · │ -2  2 0 │ = │  -(z-1)          z        0  │
@@ -2281,7 +2281,7 @@ Q = M    · Z  · M = │ 1 ─ 0 │  · │ 0 z 0  │  · │ -2  2 0 │ = �
 						/>
 						<p>Excellent! Now we can form our new quadratic curve:</p>
 						<!--
- 
+
                                ┌ P  ┐                      ╭      ┌ P  ┐ ╮
                                │  1 │                      │      │  1 │ │
 B(t) = ┌      2 ┐  · M  · Q  · │ P  │ = ┌      2 ┐  · M  · │ Q  · │ P  │ │
@@ -2297,7 +2297,7 @@ B(t) = ┌      2 ┐  · M  · Q  · │ P  │ = ┌      2 ┐  · M  · │ 
 							loading="lazy"
 						/>
 						<!--
- 
+
                                ╭                                     ┌ P  ┐ ╮
                 ┌  1  0 0 ┐    │ ┌     1            0        0  ┐    │  1 │ │
 = ┌      2 ┐  · │ -2  2 0 │  · │ │  -(z-1)          z        0  │  · │ P  │ │
@@ -2313,7 +2313,7 @@ B(t) = ┌      2 ┐  · M  · Q  · │ P  │ = ┌      2 ┐  · M  · │ 
 							loading="lazy"
 						/>
 						<!--
- 
+
                                ┌                        P                          ┐
                                │                         1                         │
                 ┌  1  0 0 ┐    │               z  · P  - (z-1)  · P                │
@@ -2342,7 +2342,7 @@ B(t) = ┌      2 ┐  · M  · Q  · │ P  │ = ┌      2 ┐  · M  · │ 
 							write it down in a more simple form because of the zero, but what we <em>actually</em> evaluated, making the zero explicit, was:
 						</p>
 						<!--
- 
+
                                                             ┌ P  ┐
                                              ┌  1  0 0 ┐    │  1 │
 B(t) = ┌                              2 ┐  · │ -2  2 0 │  · │ P  │
@@ -2358,7 +2358,7 @@ B(t) = ┌                              2 ┐  · │ -2  2 0 │  · │ P  │
 							loading="lazy"
 						/>
 						<!--
- 
+
                                              ┌ P  ┐
                 ┌ 1 0 0  ┐    ┌  1  0 0 ┐    │  1 │
 = ┌      2 ┐  · │ 0 z 0  │  · │ -2  2 0 │  · │ P  │
@@ -2375,7 +2375,7 @@ B(t) = ┌                              2 ┐  · │ -2  2 0 │  · │ P  │
 						/>
 						<p>If we want the interval [<em>z</em>,1], we will be evaluating this instead:</p>
 						<!--
- 
+
                                                                     ┌ P  ┐
                                                      ┌  1  0 0 ┐    │  1 │
 B(t) = ┌                                      2 ┐  · │ -2  2 0 │  · │ P  │
@@ -2391,7 +2391,7 @@ B(t) = ┌                                      2 ┐  · │ -2  2 0 │  · �
 							loading="lazy"
 						/>
 						<!--
- 
+
                 ┌              2        ┐                   ┌ P  ┐
                 │ 1  z        z         │    ┌  1  0 0 ┐    │  1 │
 = ┌      2 ┐  · │ 0 1-z 2  · z  · (1-z) │  · │ -2  2 0 │  · │ P  │
@@ -2411,7 +2411,7 @@ B(t) = ┌                                      2 ┐  · │ -2  2 0 │  · �
 							<code>[M · something]</code>:
 						</p>
 						<!--
- 
+
                       ┌ 1 0 0 ┐    ┌              2        ┐
       -1              │   1   │    │ 1  z        z         │    ┌  1  0 0 ┐   ┌      2                   2 ┐
 Q' = M    · Z'  · M = │ 1 ─ 0 │  · │ 0 1-z 2  · z  · (1-z) │  · │ -2  2 0 │ = │ (z-1)  -2  · z  · (z-1) z  │
@@ -2427,7 +2427,7 @@ Q' = M    · Z'  · M = │ 1 ─ 0 │  · │ 0 1-z 2  · z  · (1-z) │  · 
 						/>
 						<p>So, our final second curve looks like:</p>
 						<!--
- 
+
                                ┌ P  ┐                      ╭       ┌ P  ┐ ╮
                                │  1 │                      │       │  1 │ │
 B(t) = ┌      2 ┐  · M  · Q  · │ P  │ = ┌      2 ┐  · M  · │ Q'  · │ P  │ │
@@ -2443,7 +2443,7 @@ B(t) = ┌      2 ┐  · M  · Q  · │ P  │ = ┌      2 ┐  · M  · │ 
 							loading="lazy"
 						/>
 						<!--
- 
+
                                ╭                                   ┌ P  ┐ ╮
                 ┌  1  0 0 ┐    │ ┌      2                   2 ┐    │  1 │ │
 = ┌      2 ┐  · │ -2  2 0 │  · │ │ (z-1)  -2  · z  · (z-1) z  │  · │ P  │ │
@@ -2459,7 +2459,7 @@ B(t) = ┌      2 ┐  · M  · Q  · │ P  │ = ┌      2 ┐  · M  · │ 
 							loading="lazy"
 						/>
 						<!--
- 
+
                                ┌  2                                      2       ┐
                                │ z   · P  - 2  · z  · (z-1)  · P  + (z-1)   · P  │
                 ┌  1  0 0 ┐    │        3                       2              1 │
@@ -2489,7 +2489,7 @@ B(t) = ┌      2 ┐  · M  · Q  · │ P  │ = ┌      2 ┐  · M  · │ 
 						<code>t = z</code>, we get two subcurves that are described as Bézier curves with simple-to-derive coordinates:
 					</p>
 					<!--
- 
+
                                              ┌                        P                          ┐
                                     ┌ P  ┐   │                         1                         │
 ┌     1            0        0  ┐    │  1 │   │               z  · P  - (z-1)  · P                │
@@ -2507,7 +2507,7 @@ B(t) = ┌      2 ┐  · M  · Q  · │ P  │ = ┌      2 ┐  · M  · │ 
 					/>
 					<p>and</p>
 					<!--
- 
+
                                            ┌  2                                      2       ┐
                                   ┌ P  ┐   │ z   · P  - 2  · z  · (z-1)  · P  + (z-1)   · P  │
 ┌      2                   2 ┐    │  1 │   │        3                       2              1 │
@@ -2528,7 +2528,7 @@ B(t) = ┌      2 ┐  · M  · Q  · │ P  │ = ┌      2 ┐  · M  · │ 
 						yourself, though) and simply show you the resulting new coordinate sets:
 					</p>
 					<!--
- 
+
                                                               ┌                                    P                                      ┐
                                                      ┌ P  ┐   │                                     1                                     │
 ┌    1            0                0         0  ┐    │  1 │   │                           z  · P  - (z-1)  · P                            │
@@ -2549,7 +2549,7 @@ B(t) = ┌      2 ┐  · M  · Q  · │ P  │ = ┌      2 ┐  · M  · │ 
 					/>
 					<p>and</p>
 					<!--
- 
+
                                                               ┌  3               2                                 2              3       ┐
                                                      ┌ P  ┐   │ z   · P  - 3  · z   · (z-1)  · P  + 3  · z  · (z-1)   · P  - (z-1)   · P  │
 ┌       3           2                      2  3 ┐    │  1 │   │        4                        3                        2              1 │
@@ -2601,7 +2601,7 @@ B(t) = ┌      2 ┐  · M  · Q  · │ P  │ = ┌      2 ┐  · M  · │ 
 						that the start and end weights are the same as the start and end weights for the old curve):
 					</p>
 					<!--
- 
+
               __ k                                                                                            k-i     i
 Bézier(k,t) = ❯      \underset binomial term\underbrace\binomki  · \ \underset polynomial term\underbrace(1-t)     · t    · \ \underset new
               ‾‾ i=0
@@ -2625,9 +2625,9 @@ Bézier(k,t) = ❯      \underset binomial term\underbrace\binomki  · \ \unders
 					</p>
 					<p>We start by taking the standard Bézier function, and condensing it a little:</p>
 					<!--
- 
+
               __ n       n               n                       n-i     i
-Bézier(n,t) = ❯      w  B (t)  , where  B (t) = \binomni  · (1-t)     · t 
+Bézier(n,t) = ❯      w  B (t)  , where  B (t) = \binomni  · (1-t)     · t
               ‾‾ i=0  i  i               i
 -->
 					<img class="LaTeX SVG" src="./images/chapters/reordering/9fc4ecc087d389dd0111bcba165cd5d0.svg" width="408px" height="41px" loading="lazy" />
@@ -2637,7 +2637,7 @@ Bézier(n,t) = ❯      w  B (t)  , where  B (t) = \binomni  · (1-t)     · t
 						<code>t</code> and <code>1-t</code>:
 					</p>
 					<!--
- 
+
 x = 1 x = ((1-t) + t) x = (1-t) x + t x = x (1-t) + x t
 -->
 					<img class="LaTeX SVG" src="./images/chapters/reordering/ff224ded6bbbc94b43130f5f8eeb5d29.svg" width="379px" height="16px" loading="lazy" />
@@ -2646,9 +2646,9 @@ x = 1 x = ((1-t) + t) x = (1-t) x + t x = x (1-t) + x t
 						<code>t</code> component:
 					</p>
 					<!--
- 
-Bézier(n,t)= (1-t) B(n,t) + t B(n,t)                    
-             __ n               n      __ n         n   
+
+Bézier(n,t)= (1-t) B(n,t) + t B(n,t)
+             __ n               n      __ n         n
            = ❯      w  (1 - t) B (t) + ❯      w  t B (t)
              ‾‾ i=0  i          i      ‾‾ i=0  i    i
 -->
@@ -2658,18 +2658,18 @@ Bézier(n,t)= (1-t) B(n,t) + t B(n,t)
 						I promise, it's about to make sense. We start with <code>(1-t)</code>:
 					</p>
 					<!--
- 
+
          n              n!         n-i  i
-(1 - t) B (t)= (1-t) ──────── (1-t)    t                  
+(1 - t) B (t)= (1-t) ──────── (1-t)    t
          i           (n-i)!i!
                n+1-i   (n+1)!        n+1-i  i
-             = ───── ────────── (1-t)      t              
-                n+1  (n+1-i)!i!                           
+             = ───── ────────── (1-t)      t
+                n+1  (n+1-i)!i!
                k-i    k!         k-i  i
              = ─── ──────── (1-t)    t ,  where  k = n + 1
                 k  (k-i)!i!
                k-i  k
-             = ─── B (t)                                  
+             = ─── B (t)
                 k   i
 -->
 					<img
@@ -2687,18 +2687,18 @@ Bézier(n,t)= (1-t) B(n,t) + t B(n,t)
 						<code>t</code> part, but that's not a problem:
 					</p>
 					<!--
- 
+
    n          n!         n-i  i
-t B (t)= t ──────── (1-t)    t                                    
+t B (t)= t ──────── (1-t)    t
    i       (n-i)!i!
          i+1        (n+1)!             (n+1)-(i+1)  i+1
-       = ─── ──────────────────── (1-t)            t              
-         n+1 ((n+1)-(i+1))!(i+1)!                                 
+       = ─── ──────────────────── (1-t)            t
+         n+1 ((n+1)-(i+1))!(i+1)!
          i+1        k!             k-(i+1)  i+1
        = ─── ──────────────── (1-t)        t   ,  where  k = n + 1
           k  (k-(i+1))!(i+1)!
          i+1  k
-       = ─── B   (t)                                              
+       = ─── B   (t)
           k   i+1
 -->
 					<img
@@ -2718,21 +2718,21 @@ t B (t)= t ──────── (1-t)    t
 					</p>
 					<p>Let's do this:</p>
 					<!--
- 
+
              __ n+1             n      __ n+1       n
-Bézier(n,t)= ❯      w  (1 - t) B (t) + ❯      w  t B (t)                   
+Bézier(n,t)= ❯      w  (1 - t) B (t) + ❯      w  t B (t)
              ‾‾ i=0  i          i      ‾‾ i=0  i    i
              __ n+1    k-i  k      __ n+1    i+1  k
            = ❯      w  ─── B (t) + ❯      w  ─── B   (t),  where  k = n + 1
              ‾‾ i=0  i  k   i      ‾‾ i=0  i  k   i+1
              __ n+1    k-i  k      __ n+1      i  k
-           = ❯      w  ─── B (t) + ❯      p    ─ B (t)                     
+           = ❯      w  ─── B (t) + ❯      p    ─ B (t)
              ‾‾ i=0  i  k   i      ‾‾ i=0  i-1 k  i
              __ n+1 ╭    k-i        i ╮  k
-           = ❯      │ w  ─── + p    ─ │ B (t)                              
+           = ❯      │ w  ─── + p    ─ │ B (t)
              ‾‾ i=0 ╰  i  k     i-1 k ╯  i
              __ n+1                      k                 i
-           = ❯      (w  (1-s) + p    s) B (t),  where  s = ─               
+           = ❯      (w  (1-s) + p    s) B (t),  where  s = ─
              ‾‾ i=0   i          i-1     i                 k
 -->
 					<img
@@ -2747,14 +2747,14 @@ Bézier(n,t)= ❯      w  (1 - t) B (t) + ❯      w  t B (t)
 						Bézier(n+1,t) as a very simple matrix multiplication:
 					</p>
 					<!--
- 
-M B  = B 
+
+M B  = B
    n    k
 -->
 					<img class="LaTeX SVG" src="./images/chapters/reordering/1f5b60d190a1c7099b3411e4cc477291.svg" width="71px" height="16px" loading="lazy" />
 					<p>where the matrix <strong>M</strong> is an <code>n+1</code> by <code>n</code> matrix, and looks like:</p>
 					<!--
- 
+
     ┌ 1  0   .   .   .   .    .    .  ┐
     │ 1 k-1                           │
     │ ─ ───  0   .   .   .    0    .  │
@@ -2796,20 +2796,20 @@ M = │        k   k                    │
 						<strong>A x = b</strong>, we can use it. And as it so happens, that's exactly what we're dealing with, so:
 					</p>
 					<!--
- 
-              M B = B             
+
+              M B = B
                  n   k
            T         T
-         (M  M) B = M  B          
+         (M  M) B = M  B
                  n      k
   T   -1   T          T   -1  T
-(M  M)   (M  M) B = (M  M)   M  B 
+(M  M)   (M  M) B = (M  M)   M  B
                  n               k
                       T   -1  T
-              I B = (M  M)   M  B 
+              I B = (M  M)   M  B
                  n               k
                       T   -1  T
-                B = (M  M)   M  B 
+                B = (M  M)   M  B
                  n               k
 -->
 					<img
@@ -2873,9 +2873,9 @@ M = │        k   k                    │
 					</p>
 					<p>First, let's look at the derivative rule for Bézier curves, which is:</p>
 					<!--
- 
+
                     __ n-1
-Bézier'(n,t) = n  · ❯      (b   -b )  ·   Bézier(n-1,t) 
+Bézier'(n,t) = n  · ❯      (b   -b )  ·   Bézier(n-1,t)
                     ‾‾ i=0   i+1  i                    i
 -->
 					<img
@@ -2890,7 +2890,7 @@ Bézier'(n,t) = n  · ❯      (b   -b )  ·   Bézier(n-1,t)
 						is the same as a summation where each term is multiplied by <i>n</i>) as:
 					</p>
 					<!--
- 
+
                __ n-1
 Bézier'(n,t) = ❯        Bézier(n-1,t)   · n  · (w   -w )
                ‾‾ i=0                i           i+1  i
@@ -2916,7 +2916,7 @@ Bézier'(n,t) = ❯        Bézier(n-1,t)   · n  · (w   -w )
 							only the derivative of the polynomial basis function. So, let's find that:
 						</p>
 						<!--
- 
+
         d    ╭ n ╮  k      n-k d
 B   (t) ── = │   │ t  (1-t)    ──
  n,k    dt   ╰ k ╯             dt
@@ -2933,7 +2933,7 @@ B   (t) ── = │   │ t  (1-t)    ──
 							<a href="https://en.wikipedia.org/wiki/Chain_rule">chain</a> rules gives us:
 						</p>
 						<!--
- 
+
       ╭ n ╮        k-1      n-k    k         n-k-1
 ... = │   │ (k  · t    (1-t)    + t   · (1-t)       · (n-k)  · -1)
       ╰ k ╯
@@ -2947,9 +2947,9 @@ B   (t) ── = │   │ t  (1-t)    ──
 						/>
 						<p>Which is hard to work with, so let's expand that properly:</p>
 						<!--
- 
+
         kn!     k-1      n-k   (n-k)n!   k      n-1-k
-... = ──────── t    (1-t)    - ──────── t  (1-t)     
+... = ──────── t    (1-t)    - ──────── t  (1-t)
       k!(n-k)!                 k!(n-k)!
 -->
 						<img
@@ -2964,12 +2964,12 @@ B   (t) ── = │   │ t  (1-t)    ──
 							look like "x! over y!(x-y)!". If we can do that in a way that involves terms of <i>n-1</i> and <i>k-1</i>, we'll be on the right track.
 						</p>
 						<!--
- 
+
            n!       k-1      n-k   (n-k)n!   k      n-1-k
-... = ──────────── t    (1-t)    - ──────── t  (1-t)                                   
+... = ──────────── t    (1-t)    - ──────── t  (1-t)
       (k-1)!(n-k)!                 k!(n-k)!
         ╭    (n-1)!     k-1      n-k   (n-k)(n-1)!  k      n-1-k ╮
-... = n │ ──────────── t    (1-t)    - ─────────── t  (1-t)      │                     
+... = n │ ──────────── t    (1-t)    - ─────────── t  (1-t)      │
         ╰ (k-1)!(n-k)!                  k!(n-k)!                 ╯
         ╭        (n-1)!         (k-1)      (n-1)-(k-1)      (n-1)!     k      (n-1)-k ╮
 ... = n │ ──────────────────── t      (1-t)            - ──────────── t  (1-t)        │
@@ -2984,11 +2984,11 @@ B   (t) ── = │   │ t  (1-t)    ──
 						/>
 						<p>And that's the first part done: the two components inside the parentheses are actually regular, lower-order Bézier expressions:</p>
 						<!--
- 
+
         ╭    x!     y      x-y      x!     k      x-k ╮
 ... = n │ ──────── t  (1-t)    - ──────── t  (1-t)    │  , with x=n-1, y=k-1
-        ╰ y!(x-y)!               k!(x-k)!             ╯                     
-... = n (B           (t) - B       (t))                                     
+        ╰ y!(x-y)!               k!(x-k)!             ╯
+... = n (B           (t) - B       (t))
           (n-1),(k-1)       (n-1),k
 -->
 						<img
@@ -3003,19 +3003,19 @@ B   (t) ── = │   │ t  (1-t)    ──
 							through to its derivative:
 						</p>
 						<!--
- 
+
 Bézier   (t)    = B   (t)  · w  + B   (t)  · w  + B   (t)  · w  + B   (t)  · w  + ...
       n,k          n,0        0    n,1        1    n,2        2    n,3        3
              d
-Bézier   (t) ── = n  · (B      (t) - B     (t))  · w  +                              
+Bézier   (t) ── = n  · (B      (t) - B     (t))  · w  +
       n,k    dt          n-1,-1       n-1,0         0
-                  n  · (B     (t) - B     (t))  · w  +                               
+                  n  · (B     (t) - B     (t))  · w  +
                          n-1,0       n-1,1         1
-                  n  · (B     (t) - B     (t))  · w  +                               
+                  n  · (B     (t) - B     (t))  · w  +
                          n-1,1       n-1,2         2
-                  n  · (B     (t) - B     (t))  · w  +                               
+                  n  · (B     (t) - B     (t))  · w  +
                          n-1,2       n-1,3         3
-                  ...                                                                
+                  ...
 -->
 						<img
 							class="LaTeX SVG"
@@ -3029,18 +3029,18 @@ Bézier   (t) ── = n  · (B      (t) - B     (t))  · w  +
 							following:
 						</p>
 						<!--
- 
-n  · B      (t)  · w               +                                     
+
+n  · B      (t)  · w               +
       n-1,-1        0
 n  · B                (t)  · w     - n  · B                (t)  · w     +
       n-1,\colorblue 0        1            n-1,\colorblue 0        0
 n  · B               (t)  · w      - n  · B               (t)  · w      +
-      n-1,\colorred 1        2             n-1,\colorred 1        1      
+      n-1,\colorred 1        2             n-1,\colorred 1        1
 n  · B                   (t)  · w  - n  · B                   (t)  · w  +
       n-1,\colormagenta 2        3         n-1,\colormagenta 2        2
 ...                                - n  · B     (t)  · w                +
                                            n-1,3        3
-...                                                                      
+...
 -->
 						<img
 							class="LaTeX SVG"
@@ -3057,14 +3057,14 @@ n  · B                   (t)  · w  - n  · B                   (t)  · w  +
 							this term would contribute "nothing", so we can ignore it, too. This means we're left with:
 						</p>
 						<!--
- 
+
 n  · B                (t)  · w     - n  · B                (t)  · w     +
       n-1,\colorblue 0        1            n-1,\colorblue 0        0
 n  · B               (t)  · w      -  n  · B               (t)  · w     +
-      n-1,\colorred 1        2              n-1,\colorred 1        1     
+      n-1,\colorred 1        2              n-1,\colorred 1        1
 n  · B                   (t)  · w  - n  · B                   (t)  · w  +
       n-1,\colormagenta 2        3         n-1,\colormagenta 2        2
-...                                
+...
 -->
 						<img
 							class="LaTeX SVG"
@@ -3075,9 +3075,9 @@ n  · B                   (t)  · w  - n  · B                   (t)  · w  +
 						/>
 						<p>And that's just a summation of lower order curves:</p>
 						<!--
- 
+
              d
-Bézier   (t) ── = n  · B                  (t)  · (w  - w ) + n  · B                 (t)  · (w  - w ) + n  · B                     (t)  · (w  - w )  
+Bézier   (t) ── = n  · B                  (t)  · (w  - w ) + n  · B                 (t)  · (w  - w ) + n  · B                     (t)  · (w  - w )
       n,k    dt         (n-1),\colorblue 0         1    0          (n-1),\colorred 1         2    1          (n-1),\colormagenta 2         3    2
                                                                       +  ...
 -->
@@ -3090,7 +3090,7 @@ Bézier   (t) ── = n  · B                  (t)  · (w  - w ) + n  · B     
 						/>
 						<p>We can rewrite this as a normal summation, and we're done:</p>
 						<!--
- 
+
              d    __ n-1                                 __ n-1
 Bézier   (t) ── = ❯      n  · B     (t)  · (w    - w ) = ❯      B     (t)  · \underset derivative weights \underbracen  · (w    - w )
       n,k    dt   ‾‾ k=0       n-1,k         k+1    k    ‾‾ k=0  n-1,k                                                      k+1    k
@@ -3109,11 +3109,11 @@ Bézier   (t) ── = ❯      n  · B     (t)  · (w    - w ) = ❯      B    
 						Bézier curves, and then the derivative:
 					</p>
 					<!--
- 
+
               __ n                                                                                            n-i     i
-Bézier(n,t) = ❯      \underset binomial term\underbrace\binomni  · \ \underset polynomial term\underbrace(1-t)     · t   · \ \underset 
+Bézier(n,t) = ❯      \underset binomial term\underbrace\binomni  · \ \underset polynomial term\underbrace(1-t)     · t   · \ \underset
               ‾‾ i=0
-                                                               weight\underbracew 
+                                                               weight\underbracew
                                                                                  i
 -->
 					<img
@@ -3124,7 +3124,7 @@ Bézier(n,t) = ❯      \underset binomial term\underbrace\binomni  · \ \unders
 						loading="lazy"
 					/>
 					<!--
- 
+
                __ k                                                                                            k-i     i
 Bézier'(n,t) = ❯      \underset binomial term\underbrace\binomki  · \ \underset polynomial term\underbrace(1-t)     · t   · \ \underset derivative
                ‾‾ i=0
@@ -3145,11 +3145,11 @@ Bézier'(n,t) = ❯      \underset binomial term\underbrace\binomki  · \ \under
 						derivative one:
 					</p>
 					<!--
- 
-B(n,t),           w = {A,B,C,D}   
+
+B(n,t),           w = {A,B,C,D}
 B'(n,t),   n = 3, w' = {A',B',C'} = {3  · (B-A),   3  · (C-B),   3  · (D-C)}
-B''(n,t),  n = 2, w'' = {A'',B''} = {2  · (B'-A'),   2  · (C'-B')}          
-B'''(n,t), n = 1, w''' = {A'''}   = {1  · (B''-A'')}                        
+B''(n,t),  n = 2, w'' = {A'',B''} = {2  · (B'-A'),   2  · (C'-B')}
+B'''(n,t), n = 1, w''' = {A'''}   = {1  · (B''-A'')}
 -->
 					<img
 						class="LaTeX SVG"
@@ -3178,10 +3178,10 @@ B'''(n,t), n = 1, w''' = {A'''}   = {1  · (B''-A'')}
 						indicates the direction of travel at specific points, and is literally just the first derivative of our curve:
 					</p>
 					<!--
- 
+
 tangent (t) = B' (t)
        x        x
-                    
+
 tangent (t) = B' (t)
        y        y
 -->
@@ -3197,14 +3197,14 @@ tangent (t) = B' (t)
 						point, and then do whatever it is we want to do based on those directions:
 					</p>
 					<!--
- 
+
                            ┌─────────────────┐
                            │      2         2
-    d = \| tangent(t)\| =  │B' (t)  + B' (t)  
+    d = \| tangent(t)\| =  │B' (t)  + B' (t)
                           ⟍│  x         y
 
                            tangent (t)     B' (t)
-^                                 x          x    
+^                                 x          x
 x(t) = \| tangent (t)\| =─────────────── = ──────
                  x       \| tangent(t)\|     d
 
@@ -3226,11 +3226,11 @@ y(t) = \| tangent (t)\| = ─────────────── = ──
 						is typically of length 1.0, so all we have to do is rotate the normalized directional vector and we're done:
 					</p>
 					<!--
- 
+
              ^           \pi   ^           \pi     ^
-normal (t) = x(t)  · cos ─── - y(t)  · sin ─── = - y(t)                                             
+normal (t) = x(t)  · cos ─── - y(t)  · sin ─── = - y(t)
       x                   2                 2
-                                                                                                    
+
                                                            ^           \pi   ^           \pi    ^
 normal (t) = \underset quarter circle rotation \underbrace x(t)  · sin ─── + y(t)  · cos ───  = x(t)
       y                                                                 2                 2
@@ -3253,7 +3253,7 @@ normal (t) = \underset quarter circle rotation \underbrace x(t)  · sin ──�
 							To turn any point <i>(x,y)</i> into a rotated point <i>(x',y')</i> (over 0,0) by some angle φ, we apply this nice and easy computation:
 						</p>
 						<!--
- 
+
 x' = x  · cos (\phi) - y  · sin (\phi)
 y' = x  · sin (\phi) + y  · cos (\phi)
 -->
@@ -3266,7 +3266,7 @@ y' = x  · sin (\phi) + y  · cos (\phi)
 						/>
 						<p>Which is the "long" version of the following matrix transformation:</p>
 						<!--
- 
+
 ┌ x' ┐ = ┌ cos (\phi) -sin (\phi) ┐ ┌ x ┐
 └ y' ┘   └ sin (\phi) cos (\phi)  ┘ └ y ┘
 -->
@@ -3757,10 +3757,10 @@ generateRMFrames(steps) -> frames:
 						<a href="#derivatives">derivatives section</a>:
 					</p>
 					<!--
- 
+
 B'(t) = a(1-t) + b(t)= 0,
           a - at + bt= 0,
-           (b-a)t + a= 0 
+           (b-a)t + a= 0
 -->
 					<img
 						class="LaTeX SVG"
@@ -3771,10 +3771,10 @@ B'(t) = a(1-t) + b(t)= 0,
 					/>
 					<p>And then we turn this into our solution for <code>t</code> using basic arithmetics:</p>
 					<!--
- 
-(b-a)t + a= 0, 
+
+(b-a)t + a= 0,
     (b-a)t= -a,
-            -a 
+            -a
          t= ───
             b-a
 -->
@@ -3797,7 +3797,7 @@ B'(t) = a(1-t) + b(t)= 0,
 						you haven't, it looks like this:
 					</p>
 					<!--
- 
+
                                                    ┌────────┐
                                                    │ 2
                2                              -b ±⟍│b  - 4ac
@@ -3822,9 +3822,9 @@ Given f(t) = at  + bt + c, f(t)=0   when  t = ───────────�
 						<a href="#derivatives">derivatives section</a>:
 					</p>
 					<!--
- 
-B(t)  uses { p ,p ,p ,p  }                                                  
-              1  2  3  4                                                    
+
+B(t)  uses { p ,p ,p ,p  }
+              1  2  3  4
 B'(t)  uses { v ,v ,v  },  where v  = 3(p -p ), v  = 3(p -p ), v  = 3(p -p )
                1  2  3            1      2  1    2      3  2    3      4  3
 -->
@@ -3837,21 +3837,21 @@ B'(t)  uses { v ,v ,v  },  where v  = 3(p -p ), v  = 3(p -p ), v  = 3(p -p )
 					/>
 					<p>And then, using these <em>v</em> values, we can find out what our <em>a</em>, <em>b</em>, and <em>c</em> should be:</p>
 					<!--
- 
+
               2                  2
-B'(t)= v (1-t)  + 2v (1-t)t + v t            
+B'(t)= v (1-t)  + 2v (1-t)t + v t
         1           2          3
            2                    2       2
-  ...= v (t  - 2t + 1) + 2v (t-t ) + v t     
+  ...= v (t  - 2t + 1) + 2v (t-t ) + v t
         1                  2          3
           2                          2      2
-  ...= v t  - 2v t + v  + 2v t - 2v t  + v t 
+  ...= v t  - 2v t + v  + 2v t - 2v t  + v t
         1       1     1     2      2      3
           2       2      2
   ...= v t  - 2v t  + v t  - 2v t + v  + 2v t
         1       2      3       1     1     2
                    2
-  ...= (v -2v +v )t  + 2(v -v )t + v         
+  ...= (v -2v +v )t  + 2(v -v )t + v
          1   2  3         2  1      1
 -->
 					<img
@@ -3866,12 +3866,12 @@ B'(t)= v (1-t)  + 2v (1-t)t + v t
 						expressions of our original coordinate values, so we can do some substitution to get:
 					</p>
 					<!--
- 
+
 a= v -2v +v  = 3(-p  + 3p  - 3p  + p )
     1   2  3       1     2     3    4
-b= 2(v -v ) = 6(p  - 2p  + p )        
+b= 2(v -v ) = 6(p  - 2p  + p )
       2  1       1     2    3
-c= v  = 3(p -p )                      
+c= v  = 3(p -p )
     1      2  1
 -->
 					<img
@@ -3898,11 +3898,11 @@ c= v  = 3(p -p )
 						really hard to solve, it can be rewritten to a form for which finding the roots is "easier" (even if not "easy"):
 					</p>
 					<!--
- 
+
                    3     2
 very hard: solve at  + bt  + ct + d = 0
                   3
-   easier: solve t  + pt + q = 0       
+   easier: solve t  + pt + q = 0
 -->
 					<img
 						class="LaTeX SVG"
@@ -4311,7 +4311,7 @@ function getCubicRoots(pa, pb, pc, pd) {
 						<code>f<sub>y</sub>(x)</code> is zero, so that the next <code>t</code> is the same as the one we already have:
 					</p>
 					<!--
- 
+
             f (x )
              y  n
 x    = x  - ───────
@@ -4459,11 +4459,11 @@ x    = x  - ───────
 						function for the y-component to an <em>n-2</em> term function. For instance, if we have a cubic curve such as this:
 					</p>
 					<!--
- 
+
 ╭                            3                               2                                          2                       3
-╡ x = \colorblue 120  · (1-t)  \colorblue  + 35  · 3  · (1-t)   · t \colorblue  + 220  · 3  · (1-t)  · t  \colorblue  + 220  · t  
+╡ x = \colorblue 120  · (1-t)  \colorblue  + 35  · 3  · (1-t)   · t \colorblue  + 220  · 3  · (1-t)  · t  \colorblue  + 220  · t
 │                            3                                2                                          2                      3
-╰ y = \colorblue 160  · (1-t)  \colorblue  + 200  · 3  · (1-t)   · t \colorblue  + 260  · 3  · (1-t)  · t  \colorblue  + 40  · t 
+╰ y = \colorblue 160  · (1-t)  \colorblue  + 200  · 3  · (1-t)   · t \colorblue  + 260  · 3  · (1-t)  · t  \colorblue  + 40  · t
 -->
 					<img class="LaTeX SVG" src="./images/chapters/aligning/e5db5e945606d3429e4475ff92283a9c.svg" width="497px" height="40px" loading="lazy" />
 					<p>
@@ -4471,11 +4471,11 @@ x    = x  - ───────
 						by -160, gives us:
 					</p>
 					<!--
- 
+
 ╭                          3                               2                                          2                       3
-╡ x = \colorblue 0  · (1-t)  \colorblue  - 85  · 3  · (1-t)   · t \colorblue  + 100  · 3  · (1-t)  · t  \colorblue  + 100  · t  
+╡ x = \colorblue 0  · (1-t)  \colorblue  - 85  · 3  · (1-t)   · t \colorblue  + 100  · 3  · (1-t)  · t  \colorblue  + 100  · t
 │                          3                               2                                          2                       3
-╰ y = \colorblue 0  · (1-t)  \colorblue  + 40  · 3  · (1-t)   · t \colorblue  + 100  · 3  · (1-t)  · t  \colorblue  - 120  · t 
+╰ y = \colorblue 0  · (1-t)  \colorblue  + 40  · 3  · (1-t)   · t \colorblue  + 100  · 3  · (1-t)  · t  \colorblue  - 120  · t
 -->
 					<img class="LaTeX SVG" src="./images/chapters/aligning/d412c72ed342c2036965ff251c8fb443.svg" width="481px" height="40px" loading="lazy" />
 					<p>
@@ -4483,20 +4483,20 @@ x    = x  - ───────
 						become:
 					</p>
 					<!--
- 
+
 ╭                          3                               2                                         2                       3
-╡ x = \colorblue 0  · (1-t)  \colorblue  - 85  · 3  · (1-t)   · t \colorblue  - 12  · 3  · (1-t)  · t  \colorblue  + 156  · t  
+╡ x = \colorblue 0  · (1-t)  \colorblue  - 85  · 3  · (1-t)   · t \colorblue  - 12  · 3  · (1-t)  · t  \colorblue  + 156  · t
 │                          3                               2                                          2                     3
-╰ y = \colorblue 0  · (1-t)  \colorblue  - 40  · 3  · (1-t)   · t \colorblue  + 140  · 3  · (1-t)  · t  \colorblue  + 0  · t 
+╰ y = \colorblue 0  · (1-t)  \colorblue  - 40  · 3  · (1-t)   · t \colorblue  + 140  · 3  · (1-t)  · t  \colorblue  + 0  · t
 -->
 					<img class="LaTeX SVG" src="./images/chapters/aligning/e49d7bb45a18d14fbb12df4d91e2c67b.svg" width="473px" height="40px" loading="lazy" />
 					<p>If we drop all the zero-terms, this gives us:</p>
 					<!--
- 
+
 ╭                                   2                                         2                       3
-╡ x = \colorblue  - 85  · 3  · (1-t)   · t \colorblue  - 12  · 3  · (1-t)  · t  \colorblue  + 156  · t  
+╡ x = \colorblue  - 85  · 3  · (1-t)   · t \colorblue  - 12  · 3  · (1-t)  · t  \colorblue  + 156  · t
 │                                   2                                          2
-╰ y = \colorblue  - 40  · 3  · (1-t)   · t \colorblue  + 140  · 3  · (1-t)  · t                        
+╰ y = \colorblue  - 40  · 3  · (1-t)   · t \colorblue  + 140  · 3  · (1-t)  · t
 -->
 					<img class="LaTeX SVG" src="./images/chapters/aligning/016f37843b2af2ae34dc8b2975505f3d.svg" width="408px" height="40px" loading="lazy" />
 					<p>
@@ -4607,7 +4607,7 @@ x    = x  - ───────
 					</p>
 					<p>What we need to do is solve a simple equation:</p>
 					<!--
- 
+
 C(t) = 0
 -->
 					<img class="LaTeX SVG" src="./images/chapters/inflections/ed68dcfb203517ca080fe48914769fb0.svg" width="59px" height="16px" loading="lazy" />
@@ -4617,7 +4617,7 @@ C(t) = 0
 						circle being on the other side of the curve. So what does <em>C(t)</em> look like? Actually something that seems not too hard:
 					</p>
 					<!--
- 
+
 C(t) =   Bézier \prime(t)  ·   Bézier \prime\prime(t) -   Bézier \prime(t)  ·   Bézier \prime\prime(t)
                x                     y                          y                     x
 -->
@@ -4646,15 +4646,15 @@ C(t) =   Bézier \prime(t)  ·   Bézier \prime\prime(t) -   Bézier \prime(t)  
 							with the first and second derivatives, given our basis functions:
 						</p>
 						<!--
- 
+
                    3           2             2      3
-Bézier(t) = x (1-t)  + 3x (1-t) t + 3x (1-t)t  + x t                            
+Bézier(t) = x (1-t)  + 3x (1-t) t + 3x (1-t)t  + x t
              1           2            3           4
-      \prime            2                2                                      
+      \prime            2                2
 Bézier      (t) = a(1-t)  + 2b(1-t)t + ct   { a=3(x -x ),b=3(x -x ),c=3(x -x ) }
-                                                   2  1       3  2       4  3   
+                                                   2  1       3  2       4  3
       \prime\prime
-Bézier            (t) = u(1-t) + vt {u=2(b-a),v=2(c-b)}\                        
+Bézier            (t) = u(1-t) + vt {u=2(b-a),v=2(c-b)}\
 -->
 						<img
 							class="LaTeX SVG"
@@ -4665,14 +4665,14 @@ Bézier            (t) = u(1-t) + vt {u=2(b-a),v=2(c-b)}\
 						/>
 						<p>And of course the same functions for <em>y</em>:</p>
 						<!--
- 
+
                    3           2             2      3
-Bézier(t) = y (1-t)  + 3y (1-t) t + 3y (1-t)t  + y t 
+Bézier(t) = y (1-t)  + 3y (1-t) t + 3y (1-t)t  + y t
              1           2            3           4
-      \prime            2                2           
-Bézier      (t) = d(1-t)  + 2e(1-t)t + ft            
+      \prime            2                2
+Bézier      (t) = d(1-t)  + 2e(1-t)t + ft
       \prime\prime
-Bézier            (t) = w(1-t) + zt                  
+Bézier            (t) = w(1-t) + zt
 -->
 						<img
 							class="LaTeX SVG"
@@ -4686,19 +4686,19 @@ Bézier            (t) = w(1-t) + zt
 							rather overly complicated set of arithmetic expressions:
 						</p>
 						<!--
- 
+
      2             2             2             2             2
--18 t  x  y  + 36 t  x  y  - 18 t  x  y  + 18 t  x  y  - 54 t  x  y              
+-18 t  x  y  + 36 t  x  y  - 18 t  x  y  + 18 t  x  y  - 54 t  x  y
         2  1          3  1          4  1          1  2          3  2
      2             2             2             2             2
-+36 t  x  y  - 36 t  x  y  + 54 t  x  y  - 18 t  x  y  + 18 t  x  y              
++36 t  x  y  - 36 t  x  y  + 54 t  x  y  - 18 t  x  y  + 18 t  x  y
         4  2          1  3          2  3          4  3          1  4
-     2             2                                                             
--36 t  x  y  + 18 t  x  y  + 36 t x  y   - 54 t x  y   + 18 t x  y   - 36 t x  y 
+     2             2
+-36 t  x  y  + 18 t  x  y  + 36 t x  y   - 54 t x  y   + 18 t x  y   - 36 t x  y
         2  4          3  4         2  1          3  1          4  1          1  2
-+54 t x  y   - 18 t x  y   + 54 t x  y   - 54 t x  y   - 18 t x  y   + 18 t x  y 
++54 t x  y   - 18 t x  y   + 54 t x  y   - 54 t x  y   - 18 t x  y   + 18 t x  y
        3  2          4  2          1  3          2  3          1  4          2  4
--18 x  y     + 18 x  y     + 18 x  y     - 18 x  y     - 18 x  y     + 18 x  y   
+-18 x  y     + 18 x  y     + 18 x  y     - 18 x  y     - 18 x  y     + 18 x  y
      2  1          3  1          1  2          3  2          1  3          2  3
 -->
 						<img
@@ -4719,7 +4719,7 @@ Bézier            (t) = w(1-t) + zt
 						<code>t</code> values, we end up with the following simple term function for <em>C(t)</em>:
 					</p>
 					<!--
- 
+
                                  2
 (3 x  y +2 x  y +3 x  y -x  y ) t  + (3 x  y -x  y -3 x  y ) t + (x  y -x  y )
     3  2    4  2    2  3  4  3           3  2  4  2    2  3        2  3  3  2
@@ -4736,7 +4736,7 @@ Bézier            (t) = w(1-t) + zt
 						simplification:
 					</p>
 					<!--
- 
+
 a = x   · y  ╮
      3     2 │
 b = x   · y  │                             2
@@ -4755,7 +4755,7 @@ d = x   · y  │
 					/>
 					<p>This is a plain quadratic curve, and we know how to solve <em>C(t) = 0</em>; we use the quadratic formula:</p>
 					<!--
- 
+
                                                   ┌──────────┐
                                                   │ 2
 x = -3a + 2b + 3c - d ╮                      -y ±⟍│y  - 4 x z
@@ -4851,7 +4851,7 @@ z =       c - a       ╯                             2x
 								This edge is described by the function:
 							</p>
 							<!--
- 
+
       2
     -x  + 2x + 3
 y = ────────────, { x ≤1 }
@@ -4871,7 +4871,7 @@ y = ────────────, { x ≤1 }
 								the function:
 							</p>
 							<!--
- 
+
      ┌──────────┐
      │        2
     ⟍│3(4x - x )  - x
@@ -4889,7 +4889,7 @@ y = ─────────────────, { 0 ≤x ≤1 }
 						<li>
 							<p>...on the top (blue) edge, the curve's start point touches the curve, forming a loop. This edge is described by the function:</p>
 							<!--
- 
+
       2
     -x  + 3x
 y = ────────, { x ≤0 }
@@ -4956,7 +4956,7 @@ y = ────────, { x ≤0 }
 						<em>z</em> coordinate that is always 1, then we can suddenly add arbitrary values. For example:
 					</p>
 					<!--
- 
+
 ┌ 1 0 a ┐    ┌  x  ┐   ┌ 1  · x + 0  · y + a  · z ┐   ┌ x + a  · 1 ┐   ┌ x + a ┐
 │ 0 1 b │  · │  y  │ = │ 0  · x + 1  · y + b  · z │ = │ y + b  · 1 │ = │ y + b │
 └ 0 0 1 ┘    └ z=1 ┘   └ 0  · x + 0  · y + 1  · z ┘   └   1  · z   ┘   └  z=1  ┘
@@ -4967,7 +4967,7 @@ y = ────────, { x ≤0 }
 						want to subtract p1.x and p1.y, we use:
 					</p>
 					<!--
- 
+
      ┌ 1 0 -P   ┐            ┌ 1  · x + 0  · y - P    · 1 ┐   ┌ x - P   ┐
      │       1x │    ┌ x ┐   │                    1x      │   │      1x │
 T  = │ 0 1 -P   │  · │ y │ = │ 0  · x + 1  · y - P    · 1 │ = │ y - P   │
@@ -4983,7 +4983,7 @@ T  = │ 0 1 -P   │  · │ y │ = │ 0  · x + 1  · y - P    · 1 │ = �
 						transformation looks like this:
 					</p>
 					<!--
- 
+
 ┌ 1 S 0 ┐    ┌ x ┐   ┌ x + S  · y ┐
 │ 0 1 0 │  · │ y │ = │     y      │
 └ 0 0 1 ┘    └ 1 ┘   └     1      ┘
@@ -4994,7 +4994,7 @@ T  = │ 0 1 -P   │  · │ y │ = │ 0  · x + 1  · y - P    · 1 │ = �
 						simply <em>-x/y</em>, because <em>-x/y \</em> y = -x*. Done:
 					</p>
 					<!--
- 
+
      ┌    U     ┐
      │     2x   │
      │ 1 -─── 0 │
@@ -5012,7 +5012,7 @@ T  = │    U     │
 						x-scaling by 1/point3<sub>x</sub>, and y-scaling by point2<sub>y</sub>. This is really easy:
 					</p>
 					<!--
- 
+
      ┌  1        ┐
      │ ───  0  0 │
      │ V         │
@@ -5033,7 +5033,7 @@ T  = │      1    │
 						offset, in this case 1:
 					</p>
 					<!--
- 
+
      ┌    1    0 0 ┐
      │ 1 - W       │
      │      3y     │
@@ -5049,7 +5049,7 @@ T  = │ ─────── 1 0 │
 						be:
 					</p>
 					<!--
- 
+
                 ╭                           (-x +x )(-y +y )                ╮
                 │                              1  2    1  4                 │
                 │                -x  + x  - ────────────────                │
@@ -5084,7 +5084,7 @@ mapped  = (x) = │                                1  2                       �
 						that leave?
 					</p>
 					<!--
- 
+
       ╭                 x   · y       x   · y              ╮
       │                  2     4       2     3             │
       │            x  - ──────── / x -────────             │   ╭         x           ╮
@@ -5104,11 +5104,11 @@ mapped  = (x) = │                                1  2                       �
 						factors to see just how simple this is:
 					</p>
 					<!--
- 
-      ╭         x           ╮                 ╭ x  - x   · y   ╮           y                y 
+
+      ╭         x           ╮                 ╭ x  - x   · y   ╮           y                y
       │          43         │                 │  4    2     42 │            4                3
 ... = │                     │,   where  x   = │ ────────────── │,    y   = ──,   and  y   = ──
-      │ y   + x   (1 - y  ) │            43   │ x  - x   · y   │      42   y           32   y 
+      │ y   + x   (1 - y  ) │            43   │ x  - x   · y   │      42   y           32   y
       ╰  42    43       32  ╯                 ╰  3    2     32 ╯            2                2
 -->
 					<img class="LaTeX SVG" src="./images/chapters/canonical/88e3fae7aeef6d7614290587422542c9.svg" width="563px" height="55px" loading="lazy" />
@@ -5197,16 +5197,16 @@ mapped  = (x) = │                                1  2                       �
 					</p>
 					<p>First, let's look at the function for x(t):</p>
 					<!--
- 
+
              3          2            2     3
-x(t) = a(1-t)  + 3b(1-t) t + 3c(1-t)t  + dt 
+x(t) = a(1-t)  + 3b(1-t) t + 3c(1-t)t  + dt
 -->
 					<img class="LaTeX SVG" src="./images/chapters/yforx/378d0fd8cefa688d530ac38930d66844.svg" width="335px" height="19px" loading="lazy" />
 					<p>
 						We can rewrite this to a plain polynomial form, by just fully writing out the expansion and then collecting the polynomial factors, as:
 					</p>
 					<!--
- 
+
                          3                  2
 x(t) = (-a + 3b- 3c + d)t  + (3a - 6b + 3c)t  + (-3a + 3b)t + a
 -->
@@ -5217,7 +5217,7 @@ x(t) = (-a + 3b- 3c + d)t  + (3a - 6b + 3c)t  + (-3a + 3b)t + a
 						known constants, we can trivially rewrite this (by moving the <code>x(t)</code> across the equal sign) as:
 					</p>
 					<!--
- 
+
                    3                  2
 (-a + 3b - 3c + d)t  + (3a - 6b + 3c)t  + (-3a + 3b)t + (a-x) = 0
 -->
@@ -5310,7 +5310,7 @@ y = curve.get(t).y</textarea
 						following seemingly straight forward (if a bit overwhelming) formula:
 					</p>
 					<!--
- 
+
     ┌───────────────┐
 ╭ z │      2       2
 |   │f '(t) +f '(t)   dt
@@ -5319,7 +5319,7 @@ y = curve.get(t).y</textarea
 					<img class="LaTeX SVG" src="./images/chapters/arclength/59ebc3a7c3547a50998d1ea3664fb688.svg" width="140px" height="33px" loading="lazy" />
 					<p>or, more commonly written using Leibnitz notation as:</p>
 					<!--
- 
+
               ┌─────────────────┐
           ╭ z │       2        2
 length =  |  ⟍│(dx/dt) +(dy/dt)   dt
@@ -5358,7 +5358,7 @@ length =  |  ⟍│(dx/dt) +(dy/dt)   dt
 |   ⟍│(dx/dt) +(dy/dt)   dt =  |   f(t) dt  ≃ ┌ \underset strip 1 \underbrace C   · f(t )   + ...  + \underset strip n \underbrace C   · f(t )  ┐ =
 ╯ -1                           ╯ -1           └                                1       1                                            n       n   ┘
                                                                                     __ n
-                                           \underset strips 1 through n \underbrace ❯      C   · f(t )   
+                                           \underset strips 1 through n \underbrace ❯      C   · f(t )
                                                                                     ‾‾ i=1  i       i
 -->
 					<img class="LaTeX SVG" src="./images/chapters/arclength/b76753476ad6ecfe4b8f39bcf9432980.svg" width="623px" height="71px" loading="lazy" />
@@ -5440,16 +5440,16 @@ length =  |  ⟍│(dx/dt) +(dy/dt)   dt
 							shifting and scaling the inputs. Doing so, we get the following:
 						</p>
 						<!--
- 
+
      ┌─────────────────┐
  ╭ z │       2        2
- |  ⟍│(dx/dt) +(dy/dt)   dt                                        
+ |  ⟍│(dx/dt) +(dy/dt)   dt
  ╯ 0
      z    ┌        ╭ z         z ╮                ╭ z         z ╮ ┐
  ≃ \ ─  · │ C   · f│ ─  · t  + ─ │ + ... + C   · f│ ─  · t  + ─ │ │
      2    └  1     ╰ 2     1   2 ╯          n     ╰ 2     n   2 ╯ ┘
     z    __ n         ╭ z         z ╮
-= \ ─  · ❯     C   · f│ ─  · t  + ─ │                              
+= \ ─  · ❯     C   · f│ ─  · t  + ─ │
     2    ‾‾ i=1 i     ╰ 2     i   2 ╯
 -->
 						<img
@@ -5471,10 +5471,10 @@ length =  |  ⟍│(dx/dt) +(dy/dt)   dt
 							<a href="./legendre-gauss.html">these tables</a> would tell us that for <em>n=2</em> we must use the following values:
 						</p>
 						<!--
- 
-C  = 1     
+
+C  = 1
  1
-C  = 1     
+C  = 1
  2
         1
 t  = - ────
@@ -5490,7 +5490,7 @@ t  = + ────
 							Which means that in order for us to approximate the integral, we must plug these values into the approximate function, which gives us:
 						</p>
 						<!--
- 
+
     ┌─────────────────┐
 ╭ z │       2        2       z    ┌  ╭ z     -1    z ╮    ╭ z     1     z ╮ ┐
 |  ⟍│(dx/dt) +(dy/dt)   dt ≃ ─  · │ f│ ─  · ──── + ─ │ + f│ ─  · ──── + ─ │ │
@@ -5654,13 +5654,13 @@ t  = + ────
 					</p>
 					<p>So, what does the function look like? This:</p>
 					<!--
- 
+
          x'y'' - x''y'
 \kappa = ─────────────
                    3
                    ─
              2   2 2
-          (x' +y' ) 
+          (x' +y' )
 -->
 					<img class="LaTeX SVG" src="./images/chapters/curvature/060acd6ff0a050fe4d98a7802a2b3a3f.svg" width="113px" height="47px" loading="lazy" />
 					<p>
@@ -5668,14 +5668,14 @@ t  = + ────
 						tiny bit:
 					</p>
 					<!--
- 
+
             B '(t)B ''(t) - B ''(t)B '(t)
              x     y         x      y
 \kappa(t) = ─────────────────────────────
                                   3
                                   ─
                         2       2 2
-                 (B '(t) +B '(t) ) 
+                 (B '(t) +B '(t) )
                    x       y
 -->
 					<img class="LaTeX SVG" src="./images/chapters/curvature/afd8cb8b0fe291ff703752c1c9cc33d4.svg" width="239px" height="55px" loading="lazy" />
@@ -5754,7 +5754,7 @@ function kappa(t, B):
 						circle that "fits" the curve's curvature at any point, using what is possibly the simplest bit of maths found in this entire primer:
 					</p>
 					<!--
- 
+
            1
 R(t) = ─────────
        \kappa(t)
@@ -6204,8 +6204,8 @@ lli = function(line1, line2):
 						points, so logically <code>C</code> will have a function that interpolates between those two coordinates:
 					</p>
 					<!--
- 
-C = u(t)  · P       + (1-u(t))  · P    
+
+C = u(t)  · P       + (1-u(t))  · P
               start                 end
 -->
 					<img class="LaTeX SVG" src="./images/chapters/abc/8c6662f605722fb2ff6cd7f65243a126.svg" width="229px" height="16px" loading="lazy" />
@@ -6218,22 +6218,22 @@ C = u(t)  · P       + (1-u(t))  · P
 						(with thanks to Boris Zbarsky) shows us the following two formulae:
 					</p>
 					<!--
- 
+
                         2
-                   (1-t) 
+                   (1-t)
 u(t)           = ───────────
      quadratic    2        2
-                 t  + (1-t) 
+                 t  + (1-t)
 -->
 					<img class="LaTeX SVG" src="./images/chapters/abc/8e7cfee39c98f2ddf9b635a914066cf6.svg" width="183px" height="41px" loading="lazy" />
 					<p>And</p>
 					<!--
- 
+
                     3
-               (1-t) 
+               (1-t)
 u(t)       = ───────────
      cubic    3        3
-             t  + (1-t) 
+             t  + (1-t)
 -->
 					<img class="LaTeX SVG" src="./images/chapters/abc/a0b99054cc82ca1fb147f077e175ef10.svg" width="161px" height="41px" loading="lazy" />
 					<p>
@@ -6244,7 +6244,7 @@ u(t)       = ───────────
 					</p>
 					<p>We start by observing that, given <code>A</code>, <code>B</code>, and <code>C</code>, the following always holds:</p>
 					<!--
- 
+
             distance(B,C)
 ratio(t) = ────────────── =  Constant
             distance(A,B)
@@ -6252,22 +6252,22 @@ ratio(t) = ────────────── =  Constant
 					<img class="LaTeX SVG" src="./images/chapters/abc/131454dcbac04e567f322979f4af80c6.svg" width="245px" height="39px" loading="lazy" />
 					<p>Working out the maths for this, we see the following two formulae for quadratic and cubic curves:</p>
 					<!--
- 
+
                        2        2
                       t  + (1-t)  - 1
 ratio(t)           = |───────────────|
          quadratic       2        2
-                        t  + (1-t) 
+                        t  + (1-t)
 -->
 					<img class="LaTeX SVG" src="./images/chapters/abc/5924e162b50272c40c842fad14b8fa48.svg" width="239px" height="41px" loading="lazy" />
 					<p>And</p>
 					<!--
- 
+
                    3        3
                   t  + (1-t)  - 1
 ratio(t)       = |───────────────|
          cubic       3        3
-                    t  + (1-t) 
+                    t  + (1-t)
 -->
 					<img class="LaTeX SVG" src="./images/chapters/abc/8cd992c1ceaae2e67695285beef23a24.svg" width="219px" height="41px" loading="lazy" />
 					<p>
@@ -6277,7 +6277,7 @@ ratio(t)       = |───────────────|
 						<code>ratio(t)</code> function to find <code>A</code>:
 					</p>
 					<!--
- 
+
           C - B           B - C
 A = B - ───────── = B + ─────────
          ratio(t)        ratio(t)
@@ -6292,11 +6292,11 @@ A = B - ───────── = B + ─────────
 						pair, after which we can reverse engineer <code>v1</code> and <code>v2</code>:
 					</p>
 					<!--
- 
+
                                  ╭     e  - t  · A
                                  │      1
-╭ e = (1-t)  · v  + t  · A       │ v = ───────────    
-╡  1            1            ==> ╡  1      1-t         
+╭ e = (1-t)  · v  + t  · A       │ v = ───────────
+╡  1            1            ==> ╡  1      1-t
 │ e = (1-t)  · A + t  · v        │     e  - (1-t)  · A
 ╰  2                     2       │      2
                                  │ v = ───────────────
@@ -6305,14 +6305,14 @@ A = B - ───────── = B + ─────────
 					<img class="LaTeX SVG" src="./images/chapters/abc/3166afa345aec1abda432c39b68d39a0.svg" width="339px" height="73px" loading="lazy" />
 					<p>And then reverse engineer the curve's control points:</p>
 					<!--
- 
+
                                       ╭     v  - (1-t)  ·  start
                                       │      1
 ╭ v = (1-t)  ·  start + t  · C        │ C = ────────────────────
-╡  1                          1   ==> ╡  1           t           
+╡  1                          1   ==> ╡  1           t
 │ v = (1-t)  · C  + t  ·  end         │     v  - t  ·  end
 ╰  2            2                     │      2
-                                      │ C = ──────────────      
+                                      │ C = ──────────────
                                       ╰  2       1-t
 -->
 					<img class="LaTeX SVG" src="./images/chapters/abc/8bd3e6fed5bf8d871d30221ae400fd93.svg" width="383px" height="75px" loading="lazy" />
@@ -6342,15 +6342,15 @@ A = B - ───────── = B + ─────────
 						<code>B</code> point, and <code>B</code> and end point as a ratio, using
 					</p>
 					<!--
- 
+
 ╭ d = || Start - B||
 │  1
-│ d = || End - B||  
+│ d = || End - B||
 │  2
-╡      d             
+╡      d
 │       1
-│  t= ─────         
-│     d +d 
+│  t= ─────
+│     d +d
 ╰      1  2
 -->
 					<img
@@ -6412,9 +6412,9 @@ A = B - ───────── = B + ─────────
 						<code>e2</code> coordinates must obey the standard de Casteljau rule for linear interpolation:
 					</p>
 					<!--
- 
-╭ e = B + t  · d    
-╡  1                 
+
+╭ e = B + t  · d
+╡  1
 │ e = B - (1-t)  · d
 ╰  2
 -->
@@ -6434,7 +6434,7 @@ A = B - ───────── = B + ─────────
 						curve with a loop in it. To do this, we can use the <a href="https://en.wikipedia.org/wiki/Atan2">atan2</a> function:
 					</p>
 					<!--
- 
+
 \phi = (atan2(E -S , E -S ) - atan2(B -S , B -S ) + 2 \pi)   mod  2 \pi
                y  y   x  x           y  y   x  x
 -->
@@ -6451,8 +6451,8 @@ A = B - ───────── = B + ─────────
 						<code>d</code>:
 					</p>
 					<!--
- 
-d = {  d  if  0 ≤\phi ≤\pi             
+
+d = {  d  if  0 ≤\phi ≤\pi
       -d  if  \phi < 0 \lor \phi > \pi
 -->
 					<img
@@ -6632,7 +6632,7 @@ for (coordinate, index) in LUT:
 						maths, that means we're trying to solve:
 					</p>
 					<!--
- 
+
 dist(B(t), c) = r
 -->
 					<img
@@ -6644,15 +6644,15 @@ dist(B(t), c) = r
 					/>
 					<p>Which seems simple enough. Unfortunately, when we expand that <code>dist</code> function, things get a lot more problematic:</p>
 					<!--
- 
-r=  dist(B(t), c)                                                                                                              
+
+r=  dist(B(t), c)
     ┌─────────────────────────┐
     │          2             2
- =  │(B t - c )  + (B t - c )                                                                                                  
-   ⟍│  x     x       y     y                                                                                                   
+ =  │(B t - c )  + (B t - c )
+   ⟍│  x     x       y     y
     ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
     │╭         3             2                 2       3      ╮2   ╭         3             2                 2       3      ╮2
- =  ││ x  (1-t)  + 3 x  (1-t)  t + 2 x  (1-t) t  + x  t  - c  │  + │ y  (1-t)  + 3 y  (1-t)  t + 2 y  (1-t) t  + y  t  - c  │  
+ =  ││ x  (1-t)  + 3 x  (1-t)  t + 2 x  (1-t) t  + x  t  - c  │  + │ y  (1-t)  + 3 y  (1-t)  t + 2 y  (1-t) t  + y  t  - c  │
    ⟍│╰  1             2               3             4       x ╯    ╰  1             2               3             4       y ╯
 -->
 					<img
@@ -6925,17 +6925,17 @@ findClosest(start, p, r, LUT):
 						<code>B</code>, we can compute the associated <code>C</code>:
 					</p>
 					<!--
- 
+
 C = u(t)   ·  Start + (1-u(t) )  ·  End
         q                    q
 -->
 					<img class="LaTeX SVG" src="./images/chapters/molding/48887d68a861a0acdf8313e23fb19880.svg" width="247px" height="24px" loading="lazy" />
 					<p>And then the associated <code>A</code>:</p>
 					<!--
- 
+
           C - B            B - C
 A = B - ────────── = B + ──────────
-         ratio(t)         ratio(t) 
+         ratio(t)         ratio(t)
                  q                q
 -->
 					<img class="LaTeX SVG" src="./images/chapters/molding/2e65bc9c934380c2de6a24bcd5c1c7b7.svg" width="228px" height="41px" loading="lazy" />
@@ -7074,12 +7074,12 @@ A = B - ────────── = B + ──────────
 							form, where each line corresponds to a power of t, and each column is for a specific coefficient. First, we expand the function:
 						</p>
 						<!--
- 
+
                     2                    2
-B          = a (1-t)  + 2 b (1-t) t + c t    
-  quadratic                                  
+B          = a (1-t)  + 2 b (1-t) t + c t
+  quadratic
                          2            2     2
-           = a - 2at + at  + 2bt - 2bt  + ct 
+           = a - 2at + at  + 2bt - 2bt  + ct
 -->
 						<img
 							class="LaTeX SVG"
@@ -7090,12 +7090,12 @@ B          = a (1-t)  + 2 b (1-t) t + c t
 						/>
 						<p>And then we (trivially) rearrange the terms across multiple lines:</p>
 						<!--
- 
-B          =a               
+
+B          =a
   quadratic
-            - 2at+ 2bt      
+            - 2at+ 2bt
                 2     2    2
-            + at - 2bt + ct 
+            + at - 2bt + ct
 -->
 						<img
 							class="LaTeX SVG"
@@ -7111,7 +7111,7 @@ B          =a
 						</p>
 						<p>With that arrangement, we can easily decompose this as a matrix multiplication:</p>
 						<!--
- 
+
                                          ┌  a  +  0  + 0 ┐                 ┌  1  0 0 ┐    ┌ a ┐
 B          = T  · M  · C = ┌      2 ┐  · │ -2a +  2b + 0 │ = ┌      2 ┐  · │ -2  2 0 │  · │ b │
   quadratic                └ 1 t t  ┘    └  a  + -2b + c ┘   └ 1 t t  ┘    └  1 -2 1 ┘    └ c ┘
@@ -7125,9 +7125,9 @@ B          = T  · M  · C = ┌      2 ┐  · │ -2a +  2b + 0 │ = ┌     
 						/>
 						<p>We can do the same for the cubic curve, of course. We know the base function for cubics:</p>
 						<!--
- 
+
               3          2             2     3
-B      =a(1-t)  + 3b(1-t)  t + 3c(1-t)t  + dt 
+B      =a(1-t)  + 3b(1-t)  t + 3c(1-t)t  + dt
   cubic
 -->
 						<img
@@ -7139,14 +7139,14 @@ B      =a(1-t)  + 3b(1-t)  t + 3c(1-t)t  + dt
 						/>
 						<p>So we write out the expansion and rearrange:</p>
 						<!--
- 
-B      =a                     
+
+B      =a
   cubic
-        - 3at + 3bt           
-             2     2    2     
-        + 3at - 6bt +3ct      
+        - 3at + 3bt
+             2     2    2
+        + 3at - 6bt +3ct
             3      3    3    3
-        - at  + 3bt -3ct + dt 
+        - at  + 3bt -3ct + dt
 -->
 						<img
 							class="LaTeX SVG"
@@ -7157,7 +7157,7 @@ B      =a
 						/>
 						<p>Which we can then decompose:</p>
 						<!--
- 
+
                                         ┌  1  0  0 0 ┐    ┌ a ┐
 B      = T  · M  · C = ┌      2  3 ┐  · │ -3  3  0 0 │  · │ b │
   cubic                └ 1 t t  t  ┘    │  3 -6  3 0 │    │ c │
@@ -7172,7 +7172,7 @@ B      = T  · M  · C = ┌      2  3 ┐  · │ -3  3  0 0 │  · │ b │
 						/>
 						<p>And, of course, we can do this for quartic curves too (skipping the expansion step):</p>
 						<!--
- 
+
                                              ┌  1  0   0   0 0 ┐    ┌ a ┐
                                              │ -4  4   0   0 0 │    │ b │
 B        = T  · M  · C = ┌      2  3  4 ┐  · │  6 -12  6   0 0 │  · │ c │
@@ -7198,7 +7198,7 @@ B        = T  · M  · C = ┌      2  3  4 ┐  · │  6 -12  6   0 0 │  · 
 						we want to do curve fitting:
 					</p>
 					<!--
- 
+
     ┌ p   ┐
     │  1  │
     │ p   │
@@ -7236,9 +7236,9 @@ P = │  2  │
 					</p>
 					<p>To get these values, we first compute the general "distance along the polygon" matrix:</p>
 					<!--
- 
+
                                ╭            d  = 0
-D = ┌ d  d  ... d  ┐,   where  ╡             1                 
+D = ┌ d  d  ... d  ┐,   where  ╡             1
     └  1  2      n ┘           │ d  = d    +  length(p   , p )
                                ╰  i    i-1            i-1   i
 -->
@@ -7255,10 +7255,10 @@ D = ┌ d  d  ... d  ┐,   where  ╡             1
 						<code>i=n</code> fall in the [0,1] interval, so we need to scale all values down by whatever the total length of the polygon is:
 					</p>
 					<!--
- 
+
                                ╭    s  = 0
                                │     1
-S = ┌ s  s  ... s  ┐,   where  ╡ s  = d  / d  
+S = ┌ s  s  ... s  ┐,   where  ╡ s  = d  / d
     └  1  2      n ┘           │  i    i    n
                                │    s  = 1
                                ╰     n
@@ -7280,9 +7280,9 @@ S = ┌ s  s  ... s  ┐,   where  ╡ s  = d  / d
 						to for the associated <code>t</code> value", which we'll square to get rid of any pesky negative signs:
 					</p>
 					<!--
- 
+
                            2
-E(C)  = (p  -   Bézier(s )) 
+E(C)  = (p  -   Bézier(s ))
     i     i             i
 -->
 					<img
@@ -7297,9 +7297,9 @@ E(C)  = (p  -   Bézier(s ))
 						function. So, we literally just do that; the total error function is simply the sum of all these individual errors:
 					</p>
 					<!--
- 
+
        __ n                      2
-E(C) = ❯      (p  -   Bézier(s )) 
+E(C) = ❯      (p  -   Bézier(s ))
        ‾‾ i=1   i             i
 -->
 					<img
@@ -7316,9 +7316,9 @@ E(C) = ❯      (p  -   Bézier(s ))
 						<strong>T x M x C</strong> we talked about before, which gives us:
 					</p>
 					<!--
- 
+
                 2
-E(C) = (P - TMC) 
+E(C) = (P - TMC)
 -->
 					<img
 						class="LaTeX SVG"
@@ -7329,7 +7329,7 @@ E(C) = (P - TMC)
 					/>
 					<p>In which we can replace the rather cumbersome "squaring" operation with a more conventional matrix equivalent:</p>
 					<!--
- 
+
                 T
 E(C) = (P - TMC)  (P - TMC)
 -->
@@ -7351,7 +7351,7 @@ E(C) = (P - TMC)  (P - TMC)
 						those, and then use that 𝕋 instead of <strong>T</strong> in our error function:
 					</p>
 					<!--
- 
+
     ┌    0    1      n-2   n-1  ┐
     │   s    s  ... s     s     │
     │    1    1      1     1    │
@@ -7371,7 +7371,7 @@ E(C) = (P - TMC)  (P - TMC)
 					/>
 					<p>Which, because of the first and last values in <strong>S</strong>, means:</p>
 					<!--
- 
+
     ┌    1     0  ...   0    0    ┐
     │                  n-2   n-1  │
     │    1    s       s     s     │
@@ -7391,7 +7391,7 @@ E(C) = (P - TMC)  (P - TMC)
 					/>
 					<p>Now we can properly write out the error function as matrix operations:</p>
 					<!--
- 
+
                 T
 E(C) = (P - 𝕋MC)  (P - 𝕋MC)
 -->
@@ -7408,7 +7408,7 @@ E(C) = (P - 𝕋MC)  (P - 𝕋MC)
 						taking the derivative, and determining where that derivative is zero:
 					</p>
 					<!--
- 
+
 ∂E          T
 ── = 0 = -2𝕋  (P - 𝕋MC)
 ∂C
@@ -7447,7 +7447,7 @@ E(C) = (P - 𝕋MC)  (P - 𝕋MC)
 						for <strong>C</strong>:
 					</p>
 					<!--
- 
+
      -1   T   -1  T
 C = M   (𝕋  𝕋)   𝕋  P
 -->
@@ -7546,13 +7546,13 @@ C = M   (𝕋  𝕋)   𝕋  P
 						previous and next point:
 					</p>
 					<!--
- 
+
                ┌  V  = P       ┐
                │   1    2      │
 ┌ P  ┐         │  V  = P       │
 │  1 │         │   2    3      │
 │ P  │         │       P  - P  │
-│  2 │       = │        3    1 │              
+│  2 │       = │        3    1 │
 │ P  │points   │ V'  = ─────── │ point-tangent
 │  3 │         │   1      2    │
 │ P  │         │       P  - P  │
@@ -7685,7 +7685,7 @@ for p = 1 to points.length-3 (inclusive):
 						so how different is the matrix form for Catmull-Rom curves?:
 					</p>
 					<!--
- 
+
                                                     ┌ V   ┐
                                                     │  1  │
                                  ┌  1  0  0 0  ┐    │ V   │
@@ -7722,7 +7722,7 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 							we'll get to that:
 						</p>
 						<!--
- 
+
                         ┌   P     ┐
                         │    2    │
 ┌ V   ┐        ┌ P  ┐   │   P     │
@@ -7750,7 +7750,7 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 						</p>
 						<p>Computing <em>T</em> is really more "arranging the numbers":</p>
 						<!--
- 
+
               ┌   P     ┐
               │    2    │
      ┌ P  ┐   │   P     │   ┌  0  · P1 + 1  · P2 + 0  · P3 + 0  · P4 ┐   ┌  0  1 0 0 ┐    ┌ P  ┐
@@ -7773,7 +7773,7 @@ T  · │  2 │ = │  3    1 │ = │ ──  · P1 + 0  · P2 + ─  · P3 +
 						/>
 						<p>Thus:</p>
 						<!--
- 
+
     ┌  0  1 0 0 ┐
     │  0  0 1 0 │
     │ -1    1   │
@@ -7797,7 +7797,7 @@ T = │ ──  0 ─ 0 │
 							factor into both our coordinate vector representation, and mapping matrix <em>T</em>:
 						</p>
 						<!--
- 
+
           ┌   P     ┐
           │    2    │
 ┌ V   ┐   │   P     │        ┌  0  1  0 0  ┐
@@ -7823,7 +7823,7 @@ T = │ ──  0 ─ 0 │
 							coordinates, and see what we end up with:
 						</p>
 						<!--
- 
+
                                                     ┌ V   ┐
                                                     │  1  │
                                  ┌  1  0  0 0  ┐    │ V   │
@@ -7842,7 +7842,7 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 						/>
 						<p>Replace point/tangent vector with the expression for all-coordinates:</p>
 						<!--
- 
+
                                                     ┌  0  1  0 0  ┐    ┌ P  ┐
                                                     │  0  0  1 0  │    │  1 │
                                  ┌  1  0  0 0  ┐    │ -1    1     │    │ P  │
@@ -7861,7 +7861,7 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │ ──  0 ─�
 						/>
 						<p>and merge the matrices:</p>
 						<!--
- 
+
                                  ┌  0    1      0   0  ┐
                                  │ -1          1       │    ┌ P  ┐
                                  │ ──    0     ──   0  │    │  1 │
@@ -7882,7 +7882,7 @@ CatmullRom(t) = ┌      2  3 ┐  · │  1 1           1 -1 │  · │  2 │
 						/>
 						<p>This looks a lot like the Bézier matrix form, which as we saw in the chapter on Bézier curves, should look like this:</p>
 						<!--
- 
+
                                                ┌ P  ┐
                                                │  1 │
                              ┌  1  0  0 0 ┐    │ P  │
@@ -7901,7 +7901,7 @@ Bézier(t) = ┌      2  3 ┐  · │ -3  3  0 0 │  · │  2 │
 						/>
 						<p>So, if we want to express a Catmull-Rom curve using a Bézier curve, we'll need to turn this Catmull-Rom bit:</p>
 						<!--
- 
+
 ┌  0    1      0   0  ┐
 │ -1          1       │    ┌ P  ┐
 │ ──    0     ──   0  │    │  1 │
@@ -7922,7 +7922,7 @@ Bézier(t) = ┌      2  3 ┐  · │ -3  3  0 0 │  · │  2 │
 						/>
 						<p>Into something that looks like this:</p>
 						<!--
- 
+
                   ┌ P  ┐
                   │  1 │
 ┌  1  0  0 0 ┐    │ P  │
@@ -7941,7 +7941,7 @@ Bézier(t) = ┌      2  3 ┐  · │ -3  3  0 0 │  · │  2 │
 						/>
 						<p>And the way we do that is with a fairly straight forward bit of matrix rewriting. We start with the equality we need to ensure:</p>
 						<!--
- 
+
 ┌  0    1      0   0  ┐
 │ -1          1       │    ┌ P  ┐                          ┌ P  ┐
 │ ──    0     ──   0  │    │  1 │                          │  1 │
@@ -7962,7 +7962,7 @@ Bézier(t) = ┌      2  3 ┐  · │ -3  3  0 0 │  · │  2 │
 						/>
 						<p>Then we remove the coordinate vector from both sides without affecting the equality:</p>
 						<!--
- 
+
 ┌  0    1      0   0  ┐
 │ -1          1       │
 │ ──    0     ──   0  │
@@ -7983,7 +7983,7 @@ Bézier(t) = ┌      2  3 ┐  · │ -3  3  0 0 │  · │  2 │
 						/>
 						<p>Then we can "get rid of" the Bézier matrix on the right by left-multiply both with the inverse of the Bézier matrix:</p>
 						<!--
- 
+
                      ┌  0    1      0   0  ┐
                      │ -1          1       │
                      │ ──    0     ──   0  │
@@ -8007,7 +8007,7 @@ Bézier(t) = ┌      2  3 ┐  · │ -3  3  0 0 │  · │  2 │
 							outright remove any matrix/inverse pair:
 						</p>
 						<!--
- 
+
                      ┌  0    1      0   0  ┐
                      │ -1          1       │
                      │ ──    0     ──   0  │
@@ -8028,7 +8028,7 @@ Bézier(t) = ┌      2  3 ┐  · │ -3  3  0 0 │  · │  2 │
 						/>
 						<p>And now we're <em>basically</em> done. We just multiply those two matrices and we know what <em>V</em> is:</p>
 						<!--
- 
+
 ┌  0  1  0 0  ┐
 │ -1    1     │
 │ ──  1 ── 0  │
@@ -8050,7 +8050,7 @@ Bézier(t) = ┌      2  3 ┐  · │ -3  3  0 0 │  · │  2 │
 							<li>Start with the Catmull-Rom function:</li>
 						</ol>
 						<!--
- 
+
                                                     ┌ V   ┐
                                                     │  1  │
                                  ┌  1  0  0 0  ┐    │ V   │
@@ -8071,7 +8071,7 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 							<li>rewrite to pure coordinate form:</li>
 						</ol>
 						<!--
- 
+
                                       ┌   P     ┐
                                       │    2    │
                                       │   P     │
@@ -8096,7 +8096,7 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 							<li>rewrite for "normal" coordinate vector:</li>
 						</ol>
 						<!--
- 
+
                                       ┌  0  1  0 0  ┐    ┌ P  ┐
                                       │  0  0  1 0  │    │  1 │
                    ┌  1  0  0 0  ┐    │ -1    1     │    │ P  │
@@ -8117,7 +8117,7 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 							<li>merge the inner matrices:</li>
 						</ol>
 						<!--
- 
+
                    ┌  0    1      0   0  ┐
                    │ -1          1       │    ┌ P  ┐
                    │ ──    0     ──   0  │    │  1 │
@@ -8140,7 +8140,7 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 							<li>rewrite for Bézier matrix form:</li>
 						</ol>
 						<!--
- 
+
                                      ┌  0  1  0 0  ┐    ┌ P  ┐
                                      │ -1    1     │    │  1 │
                    ┌  1  0  0 0 ┐    │ ──  1 ── 0  │    │ P  │
@@ -8161,7 +8161,7 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 							<li>and transform the coordinates so we have a "pure" Bézier expression:</li>
 						</ol>
 						<!--
- 
+
                                      ┌     P       ┐
                                      │      2      │
                                      │      P -P   │
@@ -8190,13 +8190,13 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 						curve that has the vector:
 					</p>
 					<!--
- 
+
                        ┌     P       ┐
                        │      2      │
 ┌ P  ┐                 │      P -P   │
 │  1 │                 │       3  1  │
 │ P  │                 │ P  + ────── │
-│  2 │             ==> │  2   6  · τ │        
+│  2 │             ==> │  2   6  · τ │
 │ P  │ CatmullRom      │      P -P   │  Bézier
 │  3 │                 │       4  2  │
 │ P  │                 │ P  - ────── │
@@ -8216,11 +8216,11 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 						tension Catmull-Rom curve with the following coordinate values:
 					</p>
 					<!--
- 
+
 ┌ P  ┐              ┌       P         ┐
 │  1 │              │        1        │
 │ P  │              │       P         │
-│  2 │          ==> │        4        │           
+│  2 │          ==> │        4        │
 │ P  │  Bézier      │ P  + 3(P  - P ) │ CatmullRom
 │  3 │              │  4      1    2  │
 │ P  │              │ P  + 3(P  - P ) │
@@ -8235,11 +8235,11 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 					/>
 					<p>Or, if your API allows you to specify Catmull-Rom curves using plain coordinates:</p>
 					<!--
- 
+
 ┌ P  ┐              ┌ P  + 6(P  - P ) ┐
 │  1 │              │  4      1    2  │
 │ P  │              │       P         │
-│  2 │          ==> │        1        │           
+│  2 │          ==> │        1        │
 │ P  │  Bézier      │       P         │ CatmullRom
 │  3 │              │        4        │
 │ P  │              │ P  + 6(P  - P ) │
@@ -8330,8 +8330,8 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 						the same as it's "outgoing" derivative:
 					</p>
 					<!--
- 
-B'(1)  = B'(0)   
+
+B'(1)  = B'(0)
      n        n+1
 -->
 					<img class="LaTeX SVG" src="./images/chapters/polybezier/a37252ff55837b918d9d64078ae92ae7.svg" width="124px" height="17px" loading="lazy" />
@@ -8341,7 +8341,7 @@ B'(1)  = B'(0)
 						last control point through the last on-curve point. And mirroring any point A through any point B is really simple:
 					</p>
 					<!--
- 
+
            ┌ B  + (B  - A ) ┐   ┌ 2B  - A  ┐
 Mirrored = │  x     x    x  │ = │   x    x │
            │ B  + (B  - A ) │   │ 2B  - A  │
@@ -8517,7 +8517,7 @@ Mirrored = │  x     x    x  │ = │   x    x │
 							any point on <code>O(t)</code> is a fixed distance <code>d</code> away from coordinate <code>B(t)</code>. So let's math that:
 						</p>
 						<!--
- 
+
 O(t) = B(t) + d
 -->
 						<img
@@ -8534,7 +8534,7 @@ O(t) = B(t) + d
 							at <code>B(t)</code>. Easy enough:
 						</p>
 						<!--
- 
+
 O(t) = B(t) + d  · N(t)
 -->
 						<img
@@ -8552,7 +8552,7 @@ O(t) = B(t) + d  · N(t)
 							<code>N(t)</code> always has length 1, which we can achieve by dividing <code>B'(t)</code> by its magnitude:
 						</p>
 						<!--
- 
+
           ╭   B'(t)    ╮
 N(t) \bot │ ────────── │
           ╰ || B'(t)|| ╯
@@ -8570,10 +8570,10 @@ N(t) \bot │ ────────── │
 							denoted with double vertical bars:
 						</p>
 						<!--
- 
+
                     ┌───────────┐
                ╭ b  │   2      2
-|| f(x,y)|| =  |    │f '  + f '  
+|| f(x,y)|| =  |    │f '  + f '
                ╯ a ⟍│ x      y
 -->
 						<img
@@ -8587,10 +8587,10 @@ N(t) \bot │ ────────── │
 							So if we want the length of the tangent, we plug in <code>B'(t)</code>, with <code>t = 0</code> as start and <code>t = 1</code> as end:
 						</p>
 						<!--
- 
+
                    ┌───────────────────┐
               ╭ 1  │       2          2
-|| B'(t)|| =  |    │B ''(t)  + B ''(t)  
+|| B'(t)|| =  |    │B ''(t)  + B ''(t)
               ╯ 0 ⟍│ x          y
 -->
 						<img
@@ -8806,7 +8806,7 @@ N(t) \bot │ ────────── │
 						some angle <em>φ</em>:
 					</p>
 					<!--
- 
+
              S = \begin{pmatrix} 1
 0 \end{pmatrix}  ,  \ E = \begin{pmatrix} cos(φ)
               sin(φ) \end{pmatrix}
@@ -8814,7 +8814,7 @@ N(t) \bot │ ────────── │
 					<img class="LaTeX SVG" src="./images/chapters/circles/7ab3da0922477af4cc09f5852100976b.svg" width="175px" height="40px" loading="lazy" />
 					<p>What we want to find is the intersection of the tangents, so we want a point C such that:</p>
 					<!--
- 
+
               C = S + a  · \begin{pmatrix} 0
 1 \end{pmatrix}  ,  \ C = E + b  · \begin{pmatrix} -sin(φ)
                    cos(φ) \end{pmatrix}
@@ -8825,22 +8825,22 @@ N(t) \bot │ ────────── │
 						through E (at some distance <em>b</em> from E). Solving this gives us:
 					</p>
 					<!--
- 
+
 ╭ C  = 1 = cos(φ) + b  · -sin(φ)
-╡  x                             
-│ C  = a = sin(φ) + b  · cos(φ) 
+╡  x
+│ C  = a = sin(φ) + b  · cos(φ)
 ╰  y
 -->
 					<img class="LaTeX SVG" src="./images/chapters/circles/8237af1396bb567d70c8b5e4dd7f8115.svg" width="219px" height="40px" loading="lazy" />
 					<p>First we solve for <em>b</em>:</p>
 					<!--
- 
+
 1 = cos(φ) + b  · -sin(φ)  → \ 1 - cos(φ) = -b  · sin(φ)  → \ -1 + cos(φ) = b  · sin(φ)
 -->
 					<img class="LaTeX SVG" src="./images/chapters/circles/1829e42ea956ee4df0e45d9ac5334ef7.svg" width="560px" height="17px" loading="lazy" />
 					<p>which yields:</p>
 					<!--
- 
+
     cos(φ)-1
 b = ────────
      sin(φ)
@@ -8848,21 +8848,21 @@ b = ────────
 					<img class="LaTeX SVG" src="./images/chapters/circles/06369b00338310df0a810c592485aa0a.svg" width="101px" height="39px" loading="lazy" />
 					<p>which we can then substitute in the expression for <em>a</em>:</p>
 					<!--
- 
- a= sin(φ) + b  · cos(φ)          
+
+ a= sin(φ) + b  · cos(φ)
              -1 + cos(φ)
 ..= sin(φ) + ───────────  · cos(φ)
                sin(φ)
                           2
              -cos(φ) + cos (φ)
-..= sin(φ) + ─────────────────    
-                  sin(φ)          
+..= sin(φ) + ─────────────────
+                  sin(φ)
        2         2
     sin (φ) + cos (φ) - cos(φ)
-..= ──────────────────────────    
+..= ──────────────────────────
               sin(φ)
     1 - cos(φ)
- a= ──────────                    
+ a= ──────────
       sin(φ)
 -->
 					<img class="LaTeX SVG" src="./images/chapters/circles/5a23f3bc298c85540c6dd18e304d9224.svg" width="231px" height="195px" loading="lazy" />
@@ -8873,7 +8873,7 @@ b = ────────
 						polynomial, and we know where the circle arc's actual point P is for angle φ/2:
 					</p>
 					<!--
- 
+
          φ                 φ
 P  = cos(─)  ,  \ P  = sin(─)
  x       2         y       2
@@ -8881,7 +8881,7 @@ P  = cos(─)  ,  \ P  = sin(─)
 					<img class="LaTeX SVG" src="./images/chapters/circles/8b4e1d0a62380ed011f27c645ed13b28.svg" width="188px" height="32px" loading="lazy" />
 					<p>We compute T, observing that if <em>t=0.5</em>, the polynomial values (1-t)², 2(1-t)t, and t² are 0.25, 0.5, and 0.25 respectively:</p>
 					<!--
- 
+
     1    2    1    1
 T = ─S + ─C + ─E = ─(S + 2C + E)
     4    4    4    4
@@ -8889,10 +8889,10 @@ T = ─S + ─C + ─E = ─(S + 2C + E)
 					<img class="LaTeX SVG" src="./images/chapters/circles/a04bd1558a76e60b8ca6e1fe4fa38c00.svg" width="252px" height="35px" loading="lazy" />
 					<p>Which, worked out for the x and y components, gives:</p>
 					<!--
- 
+
 ╭     1
-│ T = ─(3 + cos(φ))                                    
-╡  x  4                                                 
+│ T = ─(3 + cos(φ))
+╡  x  4
 │     1╭ 2-2cos(φ)          ╮   1╭     ╭ φ ╮          ╮
 │ T = ─│ ───────── + sin(φ) │ = ─│ 2tan│ ─ │ + sin(φ) │
 ╰  y  4╰  sin(φ)            ╯   4╰     ╰ 2 ╯          ╯
@@ -8900,17 +8900,17 @@ T = ─S + ─C + ─E = ─(S + 2C + E)
 					<img class="LaTeX SVG" src="./images/chapters/circles/986ae9104e0bc52e95689ae7ae4504db.svg" width="408px" height="77px" loading="lazy" />
 					<p>And the distance between these two is the standard Euclidean distance:</p>
 					<!--
- 
+
                  1                   φ        4╭ φ ╮
 d (φ)= T  - P  = ─(3 + cos(φ)) - cos(─) = 2sin │ ─ │  ,
  x      x    x   4                   2         ╰ 4 ╯
                  1╭     ╭ φ ╮          ╮       φ
-d (φ)= T  - P  = ─│ 2tan│ ─ │ + sin(φ) │ - sin(─)  ,   
+d (φ)= T  - P  = ─│ 2tan│ ─ │ + sin(φ) │ - sin(─)  ,
  y      y    y   4╰     ╰ 2 ╯          ╯       2
-     ⇓                                                 
+     ⇓
         ┌───────┐                     ┌───────┐
         │ 2    2                 4 φ  │   1
- d(φ)=  │d  + d   =  ...   = 2sin (─) │───────         
+ d(φ)=  │d  + d   =  ...   = 2sin (─) │───────
        ⟍│ x    y                   4  │   2 φ
                                       │cos (─)
                                      ⟍│     2
@@ -8957,7 +8957,7 @@ d (φ)= T  - P  = ─│ 2tan│ ─ │ + sin(φ) │ - sin(─)  ,
 						precision:
 					</p>
 					<!--
- 
+
                 ╭  ┌─────────────┐ ╮
                 │  │     ┌──────┐  │
                 │ ⟍│2+ε-⟍│ε(2+ε)   │
@@ -9017,14 +9017,14 @@ d (φ)= T  - P  = ─│ 2tan│ ─ │ + sin(φ) │ - sin(─)  ,
 					</p>
 					<p>So let's again formally describe this:</p>
 					<!--
- 
-P = (1, 0)                     
+
+P = (1, 0)
  1
-P = (1, k)                     
- 2                             
+P = (1, k)
+ 2
 P = P  + k  · (sin(θ), -cos(θ))
  3   4
-P = (cos(θ), sin(θ))           
+P = (cos(θ), sin(θ))
  4
 -->
 					<img
@@ -9048,29 +9048,29 @@ P = (cos(θ), sin(θ))
 						P<sub>2</sub>" (which is "half height" P<sub>2</sub>), and so forth:
 					</p>
 					<!--
- 
-     P   + P  
-      2     3 
+
+     P   + P
+      2     3
        y     y   k + sin(θ) - k  · cos(θ)
- A = ───────── = ────────────────────────                                 
+ A = ───────── = ────────────────────────
   y      2                  2
           1
-     A  + ─P     k + sin(θ) - k  · cos(θ)   
+     A  + ─P     k + sin(θ) - k  · cos(θ)
       y   2 2    ──────────────────────── + ─
              y              2               2   2k + sin(θ) + k  · cos(θ)
-e  = ───────── = ──────────────────────────── = ───────────────────────── 
+e  = ───────── = ──────────────────────────── = ─────────────────────────
  1       2                    2                             4
-  y                                                                       
+  y
                                        k
      A  +  mid(P , P )   A  + sin(θ) - ─ cos(θ)
       y         4   3     y            2          k + 3sin(θ) 2k  · cos(θ)
 e  = ───────────────── = ────────────────────── = ────────────────────────
  2           2                     2                         4
   y
-     e   + e  
-      1     2 
+     e   + e
+      1     2
        y     y   3k + 4sin(θ) - 3k  · cos(θ)
- B = ───────── = ───────────────────────────                              
+ B = ───────── = ───────────────────────────
   y      2                    8
 -->
 					<img
@@ -9094,15 +9094,15 @@ e  = ───────────────── = ───────
 							<a href="https://www.wolframalpha.com/">Wolfram Alpha</a> is definitely the way to go. That said, let's get going:
 						</p>
 						<!--
- 
+
 3k + 4sin(θ)) - 3k  · cos(θ)      θ
-────────────────────────────= sin(─)                  
+────────────────────────────= sin(─)
              8                    2
                                   ╭ θ ╮
-3k + 4sin(θ)) - 3k  · cos(θ)= 8sin│ ─ │               
+3k + 4sin(θ)) - 3k  · cos(θ)= 8sin│ ─ │
                                   ╰ 2 ╯
                                   ╭ θ ╮
-           3k - 3k  · cos(θ)= 8sin│ ─ │ - 4sin(θ)     
+           3k - 3k  · cos(θ)= 8sin│ ─ │ - 4sin(θ)
                                   ╰ 2 ╯
                                 ╭     ╭ θ ╮          ╮
              3k (1 - cos(θ))= 4 │ 2sin│ ─ │ - sin(θ) │
@@ -9110,12 +9110,12 @@ e  = ───────────────── = ───────
                                         θ
                                    2sin(─) - sin(θ)
                                         2
-                          3k= 4  · ────────────────   
+                          3k= 4  · ────────────────
                                       1 - cos(θ)
                                        ╭ θ ╮
                                    2sin│ ─ │ - sin(θ)
                               4        ╰ 2 ╯
-                           k= ─  · ────────────────── 
+                           k= ─  · ──────────────────
                               3        1 - cos(θ)
 -->
 						<img
@@ -9130,11 +9130,11 @@ e  = ───────────────── = ───────
 							<em>k</em>:
 						</p>
 						<!--
- 
+
             ╭ θ ╮
         2sin│ ─ │ - sin(θ)
    4        ╰ 2 ╯
-k= ─  · ──────────────────         
+k= ─  · ──────────────────
    3        1 - cos(θ)
         ╭     ╭ θ ╮               ╮
         │ 2sin│ ─ │               │
@@ -9142,10 +9142,10 @@ k= ─  · ──────────────────
 k= ─  · │ ────────── - ────────── │
    3    ╰ 1 - cos(θ)   1 - cos(θ) ╯
    4    ╭    ╭ θ ╮      ╭ θ ╮ ╮
-k= ─  · │ csc│ ─ │ - cot│ ─ │ │    
+k= ─  · │ csc│ ─ │ - cot│ ─ │ │
    3    ╰    ╰ 2 ╯      ╰ 2 ╯ ╯
    4       ╭ θ ╮
-k= ─  · tan│ ─ │                   
+k= ─  · tan│ ─ │
    3       ╰ 4 ╯
 -->
 						<img
@@ -9163,7 +9163,7 @@ k= ─  · tan│ ─ │
 						involving the circular arc's angle:
 					</p>
 					<!--
- 
+
            4    ╭ θ ╮
 k = f(θ) = ─ tan│ ─ │
            3    ╰ 4 ╯
@@ -9179,13 +9179,13 @@ k = f(θ) = ─ tan│ ─ │
 						Which means that for any circular arc with angle θ and radius <em>r</em>, our Bézier approximation based on three points of incidence is:
 					</p>
 					<!--
- 
-    start= (r, 0)                                          
-control  = (r, k)                                          
-        1                                                  
+
+    start= (r, 0)
+control  = (r, k)
+        1
 control  = r · (cos(θ) + k  · sin(θ), sin(θ) - k  · cos(θ))
         2
-      end= r  · (cos(θ), sin(θ))                           
+      end= r  · (cos(θ), sin(θ))
 -->
 					<img
 						class="LaTeX SVG"
@@ -9196,7 +9196,7 @@ control  = r · (cos(θ) + k  · sin(θ), sin(θ) - k  · cos(θ))
 					/>
 					<p>Which also gives us the commonly found value of 0.55228 for quarter circles, based on them having an angle of half π:</p>
 					<!--
- 
+
  ╭ \pi ╮   4       ╭ \pi ╮   4  ┌─┐
 f│ ─── │ = ─  · tan│ ─── │ = ─(⟍│2 -1) ≅ 0.55228474983[...]
  ╰  2  ╯   3       ╰  8  ╯   3
@@ -9210,13 +9210,13 @@ f│ ─── │ = ─  · tan│ ─── │ = ─(⟍│2 -1) ≅ 0.552284
 					/>
 					<p>And thus giving us the following Bézier coordinates for a quarter circle of radius <em>r</em>:</p>
 					<!--
- 
-    start= (r, 0)           
+
+    start= (r, 0)
 control  = (r, 0.55228  · r)
-        1                   
+        1
 control  = (0.55228  · r, r)
         2
-      end= (0, r)           
+      end= (0, r)
 -->
 					<img
 						class="LaTeX SVG"
@@ -9360,7 +9360,7 @@ getMostWrongT(radius, bezier, start, end, epsilon=1e-15):
 					</p>
 					<p>First, let's express the total error (given circular arc angle θ, and some <em>k</em>) using standard calculus notation:</p>
 					<!--
- 
+
                     ┌───────────────────────┐
               ╭ 1   │         2            2
 erf (θ, k) =  |  \| │B (t,θ,k)  + B (t,θ,k)   - r\|dt
@@ -9383,7 +9383,7 @@ erf (θ, k) =  |  \| │B (t,θ,k)  + B (t,θ,k)   - r\|dt
 						expression looks like:
 					</p>
 					<!--
- 
+
 ╭        ┌───────┐         ╮
 │  ╭ 1   │ 2    2          │ d
 │  |  \| │B  + B   - r\|dt │ ── = 0
@@ -9402,7 +9402,7 @@ erf (θ, k) =  |  \| │B (t,θ,k)  + B (t,θ,k)   - r\|dt
 						are each other's inverse operations, so they cancel out, leaving us with our original function:
 					</p>
 					<!--
- 
+
    ┌───────┐
    │ 2    2
 \| │B  + B   - r\| = 0,    t ∈[0,1]
@@ -9417,7 +9417,7 @@ erf (θ, k) =  |  \| │B (t,θ,k)  + B (t,θ,k)   - r\|dt
 					/>
 					<p>And now we just solve for that... oh wait. We've seen this before. In order to solve this, we'd end up needing to solve this:</p>
 					<!--
- 
+
  2    2
 B  + B  = r
  x    y
@@ -9947,7 +9947,7 @@ radialError(radius, points[]):
 						end, just like for Bézier curves), by evaluating the following function:
 					</p>
 					<!--
- 
+
            __ n
 Point(t) = ❯      P   · N   (t)
            ‾‾ i=0  i     i,k
@@ -9968,7 +9968,7 @@ Point(t) = ❯      P   · N   (t)
 					</p>
 					<p>Then the N() function itself. What does it look like?</p>
 					<!--
- 
+
           ╭       t- knot         ╮                ╭       knot     -t       ╮
           │              i        │                │           (i+k)         │
 N   (t) = │ ───────────────────── │  · N     (t) + │ ─────────────────────── │  · N       (t)
@@ -9983,9 +9983,9 @@ N   (t) = │ ───────────────────── �
 						some point; obviously, it does, and specifically it does so for the following <code>i</code>/<code>k</code> values:
 					</p>
 					<!--
- 
+
           ╭ 1  if  t ∈[ knot , knot   )
-N   (t) = ╡                 i      i+1  
+N   (t) = ╡                 i      i+1
  i,1      ╰ 0         otherwise
 -->
 					<img class="LaTeX SVG" src="./images/chapters/bsplines/2514e1aa0565840e33fde0b146e3efe2.svg" width="237px" height="40px" loading="lazy" />
@@ -10006,7 +10006,7 @@ N   (t) = ╡                 i      i+1
 						P(t), we can compute this point by evaluating <em>d(t)</em> on a curve section between knots <code>i</code> and <code>i+1</code>:
 					</p>
 					<!--
- 
+
  k               k-1                   k-1
 d (t) = α     · d   (t) + (1-α   )  · d   (t)
  i       i,k     i            i,k      i-1
@@ -10017,7 +10017,7 @@ d (t) = α     · d   (t) + (1-α   )  · d   (t)
 						by:
 					</p>
 					<!--
- 
+
               t -  knots[i]
 α    = ───────────────────────────
  i,k    knots[i+1+n-k] -  knots[i]
@@ -10031,9 +10031,9 @@ d (t) = α     · d   (t) + (1-α   )  · d   (t)
 					</p>
 					<p>Of course, the recursion does need a stop condition:</p>
 					<!--
- 
+
  k           0                ╭ 1  if  t ∈[ knot , knot   )
-d (t) = 0,  d (t) = N   (t) = ╡                 i      i+1  
+d (t) = 0,  d (t) = N   (t) = ╡                 i      i+1
  0           i       i,1      ╰ 0         otherwise
 -->
 					<img class="LaTeX SVG" src="./images/chapters/bsplines/49af474c33ce0ee0733626ea3d988570.svg" width="367px" height="40px" loading="lazy" />
@@ -10047,34 +10047,34 @@ d (t) = 0,  d (t) = N   (t) = ╡                 i      i+1
 						recursion diagram:
 					</p>
 					<!--
- 
+
      ╭                                ╭                                ╭          1     0           0
-     │                                │                                │         α   × d ,   with  d    either 0 or 1 
+     │                                │                                │         α   × d ,   with  d    either 0 or 1
      │                                │          2     1           1   │          3     3           3
-     │                                │         α   × d ,   with  d  = ╡                 +                              
+     │                                │         α   × d ,   with  d  = ╡                 +
      │                                │          3     3           3   │ ╭      1 ╮     0           0
-     │                                │                                │ │ 1 - α  │  × d ,   with  d    either 0 or 1 
+     │                                │                                │ │ 1 - α  │  × d ,   with  d    either 0 or 1
      │          3     2           2   │                                ╰ ╰      3 ╯     2           2
-     │         α   × d ,   with  d  = ╡                 +                                                                
+     │         α   × d ,   with  d  = ╡                 +
      │          3     3           3   │                                ╭           1     0
-     │                                │                                │          α   × d                             
+     │                                │                                │          α   × d
      │                                │ ╭      2 ╮     1           1   │           2     2
-     │                                │ │ 1 - α  │  × d ,   with  d  = ╡                 +                              
+     │                                │ │ 1 - α  │  × d ,   with  d  = ╡                 +
  3   │                                │ ╰      3 ╯     2           2   │ ╭      1 ╮     0           0
-d  = ╡                                │                                │ │ 1 - α  │  × d ,   with  d    either 0 or 1     
+d  = ╡                                │                                │ │ 1 - α  │  × d ,   with  d    either 0 or 1
  3   │                                ╰                                ╰ ╰      2 ╯     1           1
-     │                 +                                                                                                 
+     │                 +
      │                                ╭           2     1
-     │                                │          α   × d                                                                
+     │                                │          α   × d
      │                                │           2     2
-     │                                │                                                                                 
-     │ ╭      3 ╮     2           2   │                 +                                                               
-     │ │ 1 - α  │  × d ,   with  d  = ╡                                ╭           1     0                               
-     │ ╰      3 ╯     2           2   │                                │          α   × d 
+     │                                │
+     │ ╭      3 ╮     2           2   │                 +
+     │ │ 1 - α  │  × d ,   with  d  = ╡                                ╭           1     0
+     │ ╰      3 ╯     2           2   │                                │          α   × d
      │                                │ ╭      2 ╮     1           1   │           1     1
-     │                                │ │ 1 - α  │  × d ,   with  d  = ╡                 +                              
+     │                                │ │ 1 - α  │  × d ,   with  d  = ╡                 +
      │                                │ ╰      2 ╯     1           1   │ ╭      1 ╮     0           0
-     │                                │                                │ │ 1 - α  │  × d ,   with  d    either 0 or 1 
+     │                                │                                │ │ 1 - α  │  × d ,   with  d    either 0 or 1
      ╰                                ╰                                ╰ ╰      1 ╯     0           0
 -->
 					<img class="LaTeX SVG" src="./images/chapters/bsplines/20e910bbea2e6eff511cb13cef18ef3b.svg" width="641px" height="336px" loading="lazy" />
