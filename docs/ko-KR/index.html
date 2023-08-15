@@ -43,7 +43,7 @@
 		<meta property="og:locale" content="ko-KR" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2023-07-24T16:25:38+00:00" />
+		<meta property="og:updated_time" content="2023-08-15T15:28:19+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -8510,56 +8510,35 @@ O(t) = B(t) + d  · N(t)
 						</p>
 						<!--
  
-          ╭   B'(t)    ╮
-N(t) \bot │ ────────── │
-          ╰ || B'(t)|| ╯
+            ╭   B'(t)    ╮
+N(t) = \bot │ ────────── │
+            ╰ || B'(t)|| ╯
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/offsetting/57e62f3f2f7526b2cf7c1b276c17e472.svg"
-							width="120px"
+							src="./images/chapters/offsetting/e7e8e1f5727387079dbc5770181187c2.svg"
+							width="141px"
 							height="40px"
 							loading="lazy"
 						/>
-						<p>
-							Determining the length requires computing an arc length, and this is where things get Tricky with a capital T. First off, to compute arc
-							length from some start <code>a</code> to end <code>b</code>, we must use the formula we saw earlier. Noting that "length" is usually
-							denoted with double vertical bars:
-						</p>
+						<p>The magnitude of <code>B'(t)</code>, usually denoted with double vertical bars, is given by the following formula:</p>
 						<!--
  
-                    ┌───────────┐
-               ╭ b  │   2      2
-|| f(x,y)|| =  |    │f '  + f '  
-               ╯ a ⟍│ x      y
+              ┌─────────────────┐
+              │      2         2
+|| B'(t)|| =  │B '(t)  + B '(t)  
+             ⟍│ x         y
 -->
 						<img
 							class="LaTeX SVG"
-							src="./images/chapters/offsetting/cf8e602eb0595cf4d9b851c6bda741af.svg"
-							width="169px"
-							height="36px"
+							src="./images/chapters/offsetting/7fd3e895c0eea0965470dd619450b679.svg"
+							width="188px"
+							height="25px"
 							loading="lazy"
 						/>
 						<p>
-							So if we want the length of the tangent, we plug in <code>B'(t)</code>, with <code>t = 0</code> as start and <code>t = 1</code> as end:
-						</p>
-						<!--
- 
-                   ┌───────────────────┐
-              ╭ 1  │       2          2
-|| B'(t)|| =  |    │B ''(t)  + B ''(t)  
-              ╯ 0 ⟍│ x          y
--->
-						<img
-							class="LaTeX SVG"
-							src="./images/chapters/offsetting/af4b584bb280cc941603255f62c9cc1a.svg"
-							width="209px"
-							height="36px"
-							loading="lazy"
-						/>
-						<p>
-							And that's where things go wrong. It doesn't even really matter what the second derivative for <code>B(t)</code> is, that square root is
-							screwing everything up, because it turns our nice polynomials into things that are no longer polynomials.
+							And that's where things go wrong: that square root is screwing everything up, because it turns our nice polynomials into things that are
+							no longer polynomials.
 						</p>
 						<p>
 							There is a small class of polynomials where the square root is also a polynomial, but they're utterly useless to us: any polynomial with
