@@ -27,23 +27,16 @@ However, we're working in 2D, and `d` is a single value, so we want to turn it i
 Now this still isn't very useful unless we know what the formula for `N(t)` is, so let's find out. `N(t)` runs perpendicular to the original curve tangent, and we know that the tangent is simply `B'(t)`, so we could just rotate that 90 degrees and be done with it. However, we need to ensure that `N(t)` has the same magnitude for every `t`, or the offset curve won't be at a uniform distance, thus not being an offset curve at all. The easiest way to guarantee this is to make sure `N(t)` always has length 1, which we can achieve by dividing `B'(t)` by its magnitude:
 
 \[
-  N(t) \bot \left ( \frac{B'(t)}{\left || B'(t) \right || } \right )
+  N(t) = \bot \left ( \frac{B'(t)}{\left || B'(t) \right || } \right )
 \]
 
-Determining the length requires computing an arc length, and this is where things get Tricky with a capital T. First off, to compute arc length from some start `a` to end `b`, we must use the formula we saw earlier. Noting that "length" is usually denoted with double vertical bars:
+The magnitude of `B'(t)`, usually denoted with double vertical bars, is given by the following formula:
 
 \[
-  \left || f(x,y) \right || = \int^b_a \sqrt{ f_x'^2 + f_y'^2}
+  \left || B'(t) \right || = \sqrt{ B_x'(t)^2 + B_y'(t)^2}
 \]
 
-So if we want the length of the tangent, we plug in `B'(t)`, with `t = 0` as start and
-`t = 1` as end:
-
-\[
-  \left || B'(t) \right || = \int^1_0 \sqrt{ B_x''(t)^2 + B_y''(t)^2}
-\]
-
-And that's where things go wrong. It doesn't even really matter what the second derivative for `B(t)` is, that square root is screwing everything up, because it turns our nice polynomials into things that are no longer polynomials.
+And that's where things go wrong: that square root is screwing everything up, because it turns our nice polynomials into things that are no longer polynomials.
 
 There is a small class of polynomials where the square root is also a polynomial, but they're utterly useless to us: any polynomial with unweighted binomial coefficients has a square root that is also a polynomial. Now, you might think that Bézier curves are just fine because they do, but they don't; remember that only the **base** function has binomial coefficients. That's before we factor in our coordinates, which turn it into a non-binomial polygon. The only way to make sure the functions stay binomial is to make all our coordinates have the same value. And that's not a curve, that's a point. We can already create offset curves for points, we call them circles, and they have much simpler functions than Bézier curves.
 
