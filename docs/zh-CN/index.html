@@ -35,7 +35,7 @@
 		<meta property="og:locale" content="zh-CN" />
 		<meta property="og:type" content="article" />
 		<meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-		<meta property="og:updated_time" content="2023-08-15T15:28:19+00:00" />
+		<meta property="og:updated_time" content="2024-02-28T17:22:37+00:00" />
 		<meta property="og:author" content="Mike 'Pomax' Kamermans" />
 		<meta property="og:section" content="Bézier Curves" />
 		<meta property="og:tag" content="Bézier Curves" />
@@ -127,7 +127,7 @@
 				<ul class="lang-switcher">
 					<li><a href="./index.html">English</a> &nbsp;</li>
 					<li><a href="./ja-JP/index.html">日本語</a> <span class="localisation-progress">(24%)</span></li>
-					<li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(35%)</span></li>
+					<li><a href="./zh-CN/index.html">中文</a> <span class="localisation-progress">(37%)</span></li>
 					<li><a href="./ru-RU/index.html">Русский</a> <span class="localisation-progress">(24%)</span></li>
 					<li><a href="./uk-UA/index.html">Українська</a> <span class="localisation-progress">(2%)</span></li>
 					<li><a href="./ko-KR/index.html">한국어</a> <span class="localisation-progress">(9%)</span></li>
@@ -219,7 +219,7 @@
 					<li><a href="zh-CN/index.html#whatis">什么构成了贝塞尔曲线？</a></li>
 					<li><a href="zh-CN/index.html#explanation">贝塞尔曲线的数学原理</a></li>
 					<li><a href="zh-CN/index.html#control">控制贝塞尔的曲率</a></li>
-					<li><a href="zh-CN/index.html#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a></li>
+					<li><a href="zh-CN/index.html#weightcontrol">控制贝塞尔曲线的曲率，第二部分：有理贝塞尔</a></li>
 					<li><a href="zh-CN/index.html#extended">贝塞尔区间[0,1]</a></li>
 					<li><a href="zh-CN/index.html#matrix">用矩阵运算来表示贝塞尔曲率</a></li>
 					<li><a href="zh-CN/index.html#decasteljau">de Casteljau's 算法</a></li>
@@ -1126,13 +1126,12 @@ function Bezier(3,t,w[]):
 				<section id="weightcontrol">
 					<h1>
 						<div class="nav"><a href="zh-CN/index.html#control">上一节</a><a href="#toc">目录</a><a href="zh-CN/index.html#extended">下一节</a></div>
-						<a href="zh-CN/index.html#weightcontrol">Controlling Bézier curvatures, part 2: Rational Béziers</a>
+						<a href="zh-CN/index.html#weightcontrol">控制贝塞尔曲线的曲率，第二部分：有理贝塞尔</a>
 					</h1>
 					<p>
-						We can further control Bézier curves by "rationalising" them: that is, adding a "ratio" value in addition to the weight value discussed in
-						the previous section, thereby gaining control over "how strongly" each coordinate influences the curve.
+						我们可以通过“有理化”来进一步控制贝塞尔曲线，即，除了在上一小节中讨论的权重外，还通过添加“比率”参数来调节每个控制点对曲线影响的“强度”。
 					</p>
-					<p>Adding these ratio values to the regular Bézier curve function is fairly easy. Where the regular function is the following:</p>
+					<p>常规的贝塞尔曲线函数表达式如下：</p>
 					<!--
  
               __ n                    n-i     i
@@ -1146,7 +1145,7 @@ Bézier(n,t) = ❯      \binomni  · (1-t)     · t   · w
 						height="41px"
 						loading="lazy"
 					/>
-					<p>The function for rational Bézier curves has two more terms:</p>
+					<p>将比率添加到其中非常容易，只需要添加两项。有理贝塞尔曲线函数表达式如下：</p>
 					<!--
  
                         __ n                    n-i     i
@@ -1165,26 +1164,17 @@ Rational  Bézier(n,t) = ──────────────────�
 						loading="lazy"
 					/>
 					<p>
-						In this, the first new term represents an additional weight for each coordinate. For example, if our ratio values are [1, 0.5, 0.5, 1]
-						then <code>ratio<sub>0</sub> = 1</code>, <code>ratio<sub>1</sub> = 0.5</code>, and so on, and is effectively identical as if we were just
-						using different weight. So far, nothing too special.
+						这里，第一个新添项表示的是每个控制点的一个“额外的”权重。例如，如果比率为[1,0.5,0.5,1]，那么<code>ratio<sub>0</sub> = 1</code>,
+						<code>ratio<sub>1</sub> = 0.5</code>，以此类推。可见，这就好比使用了“双重加权”，并没有什么特别之处。
 					</p>
 					<p>
-						However, the second new term is what makes the difference: every point on the curve isn't just a "double weighted" point, it is a
-						<em>fraction</em> of the "doubly weighted" value we compute by introducing that ratio. When computing points on the curve, we compute the
-						"normal" Bézier value and then <em>divide</em> that by the Bézier value for the curve that only uses ratios, not weights.
+						特别之处在于第二个新添项：曲线上的每个点不仅仅是一个“双重加权”点，它是通过引入比率计算的“双重加权”值的一个分数。当计算曲线上的点时，我们先计算“常规的”贝塞尔值，然后除以用比率，而不是权重计算出来的新曲线的贝塞尔值。
 					</p>
 					<p>
-						This does something unexpected: it turns our polynomial into something that <em>isn't</em> a polynomial anymore. It is now a kind of curve
-						that is a super class of the polynomials, and can do some really cool things that Bézier curves can't do "on their own", such as perfectly
-						describing circles (which we'll see in a later section is literally impossible using standard Bézier curves).
+						这会产生一些意想不到的结果：它把多项式变成了非多项式的表达式。它现在是一种由多项式的超类表示的曲线，能够实现一些贝塞尔曲线本身无法实现的很酷的事情，例如准确地描述圆形(稍后会看到，这是贝塞尔曲线无法做到的。)
 					</p>
 					<p>
-						But the best way to show what this does is to do literally that: let's look at the effect of "rationalising" our Bézier curves using an
-						interactive graphic for a rationalised curves. The following graphic shows the Bézier curve from the previous section, "enriched" with
-						ratio factors for each coordinate. The closer to zero we set one or more terms, the less relative influence the associated coordinate
-						exerts on the curve (and of course the higher we set them, the more influence they have). Try to change the values and see how it affects
-						what gets drawn:
+						展示贝塞尔曲线有理化作用的最佳方法还是使用交互式图片来查看效果。下方图片显示的是前序小节中使用的贝塞尔曲线的每个控制点添加了比率的结果。比率值越接近于0，相关控制点对曲线的相对影响就越小，反之亦然。请尝试更改这些比率值并观察它们如何影响曲线：
 					</p>
 					<graphics-element
 						title="Our rational cubic Bézier curve"
@@ -1205,14 +1195,11 @@ Rational  Bézier(n,t) = ──────────────────�
 						<input type="range" min="0.01" max="2" value="1" step="0.01" class="ratio-4" />
 					</graphics-element>
 					<p>
-						You can think of the ratio values as each coordinate's "gravity": the higher the gravity, the closer to that coordinate the curve will
-						want to be. You'll also notice that if you simply increase or decrease all the ratios by the same amount, nothing changes... much like
-						with gravity, if the relative strengths stay the same, nothing really changes. The values define each coordinate's influence
-						<em>relative to all other points</em>.
+						你可以把比率想象为每个控制点的“重力”：重力越大，曲线就越接近该控制点。你还会注意到，如果只是将所有比率都增加或减少相同的值，则曲线不会发生任何变化。就像重力一样，如果相对强度保持不变，则不会发生任何真正的变化。这些值决定了每个控制点对其他点的影响。
 					</p>
 					<div class="howtocode">
-						<h3>How to implement rational curves</h3>
-						<p>Extending the code of the previous section to include ratios is almost trivial:</p>
+						<h3>如何实现有理化曲线</h3>
+						<p>给前序小节的代码添加比率只需要一些小改动：</p>
 
 						<table class="code">
 							<tr>
@@ -1325,7 +1312,7 @@ function RationalBezier(3,t,w[],r[]):
 							</tr>
 						</table>
 
-						<p>And that's all we have to do.</p>
+						<p>这就是我们需要做的全部。</p>
 					</div>
 				</section>
 				<section id="extended">
