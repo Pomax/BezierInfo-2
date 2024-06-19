@@ -8,7 +8,7 @@ We'll be tackling this problem in two stages: the first, which is the hard part,
   <input type="range" min="0" max="1" step="0.01" class="slide-control">
 </graphics-element>
 
-Now, if you look more closely at that right graphic, you'll notice something interesting: if we treat the red line as "the x axis", then the point where the function crosses our line is really just a root for the cubic function x(t) through a shifted "x-axis"... and [we've already seen](#extremities) how to calculate roots, so let's just run cubic root finding - and not even the complicated cubic case either: because of the kind of curve we're starting with, we _know_ there is only root, simplifying the code we need!
+Now, if you look more closely at that right graphic, you'll notice something interesting: if we treat the red line as "the x axis", then the point where the function crosses our line is really just a root for the cubic function x(t) through a shifted "x-axis"... and [we've already seen](#extremities) how to calculate roots, so let's just run cubic root finding - and not even the complicated cubic case either: because of the kind of curve we're starting with, we _know_ there is at most a single root in the interval [0,1], simplifying the code we need!
 
 First, let's look at the function for x(t):
 
@@ -40,7 +40,7 @@ foreach p in xcoord: p.x -= x
 t = getRoots(p[0], p[1], p[2], p[3])[0]
 
 // find our answer:
-y = curve.get(t).y
+if t in [0,1] y = curve.get(t).y
 ```
 
 So the procedure is fairly straight forward: pick an `x`, find the associated `t` value, evaluate our curve _for_ that `t` value, which gives us the curve's {x,y} coordinate, which means we know `y` for this `x`. Move the slider for the following graphic to see this in action:
