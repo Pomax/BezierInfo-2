@@ -1,4 +1,4 @@
-# Controlling Bézier curvatures, part 2: Rational Béziers
+# Controlling Bézier curves, part 2: Rational Béziers
 
 We can further control Bézier curves by "rationalising" them: that is, adding a "ratio" value in addition to the weight value discussed in the previous section, thereby gaining control over "how strongly" each coordinate influences the curve.
 
