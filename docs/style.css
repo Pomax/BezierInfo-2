@@ -202,7 +202,7 @@ div.note {
   background: var(--note-block-color);
   margin: 1em;
   margin-top: 2em;
-  padding: 1em 1em 0 1em;
+  padding: 1em 1em 0.5em 1em;
 }
 
 div.note:before {
@@ -213,7 +213,7 @@ div.note:before {
   background: orange;
   padding: 0.2em 0.5em;
   position: absolute;
-  top: -0.5em;
+  top: -1em;
   left: -1em;
 }
 
@@ -307,7 +307,7 @@ hr {
   left: calc(-1 * var(--body-padding));
   border: none;
   border-top: 1px solid black;
-  margin: 1em 0 2em 0;
+  margin: 2em 0 2em 0;
 }
 
 div.scl img[usemap] {
