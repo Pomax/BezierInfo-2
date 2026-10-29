@@ -89,15 +89,12 @@
 
   {% block commenthash %}
   <script>
-    if (window.location.hash.includes(`#comment-`)) {
-      const baseHash = window.location.hash;
-      document.addEventListener(`disqus:ready`, () => {
-        console.log(`setting location`);
-        window.location.hash = ``;
-        window.location.hash = baseHash;
-      });
-      document.getElementById(`disqus_thread`).scrollIntoView();
-    }
+    document.addEventListener(`comments:ready`, (evt) => {
+      const html = evt.detail.html;
+      const comments = document.getElementById(`comments_thread`);
+      comments.innerHTML = html;
+      comments.scrollIntoView();
+    }, { once: true });
   </script>
   {% endblock %}
 </body>
