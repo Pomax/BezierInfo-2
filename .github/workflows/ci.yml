@@ -20,7 +20,7 @@ jobs:
     name: Building the Primer website
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v7
 
       - name: Installing TeX Live
         run: |
@@ -46,10 +46,9 @@ jobs:
           set -e
 
       - name: Installing latest Node
-        run: |
-          wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-          sh ~/.nvm/nvm.sh install latest
-          sh ~/.nvm/nvm.sh use latest
+        uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
 
       - name: Installing node-canvas build dependencies
         run: |
