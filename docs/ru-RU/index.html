@@ -40,7 +40,7 @@
 <meta property="og:locale" content="ru-RU" />
 <meta property="og:type" content="article" />
 <meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-<meta property="og:updated_time" content="2026-10-29T19:00:03+00:00" />
+<meta property="og:updated_time" content="2026-10-30T22:44:10+00:00" />
 <meta property="og:author" content="Mike 'Pomax' Kamermans" />
 <meta property="og:section" content="Bézier Curves" />
 <meta property="og:tag" content="Bézier Curves" />
@@ -154,27 +154,6 @@
         с вашим финансовым отделом над выставлением счетов и признанием спонсорства.
       </p>
     
-
-<!--
-<div class="btcfh">
-    <div>
-        <h3>
-            Пожертвования в биткойнах:
-        </h3>
-        <p>
-        Если вы предпочитаете делать пожертвования через биткойн, вы можете сделать пожертвование либо напрямую на
-        <a class="btclk" href="bitcoin:3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu?label=Primer%20on%20Bezier%20Curves">3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu</a>
-        либо используя QR-код справа, если вы предпочитаете такой вид =)
-      </p>
-    
-    </div>
-    <div class="btcqr">
-        <a href="bitcoin:3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu?label=Primer%20on%20Bezier%20Curves">
-            <img src="./images/3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu.PNG">
-        </a>
-    </div>
-</div>
--->
 
 <br style="clear:both">
 
@@ -765,7 +744,7 @@ Rational  Bézier(n,t) = ──────────────────�
                         \colorblue   ❯      \binomni  ·  (1-t)     ·  t   ·  ratio  
                                      ‾‾ i=0                                       i
 -->
-<img class="LaTeX SVG" src="./images/chapters/weightcontrol/942e3b3cacc7f403ad95fcd4acce7d19.svg" width="408px" height="48px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/weightcontrol/942e3b3cacc7f403ad95fcd4acce7d19.svg" width="405px" height="48px" loading="lazy">
 <p>Первый из добавочных терминов, представляет собой дополнительный "вес" для каждой координаты, Например если наши значения соотношений [1, 0.5, 0.5, 1], тогда <code>частица<sub>0</sub> = 1</code>, <code>частица<sub>1</sub> = 0.5</code> и т.д., и на практике ничем не отличается от использования дополнительного "вес"-а. Пока ничего особо выдающегося.</p>
 <p>Тем не менее, второй из добавленных терминов, составляет всю важность разницы. В процессе компиляции точек на кривой, мы компилируем "нормальные" значения Безье, а далее <em>делим</em> их на значение Безье с учетом только соотношений (частиц), без учета весов.</p>
 <p>Это создает неожиданный эффект: превращает наш полиноминал во что-то, что полиноминалом более не является. Теперь этот тип кривой есть супер классом полиноминала, что позволяет производить крутые вещи, на которые кривые Безье не способны сами по себе. Например обозначить круг посредством такой кривой (что, как мы убедимся чуть погодя, категорически невозможно используя стандартную кривую Безье).</p>
@@ -2403,7 +2382,7 @@ x    = x  - ───────
 │                            3                                2                                          2                      3
 ╰ y = \colorblue 160  · (1-t)  \colorblue  + 200  · 3  · (1-t)   · t \colorblue  + 260  · 3  · (1-t)  · t  \colorblue  + 40  · t 
 -->
-<img class="LaTeX SVG" src="./images/chapters/aligning/e5db5e945606d3429e4475ff92283a9c.svg" width="497px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/aligning/e5db5e945606d3429e4475ff92283a9c.svg" width="476px" height="40px" loading="lazy">
 <p>Мы переместим первую точку в начало координат, смещая все значания x на -120 и y на -160:</p>
 <!--
  
@@ -2412,7 +2391,7 @@ x    = x  - ───────
 │                         3                               2                                          2                       3
 ╰ y = \colorred 0  · (1-t)  \colorblue  + 40  · 3  · (1-t)   · t \colorblue  + 100  · 3  · (1-t)  · t  \colorblue  - 120  · t 
 -->
-<img class="LaTeX SVG" src="./images/chapters/aligning/1564fdc8d17a064fea88b9d508878e62.svg" width="465px" height="41px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/aligning/1564fdc8d17a064fea88b9d508878e62.svg" width="444px" height="41px" loading="lazy">
 <p>Затем, повернем кривую до оси X (новые значания x и y округлены в иллюстративных целях):</p>
 <!--
  
@@ -2421,7 +2400,7 @@ x    = x  - ───────
 │                          3                               2                                          2                    3
 ╰  y = \colorred 0  · (1-t)  \colorblue  - 40  · 3  · (1-t)   · t \colorblue  + 140  · 3  · (1-t)  · t  \colorred  + 0  · t 
 -->
-<img class="LaTeX SVG" src="./images/chapters/aligning/64fa084c1df7300f06af13f53681463c.svg" width="457px" height="41px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/aligning/64fa084c1df7300f06af13f53681463c.svg" width="436px" height="41px" loading="lazy">
 <p>Итак, опуская все нулевые значения, получаем</p>
 <!--
  
@@ -2430,7 +2409,7 @@ x    = x  - ───────
 │                                   2                                          2
 ╰ y = \colorblue  - 40  · 3  · (1-t)   · t \colorblue  + 140  · 3  · (1-t)  · t                        
 -->
-<img class="LaTeX SVG" src="./images/chapters/aligning/016f37843b2af2ae34dc8b2975505f3d.svg" width="408px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/aligning/016f37843b2af2ae34dc8b2975505f3d.svg" width="387px" height="40px" loading="lazy">
 <p>Как мы видим, наше изначальное определение кривой было существенно упрощено. Следущие зарисовки демострируют результат выравнивание кривой с осью X. первый рисунок соотвествует приведеному выше примеру кривой. </p>
 <graphics-element title="Aligning a quadratic curve" width="550" height="275" src="./chapters/aligning/aligning.js" data-type="quadratic" reset="cбросить" viewSource="view source">
         <fallback-image>
@@ -2915,14 +2894,16 @@ length =  |  ⟍│(dx/dt) +(dy/dt)   dt
  ╭ z │       2        2
  |  ⟍│(dx/dt) +(dy/dt)   dt                                        
  ╯ 0
+                                                                   
      z    ┌        ╭ z         z ╮                ╭ z         z ╮ ┐
  ≃ \ ─  · │ C   · f│ ─  · t  + ─ │ + ... + C   · f│ ─  · t  + ─ │ │
      2    └  1     ╰ 2     1   2 ╯          n     ╰ 2     n   2 ╯ ┘
+                                                                   
     z    __ n         ╭ z         z ╮
 = \ ─  · ❯     C   · f│ ─  · t  + ─ │                              
     2    ‾‾ i=1 i     ╰ 2     i   2 ╯
 -->
-<img class="LaTeX SVG" src="./images/chapters/arclength/0748ad25185548150b6c1c4c7039207e.svg" width="341px" height="72px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/arclength/604c179c5644af80364d132987330c4e.svg" width="341px" height="109px" loading="lazy">
 <p>That may look a bit more complicated, but the fraction involving <em>z</em> is a fixed number, so the summation, and the evaluation of the <em>f(t)</em> values are still pretty simple.</p>
 <p>So, what do we need to perform this calculation? For one, we'll need an explicit formula for <em>f(t)</em>, because that derivative notation is handy on paper, but not when we have to implement it. We'll also need to know what these <em>C<sub>i</sub></em> and <em>t<sub>i</sub></em> values should be. Luckily, that's less work because there are actually many tables available that give these values, for any <em>n</em>, so if we want to approximate our integral with only two terms (which is a bit low, really) then <a href="./legendre-gauss.html">these tables</a> would tell us that for <em>n=2</em> we must use the following values:</p>
 <!--
@@ -3677,15 +3658,15 @@ B      =a(1-t)  + 3b(1-t)  t + 3c(1-t)t  + dt
 <p>So we write out the expansion and rearrange:</p>
 <!--
  
-B      =a                     
+B      = a                 
   cubic
-        - 3at + 3bt           
-             2     2    2     
-        + 3at - 6bt +3ct      
-            3      3    3    3
-        - at  + 3bt -3ct + dt 
+        -3at +3bt          
+            2    2    2    
+        +3at -6bt +3ct     
+           3     3    3   3
+        -at  +3bt -3ct +dt 
 -->
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/8928f757abd1376abdc4069e1aa774f2.svg" width="244px" height="87px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/ffb3e1f3d69ca26ec4fc39b2985a09e3.svg" width="257px" height="87px" loading="lazy">
 <p>Which we can then decompose:</p>
 <!--
  

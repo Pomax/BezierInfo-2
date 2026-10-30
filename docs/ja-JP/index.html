@@ -40,7 +40,7 @@
 <meta property="og:locale" content="ja-JP" />
 <meta property="og:type" content="article" />
 <meta property="og:published_time" content="2013-06-13T12:00:00+00:00" />
-<meta property="og:updated_time" content="2026-10-29T19:00:03+00:00" />
+<meta property="og:updated_time" content="2026-10-30T22:44:10+00:00" />
 <meta property="og:author" content="Mike 'Pomax' Kamermans" />
 <meta property="og:section" content="Bézier Curves" />
 <meta property="og:tag" content="Bézier Curves" />
@@ -154,27 +154,6 @@
         with your finance department on sponsorship invoicing and recognition.
       </p>
     
-
-<!--
-<div class="btcfh">
-    <div>
-        <h3>
-            Bitcoin donations:
-        </h3>
-        <p>
-        If you prefer to donate via Bitcoin, you can donate either directly to
-        <a class="btclk" href="bitcoin:3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu?label=Primer%20on%20Bezier%20Curves">3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu</a>
-        or use the QR code on the right, if that's the kind of convenience you prefer =)
-      </p>
-    
-    </div>
-    <div class="btcqr">
-        <a href="bitcoin:3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu?label=Primer%20on%20Bezier%20Curves">
-            <img src="./images/3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu.PNG">
-        </a>
-    </div>
-</div>
--->
 
 <br style="clear:both">
 
@@ -766,7 +745,7 @@ Rational  Bézier(n,t) = ──────────────────�
                         \colorblue   ❯      \binomni  ·  (1-t)     ·  t   ·  ratio  
                                      ‾‾ i=0                                       i
 -->
-<img class="LaTeX SVG" src="./images/chapters/weightcontrol/942e3b3cacc7f403ad95fcd4acce7d19.svg" width="408px" height="48px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/weightcontrol/942e3b3cacc7f403ad95fcd4acce7d19.svg" width="405px" height="48px" loading="lazy">
 <p>In this, the first new term represents an additional weight for each coordinate. For example, if our ratio values are [1, 0.5, 0.5, 1] then <code>ratio<sub>0</sub> = 1</code>, <code>ratio<sub>1</sub> = 0.5</code>, and so on, and is effectively identical as if we were just using different weight. So far, nothing too special.</p>
 <p>However, the second new term is what makes the difference: every point on the curve isn't just a "double weighted" point, it is a <em>fraction</em> of the "doubly weighted" value we compute by introducing that ratio. When computing points on the curve, we compute the "normal" Bézier value and then <em>divide</em> that by the Bézier value for the curve that only uses ratios, not weights.</p>
 <p>This does something unexpected: it turns our polynomial into something that <em>isn't</em> a polynomial anymore. It is now a kind of curve that is a super class of the polynomials, and can do some really cool things that Bézier curves can't do "on their own", such as perfectly describing circles (which we'll see in a later section is literally impossible using standard Bézier curves).</p>
@@ -2406,7 +2385,7 @@ x    = x  - ───────
 │                            3                                2                                          2                      3
 ╰ y = \colorblue 160  · (1-t)  \colorblue  + 200  · 3  · (1-t)   · t \colorblue  + 260  · 3  · (1-t)  · t  \colorblue  + 40  · t 
 -->
-<img class="LaTeX SVG" src="./images/chapters/aligning/e5db5e945606d3429e4475ff92283a9c.svg" width="497px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/aligning/e5db5e945606d3429e4475ff92283a9c.svg" width="476px" height="40px" loading="lazy">
 <p>Then translating it so that the first coordinate lies on (0,0), moving all <em>x</em> coordinates by -120, and all <em>y</em> coordinates by -160, gives us:</p>
 <!--
  
@@ -2415,7 +2394,7 @@ x    = x  - ───────
 │                          3                               2                                          2                       3
 ╰ y = \colorblue 0  · (1-t)  \colorblue  + 40  · 3  · (1-t)   · t \colorblue  + 100  · 3  · (1-t)  · t  \colorblue  - 120  · t 
 -->
-<img class="LaTeX SVG" src="./images/chapters/aligning/d412c72ed342c2036965ff251c8fb443.svg" width="481px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/aligning/d412c72ed342c2036965ff251c8fb443.svg" width="460px" height="40px" loading="lazy">
 <p>If we then rotate the curve so that its end point lies on the x-axis, the coordinates (integer-rounded for illustrative purposes here) become:</p>
 <!--
  
@@ -2424,7 +2403,7 @@ x    = x  - ───────
 │                          3                               2                                          2                     3
 ╰ y = \colorblue 0  · (1-t)  \colorblue  - 40  · 3  · (1-t)   · t \colorblue  + 140  · 3  · (1-t)  · t  \colorblue  + 0  · t 
 -->
-<img class="LaTeX SVG" src="./images/chapters/aligning/e49d7bb45a18d14fbb12df4d91e2c67b.svg" width="473px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/aligning/e49d7bb45a18d14fbb12df4d91e2c67b.svg" width="452px" height="40px" loading="lazy">
 <p>If we drop all the zero-terms, this gives us:</p>
 <!--
  
@@ -2433,7 +2412,7 @@ x    = x  - ───────
 │                                   2                                          2
 ╰ y = \colorblue  - 40  · 3  · (1-t)   · t \colorblue  + 140  · 3  · (1-t)  · t                        
 -->
-<img class="LaTeX SVG" src="./images/chapters/aligning/016f37843b2af2ae34dc8b2975505f3d.svg" width="408px" height="40px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/aligning/016f37843b2af2ae34dc8b2975505f3d.svg" width="387px" height="40px" loading="lazy">
 <p>We can see that our original curve definition has been simplified considerably. The following graphics illustrate the result of aligning our example curves to the x-axis, with the cubic case using the coordinates that were just used in the example formulae:</p>
 <graphics-element title="Aligning a quadratic curve" width="550" height="275" src="./chapters/aligning/aligning.js" data-type="quadratic" reset="リセット" viewSource="view source">
         <fallback-image>
@@ -2918,14 +2897,16 @@ length =  |  ⟍│(dx/dt) +(dy/dt)   dt
  ╭ z │       2        2
  |  ⟍│(dx/dt) +(dy/dt)   dt                                        
  ╯ 0
+                                                                   
      z    ┌        ╭ z         z ╮                ╭ z         z ╮ ┐
  ≃ \ ─  · │ C   · f│ ─  · t  + ─ │ + ... + C   · f│ ─  · t  + ─ │ │
      2    └  1     ╰ 2     1   2 ╯          n     ╰ 2     n   2 ╯ ┘
+                                                                   
     z    __ n         ╭ z         z ╮
 = \ ─  · ❯     C   · f│ ─  · t  + ─ │                              
     2    ‾‾ i=1 i     ╰ 2     i   2 ╯
 -->
-<img class="LaTeX SVG" src="./images/chapters/arclength/0748ad25185548150b6c1c4c7039207e.svg" width="341px" height="72px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/arclength/604c179c5644af80364d132987330c4e.svg" width="341px" height="109px" loading="lazy">
 <p>That may look a bit more complicated, but the fraction involving <em>z</em> is a fixed number, so the summation, and the evaluation of the <em>f(t)</em> values are still pretty simple.</p>
 <p>So, what do we need to perform this calculation? For one, we'll need an explicit formula for <em>f(t)</em>, because that derivative notation is handy on paper, but not when we have to implement it. We'll also need to know what these <em>C<sub>i</sub></em> and <em>t<sub>i</sub></em> values should be. Luckily, that's less work because there are actually many tables available that give these values, for any <em>n</em>, so if we want to approximate our integral with only two terms (which is a bit low, really) then <a href="./legendre-gauss.html">these tables</a> would tell us that for <em>n=2</em> we must use the following values:</p>
 <!--
@@ -3680,15 +3661,15 @@ B      =a(1-t)  + 3b(1-t)  t + 3c(1-t)t  + dt
 <p>So we write out the expansion and rearrange:</p>
 <!--
  
-B      =a                     
+B      = a                 
   cubic
-        - 3at + 3bt           
-             2     2    2     
-        + 3at - 6bt +3ct      
-            3      3    3    3
-        - at  + 3bt -3ct + dt 
+        -3at +3bt          
+            2    2    2    
+        +3at -6bt +3ct     
+           3     3    3   3
+        -at  +3bt -3ct +dt 
 -->
-<img class="LaTeX SVG" src="./images/chapters/curvefitting/8928f757abd1376abdc4069e1aa774f2.svg" width="244px" height="87px" loading="lazy">
+<img class="LaTeX SVG" src="./images/chapters/curvefitting/ffb3e1f3d69ca26ec4fc39b2985a09e3.svg" width="257px" height="87px" loading="lazy">
 <p>Which we can then decompose:</p>
 <!--
  

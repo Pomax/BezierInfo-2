@@ -1,0 +1,4 @@
+ 
+              __ n       n           n              i         n-i     i
+Bézier(n,t) = ❯      w  B (t)  ，其中\ B (t) = \mathrmC   · (1-t)     · t 
+              ‾‾ i=0  i  i           i              n

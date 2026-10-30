@@ -60,11 +60,13 @@ Note that one requirement for the approach we'll use is that the integral must r
 \begin{array}{l}
   \int_{0}^{z}\sqrt{ \left (dx/dt \right )^2+\left (dy/dt \right )^2} dt
   \\
+  \\
   \simeq \
   \frac{z}{2} \cdot \left [ C_1 \cdot f\left(\frac{z}{2} \cdot t_1 + \frac{z}{2}\right)
                             + ...
                             + C_n \cdot f\left(\frac{z}{2} \cdot t_n + \frac{z}{2}\right)
                     \right ]
+  \\
   \\
   = \
   \frac{z}{2} \cdot \sum_{i=1}^{n}{C_i \cdot f\left(\frac{z}{2} \cdot t_i + \frac{z}{2}\right)}

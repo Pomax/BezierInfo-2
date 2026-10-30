@@ -1,0 +1,5 @@
+ 
+\mathrmd
+─────────   Bézier   (t) = n  · B                (t)  · (w  - w ) + n  · B               (t)  · (w  - w ) + n  · B                   (t)  · (w  - w )
+\mathrmdt         n,k            n-1,\colorblue 0         1    0          n-1,\colorred 1         2    1          n-1,\colormagenta 2         3    2
++ ⋯

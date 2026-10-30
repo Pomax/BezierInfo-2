@@ -14,6 +14,19 @@ on:
       - 'docs/news/*.html'
       - 'temp'
       - 'README.md'
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - 'docs/fonts'
+      - 'docs/images'
+      - 'docs/ja-JP'
+      - 'docs/uk-UA'
+      - 'docs/zn-CH'
+      - 'docs/*.{html,php,md,css}'
+      - 'docs/news/*.html'
+      - 'temp'
+      - 'README.md'
 
 jobs:
   build:
@@ -28,22 +41,7 @@ jobs:
           sudo apt-get install xzdec libpoppler-glib-dev texlive texlive-xetex texlive-fonts-extra texlive-extra-utils -y
 
       - name: Installing pdf2svg
-        run: |
-          set +e
-          rm -f *.tar.gz
-          set -e
-          wget https://github.com/dawbarton/pdf2svg/archive/v0.2.3.tar.gz
-          tar -zxf v0.2.3.tar.gz
-          cd pdf2svg-0.2.3
-          ./configure
-          make
-          sudo make install
-          cd ..
-          set +e
-          rm -rf pdf2svg-0.2.3
-          rm v0.2.3.tar.gz
-          pdf2svg
-          set -e
+        run: bash .github/workflows/pdf2svg.sh
 
       - name: Installing latest Node
         uses: actions/setup-node@v7
@@ -63,3 +61,16 @@ jobs:
         run: |
           echo "running build..."
           npm run deploy:ci
+
+      - name: Commit and push changes
+        if: github.event_name == 'push'
+        run: |
+          echo "forming commit..."
+          git status
+          git config --local user.email "action@github.com"
+          git config --local user.name "Bezierinfo CI"
+          set +e
+          git add -A
+          git commit -m "Automated build"
+          set -e
+          git push --force origin master

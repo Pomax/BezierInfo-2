@@ -21,7 +21,7 @@ export default async function latexToSVG(latex, pathdata, localeStrings, block) 
   fs.ensureDirSync(imagepath);
   fs.ensureDirSync(path.join(paths.snippets, id));
 
-  latex = colorPreProcess(latex);
+  latex = colorPreProcess(latex).replace(/\r\n/g, `\n`);
 
   const locale = localeStrings.getCurrentLocale();
   const hash = createHash(`md5`).update(latex).digest(`hex`);

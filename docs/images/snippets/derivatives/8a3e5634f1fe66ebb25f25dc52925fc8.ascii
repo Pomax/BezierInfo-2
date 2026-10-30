@@ -1,0 +1,4 @@
+ 
+\mathrmd                   __ n-1                                 __ n-1
+─────────   Bézier   (t) = ❯      n  · B     (t)  · (w    - w ) = ❯      B     (t)  · \underbracen  · (w    - w )      
+\mathrmdt         n,k      ‾‾ k=0       n-1,k         k+1    k    ‾‾ k=0  n-1,k                         k+1    k  导数的权重

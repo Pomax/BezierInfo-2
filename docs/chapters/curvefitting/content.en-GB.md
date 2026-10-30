@@ -75,10 +75,10 @@ So we write out the expansion and rearrange:
 
 \[
   \begin{aligned}
-    B_{\textit{cubic}} & = & a        &          &          &   \\
-              &   & - 3at    & + 3bt    &          &   \\
-              &   & + 3at^2  & - 6bt^2  & +3ct^2   &   \\
-              &   & - at^3   & + 3bt^3  & -3ct^3   & + dt^3
+    B_{\textit{cubic}} & = &   &     a &   &       &   &       &   & \\
+                       &   & - &   3at & + &   3bt &   &       &   & \\
+                       &   & + & 3at^2 & - & 6bt^2 & + & 3ct^2 &   & \\
+                       &   & - &  at^3 & + & 3bt^3 & - & 3ct^3 & + & dt^3
   \end{aligned}
 \]
 

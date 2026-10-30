@@ -180,20 +180,20 @@ div.howtocode {
   background: #fcfcfd;
   margin: 1em;
   padding: 1em 1em 0 1em;
-}
 
-div.howtocode h3 {
-  box-sizing: border-box;
-  position: relative;
-  width: calc(100% + 2em - 4px);
-  left: calc(-1em + 2px);
-  background: var(--heading-color);
-  color: var(--heading-text);
-  padding: 0.2em;
-  margin: 0 auto;
-  margin-top: -1em;
-  border: 1px solid black;
-  border-bottom: none;
+  h3 {
+    box-sizing: border-box;
+    position: relative;
+    width: calc(100% + 2em - 4px);
+    left: calc(-1em + 2px);
+    background: var(--heading-color);
+    color: var(--heading-text);
+    padding: 0.2em;
+    margin: 0 auto;
+    margin-top: -1em;
+    border: 1px solid black;
+    border-bottom: none;
+  }
 }
 
 div.note {
@@ -203,18 +203,26 @@ div.note {
   margin: 1em;
   margin-top: 2em;
   padding: 1em 1em 0.5em 1em;
-}
 
-div.note:before {
-  display: inline-block;
-  content: "Note";
-  border: 1px solid black;
-  border-radius: 0.5em;
-  background: orange;
-  padding: 0.2em 0.5em;
-  position: absolute;
-  top: -1em;
-  left: -1em;
+  > *:first-child {
+    margin-top: 0.25em;
+  }
+
+  > *:last-child {
+    margin-bottom: 0.25em;
+  }
+
+  &:before {
+    display: inline-block;
+    content: "Note";
+    border: 1px solid black;
+    border-radius: 0.5em;
+    background: orange;
+    padding: 0.2em 0.5em;
+    position: absolute;
+    top: -1em;
+    left: -1em;
+  }
 }
 
 /* --------------------- */
