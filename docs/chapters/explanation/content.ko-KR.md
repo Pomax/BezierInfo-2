@@ -41,7 +41,7 @@
 
 정리하자면, 매개변수 곡선은 보통의 함수처럼 <i>y</i>좌표를 <i>x</i>좌표값에 대해 정의하는 대신 두 값을 어떤 "조절" 변수로 연결합니다. <i>t</i>의 값을 바꿀 때마다 매개변수 함수에서 <strong>두</strong> 값을 얻을 수 있고, 이 값을 그래프에 (<i>x</i>,<i>y</i>) 좌표로 나타낼 수 있습니다. 예를 들어 위에서 소개한 매개변수 함수는 원 위의 점을 생성합니다. <i>t</i>의 값을 음의 무한대에서 양의 무한대까지 잡을 수 있고, 여기서 나오는 (<i>x</i>,<i>y</i>) 좌표는 항상 중심이 원점 (0,0)이고 반지름이 1인 원 위에 있습니다. <i>t</i>의 값 0부터 5까지에 대해 그래프를 그리면 다음과 같습니다.
 
-<graphics-element title="원(의 일부): x=sin(t), y=cos(t)" src="./circle.js">
+<graphics-element title="원(의 일부): x=cos(t), y=sin(t)" src="./circle.js">
   <input type="range" min="0" max="10" step="0.1" value="5" class="slide-control">
 </graphics-element>
 
