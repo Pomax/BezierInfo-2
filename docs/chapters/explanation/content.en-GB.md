@@ -97,7 +97,7 @@ It's basically just a sum of "every combination of <i>a</i> and <i>b</i>", progr
                 \underset{\textit{polynomial term}}{\underbrace{(1-t)^{n-i} \cdot t^{i}}}
 \]
 
-And that's the full description for Bézier curves. Σ in this function indicates that this is a series of additions (using the variable listed below the Σ, starting at ...=&lt;value&gt; and ending at the value listed on top of the Σ).
+And that's the full description for Bézier curves. Σ (uppercase sigma in the Greek alphabet)  in this function indicates that this is a series of additions (using the variable listed below the Σ, starting at ...=&lt;value&gt; and ending at the value listed on top of the Σ).
 
 <div class="howtocode">
 
