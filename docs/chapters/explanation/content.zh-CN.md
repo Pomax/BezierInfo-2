@@ -39,7 +39,7 @@
 
 所以，参数曲线不像一般函数那样，通过<i>x</i>坐标来定义<i>y</i>坐标，而是用一个“控制”变量将它们连接起来。如果改变<i>t</i>的值，每次变化时我们都能得到<strong>两个</strong>值，这可以作为图形中的(<i>x</i>,<i>y</i>)坐标。比如上面的方程组，生成位于一个圆上的点：我们可以使<i>t</i>在正负极值间变化，得到的输出(<i>x</i>,<i>y</i>)都会位于一个以原点(0,0)为中心且半径为1的圆上。如果我们画出<i>t</i>从0到5时的值，将得到如下图像：
 
-<graphics-element title="(一部分的)圆: x=sin(t), y=cos(t)" src="./circle.js">
+<graphics-element title="(一部分的)圆: x=cos(t), y=sin(t)" src="./circle.js">
   <input type="range" min="0" max="10" step="0.1" value="5" class="slide-control">
 </graphics-element>
 
