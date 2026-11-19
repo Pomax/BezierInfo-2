@@ -8,7 +8,7 @@ They're named after [Pierre Bézier](https://en.wikipedia.org/wiki/Pierre_B%C3%A
 
 Anyway, that's mostly trivia, what you are more likely to care about is that these curves are handy: you can link up multiple Bézier curves so that the combination looks like a single curve. If you've ever drawn Photoshop "paths" or worked with vector drawing programs like Flash, Illustrator or Inkscape, those curves you've been drawing are Bézier curves.
 
-But what if you need to program them yourself? What are the pitfalls? How do you draw them? What are the bounding boxes, how do you determine intersections, how can you extrude a curve, in short: how do you do everything that you might want to do with these curves? That's what this page is for. Prepare to be mathed!
+But what if you need to program them yourself? What are the pitfalls? How do you draw them? What are the bounding boxes, how do you determine intersections, how can you extrude a curve, in short: how do you do everything that you might want to do with these curves? That's what this page is for. Prepare to be matched!
 
 <div class="note">
 

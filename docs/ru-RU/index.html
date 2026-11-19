@@ -52,7 +52,7 @@
 
 		<!--
           The part that makes interactive graphics work: an HTML5 <graphics-element> custom element.
-          Note that we're not defering this: we just want it to kick in as soon as possible, and
+          Note that we're not deferring this: we just want it to kick in as soon as possible, and
           given how much HTML there is, that means this can, and thus should, kick in before the
           document is done even transferring.
         -->
@@ -360,7 +360,7 @@
 					</ul>
 					<h2>October 2020</h2>
 					<ul>
-						<li><p>Added the Ukranian locale! Help out in getting its localization to 100%!</p></li>
+						<li><p>Added the Ukrainian locale! Help out in getting its localization to 100%!</p></li>
 					</ul>
 					<h2>August-September 2020</h2>
 					<ul>
@@ -465,7 +465,7 @@
 					<h2>November 2013</h2>
 					<ul>
 						<li><p>Added the section on Catmull-Rom / Bezier conversion.</p></li>
-						<li><p>Added the section on Bezier cuves as matrices.</p></li>
+						<li><p>Added the section on Bezier curves as matrices.</p></li>
 					</ul>
 					<h2>April 2013</h2>
 					<ul>
@@ -7728,7 +7728,7 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 						of the Bézier matrix and vector? The short answer is of course "by using linear algebra", but the longer answer is the rest of this
 						section, and involves some maths that you may not even care for: if you just want to know the (incredibly simple) conversions between the
 						two curve forms, feel free to skip to the end of the following explanation, but if you want to <em>how</em> we can get one from the
-						other... let's get mathing!
+						other... let's get matching!
 					</p>
 					<div class="note">
 						<h2>Deriving the conversion formulae</h2>
@@ -7767,7 +7767,7 @@ CatmullRom(t) = ┌      2  3 ┐  · │  0  0  1 0  │  · │  2  │
 						<p>
 							So, this mapping says that in order to map a Catmull-Rom "point + tangent" vector to something based on an "all coordinates" vector, we
 							need to determine the mapping matrix such that applying <em>T</em> yields P2 as start point, P3 as end point, and two tangents based on
-							the lines between P1 and P3, and P2 nd P4, respectively.
+							the lines between P1 and P3, and P2 and P4, respectively.
 						</p>
 						<p>Computing <em>T</em> is really more "arranging the numbers":</p>
 						<!--

@@ -81,7 +81,7 @@ Those are _very_ similar, so let's see exactly _how_ similar they are. We've alr
   \end{bmatrix}
 \]
 
-That's pretty dang similar. So the question is: how can we convert that expression with Catmull-Rom matrix and vector into an expression of the Bézier matrix and vector? The short answer is of course "by using linear algebra", but the longer answer is the rest of this section, and involves some maths that you may not even care for: if you just want to know the (incredibly simple) conversions between the two curve forms, feel free to skip to the end of the following explanation, but if you want to _how_ we can get one from the other... let's get mathing!
+That's pretty dang similar. So the question is: how can we convert that expression with Catmull-Rom matrix and vector into an expression of the Bézier matrix and vector? The short answer is of course "by using linear algebra", but the longer answer is the rest of this section, and involves some maths that you may not even care for: if you just want to know the (incredibly simple) conversions between the two curve forms, feel free to skip to the end of the following explanation, but if you want to _how_ we can get one from the other... let's get matching!
 
 <div class="note">
 
@@ -107,7 +107,7 @@ We start with the first part, to figure out how we can go from Catmull-Rom **V**
   \end{bmatrix}
 \]
 
-So, this mapping says that in order to map a Catmull-Rom "point + tangent" vector to something based on an "all coordinates" vector, we need to determine the mapping matrix such that applying <em>T</em> yields P2 as start point, P3 as end point, and two tangents based on the lines between P1 and P3, and P2 nd P4, respectively.
+So, this mapping says that in order to map a Catmull-Rom "point + tangent" vector to something based on an "all coordinates" vector, we need to determine the mapping matrix such that applying <em>T</em> yields P2 as start point, P3 as end point, and two tangents based on the lines between P1 and P3, and P2 and P4, respectively.
 
 Computing <em>T</em> is really more "arranging the numbers":
 
