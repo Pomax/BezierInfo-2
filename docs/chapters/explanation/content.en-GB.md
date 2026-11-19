@@ -41,7 +41,7 @@ There we go. <i>x</i>/<i>y</i> coordinates, linked through some mystery value <i
 
 So, parametric curves don't define a <i>y</i> coordinate in terms of an <i>x</i> coordinate, like normal functions do, but they instead link the values to a "control" variable. If we vary the value of <i>t</i>, then with every change we get <strong>two</strong> values, which we can use as (<i>x</i>,<i>y</i>) coordinates in a graph. The above set of functions, for instance, generates points on a circle: We can range <i>t</i> from negative to positive infinity, and the resulting (<i>x</i>,<i>y</i>) coordinates will always lie on a circle with radius 1 around the origin (0,0). If we plot it for <i>t</i> from 0 to 5, we get this:
 
-<graphics-element title="A (partial) circle: x=sin(t), y=cos(t)" src="./circle.js">
+<graphics-element title="A (partial) circle: x=cos(t), y=sin(t)" src="./circle.js">
   <input type="range" min="0" max="10" step="0.1" value="5" class="slide-control">
 </graphics-element>
 
