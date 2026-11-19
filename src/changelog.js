@@ -4,7 +4,7 @@ const CHANGELOG = Object.fromEntries(
   Object.entries({
     "November 2020": [`Added a section on finding curve/circle intersections`],
 
-    "October 2020": [`Added the Ukranian locale! Help out in getting its localization to 100%!`],
+    "October 2020": [`Added the Ukrainian locale! Help out in getting its localization to 100%!`],
 
     "August-September 2020": [
       `Completely overhauled the site: the Primer is now a normal web page that works fine with JS disabled, but obviously better with JS turned on.`,
@@ -64,7 +64,7 @@ const CHANGELOG = Object.fromEntries(
 
     "April 2014": [`Added the section on Catmull-Rom fitting.`],
 
-    "November 2013": [`Added the section on Catmull-Rom / Bezier conversion.`, `Added the section on Bezier cuves as matrices.`],
+    "November 2013": [`Added the section on Catmull-Rom / Bezier conversion.`, `Added the section on Bezier curves as matrices.`],
 
     "April 2013": [`Added a section on poly-Beziers.`, `Added a section on boolean shape operations.`],
 

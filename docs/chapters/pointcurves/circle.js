@@ -18,7 +18,7 @@ draw() {
 
     if (points.length === 3) {
         let [p1, p2, p3] = points;
-        let c = this.caclulateCenter(p1, p2, p3);
+        let c = this.calculateCenter(p1, p2, p3);
 
         if (c) {
             if (this.parameters.showCurve) {
@@ -48,7 +48,7 @@ draw() {
     });
 }
 
-caclulateCenter(p1, p2, p3) {
+calculateCenter(p1, p2, p3) {
     // deltas
     const dx1 = (p2.x - p1.x),
           dy1 = (p2.y - p1.y),

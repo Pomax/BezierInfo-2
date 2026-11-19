@@ -35,7 +35,7 @@ outline(curve, d) {
       alen = 0,
       tlen = curve.length();
 
-  // form curve oulines
+  // form curve outlines
   reduced.forEach(segment => {
     let slen = segment.length();
     fcurves.push(segment.scale(this.linearDistanceFunction(d, tlen, alen, slen)));

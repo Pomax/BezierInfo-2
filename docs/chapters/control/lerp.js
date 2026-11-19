@@ -74,7 +74,7 @@ drawHighlight() {
     if (t===0) return;
     if (t===1) return;
 
-    // draw a little highlighting bar that runs frop top to bottom
+    // draw a little highlighting bar that runs drop top to bottom
     noStroke();
     setFill(`rgba(255,0,0,0.3)`);
     rect(t*this.width - 2, 0, 5, this.height);

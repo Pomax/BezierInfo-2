@@ -21,7 +21,7 @@
     - extract `<graphics-element>` custom elements
         - extract .scr, load in node, _actually run_
             - run single frame, export to `.png` image
-        - ammend HTML markup
+        - amend HTML markup
             - fill in missing width/height attributes
             - add `<fallback-image>`
                 - link in exported image

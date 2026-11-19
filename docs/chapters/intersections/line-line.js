@@ -18,7 +18,7 @@ draw() {
   this.drawLine(p1,p2);
   this.drawLine(p3,p4);
 
-  // compute the line/line intesection: note that this does NOT
+  // compute the line/line intersection: note that this does NOT
   // mean the line *segments* intersect, just that the lines,
   // which are infinitely long, intersect.
   const p = this.lli(

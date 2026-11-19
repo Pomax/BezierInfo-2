@@ -107,7 +107,7 @@ We start with the first part, to figure out how we can go from Catmull-Rom **V**
   \end{bmatrix}
 \]
 
-So, this mapping says that in order to map a Catmull-Rom "point + tangent" vector to something based on an "all coordinates" vector, we need to determine the mapping matrix such that applying <em>T</em> yields P2 as start point, P3 as end point, and two tangents based on the lines between P1 and P3, and P2 nd P4, respectively.
+So, this mapping says that in order to map a Catmull-Rom "point + tangent" vector to something based on an "all coordinates" vector, we need to determine the mapping matrix such that applying <em>T</em> yields P2 as start point, P3 as end point, and two tangents based on the lines between P1 and P3, and P2 and P4, respectively.
 
 Computing <em>T</em> is really more "arranging the numbers":
 
