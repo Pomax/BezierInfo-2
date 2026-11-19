@@ -6,6 +6,7 @@ const localeStringData = {
     "ru-RU": `Основы кривых Безье`,
     "uk-UA": `Підручник з кривих Безьє`,
     "ko-KR": `베지에 곡선 입문`,
+    "pl-PL": `Elementarz Krzywych Beziera`,
   },
 
   subtitle: {
@@ -14,6 +15,7 @@ const localeStringData = {
     "ru-RU": `Бесплатная онлайн-книга для тех, кому действительно важно знать, как работают кривые Безье`,
     "uk-UA": `Безкоштовна онлайн-книга, яка навчить вас всьому необхідному, щоб працювати з кривими Безьє.`,
     "ko-KR": `베지에 곡선이 꼭 필요할 때 읽기 좋은 무료 온라인 서적.`,
+    "pl-PL": `Bezpłatna książka online, gdy naprawdę musisz wiedzieć, jak robić rzeczy Béziera.`,
   },
 
   description: {
@@ -22,6 +24,7 @@ const localeStringData = {
     "ru-RU": `Подробное обьяснение кривых Безье и возможностей их применения`,
     "uk-UA": `Детальне пояснення кривих Безьє та можливостей їх застосування.`,
     "ko-KR": `베지에 곡선에 대한 자세한 설명과 베지에 곡선으로 할 만한 여러 가지 것들을 어떻게 할 수 있는지를 다룹니다.`,
+    "pl-PL": `Szczegółowe wyjaśnienie krzywych Béziera i sposobów wykonywania wielu rzeczy, które zwykle chcemy z nimi zrobić.`,
   },
 
   longDescription: {
@@ -82,6 +85,18 @@ const localeStringData = {
           <a href="https://github.com/Pomax/BezierInfo-2/issues">이슈 트래커</a>로 의견을 나누어 주세요!
         </p>
       `,
+    "pl-PL": `
+      <p>
+         Witamy w elementarzu krzywych Beziera. Jest to bezpłatna strona internetowa/ebook zajmująca się obydwoma
+         matematycznym i programistycznym aspektem krzywych Beziera, obejmujące szeroki zakres tematów
+         odnosząca się do rysowania i pracy z tą krzywą, która wydaje się pojawiać wszędzie, od
+         Path programu Photoshop do funkcji wygładzania CSS i opisów konturów czcionek.
+      </p>
+      <p>
+         Jeśli jesteś tu po raz pierwszy: witaj! Daj mi znać, jeśli czegoś szukałeś
+         w szczególności, czego elementarz nie pokrywa, w <a href="https://github.com/Pomax/BezierInfo-2/issues">issue tracker</a>!
+      </p>
+    `,
   },
 
   donationsHeading: {
@@ -89,6 +104,7 @@ const localeStringData = {
     "zh-CN": `捐款和赞助`,
     "ru-RU": `Пожертвования и спонсорство`,
     "ko-KR": `기부와 후원`,
+    "pl-PL": `Darowizny i sponsorowanie`,
   },
 
   donationCTA: {
@@ -157,12 +173,28 @@ const localeStringData = {
         재무부에서 후원 문의를 해주신다면 기쁘게 수락하겠습니다.
       </p>
     `,
+    "pl-PL": `<p>
+         Jeśli jest to zasób, którego używasz do badań, jako odniesienie do pracy, a nawet do pisania własnego oprogramowania,
+         rozważ <a href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=3BNHGHZAS3DP6&locale.x=en_CA">przekazanie darowizny</a>
+         (każda kwota pomaga) lub zarejestruj się jako <a href="https://www.patreon.com/bezierinfo">patron na Patreonie</a>.
+         Nie dostaję wynagrodzenia za pracę nad tym, więc jeśli uznasz tę stronę za wartościową i spodoba ci się
+         zostać w pobliżu przez długi czas, dużo kawy poszło na pisanie tego przez
+         lata i trzeba będzie jeszcze włożyć do tego o wiele więcej kawy: jeśli możesz zaoszczędzić na kawie, zrobiłbyś to
+         by pomagać w utrzymaniu zasobu przy życiu i w dobrym stanie.
+      </p>
+      <p>
+         Ponadto, jeśli reprezentujesz firmę, a twoi pracownicy używają tej książki jako źródła informacji lub używasz jej jako źródła informacji
+         zasobu wdrażania, to proszę: rozważ sponsorowanie witryny! Jestem więcej niż szczęśliwy, że mogę pracować
+         z działem finansowym w sprawie fakturowania i uznawania sponsorowania.
+      </p>
+    `,
   },
 
   bitcoinHeading: {
     "en-GB": `Bitcoin donations:`,
     "zh-CN": `捐赠比特币：`,
     "ru-RU": `Пожертвования в биткойнах:`,
+    "pl-PL": `Darowizny Bitcoin:`,
   },
 
   bitcoinCTA: {
@@ -184,6 +216,12 @@ const localeStringData = {
         либо используя QR-код справа, если вы предпочитаете такой вид =)
       </p>
     `,
+    "pl-PL": `<p>
+        Jeśli wolisz przekazać darowiznę za pośrednictwem Bitcoin, możesz przekazać darowiznę bezpośrednio na
+        <a class="btclk" href="bitcoin:3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu?label=Primer%20on%20Bezier%20Curves">3GY1HbQ2cH9V4xBLnRYdEfc42Nd1ZyjLZu</a>
+        lub użyj kodu QR po prawej stronie, jeśli preferujesz takie udogodnienie =)
+      </p>
+    `,
   },
 
   tocLabel: {
@@ -193,6 +231,7 @@ const localeStringData = {
     "ru-RU": `Оглавление`,
     "uk-UA": `Зміст`,
     "ko-KR": `목차`,
+    "pl-PL": `Spis treści`,
   },
 
   localeName: {
@@ -202,6 +241,7 @@ const localeStringData = {
     "ru-RU": `Русский`,
     "uk-UA": `Українська`,
     "ko-KR": `한국어`,
+    "pl-PL": `Polski`,
   },
 
   langSwitchLabel: {
@@ -210,6 +250,7 @@ const localeStringData = {
     "ru-RU": `Читайте на своём языке:`,
     "uk-UA": `Читати рідною мовою:`,
     "ko-KR": `다른 언어로 읽기:`,
+    "pl-PL": `Czytaj to w swoim języku:`,
   },
 
   langHelpLabel: {
@@ -218,6 +259,7 @@ const localeStringData = {
     "ru-RU": `Не нашли свой язык или хотите, чтобы он достиг до 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Помогите нам с переводом!</a>`,
     "uk-UA": `Не бачите своєї мови у списку або хочете, щоб вона досягла 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Допоможіть перекласти цей контент!</a>`,
     "ko-KR": `원하는 언어가 없거나, 100%까지 올리고 싶다면 <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">내용 번역을 도와주세요!</a>`,
+    "pl-PL": `Nie widzisz swojego języka na liście lub chcesz, aby osiągnął 100%? <a href="https://github.com/Pomax/BezierInfo-2/wiki/help-localize-the-primer-on-bezier-curves">Pomóż przetłumaczyć tę treść!</a>`,
   },
 
   disabledMessage: {
@@ -226,6 +268,7 @@ const localeStringData = {
     "ru-RU": `Скрипты отключены. Показываем резервное изображение.`,
     "uk-UA": `Скрипти вимкнено. показує резервний.`,
     "ko-KR": `스크립트가 꺼져 있어 대체 이미지를 대신 표시합니다.`,
+    "pl-PL": `Skrypty są wyłączone. Wyświetlam obraz zastępczy.`,
   },
 
   reset: {
@@ -235,12 +278,14 @@ const localeStringData = {
     "ru-RU": `cбросить`,
     "uk-UA": `скинути`,
     "ko-KR": `초기화`,
+    "pl-PL": `resetowanie`,
   },
 
   viewSource: {
     "en-GB": `view source`,
     "zh-CN": `查看源码`,
     "ko-KR": `소스 보기`,
+    "pl-PL": `zobacz źródło`,
   },
 
   changelogTitle: {
@@ -249,6 +294,7 @@ const localeStringData = {
     "ru-RU": `Что нового?`,
     "uk-UA": `Що нового?`,
     "ko-KR": `업데이트 내역`,
+    "pl-PL": `Co nowego?`,
   },
 
   toggleLabel: {
@@ -257,6 +303,7 @@ const localeStringData = {
     "ru-RU": `Показать/скрыть изменения`,
     "uk-UA": `Перемкнути зміни`,
     "ko-KR": `수정사항 확인`,
+    "pl-PL": `Pokaż/ukryj zmiany`,
   },
 
   preambleLabel: {
@@ -266,6 +313,7 @@ const localeStringData = {
     "ru-RU": `Преамбула`,
     "uk-UA": `Преамбула`,
     "ko-KR": `서문`,
+    "pl-PL": `Preambuła`,
   },
 
   prefaceLabel: {
@@ -275,6 +323,7 @@ const localeStringData = {
     "ru-RU": `Предисловие`,
     "uk-UA": `Передмова`,
     "ko-KR": `머리말`,
+    "pl-PL": `Przedmowa`,
   },
 
   mainContentLabel: {
@@ -283,6 +332,7 @@ const localeStringData = {
     "ru-RU": `Содержание`,
     "uk-UA": `Основний вміст`,
     "ko-KR": `본문`,
+    "pl-PL": `Główna zawartość`,
   },
 
   changelogLabel: {
@@ -291,6 +341,7 @@ const localeStringData = {
     "ru-RU": `Что нового`,
     "uk-UA": `Зміни`,
     "ko-KR": `업데이트 내역`,
+    "pl-PL": `Co nowego`,
   },
 
   changelogDescription: {
@@ -299,6 +350,7 @@ const localeStringData = {
     "ru-RU": `Этот документ живое пособие, в зависимости от даты вашего последнего посещения, может появиться новый материал. Кликайте <a href="./news">здесь</a> для просмотра лога изменений. (также доступен <a href="./news/rss.xml">RSS-канал</a>)`,
     "uk-UA": `Цей підручник постійно розвививається, тож залежно від того, коли ви востаннє його переглядали, тут можуть бути оновлення. Перейдіть за <a href="./news">цим посиланням</a>, щоб побачити, що було додано. (Також доступний <a href="./news/rss.xml">RSS-канал</a>)`,
     "ko-KR": `이 입문서는 "살아 숨쉬는" 문서로, 오랜만에 다시 찾아왔다면 새로운 내용이 추가되었을 수도 있습니다. 아래 링크를 눌러서 무엇이 언제 추가되었는지 확인할 수도 있고, <a href="./news">뉴스 포스트</a>(영문, <a href="./news/rss.xml">RSS 피드</a>도 있습니다)에서 자세한 내역을 확인할 수도 있습니다.`,
+    "pl-PL": `Ten elementarz jest żywym dokumentem, więc w zależności od tego, kiedy ostatnio spojrzysz, mogą pojawić się nowe treści. Kliknij następujący link, aby rozwinąć tę sekcję, aby zobaczyć, co zostało dodane, kiedy, lub kliknij do <a href="./news">Newsy</a> dla szczegółowszych nowości. (<a href="./news/rss.xml">RSS feed</a> dostępne)`,
   },
 
   previous: {
@@ -308,6 +360,7 @@ const localeStringData = {
     "ru-RU": `предыдущий`,
     "uk-UA": `попередній`,
     "ko-KR": `이전`,
+    "pl-PL": `poprzedni`,
   },
 
   next: {
@@ -317,6 +370,7 @@ const localeStringData = {
     "ru-RU": `следующий`,
     "uk-UA": `наступний`,
     "ko-KR": `다음`,
+    "pl-PL": `następny`,
   },
 };
 
